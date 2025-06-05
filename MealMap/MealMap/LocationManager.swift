@@ -14,9 +14,17 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         manager.startUpdatingLocation()
     }
 
+    func restart() {
+        manager.stopUpdatingLocation()
+        manager.startUpdatingLocation()
+        if manager.authorizationStatus == .notDetermined {
+            manager.requestWhenInUseAuthorization()
+        }
+    }
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         lastLocation = locations.last
-        locationError = nil // clear error on success
+        locationError = nil
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

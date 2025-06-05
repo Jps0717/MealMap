@@ -9,6 +9,10 @@ struct ContentView: View {
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
 
+    private func tryAgain() {
+        locationManager.restart()
+    }
+
     var body: some View {
         ZStack {
             if let locationError = locationManager.locationError {
@@ -22,11 +26,42 @@ struct ContentView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(.gray)
                         .padding()
+                    Button(action: tryAgain) {
+                        Text("Try Again")
+                            .font(.headline)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding(.top, 20)
                     Spacer()
                 }
                 .background(Color(.systemBackground).ignoresSafeArea())
-            } else if networkMonitor.isConnected {
+            } else if !networkMonitor.isConnected {
+                VStack {
+                    Spacer()
+                    Image(systemName: "wifi.slash")
+                        .font(.system(size: 60))
+                        .foregroundColor(.gray)
+                    Text("No Network Connection")
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                    Button(action: tryAgain) {
+                        Text("Try Again")
+                            .font(.headline)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding(.top, 20)
+                    Spacer()
+                }
+                .background(Color(.systemBackground).ignoresSafeArea())
+            } else {
                 Map(coordinateRegion: $region, showsUserLocation: true)
+                    .mapStyle(.standard(pointsOfInterest: []))
                     .onAppear {
                         if let location = locationManager.lastLocation {
                             region = MKCoordinateRegion(
@@ -44,24 +79,7 @@ struct ContentView: View {
                         }
                     }
                     .ignoresSafeArea()
-            } else {
-                VStack {
-                    Spacer()
-                    Image(systemName: "wifi.slash")
-                        .font(.system(size: 60))
-                        .foregroundColor(.gray)
-                    Text("No Network Connection")
-                        .font(.title2)
-                        .foregroundColor(.gray)
-                    Spacer()
-                }
-                .background(Color(.systemBackground).ignoresSafeArea())
             }
         }
     }
 }
-public protocol EquatableBytes: Equatable {
-    init(bytes: [UInt8])
-    var bytes: [UInt8] { get }
-}
-
