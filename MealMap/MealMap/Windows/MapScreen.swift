@@ -1,13 +1,14 @@
 import SwiftUI
 import MapKit
+import CoreLocation
 
 // MARK: - Main MapScreen
 
 struct MapScreen: View {
-    @StateObject private var locationManager = LocationManager()
-    @StateObject private var networkMonitor = NetworkMonitor()
+    @StateObject private var locationManager = LocationManager.shared
+    @StateObject private var networkMonitor = NetworkMonitor.shared
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060),
+        center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), // Default to San Francisco
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @State private var searchText: String = ""
@@ -17,6 +18,8 @@ struct MapScreen: View {
     @State private var currentAreaName: String = "Loading..."
     @State private var lastGeocodeTime: Date = Date()
     @State private var lastGeocodeLocation: CLLocationCoordinate2D?
+    @State private var hasInitialLocation: Bool = false
+    @State private var showListView: Bool = false
     
     // Filter States
     @State private var selectedPriceRange: FilterPanel.PriceRange = .all
@@ -167,12 +170,27 @@ struct MapScreen: View {
                     ), showsUserLocation: true)
                         .mapStyle(.standard(pointsOfInterest: []))
                         .onAppear {
-                            if let location = locationManager.lastLocation {
+                            if !hasInitialLocation {
+                                if let location = locationManager.lastLocation {
+                                    withAnimation {
+                                        region = MKCoordinateRegion(
+                                            center: location.coordinate,
+                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                                        )
+                                        hasInitialLocation = true
+                                    }
+                                    updateAreaName(for: location.coordinate)
+                                }
+                            }
+                        }
+                        .onChange(of: locationManager.lastLocation) { newLocation in
+                            if let location = newLocation, !hasInitialLocation {
                                 withAnimation {
                                     region = MKCoordinateRegion(
                                         center: location.coordinate,
                                         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                                     )
+                                    hasInitialLocation = true
                                 }
                                 updateAreaName(for: location.coordinate)
                             }
@@ -204,13 +222,18 @@ struct MapScreen: View {
                             }
                             
                             Button(action: {
-                                withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
-                                    showFilterPanel = true
-                                }
+                                // TODO: Implement random search functionality
+                                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+                                impactFeedback.impactOccurred()
                             }) {
-                                Image(systemName: "slider.horizontal.3")
+                                Image(systemName: "dice.fill")
                                     .foregroundColor(.blue)
                                     .font(.system(size: 16, weight: .medium))
+                                    .frame(width: 32, height: 32)
+                                    .background(
+                                        Circle()
+                                            .fill(Color.blue.opacity(0.1))
+                                    )
                             }
                         }
                         .padding(.vertical, 12)
@@ -247,9 +270,7 @@ struct MapScreen: View {
                         MapBottomOverlay(
                             hasActiveFilters: hasActiveFilters,
                             onListView: {
-                                // TODO: Show List View with haptic feedback
-                                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                                impactFeedback.impactOccurred()
+                                showListView = true
                             },
                             onFilter: {
                                 withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
@@ -325,6 +346,10 @@ struct MapScreen: View {
                 }
             }
         }
+        .preferredColorScheme(.light)  // Force light theme
+        .sheet(isPresented: $showListView) {
+            ListView()
+        }
     }
 }
 
@@ -335,6 +360,9 @@ struct MapBottomOverlay: View {
     var onListView: () -> Void
     var onFilter: () -> Void
     var onUserLocation: () -> Void
+    
+    @State private var lastTapTime: Date?
+    @State private var tapCount: Int = 0
 
     var body: some View {
         HStack(spacing: 12) {
@@ -417,6 +445,9 @@ struct FilterPanel: View {
     @Binding var maxDistance: Double
     
     @State private var selectedSection: FilterSection? = nil
+    @State private var lastShowTime: Date?
+    @State private var showClearConfirmation: Bool = false
+    @State private var screenWidth: CGFloat = UIScreen.main.bounds.width
     
     enum FilterSection: String, CaseIterable {
         case priorities = "Priorities"
@@ -456,21 +487,45 @@ struct FilterPanel: View {
     
     private func calculateContentHeight() -> CGFloat {
         let baseHeight: CGFloat = 160
-        let itemHeight: CGFloat = 60
-        let spacing: CGFloat = 8
+        let itemHeight: CGFloat = 76  // Updated to match other sections
+        let spacing: CGFloat = 16     // Updated to match other sections
         let padding: CGFloat = 32
+        let maxHeight: CGFloat = 600 // Maximum height for the panel
+        
+        let contentHeight: CGFloat
+        switch selectedSection {
+        case .priorities:
+            contentHeight = baseHeight + (CGFloat(Priority.allCases.count) * (itemHeight + spacing)) + padding
+        case .dietary:
+            contentHeight = baseHeight + (CGFloat(DietaryRestriction.allCases.count) * (itemHeight + spacing)) + padding
+        case .favorites:
+            contentHeight = baseHeight + (CGFloat(favoriteFoodOptions.count) * (itemHeight + spacing)) + padding
+        case .distance:
+            contentHeight = baseHeight + 100
+        case .none:
+            contentHeight = baseHeight + (CGFloat(FilterSection.allCases.count) * 80) + padding
+        }
+        
+        return min(contentHeight, maxHeight)
+    }
+    
+    private func calculateScrollViewHeight() -> CGFloat {
+        let baseHeight: CGFloat = 160
+        let maxHeight: CGFloat = 400
+        let itemHeight: CGFloat = 76
+        let spacing: CGFloat = 16
         
         switch selectedSection {
         case .priorities:
-            return baseHeight + (CGFloat(Priority.allCases.count) * (itemHeight + spacing)) + padding
+            return min(CGFloat(Priority.allCases.count) * (itemHeight + spacing) + 20, maxHeight)
         case .dietary:
-            return baseHeight + (CGFloat(DietaryRestriction.allCases.count) * (itemHeight + spacing)) + padding
+            return min(CGFloat(DietaryRestriction.allCases.count) * (itemHeight + spacing) + 20, maxHeight)
         case .favorites:
-            return baseHeight + (CGFloat(favoriteFoodOptions.count) * (itemHeight + spacing)) + padding
+            return min(CGFloat(favoriteFoodOptions.count) * (itemHeight + spacing) + 20, maxHeight)
         case .distance:
-            return baseHeight + 80
+            return 120
         case .none:
-            return baseHeight + (CGFloat(FilterSection.allCases.count) * 80) + padding
+            return 300
         }
     }
     
@@ -489,17 +544,7 @@ struct FilterPanel: View {
                     .font(.system(size: 24, weight: .bold))
                 Spacer()
                 Button("Clear All") {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        selectedPriceRange = .all
-                        selectedCuisines.removeAll()
-                        selectedRating = 0
-                        isOpenNow = false
-                        selectedPriorities.removeAll()
-                        dietaryRestrictions.removeAll()
-                        favoriteFoods.removeAll()
-                        maxDistance = 5.0
-                        hasActiveFilters = false
-                    }
+                    showClearConfirmation = true
                 }
                 .foregroundColor(.red)
                 .font(.system(size: 16, weight: .medium))
@@ -554,10 +599,12 @@ struct FilterPanel: View {
                                     opacity: 1.0,
                                     isSelectable: true
                                 )
+                                .frame(maxWidth: screenWidth * 0.94)
                             }
-                            .frame(height: min(calculateContentHeight() - 150, 400))
-                            .padding(.horizontal, 20)
-                            .padding(.top, -8)
+                            .frame(height: calculateScrollViewHeight())
+                            .padding(.horizontal, 16)
+                            .padding(.top, -25)
+                            .padding(.bottom, 8)
                             
                         case .dietary:
                             FadingScrollView(items: DietaryRestriction.allCases) { restriction, isSelected in
@@ -576,10 +623,12 @@ struct FilterPanel: View {
                                     opacity: 1.0,
                                     isSelectable: true
                                 )
+                                .frame(maxWidth: screenWidth * 0.94)
                             }
-                            .frame(height: min(calculateContentHeight() - 150, 400))
-                            .padding(.horizontal, 20)
+                            .frame(height: calculateScrollViewHeight())
+                            .padding(.horizontal, 16)
                             .padding(.top, -25)
+                            .padding(.bottom, 8)
                             
                         case .favorites:
                             FadingScrollView(items: favoriteFoodOptions) { food, isSelected in
@@ -598,10 +647,12 @@ struct FilterPanel: View {
                                     opacity: 1.0,
                                     isSelectable: true
                                 )
+                                .frame(maxWidth: screenWidth * 0.94)
                             }
-                            .frame(height: min(calculateContentHeight() - 150, 400))
-                            .padding(.horizontal, 20)
-                            .padding(.top, -8)
+                            .frame(height: calculateScrollViewHeight())
+                            .padding(.horizontal, 16)
+                            .padding(.top, -25)
+                            .padding(.bottom, 8)
                             
                         case .distance:
                             VStack(spacing: 20) {
@@ -679,6 +730,8 @@ struct FilterPanel: View {
                 }
             }
             
+            Spacer(minLength: 0)
+            
             // Apply Button
             Button(action: {
                 withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
@@ -702,7 +755,7 @@ struct FilterPanel: View {
             }
             .buttonStyle(PlainButtonStyle())
             .padding(.horizontal, 20)
-            .padding(.bottom, 20)
+            .padding(.vertical, 16)
         }
         .frame(maxWidth: .infinity)
         .frame(height: calculateContentHeight())
@@ -715,6 +768,29 @@ struct FilterPanel: View {
         .padding(.bottom, 8)
         .ignoresSafeArea(.keyboard)
         .onTapGesture { } // absorb tap
+        .onChange(of: show) { oldValue, newValue in
+            if newValue {
+                lastShowTime = Date()
+            }
+        }
+        .alert("Clear All Preferences?", isPresented: $showClearConfirmation) {
+            Button("Cancel", role: .cancel) { }
+            Button("Clear All", role: .destructive) {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    selectedPriceRange = .all
+                    selectedCuisines.removeAll()
+                    selectedRating = 0
+                    isOpenNow = false
+                    selectedPriorities.removeAll()
+                    dietaryRestrictions.removeAll()
+                    favoriteFoods.removeAll()
+                    maxDistance = 5.0
+                    hasActiveFilters = false
+                }
+            }
+        } message: {
+            Text("Are you sure you want to clear all your preferences? This cannot be undone.")
+        }
     }
     
     private func updateActiveFilters() {
@@ -736,25 +812,25 @@ struct PreferenceToggleButton: View {
     
     var body: some View {
         Button(action: isSelectable ? action : {}) {
-            HStack(spacing: 16) {
+            HStack(spacing: 20) {  // Increased spacing between icon and text
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 24))
+                        .font(.system(size: 26))  // Increased icon size
                         .foregroundColor(.blue)
                 } else {
                     Image(systemName: "circle")
-                        .font(.system(size: 24))
+                        .font(.system(size: 26))  // Increased icon size
                         .foregroundColor(.gray)
                 }
                 
                 Text(title)
-                    .font(.system(size: 16, weight: .medium))
+                    .font(.system(size: 17, weight: .medium))  // Slightly larger text
                     .foregroundColor(.primary)
                 
                 Spacer()
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.horizontal, 28)  // Increased horizontal padding
+            .padding(.vertical, 18)    // Increased vertical padding
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color(.systemGray6))
