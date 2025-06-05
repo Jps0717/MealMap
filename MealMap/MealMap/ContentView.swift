@@ -1,85 +1,34 @@
 import SwiftUI
-import MapKit
 
 struct ContentView: View {
-    @StateObject private var locationManager = LocationManager()
-    @StateObject private var networkMonitor = NetworkMonitor()
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060),
-        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-    )
-
-    private func tryAgain() {
-        locationManager.restart()
-    }
+    @State private var selectedTab = 1 // 0 = Left, 1 = Map, 2 = Right
 
     var body: some View {
-        ZStack {
-            if let locationError = locationManager.locationError {
-                VStack {
-                    Spacer()
-                    Image(systemName: "location.slash")
-                        .font(.system(size: 60))
-                        .foregroundColor(.gray)
-                    Text(locationError)
-                        .font(.title2)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.gray)
-                        .padding()
-                    Button(action: tryAgain) {
-                        Text("Try Again")
-                            .font(.headline)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .padding(.top, 20)
-                    Spacer()
+        TabView(selection: $selectedTab) {
+            LeftView()
+                .tabItem {
+                    Image(systemName: "list.bullet")
+                    Text("Left")
                 }
-                .background(Color(.systemBackground).ignoresSafeArea())
-            } else if !networkMonitor.isConnected {
-                VStack {
-                    Spacer()
-                    Image(systemName: "wifi.slash")
-                        .font(.system(size: 60))
-                        .foregroundColor(.gray)
-                    Text("No Network Connection")
-                        .font(.title2)
-                        .foregroundColor(.gray)
-                    Button(action: tryAgain) {
-                        Text("Try Again")
-                            .font(.headline)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .padding(.top, 20)
-                    Spacer()
+                .tag(0)
+
+            MapScreen()
+                .tabItem {
+                    Image(systemName: "map")
+                    Text("Map")
                 }
-                .background(Color(.systemBackground).ignoresSafeArea())
-            } else {
-                Map(coordinateRegion: $region, showsUserLocation: true)
-                    .mapStyle(.standard(pointsOfInterest: []))
-                    .onAppear {
-                        if let location = locationManager.lastLocation {
-                            region = MKCoordinateRegion(
-                                center: location.coordinate,
-                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                            )
-                        }
-                    }
-                    .onChange(of: locationManager.lastLocation) { newLocation in
-                        if let location = newLocation {
-                            region = MKCoordinateRegion(
-                                center: location.coordinate,
-                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                            )
-                        }
-                    }
-                    .ignoresSafeArea()
-            }
+                .tag(1)
+
+            RightView()
+                .tabItem {
+                    Image(systemName: "gearshape")
+                    Text("Right")
+                }
+                .tag(2)
         }
     }
+}
+
+#Preview {
+    ContentView()
 }
