@@ -20,6 +20,7 @@ struct MapScreen: View {
     @State private var lastGeocodeLocation: CLLocationCoordinate2D?
     @State private var hasInitialLocation: Bool = false
     @State private var showListView: Bool = false
+    @State private var restaurants: [Restaurant] = []
     
     // Overpass API Service
     private let overpassService = OverpassAPIService()
@@ -43,6 +44,41 @@ struct MapScreen: View {
     private let minimumGeocodeInterval: TimeInterval = 1
     private let minimumDistanceChange: CLLocationDegrees = 0.005
     private let zoomedOutThreshold: CLLocationDegrees = 0.5 // Threshold for showing state vs city
+
+    // List of restaurants with nutrition data
+    private let restaurantsWithNutritionData = [
+        "7 Eleven", "Applebee's", "Arby's", "Auntie Anne's", "BJ's Restaurant & Brewhouse",
+        "Baskin Robbins", "Bob Evans", "Bojangles", "Bonefish Grill", "Boston Market",
+        "Burger King", "California Pizza Kitchen", "Captain D's", "Carl's Jr.",
+        "Carrabba's Italian Grill", "Casey's General Store", "Checker's Drive-In/Rallys",
+        "Chick-Fil-A", "Chick-fil-A", "Chili's", "Chipotle", "Chuck E. Cheese",
+        "Church's Chicken", "Ci Ci's Pizza", "Culver's", "Dairy Queen", "Del Taco",
+        "Denny's", "Dickey's Barbeque Pit", "Dominos", "Dunkin' Donuts", "Einstein Bros",
+        "El Pollo Loco", "Famous Dave's", "Firehouse Subs", "Five Guys", "Friendly's",
+        "Frisch's Big Boy", "Golden Corral", "Hardee's", "Hooters", "IHOP",
+        "In-N-Out Burger", "Jack in the Box", "Jamba Juice", "Jason's Deli",
+        "Jersey Mike's Subs", "Joe's Crab Shack", "KFC", "Krispy Kreme", "Krystal",
+        "Little Caesars", "Long John Silver's", "LongHorn Steakhouse", "Marco's Pizza",
+        "McAlister's Deli", "McDonald's", "Moe's Southwest Grill", "Noodles & Company",
+        "O'Charley's", "Olive Garden", "Outback Steakhouse", "PF Chang's", "Panda Express",
+        "Panera Bread", "Papa John's", "Papa Murphy's", "Perkins", "Pizza Hut", "Popeyes",
+        "Potbelly Sandwich Shop", "Qdoba", "Quiznos", "Red Lobster", "Red Robin",
+        "Romano's Macaroni Grill", "Round Table Pizza", "Ruby Tuesday", "Sbarro", "Sheetz",
+        "Sonic", "Starbucks", "Steak 'N Shake", "Subway", "TGI Friday's", "Taco Bell",
+        "The Capital Grille", "Tim Hortons", "Wawa", "Wendy's", "Whataburger",
+        "White Castle", "Wingstop", "Yard House", "Zaxby's"
+    ]
+
+    // Computed property to limit the number of restaurants plotted
+    private var filteredRestaurants: [Restaurant] {
+        let maxRestaurants = 50
+        let center = region.center
+        return restaurants.sorted { r1, r2 in
+            let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
+            let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
+            return d1 < d2
+        }.prefix(maxRestaurants).map { $0 }
+    }
 
     private func shouldUpdateLocation(_ newLocation: CLLocationCoordinate2D) -> Bool {
         let timeSinceLastGeocode = Date().timeIntervalSince(lastGeocodeTime)
@@ -175,26 +211,26 @@ struct MapScreen: View {
                         set: { newRegion in
                             region = newRegion
                             updateAreaName(for: newRegion.center)
-                            
-                            // Test Overpass API
                             Task {
                                 do {
-                                    let restaurants = try await overpassService.fetchRestaurants(
-                                        minLat: newRegion.center.latitude - (newRegion.span.latitudeDelta / 2),
-                                        minLon: newRegion.center.longitude - (newRegion.span.longitudeDelta / 2),
-                                        maxLat: newRegion.center.latitude + (newRegion.span.latitudeDelta / 2),
-                                        maxLon: newRegion.center.longitude + (newRegion.span.longitudeDelta / 2)
-                                    )
-                                    print("Found \(restaurants.count) restaurants in the current region")
-                                    if let firstRestaurant = restaurants.first {
+                                    let fetched = try await overpassService.fetchFastFoodRestaurants(near: newRegion.center)
+                                    print("Found \(fetched.count) restaurants in the current region")
+                                    if let firstRestaurant = fetched.first {
                                         print("First restaurant: \(firstRestaurant.name) at \(firstRestaurant.latitude), \(firstRestaurant.longitude)")
+                                    }
+                                    await MainActor.run {
+                                        restaurants = fetched
                                     }
                                 } catch {
                                     print("Error fetching restaurants: \(error)")
                                 }
                             }
                         }
-                    ), showsUserLocation: true)
+                    ), showsUserLocation: true, annotationItems: filteredRestaurants) { restaurant in
+                        MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
+                            RestaurantAnnotationView(hasNutritionData: restaurantsWithNutritionData.contains(restaurant.name), isSelected: false)
+                        }
+                    }
                         .mapStyle(.standard(pointsOfInterest: []))
                         .onAppear {
                             if !hasInitialLocation {
