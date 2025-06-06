@@ -6,6 +6,11 @@ struct ListView: View {
     @State private var selectedSortOption: SortOption = .distance
     @State private var isRefreshing: Bool = false
     
+    // Haptic Feedback Generators
+    private let lightFeedback = UIImpactFeedbackGenerator(style: .light)
+    private let mediumFeedback = UIImpactFeedbackGenerator(style: .medium)
+    private let selectionFeedback = UISelectionFeedbackGenerator()
+    
     enum SortOption: String, CaseIterable {
         case mealMapAI = "MealMapAI"
         case distance = "Distance"
@@ -28,11 +33,17 @@ struct ListView: View {
                         TextField("Search restaurants...", text: $searchText)
                             .font(.system(size: 16))
                             .disableAutocorrection(true)
+                            .onChange(of: searchText) { oldValue, newValue in
+                                if !newValue.isEmpty && oldValue.isEmpty {
+                                    lightFeedback.impactOccurred()
+                                }
+                            }
                         
                         if !searchText.isEmpty {
                             Button(action: {
                                 withAnimation(.easeInOut(duration: 0.2)) {
                                     searchText = ""
+                                    lightFeedback.impactOccurred()
                                 }
                             }) {
                                 Image(systemName: "xmark.circle.fill")
@@ -56,6 +67,7 @@ struct ListView: View {
                                 Button(action: {
                                     withAnimation {
                                         selectedSortOption = option
+                                        selectionFeedback.selectionChanged()
                                     }
                                 }) {
                                     Text(option.rawValue)
@@ -106,6 +118,7 @@ struct ListView: View {
                 .refreshable {
                     // Placeholder for refresh action
                     isRefreshing = true
+                    mediumFeedback.impactOccurred()
                     try? await Task.sleep(nanoseconds: 1_000_000_000)
                     isRefreshing = false
                 }

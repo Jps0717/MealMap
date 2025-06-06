@@ -21,6 +21,15 @@ struct MapScreen: View {
     @State private var hasInitialLocation: Bool = false
     @State private var showListView: Bool = false
     
+    // Overpass API Service
+    private let overpassService = OverpassAPIService()
+    
+    // Haptic Feedback Generators
+    private let lightFeedback = UIImpactFeedbackGenerator(style: .light)
+    private let mediumFeedback = UIImpactFeedbackGenerator(style: .medium)
+    private let heavyFeedback = UIImpactFeedbackGenerator(style: .heavy)
+    private let selectionFeedback = UISelectionFeedbackGenerator()
+    
     // Filter States
     @State private var selectedPriceRange: FilterPanel.PriceRange = .all
     @State private var selectedCuisines: Set<String> = []
@@ -166,6 +175,24 @@ struct MapScreen: View {
                         set: { newRegion in
                             region = newRegion
                             updateAreaName(for: newRegion.center)
+                            
+                            // Test Overpass API
+                            Task {
+                                do {
+                                    let restaurants = try await overpassService.fetchRestaurants(
+                                        minLat: newRegion.center.latitude - (newRegion.span.latitudeDelta / 2),
+                                        minLon: newRegion.center.longitude - (newRegion.span.longitudeDelta / 2),
+                                        maxLat: newRegion.center.latitude + (newRegion.span.latitudeDelta / 2),
+                                        maxLon: newRegion.center.longitude + (newRegion.span.longitudeDelta / 2)
+                                    )
+                                    print("Found \(restaurants.count) restaurants in the current region")
+                                    if let firstRestaurant = restaurants.first {
+                                        print("First restaurant: \(firstRestaurant.name) at \(firstRestaurant.latitude), \(firstRestaurant.longitude)")
+                                    }
+                                } catch {
+                                    print("Error fetching restaurants: \(error)")
+                                }
+                            }
                         }
                     ), showsUserLocation: true)
                         .mapStyle(.standard(pointsOfInterest: []))
@@ -208,11 +235,17 @@ struct MapScreen: View {
                             TextField("Search restaurants, cuisines...", text: $searchText)
                                 .font(.system(size: 16))
                                 .disableAutocorrection(true)
+                                .onChange(of: searchText) { oldValue, newValue in
+                                    if !newValue.isEmpty && oldValue.isEmpty {
+                                        lightFeedback.impactOccurred()
+                                    }
+                                }
                             
                             if !searchText.isEmpty {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.2)) {
                                         searchText = ""
+                                        lightFeedback.impactOccurred()
                                     }
                                 }) {
                                     Image(systemName: "xmark.circle.fill")
@@ -223,8 +256,7 @@ struct MapScreen: View {
                             
                             Button(action: {
                                 // TODO: Implement random search functionality
-                                let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
-                                impactFeedback.impactOccurred()
+                                mediumFeedback.impactOccurred()
                             }) {
                                 Image(systemName: "dice.fill")
                                     .foregroundColor(.blue)
@@ -270,17 +302,18 @@ struct MapScreen: View {
                         MapBottomOverlay(
                             hasActiveFilters: hasActiveFilters,
                             onListView: {
+                                mediumFeedback.impactOccurred()
                                 showListView = true
                             },
                             onFilter: {
+                                mediumFeedback.impactOccurred()
                                 withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                                     showFilterPanel = true
                                 }
                             },
                             onUserLocation: {
                                 // Animate map to user location with haptic feedback
-                                let impactFeedback = UIImpactFeedbackGenerator(style: .light)
-                                impactFeedback.impactOccurred()
+                                heavyFeedback.impactOccurred()
                                 
                                 if let loc = locationManager.lastLocation {
                                     withAnimation(.easeInOut(duration: 1.0)) {
@@ -303,6 +336,7 @@ struct MapScreen: View {
                     Color.black.opacity(0.001)
                         .ignoresSafeArea()
                         .onTapGesture {
+                            lightFeedback.impactOccurred()
                             withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                                 showFilterPanel = false
                             }
