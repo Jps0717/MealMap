@@ -21,6 +21,7 @@ struct MapScreen: View {
     @State private var hasInitialLocation: Bool = false
     @State private var showListView: Bool = false
     @State private var restaurants: [Restaurant] = []
+    @State private var clusters: [MapCluster] = []
     
     // Overpass API Service
     private let overpassService = OverpassAPIService()
@@ -78,6 +79,19 @@ struct MapScreen: View {
             let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
             return d1 < d2
         }.prefix(maxRestaurants).map { $0 }
+    }
+
+    private var shouldShowClusters: Bool {
+        region.span.latitudeDelta > 0.02 // Show clusters when zoomed out
+    }
+
+    private func updateClusters() {
+        clusters = MapCluster.createClusters(
+            from: restaurants,
+            zoomLevel: region.span.latitudeDelta,
+            span: region.span,
+            center: region.center
+        )
     }
 
     private func shouldUpdateLocation(_ newLocation: CLLocationCoordinate2D) -> Bool {
@@ -141,6 +155,14 @@ struct MapScreen: View {
             } catch {
                 print("Geocoding error: \(error.localizedDescription)")
             }
+        }
+    }
+
+    private var mapItems: [MapItem] {
+        if shouldShowClusters {
+            return clusters.map { .cluster($0) }
+        } else {
+            return filteredRestaurants.map { .restaurant($0) }
         }
     }
 
@@ -220,15 +242,28 @@ struct MapScreen: View {
                                     }
                                     await MainActor.run {
                                         restaurants = fetched
+                                        updateClusters()
                                     }
                                 } catch {
                                     print("Error fetching restaurants: \(error)")
                                 }
                             }
                         }
-                    ), showsUserLocation: true, annotationItems: filteredRestaurants) { restaurant in
-                        MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
-                            RestaurantAnnotationView(hasNutritionData: restaurantsWithNutritionData.contains(restaurant.name), isSelected: false)
+                    ), showsUserLocation: true, annotationItems: mapItems) { item in
+                        MapAnnotation(coordinate: item.coordinate) {
+                            switch item {
+                            case .cluster(let cluster):
+                                ClusterAnnotationView(
+                                    count: cluster.count,
+                                    hasNutritionData: cluster.hasNutritionData,
+                                    allHaveNutritionData: cluster.allHaveNutritionData
+                                )
+                            case .restaurant(let restaurant):
+                                RestaurantAnnotationView(
+                                    hasNutritionData: restaurantsWithNutritionData.contains(restaurant.name),
+                                    isSelected: false
+                                )
+                            }
                         }
                     }
                         .mapStyle(.standard(pointsOfInterest: []))
@@ -1019,4 +1054,23 @@ struct ScrollOffsetPreferenceKey: PreferenceKey {
 
 #Preview {
     MapScreen()
+}
+
+enum MapItem: Identifiable {
+    case cluster(MapCluster)
+    case restaurant(Restaurant)
+
+    var id: AnyHashable {
+        switch self {
+        case .cluster(let c): return c.id
+        case .restaurant(let r): return r.id
+        }
+    }
+
+    var coordinate: CLLocationCoordinate2D {
+        switch self {
+        case .cluster(let c): return c.coordinate
+        case .restaurant(let r): return CLLocationCoordinate2D(latitude: r.latitude, longitude: r.longitude)
+        }
+    }
 }
