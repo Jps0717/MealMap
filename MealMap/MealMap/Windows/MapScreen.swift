@@ -42,9 +42,11 @@ struct MapScreen: View {
     @State private var favoriteFoods: Set<String> = []
     @State private var maxDistance: Double = 5.0 // in miles
 
-    private let minimumGeocodeInterval: TimeInterval = 1
-    private let minimumDistanceChange: CLLocationDegrees = 0.005
+    private let minimumGeocodeInterval: TimeInterval = 5.0
+    private let minimumDistanceChange: CLLocationDegrees = 0.01
     private let zoomedOutThreshold: CLLocationDegrees = 0.5 // Threshold for showing state vs city
+    private let pinVisibilityThreshold: CLLocationDegrees = 0.1 // Threshold for showing individual pins
+    private let clusterVisibilityThreshold: CLLocationDegrees = 0.15 // Threshold for showing clusters
 
     // List of restaurants with nutrition data
     private let restaurantsWithNutritionData = [
@@ -74,11 +76,23 @@ struct MapScreen: View {
     private var filteredRestaurants: [Restaurant] {
         let maxRestaurants = 50
         let center = region.center
-        return restaurants.sorted { r1, r2 in
-            let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
-            let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
-            return d1 < d2
-        }.prefix(maxRestaurants).map { $0 }
+        let isZoomedIn = region.span.latitudeDelta <= pinVisibilityThreshold
+        let isZoomedOutTooFar = region.span.latitudeDelta > clusterVisibilityThreshold
+        
+        // If zoomed out too far, return empty array to hide everything
+        guard !isZoomedOutTooFar else { return [] }
+        
+        // If zoomed in enough, show individual pins
+        if isZoomedIn {
+            return restaurants.sorted { r1, r2 in
+                let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
+                let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
+                return d1 < d2
+            }.prefix(maxRestaurants).map { $0 }
+        }
+        
+        // Otherwise, show all restaurants for clustering
+        return restaurants
     }
 
     private var shouldShowClusters: Bool {
@@ -149,6 +163,7 @@ struct MapScreen: View {
                 // Debug information
                 print("Map Center Location details:")
                 print("Zoom Level: \(isZoomedOut ? "Out" : "In")")
+                print("Latitude Delta: \(region.span.latitudeDelta)")
                 print("City: \(placemark.locality ?? "nil")")
                 print("Town: \(placemark.subLocality ?? "nil")")
                 print("State: \(placemark.administrativeArea ?? "nil")")
@@ -159,6 +174,10 @@ struct MapScreen: View {
     }
 
     private var mapItems: [MapItem] {
+        // Hide all annotations if zoomed out too far
+        if region.span.latitudeDelta > clusterVisibilityThreshold {
+            return []
+        }
         if shouldShowClusters {
             return clusters.map { .cluster($0) }
         } else {

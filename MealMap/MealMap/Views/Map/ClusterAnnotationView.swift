@@ -8,10 +8,10 @@ struct ClusterAnnotationView: View {
     
     var body: some View {
         ZStack {
-            // Background circle
-            Circle()
-                .fill(allHaveNutritionData ? Color.blue : Color.gray.opacity(0.7))
-                .frame(width: 44, height: 44)
+            // Custom image for the cluster pin
+            Image("ClusterPin") // Make sure you add "ClusterPin" image to your assets
+                .resizable()
+                .frame(width: 44, height: 44) // Match the original size
                 .shadow(color: .black.opacity(0.2), radius: 4, y: 2)
             
             // Count
