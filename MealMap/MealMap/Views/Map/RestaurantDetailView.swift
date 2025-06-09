@@ -24,173 +24,129 @@ struct RestaurantDetailView: View {
     }
     
     var body: some View {
-        ZStack {
-            // Background blur
-            Color.black.opacity(0.4)
-                .ignoresSafeArea()
-                .onTapGesture {
-                    dismissView()
-                }
-            
-            // Main content card
-            VStack(spacing: 0) {
-                // Header with restaurant name and close button
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(restaurant.name)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.primary)
-                        
-                        if let cuisine = restaurant.cuisine {
-                            Text(cuisine.capitalized)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
+        GeometryReader { geometry in
+            ZStack {
+                // Background blur
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        dismissView()
                     }
-                    
+                
+                VStack {
                     Spacer()
                     
-                    Button(action: dismissView) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 24))
-                            .foregroundColor(.gray)
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 16)
-                
-                // Nutrition data badge
-                if hasNutritionData {
-                    HStack {
-                        Image(systemName: "leaf.fill")
-                            .foregroundColor(.green)
-                        Text("Nutrition data available")
-                            .font(.caption)
-                            .foregroundColor(.green)
-                        Spacer()
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 16)
-                }
-                
-                // Tab selector
-                HStack(spacing: 0) {
-                    ForEach(DetailTab.allCases, id: \.self) { tab in
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                selectedTab = tab
-                            }
-                        }) {
-                            VStack(spacing: 6) {
-                                Image(systemName: tab.icon)
-                                    .font(.system(size: 16, weight: .medium))
-                                Text(tab.rawValue)
-                                    .font(.caption)
-                                    .fontWeight(.medium)
-                            }
-                            .foregroundColor(selectedTab == tab ? .blue : .gray)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
-                }
-                .background(Color(.systemGray6))
-                .overlay(
-                    // Tab indicator
-                    Rectangle()
-                        .fill(Color.blue)
-                        .frame(height: 2)
-                        .offset(x: tabIndicatorOffset)
-                        .animation(.easeInOut(duration: 0.2), value: selectedTab),
-                    alignment: .bottom
-                )
-                
-                // Tab content
-                ScrollView {
-                    VStack(spacing: 20) {
-                        switch selectedTab {
-                        case .info:
-                            RestaurantInfoView(restaurant: restaurant)
-                        case .directions:
-                            RestaurantDirectionsView(restaurant: restaurant)
-                        case .nutrition:
-                            RestaurantNutritionView(restaurant: restaurant, hasData: hasNutritionData)
-                        }
-                    }
-                    .padding(20)
-                }
-                .frame(maxHeight: 300)
-                
-                // Action buttons
-                HStack(spacing: 12) {
-                    // Call button
-                    if let phone = restaurant.phone {
-                        Button(action: {
-                            if let url = URL(string: "tel:\(phone.replacingOccurrences(of: " ", with: ""))") {
-                                UIApplication.shared.open(url)
-                            }
-                        }) {
-                            HStack {
-                                Image(systemName: "phone.fill")
-                                Text("Call")
-                            }
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
-                            .background(Color.green)
-                            .cornerRadius(12)
-                        }
-                    }
-                    
-                    // Directions button
-                    Button(action: openInMaps) {
+                    // Main content card
+                    VStack(spacing: 0) {
+                        // Header with restaurant name and close button
                         HStack {
-                            Image(systemName: "location.fill")
-                            Text("Directions")
-                        }
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(Color.blue)
-                        .cornerRadius(12)
-                    }
-                    
-                    // Website button
-                    if let website = restaurant.website {
-                        Button(action: {
-                            if let url = URL(string: website) {
-                                UIApplication.shared.open(url)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(restaurant.name)
+                                    .font(.system(size: adaptiveSize(base: 20, geometry: geometry), weight: .bold))
+                                    .foregroundColor(.primary)
+                                    .lineLimit(2)
+                                
+                                if let cuisine = restaurant.cuisine {
+                                    Text(cuisine.capitalized)
+                                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
+                                        .foregroundColor(.secondary)
+                                }
                             }
-                        }) {
+                            
+                            Spacer()
+                            
+                            Button(action: dismissView) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.system(size: adaptiveSize(base: 24, geometry: geometry)))
+                                    .foregroundColor(.gray)
+                            }
+                        }
+                        .padding(.horizontal, adaptivePadding(base: 20, geometry: geometry))
+                        .padding(.top, adaptivePadding(base: 20, geometry: geometry))
+                        .padding(.bottom, adaptivePadding(base: 16, geometry: geometry))
+                        
+                        // Nutrition data badge
+                        if hasNutritionData {
                             HStack {
-                                Image(systemName: "safari.fill")
-                                Text("Website")
+                                Image(systemName: "leaf.fill")
+                                    .foregroundColor(.green)
+                                    .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
+                                Text("Nutrition data available")
+                                    .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
+                                    .foregroundColor(.green)
+                                Spacer()
                             }
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
-                            .background(Color.orange)
-                            .cornerRadius(12)
+                            .padding(.horizontal, adaptivePadding(base: 20, geometry: geometry))
+                            .padding(.bottom, adaptivePadding(base: 16, geometry: geometry))
                         }
+                        
+                        // Tab selector
+                        HStack(spacing: 0) {
+                            ForEach(DetailTab.allCases, id: \.self) { tab in
+                                Button(action: {
+                                    withAnimation(.easeInOut(duration: 0.2)) {
+                                        selectedTab = tab
+                                    }
+                                }) {
+                                    VStack(spacing: adaptiveSpacing(base: 6, geometry: geometry)) {
+                                        Image(systemName: tab.icon)
+                                            .font(.system(size: adaptiveSize(base: 16, geometry: geometry), weight: .medium))
+                                        Text(tab.rawValue)
+                                            .font(.system(size: adaptiveSize(base: 10, geometry: geometry)))
+                                            .fontWeight(.medium)
+                                    }
+                                    .foregroundColor(selectedTab == tab ? .blue : .gray)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, adaptivePadding(base: 12, geometry: geometry))
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .background(Color(.systemGray6))
+                        .overlay(
+                            GeometryReader { tabGeometry in
+                                Rectangle()
+                                    .fill(Color.blue)
+                                    .frame(height: 2)
+                                    .frame(width: tabGeometry.size.width / CGFloat(DetailTab.allCases.count))
+                                    .offset(x: tabIndicatorOffset(tabGeometry: tabGeometry))
+                                    .animation(.easeInOut(duration: 0.2), value: selectedTab)
+                            },
+                            alignment: .bottom
+                        )
+                        
+                        // Tab content
+                        ScrollView {
+                            VStack(spacing: adaptiveSpacing(base: 20, geometry: geometry)) {
+                                switch selectedTab {
+                                case .info:
+                                    RestaurantInfoView(restaurant: restaurant, geometry: geometry)
+                                case .directions:
+                                    RestaurantDirectionsView(restaurant: restaurant, geometry: geometry)
+                                case .nutrition:
+                                    RestaurantNutritionView(restaurant: restaurant, hasData: hasNutritionData, geometry: geometry)
+                                }
+                            }
+                            .padding(adaptivePadding(base: 20, geometry: geometry))
+                        }
+                        .frame(maxHeight: adaptiveHeight(base: 300, geometry: geometry))
+                        
+                        // Action buttons
+                        actionButtons(geometry: geometry)
                     }
+                    .background(
+                        RoundedRectangle(cornerRadius: adaptiveCornerRadius(base: 20, geometry: geometry))
+                            .fill(Color(.systemBackground))
+                            .shadow(color: .black.opacity(0.2), radius: 20, y: 10)
+                    )
+                    .padding(.horizontal, adaptivePadding(base: 20, geometry: geometry))
+                    .scaleEffect(animateIn ? 1.0 : 0.8)
+                    .opacity(animateIn ? 1.0 : 0.0)
+                    
+                    Spacer()
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 20)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color(.systemBackground))
-                    .shadow(color: .black.opacity(0.2), radius: 20, y: 10)
-            )
-            .padding(.horizontal, 20)
-            .scaleEffect(animateIn ? 1.0 : 0.8)
-            .opacity(animateIn ? 1.0 : 0.0)
         }
         .onAppear {
             hasNutritionData = RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
@@ -200,10 +156,128 @@ struct RestaurantDetailView: View {
         }
     }
     
-    private var tabIndicatorOffset: CGFloat {
-        let tabWidth = UIScreen.main.bounds.width / CGFloat(DetailTab.allCases.count)
+    // MARK: - Adaptive Sizing Functions
+    
+    private func adaptiveSize(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.85), 1.15)
+    }
+    
+    private func adaptivePadding(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.8), 1.2)
+    }
+    
+    private func adaptiveSpacing(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.7), 1.3)
+    }
+    
+    private func adaptiveHeight(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenHeight = geometry.size.height
+        let scaleFactor = screenHeight / 844.0
+        return base * min(max(scaleFactor, 0.8), 1.2)
+    }
+    
+    private func adaptiveCornerRadius(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.8), 1.1)
+    }
+    
+    private func tabIndicatorOffset(tabGeometry: GeometryProxy) -> CGFloat {
+        let tabWidth = tabGeometry.size.width / CGFloat(DetailTab.allCases.count)
         let selectedIndex = DetailTab.allCases.firstIndex(of: selectedTab) ?? 0
-        return CGFloat(selectedIndex) * tabWidth - (UIScreen.main.bounds.width - 40) / 2 + tabWidth / 2
+        return CGFloat(selectedIndex) * tabWidth
+    }
+    
+    // MARK: - Action Buttons
+    
+    @ViewBuilder
+    private func actionButtons(geometry: GeometryProxy) -> some View {
+        let availableButtons = [
+            restaurant.phone != nil,
+            true, // Directions always available
+            restaurant.website != nil
+        ].filter { $0 }.count
+        
+        let buttonSpacing = adaptiveSpacing(base: 12, geometry: geometry)
+        let totalSpacing = CGFloat(availableButtons - 1) * buttonSpacing
+        let horizontalPadding = adaptivePadding(base: 40, geometry: geometry) // 20 on each side
+        let availableWidth = geometry.size.width - horizontalPadding - totalSpacing
+        let buttonWidth = availableWidth / CGFloat(availableButtons)
+        
+        let baseFontSize: CGFloat = min(adaptiveSize(base: 16, geometry: geometry), buttonWidth / 8)
+        
+        HStack(spacing: buttonSpacing) {
+            // Call button
+            if let phone = restaurant.phone {
+                Button(action: {
+                    if let url = URL(string: "tel:\(phone.replacingOccurrences(of: " ", with: ""))") {
+                        UIApplication.shared.open(url)
+                    }
+                }) {
+                    HStack(spacing: adaptiveSpacing(base: 6, geometry: geometry)) {
+                        Image(systemName: "phone.fill")
+                            .font(.system(size: baseFontSize * 0.9))
+                        Text("Call")
+                            .font(.system(size: baseFontSize, weight: .medium))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: buttonWidth)
+                    .padding(.vertical, adaptivePadding(base: 14, geometry: geometry))
+                    .background(Color.green)
+                    .cornerRadius(adaptiveCornerRadius(base: 12, geometry: geometry))
+                }
+            }
+            
+            // Directions button
+            Button(action: openInMaps) {
+                HStack(spacing: adaptiveSpacing(base: 6, geometry: geometry)) {
+                    Image(systemName: "location.fill")
+                        .font(.system(size: baseFontSize * 0.9))
+                    Text("Directions")
+                        .font(.system(size: baseFontSize, weight: .medium))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+                .foregroundColor(.white)
+                .frame(width: buttonWidth)
+                .padding(.vertical, adaptivePadding(base: 14, geometry: geometry))
+                .background(Color.blue)
+                .cornerRadius(adaptiveCornerRadius(base: 12, geometry: geometry))
+            }
+            
+            // Website button
+            if let website = restaurant.website {
+                Button(action: {
+                    if let url = URL(string: website) {
+                        UIApplication.shared.open(url)
+                    }
+                }) {
+                    HStack(spacing: adaptiveSpacing(base: 6, geometry: geometry)) {
+                        Image(systemName: "safari.fill")
+                            .font(.system(size: baseFontSize * 0.9))
+                        Text("Website")
+                            .font(.system(size: baseFontSize, weight: .medium))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: buttonWidth)
+                    .padding(.vertical, adaptivePadding(base: 14, geometry: geometry))
+                    .background(Color.orange)
+                    .cornerRadius(adaptiveCornerRadius(base: 12, geometry: geometry))
+                }
+            }
+        }
+        .padding(.horizontal, adaptivePadding(base: 20, geometry: geometry))
+        .padding(.bottom, adaptivePadding(base: 20, geometry: geometry))
     }
     
     private func dismissView() {
@@ -226,80 +300,107 @@ struct RestaurantDetailView: View {
 // MARK: - Info Tab Content
 struct RestaurantInfoView: View {
     let restaurant: Restaurant
+    let geometry: GeometryProxy
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: adaptiveSpacing(base: 16, geometry: geometry)) {
             if let address = restaurant.address {
-                InfoRow(icon: "location.fill", title: "Address", value: address)
+                InfoRow(icon: "location.fill", title: "Address", value: address, geometry: geometry)
             }
             
             if let cuisine = restaurant.cuisine {
-                InfoRow(icon: "fork.knife", title: "Cuisine", value: cuisine.capitalized)
+                InfoRow(icon: "fork.knife", title: "Cuisine", value: cuisine.capitalized, geometry: geometry)
             }
             
             if let hours = restaurant.openingHours {
-                InfoRow(icon: "clock.fill", title: "Hours", value: hours)
+                InfoRow(icon: "clock.fill", title: "Hours", value: hours, geometry: geometry)
             } else {
-                InfoRow(icon: "clock.fill", title: "Hours", value: "Hours not available")
+                InfoRow(icon: "clock.fill", title: "Hours", value: "Hours not available", geometry: geometry)
             }
             
             if let phone = restaurant.phone {
-                InfoRow(icon: "phone.fill", title: "Phone", value: phone)
+                InfoRow(icon: "phone.fill", title: "Phone", value: phone, geometry: geometry)
             }
             
             InfoRow(icon: "mappin.circle.fill", title: "Coordinates", 
-                   value: "\(String(format: "%.4f", restaurant.latitude)), \(String(format: "%.4f", restaurant.longitude))")
+                   value: "\(String(format: "%.4f", restaurant.latitude)), \(String(format: "%.4f", restaurant.longitude))", 
+                   geometry: geometry)
         }
+    }
+    
+    // MARK: - Adaptive Functions
+    private func adaptiveSpacing(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.7), 1.3)
     }
 }
 
 // MARK: - Directions Tab Content
 struct RestaurantDirectionsView: View {
     let restaurant: Restaurant
+    let geometry: GeometryProxy
     @State private var userLocation: CLLocation?
     @State private var distance: String = "Calculating..."
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: adaptiveSpacing(base: 16, geometry: geometry)) {
             HStack {
                 Image(systemName: "location.circle.fill")
                     .foregroundColor(.blue)
-                    .font(.title2)
-                VStack(alignment: .leading, spacing: 4) {
+                    .font(.system(size: adaptiveSize(base: 24, geometry: geometry)))
+                VStack(alignment: .leading, spacing: adaptiveSpacing(base: 4, geometry: geometry)) {
                     Text("Distance")
-                        .font(.headline)
+                        .font(.system(size: adaptiveSize(base: 18, geometry: geometry), weight: .semibold))
                     Text(distance)
-                        .font(.subheadline)
+                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
                         .foregroundColor(.secondary)
                 }
                 Spacer()
             }
             
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: adaptiveSpacing(base: 8, geometry: geometry)) {
                 Text("Restaurant Location")
-                    .font(.headline)
+                    .font(.system(size: adaptiveSize(base: 18, geometry: geometry), weight: .semibold))
                 HStack {
                     Text("Latitude:")
                         .foregroundColor(.secondary)
+                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
                     Text(String(format: "%.6f", restaurant.latitude))
+                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
                 }
                 HStack {
                     Text("Longitude:")
                         .foregroundColor(.secondary)
+                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
                     Text(String(format: "%.6f", restaurant.longitude))
+                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
                 }
             }
             
             Divider()
             
             Text("Tap 'Directions' below to open in Maps app for turn-by-turn navigation.")
-                .font(.caption)
+                .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
         }
         .onAppear {
             calculateDistance()
         }
+    }
+    
+    // MARK: - Adaptive Functions
+    private func adaptiveSpacing(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.7), 1.3)
+    }
+    
+    private func adaptiveSize(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.85), 1.15)
     }
     
     private func calculateDistance() {
@@ -322,69 +423,94 @@ struct RestaurantDirectionsView: View {
 struct RestaurantNutritionView: View {
     let restaurant: Restaurant
     let hasData: Bool
+    let geometry: GeometryProxy
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: adaptiveSpacing(base: 16, geometry: geometry)) {
             if hasData {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: adaptiveSpacing(base: 12, geometry: geometry)) {
                     HStack {
                         Image(systemName: "leaf.fill")
                             .foregroundColor(.green)
+                            .font(.system(size: adaptiveSize(base: 16, geometry: geometry)))
                         Text("Nutrition Data Available")
-                            .font(.headline)
+                            .font(.system(size: adaptiveSize(base: 18, geometry: geometry), weight: .semibold))
                             .foregroundColor(.green)
                     }
                     
                     Text("This restaurant provides detailed nutrition information for their menu items.")
-                        .font(.subheadline)
+                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
                         .foregroundColor(.secondary)
                     
-                    // Placeholder for actual nutrition data
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: adaptiveSpacing(base: 8, geometry: geometry)) {
                         Text("Popular Items:")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
+                            .font(.system(size: adaptiveSize(base: 14, geometry: geometry), weight: .semibold))
                         
                         ForEach(["Most Popular Item", "Healthy Option", "Low Calorie Choice"], id: \.self) { item in
                             HStack {
                                 Circle()
                                     .fill(Color.green.opacity(0.2))
-                                    .frame(width: 8, height: 8)
+                                    .frame(width: adaptiveSize(base: 8, geometry: geometry), height: adaptiveSize(base: 8, geometry: geometry))
                                 Text(item)
-                                    .font(.caption)
+                                    .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
                                 Spacer()
                                 Text("View Details")
-                                    .font(.caption)
+                                    .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
                                     .foregroundColor(.blue)
                             }
                         }
                     }
-                    .padding()
+                    .padding(adaptivePadding(base: 16, geometry: geometry))
                     .background(Color(.systemGray6))
-                    .cornerRadius(8)
+                    .cornerRadius(adaptiveCornerRadius(base: 8, geometry: geometry))
                 }
             } else {
-                VStack(spacing: 12) {
+                VStack(spacing: adaptiveSpacing(base: 12, geometry: geometry)) {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundColor(.orange)
-                        .font(.system(size: 32))
+                        .font(.system(size: adaptiveSize(base: 32, geometry: geometry)))
                     
                     Text("No Nutrition Data")
-                        .font(.headline)
+                        .font(.system(size: adaptiveSize(base: 18, geometry: geometry), weight: .semibold))
                         .foregroundColor(.orange)
                     
                     Text("This restaurant doesn't provide detailed nutrition information in our database.")
-                        .font(.subheadline)
+                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                     
                     Text("You may find nutrition information on their website or by calling the restaurant directly.")
-                        .font(.caption)
+                        .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                 }
             }
         }
+    }
+    
+    // MARK: - Adaptive Functions
+    private func adaptiveSpacing(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.7), 1.3)
+    }
+    
+    private func adaptiveSize(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.85), 1.15)
+    }
+    
+    private func adaptivePadding(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.8), 1.2)
+    }
+    
+    private func adaptiveCornerRadius(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.8), 1.1)
     }
 }
 
@@ -393,27 +519,40 @@ struct InfoRow: View {
     let icon: String
     let title: String
     let value: String
+    let geometry: GeometryProxy
     
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        HStack(alignment: .top, spacing: adaptiveSpacing(base: 12, geometry: geometry)) {
             Image(systemName: icon)
                 .foregroundColor(.blue)
-                .frame(width: 20)
-                .font(.system(size: 16))
+                .frame(width: adaptiveSize(base: 20, geometry: geometry))
+                .font(.system(size: adaptiveSize(base: 16, geometry: geometry)))
             
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: adaptiveSpacing(base: 2, geometry: geometry)) {
                 Text(title)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
+                    .font(.system(size: adaptiveSize(base: 14, geometry: geometry), weight: .medium))
                     .foregroundColor(.primary)
                 
                 Text(value)
-                    .font(.subheadline)
+                    .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
                     .foregroundColor(.secondary)
             }
             
             Spacer()
         }
+    }
+    
+    // MARK: - Adaptive Functions
+    private func adaptiveSpacing(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.7), 1.3)
+    }
+    
+    private func adaptiveSize(base: CGFloat, geometry: GeometryProxy) -> CGFloat {
+        let screenWidth = geometry.size.width
+        let scaleFactor = screenWidth / 390.0
+        return base * min(max(scaleFactor, 0.85), 1.15)
     }
 }
 
