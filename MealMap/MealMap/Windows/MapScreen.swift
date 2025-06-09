@@ -64,29 +64,7 @@ struct MapScreen: View {
     private let minimumDataFetchDistance: CLLocationDegrees = 0.08 // Increased from 0.05
     private let clusterUpdateThrottle: TimeInterval = 0.8 // Increased from 0.5
 
-    // List of restaurants with nutrition data
-    private let restaurantsWithNutritionData = [
-        "7 Eleven", "Applebee's", "Arby's", "Auntie Anne's", "BJ's Restaurant & Brewhouse",
-        "Baskin Robbins", "Bob Evans", "Bojangles", "Bonefish Grill", "Boston Market",
-        "Burger King", "California Pizza Kitchen", "Captain D's", "Carl's Jr.",
-        "Carrabba's Italian Grill", "Casey's General Store", "Checker's Drive-In/Rallys",
-        "Chick-Fil-A", "Chick-fil-A", "Chili's", "Chipotle", "Chuck E. Cheese",
-        "Church's Chicken", "Ci Ci's Pizza", "Culver's", "Dairy Queen", "Del Taco",
-        "Denny's", "Dickey's Barbeque Pit", "Dominos", "Dunkin' Donuts", "Einstein Bros",
-        "El Pollo Loco", "Famous Dave's", "Firehouse Subs", "Five Guys", "Friendly's",
-        "Frisch's Big Boy", "Golden Corral", "Hardee's", "Hooters", "IHOP",
-        "In-N-Out Burger", "Jack in the Box", "Jamba Juice", "Jason's Deli",
-        "Jersey Mike's Subs", "Joe's Crab Shack", "KFC", "Krispy Klement", "Krystal",
-        "Little Caesars", "Long John Silver's", "LongHorn Steakhouse", "Marco's Pizza",
-        "McAlister's Deli", "McDonald's", "Moe's Southwest Grill", "Noodles & Company",
-        "O'Charley's", "Olive Garden", "Outback Steakhouse", "PF Chang's", "Panda Express",
-        "Panera Bread", "Papa John's", "Papa Murphy's", "Perkins", "Pizza Hut", "Popeyes",
-        "Potbelly Sandwich Shop", "Qdoba", "Quiznos", "Red Lobster", "Red Robin",
-        "Romano's Macaroni Grill", "Round Table Pizza", "Ruby Tuesday", "Sbarro", "Sheetz",
-        "Sonic", "Starbucks", "Steak 'N Shake", "Subway", "TGI Friday's", "Taco Bell",
-        "The Capital Grille", "Tim Hortons", "Wawa", "Wendy's", "Whataburger",
-        "White Castle", "Wingstop", "Yard House", "Zaxby's"
-    ]
+    // Existing code...
 
     private var shouldShowClusters: Bool {
         region.span.latitudeDelta > 0.02 && !showSearchResults // Don't show clusters during search
@@ -256,7 +234,7 @@ struct MapScreen: View {
                             case .restaurant(let restaurant):
                                 RestaurantAnnotationView(
                                     restaurant: restaurant,
-                                    hasNutritionData: restaurantsWithNutritionData.contains(restaurant.name),
+                                    hasNutritionData: RestaurantData.restaurantsWithNutritionData.contains(restaurant.name),
                                     isSelected: selectedRestaurant?.id == restaurant.id,
                                     onTap: { tappedRestaurant in
                                         selectedRestaurant = tappedRestaurant

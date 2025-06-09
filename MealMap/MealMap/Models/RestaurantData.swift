@@ -8,7 +8,7 @@ struct RestaurantData {
         "Carrabba's Italian Grill", "Casey's General Store", "Checker's Drive-In/Rallys",
         "Chick-Fil-A", "Chick-fil-A", "Chili's", "Chipotle", "Chuck E. Cheese",
         "Church's Chicken", "Ci Ci's Pizza", "Culver's", "Dairy Queen", "Del Taco",
-        "Denny's", "Dickey's Barbeque Pit", "Dominos", "Dunkin' Donuts", "Einstein Bros",
+        "Denny's", "Dickey's Barbeque Pit", "Domino's", "Dunkin'", "Einstein Bros",
         "El Pollo Loco", "Famous Dave's", "Firehouse Subs", "Five Guys", "Friendly's",
         "Frisch's Big Boy", "Golden Corral", "Hardee's", "Hooters", "IHOP",
         "In-N-Out Burger", "Jack in the Box", "Jamba Juice", "Jason's Deli",
