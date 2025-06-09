@@ -452,29 +452,25 @@ struct MapScreen: View {
                 }
 
                 if isLoadingRestaurants {
-                    VStack {
-                        HStack {
-                            Spacer()
-                            HStack(spacing: 8) {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                                    .scaleEffect(0.8)
-                                Text("Loading restaurants...")
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(.primary)
-                            }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .fill(Color(.systemBackground))
-                                    .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
-                            )
-                            .padding(.trailing, 16)
+                    ZStack {
+                        Color.black.opacity(0.1)
+                            .ignoresSafeArea()
+
+                        VStack(spacing: 16) {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                                .scaleEffect(1.0)
+                            Text("Loading restaurants...")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.primary)
                         }
-                        Spacer()
+                        .padding(24)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(.ultraThinMaterial)
+                                .shadow(color: .black.opacity(0.1), radius: 8, y: 4)
+                        )
                     }
-                    .padding(.top, 120) // Position below search bar
                 }
 
                 // Restaurant detail overlay
