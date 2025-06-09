@@ -5,6 +5,10 @@ struct RestaurantAnnotationView: View {
     let hasNutritionData: Bool
     let isSelected: Bool
     
+    @State private var scale: CGFloat = 0.5
+    @State private var opacity: Double = 0.0
+    @State private var animatedFromCluster = false
+    
     var body: some View {
         ZStack {
             // Background circle
@@ -43,6 +47,33 @@ struct RestaurantAnnotationView: View {
         }
         .scaleEffect(isSelected ? 1.1 : 1.0)
         .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
+        .scaleEffect(scale)
+        .opacity(opacity)
+        .onAppear {
+            let delay = animatedFromCluster ? Double.random(in: 0...0.3) : 0
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.7).delay(delay)) {
+                scale = 1.0
+                opacity = 1.0
+            }
+        }
+    }
+    
+    func animateFromCluster() {
+        animatedFromCluster = true
+        scale = 0.5
+        opacity = 0.0
+        
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.8).delay(Double.random(in: 0...0.2))) {
+            scale = 1.0
+            opacity = 1.0
+        }
+    }
+    
+    func animateToCluster() {
+        withAnimation(.easeInOut(duration: 0.3).delay(Double.random(in: 0...0.1))) {
+            scale = 0.1
+            opacity = 0.0
+        }
     }
 }
 
@@ -79,4 +110,3 @@ struct RestaurantAnnotationView: View {
     .padding()
     .background(Color(red: 0.9, green: 0.9, blue: 0.9))
 }
-

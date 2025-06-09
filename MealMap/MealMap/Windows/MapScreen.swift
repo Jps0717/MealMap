@@ -7,6 +7,7 @@ import CoreLocation
 struct MapScreen: View {
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var networkMonitor = NetworkMonitor.shared
+    @StateObject private var clusterManager = ClusterManager()
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), // Default to San Francisco
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
@@ -21,17 +22,20 @@ struct MapScreen: View {
     @State private var hasInitialLocation: Bool = false
     @State private var showListView: Bool = false
     @State private var restaurants: [Restaurant] = []
-    @State private var clusters: [MapCluster] = []
+    @State private var lastClusterUpdateTime: Date = Date.distantPast // For throttling cluster updates
+    @State private var isLoadingRestaurants: Bool = false
+    @State private var lastDataFetchLocation: CLLocationCoordinate2D?
+    @State private var lastDataFetchTime: Date = Date.distantPast
     
     // Overpass API Service
     private let overpassService = OverpassAPIService()
-    
+
     // Haptic Feedback Generators
     private let lightFeedback = UIImpactFeedbackGenerator(style: .light)
     private let mediumFeedback = UIImpactFeedbackGenerator(style: .medium)
     private let heavyFeedback = UIImpactFeedbackGenerator(style: .heavy)
     private let selectionFeedback = UISelectionFeedbackGenerator()
-    
+
     // Filter States
     @State private var selectedPriceRange: FilterPanel.PriceRange = .all
     @State private var selectedCuisines: Set<String> = []
@@ -47,6 +51,10 @@ struct MapScreen: View {
     private let zoomedOutThreshold: CLLocationDegrees = 0.5 // Threshold for showing state vs city
     private let pinVisibilityThreshold: CLLocationDegrees = 0.1 // Threshold for showing individual pins
     private let clusterVisibilityThreshold: CLLocationDegrees = 0.15 // Threshold for showing clusters
+    private let clusterUpdateThrottle: TimeInterval = 0.5 // Throttle cluster updates to every 0.5 seconds
+
+    private let minimumDataFetchInterval: TimeInterval = 2.0
+    private let minimumDataFetchDistance: CLLocationDegrees = 0.05
 
     // List of restaurants with nutrition data
     private let restaurantsWithNutritionData = [
@@ -78,10 +86,10 @@ struct MapScreen: View {
         let center = region.center
         let isZoomedIn = region.span.latitudeDelta <= pinVisibilityThreshold
         let isZoomedOutTooFar = region.span.latitudeDelta > clusterVisibilityThreshold
-        
+
         // If zoomed out too far, return empty array to hide everything
         guard !isZoomedOutTooFar else { return [] }
-        
+
         // If zoomed in enough, show individual pins
         if isZoomedIn {
             return restaurants.sorted { r1, r2 in
@@ -90,7 +98,7 @@ struct MapScreen: View {
                 return d1 < d2
             }.prefix(maxRestaurants).map { $0 }
         }
-        
+
         // Otherwise, show all restaurants for clustering
         return restaurants
     }
@@ -99,87 +107,13 @@ struct MapScreen: View {
         region.span.latitudeDelta > 0.02 // Show clusters when zoomed out
     }
 
-    private func updateClusters() {
-        clusters = MapCluster.createClusters(
-            from: restaurants,
-            zoomLevel: region.span.latitudeDelta,
-            span: region.span,
-            center: region.center
-        )
-    }
-
-    private func shouldUpdateLocation(_ newLocation: CLLocationCoordinate2D) -> Bool {
-        let timeSinceLastGeocode = Date().timeIntervalSince(lastGeocodeTime)
-        guard timeSinceLastGeocode >= minimumGeocodeInterval else { return false }
-        
-        if let lastLocation = lastGeocodeLocation {
-            let distance = abs(newLocation.latitude - lastLocation.latitude) + 
-                          abs(newLocation.longitude - lastLocation.longitude)
-            return distance >= minimumDistanceChange
-        }
-        
-        return true
-    }
-
-    private func updateAreaName(for coordinate: CLLocationCoordinate2D) {
-        guard shouldUpdateLocation(coordinate) else { return }
-        
-        let geocoder = CLGeocoder()
-        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        
-        Task { @MainActor in
-            do {
-                let placemarks = try await geocoder.reverseGeocodeLocation(location)
-                guard let placemark = placemarks.first else {
-                    print("No placemark found")
-                    return
-                }
-                
-                // Update our tracking variables
-                lastGeocodeTime = Date()
-                lastGeocodeLocation = coordinate
-                
-                // Check if we're zoomed out
-                let isZoomedOut = region.span.latitudeDelta > zoomedOutThreshold
-                
-                if isZoomedOut {
-                    // When zoomed out, show state
-                    if let state = placemark.administrativeArea {
-                        currentAreaName = state
-                    } else if let country = placemark.country {
-                        currentAreaName = country
-                    }
-                } else {
-                    // When zoomed in, show city/town
-                    if let city = placemark.locality {
-                        currentAreaName = city
-                    } else if let town = placemark.subLocality {
-                        currentAreaName = town
-                    } else if let state = placemark.administrativeArea {
-                        currentAreaName = state
-                    }
-                }
-                
-                // Debug information
-                print("Map Center Location details:")
-                print("Zoom Level: \(isZoomedOut ? "Out" : "In")")
-                print("Latitude Delta: \(region.span.latitudeDelta)")
-                print("City: \(placemark.locality ?? "nil")")
-                print("Town: \(placemark.subLocality ?? "nil")")
-                print("State: \(placemark.administrativeArea ?? "nil")")
-            } catch {
-                print("Geocoding error: \(error.localizedDescription)")
-            }
-        }
-    }
-
     private var mapItems: [MapItem] {
         // Hide all annotations if zoomed out too far
         if region.span.latitudeDelta > clusterVisibilityThreshold {
             return []
         }
         if shouldShowClusters {
-            return clusters.map { .cluster($0) }
+            return clusterManager.clusters.map { .cluster($0) }
         } else {
             return filteredRestaurants.map { .restaurant($0) }
         }
@@ -250,23 +184,32 @@ struct MapScreen: View {
                     Map(coordinateRegion: Binding(
                         get: { region },
                         set: { newRegion in
+                            let oldRegion = region
                             region = newRegion
-                            updateAreaName(for: newRegion.center)
-                            Task {
-                                do {
-                                    let fetched = try await overpassService.fetchFastFoodRestaurants(near: newRegion.center)
-                                    print("Found \(fetched.count) restaurants in the current region")
-                                    if let firstRestaurant = fetched.first {
-                                        print("First restaurant: \(firstRestaurant.name) at \(firstRestaurant.latitude), \(firstRestaurant.longitude)")
-                                    }
-                                    await MainActor.run {
-                                        restaurants = fetched
-                                        updateClusters()
-                                    }
-                                } catch {
-                                    print("Error fetching restaurants: \(error)")
-                                }
+                            
+                            let regionChange = abs(oldRegion.center.latitude - newRegion.center.latitude) + 
+                                             abs(oldRegion.center.longitude - newRegion.center.longitude)
+                            if regionChange > 0.01 {
+                                updateAreaName(for: newRegion.center)
                             }
+
+                            let now = Date()
+                            let zoomChange = abs(oldRegion.span.latitudeDelta - newRegion.span.latitudeDelta)
+                            
+                            // Only update clusters if zoom changed significantly or enough time has passed
+                            if zoomChange > 0.001 || now.timeIntervalSince(lastClusterUpdateTime) > clusterUpdateThrottle {
+                                clusterManager.updateClusters(
+                                    restaurants: restaurants,
+                                    zoomLevel: newRegion.span.latitudeDelta,
+                                    span: newRegion.span,
+                                    center: newRegion.center,
+                                    debounceDelay: zoomChange > 0.005 ? 0.1 : 0.3 // Faster updates for zoom changes
+                                )
+                                lastClusterUpdateTime = now
+                            }
+
+                            // Fetch new data less frequently
+                            fetchRestaurantDataAndUpdateClusters(for: newRegion.center)
                         }
                     ), showsUserLocation: true, annotationItems: mapItems) { item in
                         MapAnnotation(coordinate: item.coordinate) {
@@ -274,45 +217,39 @@ struct MapScreen: View {
                             case .cluster(let cluster):
                                 ClusterAnnotationView(
                                     count: cluster.count,
-                                    hasNutritionData: cluster.hasNutritionData,
-                                    allHaveNutritionData: cluster.allHaveNutritionData
+                                    nutritionDataCount: cluster.nutritionDataCount,
+                                    noNutritionDataCount: cluster.noNutritionDataCount
                                 )
+                                .transition(.asymmetric(
+                                    insertion: clusterManager.transitionState == .mergingToClusters ? 
+                                        .scale(scale: 0.1).combined(with: .opacity) : 
+                                        .scale.combined(with: .opacity),
+                                    removal: clusterManager.transitionState == .splittingToIndividual ?
+                                        .scale(scale: 3.0).combined(with: .opacity) :
+                                        .scale.combined(with: .opacity)
+                                ))
+                                .animation(.spring(response: 0.6, dampingFraction: 0.8), value: clusterManager.transitionState)
+                                
                             case .restaurant(let restaurant):
                                 RestaurantAnnotationView(
                                     hasNutritionData: restaurantsWithNutritionData.contains(restaurant.name),
                                     isSelected: false
                                 )
+                                .transition(.asymmetric(
+                                    insertion: clusterManager.transitionState == .splittingToIndividual ?
+                                        .scale(scale: 0.1).combined(with: .opacity).combined(with: .offset(y: -10)) :
+                                        .scale.combined(with: .opacity),
+                                    removal: clusterManager.transitionState == .mergingToClusters ?
+                                        .scale(scale: 0.1).combined(with: .opacity).combined(with: .offset(y: 10)) :
+                                        .scale.combined(with: .opacity)
+                                ))
+                                .animation(.spring(response: 0.5, dampingFraction: 0.7).delay(Double.random(in: 0...0.2)), value: clusterManager.transitionState)
                             }
                         }
                     }
-                        .mapStyle(.standard(pointsOfInterest: []))
-                        .onAppear {
-                            if !hasInitialLocation {
-                                if let location = locationManager.lastLocation {
-                                    withAnimation {
-                                        region = MKCoordinateRegion(
-                                            center: location.coordinate,
-                                            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                                        )
-                                        hasInitialLocation = true
-                                    }
-                                    updateAreaName(for: location.coordinate)
-                                }
-                            }
-                        }
-                        .onChange(of: locationManager.lastLocation) { newLocation in
-                            if let location = newLocation, !hasInitialLocation {
-                                withAnimation {
-                                    region = MKCoordinateRegion(
-                                        center: location.coordinate,
-                                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-                                    )
-                                    hasInitialLocation = true
-                                }
-                                updateAreaName(for: location.coordinate)
-                            }
-                        }
-                        .ignoresSafeArea(edges: .all)
+                    .mapStyle(.standard(pointsOfInterest: []))
+                    .animation(.spring(response: 0.6, dampingFraction: 0.8), value: clusterManager.clusters.count)
+                    .animation(.spring(response: 0.4, dampingFraction: 0.9), value: clusterManager.transitionState)
 
                     // --- TOP OVERLAYS: Search bar & City tag ---
                     VStack(alignment: .center, spacing: 8) {
@@ -321,7 +258,7 @@ struct MapScreen: View {
                             Image(systemName: "magnifyingglass")
                                 .foregroundColor(.gray)
                                 .font(.system(size: 16, weight: .medium))
-                            
+
                             TextField("Search restaurants, cuisines...", text: $searchText)
                                 .font(.system(size: 16))
                                 .disableAutocorrection(true)
@@ -330,7 +267,7 @@ struct MapScreen: View {
                                         lightFeedback.impactOccurred()
                                     }
                                 }
-                            
+
                             if !searchText.isEmpty {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.2)) {
@@ -343,7 +280,7 @@ struct MapScreen: View {
                                         .font(.system(size: 16))
                                 }
                             }
-                            
+
                             Button(action: {
                                 // TODO: Implement random search functionality
                                 mediumFeedback.impactOccurred()
@@ -404,7 +341,7 @@ struct MapScreen: View {
                             onUserLocation: {
                                 // Animate map to user location with haptic feedback
                                 heavyFeedback.impactOccurred()
-                                
+
                                 if let loc = locationManager.lastLocation {
                                     withAnimation(.easeInOut(duration: 1.0)) {
                                         region = MKCoordinateRegion(
@@ -413,6 +350,7 @@ struct MapScreen: View {
                                         )
                                     }
                                     updateAreaName(for: loc.coordinate)
+                                    fetchRestaurantDataAndUpdateClusters(for: loc.coordinate)
                                 }
                             }
                         )
@@ -452,7 +390,7 @@ struct MapScreen: View {
                     ZStack {
                         Color.black.opacity(0.2)
                             .ignoresSafeArea()
-                        
+
                         VStack(spacing: 16) {
                             ProgressView()
                                 .progressViewStyle(CircularProgressViewStyle(tint: .blue))
@@ -468,12 +406,157 @@ struct MapScreen: View {
                         )
                     }
                 }
+
+                if isLoadingRestaurants {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            HStack(spacing: 8) {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                                    .scaleEffect(0.8)
+                                Text("Loading restaurants...")
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(.primary)
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color(.systemBackground))
+                                    .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                            )
+                            .padding(.trailing, 16)
+                        }
+                        Spacer()
+                    }
+                    .padding(.top, 120) // Position below search bar
+                }
             }
         }
         .preferredColorScheme(.light)  // Force light theme
         .sheet(isPresented: $showListView) {
             ListView()
         }
+        .onDisappear {
+            clusterManager.clearCache()
+        }
+    }
+
+    private func updateAreaName(for coordinate: CLLocationCoordinate2D) {
+        guard shouldUpdateLocation(coordinate) else { return }
+
+        let geocoder = CLGeocoder()
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+        Task { @MainActor in
+            do {
+                let placemarks = try await geocoder.reverseGeocodeLocation(location)
+                guard let placemark = placemarks.first else {
+                    print("No placemark found")
+                    return
+                }
+
+                // Update our tracking variables
+                lastGeocodeTime = Date()
+                lastGeocodeLocation = coordinate
+
+                // Check if we're zoomed out
+                let isZoomedOut = region.span.latitudeDelta > zoomedOutThreshold
+
+                if isZoomedOut {
+                    // When zoomed out, show state
+                    if let state = placemark.administrativeArea {
+                        currentAreaName = state
+                    } else if let country = placemark.country {
+                        currentAreaName = country
+                    }
+                } else {
+                    // When zoomed in, show city/town
+                    if let city = placemark.locality {
+                        currentAreaName = city
+                    } else if let town = placemark.subLocality {
+                        currentAreaName = town
+                    } else if let state = placemark.administrativeArea {
+                        currentAreaName = state
+                    }
+                }
+
+                // Debug information
+                print("Map Center Location details:")
+                print("Zoom Level: \(isZoomedOut ? "Out" : "In")")
+                print("Latitude Delta: \(region.span.latitudeDelta)")
+                print("City: \(placemark.locality ?? "nil")")
+                print("Town: \(placemark.subLocality ?? "nil")")
+                print("State: \(placemark.administrativeArea ?? "nil")")
+            } catch {
+                print("Geocoding error: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func shouldUpdateLocation(_ newLocation: CLLocationCoordinate2D) -> Bool {
+        let timeSinceLastGeocode = Date().timeIntervalSince(lastGeocodeTime)
+        guard timeSinceLastGeocode >= minimumGeocodeInterval else { return false }
+
+        if let lastLocation = lastGeocodeLocation {
+            let distance = abs(newLocation.latitude - lastLocation.latitude) +
+                          abs(newLocation.longitude - lastLocation.longitude)
+            return distance >= minimumDistanceChange
+        }
+
+        return true
+    }
+
+    private func fetchRestaurantDataAndUpdateClusters(for center: CLLocationCoordinate2D) {
+        guard shouldFetchNewData(for: center) && !isLoadingRestaurants else { return }
+        
+        // Update tracking variables immediately to prevent duplicate requests
+        lastDataFetchLocation = center
+        lastDataFetchTime = Date()
+        isLoadingRestaurants = true
+        
+        Task {
+            do {
+                let fetched = try await overpassService.fetchFastFoodRestaurants(near: center)
+                print("Found \(fetched.count) restaurants in the current region")
+                if let firstRestaurant = fetched.first {
+                    print("First restaurant: \(firstRestaurant.name) at \(firstRestaurant.latitude), \(firstRestaurant.longitude)")
+                }
+                
+                await MainActor.run {
+                    restaurants = fetched
+                    isLoadingRestaurants = false
+                    // Always update clusters when new restaurant data arrives
+                    clusterManager.updateClusters(
+                        restaurants: restaurants,
+                        zoomLevel: region.span.latitudeDelta,
+                        span: region.span,
+                        center: region.center,
+                        debounceDelay: 0.3
+                    )
+                    print("Updated clusters with \(clusterManager.clusters.count) clusters")
+                }
+            } catch {
+                await MainActor.run {
+                    isLoadingRestaurants = false
+                }
+                print("Error fetching restaurants: \(error)")
+            }
+        }
+    }
+
+    private func shouldFetchNewData(for newCenter: CLLocationCoordinate2D) -> Bool {
+        let timeSinceLastFetch = Date().timeIntervalSince(lastDataFetchTime)
+        guard timeSinceLastFetch >= minimumDataFetchInterval else { return false }
+        
+        if let lastLocation = lastDataFetchLocation {
+            let distance = abs(newCenter.latitude - lastLocation.latitude) +
+                          abs(newCenter.longitude - lastLocation.longitude)
+            return distance >= minimumDataFetchDistance
+        }
+        
+        return true
     }
 }
 
@@ -484,7 +567,7 @@ struct MapBottomOverlay: View {
     var onListView: () -> Void
     var onFilter: () -> Void
     var onUserLocation: () -> Void
-    
+
     @State private var lastTapTime: Date?
     @State private var tapCount: Int = 0
 
@@ -506,9 +589,9 @@ struct MapBottomOverlay: View {
                 .shadow(color: .black.opacity(0.1), radius: 6, y: 2)
             }
             .buttonStyle(PlainButtonStyle())
-            
+
             Spacer()
-            
+
             // Enhanced Filter button with active state indicator
             Button(action: onFilter) {
                 ZStack {
@@ -519,7 +602,7 @@ struct MapBottomOverlay: View {
                         .background(hasActiveFilters ? .blue : .white)
                         .cornerRadius(22)
                         .shadow(color: .black.opacity(0.1), radius: 6, y: 2)
-                    
+
                     // Active filter indicator
                     if hasActiveFilters {
                         Circle()
@@ -530,7 +613,7 @@ struct MapBottomOverlay: View {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-            
+
             // Enhanced User location button with gradient
             Button(action: onUserLocation) {
                 Image(systemName: "location.fill")
@@ -567,19 +650,19 @@ struct FilterPanel: View {
     @Binding var dietaryRestrictions: Set<DietaryRestriction>
     @Binding var favoriteFoods: Set<String>
     @Binding var maxDistance: Double
-    
+
     @State private var selectedSection: FilterSection? = nil
     @State private var lastShowTime: Date?
     @State private var showClearConfirmation: Bool = false
     @State private var screenWidth: CGFloat = UIScreen.main.bounds.width
-    
+
     enum FilterSection: String, CaseIterable {
         case priorities = "Priorities"
         case dietary = "Dietary Restrictions"
         case favorites = "Favorite Foods"
         case distance = "Maximum Distance"
     }
-    
+
     enum PriceRange: String, CaseIterable {
         case all = "All"
         case budget = "$"
@@ -587,7 +670,7 @@ struct FilterPanel: View {
         case expensive = "$$$"
         case luxury = "$$$$"
     }
-    
+
     enum Priority: String, CaseIterable {
         case proximity = "Proximity"
         case price = "Price"
@@ -595,7 +678,7 @@ struct FilterPanel: View {
         case quality = "Quality"
         case popularity = "Popularity"
     }
-    
+
     enum DietaryRestriction: String, CaseIterable {
         case vegetarian = "Vegetarian"
         case vegan = "Vegan"
@@ -605,17 +688,17 @@ struct FilterPanel: View {
         case halal = "Halal"
         case kosher = "Kosher"
     }
-    
+
     let cuisineTypes = ["Italian", "Asian", "Mexican", "American", "Mediterranean", "Indian", "Japanese", "Thai"]
     let favoriteFoodOptions = ["Pizza", "Sushi", "Burgers", "Pasta", "Tacos", "Curry", "Steak", "Seafood", "Salad", "Sandwiches"]
-    
+
     private func calculateContentHeight() -> CGFloat {
         let baseHeight: CGFloat = 160
         let itemHeight: CGFloat = 76  // Updated to match other sections
         let spacing: CGFloat = 16     // Updated to match other sections
         let padding: CGFloat = 32
         let maxHeight: CGFloat = 600 // Maximum height for the panel
-        
+
         let contentHeight: CGFloat
         switch selectedSection {
         case .priorities:
@@ -629,16 +712,15 @@ struct FilterPanel: View {
         case .none:
             contentHeight = baseHeight + (CGFloat(FilterSection.allCases.count) * 80) + padding
         }
-        
         return min(contentHeight, maxHeight)
     }
-    
+
     private func calculateScrollViewHeight() -> CGFloat {
         let baseHeight: CGFloat = 160
         let maxHeight: CGFloat = 400
         let itemHeight: CGFloat = 76
         let spacing: CGFloat = 16
-        
+
         switch selectedSection {
         case .priorities:
             return min(CGFloat(Priority.allCases.count) * (itemHeight + spacing) + 20, maxHeight)
@@ -652,7 +734,7 @@ struct FilterPanel: View {
             return 300
         }
     }
-    
+
     var body: some View {
         VStack(spacing: 0) {
             // Handle bar
@@ -661,7 +743,7 @@ struct FilterPanel: View {
                 .foregroundColor(Color(.systemGray4))
                 .padding(.top, 12)
                 .padding(.bottom, 16)
-            
+
             // Header
             HStack {
                 Text("Preferences")
@@ -675,10 +757,10 @@ struct FilterPanel: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 16)
-            
+
             Divider()
                 .padding(.horizontal, 20)
-            
+
             if let selectedSection = selectedSection {
                 // Carousel View
                 VStack(spacing: 25) {
@@ -693,16 +775,16 @@ struct FilterPanel: View {
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(.blue)
                         }
-                        
+
                         Text(selectedSection.rawValue)
                             .font(.system(size: 20, weight: .bold))
-                        
+
                         Spacer()
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 8)
                     .padding(.bottom, 4)
-                    
+
                     // Section Content
                     VStack(spacing: 4) {
                         switch selectedSection {
@@ -729,7 +811,7 @@ struct FilterPanel: View {
                             .padding(.horizontal, 16)
                             .padding(.top, -25)
                             .padding(.bottom, 8)
-                            
+
                         case .dietary:
                             FadingScrollView(items: DietaryRestriction.allCases) { restriction, isSelected in
                                 PreferenceToggleButton(
@@ -753,7 +835,7 @@ struct FilterPanel: View {
                             .padding(.horizontal, 16)
                             .padding(.top, -25)
                             .padding(.bottom, 8)
-                            
+
                         case .favorites:
                             FadingScrollView(items: favoriteFoodOptions) { food, isSelected in
                                 PreferenceToggleButton(
@@ -777,7 +859,7 @@ struct FilterPanel: View {
                             .padding(.horizontal, 16)
                             .padding(.top, -25)
                             .padding(.bottom, 8)
-                            
+
                         case .distance:
                             VStack(spacing: 20) {
                                 HStack {
@@ -813,9 +895,9 @@ struct FilterPanel: View {
                                     Text(section.rawValue)
                                         .font(.system(size: 18, weight: .semibold))
                                         .foregroundColor(.primary)
-                                    
+
                                     Spacer()
-                                    
+
                                     // Show selection count or value
                                     switch section {
                                     case .priorities:
@@ -837,7 +919,6 @@ struct FilterPanel: View {
                                         Text("\(Int(maxDistance)) mi")
                                             .foregroundColor(.gray)
                                     }
-                                    
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 14, weight: .semibold))
                                         .foregroundColor(.gray)
@@ -853,9 +934,9 @@ struct FilterPanel: View {
                     .padding(.top, 20)
                 }
             }
-            
+
             Spacer(minLength: 0)
-            
+
             // Apply Button
             Button(action: {
                 withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
@@ -916,7 +997,7 @@ struct FilterPanel: View {
             Text("Are you sure you want to clear all your preferences? This cannot be undone.")
         }
     }
-    
+
     private func updateActiveFilters() {
         hasActiveFilters = !selectedPriorities.isEmpty ||
                           !dietaryRestrictions.isEmpty ||
@@ -933,28 +1014,28 @@ struct PreferenceToggleButton: View {
     let scale: CGFloat
     let opacity: Double
     let isSelectable: Bool
-    
+
     var body: some View {
         Button(action: isSelectable ? action : {}) {
-            HStack(spacing: 20) {  // Increased spacing between icon and text
+            HStack(spacing: 20) {
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 26))  // Increased icon size
+                        .font(.system(size: 26))
                         .foregroundColor(.blue)
                 } else {
                     Image(systemName: "circle")
-                        .font(.system(size: 26))  // Increased icon size
+                        .font(.system(size: 26))
                         .foregroundColor(.gray)
                 }
-                
+
                 Text(title)
-                    .font(.system(size: 17, weight: .medium))  // Slightly larger text
+                    .font(.system(size: 17, weight: .medium))
                     .foregroundColor(.primary)
-                
+
                 Spacer()
             }
-            .padding(.horizontal, 28)  // Increased horizontal padding
-            .padding(.vertical, 18)    // Increased vertical padding
+            .padding(.horizontal, 28)
+            .padding(.vertical, 18)
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color(.systemGray6))
@@ -974,14 +1055,14 @@ struct PreferenceToggleButton: View {
 struct FadingScrollView<Content: View>: View {
     let items: [Any]
     let content: (Any, Bool) -> Content
-    
+
     @State private var scrollOffset: CGFloat = 0
     @State private var viewHeight: CGFloat = 0
-    
+
     private let itemHeight: CGFloat = 60
     private let spacing: CGFloat = 8
     private let fadeHeight: CGFloat = 30
-    
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
@@ -1015,11 +1096,11 @@ struct FadingScrollView<Content: View>: View {
                         endPoint: .bottom
                     )
                     .frame(height: fadeHeight)
-                    
+
                     // Middle solid
                     Rectangle()
                         .fill(Color.black)
-                    
+
                     // Bottom fade
                     LinearGradient(
                         gradient: Gradient(colors: [.black, .clear]),
@@ -1037,11 +1118,11 @@ struct FocusedScrollView<Content: View>: View {
     let content: Content
     @State private var scrollOffset: CGFloat = 0
     @State private var viewHeight: CGFloat = 0
-    
+
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
-    
+
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
