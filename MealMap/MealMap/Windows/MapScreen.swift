@@ -48,9 +48,6 @@ struct MapScreen: View {
     @State private var selectedCuisines: Set<String> = []
     @State private var selectedRating: Double = 0
     @State private var isOpenNow: Bool = false
-    @State private var selectedPriorities: Set<FilterPanel.Priority> = []
-    @State private var dietaryRestrictions: Set<FilterPanel.DietaryRestriction> = []
-    @State private var favoriteFoods: Set<String> = []
     @State private var maxDistance: Double = 5.0 // in miles
 
     private let minimumGeocodeInterval: TimeInterval = 5.0
@@ -353,9 +350,17 @@ struct MapScreen: View {
                                 Image(systemName: "magnifyingglass")
                                     .foregroundColor(.blue)
                                     .font(.system(size: 12))
-                                Text("Showing \(filteredRestaurants.count) results")
-                                    .font(.system(size: 12, weight: .medium))
-                                    .foregroundColor(.blue)
+                                
+                                if maxDistance < 20.0 {
+                                    Text("Showing \(filteredRestaurants.count) results within \(Int(maxDistance)) mi")
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.blue)
+                                } else {
+                                    Text("Showing \(filteredRestaurants.count) results")
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.blue)
+                                }
+                                
                                 Button("Clear") {
                                     clearSearch()
                                 }
@@ -428,13 +433,13 @@ struct MapScreen: View {
                         selectedCuisines: $selectedCuisines,
                         selectedRating: $selectedRating,
                         isOpenNow: $isOpenNow,
-                        selectedPriorities: $selectedPriorities,
-                        dietaryRestrictions: $dietaryRestrictions,
-                        favoriteFoods: $favoriteFoods,
                         maxDistance: $maxDistance
                     )
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                     .zIndex(1)
+                    .onChange(of: maxDistance) { oldValue, newValue in
+                        hasActiveFilters = newValue < 20.0
+                    }
                 }
 
                 // Enhanced Loading State
@@ -631,10 +636,13 @@ struct MapScreen: View {
     private func performSearch() {
         guard !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         
+        let distanceFilter = maxDistance < 20.0 ? maxDistance : nil
+        
         let result = searchManager.search(
             query: searchText,
             in: restaurants,
-            userLocation: locationManager.lastLocation
+            userLocation: locationManager.lastLocation,
+            maxDistance: distanceFilter
         )
         
         handleSearchResult(result)
@@ -813,9 +821,6 @@ struct FilterPanel: View {
     @Binding var selectedCuisines: Set<String>
     @Binding var selectedRating: Double
     @Binding var isOpenNow: Bool
-    @Binding var selectedPriorities: Set<Priority>
-    @Binding var dietaryRestrictions: Set<DietaryRestriction>
-    @Binding var favoriteFoods: Set<String>
     @Binding var maxDistance: Double
 
     @State private var selectedSection: FilterSection? = nil
@@ -824,9 +829,6 @@ struct FilterPanel: View {
     @State private var screenWidth: CGFloat = UIScreen.main.bounds.width
 
     enum FilterSection: String, CaseIterable {
-        case priorities = "Priorities"
-        case dietary = "Dietary Restrictions"
-        case favorites = "Favorite Foods"
         case distance = "Maximum Distance"
     }
 
@@ -838,42 +840,17 @@ struct FilterPanel: View {
         case luxury = "$$$$"
     }
 
-    enum Priority: String, CaseIterable {
-        case proximity = "Proximity"
-        case price = "Price"
-        case variety = "Variety"
-        case quality = "Quality"
-        case popularity = "Popularity"
-    }
-
-    enum DietaryRestriction: String, CaseIterable {
-        case vegetarian = "Vegetarian"
-        case vegan = "Vegan"
-        case glutenFree = "Gluten-Free"
-        case dairyFree = "Dairy-Free"
-        case nutFree = "Nut-Free"
-        case halal = "Halal"
-        case kosher = "Kosher"
-    }
-
     let cuisineTypes = ["Italian", "Asian", "Mexican", "American", "Mediterranean", "Indian", "Japanese", "Thai"]
-    let favoriteFoodOptions = ["Pizza", "Sushi", "Burgers", "Pasta", "Tacos", "Curry", "Steak", "Seafood", "Salad", "Sandwiches"]
 
     private func calculateContentHeight() -> CGFloat {
         let baseHeight: CGFloat = 160
-        let itemHeight: CGFloat = 76  // Updated to match other sections
-        let spacing: CGFloat = 16     // Updated to match other sections
+        let itemHeight: CGFloat = 76  
+        let spacing: CGFloat = 16     
         let padding: CGFloat = 32
-        let maxHeight: CGFloat = 600 // Maximum height for the panel
+        let maxHeight: CGFloat = 600 
 
         let contentHeight: CGFloat
         switch selectedSection {
-        case .priorities:
-            contentHeight = baseHeight + (CGFloat(Priority.allCases.count) * (itemHeight + spacing)) + padding
-        case .dietary:
-            contentHeight = baseHeight + (CGFloat(DietaryRestriction.allCases.count) * (itemHeight + spacing)) + padding
-        case .favorites:
-            contentHeight = baseHeight + (CGFloat(favoriteFoodOptions.count) * (itemHeight + spacing)) + padding
         case .distance:
             contentHeight = baseHeight + 100
         case .none:
@@ -889,12 +866,6 @@ struct FilterPanel: View {
         let spacing: CGFloat = 16
 
         switch selectedSection {
-        case .priorities:
-            return min(CGFloat(Priority.allCases.count) * (itemHeight + spacing) + 20, maxHeight)
-        case .dietary:
-            return min(CGFloat(DietaryRestriction.allCases.count) * (itemHeight + spacing) + 20, maxHeight)
-        case .favorites:
-            return min(CGFloat(favoriteFoodOptions.count) * (itemHeight + spacing) + 20, maxHeight)
         case .distance:
             return 120
         case .none:
@@ -955,78 +926,6 @@ struct FilterPanel: View {
                     // Section Content
                     VStack(spacing: 4) {
                         switch selectedSection {
-                        case .priorities:
-                            FadingScrollView(items: Priority.allCases) { priority, isSelected in
-                                PreferenceToggleButton(
-                                    title: (priority as! Priority).rawValue,
-                                    isSelected: selectedPriorities.contains(priority as! Priority),
-                                    action: {
-                                        if selectedPriorities.contains(priority as! Priority) {
-                                            selectedPriorities.remove(priority as! Priority)
-                                        } else {
-                                            selectedPriorities.insert(priority as! Priority)
-                                        }
-                                        updateActiveFilters()
-                                    },
-                                    scale: 1.0,
-                                    opacity: 1.0,
-                                    isSelectable: true
-                                )
-                                .frame(maxWidth: screenWidth * 0.94)
-                            }
-                            .frame(height: calculateScrollViewHeight())
-                            .padding(.horizontal, 16)
-                            .padding(.top, -25)
-                            .padding(.bottom, 8)
-
-                        case .dietary:
-                            FadingScrollView(items: DietaryRestriction.allCases) { restriction, isSelected in
-                                PreferenceToggleButton(
-                                    title: (restriction as! DietaryRestriction).rawValue,
-                                    isSelected: dietaryRestrictions.contains(restriction as! DietaryRestriction),
-                                    action: {
-                                        if dietaryRestrictions.contains(restriction as! DietaryRestriction) {
-                                            dietaryRestrictions.remove(restriction as! DietaryRestriction)
-                                        } else {
-                                            dietaryRestrictions.insert(restriction as! DietaryRestriction)
-                                        }
-                                        updateActiveFilters()
-                                    },
-                                    scale: 1.0,
-                                    opacity: 1.0,
-                                    isSelectable: true
-                                )
-                                .frame(maxWidth: screenWidth * 0.94)
-                            }
-                            .frame(height: calculateScrollViewHeight())
-                            .padding(.horizontal, 16)
-                            .padding(.top, -25)
-                            .padding(.bottom, 8)
-
-                        case .favorites:
-                            FadingScrollView(items: favoriteFoodOptions) { food, isSelected in
-                                PreferenceToggleButton(
-                                    title: food as! String,
-                                    isSelected: favoriteFoods.contains(food as! String),
-                                    action: {
-                                        if favoriteFoods.contains(food as! String) {
-                                            favoriteFoods.remove(food as! String)
-                                        } else {
-                                            favoriteFoods.insert(food as! String)
-                                        }
-                                        updateActiveFilters()
-                                    },
-                                    scale: 1.0,
-                                    opacity: 1.0,
-                                    isSelectable: true
-                                )
-                                .frame(maxWidth: screenWidth * 0.94)
-                            }
-                            .frame(height: calculateScrollViewHeight())
-                            .padding(.horizontal, 16)
-                            .padding(.top, -25)
-                            .padding(.bottom, 8)
-
                         case .distance:
                             VStack(spacing: 20) {
                                 HStack {
@@ -1067,21 +966,6 @@ struct FilterPanel: View {
 
                                     // Show selection count or value
                                     switch section {
-                                    case .priorities:
-                                        if !selectedPriorities.isEmpty {
-                                            Text("\(selectedPriorities.count) selected")
-                                                .foregroundColor(.gray)
-                                        }
-                                    case .dietary:
-                                        if !dietaryRestrictions.isEmpty {
-                                            Text("\(dietaryRestrictions.count) selected")
-                                                .foregroundColor(.gray)
-                                        }
-                                    case .favorites:
-                                        if !favoriteFoods.isEmpty {
-                                            Text("\(favoriteFoods.count) selected")
-                                                .foregroundColor(.gray)
-                                        }
                                     case .distance:
                                         Text("\(Int(maxDistance)) mi")
                                             .foregroundColor(.gray)
@@ -1091,8 +975,14 @@ struct FilterPanel: View {
                                         .foregroundColor(.gray)
                                 }
                                 .padding()
-                                .background(Color(.systemGray6))
-                                .cornerRadius(12)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color(.systemGray6))
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.clear, lineWidth: 2)
+                                )
                             }
                             .buttonStyle(PlainButtonStyle())
                         }
@@ -1153,9 +1043,6 @@ struct FilterPanel: View {
                     selectedCuisines.removeAll()
                     selectedRating = 0
                     isOpenNow = false
-                    selectedPriorities.removeAll()
-                    dietaryRestrictions.removeAll()
-                    favoriteFoods.removeAll()
                     maxDistance = 5.0
                     hasActiveFilters = false
                 }
@@ -1166,10 +1053,7 @@ struct FilterPanel: View {
     }
 
     private func updateActiveFilters() {
-        hasActiveFilters = !selectedPriorities.isEmpty ||
-                          !dietaryRestrictions.isEmpty ||
-                          !favoriteFoods.isEmpty ||
-                          maxDistance < 20.0
+        hasActiveFilters = maxDistance < 20.0
     }
 }
 
@@ -1201,8 +1085,7 @@ struct PreferenceToggleButton: View {
 
                 Spacer()
             }
-            .padding(.horizontal, 28)
-            .padding(.vertical, 18)
+            .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color(.systemGray6))

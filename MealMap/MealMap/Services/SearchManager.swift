@@ -13,7 +13,8 @@ class SearchManager: ObservableObject {
     func search(
         query: String,
         in restaurants: [Restaurant],
-        userLocation: CLLocation?
+        userLocation: CLLocation?,
+        maxDistance: Double? = nil
     ) -> SearchResult {
         guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
             return .noQuery
@@ -21,18 +22,20 @@ class SearchManager: ObservableObject {
         
         let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         
+        let restaurantsToSearch = applyDistanceFilter(restaurants, userLocation: userLocation, maxDistance: maxDistance)
+        
         // Search by exact name match first
-        let exactNameMatches = restaurants.filter { restaurant in
+        let exactNameMatches = restaurantsToSearch.filter { restaurant in
             restaurant.name.lowercased() == trimmedQuery
         }
         
         // Search by name contains
-        let nameMatches = restaurants.filter { restaurant in
+        let nameMatches = restaurantsToSearch.filter { restaurant in
             restaurant.name.lowercased().contains(trimmedQuery)
         }
         
         // Search by cuisine type
-        let cuisineMatches = restaurants.filter { restaurant in
+        let cuisineMatches = restaurantsToSearch.filter { restaurant in
             restaurant.cuisine?.lowercased().contains(trimmedQuery) == true
         }
         
@@ -116,6 +119,20 @@ class SearchManager: ObservableObject {
             let distance2 = userLocation.distance(from: location2)
             
             return distance1 < distance2
+        }
+    }
+    
+    private func applyDistanceFilter(_ restaurants: [Restaurant], userLocation: CLLocation?, maxDistance: Double?) -> [Restaurant] {
+        guard let userLocation = userLocation, let maxDistance = maxDistance else {
+            return restaurants
+        }
+        
+        let maxDistanceInMeters = maxDistance * 1609.34 // Convert miles to meters
+        
+        return restaurants.filter { restaurant in
+            let restaurantLocation = CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude)
+            let distance = userLocation.distance(from: restaurantLocation)
+            return distance <= maxDistanceInMeters
         }
     }
 }
