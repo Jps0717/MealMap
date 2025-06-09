@@ -10,7 +10,7 @@ struct MapScreen: View {
     @StateObject private var clusterManager = ClusterManager()
     @StateObject private var searchManager = SearchManager()
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), // Default to San Francisco
+        center: CLLocationCoordinate2D(latitude: 0, longitude: 0), 
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @State private var searchText: String = ""
@@ -23,7 +23,7 @@ struct MapScreen: View {
     @State private var hasInitialLocation: Bool = false
     @State private var showListView: Bool = false
     @State private var restaurants: [Restaurant] = []
-    @State private var lastClusterUpdateTime: Date = Date.distantPast // For throttling cluster updates
+    @State private var lastClusterUpdateTime: Date = Date.distantPast 
     @State private var isLoadingRestaurants: Bool = false
     @State private var lastDataFetchLocation: CLLocationCoordinate2D?
     @State private var lastDataFetchTime: Date = Date.distantPast
@@ -48,44 +48,44 @@ struct MapScreen: View {
     @State private var selectedCuisines: Set<String> = []
     @State private var selectedRating: Double = 0
     @State private var isOpenNow: Bool = false
-    @State private var maxDistance: Double = 5.0 // in miles
+    @State private var maxDistance: Double = 5.0 
 
-    @State private var restaurantCache: [String: [Restaurant]] = [:] // Cache by area
+    @State private var restaurantCache: [String: [Restaurant]] = [:] 
     @State private var lastSuccessfulFetch: CLLocationCoordinate2D?
     @State private var pendingFetchTask: Task<Void, Never>?
 
     private let minimumGeocodeInterval: TimeInterval = 5.0
     private let minimumDistanceChange: CLLocationDegrees = 0.01
-    private let zoomedOutThreshold: CLLocationDegrees = 0.5 // Threshold for showing state vs city
-    private let pinVisibilityThreshold: CLLocationDegrees = 0.1 // Threshold for showing individual pins
-    private let clusterVisibilityThreshold: CLLocationDegrees = 0.15 // Threshold for showing clusters
+    private let zoomedOutThreshold: CLLocationDegrees = 0.5 
+    private let pinVisibilityThreshold: CLLocationDegrees = 0.1 
+    private let clusterVisibilityThreshold: CLLocationDegrees = 0.15 
 
-    private let minimumDataFetchInterval: TimeInterval = 3.0 // Increased from 2.0
-    private let minimumDataFetchDistance: CLLocationDegrees = 0.08 // Increased from 0.05
-    private let clusterUpdateThrottle: TimeInterval = 0.8 // Increased from 0.5
+    private let minimumDataFetchInterval: TimeInterval = 3.0 
+    private let minimumDataFetchDistance: CLLocationDegrees = 0.08 
+    private let clusterUpdateThrottle: TimeInterval = 0.8 
 
-    // Existing code...
+    private var hasValidLocation: Bool {
+        return locationManager.lastLocation != nil && 
+               (locationManager.authorizationStatus == .authorizedWhenInUse ||
+                locationManager.authorizationStatus == .authorizedAlways)
+    }
 
     private var shouldShowClusters: Bool {
-        region.span.latitudeDelta > 0.02 && !showSearchResults // Don't show clusters during search
+        region.span.latitudeDelta > 0.02 && !showSearchResults 
     }
 
     private var mapItems: [MapItem] {
-        // Use filtered restaurants if there's an active search, otherwise use all restaurants
         let restaurantsToShow = showSearchResults ? filteredRestaurants : restaurants
         
         if showSearchResults {
-            // When searching, always show individual pins regardless of zoom level
             return getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) }
         }
         
-        // Hide all annotations if zoomed out too far (only when not searching)
         if region.span.latitudeDelta > clusterVisibilityThreshold {
             return []
         }
         
         if shouldShowClusters {
-            // Only show clusters when not searching
             return clusterManager.clusters.map { .cluster($0) }
         } else {
             return getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) }
@@ -93,15 +93,13 @@ struct MapScreen: View {
     }
     
     private func getFilteredRestaurantsForDisplay(from restaurantList: [Restaurant]) -> [Restaurant] {
-        let maxRestaurants = showSearchResults ? 75 : 30 // Reduced from 100:50
+        let maxRestaurants = showSearchResults ? 75 : 30 
         let center = region.center
         let isZoomedIn = region.span.latitudeDelta <= pinVisibilityThreshold
         let isZoomedOutTooFar = region.span.latitudeDelta > clusterVisibilityThreshold && !showSearchResults
         
-        // If zoomed out too far, return empty array to hide everything (except during search)
         guard !isZoomedOutTooFar else { return [] }
         
-        // If zoomed in enough or searching, show individual pins
         if isZoomedIn || showSearchResults {
             return restaurantList.sorted { r1, r2 in
                 let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
@@ -110,70 +108,38 @@ struct MapScreen: View {
             }.prefix(maxRestaurants).map { $0 }
         }
         
-        // Otherwise, show all restaurants for clustering
         return restaurantList
     }
 
     var body: some View {
         ZStack {
             if let locationError = locationManager.locationError {
-                VStack(spacing: 20) {
-                    Spacer()
-                    Image(systemName: "location.slash")
-                        .font(.system(size: 60))
-                        .foregroundColor(.gray)
-                    Text(locationError)
-                        .font(.title2)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.gray)
-                        .padding(.horizontal)
-                    Button(action: { locationManager.restart() }) {
-                        Text("Try Again")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 12)
-                            .background(
-                                LinearGradient(
-                                    colors: [.blue, .blue.opacity(0.8)],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .cornerRadius(24)
-                            .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
+                NoLocationView(
+                    title: "Location Access Required",
+                    subtitle: locationError,
+                    buttonText: "Enable Location",
+                    onRetry: {
+                        locationManager.requestLocationPermission()
                     }
-                    Spacer()
-                }
-                .background(Color(.systemBackground).ignoresSafeArea())
+                )
+            } else if !hasValidLocation {
+                NoLocationView(
+                    title: "No Location Found",
+                    subtitle: "MealMap needs your location to find restaurants near you. Please allow location access in Settings.",
+                    buttonText: "Request Location",
+                    onRetry: {
+                        locationManager.requestLocationPermission()
+                    }
+                )
             } else if !networkMonitor.isConnected {
-                VStack(spacing: 20) {
-                    Spacer()
-                    Image(systemName: "wifi.slash")
-                        .font(.system(size: 60))
-                        .foregroundColor(.gray)
-                    Text("No Network Connection")
-                        .font(.title2)
-                        .foregroundColor(.gray)
-                    Button(action: { locationManager.restart() }) {
-                        Text("Try Again")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 12)
-                            .background(
-                                LinearGradient(
-                                    colors: [.blue, .blue.opacity(0.8)],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .cornerRadius(24)
-                            .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
+                NoLocationView(
+                    title: "No Network Connection",
+                    subtitle: "Please check your internet connection and try again.",
+                    buttonText: "Try Again",
+                    onRetry: {
+                        locationManager.restart()
                     }
-                    Spacer()
-                }
-                .background(Color(.systemBackground).ignoresSafeArea())
+                )
             } else {
                 ZStack(alignment: .top) {
                     Map(coordinateRegion: Binding(
@@ -182,34 +148,29 @@ struct MapScreen: View {
                             let oldRegion = region
                             region = newRegion
                             
-                            // More aggressive throttling for area name updates
                             let regionChange = abs(oldRegion.center.latitude - newRegion.center.latitude) +
                                              abs(oldRegion.center.longitude - newRegion.center.longitude)
-                            if regionChange > 0.02 { // Increased from 0.01
+                            if regionChange > 0.02 { 
                                 updateAreaName(for: newRegion.center)
                             }
 
-                            // More efficient cluster and data updates with better debouncing
                             let now = Date()
                             let zoomChange = abs(oldRegion.span.latitudeDelta - newRegion.span.latitudeDelta)
                             
-                            // Only update clusters if zoom changed significantly or enough time has passed
                             if !showSearchResults && (zoomChange > 0.005 || now.timeIntervalSince(lastClusterUpdateTime) > clusterUpdateThrottle) {
-                                // Debounce cluster updates more aggressively
                                 Task { @MainActor in
-                                    try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 second delay
+                                    try? await Task.sleep(nanoseconds: 200_000_000) 
                                     clusterManager.updateClusters(
                                         restaurants: restaurants,
                                         zoomLevel: newRegion.span.latitudeDelta,
                                         span: newRegion.span,
                                         center: newRegion.center,
-                                        debounceDelay: zoomChange > 0.01 ? 0.05 : 0.5 // Faster for big changes
+                                        debounceDelay: zoomChange > 0.01 ? 0.05 : 0.5 
                                     )
                                     lastClusterUpdateTime = Date()
                                 }
                             }
 
-                            // Debounce restaurant data fetching
                             debouncedFetchRestaurantData(for: newRegion.center)
                         }
                     ), showsUserLocation: true, annotationItems: mapItems) { item in
@@ -257,7 +218,6 @@ struct MapScreen: View {
                     .animation(.spring(response: 0.6, dampingFraction: 0.8), value: clusterManager.clusters.count)
                     .animation(.spring(response: 0.4, dampingFraction: 0.9), value: clusterManager.transitionState)
 
-                    // --- TOP OVERLAYS: Search bar & City tag ---
                     VStack(alignment: .center, spacing: 8) {
                         HStack(spacing: 12) {
                             Image(systemName: "magnifyingglass")
@@ -275,7 +235,6 @@ struct MapScreen: View {
                                         lightFeedback.impactOccurred()
                                     }
                                     
-                                    // Clear search results when text is cleared
                                     if newValue.isEmpty {
                                         clearSearch()
                                     }
@@ -318,7 +277,6 @@ struct MapScreen: View {
                         .padding(.horizontal, 16)
                         .padding(.top, 8)
 
-                        // Enhanced City tag - centered and interactive
                         HStack(spacing: 4) {
                             Text(currentAreaName.uppercased())
                                 .font(.system(size: 12, weight: .bold))
@@ -367,11 +325,11 @@ struct MapScreen: View {
                     }
                     .ignoresSafeArea(.keyboard)
 
-                    // --- BOTTOM OVERLAY: Enhanced List, Filter, User Location ---
                     VStack {
                         Spacer()
                         MapBottomOverlay(
                             hasActiveFilters: hasActiveFilters,
+                            restaurantCount: showSearchResults ? filteredRestaurants.count : restaurants.count,
                             onListView: {
                                 mediumFeedback.impactOccurred()
                                 showListView = true
@@ -383,7 +341,6 @@ struct MapScreen: View {
                                 }
                             },
                             onUserLocation: {
-                                // Animate map to user location with haptic feedback
                                 heavyFeedback.impactOccurred()
 
                                 if let loc = locationManager.lastLocation {
@@ -403,7 +360,6 @@ struct MapScreen: View {
                     .padding(.bottom, 12)
                 }
 
-                // --- ENHANCED FILTER PANEL (sheet style) ---
                 if showFilterPanel {
                     Color.black.opacity(0.001)
                         .ignoresSafeArea()
@@ -429,7 +385,6 @@ struct MapScreen: View {
                     }
                 }
 
-                // Enhanced Loading State
                 if isLoading {
                     ZStack {
                         Color.black.opacity(0.2)
@@ -473,22 +428,56 @@ struct MapScreen: View {
                     }
                 }
 
-                // Restaurant detail overlay
                 if showingRestaurantDetail, let restaurant = selectedRestaurant {
                     RestaurantDetailView(
                         restaurant: restaurant,
                         isPresented: $showingRestaurantDetail
                     )
-                    .zIndex(100) // Ensure it appears above everything
+                    .zIndex(100) 
                     .onDisappear {
                         selectedRestaurant = nil
                     }
                 }
             }
         }
-        .preferredColorScheme(.light)  // Force light theme
+        .preferredColorScheme(.light)  
+        .onAppear {
+            locationManager.requestLocationPermission()
+        }
+        .onChange(of: locationManager.lastLocation) { oldLocation, newLocation in
+            if let location = newLocation, !hasInitialLocation {
+                hasInitialLocation = true
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    region = MKCoordinateRegion(
+                        center: location.coordinate,
+                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                    )
+                }
+                updateAreaName(for: location.coordinate)
+                fetchRestaurantDataAndUpdateClusters(for: location.coordinate)
+            }
+        }
         .sheet(isPresented: $showListView) {
-            ListView()
+            ListView(
+                restaurants: showSearchResults ? filteredRestaurants : restaurants,
+                userLocation: locationManager.lastLocation,
+                searchManager: searchManager,
+                onRestaurantSelected: { restaurant in
+                    selectedRestaurant = restaurant
+                    
+                    let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+                    withAnimation(.easeInOut(duration: 1.0)) {
+                        region = MKCoordinateRegion(
+                            center: coordinate,
+                            span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+                        )
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showingRestaurantDetail = true
+                    }
+                }
+            )
         }
         .onDisappear {
             clusterManager.clearCache()
@@ -519,22 +508,18 @@ struct MapScreen: View {
                     return
                 }
 
-                // Update our tracking variables
                 lastGeocodeTime = Date()
                 lastGeocodeLocation = coordinate
 
-                // Check if we're zoomed out
                 let isZoomedOut = region.span.latitudeDelta > zoomedOutThreshold
 
                 if isZoomedOut {
-                    // When zoomed out, show state
                     if let state = placemark.administrativeArea {
                         currentAreaName = state
                     } else if let country = placemark.country {
                         currentAreaName = country
                     }
                 } else {
-                    // When zoomed in, show city/town
                     if let city = placemark.locality {
                         currentAreaName = city
                     } else if let town = placemark.subLocality {
@@ -544,7 +529,6 @@ struct MapScreen: View {
                     }
                 }
 
-                // Debug information
                 print("Map Center Location details:")
                 print("Zoom Level: \(isZoomedOut ? "Out" : "In")")
                 print("Latitude Delta: \(region.span.latitudeDelta)")
@@ -571,12 +555,10 @@ struct MapScreen: View {
     }
 
     private func debouncedFetchRestaurantData(for center: CLLocationCoordinate2D) {
-        // Cancel any pending fetch
         pendingFetchTask?.cancel()
         
-        // Schedule new fetch with delay
         pendingFetchTask = Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 second delay
+            try? await Task.sleep(nanoseconds: 500_000_000) 
             
             guard !Task.isCancelled else { return }
             fetchRestaurantDataAndUpdateClusters(for: center)
@@ -586,7 +568,6 @@ struct MapScreen: View {
     private func fetchRestaurantDataAndUpdateClusters(for center: CLLocationCoordinate2D) {
         guard shouldFetchNewData(for: center) && !isLoadingRestaurants else { return }
         
-        // Check cache first
         let cacheKey = "\(Int(center.latitude * 100))-\(Int(center.longitude * 100))"
         if let cachedData = restaurantCache[cacheKey], !cachedData.isEmpty {
             print("Using cached restaurant data for \(cacheKey)")
@@ -595,7 +576,6 @@ struct MapScreen: View {
             return
         }
         
-        // Update tracking variables immediately to prevent duplicate requests
         lastDataFetchLocation = center
         lastDataFetchTime = Date()
         isLoadingRestaurants = true
@@ -606,10 +586,8 @@ struct MapScreen: View {
                 print("Found \(fetched.count) restaurants in the current region")
                 
                 await MainActor.run {
-                    // Cache the results
                     restaurantCache[cacheKey] = fetched
                     
-                    // Limit cache size to prevent memory issues
                     if restaurantCache.count > 20 {
                         let oldestKey = restaurantCache.keys.first
                         if let key = oldestKey {
@@ -692,23 +670,19 @@ struct MapScreen: View {
             showSearchError = true
             
         case .singleResult(let restaurant):
-            // Pan and zoom to the single restaurant
             zoomToRestaurant(restaurant)
             filteredRestaurants = [restaurant]
             showSearchResults = true
             
         case .chainResult(let restaurant, let totalCount):
-            // Pan to closest location of the chain
             zoomToRestaurant(restaurant)
             filteredRestaurants = [restaurant]
             showSearchResults = true
             
         case .cuisineResults(let restaurants, let cuisine):
-            // Zoom out and show all matching restaurants
             showCuisineResults(restaurants, cuisine: cuisine)
             
         case .partialNameResult(let restaurant, let matches):
-            // Pan to closest match
             zoomToRestaurant(restaurant)
             filteredRestaurants = [restaurant]
             showSearchResults = true
@@ -720,7 +694,7 @@ struct MapScreen: View {
         withAnimation(.easeInOut(duration: 1.0)) {
             region = MKCoordinateRegion(
                 center: coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005) // Zoom in close
+                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005) 
             )
         }
     }
@@ -729,7 +703,6 @@ struct MapScreen: View {
         filteredRestaurants = restaurants
         showSearchResults = true
         
-        // Calculate region to show all results
         if let bounds = calculateBounds(for: restaurants) {
             withAnimation(.easeInOut(duration: 1.0)) {
                 region = bounds
@@ -752,7 +725,7 @@ struct MapScreen: View {
         let centerLat = (minLat + maxLat) / 2
         let centerLon = (minLon + maxLon) / 2
         
-        let spanLat = max((maxLat - minLat) * 1.2, 0.01) // Add 20% padding
+        let spanLat = max((maxLat - minLat) * 1.2, 0.01) 
         let spanLon = max((maxLon - minLon) * 1.2, 0.01)
         
         return MKCoordinateRegion(
@@ -795,6 +768,7 @@ struct MapScreen: View {
 
 struct MapBottomOverlay: View {
     let hasActiveFilters: Bool
+    let restaurantCount: Int
     var onListView: () -> Void
     var onFilter: () -> Void
     var onUserLocation: () -> Void
@@ -804,13 +778,19 @@ struct MapBottomOverlay: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            // Enhanced LIST VIEW button with icon
             Button(action: onListView) {
                 HStack(spacing: 6) {
                     Image(systemName: "list.bullet")
                         .font(.system(size: 14, weight: .semibold))
-                    Text("LIST VIEW")
-                        .font(.system(size: 14, weight: .bold))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("LIST VIEW")
+                            .font(.system(size: 14, weight: .bold))
+                        if restaurantCount > 0 {
+                            Text("\(restaurantCount) restaurants")
+                                .font(.system(size: 10, weight: .medium))
+                                .opacity(0.8)
+                        }
+                    }
                 }
                 .foregroundColor(.blue)
                 .padding(.horizontal, 20)
@@ -823,7 +803,6 @@ struct MapBottomOverlay: View {
 
             Spacer()
 
-            // Enhanced Filter button with active state indicator
             Button(action: onFilter) {
                 ZStack {
                     Image(systemName: "slider.horizontal.3")
@@ -834,7 +813,6 @@ struct MapBottomOverlay: View {
                         .cornerRadius(22)
                         .shadow(color: .black.opacity(0.1), radius: 6, y: 2)
 
-                    // Active filter indicator
                     if hasActiveFilters {
                         Circle()
                             .fill(.red)
@@ -845,7 +823,6 @@ struct MapBottomOverlay: View {
             }
             .buttonStyle(PlainButtonStyle())
 
-            // Enhanced User location button with gradient
             Button(action: onUserLocation) {
                 Image(systemName: "location.fill")
                     .font(.system(size: 18, weight: .medium))
@@ -931,14 +908,12 @@ struct FilterPanel: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Handle bar
             Capsule()
                 .frame(width: 40, height: 5)
                 .foregroundColor(Color(.systemGray4))
                 .padding(.top, 12)
                 .padding(.bottom, 16)
 
-            // Header
             HStack {
                 Text("Preferences")
                     .font(.system(size: 24, weight: .bold))
@@ -956,9 +931,7 @@ struct FilterPanel: View {
                 .padding(.horizontal, 20)
 
             if let selectedSection = selectedSection {
-                // Carousel View
                 VStack(spacing: 25) {
-                    // Section Header
                     HStack {
                         Button(action: {
                             withAnimation {
@@ -979,7 +952,6 @@ struct FilterPanel: View {
                     .padding(.top, 8)
                     .padding(.bottom, 4)
 
-                    // Section Content
                     VStack(spacing: 4) {
                         switch selectedSection {
                         case .distance:
@@ -1004,7 +976,6 @@ struct FilterPanel: View {
                     .padding(.vertical, 4)
                 }
             } else {
-                // Main Menu
                 ScrollView {
                     VStack(spacing: 20) {
                         ForEach(FilterSection.allCases, id: \.self) { section in
@@ -1020,7 +991,6 @@ struct FilterPanel: View {
 
                                     Spacer()
 
-                                    // Show selection count or value
                                     switch section {
                                     case .distance:
                                         Text("\(Int(maxDistance)) mi")
@@ -1050,7 +1020,6 @@ struct FilterPanel: View {
 
             Spacer(minLength: 0)
 
-            // Apply Button
             Button(action: {
                 withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
                     show = false
@@ -1085,7 +1054,7 @@ struct FilterPanel: View {
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .ignoresSafeArea(.keyboard)
-        .onTapGesture { } // absorb tap
+        .onTapGesture { } 
         .onChange(of: show) { oldValue, newValue in
             if newValue {
                 lastShowTime = Date()
@@ -1195,7 +1164,6 @@ struct FadingScrollView<Content: View>: View {
             }
             .mask(
                 VStack(spacing: 0) {
-                    // Top fade
                     LinearGradient(
                         gradient: Gradient(colors: [.clear, .black]),
                         startPoint: .top,
@@ -1203,11 +1171,9 @@ struct FadingScrollView<Content: View>: View {
                     )
                     .frame(height: fadeHeight)
 
-                    // Middle solid
                     Rectangle()
                         .fill(Color.black)
 
-                    // Bottom fade
                     LinearGradient(
                         gradient: Gradient(colors: [.black, .clear]),
                         startPoint: .top,
@@ -1278,5 +1244,49 @@ enum MapItem: Identifiable {
         case .cluster(let c): return c.coordinate
         case .restaurant(let r): return CLLocationCoordinate2D(latitude: r.latitude, longitude: r.longitude)
         }
+    }
+}
+
+struct NoLocationView: View {
+    let title: String
+    let subtitle: String
+    let buttonText: String
+    let onRetry: () -> Void
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            Image(systemName: "location.slash")
+                .font(.system(size: 60))
+                .foregroundColor(.gray)
+            Text(title)
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.gray)
+                .padding(.horizontal)
+            Text(subtitle)
+                .font(.title2)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.gray)
+                .padding(.horizontal)
+            Button(action: onRetry) {
+                Text(buttonText)
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 12)
+                    .background(
+                        LinearGradient(
+                            colors: [.blue, .blue.opacity(0.8)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .cornerRadius(24)
+                    .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
+            }
+            Spacer()
+        }
+        .background(Color(.systemBackground).ignoresSafeArea())
     }
 }
