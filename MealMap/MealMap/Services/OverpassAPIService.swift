@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 
 /// Model representing a restaurant fetched from the Overpass API.
-struct Restaurant: Identifiable, Equatable {
+struct Restaurant: Identifiable, Equatable, Hashable {
     let id: Int
     let name: String
     let latitude: Double
@@ -13,6 +13,13 @@ struct Restaurant: Identifiable, Equatable {
     let phone: String?
     let website: String?
     let type: String
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
+        hasher.combine(latitude)
+        hasher.combine(longitude)
+    }
 }
 
 /// Service responsible for fetching restaurants using the Overpass API.
@@ -180,4 +187,4 @@ extension OverpassAPIService {
             print("Error fetching restaurants: \(error)")
         }
     }
-} 
+}

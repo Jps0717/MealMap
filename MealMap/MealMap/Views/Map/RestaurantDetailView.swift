@@ -6,13 +6,13 @@ struct RestaurantDetailView: View {
     let restaurant: Restaurant
     @Binding var isPresented: Bool
     @State private var animateIn = false
-    @State private var selectedTab: DetailTab = .info
+    @State private var selectedTab: DetailTab = .nutrition
     @State private var hasNutritionData: Bool = false
     
     enum DetailTab: String, CaseIterable {
         case info = "Info"
-        case directions = "Directions"
         case nutrition = "Nutrition"
+        case directions = "Directions"
         
         var icon: String {
             switch self {
@@ -112,16 +112,16 @@ struct RestaurantDetailView: View {
                         alignment: .bottom
                     )
                     
-                    // Tab content
+                    // Tab content - CHANGE: Keep switch cases matching the new tab order
                     ScrollView {
                         VStack(spacing: adaptiveSpacing(base: 20, geometry: geometry)) {
                             switch selectedTab {
                             case .info:
                                 RestaurantInfoView(restaurant: restaurant, geometry: geometry)
-                            case .directions:
-                                RestaurantDirectionsView(restaurant: restaurant, geometry: geometry)
                             case .nutrition:
                                 RestaurantNutritionView(restaurant: restaurant, hasData: hasNutritionData, geometry: geometry)
+                            case .directions:
+                                RestaurantDirectionsView(restaurant: restaurant, geometry: geometry)
                             }
                         }
                         .padding(adaptivePadding(base: 20, geometry: geometry))

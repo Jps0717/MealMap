@@ -8,6 +8,7 @@ struct MapScreen: View {
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var networkMonitor = NetworkMonitor.shared
     @StateObject private var clusterManager = ClusterManager()
+    @StateObject private var searchManager = SearchManager()
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), // Default to San Francisco
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
@@ -28,6 +29,10 @@ struct MapScreen: View {
     @State private var lastDataFetchTime: Date = Date.distantPast
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
+    @State private var filteredRestaurants: [Restaurant] = []
+    @State private var showSearchResults = false
+    @State private var searchErrorMessage: String?
+    @State private var showSearchError = false
 
     // Overpass API Service
     private let overpassService = OverpassAPIService()
@@ -70,7 +75,7 @@ struct MapScreen: View {
         "El Pollo Loco", "Famous Dave's", "Firehouse Subs", "Five Guys", "Friendly's",
         "Frisch's Big Boy", "Golden Corral", "Hardee's", "Hooters", "IHOP",
         "In-N-Out Burger", "Jack in the Box", "Jamba Juice", "Jason's Deli",
-        "Jersey Mike's Subs", "Joe's Crab Shack", "KFC", "Krispy Kreme", "Krystal",
+        "Jersey Mike's Subs", "Joe's Crab Shack", "KFC", "Krispy Klement", "Krystal",
         "Little Caesars", "Long John Silver's", "LongHorn Steakhouse", "Marco's Pizza",
         "McAlister's Deli", "McDonald's", "Moe's Southwest Grill", "Noodles & Company",
         "O'Charley's", "Olive Garden", "Outback Steakhouse", "PF Chang's", "Panda Express",
@@ -82,43 +87,52 @@ struct MapScreen: View {
         "White Castle", "Wingstop", "Yard House", "Zaxby's"
     ]
 
-    // Computed property to limit the number of restaurants plotted
-    private var filteredRestaurants: [Restaurant] {
-        let maxRestaurants = 50
+    private var shouldShowClusters: Bool {
+        region.span.latitudeDelta > 0.02 && !showSearchResults // Don't show clusters during search
+    }
+
+    private var mapItems: [MapItem] {
+        // Use filtered restaurants if there's an active search, otherwise use all restaurants
+        let restaurantsToShow = showSearchResults ? filteredRestaurants : restaurants
+        
+        if showSearchResults {
+            // When searching, always show individual pins regardless of zoom level
+            return getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) }
+        }
+        
+        // Hide all annotations if zoomed out too far (only when not searching)
+        if region.span.latitudeDelta > clusterVisibilityThreshold {
+            return []
+        }
+        
+        if shouldShowClusters {
+            // Only show clusters when not searching
+            return clusterManager.clusters.map { .cluster($0) }
+        } else {
+            return getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) }
+        }
+    }
+    
+    private func getFilteredRestaurantsForDisplay(from restaurantList: [Restaurant]) -> [Restaurant] {
+        let maxRestaurants = showSearchResults ? 100 : 50 // Show more results when searching
         let center = region.center
         let isZoomedIn = region.span.latitudeDelta <= pinVisibilityThreshold
-        let isZoomedOutTooFar = region.span.latitudeDelta > clusterVisibilityThreshold
-
-        // If zoomed out too far, return empty array to hide everything
+        let isZoomedOutTooFar = region.span.latitudeDelta > clusterVisibilityThreshold && !showSearchResults
+        
+        // If zoomed out too far, return empty array to hide everything (except during search)
         guard !isZoomedOutTooFar else { return [] }
-
-        // If zoomed in enough, show individual pins
-        if isZoomedIn {
-            return restaurants.sorted { r1, r2 in
+        
+        // If zoomed in enough or searching, show individual pins
+        if isZoomedIn || showSearchResults {
+            return restaurantList.sorted { r1, r2 in
                 let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
                 let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
                 return d1 < d2
             }.prefix(maxRestaurants).map { $0 }
         }
-
+        
         // Otherwise, show all restaurants for clustering
-        return restaurants
-    }
-
-    private var shouldShowClusters: Bool {
-        region.span.latitudeDelta > 0.02 // Show clusters when zoomed out
-    }
-
-    private var mapItems: [MapItem] {
-        // Hide all annotations if zoomed out too far
-        if region.span.latitudeDelta > clusterVisibilityThreshold {
-            return []
-        }
-        if shouldShowClusters {
-            return clusterManager.clusters.map { .cluster($0) }
-        } else {
-            return filteredRestaurants.map { .restaurant($0) }
-        }
+        return restaurantList
     }
 
     var body: some View {
@@ -200,8 +214,8 @@ struct MapScreen: View {
                             let now = Date()
                             let zoomChange = abs(oldRegion.span.latitudeDelta - newRegion.span.latitudeDelta)
                             
-                            // Only update clusters if zoom changed significantly or enough time has passed
-                            if zoomChange > 0.001 || now.timeIntervalSince(lastClusterUpdateTime) > clusterUpdateThrottle {
+                            // Only update clusters if zoom changed significantly or enough time has passed and not searching
+                            if !showSearchResults && (zoomChange > 0.001 || now.timeIntervalSince(lastClusterUpdateTime) > clusterUpdateThrottle) {
                                 clusterManager.updateClusters(
                                     restaurants: restaurants,
                                     zoomLevel: newRegion.span.latitudeDelta,
@@ -261,7 +275,6 @@ struct MapScreen: View {
 
                     // --- TOP OVERLAYS: Search bar & City tag ---
                     VStack(alignment: .center, spacing: 8) {
-                        // Enhanced Search bar
                         HStack(spacing: 12) {
                             Image(systemName: "magnifyingglass")
                                 .foregroundColor(.gray)
@@ -270,16 +283,24 @@ struct MapScreen: View {
                             TextField("Search restaurants, cuisines...", text: $searchText)
                                 .font(.system(size: 16))
                                 .disableAutocorrection(true)
+                                .onSubmit {
+                                    performSearch()
+                                }
                                 .onChange(of: searchText) { oldValue, newValue in
                                     if !newValue.isEmpty && oldValue.isEmpty {
                                         lightFeedback.impactOccurred()
+                                    }
+                                    
+                                    // Clear search results when text is cleared
+                                    if newValue.isEmpty {
+                                        clearSearch()
                                     }
                                 }
 
                             if !searchText.isEmpty {
                                 Button(action: {
                                     withAnimation(.easeInOut(duration: 0.2)) {
-                                        searchText = ""
+                                        clearSearch()
                                         lightFeedback.impactOccurred()
                                     }
                                 }) {
@@ -290,10 +311,10 @@ struct MapScreen: View {
                             }
 
                             Button(action: {
-                                // TODO: Implement random search functionality
+                                performSearch()
                                 mediumFeedback.impactOccurred()
                             }) {
-                                Image(systemName: "dice.fill")
+                                Image(systemName: "magnifyingglass")
                                     .foregroundColor(.blue)
                                     .font(.system(size: 16, weight: .medium))
                                     .frame(width: 32, height: 32)
@@ -326,6 +347,29 @@ struct MapScreen: View {
                                 .fill(.white)
                                 .shadow(color: .black.opacity(0.08), radius: 4, y: 1)
                         )
+                        
+                        if showSearchResults {
+                            HStack(spacing: 8) {
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.blue)
+                                    .font(.system(size: 12))
+                                Text("Showing \(filteredRestaurants.count) results")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.blue)
+                                Button("Clear") {
+                                    clearSearch()
+                                }
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.red)
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(
+                                Capsule()
+                                    .fill(.white)
+                                    .shadow(color: .black.opacity(0.08), radius: 4, y: 1)
+                            )
+                        }
 
                         Spacer()
                     }
@@ -461,8 +505,13 @@ struct MapScreen: View {
         .onDisappear {
             clusterManager.clearCache()
         }
+        .alert("Search Results", isPresented: $showSearchError) {
+            Button("OK") { }
+        } message: {
+            Text(searchErrorMessage ?? "")
+        }
     }
-
+    
     private func updateAreaName(for coordinate: CLLocationCoordinate2D) {
         guard shouldUpdateLocation(coordinate) else { return }
 
@@ -577,6 +626,104 @@ struct MapScreen: View {
         }
         
         return true
+    }
+    
+    private func performSearch() {
+        guard !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        
+        let result = searchManager.search(
+            query: searchText,
+            in: restaurants,
+            userLocation: locationManager.lastLocation
+        )
+        
+        handleSearchResult(result)
+    }
+    
+    private func handleSearchResult(_ result: SearchResult) {
+        switch result {
+        case .noQuery:
+            break
+            
+        case .noResults(let query):
+            searchErrorMessage = "No restaurants found for '\(query)'. Try searching for a restaurant name or cuisine type."
+            showSearchError = true
+            
+        case .singleResult(let restaurant):
+            // Pan and zoom to the single restaurant
+            zoomToRestaurant(restaurant)
+            filteredRestaurants = [restaurant]
+            showSearchResults = true
+            
+        case .chainResult(let restaurant, let totalCount):
+            // Pan to closest location of the chain
+            zoomToRestaurant(restaurant)
+            filteredRestaurants = [restaurant]
+            showSearchResults = true
+            
+        case .cuisineResults(let restaurants, let cuisine):
+            // Zoom out and show all matching restaurants
+            showCuisineResults(restaurants, cuisine: cuisine)
+            
+        case .partialNameResult(let restaurant, let matches):
+            // Pan to closest match
+            zoomToRestaurant(restaurant)
+            filteredRestaurants = [restaurant]
+            showSearchResults = true
+        }
+    }
+    
+    private func zoomToRestaurant(_ restaurant: Restaurant) {
+        let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+        withAnimation(.easeInOut(duration: 1.0)) {
+            region = MKCoordinateRegion(
+                center: coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005) // Zoom in close
+            )
+        }
+    }
+    
+    private func showCuisineResults(_ restaurants: [Restaurant], cuisine: String) {
+        filteredRestaurants = restaurants
+        showSearchResults = true
+        
+        // Calculate region to show all results
+        if let bounds = calculateBounds(for: restaurants) {
+            withAnimation(.easeInOut(duration: 1.0)) {
+                region = bounds
+            }
+        }
+        
+    }
+    
+    private func calculateBounds(for restaurants: [Restaurant]) -> MKCoordinateRegion? {
+        guard !restaurants.isEmpty else { return nil }
+        
+        let latitudes = restaurants.map { $0.latitude }
+        let longitudes = restaurants.map { $0.longitude }
+        
+        let minLat = latitudes.min()!
+        let maxLat = latitudes.max()!
+        let minLon = longitudes.min()!
+        let maxLon = longitudes.max()!
+        
+        let centerLat = (minLat + maxLat) / 2
+        let centerLon = (minLon + maxLon) / 2
+        
+        let spanLat = max((maxLat - minLat) * 1.2, 0.01) // Add 20% padding
+        let spanLon = max((maxLon - minLon) * 1.2, 0.01)
+        
+        return MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon),
+            span: MKCoordinateSpan(latitudeDelta: spanLat, longitudeDelta: spanLon)
+        )
+    }
+    
+    private func clearSearch() {
+        searchText = ""
+        filteredRestaurants = []
+        showSearchResults = false
+        searchManager.hasActiveSearch = false
     }
 }
 
