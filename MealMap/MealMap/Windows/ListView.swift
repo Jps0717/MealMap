@@ -40,16 +40,14 @@ struct ListView: View {
     
     enum SortOption: String, CaseIterable {
         case distance = "Distance"
-        case name = "Name"
-        case cuisine = "Cuisine"
         case nutritionAvailable = "Nutrition Data"
+        case cuisine = "Cuisine"
         
         var systemImage: String {
             switch self {
             case .distance: return "location.fill"
-            case .name: return "textformat.abc"
-            case .cuisine: return "fork.knife"
             case .nutritionAvailable: return "heart.fill"
+            case .cuisine: return "fork.knife"
             }
         }
     }
@@ -265,9 +263,6 @@ struct ListView: View {
                 
                 return distance1 < distance2
             }
-            
-        case .name:
-            return restaurants.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
             
         case .cuisine:
             return restaurants.sorted { restaurant1, restaurant2 in
