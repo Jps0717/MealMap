@@ -26,7 +26,9 @@ struct MapScreen: View {
     @State private var isLoadingRestaurants: Bool = false
     @State private var lastDataFetchLocation: CLLocationCoordinate2D?
     @State private var lastDataFetchTime: Date = Date.distantPast
-    
+    @State private var selectedRestaurant: Restaurant?
+    @State private var showingRestaurantDetail = false
+
     // Overpass API Service
     private let overpassService = OverpassAPIService()
 
@@ -187,12 +189,14 @@ struct MapScreen: View {
                             let oldRegion = region
                             region = newRegion
                             
+                            // Only update area name if significantly moved
                             let regionChange = abs(oldRegion.center.latitude - newRegion.center.latitude) + 
                                              abs(oldRegion.center.longitude - newRegion.center.longitude)
                             if regionChange > 0.01 {
                                 updateAreaName(for: newRegion.center)
                             }
 
+                            // More efficient cluster and data updates with transition detection
                             let now = Date()
                             let zoomChange = abs(oldRegion.span.latitudeDelta - newRegion.span.latitudeDelta)
                             
@@ -203,12 +207,11 @@ struct MapScreen: View {
                                     zoomLevel: newRegion.span.latitudeDelta,
                                     span: newRegion.span,
                                     center: newRegion.center,
-                                    debounceDelay: zoomChange > 0.005 ? 0.1 : 0.3 // Faster updates for zoom changes
+                                    debounceDelay: zoomChange > 0.005 ? 0.1 : 0.3
                                 )
                                 lastClusterUpdateTime = now
                             }
 
-                            // Fetch new data less frequently
                             fetchRestaurantDataAndUpdateClusters(for: newRegion.center)
                         }
                     ), showsUserLocation: true, annotationItems: mapItems) { item in
@@ -232,8 +235,13 @@ struct MapScreen: View {
                                 
                             case .restaurant(let restaurant):
                                 RestaurantAnnotationView(
+                                    restaurant: restaurant,
                                     hasNutritionData: restaurantsWithNutritionData.contains(restaurant.name),
-                                    isSelected: false
+                                    isSelected: selectedRestaurant?.id == restaurant.id,
+                                    onTap: { tappedRestaurant in
+                                        selectedRestaurant = tappedRestaurant
+                                        showingRestaurantDetail = true
+                                    }
                                 )
                                 .transition(.asymmetric(
                                     insertion: clusterManager.transitionState == .splittingToIndividual ?
@@ -431,6 +439,18 @@ struct MapScreen: View {
                         Spacer()
                     }
                     .padding(.top, 120) // Position below search bar
+                }
+
+                // Restaurant detail overlay
+                if showingRestaurantDetail, let restaurant = selectedRestaurant {
+                    RestaurantDetailView(
+                        restaurant: restaurant,
+                        isPresented: $showingRestaurantDetail
+                    )
+                    .zIndex(100) // Ensure it appears above everything
+                    .onDisappear {
+                        selectedRestaurant = nil
+                    }
                 }
             }
         }
