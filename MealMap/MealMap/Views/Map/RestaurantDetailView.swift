@@ -33,119 +33,116 @@ struct RestaurantDetailView: View {
                         dismissView()
                     }
                 
-                VStack {
-                    Spacer()
+                // Main content card
+                VStack(spacing: 0) {
+                    // Header with restaurant name and close button
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(restaurant.name)
+                                .font(.system(size: adaptiveSize(base: 20, geometry: geometry), weight: .bold))
+                                .foregroundColor(.primary)
+                                .lineLimit(2)
+                            
+                            if let cuisine = restaurant.cuisine {
+                                Text(cuisine.capitalized)
+                                    .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: dismissView) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: adaptiveSize(base: 24, geometry: geometry)))
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .padding(.horizontal, adaptivePadding(base: 20, geometry: geometry))
+                    .padding(.top, adaptivePadding(base: 20, geometry: geometry))
+                    .padding(.bottom, adaptivePadding(base: 16, geometry: geometry))
                     
-                    // Main content card
-                    VStack(spacing: 0) {
-                        // Header with restaurant name and close button
+                    // Nutrition data badge
+                    if hasNutritionData {
                         HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(restaurant.name)
-                                    .font(.system(size: adaptiveSize(base: 20, geometry: geometry), weight: .bold))
-                                    .foregroundColor(.primary)
-                                    .lineLimit(2)
-                                
-                                if let cuisine = restaurant.cuisine {
-                                    Text(cuisine.capitalized)
-                                        .font(.system(size: adaptiveSize(base: 14, geometry: geometry)))
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-                            
+                            Image(systemName: "leaf.fill")
+                                .foregroundColor(.green)
+                                .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
+                            Text("Nutrition data available")
+                                .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
+                                .foregroundColor(.green)
                             Spacer()
-                            
-                            Button(action: dismissView) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .font(.system(size: adaptiveSize(base: 24, geometry: geometry)))
-                                    .foregroundColor(.gray)
-                            }
                         }
                         .padding(.horizontal, adaptivePadding(base: 20, geometry: geometry))
-                        .padding(.top, adaptivePadding(base: 20, geometry: geometry))
                         .padding(.bottom, adaptivePadding(base: 16, geometry: geometry))
-                        
-                        // Nutrition data badge
-                        if hasNutritionData {
-                            HStack {
-                                Image(systemName: "leaf.fill")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
-                                Text("Nutrition data available")
-                                    .font(.system(size: adaptiveSize(base: 12, geometry: geometry)))
-                                    .foregroundColor(.green)
-                                Spacer()
-                            }
-                            .padding(.horizontal, adaptivePadding(base: 20, geometry: geometry))
-                            .padding(.bottom, adaptivePadding(base: 16, geometry: geometry))
-                        }
-                        
-                        // Tab selector
-                        HStack(spacing: 0) {
-                            ForEach(DetailTab.allCases, id: \.self) { tab in
-                                Button(action: {
-                                    withAnimation(.easeInOut(duration: 0.2)) {
-                                        selectedTab = tab
-                                    }
-                                }) {
-                                    VStack(spacing: adaptiveSpacing(base: 6, geometry: geometry)) {
-                                        Image(systemName: tab.icon)
-                                            .font(.system(size: adaptiveSize(base: 16, geometry: geometry), weight: .medium))
-                                        Text(tab.rawValue)
-                                            .font(.system(size: adaptiveSize(base: 10, geometry: geometry)))
-                                            .fontWeight(.medium)
-                                    }
-                                    .foregroundColor(selectedTab == tab ? .blue : .gray)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, adaptivePadding(base: 12, geometry: geometry))
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                        }
-                        .background(Color(.systemGray6))
-                        .overlay(
-                            GeometryReader { tabGeometry in
-                                Rectangle()
-                                    .fill(Color.blue)
-                                    .frame(height: 2)
-                                    .frame(width: tabGeometry.size.width / CGFloat(DetailTab.allCases.count))
-                                    .offset(x: tabIndicatorOffset(tabGeometry: tabGeometry))
-                                    .animation(.easeInOut(duration: 0.2), value: selectedTab)
-                            },
-                            alignment: .bottom
-                        )
-                        
-                        // Tab content
-                        ScrollView {
-                            VStack(spacing: adaptiveSpacing(base: 20, geometry: geometry)) {
-                                switch selectedTab {
-                                case .info:
-                                    RestaurantInfoView(restaurant: restaurant, geometry: geometry)
-                                case .directions:
-                                    RestaurantDirectionsView(restaurant: restaurant, geometry: geometry)
-                                case .nutrition:
-                                    RestaurantNutritionView(restaurant: restaurant, hasData: hasNutritionData, geometry: geometry)
-                                }
-                            }
-                            .padding(adaptivePadding(base: 20, geometry: geometry))
-                        }
-                        .frame(maxHeight: adaptiveHeight(base: 300, geometry: geometry))
-                        
-                        // Action buttons
-                        actionButtons(geometry: geometry)
                     }
-                    .background(
-                        RoundedRectangle(cornerRadius: adaptiveCornerRadius(base: 20, geometry: geometry))
-                            .fill(Color(.systemBackground))
-                            .shadow(color: .black.opacity(0.2), radius: 20, y: 10)
-                    )
-                    .padding(.horizontal, adaptivePadding(base: 20, geometry: geometry))
-                    .scaleEffect(animateIn ? 1.0 : 0.8)
-                    .opacity(animateIn ? 1.0 : 0.0)
                     
-                    Spacer()
+                    // Tab selector
+                    HStack(spacing: 0) {
+                        ForEach(DetailTab.allCases, id: \.self) { tab in
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    selectedTab = tab
+                                }
+                            }) {
+                                VStack(spacing: adaptiveSpacing(base: 6, geometry: geometry)) {
+                                    Image(systemName: tab.icon)
+                                        .font(.system(size: adaptiveSize(base: 16, geometry: geometry), weight: .medium))
+                                    Text(tab.rawValue)
+                                        .font(.system(size: adaptiveSize(base: 10, geometry: geometry)))
+                                        .fontWeight(.medium)
+                                }
+                                .foregroundColor(selectedTab == tab ? .blue : .gray)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, adaptivePadding(base: 12, geometry: geometry))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                    .background(Color(.systemGray6))
+                    .overlay(
+                        GeometryReader { tabGeometry in
+                            Rectangle()
+                                .fill(Color.blue)
+                                .frame(height: 2)
+                                .frame(width: tabGeometry.size.width / CGFloat(DetailTab.allCases.count))
+                                .offset(x: tabIndicatorOffset(tabGeometry: tabGeometry))
+                                .animation(.easeInOut(duration: 0.2), value: selectedTab)
+                        },
+                        alignment: .bottom
+                    )
+                    
+                    // Tab content
+                    ScrollView {
+                        VStack(spacing: adaptiveSpacing(base: 20, geometry: geometry)) {
+                            switch selectedTab {
+                            case .info:
+                                RestaurantInfoView(restaurant: restaurant, geometry: geometry)
+                            case .directions:
+                                RestaurantDirectionsView(restaurant: restaurant, geometry: geometry)
+                            case .nutrition:
+                                RestaurantNutritionView(restaurant: restaurant, hasData: hasNutritionData, geometry: geometry)
+                            }
+                        }
+                        .padding(adaptivePadding(base: 20, geometry: geometry))
+                    }
+                    .frame(maxHeight: adaptiveHeight(base: 300, geometry: geometry))
+                    
+                    // Action buttons
+                    actionButtons(geometry: geometry)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(width: min(geometry.size.width - adaptivePadding(base: 40, geometry: geometry), 400))
+                .background(
+                    RoundedRectangle(cornerRadius: adaptiveCornerRadius(base: 20, geometry: geometry))
+                        .fill(Color(.systemBackground))
+                        .shadow(color: .black.opacity(0.2), radius: 20, y: 10)
+                )
+                .scaleEffect(animateIn ? 1.0 : 0.8)
+                .opacity(animateIn ? 1.0 : 0.0)
+                .position(
+                    x: geometry.size.width / 2,
+                    y: geometry.size.height / 2
+                )
             }
         }
         .onAppear {
@@ -204,10 +201,11 @@ struct RestaurantDetailView: View {
             restaurant.website != nil
         ].filter { $0 }.count
         
+        let cardWidth = min(geometry.size.width - adaptivePadding(base: 40, geometry: geometry), 400)
         let buttonSpacing = adaptiveSpacing(base: 12, geometry: geometry)
         let totalSpacing = CGFloat(availableButtons - 1) * buttonSpacing
         let horizontalPadding = adaptivePadding(base: 40, geometry: geometry) // 20 on each side
-        let availableWidth = geometry.size.width - horizontalPadding - totalSpacing
+        let availableWidth = cardWidth - horizontalPadding - totalSpacing
         let buttonWidth = availableWidth / CGFloat(availableButtons)
         
         let baseFontSize: CGFloat = min(adaptiveSize(base: 16, geometry: geometry), buttonWidth / 8)
