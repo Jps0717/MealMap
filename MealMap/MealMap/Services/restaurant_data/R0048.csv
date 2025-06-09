@@ -1,0 +1,374 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Original Recipe Chicken Breast,390.0,21.0,4.0,120.0,1190.0,4.0,0.0,0.0,39.0
+Mashed Potatoes with Gravy,120.0,4.0,1.0,0.0,530.0,19.0,2.0,1.0,3.0
+Pot Pie,720.0,41.0,25.0,95.0,1750.0,60.0,6.0,5.0,25.0
+Chicken Sandwich,650.0,35.0,4.5,75.0,1450.0,46.0,2.0,6.0,34.0
+KFC Gizzards,190.0,11.0,1.5,135.0,500.0,11.0,0.0,0.0,13.0
+KFC Livers,150.0,8.0,1.5,185.0,480.0,8.0,0.0,0.0,11.0
+Honey BBQ Sandwich,370.0,3.5,1.0,55.0,1320.0,60.0,3.0,24.0,26.0
+Original Recipe Chicken Breast,320.0,16.0,3.5,105.0,1100.0,9.0,2.0,0.0,33.0
+Original Recipe Chicken Drumstick,160.0,10.0,1.5,50.0,410.0,5.0,0.0,0.0,12.0
+Extra Crispy Chicken Breast,390.0,23.0,4.0,95.0,870.0,10.0,2.0,0.0,34.0
+Extra Crispy Chicken Drumstick,130.0,7.0,1.0,40.0,350.0,4.0,0.0,0.0,12.0
+Extra Crispy Chicken Thigh,290.0,20.0,4.0,90.0,790.0,11.0,0.0,0.0,18.0
+Hot Wings,70.0,4.0,1.0,20.0,160.0,3.0,0.0,0.0,4.0
+HBBQ Hot Wings,90.0,4.0,1.0,20.0,270.0,9.0,0.0,3.0,4.0
+Fiery Buffalo Hot Wings,70.0,4.0,1.0,20.0,290.0,5.0,0.0,0.0,4.0
+Popcorn Nuggets Large,620.0,39.0,5.0,65.0,1820.0,39.0,2.0,0.0,27.0
+Popcorn Nuggets Kids,290.0,19.0,2.5,30.0,870.0,19.0,1.0,0.0,13.0
+Chicken Pot Pie,790.0,46.0,37.0,95.0,2120.0,66.0,3.0,7.0,29.0
+KFC Famous Bowl,730.0,34.0,6.0,45.0,2310.0,83.0,6.0,4.0,25.0
+Mashed Potatoes w/ Gravy,120.0,4.0,1.0,0.0,500.0,19.0,1.0,0.0,2.0
+Potato Wedges,270.0,13.0,1.5,0.0,700.0,34.0,3.0,0.0,4.0
+Crispy Chicken Caesar Salad,350.0,19.0,4.0,65.0,810.0,21.0,4.0,3.0,26.0
+Crispy Chicken BLT Salad,370.0,19.0,3.5,70.0,990.0,23.0,4.0,5.0,28.0
+Caesar Side Salad,40.0,2.0,1.0,5.0,90.0,2.0,1.0,1.0,3.0
+House Side Salad,15.0,0.0,0.0,0.0,10.0,3.0,2.0,2.0,1.0
+Corn on the Cob,70.0,0.5,0.0,0.0,0.0,16.0,2.0,3.0,2.0
+Sweet Kernel Corn,100.0,0.5,0.0,0.0,0.0,21.0,2.0,3.0,3.0
+Biscuit,180.0,9.0,7.0,0.0,540.0,22.0,1.0,2.0,4.0
+Oatmeal Raisin Cookie,150.0,6.0,2.5,10.0,105.0,22.0,1.0,13.0,2.0
+Chocolate Chip Cookie,170.0,8.0,4.0,10.0,90.0,22.0,1.0,15.0,2.0
+Chocolate Valley Chocolate Chip Cake,300.0,15.0,3.0,50.0,260.0,39.0,1.0,27.0,4.0
+Country Fried Steak,360.0,24.0,7.0,35.0,750.0,22.0,2.0,0.0,13.0
+Country Fried Steak w/ Peppered White Gravy,390.0,26.0,7.0,35.0,910.0,26.0,2.0,0.0,13.0
+Crispy Twister,650.0,35.0,7.0,75.0,1300.0,54.0,4.0,4.0,28.0
+Doublicious,570.0,29.0,6.0,80.0,1390.0,47.0,3.0,7.0,32.0
+Mashed Potatoes,90.0,3.0,0.5,0.0,320.0,15.0,1.0,0.0,2.0
+Kentucky Grilled Chicken Breast,180.0,6.0,2.0,105.0,630.0,0.0,0.0,0.0,31.0
+Kentucky Grilled Chicken Drumstick,60.0,3.0,1.0,50.0,220.0,0.0,0.0,0.0,10.0
+Kentucky Grilled Chicken Thigh,130.0,9.0,2.5,70.0,350.0,0.0,0.0,0.0,13.0
+KFC Famous Bowl Snack Size,280.0,13.0,3.5,25.0,800.0,29.0,2.0,2.0,11.0
+Spicy Crispy Chicken Thigh,270.0,20.0,3.5,65.0,720.0,10.0,1.0,0.0,13.0
+BBQ Baked Beans,240.0,1.5,0.0,0.0,820.0,43.0,9.0,18.0,14.0
+Colonels Buttery Spread,30.0,3.5,0.5,0.0,30.0,0.0,0.0,0.0,0.0
+Heinz Buttermilk Dressing,160.0,17.0,2.0,10.0,220.0,1.0,0.0,1.0,0.0
+Hidden Valley The Original Ranch Fat Free Dressing,35.0,0.0,0.0,0.0,410.0,8.0,0.0,2.0,1.0
+Honey Sauce Packet,30.0,0.0,0.0,0.0,0.0,8.0,0.0,5.0,0.0
+KFC Creamy Parmesan Caesar Dressing,260.0,26.0,5.0,15.0,540.0,4.0,0.0,2.0,2.0
+Marzetti Light Italian Dressing,15.0,0.5,0.0,0.0,510.0,2.0,0.0,1.0,0.0
+Oreo Cookies & Creme Pie,290.0,16.0,10.0,5.0,210.0,34.0,1.0,23.0,3.0
+Pepsi 16 fl oz,200.0,0.0,0.0,0.0,45.0,55.0,0.0,55.0,0.0
+Pepsi 20 fl oz,250.0,0.0,0.0,0.0,55.0,69.0,0.0,69.0,0.0
+Pepsi 30 fl oz,380.0,0.0,0.0,0.0,80.0,104.0,0.0,103.0,0.0
+Diet Pepsi 16 fl oz,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Diet Pepsi 20 fl oz,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+Diet Pepsi 30 fl oz,0.0,0.0,0.0,0.0,100.0,0.0,0.0,0.0,0.0
+Pepsi Max 16 fl oz,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Pepsi Max 20 fl oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Pepsi Max 30 fl oz,0.0,0.0,0.0,0.0,90.0,0.0,0.0,0.0,0.0
+Wild Cherry Pepsi 16 fl oz,210.0,0.0,0.0,0.0,40.0,56.0,0.0,56.0,0.0
+Wild Cherry Pepsi 20 fl oz,260.0,0.0,0.0,0.0,50.0,70.0,0.0,70.0,0.0
+Wild Cherry Pepsi 30 fl oz,390.0,0.0,0.0,0.0,80.0,105.0,0.0,105.0,0.0
+Sierra Mist 16 fl oz,200.0,0.0,0.0,0.0,45.0,54.0,0.0,54.0,0.0
+Sierra Mist 20 fl oz,250.0,0.0,0.0,0.0,55.0,67.0,0.0,67.0,0.0
+Sierra Mist 30 fl oz,380.0,0.0,0.0,0.0,80.0,101.0,0.0,101.0,0.0
+Diet Sierra Mist 16 fl oz,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Diet Sierra Mist 20 fl oz,5.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Diet Sierra Mist 30 fl oz,10.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Miranda Strawberry 16 fl oz,220.0,0.0,0.0,0.0,95.0,58.0,0.0,58.0,0.0
+Miranda Strawberry 20 fl oz,270.0,0.0,0.0,0.0,120.0,73.0,0.0,72.0,0.0
+Miranda Strawberry 30 fl oz,410.0,0.0,0.0,0.0,180.0,109.0,0.0,109.0,0.0
+Manzanita Sol 16 fl oz,210.0,0.0,0.0,0.0,45.0,58.0,0.0,57.0,0.0
+Manzanita Sol 20 fl oz,260.0,0.0,0.0,0.0,55.0,72.0,0.0,71.0,0.0
+Manzanita Sol 30 fl oz,400.0,0.0,0.0,0.0,85.0,109.0,0.0,106.0,0.0
+Lipton Brisk Unsweetened No Lemon Iced Tea 16 fl oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Lipton Brisk Unsweetened No Lemon Iced Tea 20 fl oz,0.0,0.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+Lipton Brisk Unsweetened No Lemon Iced Tea 30 fl oz,0.0,0.0,0.0,0.0,115.0,0.0,0.0,0.0,0.0
+Lipton Brisk Sweet Iced Tea 16 fl oz,100.0,0.0,0.0,0.0,50.0,28.0,0.0,28.0,0.0
+Lipton Brisk Sweet Iced Tea 20 fl oz,120.0,0.0,0.0,0.0,60.0,35.0,0.0,35.0,0.0
+Lipton Brisk Sweet Iced Tea 30 fl oz,190.0,0.0,0.0,0.0,95.0,52.0,0.0,52.0,0.0
+Lipton Brisk No Calorie Peach Iced Green Tea 16 fl oz,0.0,0.0,0.0,0.0,140.0,0.0,0.0,0.0,0.0
+Lipton Brisk No Calorie Peach Iced Green Tea 20 fl oz,0.0,0.0,0.0,0.0,180.0,0.0,0.0,0.0,0.0
+Lipton Brisk No Calorie Peach Iced Green Tea 30 fl oz,0.0,0.0,0.0,0.0,270.0,0.0,0.0,0.0,0.0
+Lipton Brisk Raspberry Tea 16 fl oz,100.0,0.0,0.0,0.0,50.0,26.0,0.0,26.0,0.0
+Lipton Brisk Raspberry Tea 20 fl oz,120.0,0.0,0.0,0.0,60.0,32.0,0.0,32.0,0.0
+Lipton Brisk Raspberry Tea 30 fl oz,190.0,0.0,0.0,0.0,95.0,49.0,0.0,49.0,0.0
+Mountain Dew 16 fl oz,220.0,0.0,0.0,0.0,70.0,58.0,0.0,58.0,0.0
+Mountain Dew 20 fl oz,270.0,0.0,0.0,0.0,85.0,73.0,0.0,73.0,0.0
+Mountain Dew 30 fl oz,410.0,0.0,0.0,0.0,125.0,110.0,0.0,109.0,0.0
+Diet Mountain Dew 16 fl oz,5.0,0.0,0.0,0.0,75.0,1.0,0.0,0.0,0.0
+Diet Mountain Dew 20 fl oz,10.0,0.0,0.0,0.0,90.0,1.0,0.0,1.0,0.0
+Diet Mountain Dew 30 fl oz,10.0,0.0,0.0,0.0,140.0,1.0,0.0,1.0,0.0
+Code Red Mountain Dew 16 fl oz,220.0,0.0,0.0,0.0,70.0,62.0,0.0,62.0,0.0
+Code Red Mountain Dew 20 fl oz,280.0,0.0,0.0,0.0,90.0,78.0,0.0,78.0,0.0
+Code Red Mountain Dew 30 fl oz,410.0,0.0,0.0,0.0,130.0,116.0,0.0,116.0,0.0
+Tropicana Light Lemonade 16 fl oz,0.0,0.0,0.0,0.0,190.0,0.0,0.0,0.0,0.0
+Tropicana Light Lemonade 20 fl oz,0.0,0.0,0.0,0.0,240.0,0.0,0.0,0.0,0.0
+Tropicana Light Lemonade 30 fl oz,0.0,0.0,0.0,0.0,360.0,0.0,0.0,0.0,0.0
+Tropicana Fruit Punch 16 fl oz,230.0,0.0,0.0,0.0,45.0,60.0,0.0,60.0,0.0
+Tropicana Fruit Punch 20 fl oz,280.0,0.0,0.0,0.0,60.0,75.0,0.0,75.0,0.0
+Tropicana Fruit Punch 30 fl oz,420.0,0.0,0.0,0.0,90.0,113.0,0.0,112.0,0.0
+Tropicana Twister Orange 16 fl oz,230.0,0.0,0.0,0.0,50.0,61.0,0.0,61.0,0.0
+Tropicana Twister Orange 20 fl oz,290.0,0.0,0.0,0.0,60.0,76.0,0.0,76.0,0.0
+Tropicana Twister Orange 30 fl oz,430.0,0.0,0.0,0.0,90.0,115.0,0.0,114.0,0.0
+Mug Root Beer 16 fl oz,190.0,0.0,0.0,0.0,75.0,51.0,0.0,51.0,0.0
+Mug Root Beer 20 fl oz,240.0,0.0,0.0,0.0,95.0,64.0,0.0,63.0,0.0
+Mug Root Beer 30 fl oz,360.0,0.0,0.0,0.0,140.0,95.0,0.0,95.0,0.0
+Dr Pepper 16 fl oz,200.0,0.0,0.0,0.0,80.0,53.0,0.0,51.0,0.0
+Dr Pepper 20 fl oz,250.0,0.0,0.0,0.0,100.0,66.0,0.0,64.0,0.0
+Dr Pepper 30 fl oz,380.0,0.0,0.0,0.0,150.0,99.0,0.0,96.0,0.0
+Diet Dr Pepper 16 fl oz,0.0,0.0,0.0,0.0,80.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper 20 fl oz,0.0,0.0,0.0,0.0,100.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper 30 fl oz,0.0,0.0,0.0,0.0,150.0,0.0,0.0,0.0,0.0
+7UP 16 fl oz,190.0,0.0,0.0,0.0,55.0,51.0,0.0,50.0,0.0
+7UP 20 fl oz,240.0,0.0,0.0,0.0,70.0,64.0,0.0,63.0,0.0
+7UP 30 fl oz,360.0,0.0,0.0,0.0,105.0,96.0,0.0,95.0,0.0
+Capri Sun Roarin Waters Tropical Fruit,30.0,0.0,0.0,0.0,15.0,8.0,0.0,8.0,0.0
+Milk 2%,170.0,6.0,4.0,25.0,180.0,17.0,0.0,16.0,12.0
+Chicken Littles,320.0,19.0,3.0,35.0,590.0,25.0,1.0,4.0,13.0
+Cafe Valley Lemon Cake,210.0,11.0,2.0,40.0,190.0,28.0,0.0,19.0,2.0
+Fiery Buffalo Hot Wings Go Cup,480.0,25.0,4.5,60.0,1570.0,49.0,3.0,0.0,16.0
+HBBQ Hot Wings Go Cup,540.0,25.0,4.5,60.0,1510.0,61.0,3.0,9.0,16.0
+Hot Wings Go Cup,480.0,25.0,4.5,60.0,1180.0,43.0,3.0,0.0,16.0
+GoGo Squeez Applesauce,60.0,0.0,0.0,0.0,0.0,15.0,1.0,12.0,0.0
+Lipton Brisk Lemon Tea 20 fl oz,140.0,0.0,0.0,0.0,60.0,36.0,0.0,36.0,0.0
+Lipton Brisk Lemon Tea 30 fl oz,210.0,0.0,0.0,0.0,95.0,55.0,0.0,54.0,0.0
+Lipton Brisk Lemon Tea 16 fl oz,110.0,0.0,0.0,0.0,50.0,29.0,0.0,29.0,0.0
+Chocolate Milk 1%,180.0,2.5,1.5,10.0,210.0,29.0,0.0,26.0,10.0
+Milk 1%,110.0,2.0,1.5,10.0,140.0,14.0,0.0,13.0,9.0
+Cafe Valley Chocolate Chip Cake,300.0,12.0,2.5,40.0,190.0,49.0,1.0,35.0,3.0
+Cafe Valley Mini Lemon Cake,300.0,13.0,2.5,50.0,230.0,43.0,0.0,31.0,3.0
+Chicken Littles Go Cup,590.0,32.0,5.0,35.0,1290.0,59.0,4.0,4.0,17.0
+Extra Crispy Chicken Tenders 1 Piece,140.0,7.0,1.0,25.0,310.0,8.0,0.0,0.0,10.0
+Colonels Original Sandwich,500.0,23.0,3.5,65.0,1150.0,47.0,3.0,7.0,27.0
+Kentucky Grilled Chicken Whole Wing,60.0,3.5,1.0,40.0,190.0,0.0,0.0,0.0,8.0
+Spicy Crispy Chicken Whole Wing,120.0,8.0,1.5,35.0,350.0,5.0,0.0,0.0,7.0
+Pepsi 12 fl oz,150.0,0.0,0.0,0.0,30.0,41.0,0.0,41.0,0.0
+Pepsi Max 12 fl oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Potato Wedges Family,1120.0,54.0,6.0,0.0,2930.0,143.0,14.0,0.0,16.0
+Sierra Mist 12 fl oz,150.0,0.0,0.0,0.0,35.0,40.0,0.0,40.0,0.0
+SoBe Lifewater Yumberry Pomegranate 12 fl oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+SoBe Lifewater Yumberry Pomegranate 16 oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+SoBe Lifewater Yumberry Pomegranate 20 oz,0.0,0.0,0.0,0.0,80.0,1.0,0.0,0.0,0.0
+SoBe Lifewater Yumberry Pomegranate 30 oz,0.0,0.0,0.0,0.0,115.0,1.0,0.0,0.0,0.0
+Summertime BBQ Dipping Sauce Cup,40.0,0.0,0.0,0.0,310.0,9.0,0.0,8.0,0.0
+Sweet Kernel Corn Family,330.0,2.0,0.0,0.0,0.0,70.0,7.0,11.0,11.0
+Sweet N Tangy Dipping Sauce Cup,45.0,0.0,0.0,0.0,95.0,12.0,0.0,10.0,0.0
+Tropicana Light Lemonade 12 fl oz,0.0,0.0,0.0,0.0,140.0,0.0,0.0,0.0,0.0
+Tropicana Twister Orange 12 fl oz,170.0,0.0,0.0,0.0,35.0,46.0,0.0,46.0,0.0
+Wild Cherry Pepsi 12 oz,160.0,0.0,0.0,0.0,30.0,42.0,0.0,42.0,0.0
+BBQ Baked Beans Family,790.0,5.0,1.0,0.0,2690.0,142.0,29.0,61.0,45.0
+Code Red Mountain Dew 12 fl oz,160.0,0.0,0.0,0.0,50.0,46.0,0.0,46.0,0.0
+Cole Slaw Family,630.0,45.0,7.0,10.0,660.0,53.0,14.0,37.0,4.0
+Corn on the Cob Family,280.0,2.0,0.0,0.0,0.0,64.0,8.0,12.0,8.0
+Buttermilk Ranch Dipping Sauce Cup,100.0,10.0,1.5,10.0,240.0,2.0,0.0,1.0,0.0
+Diet Dr Pepper 12 fl oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Diet Mountain Dew 12 fl oz,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Diet Pepsi 12 fl oz,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Diet Pepsi Wild Cherry Pepsi 12 fl oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Diet Pepsi Wild Cherry Pepsi 16 fl oz,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Diet Pepsi Wild Cherry Pepsi 20 fl oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Diet Pepsi Wild Cherry Pepsi 30 fl oz,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Diet Sierra Mist 12 fl oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Dr Pepper 12 fl oz,150.0,0.0,0.0,0.0,60.0,40.0,0.0,38.0,0.0
+Green Beans Family,90.0,0.5,0.0,0.0,1040.0,17.0,10.0,3.0,5.0
+Lipton Brisk Lemon Tea 12 fl oz,80.0,0.0,0.0,0.0,35.0,22.0,0.0,22.0,0.0
+Lipton Brisk No Calorie Peach Iced Green Tea 12 fl oz,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Lipton Brisk Raspberry Tea 12 fl oz,80.0,0.0,0.0,0.0,40.0,20.0,0.0,20.0,0.0
+Lipton Brisk Sweet Iced Tea 12 fl oz,80.0,0.0,0.0,0.0,40.0,21.0,0.0,21.0,0.0
+Lipton Brisk Unsweetened No Lemon Iced Tea 12 fl oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Macaroni & Cheese Family,560.0,22.0,6.0,10.0,2810.0,74.0,8.0,7.0,18.0
+Manzanita Sol 12 fl oz,160.0,0.0,0.0,0.0,35.0,44.0,0.0,42.0,0.0
+Mashed Potatoes Family,420.0,13.0,2.5,0.0,1460.0,69.0,5.0,0.0,8.0
+Miranda Strawberry 12 fl oz,160.0,0.0,0.0,0.0,70.0,44.0,0.0,44.0,0.0
+Mountain Dew 12 fl oz,160.0,0.0,0.0,0.0,50.0,44.0,0.0,44.0,0.0
+Mug Root Beer 12 fl oz,140.0,0.0,0.0,0.0,55.0,38.0,0.0,38.0,0.0
+Finger Lickin Good Dipping Sauce Cup,130.0,12.0,2.0,10.0,180.0,5.0,0.0,5.0,1.0
+Dole Classic Lemonade 1/2 Gallon,880.0,0.0,0.0,0.0,780.0,234.0,0.0,228.0,0.0
+Dole Classic Lemonade 20 fl oz,150.0,0.0,0.0,0.0,130.0,39.0,0.0,38.0,0.0
+Dole Strawberry Lemonade 1/2 Gallon,950.0,0.0,0.0,0.0,790.0,270.0,0.0,264.0,0.0
+Dole Strawberry Lemonade 20 fl oz,170.0,0.0,0.0,0.0,130.0,45.0,0.0,44.0,0.0
+Extra Crispy Tenders Go Cup,540.0,27.0,4.0,50.0,1330.0,50.0,4.0,0.0,24.0
+Popcorn Nuggets Go Cup,570.0,32.0,4.0,35.0,1600.0,53.0,4.0,0.0,18.0
+Potato Wedges Individual,270.0,13.0,1.5,0.0,700.0,34.0,3.0,0.0,4.0
+Mashed Potatoes Individual,90.0,3.0,0.5,0.0,320.0,15.0,1.0,0.0,2.0
+Tropicana Twister Orange 12 fl oz,170.0,0.0,0.0,0.0,35.0,46.0,0.0,46.0,0.0
+Wild Cherry Pepsi 30 fl oz,390.0,0.0,0.0,0.0,80.0,105.0,0.0,105.0,0.0
+Diet Mountain Dew 12 fl oz,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Pepsi Zero Sugar 20 fl oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Dr Pepper 30 fl oz,360.0,0.0,0.0,0.0,110.0,98.0,0.0,96.0,0.0
+Popcorn Nuggets Large,620.0,39.0,5.0,65.0,1820.0,39.0,2.0,0.0,27.0
+Lipton Brisk Unsweetened No Lemon Iced Tea 16 fl oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper 20 fl oz,0.0,0.0,0.0,0.0,120.0,0.0,0.0,0.0,0.0
+Diet Mountain Dew 20 fl oz,10.0,0.0,0.0,0.0,90.0,1.0,0.0,1.0,0.0
+Diet Mountain Dew 16 fl oz,5.0,0.0,0.0,0.0,75.0,1.0,0.0,0.0,0.0
+Lipton Brisk Unsweetened No Lemon Iced Tea 30 fl oz,0.0,0.0,0.0,0.0,115.0,0.0,0.0,0.0,0.0
+Hot Wings Go Cup,480.0,25.0,4.5,60.0,1180.0,43.0,3.0,0.0,16.0
+KFC Famous Bowl Snack Size,270.0,13.0,3.5,25.0,800.0,28.0,2.0,9.0,11.0
+Mashed Potatoes w/ Gravy Individual,120.0,4.0,1.0,0.0,500.0,19.0,1.0,0.0,2.0
+Mug Root Beer 30 fl oz,360.0,0.0,0.0,0.0,110.0,98.0,0.0,98.0,0.0
+Manzanita Sol 12 fl oz,160.0,0.0,0.0,0.0,35.0,44.0,0.0,42.0,0.0
+Diet Sierra Mist 20 fl oz,5.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Pepsi Zero Sugar 30 fl oz,0.0,0.0,0.0,0.0,95.0,1.0,0.0,0.0,0.0
+Diet Pepsi 30 fl oz,0.0,0.0,0.0,0.0,140.0,0.0,0.0,0.0,0.0
+Cole Slaw Family,620.0,36.0,6.0,5.0,610.0,69.0,10.0,53.0,3.0
+Original Recipe Chicken Whole Wing,130.0,8.0,2.0,55.0,380.0,3.0,0.0,0.0,10.0
+Oatmeal Raisin Cookie,150.0,6.0,2.5,10.0,90.0,22.0,1.0,13.0,2.0
+Code Red Mountain Dew 30 fl oz,430.0,0.0,0.0,0.0,125.0,116.0,0.0,115.0,0.0
+Double Crunch Sandwich,520.0,26.0,3.0,60.0,970.0,46.0,2.0,4.0,25.0
+Spicy Crispy Chicken Drumstick,130.0,8.0,1.5,40.0,420.0,5.0,1.0,0.0,9.0
+Diet Dr Pepper 12 fl oz,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+SoBe Lifewater Yumberry Pomegranate 30 oz,5.0,0.0,0.0,0.0,120.0,1.0,0.0,0.0,0.0
+Code Red Mountain Dew 12 fl oz,170.0,0.0,0.0,0.0,50.0,46.0,0.0,46.0,0.0
+Chicken Littles,300.0,15.0,2.0,30.0,610.0,26.0,1.0,3.0,14.0
+Code Red Mountain Dew 16 fl oz,230.0,0.0,0.0,0.0,65.0,62.0,0.0,62.0,0.0
+Chocolate Milk 1%,150.0,2.5,1.5,10.0,170.0,26.0,0.0,23.0,7.0
+Manzanita Sol 16 fl oz,210.0,0.0,0.0,0.0,45.0,58.0,0.0,57.0,0.0
+Dole Strawberry Lemonade 1/2 Gallon,950.0,0.0,0.0,0.0,790.0,270.0,0.0,264.0,0.0
+Kentucky Grilled Chicken Breast,210.0,7.0,2.0,130.0,710.0,0.0,0.0,0.0,38.0
+Caesar Side Salad,40.0,2.0,1.0,5.0,90.0,2.0,1.0,1.0,3.0
+Manzanita Sol 20 fl oz,260.0,0.0,0.0,0.0,55.0,73.0,0.0,71.0,0.0
+Lipton Brisk Raspberry Tea 12 fl oz,80.0,0.0,0.0,0.0,45.0,20.0,0.0,20.0,0.0
+Mountain Dew 20 fl oz,270.0,0.0,0.0,0.0,85.0,73.0,0.0,73.0,0.0
+Extra Crispy Chicken Drumstick,170.0,12.0,2.0,50.0,390.0,5.0,0.0,0.0,10.0
+Diet Sierra Mist 12 fl oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Sierra Mist 30 fl oz,380.0,0.0,0.0,0.0,80.0,101.0,0.0,101.0,0.0
+Cafe Valley Chocolate Chip Cake,300.0,15.0,3.0,50.0,260.0,39.0,1.0,27.0,4.0
+Tropicana Twister Orange 20 fl oz,290.0,0.0,0.0,0.0,60.0,76.0,0.0,76.0,0.0
+Tropicana Fruit Punch 20 fl oz,280.0,0.0,0.0,0.0,60.0,75.0,0.0,75.0,0.0
+Kentucky Grilled Chicken Whole Wing,70.0,3.0,1.0,45.0,180.0,0.0,0.0,0.0,9.0
+Heinz Buttermilk Dressing,160.0,17.0,2.0,10.0,220.0,1.0,0.0,1.0,0.0
+Pepsi Zero Sugar 16 fl oz,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Lipton Brisk Sweet Iced Tea 16 fl oz,100.0,0.0,0.0,0.0,65.0,29.0,0.0,29.0,0.0
+Wild Cherry Pepsi 16 fl oz,210.0,0.0,0.0,0.0,40.0,56.0,0.0,56.0,0.0
+Lipton Brisk Lemon Tea 20 fl oz,140.0,0.0,0.0,0.0,70.0,36.0,0.0,36.0,0.0
+Lipton Brisk Unsweetened No Lemon Iced Tea 12 fl oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Honey Sauce Packet,30.0,0.0,0.0,0.0,0.0,8.0,0.0,5.0,0.0
+Diet Mountain Dew 30 fl oz,10.0,0.0,0.0,0.0,140.0,1.0,0.0,1.0,0.0
+Tropicana Light Lemonade 20 fl oz,10.0,0.0,0.0,0.0,240.0,0.0,0.0,0.0,0.0
+Diet Sierra Mist 16 fl oz,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Marzetti Light Italian Dressing,15.0,0.5,0.0,0.0,510.0,2.0,0.0,1.0,0.0
+Wild Cherry Pepsi 12 oz,160.0,0.0,0.0,0.0,30.0,42.0,0.0,42.0,0.0
+Tropicana Pink Lemonade 12 fl oz,150.0,0.0,0.0,0.0,160.0,40.0,0.0,40.0,0.0
+Grape Jelly Packet,35.0,0.0,0.0,0.0,10.0,9.0,0.0,7.0,0.0
+Finger Lickin Good Dipping Sauce Cup,130.0,12.0,2.0,10.0,180.0,5.0,0.0,5.0,1.0
+Kentucky Grilled Chicken Drumstick,80.0,4.0,1.0,55.0,220.0,0.0,0.0,0.0,11.0
+Pepsi 30 fl oz,380.0,0.0,0.0,0.0,80.0,104.0,0.0,103.0,0.0
+Chicken Pot Pie,790.0,46.0,37.0,95.0,2120.0,66.0,3.0,7.0,29.0
+7UP 30 fl oz,350.0,0.0,0.0,0.0,125.0,87.0,0.0,87.0,0.0
+Tropicana Fruit Punch 16 fl oz,230.0,0.0,0.0,0.0,45.0,60.0,0.0,60.0,0.0
+Diet Dr Pepper 16 fl oz,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Ketchup,30.0,0.0,0.0,0.0,250.0,8.0,0.0,6.0,0.0
+Popcorn Nuggets Kids,290.0,19.0,2.5,30.0,870.0,19.0,1.0,0.0,13.0
+BBQ Baked Beans Family,790.0,5.0,1.0,70.0,2560.0,130.0,22.0,52.0,46.0
+Lipton Brisk Raspberry Tea 30 fl oz,190.0,0.0,0.0,0.0,110.0,49.0,0.0,49.0,0.0
+Miranda Strawberry 16 fl oz,220.0,0.0,0.0,0.0,95.0,58.0,0.0,58.0,0.0
+Mountain Dew 12 fl oz,160.0,0.0,0.0,0.0,50.0,44.0,0.0,44.0,0.0
+KFC Famous Bowl,710.0,34.0,6.0,45.0,2310.0,81.0,6.0,19.0,25.0
+KFC Livers,230.0,13.0,2.5,285.0,750.0,12.0,0.0,0.0,17.0
+Chocolate Chip Cookie,160.0,8.0,4.0,10.0,85.0,22.0,1.0,15.0,1.0
+Wild Cherry Pepsi 20 fl oz,260.0,0.0,0.0,0.0,50.0,70.0,0.0,70.0,0.0
+Tropicana Pink Lemonade 20 fl oz,260.0,0.0,0.0,0.0,260.0,67.0,0.0,67.0,0.0
+Sierra Mist 16 fl oz,200.0,0.0,0.0,0.0,45.0,54.0,0.0,54.0,0.0
+Pepsi Zero Sugar 12 fl oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Original Recipe Chicken Thigh,280.0,19.0,4.5,100.0,910.0,8.0,1.0,0.0,19.0
+Sweet Kernel Corn Individual,100.0,0.5,0.0,0.0,0.0,21.0,2.0,3.0,3.0
+HBBQ Hot Wings,90.0,4.0,1.0,20.0,270.0,9.0,0.0,3.0,4.0
+Dr Pepper 20 fl oz,240.0,0.0,0.0,0.0,75.0,65.0,0.0,64.0,0.0
+Lipton Brisk No Calorie Peach Iced Green Tea 30 fl oz,10.0,0.0,0.0,0.0,270.0,0.0,0.0,0.0,0.0
+Pepsi 16 fl oz,200.0,0.0,0.0,0.0,45.0,55.0,0.0,55.0,0.0
+SoBe Lifewater Yumberry Pomegranate 12 fl oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+SoBe Lifewater Yumberry Pomegranate 20 oz,0.0,0.0,0.0,0.0,80.0,0.0,0.0,0.0,0.0
+Extra Crispy Chicken Whole Wing,170.0,13.0,2.0,45.0,340.0,5.0,0.0,0.0,10.0
+Fiery Buffalo Hot Wings Go Cup,480.0,25.0,4.5,60.0,1570.0,49.0,3.0,0.0,16.0
+Pepsi 12 fl oz,150.0,0.0,0.0,0.0,30.0,41.0,0.0,41.0,0.0
+Spicy Crispy Chicken Thigh,270.0,20.0,3.5,65.0,720.0,10.0,1.0,0.0,13.0
+Zinger Sandwich,480.0,24.0,3.0,65.0,1120.0,39.0,3.0,4.0,27.0
+Mashed Potatoes Family,420.0,13.0,2.5,0.0,1460.0,69.0,6.0,0.0,8.0
+Capri Sun Roarin Waters Tropical Fruit,30.0,0.0,0.0,0.0,15.0,8.0,0.0,8.0,0.0
+Lipton Brisk Lemon Tea 12 fl oz,80.0,0.0,0.0,0.0,40.0,22.0,0.0,22.0,0.0
+Lemon Juice Packet,5.0,0.0,0.0,0.0,20.0,1.0,0.0,0.0,0.0
+Dole Strawberry Lemonade 20 fl oz,170.0,0.0,0.0,0.0,130.0,45.0,0.0,44.0,0.0
+Dole Classic Lemonade 20 fl oz,150.0,0.0,0.0,0.0,130.0,39.0,0.0,38.0,0.0
+Corn on the Cob Individual,70.0,0.5,0.0,0.0,0.0,16.0,2.0,3.0,2.0
+BBQ Baked Beans Individual,240.0,1.5,0.0,0.0,820.0,43.0,9.0,18.0,14.0
+Lipton Brisk Raspberry Tea 20 fl oz,130.0,0.0,0.0,0.0,70.0,33.0,0.0,33.0,0.0
+Country Fried Steak,360.0,24.0,7.0,35.0,750.0,22.0,2.0,0.0,13.0
+Chicken Littles Go Cup,570.0,28.0,3.5,30.0,1310.0,60.0,4.0,3.0,18.0
+Miranda Strawberry 20 fl oz,270.0,0.0,0.0,0.0,120.0,73.0,0.0,73.0,0.0
+House Side Salad,15.0,0.0,0.0,0.0,10.0,3.0,2.0,2.0,1.0
+Mountain Dew 16 fl oz,220.0,0.0,0.0,0.0,70.0,59.0,0.0,58.0,0.0
+Lipton Brisk No Calorie Peach Iced Green Tea 12 fl oz,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Hot Wings,70.0,4.0,1.0,20.0,160.0,3.0,0.0,0.0,4.0
+7UP 12 fl oz,140.0,0.0,0.0,0.0,50.0,35.0,0.0,35.0,0.0
+Diet Sierra Mist 30 fl oz,5.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Sierra Mist 12 fl oz,150.0,0.0,0.0,0.0,35.0,41.0,0.0,41.0,0.0
+Lipton Brisk No Calorie Peach Iced Green Tea 20 fl oz,5.0,0.0,0.0,0.0,180.0,0.0,0.0,0.0,0.0
+Fiery Buffalo Hot Wings,70.0,4.0,1.0,20.0,290.0,5.0,0.0,0.0,4.0
+Cafe Valley Lemon Cake,210.0,11.0,2.0,40.0,190.0,28.0,0.0,19.0,2.0
+Lipton Brisk Lemon Tea 30 fl oz,210.0,0.0,0.0,0.0,105.0,55.0,0.0,54.0,0.0
+Lipton Brisk Unsweetened No Lemon Iced Tea 20 fl oz,0.0,0.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+Lipton Brisk Lemon Tea 16 fl oz,110.0,0.0,0.0,0.0,55.0,29.0,0.0,29.0,0.0
+Milk 2%,170.0,6.0,4.0,25.0,180.0,17.0,0.0,16.0,12.0
+Lipton Brisk Sweet Iced Tea 20 fl oz,130.0,0.0,0.0,0.0,80.0,36.0,0.0,36.0,0.0
+Mashed Potatoes w/ Gravy Fill Up Meal Individual,150.0,5.0,1.0,0.0,540.0,24.0,2.0,0.0,3.0
+Tropicana Pink Lemonade 30 fl oz,390.0,0.0,0.0,0.0,390.0,100.0,0.0,100.0,0.0
+Dr Pepper 16 fl oz,190.0,0.0,0.0,0.0,60.0,52.0,0.0,51.0,0.0
+Tropicana Fruit Punch 30 fl oz,420.0,0.0,0.0,0.0,90.0,113.0,0.0,112.0,0.0
+Extra Crispy Tenders Go Cup,540.0,27.0,4.0,50.0,1330.0,50.0,4.0,0.0,24.0
+Miranda Strawberry 30 fl oz,410.0,0.0,0.0,0.0,180.0,109.0,0.0,109.0,0.0
+Extra Crispy Chicken Breast,530.0,35.0,6.0,105.0,1150.0,18.0,0.0,0.0,35.0
+SoBe Lifewater Yumberry Pomegranate 16 oz,0.0,0.0,0.0,0.0,65.0,0.0,0.0,0.0,0.0
+Dr Pepper 12 fl oz,140.0,0.0,0.0,0.0,45.0,39.0,0.0,38.0,0.0
+Summertime BBQ Dipping Sauce Cup,40.0,0.0,0.0,0.0,310.0,9.0,0.0,8.0,0.0
+Spicy Crispy Chicken Breast,350.0,20.0,3.5,100.0,1100.0,11.0,1.0,0.0,30.0
+Diet Pepsi Wild Cherry Pepsi 20 fl oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Mug Root Beer 20 fl oz,240.0,0.0,0.0,0.0,75.0,65.0,0.0,65.0,0.0
+Mug Root Beer 16 fl oz,190.0,0.0,0.0,0.0,60.0,52.0,0.0,52.0,0.0
+Potato Wedges Family,1210.0,63.0,11.0,0.0,3370.0,145.0,10.0,0.0,16.0
+Tropicana Fruit Punch 12 fl oz,170.0,0.0,0.0,0.0,35.0,45.0,0.0,45.0,0.0
+7UP 20 fl oz,240.0,0.0,0.0,0.0,85.0,58.0,0.0,58.0,0.0
+Musselmans Applesauce,45.0,0.0,0.0,0.0,0.0,12.0,1.0,8.0,0.0
+HBBQ Hot Wings Go Cup,540.0,25.0,4.5,60.0,1510.0,61.0,3.0,9.0,16.0
+Mountain Dew 30 fl oz,410.0,0.0,0.0,0.0,125.0,110.0,0.0,109.0,0.0
+Cafe Valley Mini Chocolate Chip Cake,300.0,12.0,2.5,40.0,190.0,49.0,1.0,35.0,3.0
+Lipton Brisk Raspberry Tea 16 fl oz,100.0,0.0,0.0,0.0,55.0,26.0,0.0,26.0,0.0
+Tropicana Twister Orange 30 fl oz,430.0,0.0,0.0,0.0,90.0,115.0,0.0,114.0,0.0
+Spicy Crispy Chicken Whole Wing,120.0,8.0,1.5,35.0,350.0,5.0,0.0,0.0,7.0
+Extra Crispy Chicken Tenders,140.0,7.0,1.0,25.0,320.0,8.0,0.0,0.0,10.0
+Double Crunch Sandwich w/ Bacon & Cheese,590.0,31.0,6.0,75.0,1210.0,46.0,2.0,5.0,30.0
+Green Beans Family,90.0,0.5,0.0,0.0,1040.0,17.0,10.0,3.0,5.0
+Pepsi 20 fl oz,250.0,0.0,0.0,0.0,55.0,69.0,0.0,69.0,0.0
+Diet Pepsi Wild Cherry Pepsi 12 fl oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Popcorn Nuggets Go Cup,570.0,32.0,4.0,35.0,1600.0,53.0,4.0,0.0,18.0
+KFC Creamy Parmesan Caesar Dressing,260.0,26.0,5.0,15.0,540.0,4.0,0.0,2.0,2.0
+Macaroni & Cheese Family,560.0,22.0,6.0,10.0,2810.0,74.0,8.0,7.0,18.0
+Diet Pepsi 20 fl oz,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Original Recipe Chicken Breast,390.0,21.0,4.0,120.0,1190.0,11.0,2.0,0.0,39.0
+Diet Pepsi Wild Cherry Pepsi 16 fl oz,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Diet Pepsi Wild Cherry Pepsi 30 fl oz,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Tropicana Light Lemonade 16 fl oz,10.0,0.0,0.0,0.0,190.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper 30 fl oz,0.0,0.0,0.0,0.0,180.0,0.0,0.0,0.0,0.0
+Code Red Mountain Dew 20 fl oz,290.0,0.0,0.0,0.0,85.0,77.0,0.0,77.0,0.0
+Lipton Brisk Sweet Iced Tea 30 fl oz,200.0,0.0,0.0,0.0,120.0,54.0,0.0,54.0,0.0
+Corn on the Cob Family,280.0,2.0,0.0,0.0,15.0,67.0,8.0,11.0,9.0
+Honey BBQ Sandwich,380.0,4.5,0.5,55.0,1440.0,59.0,3.0,22.0,25.0
+Extra Crispy Chicken Thigh,150.0,9.0,3.0,90.0,420.0,0.0,0.0,0.0,17.0
+Tropicana Light Lemonade 12 fl oz,5.0,0.0,0.0,0.0,140.0,0.0,0.0,0.0,0.0
+Kentucky Grilled Chicken Thigh,150.0,9.0,3.0,90.0,420.0,17.0,0.0,0.0,17.0
+Hidden Valley The Original Ranch Fat Free Dressing,35.0,0.0,0.0,0.0,410.0,8.0,0.0,2.0,1.0
+Miranda Strawberry 12 fl oz,160.0,0.0,0.0,0.0,70.0,44.0,0.0,44.0,0.0
+Country Fried Steak w/ Peppered White Gravy,390.0,26.0,7.0,35.0,910.0,26.0,2.0,0.0,13.0
+Original Recipe Chicken Drumstick,130.0,8.0,1.5,55.0,430.0,4.0,1.0,2.0,12.0
+Tropicana Twister Orange 16 fl oz,230.0,0.0,0.0,0.0,50.0,61.0,0.0,61.0,0.0
+Colonels Buttery Spread,35.0,4.0,1.5,0.0,35.0,0.0,0.0,0.0,0.0
+Sweet Kernel Corn Family,270.0,2.5,0.0,0.0,10.0,65.0,7.0,8.0,9.0
+7UP 16 fl oz,190.0,0.0,0.0,0.0,70.0,46.0,0.0,46.0,0.0
+Cafe Valley Mini Lemon Cake,300.0,13.0,2.5,50.0,230.0,43.0,0.0,31.0,3.0
+Mug Root Beer 12 fl oz,140.0,0.0,0.0,0.0,45.0,39.0,0.0,39.0,0.0
+Lipton Brisk Sweet Iced Tea 12 fl oz,80.0,0.0,0.0,0.0,45.0,22.0,0.0,21.0,0.0
+Diet Pepsi 12 fl oz,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Tropicana Pink Lemonade 16 fl oz,210.0,0.0,0.0,0.0,210.0,53.0,0.0,53.0,0.0
+Sweet N Tangy Dipping Sauce Cup,45.0,0.0,0.0,0.0,95.0,12.0,0.0,10.0,0.0
+Dole Classic Lemonade 1/2 Gallon,880.0,0.0,0.0,0.0,780.0,234.0,0.0,228.0,0.0
+Manzanita Sol 30 fl oz,400.0,0.0,0.0,0.0,85.0,109.0,0.0,106.0,0.0
+Tropicana Light Lemonade 30 fl oz,15.0,0.0,0.0,0.0,350.0,1.0,0.0,0.0,0.0
+Lipton Brisk No Calorie Peach Iced Green Tea 16 fl oz,0.0,0.0,0.0,0.0,140.0,0.0,0.0,0.0,0.0
+Milk 1%,90.0,2.0,1.5,10.0,105.0,10.0,0.0,10.0,7.0
+Biscuit,180.0,9.0,7.0,0.0,540.0,22.0,1.0,2.0,4.0
+Strawberry Jam Packet,35.0,0.0,0.0,0.0,0.0,9.0,0.0,6.0,0.0
+Buttermilk Ranch Dipping Sauce Cup,100.0,10.0,1.5,10.0,240.0,2.0,0.0,1.0,0.0
+Sierra Mist 20 fl oz,250.0,0.0,0.0,0.0,55.0,68.0,0.0,68.0,0.0
+Diet Pepsi 16 fl oz,0.0,0.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+Crispy Twister,650.0,34.0,7.0,70.0,1260.0,53.0,4.0,3.0,28.0

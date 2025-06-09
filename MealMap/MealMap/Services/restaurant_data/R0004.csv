@@ -1,0 +1,787 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Orange Juice Kids,110.0,0.0,0.0,0.0,20.0,26.0,2.0,21.0,2.0
+Cranberry Juice Kids,140.0,0.0,0.0,0.0,40.0,35.0,0.0,35.0,0.0
+Sweet Tea,190.0,0.0,0.0,0.0,0.0,48.0,0.0,48.0,0.0
+Apple Juice Kids,120.0,0.0,0.0,0.0,30.0,29.0,0.0,26.0,0.0
+Avocado Egg Rolls,1050.0,65.0,15.0,74.0,1580.0,107.0,19.0,23.0,16.0
+Ahi Poke,320.0,10.0,2.0,51.0,1340.0,24.0,2.0,6.0,32.0
+Spinach & Artichoke Dip,1050.0,54.0,28.0,135.0,1770.0,111.0,16.0,22.0,34.0
+Hot & Spicy Buffalo Chicken Wings,820.0,63.0,15.0,177.0,3040.0,8.0,2.0,2.0,51.0
+Garlic Parmesan Wings,870.0,69.0,16.0,176.0,1880.0,9.0,1.0,2.0,51.0
+EXXXXtra Hot Buffalo Wings,760.0,57.0,14.0,172.0,2890.0,8.0,2.0,2.0,51.0
+Crispy Calamari,590.0,19.0,4.0,534.0,1640.0,58.0,3.0,6.0,46.0
+Chicken Pot Stickers,420.0,11.0,2.0,40.0,2340.0,63.0,3.0,17.0,19.0
+Mozzarella Sticks,810.0,39.0,17.0,107.0,1910.0,76.0,0.0,12.0,33.0
+Spinach Stuffed Mushrooms,280.0,20.0,8.0,33.0,610.0,15.0,3.0,4.0,11.0
+Crispy Fried Artichokes,390.0,16.0,3.0,6.0,2200.0,52.0,4.0,4.0,9.0
+Fresh Mozzarella & Tomato Salad Small,260.0,18.0,7.0,32.0,320.0,11.0,2.0,8.0,14.0
+Baked Potato,590.0,28.0,11.0,19.0,210.0,70.0,5.0,4.0,9.0
+White Cheddar Mashed Potatoes,330.0,18.0,11.0,55.0,1100.0,33.0,4.0,4.0,7.0
+Steamed Broccoli,40.0,0.0,0.0,0.0,30.0,6.0,2.0,2.0,3.0
+Mashed Potatoes Kids,250.0,14.0,8.0,41.0,820.0,25.0,3.0,3.0,5.0
+Rice Pilaf,230.0,6.0,1.0,0.0,620.0,39.0,1.0,5.0,5.0
+Steamed Veggies Kids,170.0,12.0,2.0,0.0,410.0,13.0,4.0,5.0,3.0
+Applesauce Kids,70.0,0.0,0.0,0.0,0.0,17.0,1.0,15.0,0.0
+Veggies & Dip Kids,200.0,17.0,2.0,15.0,440.0,9.0,2.0,4.0,1.0
+Fresh Fruit,60.0,0.0,0.0,0.0,0.0,13.0,1.0,10.0,1.0
+Applewood Smoked Bacon Brunch Sides,140.0,11.0,4.0,23.0,410.0,2.0,0.0,2.0,8.0
+Country Sausage Links,520.0,52.0,18.0,90.0,680.0,2.0,0.0,0.0,14.0
+Grilled Ham,110.0,5.0,2.0,38.0,840.0,2.0,0.0,2.0,14.0
+Seasoned Country Potatoes,250.0,6.0,1.0,0.0,620.0,45.0,5.0,3.0,4.0
+BJs Baked Beignet,630.0,25.0,9.0,35.0,490.0,91.0,3.0,56.0,9.0
+Sourdough Toast 2 Slices,250.0,6.0,2.0,0.0,490.0,38.0,2.0,2.0,7.0
+BJs Handcrafted Root Beer,200.0,0.0,0.0,0.0,10.0,51.0,0.0,49.0,0.0
+Lemonade,210.0,0.0,0.0,0.0,20.0,53.0,0.0,48.0,0.0
+Milk Kids,140.0,5.0,3.0,25.0,150.0,14.0,0.0,13.0,10.0
+Chocolate Milk Kids,220.0,4.0,3.0,22.0,150.0,36.0,0.0,30.0,9.0
+Strawberry Lemonade,230.0,0.0,0.0,0.0,20.0,56.0,1.0,51.0,0.0
+BJs Handcrafted Black Cherry Soda,160.0,0.0,0.0,0.0,10.0,41.0,0.0,38.0,0.0
+BJs Handcrafted Vanilla Cream Soda,170.0,0.0,0.0,0.0,10.0,42.0,0.0,41.0,0.0
+BJs Handcrafted Orange Cream Soda,160.0,0.0,0.0,0.0,10.0,40.0,0.0,38.0,0.0
+Brisk Raspberry Iced Tea,140.0,0.0,0.0,0.0,80.0,36.0,0.0,35.0,0.0
+Diet Pepsi,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Dr Pepper,170.0,0.0,0.0,0.0,50.0,41.0,0.0,41.0,0.0
+Hot Tea,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Iced Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Milk,280.0,10.0,6.0,50.0,300.0,28.0,0.0,26.0,20.0
+Mountain Dew,170.0,0.0,0.0,0.0,80.0,47.0,0.0,47.0,0.0
+Peachberry Iced Tea,100.0,0.0,0.0,0.0,0.0,25.0,0.0,24.0,0.0
+Pepsi,150.0,0.0,0.0,0.0,40.0,41.0,0.0,41.0,0.0
+Sierra Mist,150.0,0.0,0.0,0.0,40.0,39.0,0.0,39.0,0.0
+Raspberry Sparkling Lemonade,170.0,0.0,0.0,0.0,10.0,42.0,0.0,40.0,0.0
+Tropical Iced Tea,10.0,0.0,0.0,0.0,10.0,3.0,1.0,2.0,0.0
+Coffee,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Cranberry Juice,160.0,0.0,0.0,0.0,40.0,39.0,0.0,39.0,0.0
+Grapefruit Juice,110.0,0.0,0.0,0.0,20.0,26.0,0.0,19.0,1.0
+Orange Juice,120.0,0.0,0.0,0.0,20.0,29.0,2.0,24.0,2.0
+Sliders,880.0,32.0,10.0,121.0,1500.0,97.0,2.0,18.0,49.0
+Turkey Burger,780.0,38.0,10.0,91.0,1900.0,73.0,5.0,23.0,38.0
+Barbeque Bison Burger,700.0,34.0,14.0,96.0,1500.0,67.0,5.0,23.0,31.0
+Kids Burger,420.0,16.0,5.0,61.0,690.0,45.0,1.0,6.0,25.0
+BJs Peanut Butter Smores Pizookie,1580.0,70.0,31.0,125.0,700.0,216.0,7.0,150.0,20.0
+Chocolate Chunk Pizookie,1150.0,45.0,28.0,119.0,870.0,172.0,3.0,122.0,14.0
+Peanut Butter Pizookie,1220.0,66.0,30.0,111.0,830.0,136.0,5.0,97.0,20.0
+White Chocolate Macadamia Nut Pizookie,1220.0,58.0,28.0,119.0,870.0,162.0,3.0,112.0,14.0
+Triple Chocolate Pizookie Made with Ghirardelli,1180.0,58.0,30.0,115.0,500.0,151.0,8.0,99.0,16.0
+Salted Caramel Pizookie,1360.0,55.0,29.0,124.0,1420.0,200.0,1.0,154.0,14.0
+Cookies n Cream Pizookie,1230.0,60.0,31.0,69.0,1040.0,159.0,3.0,101.0,14.0
+Gluten Free Chocolate Chip Pizookie,1180.0,52.0,30.0,143.0,700.0,165.0,4.0,125.0,13.0
+Sundae Kids,380.0,16.0,11.0,35.0,70.0,56.0,0.0,49.0,2.0
+Grilled Chicken Alfredo,1380.0,69.0,35.0,211.0,2200.0,129.0,6.0,15.0,60.0
+New Orleans Jambalaya,1140.0,50.0,10.0,245.0,3330.0,99.0,6.0,16.0,69.0
+Jumbo Spaghetti & Meatballs,1450.0,66.0,22.0,159.0,2700.0,162.0,14.0,28.0,55.0
+Lemon Thyme Chicken,690.0,24.0,3.0,133.0,2540.0,54.0,6.0,6.0,60.0
+Cherry Chipotle Glazed Salmon,590.0,26.0,5.0,117.0,610.0,40.0,2.0,7.0,46.0
+BJs Classic Rib Eye,1080.0,67.0,26.0,500.0,2270.0,5.0,1.0,1.0,106.0
+House Top Sirloin,500.0,32.0,13.0,118.0,970.0,2.0,0.0,0.0,46.0
+Baby Back Pork Ribs Full Rack,1300.0,68.0,25.0,230.0,7940.0,120.0,2.0,106.0,50.0
+Baby Back Pork Ribs Half Rack,710.0,34.0,12.0,115.0,4330.0,75.0,1.0,68.0,25.0
+Parmesan Crusted Chicken,1140.0,63.0,34.0,443.0,1820.0,62.0,6.0,8.0,76.0
+Southern Fried Chicken,960.0,54.0,31.0,237.0,1860.0,70.0,5.0,8.0,38.0
+Lemon Thyme Chicken Lunch Specials,510.0,18.0,3.0,100.0,1990.0,40.0,5.0,5.0,46.0
+Piranha Pale Ale Chili & Cheese Stuffed Potato Lunch Specials,840.0,38.0,22.0,114.0,1280.0,87.0,9.0,6.0,36.0
+The Classic Stuffed Potato Lunch Specials,590.0,28.0,11.0,19.0,210.0,70.0,5.0,4.0,9.0
+Garden Vegetable Stuffed Potato Lunch Specials,860.0,44.0,27.0,128.0,980.0,83.0,8.0,9.0,32.0
+Grilled Chicken Stuffed Potato Lunch Specials,1050.0,50.0,28.0,226.0,1270.0,77.0,6.0,6.0,70.0
+Grilled Chicken Alfredo Pasta Lunch Specials,650.0,33.0,17.0,105.0,1000.0,58.0,3.0,8.0,29.0
+Jumbo Spaghetti & Meatballs Lunch Specials,780.0,35.0,12.0,79.0,1460.0,89.0,7.0,15.0,29.0
+Chicken Tenders Kids,470.0,26.0,4.0,82.0,1710.0,31.0,1.0,0.0,27.0
+Mini Corn Dogs Kids,430.0,25.0,5.0,60.0,1040.0,34.0,2.0,10.0,14.0
+Spaghetti w/ Marinara Sauce Kids,300.0,4.0,0.0,0.0,430.0,57.0,4.0,7.0,9.0
+Mac n Cheese Kids,490.0,16.0,5.0,35.0,1190.0,68.0,3.0,16.0,17.0
+Grilled Chicken Pasta Kids,780.0,37.0,18.0,120.0,1050.0,74.0,4.0,9.0,38.0
+Grilled Chicken Breast Kids,320.0,6.0,1.0,66.0,640.0,34.0,3.0,7.0,31.0
+BJs California Scramble,1140.0,64.0,20.0,895.0,2120.0,84.0,9.0,8.0,52.0
+BJs Classic Buttermilk Pancakes Full Stack,1490.0,60.0,19.0,0.0,3070.0,200.0,8.0,65.0,27.0
+BJs Classic Buttermilk Pancakes Short Stack,910.0,32.0,10.0,0.0,1840.0,136.0,5.0,49.0,16.0
+BJs Classic Buttermilk Pancakes Just for Kids,390.0,17.0,6.0,0.0,610.0,53.0,2.0,23.0,5.0
+BJs Classic Buttermilk Pancakes Combo Just for Kids,500.0,25.0,8.0,174.0,800.0,53.0,2.0,24.0,12.0
+EnLIGHTened Veggie Omelette w/ Fresh Fruit,270.0,9.0,3.0,13.0,840.0,24.0,3.0,13.0,22.0
+Two Eggs,610.0,21.0,5.0,280.0,1210.0,83.0,6.0,5.0,19.0
+Crisp Potato Skins Platter,1190.0,59.0,26.0,134.0,1800.0,116.0,18.0,5.0,38.0
+Crispy Thin Fries Sides,390.0,23.0,5.0,0.0,780.0,42.0,4.0,0.0,4.0
+Wedge Cut Seasoned Fries Sides,390.0,21.0,6.0,0.0,720.0,48.0,5.0,0.0,5.0
+Crispy Thin Fries Kids,260.0,16.0,4.0,0.0,520.0,28.0,3.0,0.0,3.0
+Wedge Cut Fries Kids,290.0,15.0,4.0,0.0,540.0,36.0,4.0,0.0,4.0
+Happy Face Potatoes Kids,180.0,8.0,1.0,0.0,230.0,24.0,2.0,0.0,2.0
+California Club Flatbread Appetizer Pizza,110.0,6.0,2.0,14.0,230.0,10.0,1.0,0.0,5.0
+Margherita Fresca Flatbread Appetizer Pizza 1 Slice,100.0,5.0,2.0,12.0,190.0,10.0,0.0,1.0,5.0
+Pepperoni Extreme Flatbread Appetizer Pizza 1 Slice,120.0,7.0,3.0,17.0,300.0,10.0,0.0,0.0,5.0
+Chicken Bacon Ranch Pizza Mini,230.0,12.0,4.0,35.0,580.0,17.0,1.0,2.0,13.0
+Chicken Bacon Ranch Pizza Small,330.0,16.0,6.0,47.0,820.0,25.0,2.0,2.0,18.0
+Chicken Bacon Ranch Pizza Medium,410.0,21.0,7.0,56.0,1020.0,32.0,2.0,3.0,22.0
+Chicken Bacon Ranch Pizza Large,470.0,23.0,8.0,63.0,1140.0,38.0,2.0,3.0,24.0
+BJs Favorite Pizza Mini,180.0,9.0,3.0,17.0,440.0,18.0,1.0,1.0,7.0
+BJs Favorite Pizza Small,250.0,12.0,4.0,24.0,650.0,26.0,2.0,2.0,10.0
+BJs Favorite Pizza Medium,310.0,15.0,6.0,30.0,820.0,33.0,2.0,3.0,12.0
+BJs Favorite Pizza Large,360.0,16.0,6.0,32.0,900.0,39.0,2.0,3.0,13.0
+Pepperoni Extreme Pizza Mini,190.0,11.0,4.0,21.0,560.0,17.0,1.0,1.0,7.0
+Pepperoni Extreme Pizza Small,260.0,14.0,5.0,29.0,770.0,25.0,1.0,2.0,11.0
+Pepperoni Extreme Pizza Medium,340.0,17.0,7.0,36.0,970.0,32.0,2.0,2.0,14.0
+Pepperoni Extreme Pizza Large,380.0,19.0,7.0,39.0,1080.0,38.0,2.0,2.0,15.0
+Gourmet Five Meat Pizza Mini,240.0,14.0,6.0,36.0,660.0,18.0,1.0,2.0,12.0
+Gourmet Five Meat Pizza Small,320.0,17.0,7.0,43.0,870.0,26.0,2.0,2.0,15.0
+Gourmet Five Meat Pizza Medium,360.0,18.0,7.0,42.0,950.0,33.0,2.0,3.0,16.0
+Gourmet Five Meat Pizza Large,400.0,20.0,8.0,45.0,1020.0,39.0,2.0,3.0,17.0
+BJs Classic Combo Pizza Mini,190.0,10.0,4.0,19.0,480.0,17.0,1.0,1.0,7.0
+BJs Classic Combo Pizza Small,260.0,13.0,5.0,27.0,700.0,25.0,2.0,2.0,10.0
+BJs Classic Combo Pizza Medium,330.0,17.0,7.0,35.0,890.0,32.0,2.0,2.0,13.0
+BJs Classic Combo Pizza Large,370.0,18.0,7.0,35.0,940.0,38.0,2.0,3.0,14.0
+Mediterranean Pizza Mini,220.0,11.0,3.0,28.0,650.0,18.0,1.0,2.0,12.0
+Mediterranean Pizza Small,290.0,13.0,4.0,34.0,890.0,27.0,2.0,3.0,16.0
+Mediterranean Pizza Medium,380.0,17.0,5.0,43.0,1140.0,35.0,2.0,4.0,20.0
+Mediterranean Pizza Large,430.0,19.0,5.0,44.0,1280.0,42.0,3.0,6.0,22.0
+Buffalo Chicken Pizza Mini,170.0,6.0,2.0,22.0,610.0,18.0,1.0,2.0,10.0
+Buffalo Chicken Pizza Small,240.0,8.0,3.0,31.0,880.0,26.0,2.0,3.0,15.0
+Buffalo Chicken Pizza Medium,310.0,11.0,4.0,39.0,1180.0,34.0,2.0,4.0,18.0
+Buffalo Chicken Pizza Large,340.0,11.0,4.0,39.0,1290.0,40.0,2.0,4.0,19.0
+Vegetarian Pizza Mini,140.0,5.0,2.0,8.0,350.0,17.0,1.0,1.0,5.0
+Vegetarian Pizza Small,200.0,7.0,3.0,12.0,520.0,25.0,2.0,2.0,8.0
+Vegetarian Pizza Medium,260.0,10.0,4.0,18.0,690.0,32.0,2.0,3.0,10.0
+Vegetarian Pizza Large,290.0,10.0,4.0,17.0,730.0,38.0,2.0,3.0,11.0
+Great White Pizza Mini,180.0,7.0,3.0,26.0,480.0,17.0,1.0,2.0,11.0
+Great White Pizza Small,250.0,10.0,4.0,36.0,700.0,25.0,2.0,2.0,15.0
+Great White Pizza Medium,330.0,14.0,6.0,47.0,910.0,32.0,2.0,3.0,19.0
+Great White Pizza Large,370.0,15.0,6.0,49.0,970.0,38.0,2.0,3.0,20.0
+Sweet Pig Pizza Mini,150.0,5.0,2.0,11.0,390.0,20.0,1.0,4.0,6.0
+Sweet Pig Pizza Small,210.0,7.0,3.0,15.0,550.0,28.0,2.0,5.0,9.0
+Sweet Pig Pizza Medium,270.0,9.0,4.0,21.0,720.0,35.0,2.0,5.0,11.0
+Sweet Pig Pizza Large,300.0,9.0,4.0,20.0,750.0,41.0,2.0,6.0,12.0
+Barbeque Chicken Pizza Mini,170.0,5.0,2.0,21.0,490.0,19.0,1.0,3.0,10.0
+Barbeque Chicken Pizza Small,230.0,7.0,3.0,30.0,710.0,27.0,1.0,4.0,15.0
+Barbeque Chicken Pizza Medium,310.0,10.0,4.0,38.0,930.0,35.0,2.0,5.0,18.0
+Barbeque Chicken Pizza Large,340.0,10.0,4.0,39.0,1000.0,42.0,2.0,6.0,19.0
+Gluten Free Thin Crust Cheese Pizza,130.0,6.0,2.0,12.0,250.0,14.0,0.0,1.0,4.0
+Pepperoni Pizza Kids,160.0,8.0,3.0,17.0,440.0,17.0,1.0,1.0,7.0
+BJs Breakfast Flatbread Pizza,190.0,12.0,4.0,124.0,340.0,11.0,1.0,1.0,9.0
+Golden Beet & Arugula Salad,120.0,4.0,1.0,4.0,270.0,18.0,4.0,13.0,3.0
+Pineapple,60.0,0.0,0.0,0.0,0.0,15.0,1.0,13.0,0.0
+Twisted BLT Salad,220.0,15.0,5.0,96.0,570.0,10.0,1.0,6.0,10.0
+Barbeque Chicken Chopped Salad,930.0,48.0,10.0,154.0,2730.0,64.0,11.0,29.0,54.0
+Honey Crisp Chicken Salad,1370.0,103.0,16.0,358.0,2330.0,77.0,6.0,36.0,42.0
+Caesar Salad,810.0,64.0,13.0,54.0,2170.0,44.0,6.0,7.0,23.0
+Santa Fe Salad,980.0,57.0,13.0,159.0,2040.0,55.0,11.0,9.0,54.0
+House Caesar Salad Small,400.0,32.0,6.0,27.0,1080.0,22.0,3.0,4.0,11.0
+House Salad Small,80.0,4.0,1.0,7.0,200.0,8.0,1.0,1.0,5.0
+House Wedge Salad Small,300.0,30.0,8.0,37.0,610.0,6.0,1.0,5.0,6.0
+Kale & Roasted Brussels Sprouts Salad,440.0,20.0,4.0,10.0,840.0,54.0,8.0,34.0,11.0
+Asian Chopped Salad,540.0,21.0,3.0,114.0,1400.0,38.0,5.0,22.0,45.0
+Seared Ahi Salad,580.0,31.0,5.0,45.0,1320.0,43.0,8.0,25.0,30.0
+Small Salad Kids,250.0,19.0,2.0,15.0,430.0,16.0,1.0,2.0,2.0
+Mediterranean Chicken Pita Tacos,670.0,20.0,3.0,62.0,1650.0,79.0,6.0,10.0,43.0
+Shrimp Tacos,680.0,33.0,6.0,214.0,1340.0,58.0,8.0,8.0,36.0
+California Chicken Club Sandwich Lunch Specials,460.0,23.0,8.0,81.0,1030.0,25.0,3.0,3.0,35.0
+Grilled Cheese Sandwich Kids,430.0,22.0,10.0,45.0,750.0,38.0,2.0,2.0,17.0
+Broccoli Cheddar Bowl,380.0,26.0,14.0,51.0,1480.0,24.0,1.0,5.0,14.0
+Clam Chowder Bowl,380.0,26.0,14.0,51.0,1480.0,24.0,1.0,5.0,14.0
+Clam Chowder in Sourdough Loaf,1470.0,42.0,14.0,85.0,4680.0,219.0,10.0,5.0,45.0
+Tuscan Tomato Bisque Bowl,560.0,54.0,30.0,156.0,820.0,15.0,3.0,8.0,3.0
+Tuscan Tomato Bisque in Sourdough Loaf,1590.0,71.0,33.0,156.0,3900.0,201.0,11.0,12.0,33.0
+Broccoli Cheddar in Sourdough Loaf,1420.0,42.0,17.0,51.0,4570.0,210.0,10.0,9.0,44.0
+Chicken Tortilla Bowl,280.0,12.0,3.0,25.0,1850.0,30.0,5.0,4.0,12.0
+Piranha Pale Ale Chili Bowl,560.0,37.0,20.0,108.0,1520.0,26.0,6.0,5.0,29.0
+Piranha Pale Ale Chili in Sourdough Loaf,1600.0,54.0,23.0,108.0,4600.0,213.0,14.0,9.0,59.0
+Grilled Chicken Breast,220.0,6.0,1.0,99.0,850.0,0.0,0.0,0.0,39.0
+Cajun Shrimp,250.0,10.0,2.0,259.0,590.0,4.0,0.0,0.0,35.0
+Flame Broiled Salmon,390.0,25.0,5.0,117.0,230.0,0.0,0.0,0.0,40.0
+Blackened Salmon,410.0,25.0,5.0,117.0,740.0,6.0,0.0,0.0,40.0
+Blackened Chicken Breast,240.0,6.0,1.0,99.0,700.0,4.0,0.0,0.0,40.0
+Balsamic Vinaigrette,160.0,15.0,2.0,0.0,230.0,6.0,0.0,6.0,0.0
+Bleu Cheese Dressing,180.0,20.0,5.0,23.0,330.0,2.0,0.0,2.0,2.0
+Honey Mustard Dressing,240.0,24.0,4.0,15.0,240.0,8.0,0.0,8.0,0.0
+Italian Dressing,170.0,18.0,2.0,0.0,270.0,2.0,0.0,2.0,0.0
+Oil & Vinegar,210.0,21.0,3.0,0.0,0.0,5.0,0.0,5.0,0.0
+Ranch Dressing,170.0,17.0,2.0,15.0,360.0,2.0,0.0,0.0,0.0
+Thousand Island Dressing,200.0,20.0,3.0,23.0,390.0,6.0,0.0,5.0,0.0
+Anchovies,30.0,1.0,0.0,21.0,1150.0,0.0,0.0,0.0,5.0
+Artichoke Hearts,40.0,0.0,0.0,0.0,420.0,6.0,4.0,1.0,2.0
+Black Olives,100.0,10.0,0.0,0.0,500.0,4.0,0.0,0.0,0.0
+Cilantro,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Fire Roasted Red Bell Peppers,40.0,0.0,0.0,0.0,520.0,8.0,3.0,5.0,1.0
+Fresh Basil,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Grilled Chicken,120.0,3.0,1.0,54.0,460.0,0.0,0.0,0.0,21.0
+Green Bell Peppers,20.0,0.0,0.0,0.0,0.0,4.0,1.0,2.0,1.0
+Ham,40.0,2.0,1.0,13.0,280.0,1.0,0.0,1.0,5.0
+Housemade Meatballs,310.0,25.0,10.0,82.0,380.0,7.0,1.0,2.0,14.0
+Italian Sausage,290.0,26.0,9.0,52.0,690.0,2.0,1.0,0.0,9.0
+Jalapenos,10.0,0.0,0.0,0.0,530.0,2.0,0.0,0.0,0.0
+Mozzarella Cheese,110.0,9.0,5.0,32.0,320.0,1.0,0.0,0.0,7.0
+Mushrooms,10.0,0.0,0.0,0.0,0.0,2.0,1.0,1.0,2.0
+Pepperoni,90.0,8.0,3.0,19.0,300.0,1.0,0.0,0.0,3.0
+Roasted Garlic,10.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Applewood Smoked Bacon for BJs Signature Deep Dish Pizzas,110.0,8.0,3.0,18.0,320.0,1.0,0.0,1.0,6.0
+White Onions,40.0,0.0,0.0,0.0,0.0,8.0,1.0,3.0,1.0
+Applewood Smoked Bacon for Handcrafted Burgers,90.0,7.0,3.0,15.0,270.0,1.0,0.0,1.0,5.0
+Cheese Add Ons,170.0,14.0,9.0,45.0,270.0,0.0,0.0,0.0,11.0
+Avocado,90.0,7.0,1.0,0.0,0.0,4.0,3.0,0.0,1.0
+Mahi Mahi Tacos Grilled,640.0,32.0,6.0,103.0,1200.0,57.0,8.0,8.0,31.0
+Mahi Mahi Tacos Lightly Fried,770.0,32.0,6.0,61.0,1950.0,92.0,10.0,8.0,25.0
+Roasted Asparagus for Build Your Own Pizza,10.0,0.0,0.0,0.0,0.0,2.0,1.0,1.0,1.0
+Roasted Brussels Sprouts for Build Your Own Pizza,50.0,2.0,0.0,0.0,230.0,5.0,2.0,1.0,2.0
+Seasoned Tomatoes,10.0,0.0,0.0,0.0,160.0,2.0,0.0,1.0,0.0
+Chicken Lettuce Wraps,540.0,24.0,3.0,33.0,2230.0,44.0,5.0,26.0,33.0
+Lemon Pepper Sesame Dry Rub Wings,750.0,57.0,14.0,172.0,2530.0,6.0,1.0,1.0,50.0
+Sriracha Dry Rub Wings,780.0,57.0,14.0,172.0,1780.0,11.0,2.0,3.0,51.0
+Root Beer Glazed Ribs,490.0,21.0,7.0,53.0,1460.0,61.0,2.0,54.0,12.0
+Root Beer Glazed Wings,920.0,57.0,14.0,172.0,2160.0,49.0,1.0,42.0,51.0
+Chips & Fire Roasted Salsa,600.0,10.0,1.0,0.0,1560.0,106.0,15.0,24.0,21.0
+Honey Sriracha Brussels Sprouts,220.0,6.0,1.0,0.0,1350.0,31.0,9.0,15.0,11.0
+Housemade Guacamole & Chips,780.0,30.0,3.0,0.0,1240.0,112.0,23.0,22.0,23.0
+Sriracha Queso Dip w/ Piranha Pale Ale Chili,920.0,36.0,16.0,91.0,1880.0,108.0,14.0,25.0,42.0
+Sriracha Queso Dip w/ Pork Chile Verde,840.0,31.0,15.0,85.0,2220.0,102.0,16.0,24.0,39.0
+Roasted Portobello & Asparagus Starter Salad,290.0,18.0,4.0,10.0,510.0,25.0,3.0,17.0,7.0
+Roasted Salmon Quinoa Bowl Lunch Specials,730.0,41.0,6.0,59.0,1110.0,55.0,8.0,7.0,33.0
+Apple Juice Brunch Beverages,140.0,0.0,0.0,0.0,30.0,33.0,0.0,29.0,0.0
+Garlic Chicken Pesto Tavern Cut Pizza,100.0,5.0,2.0,13.0,270.0,9.0,1.0,1.0,5.0
+Old Country Tomato Basil Tavern Cut Pizza,70.0,3.0,1.0,7.0,170.0,9.0,1.0,1.0,3.0
+The Italian Market Tavern Cut Pizza,110.0,6.0,3.0,18.0,350.0,9.0,1.0,1.0,5.0
+The Spicy Pig Tavern Cut Pizza,90.0,4.0,2.0,11.0,300.0,10.0,0.0,1.0,4.0
+Fire-Roasted Barbacoa Chicken,540.0,16.0,3.0,106.0,1700.0,45.0,8.0,2.0,51.0
+North Beach Mahi Mahi & Shrimp,560.0,18.0,3.0,257.0,2180.0,42.0,3.0,5.0,56.0
+Deep Dish Ziti,1400.0,91.0,35.0,175.0,2730.0,99.0,8.0,15.0,44.0
+Shrimp & Asparagus Penne,730.0,21.0,4.0,133.0,1610.0,97.0,8.0,14.0,36.0
+Italiano Vegetable Penne,740.0,31.0,5.0,0.0,940.0,93.0,8.0,14.0,18.0
+Roasted Chicken & Spinach Quinoa Bowl,890.0,41.0,6.0,99.0,1840.0,73.0,9.0,4.0,56.0
+Roasted Salmon Quinoa Bowl BJs Enlightened Entrees,1040.0,56.0,9.0,117.0,2180.0,77.0,11.0,7.0,57.0
+BJs Peppered BBQ Wings,870.0,57.0,14.0,172.0,2120.0,36.0,1.0,30.0,51.0
+Roasted Asparagus Ribs & USDA Steaks,20.0,0.0,0.0,0.0,120.0,3.0,2.0,2.0,2.0
+Roasted Brussels Sprouts Ribs & USDA Steaks,90.0,4.0,1.0,0.0,450.0,10.0,4.0,3.0,4.0
+Garlic Knots,220.0,8.0,2.0,0.0,420.0,32.0,2.0,2.0,6.0
+Garlic Bread Kids,110.0,4.0,1.0,0.0,210.0,16.0,1.0,1.0,3.0
+BJs Handcrafted Black Cherry Soda Float,500.0,19.0,12.0,70.0,120.0,78.0,0.0,72.0,5.0
+Chocolate Milk,450.0,9.0,5.0,44.0,290.0,73.0,0.0,61.0,18.0
+Green Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Hot Chocolate,160.0,6.0,4.0,0.0,170.0,25.0,1.0,19.0,1.0
+BJs Handcrafted Orange Cream Soda Float,500.0,19.0,12.0,70.0,120.0,78.0,0.0,72.0,5.0
+BJs Handcrafted Root Beer Float,530.0,19.0,12.0,70.0,120.0,85.0,0.0,79.0,5.0
+BJs Handcrafted Cream Soda Float,510.0,19.0,12.0,70.0,130.0,79.0,0.0,74.0,5.0
+Cheese & Tomato Pizza Large,300.0,11.0,5.0,24.0,760.0,37.0,2.0,2.0,12.0
+Cheese & Tomato Pizza Medium,270.0,11.0,5.0,24.0,710.0,31.0,2.0,2.0,12.0
+Cheese & Tomato Pizza Mini,140.0,6.0,2.0,12.0,360.0,16.0,1.0,1.0,6.0
+Cheese & Tomato Pizza Small,210.0,9.0,4.0,20.0,560.0,24.0,1.0,2.0,9.0
+Spicy Hawaiian Chicken Pizza Large,390.0,15.0,6.0,40.0,1200.0,42.0,2.0,6.0,19.0
+Spicy Hawaiian Chicken Pizza Medium,350.0,15.0,6.0,40.0,1120.0,36.0,2.0,6.0,18.0
+Spicy Hawaiian Chicken Pizza Mini,200.0,8.0,3.0,22.0,590.0,19.0,1.0,4.0,10.0
+Spicy Hawaiian Chicken Pizza Small,280.0,12.0,4.0,31.0,870.0,28.0,2.0,5.0,14.0
+Housemade Guacamole Add Ons,90.0,8.0,1.0,0.0,200.0,5.0,4.0,0.0,1.0
+Piranha Pale Ale Chili Add Ons,60.0,3.0,1.0,6.0,230.0,5.0,1.0,1.0,3.0
+Turkey Patty Add Ons,290.0,18.0,3.0,76.0,1030.0,5.0,0.0,2.0,27.0
+Veggie Patty Add Ons,180.0,7.0,2.0,10.0,630.0,21.0,3.0,0.0,8.0
+Brewhouse BBQ Boneless Chicken Wings,1030.0,41.0,7.0,192.0,4470.0,100.0,1.0,40.0,65.0
+Crispy Flatbread Nachos,890.0,42.0,19.0,98.0,2340.0,95.0,11.0,7.0,34.0
+Crispy Portobello Strips,460.0,11.0,2.0,3.0,2060.0,79.0,6.0,6.0,11.0
+Brewhouse Blonde Asparagus,500.0,18.0,6.0,29.0,2100.0,73.0,5.0,5.0,9.0
+EXXXXtra Hot Buffalo Boneless Chicken Wings,760.0,57.0,14.0,172.0,2890.0,8.0,2.0,2.0,51.0
+Garlic Parmesan Boneless Chicken Wings,1030.0,56.0,9.0,197.0,4160.0,64.0,1.0,2.0,66.0
+Hot & Spicy Buffalo Boneless Chicken Wings,890.0,41.0,7.0,192.0,5540.0,62.0,2.0,2.0,66.0
+Lemon Pepper Sesame Dry Rub Boneless Chicken Wings,870.0,41.0,7.0,192.0,5020.0,59.0,1.0,1.0,65.0
+Root Beer Glaze Boneless Chicken Wings,1040.0,41.0,7.0,192.0,4280.0,103.0,1.0,42.0,65.0
+Sriracha Dry Rub Boneless Chicken Wings,910.0,41.0,7.0,192.0,4020.0,66.0,2.0,3.0,66.0
+BJs Loaded Burger Patty Add Ons,380.0,26.0,10.0,121.0,920.0,0.0,0.0,0.0,35.0
+BJs Brewhouse Burger Patty,290.0,19.0,7.0,87.0,870.0,1.0,0.0,0.0,26.0
+Avocado Toast,410.0,20.0,4.0,212.0,640.0,47.0,8.0,20.0,12.0
+Whole Wheat Toast,260.0,8.0,3.0,0.0,350.0,42.0,3.0,5.0,6.0
+Cucumber Mint Sparkling Water,20.0,0.0,0.0,0.0,20.0,4.0,0.0,0.0,0.0
+Raspberry Sparkling Water,20.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Diet Dr Pepper,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Monkey Bread Pizookie,1260.0,56.0,20.0,112.0,1080.0,177.0,4.0,105.0,17.0
+Breakfast Monkey Bread Pizookie,1160.0,49.0,10.0,42.0,980.0,171.0,6.0,100.0,14.0
+Spicy Peanut Chicken w/ Soba Noodles,1040.0,61.0,13.0,106.0,2120.0,75.0,8.0,23.0,45.0
+The Super Salad,460.0,24.0,3.0,0.0,520.0,53.0,8.0,17.0,8.0
+Derby Style Chicken Cobb,1060.0,74.0,23.0,412.0,2540.0,19.0,8.0,7.0,72.0
+Soba Noodle Bowl w/ Shrimp,450.0,9.0,1.0,123.0,2610.0,64.0,7.0,15.0,29.0
+Chicken Philly Deep Dish Pizza Mini,180.0,7.0,3.0,25.0,470.0,18.0,1.0,2.0,11.0
+Gluten Free Bun,230.0,6.0,1.0,0.0,360.0,39.0,4.0,5.0,6.0
+California Supreme Deep Dish Pizza Mini,150.0,6.0,2.0,10.0,410.0,17.0,1.0,1.0,6.0
+BJs Brewhouse Classic,110.0,6.0,2.0,14.0,250.0,9.0,1.0,1.0,4.0
+California Supreme Deep Dish Pizza Small,210.0,9.0,3.0,15.0,620.0,25.0,2.0,2.0,8.0
+California Supreme Deep Dish Pizza Medium,280.0,12.0,4.0,22.0,820.0,33.0,2.0,3.0,11.0
+California Supreme Deep Dish Pizza Large,310.0,12.0,4.0,21.0,870.0,39.0,2.0,3.0,12.0
+Chicken Philly Deep Dish Pizza Small,270.0,11.0,5.0,38.0,710.0,26.0,2.0,3.0,16.0
+Chicken Philly Deep Dish Pizza Medium,360.0,15.0,7.0,52.0,950.0,34.0,2.0,4.0,21.0
+Chicken Philly Deep Dish Pizza Large,390.0,16.0,7.0,53.0,980.0,40.0,2.0,4.0,22.0
+California Club Half Flatbread,440.0,22.0,9.0,55.0,930.0,39.0,3.0,2.0,20.0
+Margherita Fresca Half Flatbread,400.0,19.0,9.0,50.0,750.0,39.0,2.0,3.0,18.0
+Pepperoni Extreme Half Flatbread,480.0,28.0,12.0,67.0,1220.0,39.0,2.0,1.0,19.0
+Shrimp & Arugula Pita Taco,790.0,34.0,5.0,197.0,2000.0,79.0,6.0,9.0,43.0
+Vegetarian Pita Tacos,550.0,17.0,3.0,5.0,1660.0,81.0,8.0,11.0,19.0
+The Triple Decker Half,460.0,23.0,9.0,89.0,1670.0,29.0,2.0,7.0,33.0
+Breakfast Tacos,1060.0,65.0,25.0,653.0,2310.0,68.0,7.0,7.0,48.0
+Lentil w/ Ancient Grains Bowl,300.0,9.0,1.0,0.0,770.0,42.0,10.0,4.0,13.0
+Chicken Tortilla in a Sourdough Loaf,1310.0,29.0,6.0,25.0,4940.0,216.0,13.0,8.0,42.0
+Lentil w/ Ancient Grains in a Sourdough Loaf,1280.0,24.0,4.0,0.0,3730.0,221.0,17.0,7.0,41.0
+BBQ Ranch Dressing,140.0,12.0,2.0,11.0,410.0,6.0,0.0,4.0,0.0
+Caesar Dressing,200.0,20.0,4.0,15.0,570.0,3.0,0.0,2.0,3.0
+Santa Fe Dressing,170.0,17.0,2.0,15.0,380.0,2.0,0.0,0.0,0.0
+Fried Egg Add Ons,90.0,7.0,2.0,210.0,80.0,0.0,0.0,0.0,6.0
+Parker House Bun,300.0,9.0,5.0,15.0,460.0,47.0,2.0,9.0,9.0
+Portobello Mushroom Patty,50.0,3.0,0.0,0.0,290.0,4.0,1.0,2.0,2.0
+Asparagus Housemade Sides,20.0,0.0,0.0,0.0,120.0,3.0,2.0,2.0,2.0
+Garden Vegetable Potato,870.0,44.0,27.0,128.0,1010.0,82.0,8.0,8.0,34.0
+Hand Pulled Turkey Dip w/Fries,1310.0,73.0,24.0,164.0,3920.0,100.0,7.0,17.0,62.0
+Kale & Roasted Brussels Sprouts Salad w/ Grilled Chicken,660.0,231.0,5.0,109.0,1124.0,54.0,8.0,34.0,50.0
+Bacon Cheeseburger,1380.0,84.0,29.0,185.0,3212.0,97.0,8.0,15.0,59.0
+Fresh Fruit,60.0,0.0,0.0,0.0,1.0,13.0,1.0,10.0,1.0
+Mushrooms for 1 Topping Build Your Own Deep Dish Pizza Mini,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Green Iced Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+California Club Half Flatbread,440.0,22.0,9.0,55.0,934.0,39.0,3.0,2.0,20.0
+Crispy Flatbread Nachos,890.0,42.0,19.0,98.0,2345.0,95.0,11.0,7.0,34.0
+Old Country Tomato Basil Tavern Crust Pizza,70.0,3.0,1.0,7.0,169.0,9.0,1.0,1.0,3.0
+Sweet Tea,190.0,0.0,0.0,0.0,1.0,48.0,0.0,48.0,0.0
+Ahi Poke,320.0,10.0,2.0,51.0,1344.0,24.0,2.0,6.0,32.0
+Triple Chocolate Pizookie Made with Ghirardelli,1180.0,58.0,30.0,115.0,498.0,151.0,8.0,99.0,16.0
+Grilled Chicken for 1 Topping Build Your Own Deep Dish Pizza Mini,30.0,1.0,1.0,14.0,115.0,0.0,0.0,0.0,5.0
+Spicy Peanut Chicken w/ Soba Noodles,1040.0,61.0,13.0,106.0,2124.0,75.0,8.0,23.0,45.0
+Classic Prime Rib Dip w/ Fries,1360.0,90.0,30.0,146.0,2663.0,92.0,6.0,12.0,45.0
+Buttermilk Pancakes Combo,1130.0,43.0,12.0,538.0,2844.0,144.0,3.0,51.0,39.0
+Mini Monkey Bread Pizookie,630.0,28.0,10.0,56.0,541.0,89.0,2.0,52.0,8.0
+Mediterranean Chicken Pita Tacos,670.0,20.0,3.0,62.0,1654.0,79.0,6.0,10.0,43.0
+Cucumber Mint Sparkling Water,10.0,0.0,0.0,0.0,10.0,3.0,0.0,0.0,0.0
+Piranha Pale Ale Chili in Sourdough Loaf,1600.0,54.0,23.0,108.0,4601.0,213.0,14.0,9.0,59.0
+Apple Juice Brunch Beverages,140.0,0.0,0.0,0.0,28.0,33.0,0.0,29.0,0.0
+Strawberry Topping,50.0,0.0,0.0,0.0,0.0,10.0,1.0,8.0,1.0
+Regular Freshly Brewed Iced Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Breakfast Tacos,1060.0,65.0,25.0,653.0,2307.0,68.0,7.0,7.0,48.0
+Barbeque Chicken Deep Dish Pizza Mini,170.0,5.0,2.0,21.0,491.0,19.0,1.0,3.0,10.0
+Blackened Shrimp,250.0,10.0,2.0,259.0,587.0,4.0,0.0,0.0,35.0
+Sweet Pig Deep Dish Pizza Medium,270.0,9.0,4.0,21.0,716.0,35.0,2.0,5.0,11.0
+BJs Brewhouse Blonde Fish n Chips,1110.0,37.0,7.0,98.0,3828.0,142.0,10.0,4.0,54.0
+Italiano Vegetable Penne w/ Grilled Chicken,960.0,37.0,7.0,99.0,1293.0,93.0,8.0,14.0,57.0
+Classic Breakfast Sandwich w/ Sausage on a Toasted Wheat Bread,1320.0,88.0,30.0,673.0,2040.0,90.0,8.0,8.0,46.0
+Oil & Vinegar,210.0,21.0,3.0,0.0,0.0,5.0,0.0,5.0,0.0
+Mountain Dew Kids,170.0,0.0,0.0,0.0,75.0,47.0,0.0,47.0,0.0
+The Spicy Pig Tavern Cut Pizza,90.0,4.0,1.0,11.0,297.0,10.0,0.0,1.0,4.0
+Grilled Chicken Kids,320.0,6.0,1.0,66.0,644.0,34.0,3.0,7.0,31.0
+Spinach Stuffed Mushrooms,280.0,20.0,8.0,33.0,606.0,15.0,3.0,4.0,11.0
+Santa Fe Dressing,170.0,17.0,2.0,15.0,381.0,2.0,0.0,0.0,0.0
+Veggies & Dip Kids,200.0,17.0,2.0,15.0,444.0,9.0,2.0,4.0,1.0
+Pepsi,100.0,0.0,0.0,0.0,25.0,27.0,0.0,27.0,0.0
+Caprese Piadina w/ Fries,890.0,45.0,15.0,54.0,1514.0,94.0,8.0,6.0,30.0
+Barbeque Chicken Chopped Salad,930.0,18.0,11.0,154.0,2725.0,64.0,11.0,29.0,54.0
+Peruvian Quinoa Bowl w/ Roasted Shrimp,550.0,23.0,3.0,184.0,1653.0,49.0,7.0,5.0,37.0
+Lentil w/ Ancient Grains,300.0,9.0,1.0,0.0,775.0,42.0,10.0,4.0,13.0
+Broccoli,40.0,0.0,0.0,0.0,30.0,6.0,2.0,2.0,3.0
+Lemonade Kids,210.0,0.0,0.0,0.0,20.0,53.0,0.0,48.0,0.0
+Sweet Pig Deep Dish Pizza Mini,150.0,5.0,2.0,11.0,388.0,20.0,1.0,4.0,6.0
+EXXXXtra Hot Buffalo,30.0,1.0,0.0,0.0,2979.0,6.0,2.0,1.0,1.0
+Ghirardelli Double Chocolate Chip 1 Scoop,190.0,10.0,6.0,30.0,54.0,24.0,1.0,20.0,4.0
+Mediterranean Deep Dish Pizza Mini,220.0,11.0,3.0,28.0,650.0,18.0,1.0,2.0,12.0
+Quinoa & Brown Rice Blend,280.0,5.0,1.0,0.0,389.0,49.0,4.0,0.0,8.0
+Goslings Ginger Beer,190.0,0.0,0.0,0.0,0.0,48.0,0.0,48.0,0.0
+Fresh Atlantic Salmon,840.0,50.0,17.0,183.0,1316.0,49.0,4.0,7.0,48.0
+Barbeque Chicken Deep Dish Pizza Small,240.0,7.0,3.0,30.0,712.0,27.0,1.0,4.0,15.0
+Portobello Swiss Burger,1430.0,81.0,30.0,180.0,3400.0,105.0,9.0,16.0,67.0
+Queso Dip w/ Seared Hatch Chiles,950.0,41.0,20.0,88.0,2232.0,112.0,14.0,24.0,38.0
+BJs Favorite Pizza Deep Dish Large,360.0,16.0,6.0,32.0,900.0,39.0,2.0,3.0,13.0
+Scrambled Egg Breakfast w/ Ham,1430.0,98.0,29.0,878.0,2284.0,87.0,7.0,8.0,49.0
+BJs Signature Five Cheese Blend for 1 Topping Build Your Own Deep Dish Pizza Large,65.0,5.0,3.0,18.0,172.0,1.0,0.0,1.0,4.0
+BJs Brewhouse Burger,1000.0,51.0,19.0,107.0,2408.0,93.0,8.0,11.0,43.0
+Applewood Smoked Bacon for 1 Topping Build Your Own Deep Dish Pizza Mini,20.0,1.0,1.0,4.0,67.0,1.0,0.0,0.0,1.0
+Santa Fe Salad w/ Blackened Shrimp,990.0,61.0,13.0,319.0,1935.0,55.0,11.0,8.0,50.0
+Boneless Wings 1lb,870.0,41.0,7.0,192.0,3522.0,59.0,1.0,1.0,65.0
+Barbeque Pulled Pork Sandwich,1420.0,53.0,15.0,113.0,4011.0,171.0,8.0,77.0,63.0
+California Supreme Deep Dish Pizza Large,310.0,12.0,4.0,21.0,873.0,39.0,2.0,3.0,12.0
+Diet Dr Pepper Kids,0.0,0.0,0.0,0.0,53.0,0.0,0.0,0.0,0.0
+Pineapple for 1 Topping Build Your Own Pizza Mini,15.0,0.0,0.0,0.0,0.0,4.0,0.0,3.0,0.0
+Oven Roasted Ham for 1 Topping Build Your Own Deep Dish Pizza Small,10.0,0.0,0.0,5.0,93.0,0.0,0.0,0.0,2.0
+BJs Root Beer,210.0,0.0,0.0,0.0,12.0,51.0,0.0,49.0,0.0
+Buffalo Chicken Deep Dish Pizza Large,340.0,11.0,4.0,39.0,1292.0,40.0,2.0,4.0,19.0
+Vegetarian Pita Tacos w/Flame Broiled Salmon,940.0,42.0,8.0,122.0,1891.0,81.0,8.0,11.0,58.0
+Pepsi Kids,150.0,0.0,0.0,0.0,38.0,41.0,0.0,41.0,0.0
+Mediterranean Deep Dish Pizza Medium,380.0,17.0,5.0,43.0,1140.0,35.0,2.0,4.0,20.0
+Mini Triple Chocolate Pizookie,590.0,29.0,15.0,58.0,249.0,75.0,4.0,49.0,8.0
+Fire Roasted Red Peppers for 1 Topping Build Your Own Deep Dish Pizza Large,15.0,0.0,0.0,0.0,208.0,3.0,1.0,2.0,1.0
+BJs Classic Combo Deep Dish Pizza Medium,330.0,17.0,7.0,35.0,888.0,32.0,2.0,2.0,13.0
+Cookies n Cream Pizookie,1230.0,60.0,31.0,69.0,1040.0,159.0,3.0,101.0,14.0
+Spicy Hawaiian Chicken Deep Dish Pizza Small,280.0,12.0,4.0,31.0,869.0,28.0,2.0,5.0,14.0
+Crispy Fried Artichokes,390.0,16.0,3.0,6.0,2202.0,52.0,4.0,4.0,9.0
+Jalapenos for 1 Topping Build Your Own Deep Dish Pizza Small,0.0,0.0,0.0,0.0,177.0,1.0,0.0,0.0,0.0
+Applewood Smoked Bacon for 1 Topping Build Your Own Deep Dish Pizza Large Build Your Own Deep Dish Pizzas,45.0,3.0,1.0,8.0,129.0,1.0,0.0,1.0,3.0
+Peanut Butter Pizookie,1220.0,66.0,30.0,111.0,830.0,136.0,5.0,97.0,20.0
+BJs Signature Five Cheese Blend for 1 Topping Build Your Own Deep Dish Pizza Small Build Your Own Deep Dish Pizzas,40.0,3.0,2.0,13.0,123.0,1.0,0.0,0.0,3.0
+Jalapenos for 1 Topping Build Your Own Deep Dish Pizza Large,5.0,0.0,0.0,0.0,212.0,1.0,0.0,0.0,0.0
+Fire Roasted Red Bell Peppers,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mahi Mahi Tacos Fried,770.0,32.0,6.0,61.0,1951.0,91.0,10.0,8.0,25.0
+Mini Cookies n Cream Pizookie,670.0,32.0,17.0,43.0,534.0,86.0,2.0,56.0,8.0
+Italian Dressing,170.0,18.0,2.0,0.0,270.0,2.0,0.0,2.0,0.0
+Anchovies for 1 Topping Build Your Own Deep Dish Pizza Small,10.0,0.0,0.0,9.0,478.0,0.0,0.0,0.0,2.0
+Gourmet Five Meat Deep Dish Pizza Mini,240.0,14.0,6.0,36.0,659.0,18.0,1.0,2.0,11.0
+Piranha Pale Ale Chili & Cheese Stuffed Potato Lunch Specials,800.0,36.0,21.0,110.0,1112.0,84.0,8.0,6.0,34.0
+Roasted Asparagus for 1 Topping Build Your Own Deep Dish Pizza Medium,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Pineapple for 1 Topping Build Your Own Deep Dish Pizza Small,20.0,0.0,0.0,0.0,0.0,5.0,1.0,4.0,0.0
+Italiano Vegetable Penne w/ Cajun Shrimp,990.0,41.0,7.0,259.0,1591.0,97.0,8.0,14.0,53.0
+Vegetarian Pita Tacos w/Blackened Shrimp,800.0,27.0,5.0,263.0,2247.0,86.0,8.0,11.0,54.0
+Deep Dish Ziti,1400.0,91.0,35.0,175.0,2808.0,99.0,7.0,16.0,44.0
+Spicy Hawaiian Chicken Deep Dish Pizza Medium,350.0,15.0,6.0,40.0,1115.0,36.0,2.0,6.0,18.0
+Ranch Dressing,170.0,17.0,2.0,15.0,360.0,2.0,0.0,0.0,0.0
+Golden Beet & Arugula Salad,120.0,4.0,1.0,4.0,268.0,17.0,3.0,17.0,3.0
+Grilled Cheese Sandwich Kids,430.0,22.0,10.0,45.0,750.0,38.0,2.0,2.0,17.0
+Chocolate Chunk Pizookie,1150.0,45.0,28.0,119.0,869.0,172.0,3.0,122.0,14.0
+Chicken Bacon Ranch Deep Dish Pizza Mini,240.0,12.0,4.0,35.0,576.0,17.0,1.0,2.0,13.0
+Anchovies for 1 Topping Build Your Own Deep Dish Pizza Medium,10.0,0.0,0.0,8.0,430.0,0.0,0.0,0.0,2.0
+Pineapple for 1 Topping Build Your Own Deep Dish Pizza Large,25.0,0.0,0.0,0.0,0.0,6.0,1.0,2.0,0.0
+Vegetarian Deep Dish Pizza Medium,260.0,10.0,4.0,18.0,687.0,32.0,2.0,3.0,10.0
+Southern Fried Chicken,940.0,53.0,31.0,237.0,2081.0,68.0,5.0,8.0,38.0
+Honey Sriracha Brussels Sprouts Housemade Sides,160.0,4.0,1.0,0.0,940.0,23.0,7.0,11.0,9.0
+Cheese & Tomato Deep Dish Pizza Small,210.0,9.0,4.0,20.0,563.0,24.0,1.0,2.0,9.0
+Great White Deep Dish Pizza Large,370.0,15.0,6.0,49.0,974.0,38.0,2.0,3.0,20.0
+Nashville Hot Crispy Chicken Sandwich w/ Fries,1410.0,78.0,26.0,117.0,3539.0,122.0,9.0,15.0,43.0
+Vegetarian Pita Tacos w/ Grilled Chicken,770.0,23.0,4.0,103.0,1949.0,82.0,8.0,11.0,58.0
+BJs Signature Five Cheese Blend for 1 Topping Build Your Own Deep Dish Pizza Mini,30.0,2.0,2.0,8.0,81.0,1.0,0.0,0.0,2.0
+Avocado Egg Rolls,1060.0,65.0,15.0,74.0,1583.0,107.0,19.0,23.0,16.0
+Two Eggs Any Style w/ Sourdough Toast,610.0,21.0,5.0,280.0,1206.0,83.0,6.0,5.0,19.0
+Monkey Bread Pizookie,1260.0,56.0,20.0,112.0,1082.0,177.0,4.0,105.0,17.0
+Vegetarian Deep Dish Pizza Mini,140.0,5.0,2.0,8.0,349.0,17.0,1.0,1.0,5.0
+Clam Chowder in Sourdough Loaf,1470.0,42.0,14.0,85.0,4683.0,219.0,10.0,5.0,45.0
+Blueberry Topping,60.0,0.0,0.0,0.0,1.0,14.0,2.0,11.0,1.0
+Pizookie Trio,1770.0,80.0,42.0,181.0,1122.0,243.0,6.0,168.0,21.0
+BJs Classic Combo Deep Dish Pizza Mini,190.0,10.0,4.0,19.0,480.0,17.0,1.0,1.0,7.0
+Anchovies for 1 Topping Build Your Own Deep Dish Pizza Mini,10.0,0.0,0.0,6.0,287.0,0.0,0.0,0.0,1.0
+Orange Juice,120.0,0.0,0.0,0.0,17.0,29.0,2.0,24.0,2.0
+Kale & Roasted Brussels Sprouts Salad,440.0,20.0,4.0,10.0,836.0,54.0,8.0,34.0,11.0
+Avocado Ranch Dressing,130.0,12.0,2.0,10.0,241.0,2.0,1.0,0.0,0.0
+Vegetarian-Style Peruvian Quinoa Bowl,430.0,20.0,3.0,0.0,633.0,48.0,7.0,5.0,12.0
+BJs Handcrafted Root Beer Float,530.0,19.0,12.0,70.0,125.0,85.0,0.0,79.0,5.0
+BJs Classic Rib Eye,1080.0,67.0,26.0,500.0,2272.0,5.0,1.0,1.0,106.0
+Housemade Meatballs for 1 Topping Build Your Own Deep Dish Pizza Medium,110.0,9.0,3.0,31.0,143.0,3.0,0.0,1.0,5.0
+Hickory Brisket & Bacon Burger,1610.0,89.0,34.0,227.0,4057.0,123.0,7.0,37.0,74.0
+Oven Roasted Ham for 1 Topping Build Your Own Deep Dish Pizza Medium,10.0,0.0,0.0,5.0,105.0,0.0,0.0,0.0,1.0
+Root Beer Glaze,260.0,0.0,0.0,0.0,1090.0,64.0,0.0,59.0,0.0
+Two Eggs Any Style w/ Bacon,740.0,31.0,9.0,303.0,1611.0,85.0,6.0,6.0,27.0
+Sliders w/ Fries,1230.0,52.0,14.0,121.0,2136.0,137.0,6.0,18.0,53.0
+Sweet Pig Deep Dish Pizza Small,210.0,7.0,3.0,15.0,551.0,28.0,2.0,5.0,9.0
+Chicken Bacon Ranch Piadina w/ Fries,1110.0,62.0,17.0,106.0,2352.0,92.0,7.0,4.0,43.0
+Grilled Chicken Breast,220.0,6.0,1.0,99.0,848.0,0.0,0.0,0.0,39.0
+Brewhouse Meatballs,570.0,42.0,17.0,133.0,1125.0,23.0,2.0,5.0,25.0
+Fries,350.0,19.0,4.0,0.0,641.0,40.0,4.0,0.0,4.0
+Vegetarian Deep Dish Pizza Small,200.0,7.0,3.0,12.0,523.0,25.0,2.0,2.0,8.0
+Chicken Tortilla in a Sourdough Loaf,1320.0,29.0,6.0,25.0,4937.0,216.0,13.0,8.0,42.0
+Best Beginnings Appetizer Combo w/ Desert Gold Seasoning,2170.0,120.0,38.0,302.0,5833.0,192.0,19.0,34.0,84.0
+Caesar Salad w/ Flame Broiled Salmon,1200.0,89.0,18.0,171.0,2403.0,44.0,6.0,7.0,62.0
+California Club BJs Flatbread Appetizer Pizzas,110.0,6.0,2.0,14.0,234.0,10.0,1.0,0.0,5.0
+Diet Pepsi,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Two Eggs Any Style w/ Ham,710.0,25.0,6.0,318.0,2046.0,85.0,6.0,6.0,33.0
+Chicken Tenders w/ Fries,1030.0,59.0,10.0,110.0,2844.0,85.0,5.0,5.0,40.0
+Caesar Salad,810.0,64.0,13.0,54.0,2172.0,44.0,6.0,7.0,23.0
+The Italian Market Tavern Crust Pizza,110.0,6.0,3.0,18.0,351.0,9.0,1.0,1.0,5.0
+Caesar Salad Small,400.0,31.0,6.0,27.0,1082.0,22.0,3.0,4.0,11.0
+Mashed Potatoes Kids,250.0,14.0,8.0,41.0,823.0,25.0,3.0,3.0,5.0
+BJs Favorite Deep Dish Pizza Mini,180.0,9.0,3.0,17.0,442.0,18.0,1.0,1.0,7.0
+Pepperoni Extreme Deep Dish Pizza Mini,190.0,11.0,4.0,21.0,561.0,17.0,1.0,1.0,7.0
+Garlic Knots,220.0,8.0,2.0,0.0,420.0,32.0,2.0,2.0,6.0
+Mahi Mahi Tacos Grilled,640.0,32.0,6.0,103.0,1198.0,57.0,8.0,8.0,31.0
+Classic Breakfast Sandwich w/ Ham on a Toasted Gourmet Bun,920.0,40.0,16.0,635.0,2239.0,93.0,7.0,14.0,48.0
+Mac n Cheese Kids,490.0,16.0,5.0,35.0,1190.0,68.0,3.0,16.0,17.0
+New Orleans Jambalaya,1140.0,50.0,10.0,245.0,3325.0,99.0,6.0,16.0,69.0
+Meat Lovers Piadina w/ Fries,1120.0,67.0,22.0,105.0,2230.0,97.0,8.0,5.0,31.0
+Jalapenos for 1 Topping Build Your Own Deep Dish Pizza Medium,0.0,0.0,0.0,0.0,199.0,1.0,0.0,0.0,0.0
+Artichoke Hearts for 1 Topping Build Your Own Deep Dish Pizza Large,15.0,0.0,0.0,0.0,168.0,2.0,2.0,1.0,1.0
+Gluten Free Thin Crust Cheese Pizza,130.0,6.0,2.0,12.0,254.0,14.0,0.0,1.0,4.0
+Grilled Chicken Pasta Kids,780.0,37.0,18.0,120.0,1050.0,74.0,4.0,9.0,38.0
+Santa Fe Salad w/ Flame Broiled Salmon,1130.0,76.0,17.0,177.0,1580.0,51.0,11.0,8.0,54.0
+Sweet Potato Fries Kids,220.0,8.0,1.0,0.0,288.0,35.0,4.0,9.0,1.0
+Peachberry Iced Tea,100.0,0.0,0.0,0.0,0.0,24.0,0.0,24.0,0.0
+BJs Handcrafted Cream Soda Float,510.0,19.0,12.0,70.0,126.0,79.0,0.0,74.0,5.0
+Chicken Lettuce Wraps,540.0,24.0,3.0,49.0,2225.0,44.0,5.0,26.0,33.0
+Housemade Guacamole & Chips,780.0,30.0,3.0,0.0,1238.0,112.0,23.0,22.0,23.0
+Buffalo Chicken Deep Dish Pizza Small,240.0,8.0,3.0,31.0,879.0,26.0,2.0,3.0,15.0
+Fried Wisconsin Cheese Curds,1100.0,91.0,42.0,194.0,1849.0,20.0,0.0,2.0,48.0
+Fire Roasted Red Peppers for 1 Topping Build Your Own Deep Dish Pizza Medium,10.0,0.0,0.0,0.0,195.0,3.0,1.0,2.0,0.0
+Artichoke Hearts for 1 Topping Build Your Own Deep Dish Pizza Medium,10.0,0.0,0.0,0.0,158.0,2.0,1.0,0.0,0.0
+Gluten Free Bun,230.0,6.0,1.0,0.0,360.0,39.0,4.0,5.0,6.0
+Roasted Garlic for 1 Topping Build Your Own Deep Dish Pizza Large,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Orange Cream Soda Float,500.0,19.0,12.0,70.0,120.0,78.0,0.0,72.0,5.0
+Cheese Pizza Kids,140.0,6.0,2.0,12.0,360.0,16.0,1.0,1.0,6.0
+Fire Roasted Red Peppers for 1 Topping Build Your Own Pizza Mini,10.0,0.0,0.0,0.0,130.0,2.0,0.0,1.0,0.0
+Classic Breakfast Sandwich w/ Bacon on a Toasted Wheat Bread,930.0,47.0,16.0,605.0,1765.0,89.0,8.0,9.0,39.0
+Honey Crisp Chicken Salad,1370.0,103.0,16.0,358.0,2333.0,77.0,6.0,36.0,42.0
+Whole Wheat Toast,260.0,8.0,3.0,0.0,352.0,42.0,3.0,5.0,6.0
+Thousand Island Dressing,200.0,20.0,3.0,23.0,390.0,6.0,0.0,5.0,0.0
+Bleu Cheese Dressing,180.0,20.0,5.0,23.0,330.0,2.0,0.0,2.0,2.0
+Artichoke Hearts for 1 Topping Build Your Own Deep Dish Pizza Mini,10.0,0.0,0.0,0.0,105.0,2.0,1.0,0.0,0.0
+Crispy Calamari,590.0,19.0,4.0,534.0,1660.0,58.0,3.0,6.0,46.0
+Jumbo Spaghetti & Meatballs,1460.0,66.0,23.0,158.0,2798.0,162.0,13.0,28.0,55.0
+Hot Tea,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Strawberry Lemonade,150.0,0.0,0.0,0.0,12.0,37.0,1.0,34.0,0.0
+Buttermilk Pancakes Full Stack,1490.0,58.0,17.0,0.0,3144.0,211.0,5.0,65.0,19.0
+BJs Loaded Burger Patty,380.0,26.0,10.0,121.0,917.0,0.0,0.0,0.0,35.0
+Classic Grilled Cheese Sandwich w/ Fries,960.0,58.0,25.0,96.0,1714.0,78.0,6.0,2.0,29.0
+Vanilla Bean Ice Cream 1 Scoop,200.0,9.0,6.0,35.0,58.0,26.0,0.0,23.0,2.0
+Caesar Salad w/ Blackened Salmon,1220.0,89.0,18.0,171.0,2914.0,50.0,6.0,7.0,62.0
+Pancake Combo Kids,500.0,25.0,8.0,174.0,813.0,55.0,1.0,24.0,11.0
+Fries Kids,230.0,13.0,3.0,0.0,427.0,27.0,3.0,0.0,3.0
+Wedge Salad,320.0,31.0,8.0,40.0,630.0,6.0,1.0,5.0,6.0
+Chocolate Milk,100.0,0.0,0.0,0.0,100.0,10.0,0.0,10.0,0.0
+Housemade Guacamole Burger Add Ons,90.0,8.0,1.0,0.0,197.0,5.0,4.0,0.0,1.0
+Spicy Hawaiian Chicken Deep Dish Pizza Large,390.0,15.0,6.0,40.0,1200.0,42.0,2.0,6.0,19.0
+Pepperoni Pizza Kids,170.0,9.0,3.0,16.0,440.0,17.0,1.0,1.0,7.0
+Sparkling Raspberry Lemonade,170.0,0.0,0.0,0.0,14.0,43.0,0.0,40.0,0.0
+Enlightened Turkey Burger,920.0,51.0,12.0,99.0,1897.0,78.0,6.0,26.0,39.0
+Pepperoni Extreme Flatbread Appetizer Pizza BJs Flatbread Appetizer Pizza,120.0,7.0,3.0,17.0,304.0,10.0,0.0,0.0,5.0
+Hickory Smoked Sausage,890.0,51.0,15.0,94.0,2571.0,74.0,4.0,19.0,33.0
+Black Cherry Soda,160.0,0.0,0.0,0.0,11.0,41.0,0.0,38.0,0.0
+Best Beginnings Appetizer Combo w/ Cuckoo Racha Seasoning,2190.0,1078.0,38.0,302.0,5462.0,195.0,20.0,35.0,85.0
+Cranberry Juice Kids,140.0,0.0,0.0,0.0,35.0,35.0,0.0,35.0,0.0
+Great White Deep Dish Pizza Small,250.0,10.0,4.0,36.0,697.0,25.0,2.0,2.0,15.0
+Black Olives for 1 Topping Build Your Own Deep Dish Pizza Small,30.0,3.0,0.0,0.0,167.0,2.0,0.0,0.0,0.0
+Spaghetti w/ Marinara Kids,300.0,4.0,1.0,0.0,494.0,57.0,4.0,7.0,10.0
+Chocolate Milk Kids,220.0,4.0,3.0,22.0,146.0,36.0,0.0,30.0,9.0
+Classic Breakfast Sandwich w/ Sausage on a Toasted Sourdough Bread,1310.0,87.0,29.0,673.0,2175.0,86.0,6.0,5.0,46.0
+Mediterranean Deep Dish Pizza Large,430.0,19.0,5.0,44.0,1281.0,42.0,3.0,6.0,22.0
+Cranberry Juice,160.0,0.0,0.0,0.0,39.0,39.0,0.0,39.0,0.0
+White Onions for 1 Topping Build Your Own Deep Dish Pizza Mini,10.0,0.0,0.0,0.0,1.0,2.0,0.0,1.0,0.0
+Seasoned Country Potatoes,250.0,6.0,1.0,0.0,617.0,45.0,5.0,3.0,4.0
+Dr Pepper Kids,170.0,0.0,0.0,0.0,53.0,41.0,0.0,41.0,0.0
+Buttermilk Pancakes Short Stack,910.0,31.0,9.0,0.0,1885.0,143.0,3.0,49.0,12.0
+Chicken Bacon Ranch Deep Dish Pizza Small,330.0,16.0,6.0,47.0,824.0,25.0,2.0,2.0,18.0
+Pepperoni for 1 Topping Build Your Own Deep Dish Pizza Small,30.0,2.0,1.0,7.0,100.0,0.0,0.0,0.0,1.0
+Grilled Chicken for 1 Topping Build Your Own Deep Dish Pizza Small,40.0,1.0,0.0,18.0,154.0,0.0,0.0,0.0,7.0
+Buffalo Chicken Deep Dish Pizza Mini,170.0,6.0,2.0,22.0,606.0,18.0,1.0,2.0,10.0
+Gourmet Five Meat Deep Dish Pizza Large,400.0,20.0,8.0,45.0,1024.0,39.0,2.0,3.0,17.0
+Fire Roasted Barbacoa Chicken,520.0,15.0,3.0,106.0,1686.0,43.0,8.0,2.0,51.0
+The Classic Baked Potato,1100.0,69.0,34.0,139.0,1287.0,72.0,6.0,6.0,40.0
+Salted Caramel Pizookie,1360.0,55.0,29.0,124.0,1415.0,200.0,1.0,154.0,14.0
+Happy Face Potatoes Kids,180.0,8.0,1.0,0.0,230.0,24.0,2.0,0.0,2.0
+Mini Peanut Butter Pizookie,610.0,33.0,15.0,56.0,415.0,68.0,2.0,49.0,10.0
+Sausage Links,520.0,52.0,18.0,90.0,680.0,2.0,0.0,0.0,14.0
+White Cheddar Mashed Potatoes,330.0,18.0,11.0,55.0,1097.0,33.0,4.0,4.0,7.0
+BJs Handcrafted Root Beer Kids,210.0,0.0,0.0,0.0,12.0,51.0,0.0,49.0,0.0
+Sliders,880.0,32.0,10.0,121.0,1495.0,97.0,2.0,18.0,49.0
+Double Bone In Pork Chop,610.0,38.0,16.0,141.0,2210.0,13.0,1.0,1.0,55.0
+Dr Pepper,110.0,0.0,0.0,0.0,35.0,27.0,0.0,27.0,0.0
+Best Beginnings Appetizer Combo w/ Hot & Spicy Buffalo Sauce,2180.0,120.0,38.0,302.0,6784.0,194.0,20.0,35.0,85.0
+BJs Handcrafted Black Cherry Soda Float,530.0,19.0,12.0,70.0,125.0,85.0,0.0,79.0,5.0
+California Supreme Deep Dish Pizza Medium,280.0,12.0,4.0,22.0,817.0,33.0,2.0,3.0,11.0
+Flame Broiled Salmon,390.0,25.0,5.0,117.0,231.0,0.0,0.0,0.0,40.0
+Rice Pilaf Kids,230.0,6.0,1.0,0.0,621.0,39.0,1.0,5.0,5.0
+Burger Kids,430.0,16.0,5.0,61.0,693.0,45.0,1.0,6.0,25.0
+Housemade Meatballs for 1 Topping Build Your Own Deep Dish Pizza Mini,80.0,6.0,3.0,21.0,95.0,2.0,0.0,1.0,3.0
+Garlic Chicken Pesto Tavern Crust Pizza,100.0,5.0,2.0,13.0,273.0,9.0,1.0,1.0,5.0
+Parmesan Crusted Chicken,1140.0,63.0,34.0,443.0,1820.0,62.0,6.0,8.0,76.0
+Pancakes Kids,390.0,16.0,5.0,0.0,618.0,54.0,1.0,23.0,3.0
+Vegetarian Deep Dish Pizza Large,290.0,10.0,4.0,17.0,733.0,38.0,2.0,3.0,11.0
+Fresh Basil for 1 Topping Build Your Own Deep Dish Pizza Medium,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Caesar Salad w/ Blackened Shrimp,1060.0,74.0,15.0,313.0,2759.0,49.0,6.0,7.0,57.0
+Pepperoni Extreme Half Flatbread,480.0,28.0,12.0,67.0,1220.0,39.0,2.0,1.0,19.0
+BJs Breakfast Flatbread Pizza,190.0,12.0,4.0,124.0,336.0,11.0,1.0,1.0,9.0
+Nashville Hot,370.0,28.0,10.0,0.0,1841.0,19.0,4.0,11.0,2.0
+Artichoke Hearts for 1 Topping Build Your Own Deep Dish Pizza Small,10.0,0.0,0.0,0.0,140.0,2.0,2.0,0.0,1.0
+Classic Breakfast Sandwich w/ Bacon on a Toasted Gourmet Bun,950.0,46.0,18.0,620.0,1804.0,93.0,7.0,14.0,42.0
+Italiano Vegetable Penne,740.0,31.0,6.0,0.0,1004.0,93.0,8.0,14.0,18.0
+Pepperoni Extreme Deep Dish Pizza Large,380.0,19.0,7.0,39.0,1080.0,38.0,2.0,2.0,15.0
+Buffalo Chicken Grilled Cheese Sandwich,1180.0,66.0,20.0,114.0,5336.0,104.0,7.0,4.0,45.0
+Enlightened Veggie Omelette w/ Fresh Fruit,270.0,9.0,3.0,13.0,841.0,24.0,3.0,13.0,22.0
+Chicken Bacon Ranch Deep Dish Pizza Large,470.0,23.0,8.0,63.0,1139.0,38.0,2.0,3.0,24.0
+Piranha Pale Ale Chili Burger Add Ons,60.0,3.0,1.0,6.0,228.0,5.0,1.0,1.0,3.0
+Blackened Salmon,410.0,25.0,5.0,117.0,742.0,6.0,0.0,0.0,40.0
+Pepperoni for 1 Topping Build Your Own Deep Dish Pizza Medium,30.0,3.0,1.0,8.0,113.0,0.0,0.0,0.0,1.0
+Kale & Roasted Brussels Sprouts Salad w/ Blackened Shrimp,680.0,30.0,6.0,269.0,1422.0,59.0,8.0,34.0,46.0
+Lemon Pepper Sesame Dry Rub,0.0,0.0,0.0,1120.0,0.0,0.0,0.0,0.0,0.0
+Fresh Basil for 1 Topping Build Your Own Deep Dish Pizza Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chips & Fire Roasted Salsa,600.0,10.0,1.0,0.0,1558.0,106.0,15.0,24.0,21.0
+Cheese & Tomato Deep Dish Pizza Mini,140.0,6.0,2.0,12.0,360.0,16.0,1.0,1.0,6.0
+Spicy Hawaiian Chicken Deep Dish Pizza Mini,200.0,8.0,3.0,22.0,595.0,19.0,1.0,4.0,10.0
+Roasted Portobello & Asparagus Starter Salad,290.0,18.0,4.0,10.0,512.0,25.0,3.0,17.0,7.0
+BJs Peanut Butter Smores Pizookie,1580.0,70.0,31.0,125.0,669.0,216.0,7.0,150.0,20.0
+Cherry Chipotle,350.0,12.0,2.0,10.0,721.0,56.0,1.0,46.0,1.0
+House Top Sirloin,500.0,32.0,13.0,118.0,975.0,2.0,0.0,0.0,46.0
+Garlic Knot Kids,110.0,4.0,1.0,0.0,210.0,16.0,1.0,1.0,3.0
+Gourmet Five Meat Deep Dish Pizza Medium,360.0,18.0,7.0,42.0,952.0,33.0,2.0,3.0,16.0
+Sunset Peach,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Great White Deep Dish Pizza Medium,330.0,14.0,6.0,47.0,909.0,32.0,2.0,3.0,19.0
+Roasted Maple Salmon Pita Tacos,800.0,28.0,4.0,50.0,1610.0,101.0,9.0,27.0,36.0
+Classic Crispy Chicken Sandwich w/ Fries,1120.0,56.0,17.0,108.0,2376.0,118.0,8.0,17.0,37.0
+Mozzarella Sticks,810.0,39.0,17.0,107.0,1931.0,76.0,0.0,12.0,33.0
+Vanilla Bean Ice Cream 2 Scoops,400.0,19.0,12.0,70.0,117.0,51.0,0.0,47.0,5.0
+Grilled Chicken for 1 Topping Build Your Own Deep Dish Pizza Large,50.0,1.0,0.0,22.0,184.0,0.0,0.0,0.0,9.0
+Caesar Salad w/ Grilled Chicken,1030.0,70.0,14.0,153.0,2460.0,44.0,6.0,8.0,62.0
+Strawberry Vinaigrette,70.0,4.0,0.0,0.0,392.0,10.0,0.0,10.0,0.0
+Chicken Fried Steak Burger w/ Fries,1950.0,129.0,53.0,780.0,3046.0,119.0,11.0,12.0,68.0
+Kale & Roasted Brussels Sprouts Salad w/ Blackened Salmon,850.0,45.0,9.0,127.0,1577.0,60.0,8.0,34.0,51.0
+Shrimp & Arugula Pita Taco,790.0,34.0,5.0,197.0,1997.0,79.0,6.0,9.0,43.0
+Fresh Atlantic Salmon Blackened,870.0,49.0,17.0,187.0,1688.0,50.0,1.0,5.0,45.0
+BJs Classic Combo Deep Dish Pizza Large,370.0,18.0,7.0,35.0,941.0,38.0,2.0,3.0,14.0
+Cheese & Tomato Deep Dish Pizza Large,300.0,11.0,5.0,24.0,756.0,37.0,2.0,2.0,12.0
+Hot Ham & Cheese Grilled Cheese Sandwich w/ Fries,1030.0,60.0,23.0,98.0,3414.0,84.0,8.0,4.0,35.0
+Shrimp & Asparagus Penne,730.0,21.0,5.0,133.0,1706.0,97.0,8.0,14.0,36.0
+Housemade Meatballs for 1 Topping Build Your Own Deep Dish Pizza Small Pizzas,100.0,8.0,3.0,28.0,127.0,3.0,1.0,0.0,5.0
+Vegetarian Pita Tacos,550.0,17.0,3.0,5.0,1660.0,81.0,8.0,11.0,19.0
+Italian Sausage for 1 Topping Build Your Own Deep Dish Pizza Small,100.0,8.0,3.0,18.0,230.0,1.0,1.0,0.0,3.0
+Barbeque Bison Burger,700.0,34.0,14.0,96.0,1476.0,69.0,5.0,22.0,32.0
+Honey Sriracha Brussels Sprouts,220.0,6.0,1.0,0.0,1346.0,31.0,9.0,15.0,11.0
+Diet Dr Pepper,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Mini Corn Dogs Kids,430.0,25.0,5.0,60.0,1040.0,34.0,2.0,10.0,14.0
+Salted Caramel Cold Brew Iced Coffee,160.0,6.0,4.0,25.0,144.0,24.0,0.0,24.0,0.0
+Baby Back Pork Ribs Full Rack,1300.0,68.0,25.0,230.0,7835.0,119.0,2.0,100.0,50.0
+BJs Peppered BBQ,240.0,0.0,0.0,0.0,1350.0,60.0,0.0,54.0,0.0
+Roasted Garlic for 1 Topping Build Your Own Deep Dish Pizza Small,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Honey Ginger Dressing,180.0,14.0,2.0,15.0,375.0,12.0,0.0,11.0,0.0
+Black Olives for 1 Topping Build Your Own Deep Dish Pizza Mini,25.0,2.0,0.0,0.0,125.0,1.0,0.0,0.0,0.0
+Two Eggs Any Style w/ Sausage,1130.0,73.0,23.0,370.0,1886.0,85.0,6.0,5.0,33.0
+Lemon Thyme Chicken Lunch Specials,490.0,16.0,2.0,100.0,1970.0,39.0,5.0,5.0,45.0
+Oven Roasted Ham for 1 Topping Build Your Own Deep Dish Pizza Mini,10.0,0.0,1.0,3.0,70.0,1.0,0.0,0.0,1.0
+Roasted Garlic for 1 Topping Build Your Own Deep Dish Pizza Mini,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Mushrooms for 1 Topping Build Your Own Deep Dish Pizza Small,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,1.0
+Caesar Dressing,200.0,20.0,4.0,15.0,570.0,3.0,0.0,2.0,3.0
+Grilled Chicken Potato,1050.0,50.0,28.0,226.0,1828.0,77.0,6.0,6.0,70.0
+Roasted Asparagus for 1 Topping Build Your Own Deep Dish Pizza Large,5.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0
+Roasted Asparagus for 1 Topping Build Your Own Deep Dish Pizza Mini,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+BJs Brewhouse Bacon Cheeseburger,1260.0,72.0,30.0,167.0,2948.0,94.0,8.0,12.0,59.0
+Broccoli Cheddar Soup,380.0,26.0,14.0,51.0,1483.0,24.0,1.0,5.0,14.0
+Best Beginnings Appetizer Combo w/ Peppered BBQ Sauce,2290.0,120.0,38.0,302.0,5948.0,22.0,19.0,61.0,84.0
+Anchovies for 1 Topping Build Your Own Deep Dish Pizza Large,15.0,1.0,0.0,9.0,458.0,0.0,0.0,0.0,2.0
+Fresh Mozzarella & Tomato Salad Small,260.0,18.0,7.0,32.0,324.0,11.0,2.0,8.0,14.0
+Orange Twist,240.0,0.0,0.0,0.0,26.0,60.0,0.0,58.0,0.0
+Sweet Potato Fries,330.0,12.0,1.0,0.0,230.0,52.0,6.0,14.0,2.0
+House Salad Small,80.0,4.0,1.0,7.0,205.0,8.0,1.0,1.0,5.0
+Black Olives for 1 Topping Build Your Own Deep Dish Pizza Large,40.0,4.0,0.0,0.0,200.0,2.0,0.0,0.0,0.0
+Prime Rib Dinner,1310.0,106.0,42.0,308.0,2161.0,6.0,1.0,3.0,79.0
+Shrimp Tacos,680.0,33.0,6.0,214.0,1338.0,58.0,8.0,8.0,36.0
+Derby Style Cobb Salad,980.0,70.0,22.0,295.0,3070.0,21.0,8.0,9.0,58.0
+Best Beginnings Appetizer Combo w/ Garlic Parmesan Sauce,2380.0,141.0,42.0,302.0,5681.0,196.0,19.0,34.0,84.0
+California Chicken Club,1280.0,66.0,20.0,162.0,2702.0,90.0,9.0,5.0,73.0
+Spinach & Artichoke Dip,1050.0,54.0,28.0,135.0,1771.0,111.0,16.0,22.0,34.0
+Grilled Chicken for 1 Topping Build Your Own Deep Dish Pizza Medium,40.0,1.0,0.0,21.0,173.0,0.0,0.0,0.0,8.0
+Steamed Veggies Kids,170.0,12.0,2.0,0.0,414.0,13.0,4.0,5.0,3.0
+Italiano Vegetable Penne w/ Blackened Chicken,980.0,37.0,7.0,99.0,1700.0,97.0,8.0,14.0,58.0
+Cherry Chipotle Glazed Salmon,580.0,26.0,5.0,117.0,611.0,39.0,4.0,8.0,46.0
+Pepperoni for 1 Topping Build Your Own Pizza Mini,20.0,2.0,1.0,5.0,75.0,1.0,0.0,0.0,1.0
+Brown Rice Kids,130.0,3.0,0.0,0.0,269.0,24.0,1.0,0.0,3.0
+Ghirardelli Double Chocolate Chip Ice Cream 2 Scoops,380.0,19.0,12.0,60.0,108.0,48.0,2.0,41.0,7.0
+BJs Favorite Pizza Deep Dish Small,250.0,12.0,4.0,24.0,650.0,26.0,2.0,2.0,10.0
+Oven Roasted Ham for 1 Topping Build Your Own Deep Dish Pizza Large,15.0,1.0,0.0,5.0,112.0,0.0,0.0,1.0,2.0
+Orange Juice Kids,110.0,0.0,0.0,0.0,15.0,26.0,2.0,21.0,2.0
+Chicken Pot Stickers,420.0,11.0,2.0,40.0,2337.0,63.0,3.0,17.0,19.0
+Cheddar Cheese,170.0,14.0,9.0,45.0,270.0,0.0,0.0,0.0,11.0
+Twisted BLT,220.0,15.0,5.0,96.0,567.0,10.0,1.0,6.0,9.0
+White Onions for 1 Topping Build Your Own Deep Dish Pizza Medium,10.0,0.0,0.0,0.0,1.0,3.0,0.0,1.0,0.0
+California Supreme Deep Dish Pizza Mini,150.0,6.0,2.0,10.0,409.0,17.0,1.0,1.0,6.0
+Southern Comfort Crispy Chicken Sandwich,1510.0,87.0,33.0,199.0,2980.0,116.0,7.0,13.0,62.0
+Best Beginnings Appetizer Combo w/ EXXXXtra Hot 5 Pepper Buffalo Sauce,2190.0,120.0,38.0,302.0,6763.0,195.0,20.0,35.0,85.0
+BJs Original Wings,820.0,63.0,15.0,177.0,2982.0,8.0,1.0,2.0,51.0
+Diet Pepsi Kids,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+10 Bone In Wings,750.0,57.0,14.0,172.0,1405.0,6.0,1.0,1.0,50.0
+Barbacoa Cauliflower Pita Tacos,650.0,24.0,6.0,15.0,1676.0,87.0,9.0,12.0,23.0
+Garlic Parmesan Knots,470.0,17.0,4.0,0.0,983.0,66.0,4.0,6.0,13.0
+Coffee,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Green Bell Peppers for 1 Topping Build Your Own Deep Dish Pizza Medium,0.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0
+Baby Back Pork Ribs Half Rack,710.0,34.0,12.0,115.0,4255.0,74.0,1.0,64.0,25.0
+Decaf Coffee,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Green Bell Peppers for 1 Topping Build Your Own Deep Dish Pizza Large,10.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0
+Tuscan Tomato Bisque in Sourdough Loaf,1590.0,71.0,33.0,156.0,3900.0,201.0,11.0,12.0,33.0
+Side Salad Kids,250.0,19.0,2.0,15.0,431.0,16.0,1.0,2.0,2.0
+Latte,100.0,0.0,0.0,0.0,100.0,10.0,0.0,10.0,0.0
+White Onions for 1 Topping Build Your Own Deep Dish Pizza Large,15.0,0.0,0.0,0.0,1.0,3.0,0.0,2.0,0.0
+Crisp Potato Skins Platter,1190.0,59.0,26.0,134.0,1801.0,116.0,18.0,5.0,38.0
+Sourdough Toast 2 Slices,250.0,6.0,2.0,0.0,487.0,38.0,2.0,2.0,7.0
+Sweet Pig Deep Dish Pizza Large,300.0,9.0,4.0,20.0,752.0,41.0,2.0,6.0,12.0
+Blackened Chicken,240.0,6.0,1.0,99.0,695.0,4.0,0.0,0.0,40.0
+Pepperoni Extreme Deep Dish Pizza Medium,340.0,17.0,7.0,36.0,972.0,32.0,2.0,2.0,14.0
+Piranha Pale Ale Chili,560.0,37.0,20.0,108.0,1517.0,26.0,6.0,5.0,29.0
+Sundae Kids,380.0,16.0,11.0,35.0,73.0,56.0,0.0,49.0,2.0
+Fries Regular Cut,350.0,19.0,4.0,0.0,640.0,40.0,4.0,0.0,4.0
+Bacon Guacamole Deluxe Burger,1590.0,98.0,34.0,216.0,3999.0,103.0,11.0,14.0,70.0
+Applewood Smoked Bacon for 1 Topping Build Your Own Deep Dish Pizza Medium,40.0,3.0,1.0,7.0,122.0,1.0,0.0,1.0,2.0
+Stuffed Potato Lunch Specials,590.0,28.0,11.0,19.0,207.0,70.0,5.0,4.0,9.0
+Asian Chopped Salad,540.0,21.0,3.0,114.0,1397.0,38.0,5.0,22.0,45.0
+Black & Bleu House Burger,1160.0,64.0,23.0,129.0,2665.0,95.0,7.0,12.0,50.0
+Ham,110.0,5.0,2.0,38.0,840.0,2.0,0.0,2.0,14.0
+Sriracha Dry Rub,30.0,0.0,0.0,0.0,377.0,6.0,1.0,2.0,1.0
+Italian Sausage for 1 Topping Build Your Own Deep Dish Pizza Medium Build Your Own Deep Dish Pizzas,100.0,9.0,3.0,20.0,259.0,1.0,0.0,0.0,3.0
+Raspberry Sparkling Water,20.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Tropical Iced Tea,10.0,0.0,0.0,0.0,8.0,3.0,1.0,2.0,0.0
+Barbeque Chicken Deep Dish Pizza Large,340.0,10.0,4.0,39.0,1005.0,42.0,2.0,6.0,19.0
+Mushrooms for 1 Topping Build Your Own Deep Dish Pizza Large,5.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,1.0
+Pepperoni for 1 Topping Build Your Own Deep Dish Pizza Large,35.0,3.0,1.0,8.0,120.0,0.0,0.0,0.0,1.0
+Italian Sausage for 1 Topping Build Your Own Deep Dish Pizza Large,120.0,11.0,3.0,21.0,276.0,1.0,1.0,0.0,4.0
+White Onions for 1 Topping Build Your Own Deep Dish Pizza Small Build Your Own Deep Dish Pizzas,10.0,0.0,0.0,0.0,1.0,3.0,1.0,1.0,0.0
+BJs Handcrafted Vanilla Cream Soda,170.0,0.0,0.0,0.0,14.0,42.0,0.0,41.0,0.0
+Roasted Garlic for 1 Topping Build Your Own Deep Dish Pizza Medium,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Creamy Couscous Mac & Cheese,590.0,38.0,21.0,101.0,1036.0,36.0,2.0,5.0,26.0
+Seared Ahi Salad,580.0,31.0,5.0,45.0,1321.0,43.0,8.0,25.0,30.0
+Hot & Spicy Buffalo,20.0,0.0,0.0,0.0,3022.0,4.0,1.0,2.0,1.0
+Grapefruit Juice,110.0,0.0,0.0,0.0,17.0,26.0,0.0,19.0,1.0
+Lemon Thyme Chicken,650.0,21.0,3.0,133.0,2511.0,52.0,5.0,6.0,60.0
+Rice Pilaf,230.0,6.0,1.0,0.0,621.0,39.0,1.0,5.0,5.0
+Tuscan Tomato Bisque Bowl,560.0,54.0,30.0,156.0,816.0,15.0,3.0,8.0,3.0
+Brisk Raspberry Iced Tea,90.0,0.0,0.0,0.0,50.0,24.0,0.0,23.0,0.0
+Rice Wine Vinaigrette,170.0,15.0,2.0,0.0,636.0,9.0,0.0,8.0,1.0
+Jalapenos for 1 Topping Build Your Own Deep Dish Pizza Mini,0.0,0.0,0.0,0.0,133.0,1.0,0.0,0.0,0.0
+Barbeque Chicken Deep Dish Pizza Medium,310.0,10.0,4.0,38.0,934.0,35.0,2.0,5.0,18.0
+Chicken Tortilla,280.0,12.0,3.0,25.0,1853.0,30.0,4.0,4.0,12.0
+BJs Brewhouse Patty,290.0,19.0,7.0,87.0,873.0,1.0,0.0,0.0,26.0
+Milk Kids,140.0,5.0,3.0,25.0,150.0,14.0,0.0,13.0,10.0
+Fresh Basil for 1 Topping Build Your Own Deep Dish Pizza Large,5.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+BJs Lemonade,140.0,0.0,0.0,0.0,14.0,36.0,0.0,33.0,0.0
+BJs Baked Beignet,630.0,25.0,9.0,35.0,494.0,91.0,3.0,56.0,9.0
+Honey Mustard Dressing,240.0,24.0,4.0,15.0,240.0,8.0,0.0,8.0,0.0
+BJs Brewhouse Classic,110.0,6.0,2.0,14.0,250.0,9.0,1.0,1.0,4.0
+Classic Breakfast Sandwich w/ Ham on a Toasted Wheat Bread,900.0,368.0,14.0,620.0,2200.0,89.0,8.0,9.0,45.0
+Santa Fe Salad w/ Blackened Salmon,1150.0,76.0,16.0,177.0,2091.0,57.0,11.0,8.0,55.0
+Classic Breakfast Sandwich w/ Sausage on a Toasted Gourmet Bun,1340.0,87.0,32.0,688.0,2200.0,89.0,7.0,12.0,49.0
+Garlic Parmesan,420.0,42.0,9.0,0.0,815.0,8.0,0.0,0.0,0.0
+Margherita Fresca BJs Flatbread Appetizer Pizza,100.0,5.0,2.0,12.0,188.0,10.0,0.0,1.0,5.0
+Fire Roasted Red Peppers for 1 Topping Build Your Own Deep Dish Pizza Small,10.0,0.0,0.0,0.0,173.0,3.0,1.0,1.0,0.0
+Fried Egg Burger Add Ons,90.0,7.0,2.0,212.0,176.0,0.0,0.0,0.0,6.0
+Jumbo Spaghetti & Meatballs Lunch Specials,780.0,35.0,12.0,79.0,1504.0,89.0,7.0,15.0,29.0
+Hot Chocolate,160.0,6.0,4.0,0.0,174.0,25.0,1.0,19.0,1.0
+Mini Chocolate Chunk Pizookie,580.0,23.0,14.0,59.0,434.0,86.0,2.0,61.0,7.0
+BJs Handcrafted Orange Cream Soda,160.0,0.0,0.0,0.0,5.0,40.0,0.0,38.0,0.0
+Portobello Mushroom Patty,50.0,3.0,0.0,0.0,285.0,4.0,1.0,2.0,2.0
+Clam Chowder Bowl,440.0,26.0,11.0,85.0,1599.0,33.0,1.0,1.0,15.0
+Mediterranean Deep Dish Pizza Small,290.0,13.0,4.0,34.0,887.0,27.0,2.0,3.0,16.0
+Crispy Jalapeno Burger,1210.0,70.0,22.0,148.0,2807.0,96.0,8.0,14.0,49.0
+Grilled Chicken Alfredo Lunch Specials,650.0,33.0,17.0,105.0,1002.0,58.0,3.0,8.0,29.0
+Vegetarian Pita Tacos w/Blackened Salmon,960.0,42.0,8.0,122.0,2402.0,87.0,8.0,11.0,59.0
+Chicken Tenders Kids,470.0,26.0,4.0,82.0,1714.0,31.0,1.0,0.0,27.0
+Broccoli Cheddar in Sourdough Loaf,1420.0,42.0,17.0,51.0,4567.0,210.0,10.0,9.0,44.0
+BJs Favorite Pizza Deep Dish Medium,310.0,15.0,6.0,30.0,820.0,33.0,2.0,3.0,12.0
+Buffalo Chicken Deep Dish Pizza Medium,310.0,11.0,4.0,39.0,1176.0,34.0,2.0,4.0,18.0
+California Chicken Club Sandwich Half,810.0,43.0,12.0,81.0,1671.0,65.0,7.0,3.0,39.0
+Baked Potato,590.0,28.0,11.0,19.0,207.0,70.0,5.0,4.0,9.0
+Pepperoni Extreme Deep Dish Pizza Small,260.0,14.0,5.0,29.0,775.0,25.0,1.0,2.0,11.0
+Mushrooms for 1 Topping Build Your Own Deep Dish Pizza Medium,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0
+Mini Salted Caramel Pizookie,720.0,28.0,14.0,63.0,736.0,108.0,1.0,85.0,7.0
+Classic Breakfast Sandwich w/ Bacon on a Toasted Sourdough Bread,920.0,46.0,15.0,605.0,1900.0,85.0,6.0,6.0,40.0
+Blistered Shishitos & Crispy Pepperoni,510.0,43.0,16.0,90.0,1937.0,11.0,0.0,5.0,18.0
+Balsamic Vinaigrette,160.0,15.0,2.0,0.0,230.0,6.0,0.0,6.0,0.0
+Roasted Golden Beets,160.0,8.0,2.0,3.0,626.0,19.0,5.0,13.0,3.0
+Sriracha Queso Dip w/ Piranha Pale Ale Chili,930.0,37.0,16.0,73.0,1990.0,113.0,16.0,22.0,37.0
+Gourmet Five Meat Deep Dish Pizza Small,320.0,17.0,7.0,43.0,875.0,26.0,2.0,2.0,15.0
+BBQ Ranch Dressing,140.0,12.0,2.0,11.0,413.0,6.0,0.0,4.0,0.0
+White Chocolate Macadamia Nut Pizookie,1220.0,58.0,28.0,119.0,869.0,162.0,3.0,112.0,14.0
+Chicken Bacon Ranch Deep Dish Pizza Medium,410.0,21.0,7.0,56.0,1024.0,32.0,2.0,3.0,22.0
+Margherita Fresca Half Flatbread,400.0,19.0,9.0,50.0,751.0,39.0,2.0,3.0,18.0
+Great White Deep Dish Pizza Mini,180.0,7.0,3.0,26.0,480.0,17.0,1.0,2.0,11.0
+Avocado,90.0,7.0,1.0,0.0,0.0,4.0,3.0,0.0,1.0
+California Supreme Deep Dish Pizza Small,210.0,9.0,3.0,15.0,620.0,25.0,2.0,2.0,8.0
+Roasted Asparagus for 1 Topping Build Your Own Deep Dish Pizza Small,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0
+Green Bell Peppers for 1 Topping Build Your Own Deep Dish Pizza Mini,5.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Classic Burger,1210.0,70.0,22.0,148.0,2807.0,96.0,8.0,14.0,49.0
+Lentil w/ Ancient Grains in a Sourdough Loaf,1280.0,24.0,4.0,0.0,3729.0,221.0,17.0,7.0,41.0
+Green Bell Peppers for 1 Topping Build Your Own Deep Dish Pizza Small,10.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0,0.0
+Applewood Smoked Bacon for 1 Topping Build Your Own Deep Dish Pizza Small,40.0,2.0,1.0,6.0,108.0,1.0,0.0,0.0,2.0
+Mini White Chocolate Pizookie,610.0,29.0,14.0,59.0,434.0,81.0,2.0,56.0,7.0
+Cheese & Tomato Deep Dish Pizza Medium,270.0,11.0,5.0,24.0,707.0,31.0,2.0,2.0,12.0
+Grilled Chicken Alfredo,1380.0,69.0,35.0,211.0,2199.0,129.0,6.0,15.0,60.0
+Kale & Roasted Brussels Sprouts Salad w/ Flame Broiled Salmon,820.0,45.0,9.0,127.0,1067.0,54.0,8.0,34.0,51.0
+Italian Sausage for 1 Topping Build Your Own Pizza Mini,75.0,6.0,3.0,13.0,172.0,1.0,0.0,0.0,2.0
+Garlic Green Beans,70.0,4.0,1.0,0.0,30.0,7.0,3.0,1.0,2.0
+Scrambled Egg Breakfast w/ Sausage,1430.0,98.0,29.0,930.0,2124.0,87.0,7.0,6.0,49.0
+Avocado Toast,410.0,20.0,4.0,212.0,640.0,47.0,8.0,20.0,12.0
+Milk,280.0,10.0,6.0,50.0,300.0,28.0,0.0,26.0,20.0
+Cappuccino,100.0,0.0,0.0,0.0,100.0,10.0,0.0,10.0,0.0
+Mountain Dew,110.0,0.0,0.0,0.0,50.0,31.0,0.0,31.0,0.0
+Applesauce Kids,70.0,0.0,0.0,0.0,4.0,17.0,1.0,15.0,0.0
+Peruvian Quinoa Bowl w/ Salmon,780.0,42.0,7.0,117.0,1311.0,48.0,7.0,5.0,52.0
+Peruvian Quinoa Bowl w/ Chicken,650.0,27.0,4.0,99.0,1482.0,49.0,7.0,6.0,51.0
+Fresh Basil for 1 Topping Build Your Own Deep Dish Pizza Mini,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Santa Fe Salad w/ Grilled Chicken,970.0,57.0,13.0,159.0,1637.0,51.0,11.0,9.0,54.0
+BJs Signature Five Cheese Blend for 1 Topping Build Your Own Deep Dish Pizza Medium,60.0,4.0,3.0,19.0,184.0,1.0,0.0,0.0,4.0
+Grilled Chicken Stuffed Potato Lunch Specials,1040.0,50.0,28.0,226.0,1820.0,82.0,8.0,8.0,34.0
+Apple Juice Kids,120.0,0.0,0.0,0.0,25.0,29.0,0.0,26.0,0.0
+BJs Classic Combo Deep Dish Pizza Small,260.0,13.0,5.0,27.0,697.0,25.0,2.0,2.0,10.0
+Root Beer Glazed Ribs,490.0,21.0,7.0,53.0,1421.0,60.0,2.0,52.0,12.0
+Housemade Meatballs for 1 Topping Build Your Own Deep Dish Pizza Large,125.0,10.0,4.0,33.0,152.0,3.0,0.0,1.0,6.0
+Gluten Free Chocolate Chip Pizookie,1180.0,52.0,30.0,143.0,697.0,165.0,4.0,125.0,13.0
+Santa Fe Salad,980.0,57.0,13.0,159.0,2044.0,55.0,11.0,9.0,54.0

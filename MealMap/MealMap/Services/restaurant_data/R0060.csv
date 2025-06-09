@@ -1,0 +1,351 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Chicken & Gnocchi Soup,250.0,13.0,5.0,45.0,1420.0,24.0,1.0,4.0,10.0
+Minestrone Soup,110.0,1.5,0.0,0.0,840.0,18.0,4.0,4.0,5.0
+Pasta e Fagioli Soup,180.0,6.0,2.5,25.0,620.0,21.0,4.0,7.0,9.0
+Zuppa Toscana Soup,220.0,15.0,6.0,40.0,990.0,15.0,2.0,2.0,7.0
+Famous House Salad,60.0,2.0,0.0,0.0,250.0,10.0,2.0,2.0,2.0
+Braised Beef & Tortelloni,1120.0,58.0,24.0,230.0,2370.0,83.0,6.0,16.0,67.0
+Cheese Ravioli w/ Marinara Sauce,780.0,39.0,20.0,125.0,2140.0,68.0,5.0,11.0,41.0
+Cheese Ravioli w/ Meat Sauce,860.0,46.0,24.0,170.0,2190.0,65.0,4.0,11.0,50.0
+Eggplant Parmigiana,1060.0,54.0,12.0,45.0,1990.0,113.0,11.0,23.0,30.0
+Fettuccine Alfredo,1010.0,56.0,34.0,155.0,850.0,97.0,7.0,5.0,30.0
+Five Cheese Ziti al Forno Dinner,1220.0,71.0,36.0,185.0,2160.0,103.0,6.0,19.0,45.0
+Lasagna Classico Dinner,930.0,53.0,28.0,210.0,2070.0,56.0,8.0,18.0,58.0
+Lasagna Classico Lunch,640.0,36.0,20.0,145.0,1430.0,39.0,5.0,12.0,40.0
+Ravioli di Portobello Dinner,820.0,46.0,24.0,160.0,1150.0,73.0,6.0,8.0,27.0
+Ravioli di Portobello Lunch,570.0,31.0,16.0,110.0,790.0,52.0,4.0,6.0,19.0
+Tour of Italy,1520.0,96.0,48.0,340.0,3250.0,92.0,6.0,19.0,75.0
+Chicken Parmigiana Dinner,1060.0,52.0,14.0,155.0,2980.0,86.0,7.0,16.0,63.0
+Chicken & Shrimp Carbonara,1590.0,114.0,61.0,475.0,2410.0,78.0,4.0,12.0,66.0
+Chicken Alfredo Dinner,1480.0,94.0,56.0,395.0,1480.0,95.0,4.0,9.0,63.0
+Chicken Marsala Dinner,970.0,43.0,10.0,215.0,1910.0,71.0,7.0,11.0,66.0
+Chicken Scampi Dinner,1260.0,72.0,28.0,200.0,1990.0,105.0,4.0,9.0,49.0
+Stuffed Chicken Marsala,950.0,58.0,27.0,310.0,1950.0,33.0,4.0,8.0,74.0
+Add Meatball,140.0,9.0,4.0,40.0,190.0,4.0,0.0,1.0,10.0
+Add Shrimp,30.0,0.0,0.0,65.0,290.0,0.0,0.0,0.0,7.0
+Fettuccine Kids,170.0,1.5,0.0,0.0,0.0,34.0,1.0,1.0,6.0
+Small Shells Kids,210.0,2.0,0.0,0.0,5.0,42.0,2.0,2.0,7.0
+Spaghetti Kids,170.0,1.5,0.0,0.0,5.0,33.0,1.0,2.0,6.0
+Whole Wheat Linguine Kids,270.0,3.0,0.0,0.0,10.0,51.0,6.0,2.0,10.0
+Bruschetta Caprese,540.0,30.0,10.0,30.0,1300.0,43.0,3.0,6.0,18.0
+Classic Calamari,870.0,56.0,5.0,320.0,2400.0,67.0,6.0,3.0,24.0
+Calamari for Create a Sampler Italiano,430.0,28.0,2.5,160.0,1200.0,34.0,3.0,1.0,12.0
+Fried Mozzarella for Create a Sampler Italiano,320.0,21.0,9.0,45.0,740.0,20.0,1.0,1.0,14.0
+Stuffed Mushrooms for Create a Sampler Italiano,380.0,30.0,8.0,20.0,860.0,13.0,1.0,3.0,15.0
+Toasted Beef & Pork Ravioli for Create a Sampler Italiano,340.0,15.0,2.5,15.0,750.0,39.0,3.0,3.0,12.0
+Lasagna Fritta,1070.0,71.0,29.0,160.0,1650.0,73.0,5.0,4.0,35.0
+Steak Gorgonzola Alfredo,1380.0,85.0,51.0,330.0,2810.0,88.0,6.0,8.0,68.0
+Tomato Sauce Kids,80.0,5.0,0.5,0.0,420.0,8.0,1.0,5.0,1.0
+Cheese Ravioli Kids,340.0,16.0,8.0,50.0,980.0,33.0,3.0,6.0,17.0
+Chicken Fingers & Pasta Kids,400.0,16.0,1.5,50.0,720.0,42.0,2.0,5.0,24.0
+Macaroni & Cheese Kids,350.0,8.0,3.5,5.0,870.0,60.0,2.0,10.0,11.0
+Five Cheese Marinara Dipping Sauce,220.0,17.0,9.0,45.0,540.0,11.0,1.0,6.0,5.0
+Herb Grilled Salmon,460.0,28.0,8.0,125.0,570.0,8.0,4.0,3.0,43.0
+Grilled Chicken Kids,490.0,11.0,1.5,95.0,710.0,66.0,4.0,16.0,34.0
+Grilled Chicken Flatbread,760.0,51.0,19.0,135.0,2110.0,42.0,2.0,4.0,34.0
+Cheese Pizza Kids,400.0,13.0,7.0,25.0,720.0,54.0,3.0,4.0,17.0
+Pizza w/ Pepperoni Kids,460.0,18.0,9.0,35.0,960.0,54.0,3.0,4.0,19.0
+Steamed Broccoli,20.0,0.0,0.0,0.0,20.0,4.0,2.0,2.0,2.0
+Alfredo Dipping Sauce,440.0,43.0,27.0,140.0,600.0,5.0,0.0,1.0,8.0
+Parmesan Peppercorn Sauce,250.0,25.0,4.5,15.0,300.0,3.0,0.0,2.0,2.0
+Marinara Dipping Sauce,90.0,5.0,0.0,0.0,480.0,11.0,2.0,6.0,1.0
+Black Tie Mousse Cake,750.0,50.0,30.0,155.0,290.0,76.0,4.0,59.0,9.0
+Amaretto Tiramisu,220.0,17.0,10.0,90.0,65.0,14.0,0.0,11.0,3.0
+Lemon Cream Cake,550.0,31.0,17.0,70.0,440.0,60.0,0.0,45.0,6.0
+Tiramisu,470.0,27.0,17.0,215.0,125.0,54.0,0.0,35.0,6.0
+Warm Apple Crostata,630.0,29.0,15.0,35.0,420.0,83.0,2.0,41.0,7.0
+Zeppoli,810.0,28.0,3.5,0.0,510.0,119.0,6.0,25.0,20.0
+Sundae,160.0,9.0,6.0,35.0,40.0,18.0,0.0,13.0,2.0
+Regular Draft 14 oz,200.0,0.0,0.0,0.0,0.0,14.0,0.0,13.0,3.0
+Regular Draft 20 oz,290.0,0.0,0.0,0.0,5.0,20.0,0.0,18.0,4.0
+Coca Cola,150.0,0.0,0.0,0.0,45.0,39.0,0.0,39.0,0.0
+Diet Coke,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Dr Pepper,150.0,0.0,0.0,0.0,50.0,41.0,0.0,41.0,0.0
+Sprite,150.0,0.0,0.0,0.0,70.0,39.0,0.0,39.0,0.0
+Bellini Peach Raspberry Iced Tea,100.0,0.0,0.0,0.0,10.0,26.0,0.0,24.0,0.0
+Fresh Brewed Iced Tea,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Raspberry Lemonade,170.0,0.0,0.0,0.0,10.0,10.0,0.0,9.0,0.0
+Strawberry Frozen Margarita,290.0,0.0,0.0,0.0,20.0,52.0,4.0,42.0,0.0
+Mango Martini,180.0,0.0,0.0,0.0,25.0,31.0,1.0,28.0,0.0
+Berry Sangria Pitcher,900.0,0.5,0.0,0.0,25.0,137.0,6.0,115.0,2.0
+Peach Sangria Pitcher,900.0,0.5,0.0,0.0,25.0,137.0,6.0,115.0,2.0
+Caffe Mocha,230.0,7.0,3.5,30.0,85.0,34.0,2.0,27.0,10.0
+Frozen Cappuccino,370.0,11.0,7.0,35.0,55.0,67.0,0.0,63.0,3.0
+Herbal & Flavored Hot Teas,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Red White Blush Glass,150.0,0.0,0.0,0.0,5.0,5.0,0.0,1.0,0.0
+1% Low Fat Milk,100.0,2.5,1.5,10.0,105.0,12.0,0.0,12.0,8.0
+1% Low Fat Chocolate Milk,180.0,2.5,1.5,10.0,135.0,31.0,0.0,12.0,10.0
+Apple Juice Kids,100.0,0.0,0.0,0.0,30.0,25.0,0.0,25.0,0.0
+Cranberry Juice Kids,110.0,0.0,0.0,0.0,30.0,26.0,0.0,26.0,0.0
+Orange Juice Kids,110.0,0.0,0.0,0.0,0.0,24.0,0.0,21.0,2.0
+Raspberry Lemonade Kids,110.0,0.0,0.0,0.0,10.0,7.0,0.0,6.0,0.0
+Peach Mango Smoothie,180.0,0.0,0.0,0.0,20.0,44.0,1.0,34.0,1.0
+Apple Juice,210.0,0.0,0.0,0.0,65.0,53.0,0.0,53.0,0.0
+Cranberry Juice,230.0,0.0,0.0,0.0,65.0,56.0,0.0,56.0,0.0
+Orange Juice,230.0,0.0,0.0,0.0,10.0,51.0,0.0,45.0,0.0
+Shrimp Alfredo,1150.0,69.0,41.0,340.0,1490.0,92.0,4.0,5.0,40.0
+Spicy Shrimp Scampi Fritta,560.0,37.0,6.0,115.0,1920.0,34.0,0.0,2.0,22.0
+Crispy Risotto Bites,490.0,22.0,6.0,25.0,1110.0,60.0,2.0,2.0,12.0
+Strawberry Passion Fruit Limonata,130.0,0.0,0.0,0.0,40.0,34.0,0.0,32.0,0.0
+Minute Maid Limeade,180.0,0.0,0.0,0.0,20.0,50.0,0.0,47.0,0.0
+Strawberry & White Chocolate Cake Dolcini,190.0,11.0,6.0,30.0,100.0,23.0,0.0,18.0,1.0
+Garlic Rosemary Chicken Dinner,540.0,19.0,7.0,215.0,1630.0,29.0,4.0,6.0,66.0
+Herb Grilled Salmon Gluten Sensitive Selections,440.0,28.0,8.0,125.0,330.0,5.0,3.0,2.0,41.0
+Parmesan Garlic Fries,270.0,12.0,1.0,0.0,720.0,36.0,3.0,0.0,3.0
+Famous House Salad w/ Low Fat Dressing,90.0,4.0,0.0,5.0,660.0,12.0,2.0,4.0,2.0
+Raspberry Sauce for Zeppoli,210.0,0.0,0.0,0.0,10.0,51.0,0.0,35.0,0.0
+Long Island Limoncello,230.0,0.0,0.0,0.0,20.0,31.0,2.0,27.0,0.0
+Berry Bianco Spritzer,130.0,0.0,0.0,0.0,20.0,11.0,0.0,9.0,0.0
+Specialty Bottle,220.0,0.0,0.0,0.0,10.0,31.0,0.0,23.0,0.0
+Hot Chocolate,360.0,8.0,4.0,30.0,105.0,63.0,3.0,52.0,11.0
+Northern Tour of Italy,1420.0,82.0,41.0,270.0,2570.0,108.0,8.0,16.0,63.0
+Rotini w/ Marinara Dinner,510.0,14.0,1.0,0.0,960.0,88.0,5.0,13.0,9.0
+Rotini w/ Marinara Kids,310.0,8.0,0.5,0.0,480.0,55.0,3.0,6.0,5.0
+Fettuccine Alfredo Mini Pasta Bowl,500.0,34.0,20.0,12.0,450.0,38.0,2.0,2.0,12.0
+Spaghetti w/ Meat Sauce Mini Pasta Bowl,280.0,9.0,2.5,25.0,390.0,40.0,2.0,7.0,11.0
+Garlic Rosemary Chicken Lunch,400.0,16.0,6.0,115.0,1400.0,29.0,3.0,6.0,38.0
+Cavatappi,430.0,4.0,0.5,0.0,10.0,83.0,3.0,4.0,15.0
+Whole Wheat Linguine,350.0,6.0,0.0,0.0,10.0,57.0,14.0,2.0,17.0
+Gluten Free Rotini,430.0,6.0,0.5,0.0,0.0,87.0,2.0,0.0,8.0
+Five Cheese Marinara,440.0,35.0,18.0,90.0,1080.0,22.0,3.0,12.0,10.0
+Asiago Garlic Alfredo,940.0,91.0,57.0,295.0,1320.0,14.0,0.0,6.0,19.0
+3 Meatballs,420.0,28.0,11.0,115.0,580.0,11.0,1.0,4.0,31.0
+Italian Sausage 2 Links,470.0,41.0,14.0,110.0,1140.0,2.0,0.0,2.0,24.0
+Sauteed Shrimp,60.0,0.0,0.0,130.0,580.0,0.0,0.0,0.0,14.0
+Chicken Parmigiana Breadstick Sandwich,590.0,28.0,8.0,75.0,1760.0,49.0,3.0,5.0,35.0
+Italian Meatball Breadstick Sandwich,540.0,31.0,12.0,95.0,1090.0,40.0,2.0,5.0,29.0
+Cheese Tortelloni Kids,350.0,14.0,4.5,85.0,860.0,44.0,1.0,6.0,13.0
+Chicken Carbonara,1590.0,114.0,61.0,475.0,2410.0,78.0,4.0,12.0,66.0
+Chicken Piccata,530.0,26.0,11.0,230.0,1260.0,12.0,3.0,6.0,64.0
+Crispy Risotto Bites for Create a Sampler Italiano,300.0,14.0,3.5,15.0,740.0,36.0,2.0,3.0,7.0
+Five Cheese Marinara Sauce,440.0,35.0,18.0,90.0,1080.0,22.0,3.0,12.0,10.0
+Five Italian Cheese Fonduta,760.0,48.0,25.0,115.0,1890.0,41.0,2.0,2.0,34.0
+Fried Mozzarella,860.0,59.0,28.0,135.0,1870.0,48.0,3.0,4.0,34.0
+Grilled Chicken & Cheese Piadina,720.0,44.0,14.0,95.0,1360.0,46.0,4.0,4.0,35.0
+Grilled Vegetable & Cheese Piadina,630.0,37.0,12.0,50.0,990.0,52.0,5.0,7.0,22.0
+Rotini w/ Meat Sauce Kids,360.0,12.0,4.0,30.0,520.0,53.0,2.0,7.0,11.0
+Kiwi Melon Limonata,160.0,0.0,0.0,0.0,35.0,43.0,0.0,39.0,0.0
+Moscato Citrus Berry Cocktail,260.0,0.0,0.0,0.0,50.0,41.0,0.0,35.0,0.0
+Rigatoni,440.0,6.0,0.5,0.0,10.0,83.0,3.0,5.0,14.0
+Rotini w/ Meat Sauce,620.0,23.0,8.0,60.0,1040.0,84.0,3.0,13.0,20.0
+Sausage Stuffed Giant Rigatoni Mini Pasta Bowl Lunch,560.0,32.0,16.0,135.0,1670.0,31.0,2.0,5.0,37.0
+Sausage Stuffed Giant Rigatoni,1020.0,60.0,30.0,250.0,2740.0,58.0,4.0,14.0,65.0
+Seasonal Sicilian Cheesecake,880.0,49.0,32.0,155.0,500.0,98.0,2.0,82.0,14.0
+Shrimp Scampi,500.0,19.0,9.0,150.0,1150.0,56.0,6.0,1.0,26.0
+Tilapia Piccata,450.0,24.0,10.0,125.0,1010.0,12.0,2.0,5.0,49.0
+Tortellini al Forno Mini Pasta Bowl,420.0,29.0,17.0,115.0,740.0,25.0,1.0,2.0,15.0
+Traditional Meat Sauce,300.0,19.0,7.0,60.0,1040.0,19.0,2.0,13.0,14.0
+Tuscan Sirloin,700.0,29.0,11.0,205.0,1830.0,28.0,5.0,7.0,83.0
+Tuscan Sirloin Gluten Sensitive Selections,570.0,18.0,7.0,190.0,1720.0,26.0,7.0,6.0,77.0
+Spaghetti,340.0,3.5,0.0,0.0,10.0,67.0,3.0,4.0,12.0
+Espresso Martini,310.0,9.0,5.0,30.0,20.0,32.0,0.0,23.0,1.0
+Raspberry Italian Ice Mule,230.0,0.0,0.0,0.0,0.0,27.0,0.0,26.0,0.0
+Sicilian Nota Mia,170.0,0.0,0.0,0.0,20.0,21.0,0.0,19.0,0.0
+Frozen Cappuccino Caramel,320.0,11.0,7.0,35.0,55.0,54.0,0.0,51.0,3.0
+Frozen Cappuccino Vanilla,320.0,11.0,7.0,35.0,55.0,53.0,0.0,50.0,3.0
+Iced Coffee Caramel,250.0,7.0,4.0,20.0,90.0,40.0,0.0,31.0,7.0
+Iced Coffee Traditional,210.0,7.0,4.0,20.0,90.0,29.0,0.0,21.0,7.0
+Iced Coffee Vanilla,240.0,7.0,4.0,90.0,20.0,38.0,0.0,30.0,7.0
+Mixed Berry Sparkling Water,30.0,0.0,0.0,0.0,55.0,7.0,0.0,6.0,0.0
+Peppermint Mocha,220.0,6.0,3.0,15.0,80.0,40.0,1.0,32.0,5.0
+Strawberry Banana Smoothie,190.0,0.0,0.0,0.0,45.0,45.0,3.0,33.0,1.0
+Toasted Marshmallow Martini,650.0,19.0,11.0,55.0,120.0,95.0,1.0,75.0,5.0
+Warm Chocolate Baci Cake,550.0,29.0,9.0,75.0,340.0,72.0,3.0,48.0,7.0
+Crispy Chicken Ravioli Supremo,790.0,50.0,22.0,230.0,1740.0,46.0,3.0,6.0,38.0
+Garlic Mussels Marinara,510.0,25.0,4.5,55.0,1360.0,41.0,3.0,10.0,30.0
+Chicken Margherita Dinner,590.0,32.0,11.0,230.0,1100.0,9.0,3.0,4.0,69.0
+Linguine Di Mare,570.0,16.0,2.0,180.0,1450.0,64.0,14.0,11.0,44.0
+Lasagna,640.0,36.0,20.0,145.0,1430.0,39.0,5.0,12.0,40.0
+Asiago Tortelloni & Parmesan Crusted Chicken,1050.0,65.0,37.0,340.0,1910.0,50.0,3.0,5.0,69.0
+Lobster Ravioli w/ Jumbo Shrimp & Tuscan Sirloin,1130.0,62.0,29.0,420.0,3210.0,66.0,10.0,4.0,74.0
+Lobster Ravioli & Tuscan Sirloin,940.0,47.0,27.0,315.0,3030.0,65.0,9.0,4.0,60.0
+Chicken Margherita Lunch,370.0,22.0,7.0,120.0,700.0,8.0,2.0,3.0,37.0
+Breadstick Eggplant Parm Sand,610.0,31.0,8.0,30.0,1330.0,64.0,5.0,8.0,20.0
+Spicy Chicken Calambrian Sandwich,470.0,26.0,6.0,55.0,1240.0,37.0,2.0,2.0,25.0
+Gorgonzola Sauce for Spicy Calabrian Tenders,170.0,17.0,4.0,20.0,350.0,2.0,0.0,1.0,2.0
+Traditional Marinara,140.0,7.0,0.5,0.0,720.0,17.0,2.0,10.0,2.0
+Vodka Sauce,340.0,23.0,11.0,55.0,950.0,18.0,2.0,10.0,6.0
+Angel Hair,350.0,2.5,0.0,0.0,10.0,67.0,3.0,2.0,12.0
+Add Pepperoni for Cheese Pizza Kids,60.0,5.0,2.0,10.0,240.0,0.0,0.0,0.0,2.0
+Lasagna Fritta,1070.0,71.0,29.0,160.0,1650.0,73.0,5.0,4.0,35.0
+Chicken Giardino,600.0,17.0,7.0,115.0,2240.0,70.0,5.0,9.0,41.0
+Spaghetti for Create Your Own Pasta,340.0,3.5,0.0,0.0,10.0,67.0,3.0,4.0,12.0
+Chicken Parmigiana Breadstick Sandwich,630.0,33.0,10.0,85.0,1760.0,49.0,3.0,4.0,37.0
+Cheese Pizza Kids,400.0,13.0,7.0,25.0,720.0,54.0,3.0,4.0,17.0
+Rotini w/ Meat Sauce Kids,360.0,12.0,4.0,30.0,520.0,53.0,2.0,7.0,11.0
+Whole Grain Linguine for Kids Create Your Own Pasta,220.0,3.5,0.0,0.0,5.0,36.0,11.0,1.0,9.0
+Meatball Stuffed Pizza Fritta,590.0,20.0,7.0,50.0,1180.0,74.0,5.0,18.0,29.0
+Minute Maid Limeade,180.0,0.0,0.0,0.0,25.0,49.0,0.0,47.0,0.0
+Chicken Piccata,350.0,21.0,9.0,125.0,1230.0,11.0,2.0,3.0,33.0
+Sauteed Shrimp for Create Your Own Pasta,60.0,0.0,0.0,130.0,580.0,0.0,0.0,0.0,14.0
+Warm Apple Crostata,630.0,29.0,15.0,35.0,420.0,83.0,2.0,41.0,7.0
+Rotini w/ Meat Sauce,730.0,25.0,8.0,60.0,1040.0,106.0,4.0,13.0,22.0
+Italian Meats & Cheese Piadina,780.0,57.0,21.0,110.0,1990.0,39.0,2.0,3.0,30.0
+Stuffed Mushrooms,380.0,30.0,8.0,20.0,860.0,13.0,1.0,3.0,15.0
+Cheese Ravioli w/ Meat Sauce,860.0,46.0,24.0,170.0,2190.0,65.0,4.0,11.0,50.0
+Shrimp Alfredo,1150.0,69.0,41.0,340.0,1490.0,92.0,4.0,5.0,40.0
+Tiramisu,470.0,27.0,17.0,215.0,125.0,54.0,0.0,35.0,6.0
+Chocolate Mousse,240.0,18.0,10.0,55.0,125.0,18.0,1.0,12.0,2.0
+Salmon Piccata Regional,590.0,40.0,13.0,140.0,1250.0,12.0,2.0,3.0,45.0
+Add Fries for Spicy Calabrian Chicken Sandwich,270.0,12.0,1.0,0.0,720.0,36.0,3.0,0.0,3.0
+Frozen Cappuccino Vanilla,320.0,11.0,7.0,35.0,55.0,53.0,0.0,50.0,3.0
+Parmesan Pesto for Create Your Own Pasta,530.0,55.0,7.0,10.0,760.0,5.0,2.0,2.0,6.0
+Herb Grilled Salmon,460.0,28.0,8.0,125.0,570.0,8.0,4.0,3.0,43.0
+Chicken Parmigiana,660.0,29.0,7.0,75.0,1740.0,65.0,5.0,12.0,35.0
+Stuffed Chicken Marsala,950.0,58.0,27.0,310.0,1950.0,33.0,4.0,8.0,74.0
+Mango Martini,180.0,0.0,0.0,0.0,25.0,31.0,1.0,28.0,0.0
+Long Island Limoncello,230.0,0.0,0.0,0.0,20.0,31.0,2.0,27.0,0.0
+Braised Beef & Tortelloni,1120.0,58.0,24.0,230.0,2370.0,83.0,6.0,16.0,67.0
+Black Tie Mousse Cake,750.0,50.0,30.0,155.0,290.0,76.0,4.0,59.0,9.0
+Zuppa Toscana Soup,220.0,15.0,7.0,40.0,790.0,15.0,2.0,2.0,7.0
+Zeppoli,810.0,28.0,3.5,0.0,510.0,119.0,6.0,25.0,20.0
+Strawberry Frozen Margarita,290.0,0.0,0.0,0.0,20.0,52.0,4.0,42.0,0.0
+Chicken Piccata Lunch,350.0,21.0,9.0,125.0,1230.0,11.0,2.0,3.0,33.0
+Orange Juice Kids,180.0,0.0,0.0,0.0,10.0,40.0,0.0,36.0,3.0
+Spinach Artichoke Dip,780.0,49.0,21.0,95.0,1930.0,50.0,6.0,7.0,31.0
+Lasagna Fritta a Sampler Portion,530.0,31.0,10.0,60.0,730.0,43.0,3.0,0.0,20.0
+Shrimp Scampi,500.0,19.0,9.0,150.0,1150.0,56.0,6.0,1.0,26.0
+Rotini w/ Parmesan Pesto Sauce,960.0,61.0,8.0,10.0,760.0,92.0,4.0,2.0,14.0
+Raspberry Lemonade,170.0,0.0,0.0,0.0,10.0,10.0,0.0,9.0,0.0
+Kiwi Melon Limonata,160.0,0.0,0.0,0.0,35.0,43.0,0.0,39.0,0.0
+Lobster Ravioli w/ Shrimp & Scallops,1070.0,60.0,37.0,375.0,2280.0,90.0,14.0,18.0,49.0
+Parmesan Crusted Zucchini,90.0,7.0,2.0,5.0,190.0,5.0,1.0,3.0,4.0
+Spicy Chicken Calabrian Sandwich,520.0,30.0,8.0,65.0,1190.0,38.0,2.0,2.0,26.0
+Angel Hair,350.0,2.5,0.0,0.0,10.0,67.0,3.0,2.0,12.0
+Five Cheese Marinara Dipping Sauce for Breadsticks,220.0,17.0,9.0,45.0,540.0,11.0,1.0,6.0,5.0
+Caramel Buttercream Cake,530.0,28.0,5.0,55.0,210.0,66.0,1.0,46.0,5.0
+Eggplant Parmigiana Sandwich,650.0,36.0,10.0,40.0,1330.0,63.0,5.0,8.0,22.0
+Peach Sangria Glass,230.0,0.0,0.0,0.0,5.0,35.0,0.0,32.0,0.0
+Small Shells for Kids Create Your Own Pasta,210.0,2.0,0.0,0.0,5.0,42.0,2.0,2.0,7.0
+Linguine Di Mare,570.0,16.0,2.0,180.0,1450.0,64.0,14.0,11.0,44.0
+Minestrone Soup,110.0,1.0,0.0,0.0,810.0,17.0,4.0,4.0,5.0
+Spaghetti w/ Meat Sauce Mini Pasta Bowl Lunch,360.0,12.0,3.5,30.0,530.0,51.0,3.0,9.0,14.0
+Eggplant Parmigiana,1060.0,54.0,12.0,45.0,1990.0,113.0,11.0,23.0,30.0
+Berry Sangria Pitcher,870.0,0.0,0.0,0.0,25.0,126.0,3.0,112.0,1.0
+Cheese Ravioli w/ Marinara Sauce,780.0,39.0,20.0,125.0,2140.0,68.0,5.0,11.0,41.0
+Grilled Chicken Parmigiana,520.0,19.0,5.0,115.0,1340.0,48.0,5.0,10.0,42.0
+Imports & Specialty Bottle,220.0,0.0,0.0,0.0,10.0,31.0,0.0,23.0,0.0
+Blueberry Limonata,160.0,0.0,0.0,0.0,30.0,41.0,0.0,39.0,0.0
+Iced Coffee Traditional,210.0,7.0,4.0,20.0,90.0,29.0,0.0,21.0,7.0
+Chicken Parmigiana w/ 2 Breaded Chicken Breasts,1060.0,52.0,14.0,155.0,2980.0,86.0,7.0,16.0,63.0
+Rotini w/ Marinara & Grilled Chicken Kids,490.0,11.0,1.5,95.0,710.0,66.0,4.0,16.0,34.0
+Milan Mai Tai,260.0,0.0,0.0,0.0,20.0,42.0,1.0,38.0,0.0
+French Fries Kids,250.0,11.0,1.0,0.0,360.0,36.0,3.0,0.0,3.0
+Grilled Chicken Flatbread,720.0,45.0,24.0,150.0,2230.0,42.0,2.0,4.0,36.0
+Grilled Chicken & Cheese Piadina,720.0,44.0,14.0,95.0,1360.0,46.0,4.0,4.0,35.0
+Lemon Cream Cake,550.0,31.0,17.0,70.0,440.0,60.0,0.0,45.0,6.0
+Chicken Alfredo Dinner,1480.0,94.0,56.0,395.0,1480.0,95.0,4.0,9.0,63.0
+Chicken Margherita Dinner,590.0,32.0,11.0,230.0,1100.0,9.0,3.0,4.0,69.0
+Strawberry Banana Smoothie,190.0,0.0,0.0,0.0,45.0,45.0,3.0,33.0,1.0
+Green Apple Moscato Pitcher,830.0,0.0,0.0,0.0,50.0,161.0,3.0,150.0,2.0
+Sangarita,230.0,0.0,0.0,0.0,10.0,25.0,1.0,21.0,0.0
+Chicken & Shrimp Carbonara,1590.0,114.0,61.0,475.0,2410.0,78.0,4.0,12.0,66.0
+Pasta e Fagioli Soup,150.0,5.0,2.0,15.0,710.0,16.0,3.0,4.0,8.0
+Spaghetti w/ Meat Sauce,640.0,22.0,7.0,60.0,1050.0,85.0,4.0,17.0,26.0
+1% Low Fat Milk,100.0,2.5,1.5,10.0,105.0,12.0,0.0,12.0,8.0
+Gluten Free Rotini for Create Your Own Pasta,430.0,6.0,0.5,0.0,0.0,87.0,2.0,0.0,8.0
+Caramel Apple Butter Cappuccino,190.0,5.0,3.0,15.0,75.0,31.0,0.0,29.0,4.0
+Fried Mozzarella a Sampler Portion,320.0,21.0,9.0,45.0,740.0,20.0,1.0,1.0,14.0
+Limoncello Mousse,240.0,15.0,10.0,45.0,85.0,26.0,0.0,20.0,2.0
+Cheese Ravioli Kids,340.0,16.0,8.0,50.0,980.0,33.0,3.0,6.0,17.0
+Regular Draft 22 fl oz,310.0,0.0,0.0,0.0,5.0,22.0,0.0,20.0,4.0
+Macaroni & Cheese Kids,360.0,14.0,8.0,40.0,870.0,45.0,2.0,6.0,16.0
+1% Low Fat Chocolate Milk,180.0,2.5,1.5,10.0,135.0,31.0,0.0,29.0,8.0
+Coke,140.0,0.0,0.0,0.0,45.0,39.0,0.0,39.0,0.0
+Whole Wheat Linguine for Create Your Own Pasta,350.0,6.0,0.0,0.0,10.0,57.0,14.0,2.0,17.0
+Seafood Lasagna Saute,1260.0,80.0,46.0,400.0,1630.0,79.0,5.0,10.0,59.0
+Caramel Apple Butter Latte,210.0,6.0,3.5,20.0,100.0,33.0,0.0,31.0,6.0
+Add Raspberry Sauce for Zeppoli,210.0,0.0,0.0,0.0,10.0,51.0,0.0,35.0,0.0
+Citrus Glazed Salmon,1350.0,80.0,37.0,270.0,1580.0,89.0,4.0,18.0,66.0
+Iced Coffee Caramel,250.0,7.0,4.0,20.0,90.0,40.0,0.0,31.0,7.0
+Fried Mozzarella,860.0,59.0,28.0,135.0,1870.0,48.0,3.0,4.0,34.0
+Chicken Margherita Lunch,370.0,22.0,7.0,120.0,700.0,8.0,2.0,3.0,37.0
+Mixed Berry Sparkling Water,30.0,0.0,0.0,0.0,55.0,7.0,0.0,6.0,0.0
+Moscato Citrus Berry Cocktail,200.0,0.0,0.0,0.0,45.0,37.0,0.0,31.0,0.0
+Chicken Scampi,1260.0,72.0,28.0,200.0,1990.0,105.0,4.0,7.0,49.0
+Moscow Mule,170.0,0.0,0.0,0.0,5.0,17.0,1.0,15.0,0.0
+Toasted Beef & Pork Ravioli,340.0,15.0,2.5,15.0,750.0,39.0,3.0,3.0,12.0
+Stellini Soup Regional,200.0,7.0,2.5,20.0,1240.0,22.0,1.0,2.0,9.0
+Spaghetti for Kids Create Your Own Pasta,170.0,1.5,0.0,0.0,5.0,33.0,1.0,2.0,6.0
+Strawberry & White Chocolate,190.0,11.0,6.0,30.0,100.0,23.0,0.0,18.0,1.0
+Chicken Fingers,220.0,11.0,1.0,50.0,430.0,12.0,0.0,0.0,19.0
+Spiralized Veggie Pasta,560.0,28.0,15.0,60.0,950.0,62.0,13.0,7.0,16.0
+Cranberry Juice,230.0,0.0,0.0,0.0,65.0,56.0,0.0,56.0,0.0
+Rotini w/ Marinara Kids,310.0,8.0,0.5,0.0,480.0,55.0,3.0,6.0,5.0
+Raspberry Italian Ice Mule,230.0,0.0,0.0,0.0,0.0,27.0,0.0,26.0,0.0
+Rotini w/ Marinara Sauce,610.0,15.0,1.5,0.0,970.0,109.0,5.0,13.0,10.0
+Angry Orchard Hard Cider Bottle,220.0,0.0,0.0,0.0,10.0,31.0,0.0,23.0,0.0
+Fettuccine Alfredo Mini Pasta Bowl Lunch,650.0,45.0,27.0,140.0,610.0,47.0,2.0,3.0,15.0
+Traditional Marinara for Create Your Own Pasta,190.0,10.0,1.0,0.0,960.0,22.0,3.0,13.0,3.0
+Dr Pepper,150.0,0.0,0.0,0.0,50.0,41.0,0.0,41.0,0.0
+Lasagna Classico,640.0,36.0,20.0,145.0,1430.0,39.0,5.0,12.0,40.0
+Cheese Tortelloni Kids,350.0,14.0,4.5,85.0,860.0,44.0,1.0,6.0,13.0
+Apple Juice,210.0,0.0,0.0,0.0,65.0,53.0,0.0,53.0,0.0
+Shrimp for Kids Create Your Own Pasta,30.0,0.0,0.0,65.0,290.0,0.0,0.0,0.0,7.0
+Cranberry Mule,160.0,0.0,0.0,0.0,5.0,17.0,1.0,13.0,0.0
+Lasagna Classico Lunch,640.0,36.0,20.0,145.0,1430.0,39.0,5.0,12.0,40.0
+Spicy Shrimp Scampi Fritta,560.0,37.0,6.0,200.0,1920.0,34.0,0.0,2.0,22.0
+Steamed Broccoli Kids,35.0,0.0,0.0,0.0,35.0,7.0,4.0,3.0,4.0
+Parmesan Zucchini Bites,510.0,30.0,10.0,100.0,940.0,39.0,2.0,5.0,22.0
+Coke Zero,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Amaretto Tiramisu,220.0,17.0,10.0,90.0,65.0,14.0,0.0,11.0,3.0
+Iced Coffee Vanilla,240.0,7.0,4.0,20.0,90.0,38.0,0.0,30.0,7.0
+Berry Sangria Glass,210.0,0.0,0.0,0.0,5.0,30.0,0.0,27.0,0.0
+Calamari,870.0,56.0,5.0,320.0,2400.0,67.0,6.0,3.0,24.0
+Frozen Traditional Margarita,290.0,0.0,0.0,0.0,25.0,48.0,4.0,39.0,0.0
+Cheese-Stuffed Gnocchi w/ Grilled Chicken,1120.0,64.0,37.0,285.0,2960.0,68.0,6.0,5.0,64.0
+Five Italian Cheese Fonduta,760.0,48.0,25.0,115.0,1890.0,41.0,2.0,2.0,34.0
+Add Gorgonzola Sauce for Spicy Calabrian Chicken Tenders,170.0,17.0,4.0,20.0,350.0,2.0,0.0,1.0,2.0
+Frozen Cappuccino Caramel,320.0,11.0,7.0,35.0,55.0,54.0,0.0,51.0,3.0
+Five Cheese Tortelloni al Forno,1140.0,68.0,38.0,275.0,2290.0,86.0,5.0,11.0,51.0
+Ravioli di Portobello,820.0,46.0,24.0,160.0,1150.0,73.0,6.0,8.0,27.0
+Italian Meatball Breadstick Sandwich,650.0,45.0,20.0,75.0,1420.0,37.0,3.0,2.0,27.0
+Five Cheese Ziti al Forno,1220.0,71.0,36.0,185.0,2160.0,103.0,6.0,19.0,45.0
+Strawberry Passion Fruit Limonata,130.0,0.0,0.0,0.0,40.0,34.0,0.0,32.0,0.0
+Fettuccine Alfredo,1010.0,56.0,34.0,155.0,850.0,97.0,7.0,5.0,30.0
+Garlic Mashed Potatoes,150.0,8.0,3.0,10.0,460.0,17.0,2.0,2.0,3.0
+Five Cheese Tortelloni al Forno w/ Grilled Chicken,1360.0,77.0,42.0,405.0,2630.0,87.0,5.0,12.0,85.0
+Caffe Mocha,230.0,7.0,3.5,30.0,85.0,34.0,2.0,27.0,10.0
+Peach Sangria Pitcher,940.0,0.0,0.0,0.0,25.0,143.0,3.0,130.0,1.0
+Fettuccine for Kids Create Your Own Pasta,170.0,1.5,0.0,0.0,0.0,34.0,1.0,1.0,6.0
+Steak Gorgonzola Alfredo,1380.0,85.0,51.0,330.0,2810.0,88.0,6.0,8.0,68.0
+Sprite,140.0,0.0,0.0,0.0,65.0,38.0,0.0,38.0,0.0
+Raspberry Lemonade Kids,110.0,0.0,0.0,0.0,10.0,7.0,0.0,6.0,0.0
+Tour of Italy,1520.0,96.0,48.0,340.0,3250.0,92.0,6.0,19.0,75.0
+Five Cheese Marinara Sauce for Create Your Own Pasta,440.0,35.0,18.0,90.0,1080.0,22.0,3.0,12.0,10.0
+Asiago Garlic Alfredo for Create Your Own Pasta,940.0,91.0,57.0,295.0,1320.0,14.0,0.0,6.0,19.0
+Bellini Peach Raspberry Iced Tea,80.0,0.0,0.0,0.0,10.0,18.0,0.0,17.0,0.0
+Seasonal Sicilian Cheesecake,880.0,49.0,32.0,155.0,500.0,98.0,2.0,82.0,14.0
+Grilled Vegetable & Cheese Piadina,630.0,37.0,12.0,50.0,990.0,52.0,5.0,7.0,22.0
+Rigatoni for Create Your Own Pasta,440.0,6.0,0.5,0.0,10.0,83.0,3.0,5.0,14.0
+Regular Draft 16 fl oz,230.0,0.0,0.0,0.0,5.0,16.0,0.0,14.0,3.0
+Seafood Alfredo,1250.0,75.0,45.0,310.0,1480.0,95.0,4.0,8.0,49.0
+Peach Mango Smoothie,180.0,0.0,0.0,0.0,20.0,44.0,1.0,34.0,1.0
+Marinara Dipping Sauce for Breadsticks,90.0,5.0,0.0,0.0,480.0,11.0,2.0,6.0,1.0
+Tomato Sauce for Kids Create Your Own Pasta,80.0,5.0,0.5,0.0,420.0,8.0,1.0,5.0,1.0
+Frozen Cappuccino Traditional,370.0,11.0,7.0,35.0,55.0,67.0,0.0,63.0,3.0
+Italian Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Famous House Salad w/ Low Fat Italian Dressing,90.0,4.0,0.0,5.0,660.0,13.0,2.0,4.0,2.0
+Whites & Rose Quartino,220.0,0.0,0.0,0.0,15.0,6.0,0.0,3.0,0.0
+Add Creamy Ranch for Calamari a Sampler Portion,210.0,21.0,3.5,15.0,430.0,3.0,0.0,2.0,1.0
+3 Meatballs for Create Your Own Pasta,480.0,40.0,19.0,65.0,1060.0,7.0,3.0,0.0,23.0
+Garlic Mussels Marinara,510.0,25.0,4.5,55.0,1360.0,41.0,3.0,10.0,30.0
+Chicken Fingers & Pasta Kids,400.0,16.0,1.5,50.0,720.0,42.0,2.0,5.0,24.0
+Cheese-Stuffed Gnocchi,900.0,54.0,33.0,155.0,2620.0,67.0,6.0,5.0,30.0
+Alfredo Dipping Sauce for Breadsticks,440.0,43.0,27.0,140.0,600.0,5.0,0.0,1.0,8.0
+Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Cavatappi for Create Your Own Pasta,430.0,4.0,0.5,0.0,10.0,83.0,3.0,4.0,15.0
+Cheesy Piadina Kids,530.0,35.0,13.0,55.0,800.0,37.0,2.0,1.0,17.0
+Calamari a Sampler Portion,430.0,28.0,2.5,160.0,1200.0,34.0,3.0,1.0,12.0
+Five Cheese Marinara Sauce for Kids Create Your Own Pasta,750.0,50.0,30.0,155.0,290.0,76.0,4.0,59.0,9.0
+6 oz Sirloin w/ Fettucine Alfredo,980.0,60.0,32.0,240.0,2000.0,54.0,4.0,6.0,58.0
+Caramel Apple Butter Iced Coffee,250.0,7.0,4.0,20.0,100.0,41.0,0.0,32.0,7.0
+Apple Juice Kids,170.0,0.0,0.0,0.0,50.0,42.0,0.0,42.0,0.0
+Famous House Salad,70.0,2.0,0.0,0.0,250.0,11.0,2.0,2.0,2.0
+Traditional Meat Sauce for Create Your Own Pasta,300.0,19.0,7.0,60.0,1040.0,19.0,2.0,13.0,14.0
+Cranberry Juice Kids,180.0,0.0,0.0,0.0,50.0,45.0,0.0,45.0,0.0
+Orange Juice,230.0,0.0,0.0,0.0,10.0,51.0,0.0,45.0,0.0
+Diet Coke,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Hot Chocolate,360.0,8.0,4.0,30.0,105.0,63.0,3.0,52.0,11.0
+Fresh Brewed Iced Tea,0.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Green Apple Moscato Glass,200.0,0.0,0.0,0.0,15.0,39.0,0.0,37.0,0.0

@@ -1,0 +1,41 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Hamburger w/ Onion,390.0,19.0,5.0,40.0,650.0,39.0,3.0,10.0,16.0
+Protein Style Hamburger w/ Onion,240.0,17.0,4.0,40.0,370.0,11.0,3.0,7.0,13.0
+Cheeseburger w/ Onion,480.0,27.0,10.0,60.0,1000.0,39.0,3.0,10.0,22.0
+Protein Style Cheeseburger w/ Onion,330.0,25.0,9.0,60.0,720.0,11.0,3.0,7.0,18.0
+Double Double Burger w/ Onion,670.0,41.0,18.0,120.0,1440.0,39.0,3.0,10.0,37.0
+Protein Style Double Double Burger w/ Onion,520.0,39.0,17.0,120.0,1160.0,11.0,3.0,7.0,33.0
+French Fries,395.0,18.0,5.0,0.0,245.0,54.0,2.0,0.0,7.0
+Cheeseburger w/ Onion Mustard & Ketchup,400.0,18.0,9.0,60.0,1080.0,41.0,3.0,10.0,22.0
+Double Double Burger w/ Onion Mustard & Ketchup,590.0,32.0,17.0,115.0,1520.0,41.0,3.0,10.0,37.0
+Hamburger w/ Onion Mustard & Ketchup,310.0,10.0,4.0,35.0,730.0,41.0,3.0,10.0,16.0
+Chocolate Shake,590.0,29.0,19.0,15.0,320.0,72.0,0.0,65.0,10.0
+Vanilla Shake,580.0,31.0,20.0,20.0,300.0,67.0,0.0,57.0,10.0
+Strawberry Shake,590.0,27.0,18.0,15.0,270.0,81.0,0.0,67.0,8.0
+Coca Cola Classic,195.0,0.0,0.0,0.0,12.0,54.0,0.0,54.0,0.0
+Diet Coke,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+7Up,200.0,0.0,0.0,0.0,60.0,54.0,0.0,54.0,0.0
+Dr Pepper,200.0,0.0,0.0,0.0,60.0,52.0,0.0,52.0,0.0
+Root Beer,219.0,0.0,0.0,0.0,48.0,60.0,0.0,60.0,0.0
+Lemonade,179.0,0.0,0.0,0.0,20.0,40.0,0.0,38.0,0.0
+Minute Maid Light Lemonade,8.0,0.0,0.0,0.0,7.0,1.0,0.0,0.0,0.0
+Iced Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Coffee,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Milk,180.0,6.0,4.0,30.0,190.0,18.0,0.0,18.0,12.0
+Coffee,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Milk,180.0,6.0,4.0,30.0,190.0,18.0,0.0,18.0,12.0
+Cheeseburger w/ Onion Mustard & Ketchup,400.0,18.0,9.0,60.0,1080.0,41.0,3.0,10.0,22.0
+Chocolate Shake,590.0,29.0,19.0,15.0,320.0,72.0,0.0,65.0,10.0
+Hot Cocoa w/ Marshmallows,155.0,3.0,2.0,0.0,189.0,33.0,0.0,28.0,2.0
+Strawberry Shake,590.0,27.0,18.0,15.0,270.0,81.0,0.0,67.0,8.0
+Vanilla Shake,580.0,31.0,20.0,20.0,300.0,67.0,0.0,57.0,10.0
+Protein Style Double Double Burger w/ Onion,520.0,39.0,17.0,120.0,1160.0,11.0,3.0,7.0,33.0
+Double Double Burger w/ Onion,670.0,41.0,18.0,120.0,1440.0,39.0,3.0,10.0,37.0
+Cheeseburger w/ Onion,480.0,27.0,10.0,60.0,1000.0,39.0,3.0,10.0,22.0
+French Fries,395.0,18.0,5.0,0.0,245.0,54.0,2.0,0.0,7.0
+Double Double Burger w/ Onion Mustard & Ketchup,590.0,32.0,17.0,115.0,1520.0,41.0,3.0,10.0,37.0
+Hot Cocoa,130.0,3.0,2.0,0.0,189.0,27.0,0.0,23.0,2.0
+Protein Style Cheeseburger w/ Onion,330.0,25.0,9.0,60.0,720.0,11.0,3.0,7.0,18.0
+Hamburger w/ Onion,390.0,19.0,5.0,40.0,650.0,39.0,3.0,10.0,16.0
+Protein Style Hamburger w/ Onion,240.0,17.0,4.0,40.0,370.0,11.0,3.0,7.0,13.0
+Hamburger w/ Onion Mustard & Ketchup,310.0,10.0,4.0,35.0,730.0,41.0,3.0,10.0,16.0

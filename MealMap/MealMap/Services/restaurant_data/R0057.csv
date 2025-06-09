@@ -1,0 +1,240 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Brownie,200.0,10.0,0.0,30.0,70.0,26.0,0.0,21.0,2.0
+Bowl of Soup,280.0,19.0,9.0,70.0,1190.0,17.0,3.0,6.0,13.0
+Side of Chips,360.0,19.0,3.0,0.0,180.0,44.0,4.0,0.0,4.0
+Bowl of Guac,360.0,27.0,6.0,0.0,1320.0,24.0,12.0,3.0,3.0
+Flour Tortilla 12 in,310.0,8.0,3.0,0.0,320.0,51.0,1.0,1.0,8.0
+Flour Tortillas 10 in,200.0,5.0,2.0,0.0,200.0,32.0,1.0,1.0,5.0
+Whole Grain Tortilla 10 in,210.0,6.0,2.0,0.0,280.0,33.0,5.0,3.0,6.0
+Chocolate Chunk Cookie,180.0,9.0,4.0,10.0,80.0,23.0,1.0,15.0,2.0
+Oatmeal Raisin Cookie,160.0,7.0,3.0,10.0,65.0,23.0,1.0,12.0,3.0
+Snickerdoodle Cookie,190.0,10.0,4.0,10.0,65.0,22.0,1.0,11.0,2.0
+Whole Grain Tortilla 12 in,300.0,8.0,3.0,0.0,420.0,48.0,7.0,4.0,9.0
+Grilled Chicken,160.0,7.0,2.0,70.0,240.0,0.0,0.0,0.0,24.0
+Grilled Steak,170.0,9.0,3.0,50.0,280.0,2.0,0.0,0.0,20.0
+Pork Carnitas,170.0,11.0,4.0,64.0,391.0,1.0,0.0,0.0,17.0
+Ground Beef,135.0,7.0,2.0,38.0,480.0,6.0,1.0,1.0,15.0
+Organic Tofu,110.0,8.0,1.0,0.0,290.0,2.0,1.0,0.0,10.0
+Fish,55.0,1.0,1.0,28.0,28.0,0.0,0.0,0.0,12.0
+Black Beans,120.0,1.0,0.0,0.0,320.0,20.0,9.0,0.0,8.0
+Pinto Beans,110.0,1.0,0.0,0.0,130.0,19.0,8.0,0.0,7.0
+Seasoned Rice,110.0,0.0,0.0,0.0,135.0,23.0,0.0,0.0,3.0
+Moe's Famous Queso for Burritos,150.0,13.0,8.0,40.0,590.0,5.0,0.0,1.0,6.0
+Sour Cream for Burritos,60.0,5.0,4.0,20.0,15.0,1.0,0.0,1.0,1.0
+Shredded Lettuce for Burritos,4.0,0.0,0.0,0.0,3.0,1.0,0.0,1.0,0.0
+Black Olives for Burritos,20.0,0.0,0.0,0.0,120.0,1.0,1.0,0.0,0.0
+Pickled Jalapenos for Burritos,8.0,0.0,0.0,0.0,468.0,1.0,1.0,1.0,0.0
+Chipotle Ranch for Burritos,300.0,31.0,5.0,15.0,300.0,4.0,0.0,2.0,1.0
+Grilled Peppers for Burritos,30.0,2.0,0.0,0.0,50.0,3.0,2.0,1.0,0.0
+Southwestern Slaw for Burritos,70.0,6.0,1.0,0.0,90.0,2.0,0.0,0.0,0.0
+Tomatoes for Burritos,5.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0
+Fresh Jalapenos for Burritos,3.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Shredded Cheese for Burritos,110.0,9.0,5.0,30.0,180.0,0.0,0.0,0.0,7.0
+Guacamole for Burritos,60.0,5.0,1.0,0.0,220.0,4.0,2.0,0.0,0.0
+Pico de Gallo for Burritos,15.0,0.0,0.0,0.0,220.0,3.0,1.0,0.0,0.0
+Grilled Mushrooms for Burritos,40.0,3.0,0.0,0.0,75.0,3.0,2.0,1.0,2.0
+Cucumbers for Burritos,4.0,0.0,0.0,0.0,1.0,1.0,0.0,1.0,0.0
+Bacon for Burritos,120.0,8.0,4.0,40.0,420.0,0.0,0.0,0.0,8.0
+Grilled Onions for Burritos,45.0,3.0,0.0,0.0,55.0,5.0,0.0,3.0,0.0
+Corn Pico for Burritos,50.0,2.0,0.0,0.0,200.0,8.0,1.0,1.0,1.0
+Chopped Romaine for Burritos,5.0,0.0,0.0,0.0,2.0,1.0,1.0,0.0,0.0
+Cilantro for Burritos,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,0.0
+Onions for Burritos,11.0,0.0,0.0,0.0,1.0,3.0,0.0,1.0,0.0
+Chicken for Junior Burritos,80.0,4.0,1.0,35.0,120.0,0.0,0.0,0.0,12.0
+Steak for Junior Burritos,85.0,5.0,2.0,25.0,140.0,1.0,0.0,0.0,10.0
+Pork for Junior Burritos,85.0,6.0,2.0,32.0,196.0,1.0,0.0,0.0,9.0
+Ground Beef for Junior Burritos,68.0,4.0,1.0,19.0,240.0,3.0,1.0,1.0,8.0
+Tofu for Junior Burritos,55.0,4.0,1.0,0.0,145.0,1.0,1.0,0.0,5.0
+Fish for Junior Burritos,41.0,1.0,1.0,21.0,21.0,0.0,0.0,0.0,9.0
+Seasoned Rice for Junior Burritos,55.0,0.0,0.0,0.0,68.0,12.0,0.0,0.0,2.0
+Moe's Famous Queso for Junior Burritos,75.0,7.0,4.0,20.0,295.0,3.0,0.0,0.0,3.0
+Black Beans for Junior Burritos,60.0,0.0,0.0,0.0,160.0,10.0,5.0,0.0,4.0
+Pinto Beans for Junior Burritos,55.0,0.0,0.0,0.0,65.0,10.0,4.0,0.0,4.0
+Sour Cream for Junior Burritos,30.0,3.0,2.0,10.0,8.0,0.0,0.0,0.0,0.0
+Shredded Lettuce for Junior Burritos,2.0,0.0,0.0,0.0,2.0,1.0,0.0,1.0,0.0
+Black Olives for Junior Burritos,10.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Pickled Jalapenos for Junior Burritos,4.0,0.0,0.0,0.0,234.0,0.0,0.0,0.0,0.0
+Chipotle Ranch for Junior Burritos,150.0,16.0,3.0,8.0,150.0,2.0,0.0,1.0,0.0
+Grilled Peppers for Junior Burritos,15.0,1.0,0.0,0.0,25.0,2.0,1.0,0.0,0.0
+Chopped Romaine for Junior Burritos,3.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+Cup of Queso,460.0,39.0,23.0,115.0,1760.0,15.0,0.0,2.0,18.0
+Cup of Pico,45.0,0.0,0.0,0.0,660.0,9.0,3.0,3.0,2.0
+Shredded Cheese for Junior Burritos,55.0,5.0,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Guacamole for Junior Burritos,30.0,2.0,0.0,0.0,110.0,2.0,1.0,0.0,0.0
+Pico de Gallo for Junior Burritos,8.0,0.0,0.0,0.0,110.0,2.0,0.0,0.0,0.0
+Grilled Mushrooms for Junior Burritos,20.0,1.0,0.0,0.0,38.0,2.0,1.0,0.0,1.0
+Cucumbers for Junior Burritos,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Bacon for Junior Burritos,60.0,4.0,2.0,20.0,210.0,0.0,0.0,0.0,4.0
+Grilled Onions for Junior Burritos,23.0,1.0,0.0,0.0,28.0,3.0,0.0,2.0,0.0
+Corn Pico for Junior Burritos,25.0,1.0,0.0,0.0,100.0,4.0,0.0,0.0,0.0
+Tomatoes for Junior Burritos,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Shredded Cheese for Quesadillas,220.0,18.0,10.0,60.0,360.0,0.0,0.0,0.0,14.0
+Chips for Nachos,720.0,38.0,6.0,0.0,360.0,88.0,8.0,0.0,8.0
+Stack Shell,140.0,7.0,1.0,0.0,0.0,16.0,1.0,0.0,1.0
+Crispy Salad Bowl,460.0,33.0,6.0,0.0,270.0,33.0,2.0,0.0,6.0
+Soft Flour Tortilla 6 in,90.0,3.0,1.0,0.0,90.0,15.0,1.0,1.0,2.0
+Crispy Corn Taco Shell,70.0,4.0,1.0,0.0,0.0,8.0,0.0,0.0,0.0
+Flour Tortilla 8 in,120.0,4.0,1.0,0.0,125.0,20.0,0.0,0.0,3.0
+Cup of Guac,180.0,14.0,3.0,0.0,660.0,12.0,6.0,2.0,3.0
+El Guapo Salsa,17.0,0.0,0.0,0.0,188.0,4.0,1.0,2.0,0.0
+Tomatillo Salsa,15.0,0.0,0.0,0.0,35.0,3.0,1.0,2.0,1.0
+Salsa Vinaigrette,20.0,0.0,0.0,0.0,300.0,4.0,1.0,1.0,1.0
+Southwest Vinaigrette,260.0,26.0,4.0,0.0,710.0,5.0,0.0,0.0,0.0
+Side of Queso,150.0,13.0,8.0,40.0,590.0,5.0,0.0,1.0,6.0
+Bowl of Pico,90.0,0.0,0.0,0.0,1320.0,18.0,6.0,6.0,6.0
+Bowl of Queso,920.0,77.0,47.0,225.0,3530.0,30.0,1.0,4.0,36.0
+Kaiser Salsa,20.0,0.0,0.0,0.0,239.0,5.0,1.0,2.0,1.0
+Hard Rock N Roll Sauce,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Breakfast Potatoes,160.0,6.0,1.0,0.0,110.0,23.0,2.0,2.0,3.0
+Shredded Lettuce for Salads,5.0,0.0,0.0,0.0,4.0,1.0,1.0,1.0,1.0
+Southwestern Slaw for Tacos,35.0,3.0,0.0,0.0,45.0,1.0,0.0,0.0,0.0
+Bacon Strips,205.0,14.0,5.0,56.0,1013.0,3.0,0.0,1.0,17.0
+Seasoned Rice for Burrito Bowls,220.0,0.0,0.0,0.0,270.0,46.0,0.0,0.0,6.0
+Chorizo,150.0,11.0,4.0,35.0,365.0,3.0,0.0,0.0,10.0
+Moe's Famous Queso for Nachos,300.0,26.0,16.0,80.0,1180.0,10.0,0.0,2.0,12.0
+Scrambled Eggs,120.0,8.0,3.0,365.0,370.0,2.0,0.0,0.0,11.0
+Fish for Kids Meal,28.0,1.0,1.0,14.0,14.0,0.0,0.0,0.0,6.0
+Tofu for Kids Meal,37.0,3.0,0.0,0.0,97.0,1.0,0.0,0.0,3.0
+Ground Beef for Kids Meal,45.0,2.0,1.0,19.0,240.0,2.0,0.0,0.0,8.0
+Steak for Kids Meal,57.0,3.0,1.0,17.0,93.0,1.0,0.0,0.0,7.0
+Pork for Kids Meal,43.0,3.0,1.0,16.0,98.0,0.0,0.0,0.0,4.0
+Chicken for Kids Meal,53.0,2.0,1.0,23.0,80.0,0.0,0.0,0.0,8.0
+Pinto Beans for Kids Meal,18.0,0.0,0.0,0.0,22.0,3.0,1.0,0.0,1.0
+Black Beans for Kids Meal,20.0,0.0,0.0,0.0,53.0,3.0,2.0,0.0,1.0
+Tomatoes for Kids Meal,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Corn Pico for Kids Meal,13.0,0.0,0.0,0.0,50.0,2.0,0.0,0.0,0.0
+Grilled Peppers for Kids Meal,8.0,1.0,0.0,0.0,13.0,1.0,1.0,0.0,0.0
+Grilled Onions for Kids Meal,11.0,1.0,0.0,0.0,14.0,1.0,0.0,1.0,0.0
+Chipotle Ranch for Kids Meal,75.0,8.0,1.0,4.0,75.0,1.0,0.0,1.0,0.0
+Bacon for Kids Meal,30.0,2.0,1.0,10.0,105.0,0.0,0.0,0.0,2.0
+Pickled Jalapenos for Kids Meal,2.0,0.0,0.0,0.0,117.0,0.0,0.0,0.0,0.0
+Grilled Mushrooms for Kids Meal,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Shredded Lettuce for Kids Meal,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0
+Pico de Gallo for Kids Meal,4.0,0.0,0.0,0.0,55.0,1.0,0.0,0.0,0.0
+Seasoned Rice for Kids Meal,18.0,0.0,0.0,0.0,23.0,4.0,0.0,0.0,1.0
+Limelite Vinaigrette,71.0,4.0,0.0,0.0,261.0,5.0,0.0,4.0,0.0
+Shredded Lettuce for Quesadillas,8.0,0.0,0.0,0.0,6.0,2.0,0.0,2.0,0.0
+Pork Carnitas Double,262.0,16.0,6.0,108.0,1022.0,2.0,0.0,2.0,34.0
+Queso for Stacks,144.0,12.0,8.0,36.0,522.0,8.0,0.0,0.0,8.0
+Diced Cucumbers,4.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+Southwest Vinaigrette Side,205.0,21.0,4.0,0.0,565.0,5.0,1.0,0.0,1.0
+Ground Beef Regular,124.0,7.0,3.0,28.0,420.0,5.0,2.0,2.0,11.0
+Bacon Pieces,99.0,7.0,3.0,28.0,386.0,1.0,1.0,1.0,10.0
+Grilled Peppers for Tacos,10.0,1.0,1.0,0.0,16.0,2.0,1.0,1.0,1.0
+Hard Rock N Roll Hot Sauce,6.0,1.0,0.0,0.0,72.0,1.0,1.0,1.0,1.0
+Chocolate Chunk Cookie,160.0,8.0,3.0,10.0,120.0,23.0,1.0,14.0,2.0
+Shredded Cheese,121.0,10.0,6.0,33.0,198.0,2.0,0.0,0.0,8.0
+Cilantro Lime Rice for Bowls,338.0,3.0,2.0,2.0,992.0,66.0,2.0,2.0,8.0
+Pickled Jalapenos,5.0,0.0,0.0,0.0,433.0,1.0,0.0,0.0,0.0
+Black Olives,37.0,4.0,1.0,0.0,175.0,2.0,0.0,0.0,0.0
+Adobo Chicken Double for Tacos,166.0,10.0,4.0,86.0,422.0,4.0,0.0,0.0,22.0
+Corn Pico for Tacos,23.0,1.0,0.0,0.0,96.0,4.0,1.0,1.0,1.0
+Shredded Cheese for Quesadillas,242.0,20.0,12.0,66.0,396.0,4.0,0.0,0.0,16.0
+Shredded Lettuce for Tacos,3.0,0.0,0.0,0.0,2.0,1.0,0.0,1.0,0.0
+Grilled Mushrooms for Tacos,15.0,2.0,1.0,0.0,27.0,2.0,1.0,1.0,1.0
+Cilantro Lime Rice for Kids,68.0,2.0,1.0,1.0,199.0,14.0,1.0,1.0,2.0
+El Guapo,9.0,0.0,0.0,0.0,93.0,2.0,1.0,1.0,1.0
+Organic Tofu Double,216.0,16.0,4.0,0.0,532.0,4.0,4.0,2.0,20.0
+Bacon Pieces for Tacos,62.0,5.0,2.0,18.0,242.0,1.0,1.0,1.0,7.0
+Pork Carnitas Double for Kids,100.0,8.0,4.0,34.0,384.0,2.0,0.0,2.0,14.0
+Southwest Vinaigrette,77.0,8.0,2.0,0.0,212.0,2.0,0.0,0.0,0.0
+Lime Wedge,3.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Pork Carnitas Regular,131.0,8.0,3.0,54.0,511.0,1.0,0.0,1.0,17.0
+Queso Bowl,848.0,69.0,45.0,212.0,2756.0,39.0,0.0,0.0,39.0
+Black Beans,129.0,2.0,1.0,0.0,349.0,22.0,10.0,1.0,8.0
+Ground Beef Regular for Kids,55.0,4.0,2.0,13.0,186.0,3.0,2.0,2.0,6.0
+Queso Cup,568.0,46.0,30.0,142.0,2059.0,26.0,0.0,0.0,26.0
+Whole Grain Tortilla 12 in,300.0,8.0,3.0,0.0,420.0,48.0,7.0,4.0,9.0
+Grilled Steak Double,242.0,8.0,4.0,114.0,672.0,6.0,2.0,0.0,40.0
+Baja Enchilada Soup Bowl,280.0,19.0,9.0,70.0,1190.0,17.0,3.0,6.0,13.0
+Scorpion Pepper Salsa,7.0,0.0,0.0,0.0,112.0,2.0,0.0,1.0,0.0
+Adobo Chicken Regular Tacos,83.0,5.0,2.0,43.0,211.0,2.0,0.0,0.0,11.0
+Shredded Cheese for Stacks,132.0,12.0,8.0,36.0,216.0,2.0,0.0,0.0,10.0
+Chips for Nachos,693.0,38.0,8.0,0.0,351.0,86.0,9.0,2.0,9.0
+Grilled Peppers,17.0,1.0,1.0,0.0,28.0,2.0,1.0,1.0,1.0
+Guacamole Cup,238.0,23.0,5.0,0.0,868.0,18.0,9.0,5.0,5.0
+Black Beans for Kids,44.0,2.0,1.0,0.0,11.0,8.0,4.0,1.0,4.0
+Black Olives for Tacos,22.0,3.0,0.0,0.0,100.0,2.0,0.0,0.0,0.0
+Chopped Romaine,17.0,0.0,0.0,0.0,0.0,2.0,2.0,0.0,2.0
+Adobo Chicken Regular for Kids,56.0,4.0,2.0,29.0,141.0,2.0,0.0,0.0,8.0
+Diced Onions,2.0,0.0,0.0,0.0,1.0,2.0,0.0,1.0,0.0
+Grilled Steak Regular Tacos,71.0,3.0,2.0,34.0,197.0,2.0,1.0,0.0,12.0
+Sour Cream for Tacos,34.0,3.0,2.0,12.0,9.0,1.0,0.0,1.0,1.0
+Black Beans for Tacos,83.0,2.0,1.0,0.0,223.0,14.0,7.0,1.0,6.0
+Southwestern Slaw for Tacos,17.0,2.0,1.0,1.0,23.0,1.0,0.0,0.0,1.0
+Salad Bowl,455.0,33.0,6.0,0.0,268.0,34.0,2.0,1.0,7.0
+Flour Tortilla 12 in,310.0,8.0,3.0,0.0,320.0,51.0,1.0,1.0,8.0
+Grilled Steak Double for Kids,92.0,4.0,4.0,44.0,256.0,4.0,2.0,0.0,16.0
+Pinto Beans for Nachos,120.0,1.0,0.0,0.0,145.0,21.0,10.0,0.0,8.0
+Pickled Jalapenos for Tacos,3.0,0.0,0.0,0.0,241.0,1.0,0.0,0.0,0.0
+Flour Tortillas 10 in,200.0,5.0,2.0,0.0,200.0,32.0,1.0,1.0,5.0
+Fish Double,212.0,8.0,0.0,92.0,106.0,2.0,2.0,2.0,40.0
+Snickerdoodle Cookie,170.0,8.0,3.0,10.0,140.0,22.0,0.0,11.0,2.0
+Grilled Onions for Tacos,14.0,2.0,1.0,0.0,17.0,2.0,1.0,2.0,1.0
+Fresh Jalapenos,3.0,0.0,0.0,0.0,0.0,1.0,1.0,2.0,0.0
+Pinto Beans,77.0,1.0,1.0,0.0,93.0,14.0,7.0,0.0,6.0
+Fish Regular,106.0,4.0,1.0,46.0,53.0,1.0,1.0,1.0,20.0
+Corn Pico,39.0,2.0,0.0,0.0,162.0,7.0,1.0,1.0,1.0
+Pico De Gallo for Tacos,10.0,1.0,0.0,0.0,134.0,3.0,1.0,1.0,1.0
+Tomatillos Hot Friend Salsa,7.0,1.0,0.0,0.0,84.0,2.0,1.0,1.0,0.0
+Organic Tofu Regular Tacos,66.0,5.0,2.0,0.0,162.0,2.0,2.0,1.0,7.0
+Grilled Onions,23.0,2.0,1.0,0.0,27.0,3.0,1.0,2.0,1.0
+Chipotle Ranch for Tacos,43.0,5.0,2.0,3.0,43.0,1.0,0.0,1.0,1.0
+Southwest Vinaigrette for Tacos,52.0,6.0,2.0,0.0,142.0,2.0,0.0,0.0,0.0
+Fish Regular Tacos,55.0,3.0,1.0,24.0,28.0,1.0,1.0,1.0,11.0
+2 Corn Tortillas 6 in,130.0,8.0,2.0,0.0,2.0,16.0,2.0,0.0,2.0
+Fish Double for Tacos,110.0,6.0,2.0,48.0,56.0,2.0,2.0,2.0,22.0
+Cilantro Lime Rice for Burritos,169.0,3.0,1.0,1.0,496.0,33.0,1.0,1.0,4.0
+Fish Regular for Kids,38.0,3.0,1.0,17.0,20.0,1.0,1.0,1.0,11.0
+Guacamole for Tacos,31.0,3.0,1.0,0.0,113.0,3.0,2.0,1.0,1.0
+Sour Cream,68.0,6.0,4.0,23.0,17.0,2.0,0.0,2.0,2.0
+Diced Tomatoes,13.0,0.0,0.0,0.0,2.0,3.0,1.0,2.0,1.0
+Seasoned Rice for Regular Burritos,150.0,1.0,1.0,0.0,190.0,33.0,1.0,1.0,3.0
+Organic Tofu Double for Kids,86.0,8.0,4.0,0.0,210.0,4.0,4.0,2.0,10.0
+Grilled Mushrooms,25.0,2.0,1.0,0.0,45.0,2.0,1.0,1.0,1.0
+Pork Double for Tacos,142.0,10.0,4.0,60.0,554.0,2.0,0.0,2.0,20.0
+Cilantro Lime Rice for Junior Burritos,102.0,2.0,1.0,1.0,298.0,20.0,1.0,1.0,3.0
+Queso for Nachos,272.0,22.0,14.0,68.0,986.0,12.0,0.0,0.0,12.0
+Pico De Gallo Cup,16.0,1.0,0.0,0.0,223.0,4.0,1.0,1.0,1.0
+Diced Tomatoes for Tacos,8.0,0.0,0.0,0.0,2.0,2.0,1.0,2.0,1.0
+Seasoned Rice for Kids,54.0,1.0,1.0,0.0,69.0,12.0,1.0,1.0,2.0
+Chips,390.0,21.0,4.0,0.0,198.0,48.0,5.0,1.0,5.0
+Chipotle Ranch,71.0,8.0,2.0,4.0,72.0,1.0,0.0,1.0,1.0
+Kaiser,10.0,0.0,0.0,0.0,121.0,3.0,1.0,1.0,1.0
+Pinto Beans for Kids,41.0,1.0,1.0,0.0,49.0,8.0,4.0,0.0,4.0
+Shredded Lettuce,5.0,0.0,0.0,0.0,4.0,1.0,1.0,1.0,1.0
+Tomatillo,8.0,1.0,0.0,1.0,152.0,2.0,1.0,1.0,1.0
+Flour Tortilla 6 in,90.0,3.0,2.0,0.0,90.0,15.0,1.0,1.0,2.0
+Ground Beef Double for Kids,110.0,8.0,4.0,26.0,372.0,6.0,4.0,4.0,12.0
+Adobo Chicken Double for Kids,112.0,8.0,4.0,58.0,282.0,4.0,0.0,0.0,16.0
+Seasoned Rice for Junior Burritos,86.0,1.0,0.0,0.0,109.0,19.0,1.0,1.0,2.0
+Pork Carnitas Regular for Kids,50.0,4.0,2.0,17.0,192.0,1.0,0.0,1.0,7.0
+Oatmeal Raisin Cookie,150.0,6.0,2.0,10.0,110.0,23.0,1.0,12.0,3.0
+Ground Beef Double,248.0,14.0,6.0,56.0,840.0,10.0,4.0,4.0,22.0
+Grilled Steak Double for Tacos,142.0,6.0,4.0,68.0,394.0,4.0,2.0,0.0,24.0
+Corn Tortilla 6 in,65.0,4.0,1.0,0.0,1.0,8.0,1.0,0.0,1.0
+Adobo Chicken Double,296.0,16.0,6.0,154.0,758.0,4.0,0.0,0.0,38.0
+Organic Tofu Regular,108.0,8.0,2.0,0.0,266.0,2.0,2.0,1.0,10.0
+Grilled Steak Regular for Kids,46.0,2.0,2.0,22.0,128.0,2.0,1.0,0.0,8.0
+Ground Beef Regular Tacos,70.0,4.0,2.0,16.0,236.0,3.0,2.0,2.0,7.0
+Cinnamon Chips,439.0,25.0,5.0,1.0,288.0,49.0,3.0,13.0,7.0
+Brownie,200.0,10.0,30.0,30.0,70.0,26.0,0.0,21.0,2.0
+Ground Beef Double for Tacos,140.0,8.0,4.0,32.0,472.0,6.0,4.0,4.0,14.0
+Queso for Tacos,96.0,8.0,5.0,24.0,348.0,5.0,0.0,0.0,5.0
+Seasoned Rice for Bowls,300.0,2.0,2.0,0.0,380.0,66.0,2.0,2.0,6.0
+Shredded Cheese for Tacos,66.0,6.0,4.0,18.0,108.0,1.0,0.0,0.0,5.0
+Organic Tofu Regular for Kids,43.0,4.0,2.0,0.0,105.0,2.0,2.0,1.0,5.0
+Pico De Gallo,16.0,1.0,0.0,0.0,223.0,4.0,1.0,1.0,1.0
+Chipotle Ranch Side,241.0,26.0,4.0,11.0,239.0,3.0,0.0,2.0,1.0
+Fresh Jalapenos for Tacos,2.0,0.0,0.0,0.0,0.0,1.0,1.0,2.0,0.0
+Pork Carnitas Regular Tacos,71.0,5.0,2.0,30.0,277.0,1.0,0.0,1.0,10.0
+Guacamole Bowl,308.0,30.0,7.0,0.0,1124.0,24.0,12.0,7.0,7.0
+Flour Tortilla 8 in,120.0,4.0,1.0,0.0,125.0,20.0,0.0,0.0,3.0
+Grilled Steak Regular,121.0,4.0,2.0,57.0,336.0,3.0,1.0,0.0,20.0
+Adobo Chicken Regular,148.0,8.0,3.0,77.0,379.0,2.0,0.0,0.0,19.0
+Diced Cucumbers for Tacos,3.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0
+Fish Double for Kids,76.0,6.0,2.0,34.0,40.0,2.0,2.0,2.0,22.0
+Organic Tofu Double for Tacos,132.0,10.0,4.0,0.0,324.0,4.0,4.0,2.0,14.0
+Guacamole Side,53.0,5.0,1.0,0.0,194.0,4.0,2.0,1.0,1.0
+Chopped Cilantro,1.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,0.0
+Queso Side,136.0,11.0,7.0,34.0,493.0,6.0,0.0,0.0,6.0

@@ -1,0 +1,519 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Big Mac,550.0,30.0,10.0,80.0,1010.0,44.0,3.0,9.0,25.0
+Fries (Medium),320.0,15.0,2.0,0.0,260.0,44.0,4.0,0.0,4.0
+McChicken,400.0,21.0,3.5,40.0,560.0,40.0,2.0,5.0,14.0
+Dr Pepper Large,290.0,0.0,0.0,0.0,95.0,79.0,0.0,78.0,0.0
+Dr Pepper Medium,210.0,0.0,0.0,0.0,70.0,58.0,0.0,57.0,0.0
+Tangy Barbeque Sauce,45.0,0.0,0.0,0.0,260.0,11.0,0.0,9.0,0.0
+Sweet N Sour Sauce,50.0,0.0,0.0,0.0,160.0,11.0,0.0,9.0,1.0
+Diet Dr Pepper Medium,0.0,0.0,0.0,0.0,115.0,1.0,0.0,0.0,0.0
+Diet Dr Pepper Large,0.0,0.0,0.0,0.0,150.0,1.0,0.0,0.0,0.0
+Hamburger,250.0,8.0,3.0,30.0,480.0,31.0,2.0,6.0,13.0
+Cheeseburger,300.0,12.0,5.0,40.0,680.0,33.0,2.0,7.0,15.0
+Double Cheeseburger,430.0,21.0,11.0,85.0,1040.0,35.0,2.0,7.0,25.0
+Quarter Pounder w/ Cheese,530.0,27.0,13.0,100.0,1090.0,41.0,3.0,10.0,31.0
+Big Mac,540.0,28.0,10.0,80.0,950.0,46.0,3.0,9.0,25.0
+Double Quarter Pounder w/ Cheese,770.0,45.0,21.0,175.0,1290.0,42.0,3.0,10.0,51.0
+McChicken,350.0,15.0,3.5,40.0,600.0,40.0,2.0,5.0,15.0
+Filet O Fish,390.0,19.0,4.0,45.0,560.0,38.0,2.0,5.0,17.0
+Sausage Biscuit w/ Egg Large,530.0,34.0,14.0,210.0,1160.0,38.0,2.0,3.0,17.0
+Egg McMuffin,290.0,12.0,6.0,245.0,710.0,29.0,2.0,3.0,17.0
+Sausage McMuffin,400.0,25.0,10.0,55.0,720.0,28.0,2.0,3.0,14.0
+Sausage McMuffin w/ Egg,470.0,30.0,12.0,275.0,790.0,29.0,2.0,3.0,21.0
+Bacon Egg & Cheese Regular,450.0,24.0,12.0,200.0,1290.0,40.0,3.0,3.0,18.0
+Bacon Egg & Cheese on Scratch Biscuit Large,480.0,25.0,12.0,235.0,1310.0,43.0,3.0,4.0,19.0
+Sausage Biscuit w/ Egg Regular,530.0,34.0,15.0,205.0,1140.0,38.0,2.0,3.0,17.0
+Sausage Biscuit Regular,460.0,30.0,13.0,40.0,1050.0,36.0,2.0,3.0,11.0
+Sausage Biscuit on Scratch Biscuit Large,490.0,32.0,13.0,75.0,1070.0,39.0,2.0,3.0,12.0
+Sausage Burrito,290.0,15.0,6.0,165.0,800.0,26.0,1.0,2.0,13.0
+4 Chicken McNuggets,180.0,11.0,2.0,30.0,340.0,11.0,1.0,0.0,10.0
+6 Chicken McNuggets,270.0,16.0,2.5,45.0,510.0,16.0,1.0,0.0,15.0
+10 Chicken McNuggets,440.0,27.0,4.5,75.0,840.0,26.0,2.0,0.0,24.0
+French Fries Small,230.0,11.0,1.5,0.0,160.0,29.0,3.0,0.0,3.0
+French Fries Medium,340.0,16.0,2.0,0.0,230.0,44.0,4.0,0.0,4.0
+French Fries Large,510.0,24.0,3.5,0.0,350.0,66.0,6.0,0.0,7.0
+Bacon Ranch Salad w/ Grilled Chicken,320.0,14.0,6.0,135.0,1090.0,9.0,3.0,4.0,42.0
+Bacon Ranch Salad w/ Buttermilk Crispy Chicken,490.0,28.0,8.0,95.0,1120.0,28.0,4.0,4.0,33.0
+Southwest Salad w/ Grilled Chicken,350.0,12.0,4.5,110.0,930.0,27.0,6.0,9.0,37.0
+Southwest Salad w/ Buttermilk Crispy Chicken,520.0,25.0,6.0,75.0,960.0,46.0,8.0,9.0,28.0
+Newman's Own Creamy Southwest Dressing,120.0,8.0,1.5,20.0,300.0,11.0,0.0,3.0,1.0
+Newman's Own Low Fat Balsamic Vinaigrette,35.0,1.5,0.0,0.0,400.0,5.0,0.0,3.0,0.0
+Newman's Own Low Fat Family Recipe Italian Dressing,50.0,1.5,0.0,0.0,380.0,11.0,0.0,2.0,0.0
+Newman's Own Ranch Dressing,200.0,17.0,2.5,20.0,530.0,11.0,1.0,4.0,1.0
+Creamy Ranch Sauce,110.0,12.0,2.0,5.0,150.0,1.0,0.0,1.0,0.0
+Honey,50.0,0.0,0.0,0.0,0.0,12.0,0.0,11.0,0.0
+Hotcake Syrup,190.0,0.0,0.0,0.0,0.0,46.0,0.0,33.0,0.0
+Chocolate Chip Cookie,170.0,7.0,3.5,10.0,90.0,23.0,1.0,15.0,2.0
+Oatmeal Raisin Cookie,140.0,5.0,2.5,10.0,125.0,22.0,1.0,12.0,2.0
+Baked Hot Apple Pie,230.0,10.0,5.0,0.0,160.0,32.0,4.0,13.0,2.0
+Hotcakes & Sausage,520.0,26.0,8.0,55.0,820.0,57.0,2.0,13.0,15.0
+Sausage Egg & Cheese McGriddles,550.0,32.0,13.0,215.0,1280.0,45.0,2.0,15.0,20.0
+Big Breakfast,750.0,49.0,18.0,465.0,1490.0,53.0,3.0,3.0,25.0
+Dr Pepper Extra Small,120.0,0.0,0.0,0.0,40.0,32.0,0.0,32.0,0.0
+Bacon Egg & Cheese McGriddles,420.0,18.0,8.0,195.0,1230.0,45.0,2.0,15.0,18.0
+Sausage McGriddles,430.0,24.0,9.0,35.0,990.0,42.0,1.0,15.0,11.0
+Hotcakes,330.0,8.0,1.5,15.0,530.0,56.0,2.0,12.0,9.0
+Side Salad,15.0,0.0,0.0,0.0,15.0,3.0,1.0,1.0,1.0
+Hash Brown,150.0,9.0,1.5,0.0,320.0,16.0,1.0,0.0,1.0
+Bacon Egg & Cheese Bagel,550.0,25.0,11.0,225.0,1260.0,54.0,4.0,7.0,26.0
+McDouble,380.0,18.0,8.0,70.0,840.0,34.0,2.0,7.0,23.0
+Big Breakfast w/ Hotcakes,1080.0,57.0,20.0,480.0,2020.0,109.0,6.0,15.0,34.0
+Fruit & Maple Oatmeal w/ Brown Sugar Apples Cranberry Raisin Blend & Light Cream,310.0,4.0,1.5,62.0,140.0,62.0,5.0,33.0,6.0
+Fruit & Maple Oatmeal w/ Apples Cranberry Raisin Blend & Light Cream,260.0,4.0,1.5,5.0,115.0,49.0,5.0,18.0,6.0
+Fruit 'n Yogurt Parfait,150.0,2.0,1.0,5.0,80.0,30.0,1.0,23.0,4.0
+French Fries Kids,110.0,5.0,1.0,0.0,80.0,15.0,1.0,0.0,1.0
+Equal 0 Calorie Sweetener,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Kiddie Cone,45.0,1.0,0.5,5.0,20.0,5.0,0.0,6.0,1.0
+Chopped Peanuts,45.0,3.5,0.5,0.0,0.0,2.0,1.0,0.0,2.0
+Splenda No Calorie Sweetener,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Sugar Packet,15.0,0.0,0.0,0.0,0.0,4.0,0.0,4.0,0.0
+Hot Caramel Sundae,340.0,8.0,5.0,30.0,160.0,49.0,0.0,42.0,7.0
+Hot Fudge Sundae,330.0,8.0,8.0,25.0,180.0,42.0,1.0,47.0,8.0
+McFlurry w/ M&Ms Candies,630.0,22.0,14.0,50.0,200.0,77.0,2.0,86.0,13.0
+McFlurry w/ Oreo Cookies,510.0,17.0,9.0,45.0,280.0,60.0,1.0,64.0,12.0
+McFlurry w/ M&Ms Candies Snack Size,420.0,15.0,9.0,35.0,130.0,51.0,1.0,58.0,9.0
+Strawberry Sundae,280.0,6.0,4.0,25.0,95.0,38.0,0.0,44.0,6.0
+Vanilla Cone,200.0,5.0,3.5,20.0,80.0,23.0,0.0,24.0,5.0
+Coffee Cream,20.0,1.5,1.0,5.0,10.0,1.0,0.0,0.0,0.0
+1% Low Fat Milk Jug,100.0,2.5,1.5,10.0,125.0,12.0,0.0,12.0,8.0
+Minute Maid Apple Juice Box,80.0,0.0,0.0,0.0,15.0,21.0,0.0,19.0,0.0
+Dasani Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Coca Cola Small,170.0,0.0,0.0,0.0,15.0,47.0,0.0,47.0,0.0
+Diet Coke Small,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Dr Pepper Small,170.0,0.0,0.0,0.0,55.0,46.0,0.0,45.0,0.0
+Diet Dr Pepper Small,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,2.0
+Sprite Small,170.0,0.0,0.0,0.0,55.0,45.0,0.0,45.0,0.0
+Hi C Orange Lavaburst Small,170.0,0.0,0.0,0.0,25.0,47.0,0.0,47.0,0.0
+POWERade Mountain Berry Blast Small,100.0,0.0,0.0,0.0,110.0,26.0,0.0,26.0,0.0
+Iced Tea Small,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Sweet Tea Medium,110.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+McCafe Coffee Small,0.0,0.0,0.0,0.0,20.0,1.0,0.0,0.0,2.0
+McCafe Iced Coffee Hazelnut w/ Light Cream Small,110.0,4.0,2.5,15.0,25.0,17.0,0.0,17.0,1.0
+Coca Cola Extra Small,120.0,0.0,0.0,0.0,10.0,33.0,0.0,33.0,0.0
+Coca Cola Large,300.0,0.0,0.0,0.0,30.0,81.0,0.0,81.0,0.0
+Coca Cola Medium,220.0,0.0,0.0,0.0,20.0,59.0,0.0,59.0,0.0
+McCafe Coffee Large,0.0,0.0,0.0,0.0,30.0,2.0,0.0,0.0,0.0
+Diet Coke Extra Small,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Diet Coke Large,0.0,0.0,0.0,0.0,60.0,1.0,0.0,0.0,0.0
+Diet Coke Medium,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper Extra Small,0.0,0.0,0.0,0.0,65.0,0.0,0.0,0.0,0.0
+Hi C Orange Lavaburst Extra Small,120.0,0.0,0.0,0.0,15.0,33.0,0.0,33.0,0.0
+Hi C Orange Lavaburst Large,300.0,0.0,0.0,0.0,40.0,81.0,0.0,81.0,0.0
+Hi C Orange Lavaburst Medium,220.0,0.0,0.0,0.0,30.0,60.0,0.0,60.0,0.0
+McCafe Iced Coffee Sugar Free Vanilla w/ Light Cream Large,130.0,7.0,4.5,30.0,95.0,14.0,0.0,2.0,1.0
+McCafe Iced Coffee Sugar Free French Vanilla w/ Light Cream Medium,90.0,5.0,3.5,20.0,65.0,10.0,0.0,1.0,1.0
+McCafe Iced Coffee Sugar Free French Vanilla w/ Light Cream Small,70.0,4.0,2.5,15.0,50.0,7.0,0.0,1.0,1.0
+McCafe Iced Coffee Caramel w/ Light Cream Large,230.0,7.0,4.5,30.0,45.0,41.0,0.0,40.0,1.0
+McCafe Iced Coffee Caramel w/ Light Cream Medium,160.0,5.0,3.5,20.0,35.0,28.0,0.0,28.0,1.0
+McCafe Iced Coffee Hazelnut w/ Light Cream & Hazelnut Syrup McCafe Large,230.0,7.0,4.5,30.0,45.0,41.0,0.0,40.0,1.0
+McCafe Iced Coffee Hazelnut w/ Light Cream Medium,160.0,5.0,3.5,20.0,35.0,27.0,0.0,26.0,1.0
+Iced Tea Extra Small,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Iced Tea Large,5.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,1.0
+Iced Tea Medium,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Sweet Tea Extra Small,60.0,0.0,0.0,0.0,10.0,15.0,0.0,15.0,0.0
+Powerade Mountain Berry Blast Extra Small,70.0,0.0,0.0,0.0,80.0,18.0,0.0,18.0,0.0
+Powerade Mountain Berry Blast Large,170.0,0.0,0.0,0.0,190.0,45.0,0.0,45.0,0.0
+Powerade Mountain Berry Blast Medium,130.0,0.0,0.0,0.0,140.0,33.0,0.0,33.0,0.0
+Sprite Extra Small,120.0,0.0,0.0,0.0,40.0,32.0,0.0,32.0,0.0
+Sprite Large,290.0,0.0,0.0,0.0,100.0,78.0,0.0,78.0,0.0
+Sprite Medium,210.0,0.0,0.0,0.0,70.0,57.0,0.0,57.0,0.0
+Sweet Tea Large,160.0,0.0,0.0,0.0,25.0,38.0,0.0,38.0,1.0
+Sweet Tea Small,90.0,0.0,0.0,0.0,15.0,21.0,0.0,21.0,0.0
+McCafe Latte w/ Whole Milk Medium,210.0,10.0,6.0,30.0,135.0,18.0,1.0,15.0,11.0
+McCafe Latte w/ Whole Milk Large,280.0,14.0,8.0,40.0,180.0,24.0,1.0,20.0,15.0
+McCafe Latte Sugar Free French Vanilla w/ Nonfat Milk Small,120.0,0.0,0.0,5.0,150.0,22.0,0.0,13.0,9.0
+McCafe Latte Sugar Free French Vanilla w/ Nonfat Milk Medium,150.0,0.0,0.0,5.0,180.0,27.0,0.0,16.0,11.0
+McCafe Latte Sugar Free French Vanilla w/ Nonfat Milk Large,200.0,0.0,0.0,10.0,230.0,34.0,0.0,21.0,14.0
+Iced Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Medium,340.0,12.0,7.0,40.0,150.0,49.0,1.0,43.0,9.0
+McCafe Iced Caramel Mocha w/ Whole Milk Whipped Topping & Caramel Drizzle Small,270.0,11.0,6.0,35.0,140.0,37.0,0.0,31.0,7.0
+McCafe Iced Caramel Mocha w/ Whole Milk Whipped Topping & Caramel Drizzle Large,450.0,16.0,9.0,50.0,250.0,64.0,1.0,56.0,13.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk & Whipped Topping Small,130.0,4.0,2.5,20.0,90.0,15.0,0.0,13.0,7.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk & Whipped Topping Medium,140.0,4.0,2.5,20.0,105.0,17.0,0.0,15.0,8.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk & Whipped Topping Large,180.0,4.5,2.5,20.0,150.0,23.0,0.0,20.0,12.0
+McCafe Strawberry Banana Smoothie Small,190.0,0.5,0.0,5.0,40.0,44.0,2.0,39.0,2.0
+McCafe Strawberry Banana Smoothie Medium,240.0,1.0,0.0,5.0,50.0,55.0,3.0,49.0,3.0
+McCafe Strawberry Banana Smoothie Large,330.0,1.0,0.5,5.0,70.0,76.0,4.0,68.0,4.0
+McCafe Mango Pineapple Smoothie Small,200.0,0.5,0.0,5.0,35.0,45.0,1.0,42.0,2.0
+McCafe Strawberry Shake w/ Whipped Cream & Maraschino Cherry Small,520.0,15.0,10.0,60.0,170.0,66.0,0.0,73.0,11.0
+McCafe Strawberry Shake w/ Whipped Cream & Maraschino Cherry Large,840.0,23.0,15.0,95.0,290.0,106.0,0.0,122.0,19.0
+McCafe Strawberry Shake w/ Whipped Cream & Maraschino Cherry Medium,630.0,18.0,11.0,70.0,210.0,79.0,0.0,89.0,14.0
+McCafe Vanilla Shake w/ Whipped Cream & Maraschino Cherry Small,210.0,15.0,9.0,60.0,170.0,64.0,0.0,60.0,11.0
+McCafe Vanilla Shake w/ Whipped Cream & Maraschino Cherry Medium,610.0,17.0,11.0,70.0,210.0,76.0,0.0,73.0,13.0
+McCafe Vanilla Shake w/ Whipped Cream & Maraschino Cherry Large,810.0,22.0,14.0,90.0,280.0,102.0,0.0,100.0,18.0
+McCafe Mango Pineapple Smoothie Large,340.0,1.0,0.5,5.0,60.0,78.0,2.0,72.0,4.0
+Fat Free Chocolate Milk Jug,130.0,0.0,0.0,5.0,135.0,23.0,0.0,22.0,9.0
+McCafe Mango Pineapple Smoothie Medium,250.0,1.0,0.0,5.0,45.0,57.0,1.0,52.0,3.0
+McCafe Chocolate Shake w/ Whipped Cream & Maraschino Cherry Small,530.0,15.0,10.0,60.0,240.0,68.0,1.0,73.0,12.0
+McCafe Chocolate Shake w/ Whipped Cream & Maraschino Cherry Medium,630.0,18.0,11.0,70.0,290.0,81.0,1.0,88.0,14.0
+McCafe Chocolate Shake w/ Whipped Cream & Maraschino Cherry Large,840.0,23.0,15.0,90.0,400.0,109.0,2.0,119.0,19.0
+McCafe Iced Mocha w/ Whole Milk & Whipped Topping Large,470.0,16.0,9.0,50.0,220.0,67.0,2.0,60.0,13.0
+McCafe Iced Mocha w/ Whole Milk & Whipped Topping Small,280.0,11.0,6.0,35.0,120.0,38.0,1.0,33.0,8.0
+McCafe Iced Mocha w/ Nonfat Milk & Whipped Topping Large,370.0,5.0,3.0,20.0,210.0,68.0,2.0,61.0,14.0
+McCafe Iced Mocha w/ Nonfat Milk & Whipped Topping Small,230.0,4.5,3.0,20.0,120.0,38.0,1.0,33.0,8.0
+McCafe Mocha w/ Whole Milk & Whipped Topping Small,330.0,11.0,7.0,35.0,150.0,47.0,2.0,41.0,10.0
+McCafe Mocha w/ Whole Milk & Whipped Topping Large,490.0,17.0,10.0,50.0,240.0,70.0,2.0,62.0,16.0
+McCafe Mocha w/ Nonfat Milk Whipped Topping & Chocolate Drizzle Small,270.0,3.5,2.0,15.0,150.0,49.0,2.0,43.0,11.0
+McCafe Mocha w/ Nonfat Milk Whipped Topping & Chocolate Drizzle Large,390.0,4.0,2.5,20.0,240.0,72.0,2.0,64.0,17.0
+McCafe Caramel Mocha w/ Whole Milk & Whipped Cream Small,310.0,11.0,7.0,35.0,170.0,43.0,1.0,39.0,10.0
+McCafe Caramel Mocha w/ Whole Milk & Whipped Cream Medium,380.0,13.0,8.0,40.0,210.0,54.0,1.0,47.0,12.0
+McCafe Caramel Mocha w/ Whole Milk & Whipped Cream Large,470.0,16.0,10.0,50.0,270.0,65.0,1.0,57.0,15.0
+McCafe Caramel Mocha w/ Nonfat Milk & Whipped Cream Small,240.0,3.0,2.0,15.0,170.0,44.0,1.0,38.0,10.0
+McCafe Caramel Mocha w/ Nonfat Milk & Whipped Cream Medium,300.0,3.5,2.0,15.0,210.0,54.0,1.0,48.0,13.0
+McCafe Latte w/ Whole Milk Small,170.0,9.0,5.0,25.0,115.0,14.0,1.0,12.0,9.0
+20 Chicken McNuggets,890.0,53.0,9.0,145.0,1680.0,53.0,2.0,0.0,49.0
+Apple Slices,15.0,0.0,0.0,0.0,0.0,4.0,0.0,3.0,0.0
+McCafe Coffee Medium,0.0,0.0,0.0,0.0,25.0,2.0,0.0,0.0,2.0
+McCafe Frappe Chocolate Chip w/ Whipped Topping Caramel Drizzle & Chocolate Drizzle Small,500.0,21.0,14.0,60.0,125.0,72.0,1.0,63.0,7.0
+McCafe Frappe Chocolate Chip w/ Whipped Topping Caramel Drizzle & Chocolate Drizzle Medium,580.0,25.0,16.0,70.0,150.0,84.0,1.0,75.0,9.0
+McCafe Frappe Chocolate Chip w/ Whipped Topping Caramel Drizzle & Chocolate Drizzle Large,750.0,31.0,20.0,95.0,200.0,110.0,1.0,99.0,12.0
+McCafe Hot Chocolate w/ Whole Milk & Chocolate Drizzle Medium,400.0,13.0,8.0,40.0,220.0,57.0,1.0,54.0,13.0
+McCafe Hot Chocolate w/ Whole Milk & Chocolate Drizzle Large,500.0,17.0,10.0,50.0,280.0,69.0,1.0,66.0,17.0
+McCafe Iced Mocha w/ Whole Milk Small,220.0,7.0,3.5,20.0,115.0,32.0,1.0,30.0,7.0
+McCafe Iced Mocha w/ Whole Milk & Chocolate Drizzle Large,410.0,12.0,7.0,35.0,210.0,63.0,2.0,58.0,13.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk Large,290.0,1.0,0.5,5.0,240.0,57.0,1.0,53.0,13.0
+McCafe Iced Mocha w/ Nonfat Milk Chocolate Drizzle Espresso & Chocolate Syrup Small,170.0,0.5,0.0,5.0,115.0,34.0,1.0,31.0,7.0
+McCafe Iced Mocha w/ Nonfat Milk & Chocolate Drizzle Medium,220.0,1.0,0.0,5.0,140.0,44.0,1.0,40.0,9.0
+McCafe Iced Mocha w/ Nonfat Milk & Chocolate Drizzle Large,320.0,1.0,0.5,5.0,210.0,64.0,2.0,59.0,13.0
+McCafe Mocha w/ Whole Milk & Chocolate Drizzle Small,300.0,9.0,5.0,25.0,150.0,45.0,2.0,40.0,10.0
+McCafe Mocha w/ Whole Milk & Chocolate Drizzle Medium,370.0,11.0,6.0,30.0,190.0,56.0,2.0,51.0,12.0
+McCafe Mocha w/ Whole Milk & Chocolate Drizzle Large,460.0,14.0,8.0,40.0,240.0,68.0,2.0,61.0,15.0
+McCafe Caramel Mocha w/ Whole Milk Large,430.0,14.0,8.0,40.0,260.0,61.0,1.0,55.0,15.0
+McCafe Caramel Mocha w/ Nonfat Milk Medium,260.0,1.0,0.0,5.0,210.0,50.0,1.0,46.0,12.0
+McCafe Caramel Mocha w/ Nonfat Milk Large,320.0,1.0,0.5,10.0,260.0,62.0,1.0,56.0,16.0
+McCafe Iced Mocha w/ Nonfat Milk Medium,210.0,0.5,0.0,5.0,140.0,42.0,1.0,39.0,9.0
+McCafe Caramel Mocha w/ Whole Milk & Caramel Drizzle Medium,270.0,8.0,4.5,25.0,170.0,40.0,0.0,36.0,8.0
+McCafe Caramel Mocha w/ Whole Milk & Caramel Drizzle Large,390.0,12.0,7.0,35.0,240.0,59.0,1.0,53.0,12.0
+McCafe Caramel Mocha w/ Nonfat Milk & Caramel Drizzle Small,160.0,0.5,0.0,5.0,130.0,32.0,0.0,29.0,7.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk & Caramel Drizzle Medium,200.0,0.5,0.0,5.0,160.0,40.0,0.0,36.0,9.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk & Caramel Drizzle Large,300.0,1.0,0.5,5.0,240.0,59.0,1.0,54.0,13.0
+McCafe Hot Chocolate w/ Whole Milk & Chocolate Drizzle Small,320.0,11.0,6.0,30.0,180.0,46.0,1.0,43.0,11.0
+McCafe Iced Caramel Mocha w/ Whole Milk & Caramel Drizzle Small,210.0,7.0,3.5,20.0,135.0,32.0,0.0,28.0,7.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk Medium,190.0,0.5,0.0,5.0,160.0,38.0,0.0,35.0,9.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk Small,150.0,0.5,0.0,5.0,125.0,30.0,0.0,28.0,7.0
+McCafe Iced Caramel Mocha w/ Whole Milk Large,380.0,12.0,7.0,35.0,240.0,57.0,1.0,52.0,12.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk Whipped Cream & Caramel Drizzle Medium,260.0,4.5,3.0,20.0,170.0,46.0,0.0,40.0,10.0
+McCafe Caramel Mocha w/ Whole Milk Medium,340.0,11.0,6.0,30.0,210.0,50.0,1.0,45.0,12.0
+McCafe Iced Caramel Mocha w/ Nonfat Milk Whipped Cream & Caramel Drizzle Large,360.0,5.0,3.0,20.0,250.0,65.0,1.0,57.0,14.0
+McCafe Caramel Mocha w/ Whole Milk Small,270.0,9.0,5.0,25.0,170.0,40.0,1.0,34.0,9.0
+McCafe Iced Mocha w/ Whole Milk & Chocolate Drizzle Medium,280.0,8.0,4.5,25.0,150.0,43.0,1.0,39.0,9.0
+McCafe Strawberry Shake w/ Whipped Topping Small,510.0,15.0,10.0,60.0,170.0,64.0,0.0,72.0,11.0
+McCafe Strawberry Shake w/ Whipped Topping Medium,620.0,18.0,11.0,70.0,210.0,77.0,0.0,88.0,14.0
+McCafe Strawberry Shake w/ Whipped Topping Large,830.0,23.0,15.0,95.0,290.0,104.0,0.0,121.0,19.0
+McCafe Chocolate Shake w/ Whipped Topping Small,530.0,15.0,10.0,60.0,240.0,66.0,1.0,72.0,12.0
+McCafe Chocolate Shake w/ Whipped Topping Medium,630.0,18.0,11.0,70.0,290.0,79.0,1.0,86.0,14.0
+McCafe Chocolate Shake w/ Whipped Topping Large,840.0,23.0,15.0,90.0,400.0,107.0,2.0,118.0,19.0
+McCafe Vanilla Shake w/ Whipped Topping Small,500.0,15.0,9.0,60.0,160.0,62.0,0.0,59.0,11.0
+McCafe Vanilla Shake w/ Whipped Topping Medium,600.0,17.0,11.0,70.0,200.0,75.0,0.0,72.0,13.0
+McCafe Vanilla Shake w/ Whipped Topping Large,800.0,22.0,14.0,90.0,280.0,100.0,0.0,99.0,18.0
+McCafe Mocha w/ Whole Milk Small,290.0,9.0,5.0,25.0,150.0,43.0,2.0,39.0,10.0
+McCafe Mocha w/ Whole Milk Large,450.0,14.0,8.0,40.0,230.0,66.0,2.0,60.0,15.0
+McCafe Iced Coffee w/ French Vanilla Syrup Large,130.0,0.0,0.0,0.0,30.0,36.0,0.0,35.0,2.0
+McCafe Iced Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Large,470.0,16.0,9.0,50.0,220.0,69.0,2.0,61.0,13.0
+McCafe Frappe Caramel w/ Whipped Topping & Caramel Drizzle Medium,500.0,21.0,13.0,75.0,140.0,72.0,0.0,65.0,8.0
+McCafe Frappe Mocha w/ Whipped Topping & Chocolate Drizzle Medium,500.0,20.0,13.0,70.0,140.0,73.0,1.0,65.0,8.0
+McCafe Frappe Caramel w/ Whipped Topping & Caramel Drizzle Large,670.0,27.0,17.0,95.0,190.0,96.0,0.0,88.0,11.0
+McCafe Frappe Mocha w/ Whipped Topping & Chocolate Drizzle Small,420.0,17.0,11.0,60.0,115.0,60.0,1.0,53.0,6.0
+McCafe Frappe Mocha w/ Whipped Topping & Chocolate Drizzle Large,670.0,26.0,17.0,90.0,190.0,97.0,1.0,88.0,11.0
+McCafe Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Medium,410.0,14.0,8.0,40.0,190.0,60.0,2.0,53.0,12.0
+McCafe Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Small,340.0,11.0,7.0,35.0,150.0,48.0,1.0,42.0,10.0
+McCafe Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Large,500.0,17.0,10.0,50.0,240.0,72.0,2.0,63.0,16.0
+McCafe Latte w/ Whole Milk & Splenda No Calorie Sweetener Medium,210.0,10.0,6.0,30.0,135.0,19.0,1.0,16.0,11.0
+McCafe Latte w/ Whole Milk & Splenda No Calorie Sweetener Small,170.0,9.0,5.0,25.0,115.0,15.0,1.0,13.0,9.0
+McCafe Iced Mocha w/ Nonfat Milk Large,310.0,1.0,0.5,5.0,210.0,62.0,2.0,57.0,13.0
+McCafe Latte w/ Whole Milk & Splenda No Calorie Sweetener Large,280.0,14.0,8.0,40.0,180.0,24.0,1.0,21.0,15.0
+McCafe Latte w/ Whole Milk & Equal 0 Calorie Sweetener Medium,210.0,10.0,6.0,30.0,135.0,19.0,1.0,16.0,11.0
+McCafe Latte w/ Whole Milk & Equal 0 Calorie Sweetener Small,170.0,9.0,5.0,25.0,115.0,15.0,1.0,13.0,9.0
+McCafe Latte w/ Whole Milk & Equal 0 Calorie Sweetener Large,280.0,14.0,8.0,40.0,180.0,24.0,1.0,21.0,15.0
+McCafe Iced Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Small,290.0,11.0,6.0,35.0,125.0,40.0,1.0,34.0,8.0
+McCafe Frappe Caramel w/ Whipped Topping & Caramel Drizzle Small,420.0,17.0,11.0,60.0,120.0,59.0,0.0,53.0,6.0
+McCafe Iced Coffee French Vanilla w/ Light Cream Medium,150.0,5.0,3.5,20.0,60.0,27.0,0.0,25.0,2.0
+McCafe Latte w/ Whole Milk & Sugar Packet Medium,230.0,10.0,6.0,30.0,140.0,22.0,1.0,19.0,11.0
+McCafe Latte w/ Whole Milk & Sugar Packet Small,190.0,9.0,5.0,25.0,115.0,18.0,1.0,16.0,9.0
+McCafe Latte w/ Whole Milk & Sugar Packet Large,290.0,14.0,8.0,40.0,180.0,28.0,1.0,24.0,15.0
+McCafe Iced Coffee French Vanilla w/ Light Cream Small,100.0,4.0,2.5,15.0,40.0,16.0,0.0,15.0,2.0
+McCafe Iced Mocha w/ Whole Milk & Whipped Cream Medium,330.0,12.0,7.0,40.0,150.0,47.0,1.0,41.0,9.0
+McCafe Iced Mocha w/ Nonfat Milk & Whipped Topping Medium,270.0,4.5,3.0,20.0,150.0,48.0,1.0,42.0,10.0
+McCafe Iced Caramel Mocha w/ Whole Milk & Whipped Topping Small,260.0,10.0,6.0,35.0,135.0,35.0,0.0,31.0,7.0
+McCafe Iced Caramel Mocha w/ Whole Milk & Whipped Topping Medium,320.0,12.0,7.0,40.0,170.0,44.0,1.0,38.0,9.0
+McCafe Iced Caramel Mocha w/ Whole Milk & Whipped Topping Large,440.0,16.0,9.0,50.0,250.0,62.0,1.0,55.0,13.0
+McCafe Iced Mocha w/ Whole Milk Medium,270.0,8.0,4.5,25.0,140.0,41.0,1.0,38.0,9.0
+McCafe Iced Mocha w/ Whole Milk & Chocolate Drizzle Small,220.0,7.0,4.0,20.0,115.0,34.0,1.0,31.0,7.0
+McCafe Iced Mocha w/ Whole Milk Large,400.0,12.0,7.0,35.0,210.0,62.0,2.0,57.0,13.0
+McCafe Iced Mocha w/ Nonfat Milk Small,160.0,0.5,0.0,5.0,110.0,33.0,1.0,30.0,7.0
+Hot Caramel Sundae w/ Peanuts & Caramel Topping,380.0,11.0,5.0,30.0,160.0,50.0,1.0,44.0,9.0
+Strawberry Sundae w/ Peanuts & Strawberry Topping,320.0,10.0,4.5,25.0,95.0,40.0,1.0,45.0,8.0
+Hot Fudge Sundae w/ Peanuts & Hot Fudge Topping,380.0,14.0,8.0,25.0,180.0,43.0,3.0,47.0,10.0
+40 Chicken McNuggets,1770.0,107.0,18.0,295.0,3370.0,105.0,7.0,1.0,98.0
+Steak Egg & Cheese Biscuit Regular,530.0,30.0,15.0,230.0,1490.0,40.0,3.0,4.0,25.0
+Egg White Delight McMuffin,250.0,8.0,4.5,35.0,720.0,29.0,1.0,3.0,17.0
+Steak Egg & Cheese Biscuit on Scratch Biscuit Large,560.0,32.0,15.0,265.0,1510.0,43.0,3.0,4.0,25.0
+Habanero Ranch Sauce,80.0,7.0,1.0,10.0,160.0,5.0,0.0,1.0,1.0
+Cuties,35.0,0.0,0.0,0.0,0.0,8.0,0.0,6.0,0.0
+McCafe White Hot Chocolate w/ Whole Milk & Whipped Topping,350.0,13.0,8.0,40.0,180.0,48.0,0.0,46.0,12.0
+McCafe Iced Coffee French Vanilla w/ Light Cream & French Vanilla Syrup Large,220.0,7.0,4.5,30.0,65.0,40.0,0.0,37.0,3.0
+White Hot Chocolate w/ Whole Milk & Whipped Cream Medium,420.0,15.0,9.0,50.0,230.0,59.0,0.0,57.0,14.0
+White Hot Chocolate w/ Whole Milk & Whipped Cream Large,520.0,19.0,11.0,60.0,290.0,71.0,0.0,69.0,18.0
+McCafe Mocha w/ Nonfat Milk Small,220.0,1.0,0.0,5.0,140.0,43.0,1.0,39.0,10.0
+McCafe Mocha w/ Nonfat Milk Large,340.0,1.0,0.5,10.0,230.0,67.0,2.0,61.0,16.0
+White Hot Chocolate w/ Whole Milk Small,310.0,10.0,6.0,35.0,180.0,44.0,0.0,44.0,11.0
+White Hot Chocolate w/ Whole Milk Medium,380.0,13.0,7.0,40.0,220.0,55.0,0.0,55.0,14.0
+White Hot Chocolate w/ Whole Milk Large,480.0,17.0,10.0,50.0,280.0,67.0,0.0,67.0,18.0
+McCafe Iced Caramel Mocha w/ Whole Milk Medium,260.0,8.0,4.5,25.0,160.0,38.0,0.0,35.0,8.0
+Artisan Grilled Chicken Sandwich,380.0,6.0,2.0,95.0,960.0,44.0,3.0,11.0,37.0
+McCafe Iced Coffee w/ French Vanilla Syrup Medium,90.0,0.0,0.0,0.0,20.0,25.0,0.0,24.0,1.0
+McCafe Iced Coffee w/ French Vanilla Syrup Small,50.0,0.0,0.0,0.0,15.0,15.0,0.0,14.0,1.0
+McCafe Iced Coffee w/ Caramel Syrup Large,150.0,0.0,0.0,0.0,25.0,39.0,0.0,38.0,2.0
+McCafe Iced Coffee w/ Caramel Syrup & Premium Roast Coffee Medium,100.0,0.0,0.0,0.0,15.0,26.0,0.0,26.0,1.0
+McCafe Iced Coffee w/ Caramel Syrup & Premium Roast Coffee Small,70.0,0.0,0.0,0.0,10.0,20.0,0.0,19.0,1.0
+McCafe Iced Coffee w/ Hazelnut Syrup & Premium Roast Coffee Large,150.0,0.0,0.0,0.0,25.0,40.0,0.0,38.0,2.0
+McCafe Iced Coffee w/ Hazelnut Syrup & Premium Roast Coffee Medium,100.0,0.0,0.0,0.0,15.0,26.0,0.0,25.0,1.0
+McCafe Iced Coffee w/ Hazelnut Syrup & Premium Roast Coffee Small,60.0,0.0,0.0,0.0,10.0,17.0,0.0,16.0,1.0
+McCafe Iced Coffee w/ Sugar Free French Vanilla Syrup Large,45.0,0.0,0.0,0.0,70.0,13.0,0.0,0.0,2.0
+McCafe Iced Coffee w/ Sugar Free French Vanilla Syrup Medium,30.0,0.0,0.0,0.0,50.0,9.0,0.0,0.0,1.0
+McCafe Iced Coffee w/ Sugar Free French Vanilla Syrup Small,20.0,0.0,0.0,0.0,35.0,6.0,0.0,0.0,1.0
+McCafe Iced Caramel Mocha w/ Whole Milk Small,200.0,6.0,3.5,20.0,130.0,30.0,0.0,27.0,7.0
+Strawberry & Cream Pie,300.0,15.0,9.0,15.0,190.0,36.0,1.0,15.0,3.0
+McFlurry w/ Oreo Cookies Snack Size,340.0,11.0,6.0,30.0,180.0,40.0,0.0,42.0,8.0
+McCafe Iced Coffee Caramel w/ Light Cream Small,120.0,4.0,2.5,15.0,40.0,22.0,0.0,20.0,1.0
+McCafe Iced Caramel Mocha w/ Whole Milk Whipped Topping & Caramel Drizzle Medium,330.0,12.0,7.0,40.0,180.0,46.0,0.0,39.0,9.0
+McCafe Caramel Mocha w/ Nonfat Milk Whipped Topping Espresso & Chocolate Caramel Syrup Large,360.0,3.5,2.0,20.0,260.0,65.0,1.0,58.0,16.0
+McCafe Caramel Mocha w/ Nonfat Milk Small,200.0,0.5,0.0,5.0,160.0,40.0,1.0,36.0,10.0
+Buttermilk Crispy Chicken Sandwich,570.0,23.0,5.0,60.0,1050.0,64.0,4.0,11.0,28.0
+Yoplait Go Gurt Low Fat Strawberry Yogurt,50.0,0.5,0.0,5.0,30.0,8.0,0.0,6.0,3.0
+McCafe Caramel Mocha w/ Whole Milk Whipped Topping & Caramel Drizzle Large,480.0,17.0,10.0,50.0,270.0,67.0,1.0,58.0,15.0
+McCafe Caramel Mocha w/ Whole Milk Whipped Topping & Caramel Drizzle Medium,390.0,14.0,8.0,40.0,220.0,56.0,1.0,48.0,12.0
+McCafe Caramel Mocha w/ Whole Milk Whipped Topping & Caramel Drizzle Small,320.0,11.0,7.0,35.0,180.0,45.0,1.0,39.0,10.0
+McCafe Hot Chocolate w/ Whole Milk Whipped Topping & Chocolate Drizzle Large,540.0,20.0,12.0,60.0,280.0,73.0,1.0,68.0,17.0
+McCafe Hot Chocolate w/ Whole Milk Whipped Topping & Chocolate Drizzle Medium,440.0,16.0,9.0,50.0,220.0,61.0,1.0,56.0,14.0
+McCafe Hot Chocolate w/ Whole Milk Whipped Topping & Chocolate Drizzle Small,360.0,13.0,8.0,40.0,180.0,50.0,1.0,45.0,11.0
+McCafe Iced Coffee w/ Liquid Sugar Large,160.0,0.0,0.0,0.0,25.0,41.0,0.0,40.0,2.0
+McCafe Iced Coffee w/ Liquid Sugar Medium,170.0,5.0,3.5,20.0,60.0,30.0,0.0,28.0,2.0
+McCafe Iced Coffee w/ Liquid Sugar & Light Cream Small,130.0,4.0,2.5,15.0,40.0,23.0,0.0,22.0,1.0
+McCafe Iced Coffee w/ Liquid Sugar & Premium Roast Coffee Small,80.0,0.0,0.0,0.0,10.0,21.0,0.0,21.0,1.0
+McCafe Peppermint Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Large,500.0,17.0,10.0,50.0,240.0,71.0,1.0,63.0,16.0
+McCafe Peppermint Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Medium,410.0,14.0,8.0,40.0,190.0,59.0,1.0,52.0,12.0
+McCafe Peppermint Mocha w/ Whole Milk Whipped Topping & Chocolate Drizzle Small,340.0,12.0,7.0,35.0,150.0,48.0,1.0,42.0,10.0
+Cinnamon Coffee Cake Muffin,430.0,18.0,4.5,50.0,310.0,62.0,1.0,39.0,4.0
+Fruit & Maple Oatmeal,310.0,4.0,1.5,5.0,140.0,62.0,5.0,33.0,6.0
+Newmans Own Ranch Dressing,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Honey Mustard Sauce,50.0,3.0,0.0,5.0,110.0,6.0,1.0,5.0,0.0
+McCafe Caramel Macchiato w/ Whole Milk Medium,320.0,9.0,5.0,30.0,430.0,50.0,0.0,45.0,10.0
+Strawberry & Cream Pie,290.0,15.0,9.0,10.0,160.0,34.0,2.0,13.0,3.0
+Kiddie Cone,45.0,1.0,0.5,5.0,20.0,5.0,0.0,6.0,1.0
+Extra Value Meal w/ Sausage McGriddles & Medium Coffee,580.0,34.0,10.0,35.0,1340.0,59.0,3.0,15.0,15.0
+McCafe Mango Pineapple Smoothie Large,340.0,1.0,0.5,5.0,60.0,78.0,2.0,72.0,4.0
+Extra Value Meal w/ Sausage Burrito & Small Coffee,440.0,24.0,7.0,165.0,1140.0,43.0,3.0,3.0,16.0
+Classic Chicken Sandwich,510.0,23.0,4.0,65.0,1040.0,50.0,3.0,6.0,25.0
+McCafe Vanilla Shake Large,800.0,22.0,14.0,90.0,370.0,99.0,0.0,99.0,19.0
+Hamburger,250.0,8.0,3.0,30.0,480.0,31.0,2.0,6.0,13.0
+Newmans Own Creamy French Dressing,300.0,23.0,3.5,0.0,450.0,22.0,1.0,22.0,0.0
+Diet Coke Large,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Extra Value Meal w/ 20 Pc Nuggets Medium Coke & Medium Fries,1440.0,69.0,11.0,145.0,1970.0,153.0,7.0,58.0,53.0
+Baked Hot Apple Pie,230.0,10.0,6.0,0.0,170.0,33.0,2.0,13.0,2.0
+Newmans Own Low Fat Balsamic Vinaigrette,35.0,1.5,0.0,0.0,400.0,5.0,0.0,3.0,0.0
+Tartar Sauce Cup,140.0,15.0,2.5,10.0,150.0,0.0,0.0,0.0,0.0
+Artisan Grilled Chicken Sandwich,380.0,7.0,2.0,95.0,1110.0,44.0,3.0,11.0,37.0
+McCafe Americano Small,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+McCafe Coffee Medium,0.0,0.0,0.0,0.0,25.0,2.0,0.0,0.0,2.0
+Iced Tea Small,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Sprite Extra Small,110.0,0.0,0.0,0.0,50.0,29.0,0.0,29.0,0.0
+Fanta Orange Small,170.0,0.0,0.0,0.0,40.0,44.0,0.0,43.0,0.0
+McCafe Americano Medium,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Hotcakes,600.0,16.0,7.0,45.0,610.0,102.0,2.0,45.0,9.0
+Sweet Tea Small,90.0,0.0,0.0,0.0,15.0,21.0,0.0,21.0,0.0
+McCafe Strawberry Banana Smoothie Medium,240.0,1.0,0.0,5.0,50.0,55.0,3.0,49.0,3.0
+1/4 lb Sweet BBQ Bacon Burger,700.0,38.0,14.0,110.0,1310.0,52.0,3.0,14.0,38.0
+McCafe Cappuccino w/ Whole Milk Large,210.0,11.0,6.0,35.0,140.0,17.0,0.0,16.0,11.0
+McFlurry w/ M&Ms Candies Regular Size,630.0,22.0,14.0,50.0,200.0,77.0,2.0,86.0,13.0
+6 Buttermilk Crispy Tenders,730.0,40.0,6.0,155.0,2040.0,34.0,2.0,1.0,59.0
+Honest Kids Appley Ever After Organic Juice Drink,35.0,0.0,0.0,0.0,10.0,9.0,0.0,8.0,0.0
+Fanta Orange Large,120.0,0.0,0.0,0.0,30.0,33.0,0.0,32.0,0.0
+Egg White Delight McMuffin,260.0,8.0,4.5,35.0,750.0,29.0,2.0,3.0,16.0
+Side Salad,15.0,0.0,0.0,0.0,15.0,3.0,1.0,1.0,1.0
+Double Cheeseburger,430.0,21.0,11.0,85.0,1040.0,35.0,2.0,7.0,25.0
+Sprite Small,150.0,0.0,0.0,0.0,70.0,39.0,0.0,38.0,0.0
+Extra Value Meal w/ Filet O Fish Medium Coke & Medium Fries,970.0,36.0,7.0,50.0,940.0,140.0,6.0,63.0,22.0
+Fanta Orange Extra Small,120.0,0.0,0.0,0.0,30.0,33.0,0.0,32.0,0.0
+1% Low Fat Milk Jug,100.0,2.5,1.5,10.0,125.0,12.0,0.0,12.0,8.0
+1/4 lb Pico Guacamole Burger,580.0,33.0,12.0,95.0,920.0,41.0,4.0,7.0,29.0
+Sweet N Sour Sauce,50.0,0.0,0.0,0.0,160.0,11.0,0.0,10.0,1.0
+Extra Value Meal w/ Bacon Egg & Cheese Biscuit,600.0,33.0,14.0,200.0,1640.0,57.0,4.0,3.0,22.0
+McCafe Strawberry Banana Smoothie Large,330.0,1.0,0.5,5.0,70.0,76.0,4.0,68.0,4.0
+McCafe Strawberry Banana Smoothie Small,190.0,0.5,0.0,5.0,40.0,44.0,2.0,39.0,2.0
+Diet Coke Extra Small,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Sprite Large,280.0,0.0,0.0,0.0,130.0,74.0,0.0,73.0,0.0
+Yoplait Go Gurt Low Fat Strawberry Yogurt,50.0,0.5,0.0,5.0,30.0,8.0,0.0,6.0,3.0
+Sweet Tea Extra Small,90.0,0.0,0.0,0.0,15.0,21.0,0.0,21.0,0.0
+Apple Slices,15.0,0.0,0.0,0.0,0.0,4.0,0.0,3.0,0.0
+4 Buttermilk Crispy Tenders,490.0,26.0,4.0,105.0,1360.0,22.0,1.0,1.0,39.0
+McCafe French Vanilla Cappuccino w/ Whole Milk Large,310.0,9.0,5.0,30.0,120.0,47.0,0.0,45.0,9.0
+McCafe French Vanilla Latte w/ Whole Milk Large,410.0,14.0,8.0,40.0,190.0,59.0,1.0,56.0,15.0
+McCafe Chocolate Shake Small,530.0,15.0,9.0,60.0,260.0,68.0,1.0,74.0,12.0
+McCafe Hot Chocolate w/ Whole Milk Small,370.0,14.0,8.0,40.0,190.0,51.0,1.0,48.0,11.0
+Bacon Ranch Grilled Chicken Salad,320.0,14.0,6.0,135.0,1230.0,9.0,3.0,4.0,42.0
+Coca Cola Small,150.0,0.0,0.0,0.0,35.0,40.0,0.0,40.0,0.0
+McCafe Caramel Macchiato w/ Whole Milk Small,260.0,7.0,4.0,25.0,340.0,41.0,0.0,37.0,8.0
+McCafe Latte w/ Whole Milk Medium,190.0,10.0,6.0,30.0,135.0,15.0,0.0,15.0,10.0
+McCafe Frappe Chocolate Chip Large,760.0,31.0,20.0,95.0,210.0,110.0,1.0,100.0,12.0
+Signature Sauce,100.0,9.0,1.5,10.0,180.0,3.0,0.0,2.0,0.0
+Extra Value Meal w/ Sausage Biscuit,680.0,43.0,16.0,205.0,1480.0,55.0,4.0,3.0,20.0
+McCafe Caramel Latte w/ Whole Milk Large,420.0,14.0,8.0,40.0,180.0,62.0,1.0,59.0,15.0
+Sausage Biscuit w/ Egg,530.0,34.0,15.0,205.0,1140.0,38.0,2.0,3.0,17.0
+Diet Dr Pepper Extra Small,0.0,0.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+McCafe Coffee Large,0.0,0.0,0.0,0.0,30.0,2.0,2.0,0.0,0.0
+Big Breakfast,750.0,49.0,18.0,465.0,1490.0,53.0,3.0,3.0,25.0
+Powerade Mountain Berry Blast Medium,120.0,0.0,0.0,0.0,160.0,31.0,0.0,31.0,0.0
+Extra Value Meal w/ Quarter Pounder Medium Coke & Medium Fries,1090.0,43.0,15.0,100.0,1380.0,142.0,7.0,67.0,35.0
+Coca Cola Extra Small,150.0,0.0,0.0,0.0,35.0,40.0,0.0,40.0,0.0
+Coca Cola Medium,220.0,0.0,0.0,0.0,50.0,57.0,0.0,57.0,0.0
+Double Quarter Pounder w/ Cheese,770.0,45.0,21.0,175.0,1290.0,42.0,3.0,10.0,51.0
+Big Mac,540.0,28.0,10.0,80.0,950.0,46.0,3.0,9.0,25.0
+Bacon Ranch Salad w/ Buttermilk Crispy Chicken,490.0,28.0,8.0,95.0,1120.0,28.0,4.0,4.0,33.0
+Hash Browns,150.0,9.0,1.5,0.0,320.0,16.0,1.0,0.0,1.0
+6 Chicken McNuggets,270.0,16.0,2.5,45.0,510.0,16.0,1.0,0.0,15.0
+Dr Pepper Medium,210.0,0.0,0.0,0.0,70.0,58.0,0.0,57.0,0.0
+McCafe French Vanilla Iced Coffee w/ Light Cream Small,120.0,5.0,3.5,20.0,50.0,19.0,0.0,17.0,2.0
+McCafe Mocha w/ Whole Milk Small,340.0,12.0,7.0,35.0,140.0,49.0,2.0,45.0,9.0
+Southwest Buttermilk Crispy Chicken Salad,520.0,25.0,6.0,75.0,960.0,46.0,8.0,9.0,28.0
+Strawberry Sundae,320.0,10.0,4.5,25.0,95.0,40.0,1.0,45.0,8.0
+Sausage Burrito,290.0,15.0,6.0,165.0,800.0,26.0,1.0,2.0,13.0
+Extra Value Meal w/ Bacon Egg & Cheese McGriddles & Medium Coffee,570.0,27.0,9.0,195.0,1580.0,63.0,4.0,15.0,22.0
+Bacon Egg & Cheese Bagel,550.0,25.0,11.0,225.0,1260.0,54.0,4.0,7.0,26.0
+McCafe Mocha Frappe Medium,510.0,20.0,13.0,70.0,150.0,73.0,1.0,66.0,8.0
+Ketchup Packet,10.0,0.0,0.0,0.0,90.0,2.0,0.0,2.0,0.0
+Big Breakfast w/ Hotcakes,1350.0,65.0,25.0,510.0,2100.0,155.0,6.0,48.0,35.0
+McCafe Iced Caramel Mocha w/ Whole Milk Small,270.0,11.0,6.0,35.0,140.0,37.0,0.0,31.0,7.0
+McCafe French Vanilla Latte w/ Whole Milk Small,230.0,7.0,4.0,20.0,100.0,33.0,0.0,32.0,8.0
+Chocolate Chip Cookie,170.0,7.0,3.5,10.0,90.0,23.0,1.0,15.0,2.0
+Newmans Own Low Fat Family Recipe Italian Dressing,50.0,1.5,0.0,0.0,380.0,8.0,1.0,2.0,0.0
+Sausage McMuffin w/ Egg,470.0,30.0,12.0,275.0,810.0,30.0,2.0,3.0,21.0
+Extra Value Meal w/ 6 Pc Nuggets Medium Coke & Medium Fries,820.0,32.0,5.0,45.0,790.0,117.0,5.0,57.0,19.0
+McCafe Iced Mocha w/ Whole Milk Small,290.0,12.0,7.0,35.0,135.0,40.0,0.0,36.0,7.0
+Extra Value Meal w/ 10 Pc Nuggets Medium Coke & Medium Fries,1000.0,43.0,7.0,75.0,1120.0,127.0,6.0,57.0,29.0
+McCafe Latte w/ Whole Milk Small,140.0,8.0,4.5,25.0,100.0,12.0,0.0,11.0,7.0
+McCafe Caramel Cappuccino w/ Whole Milk Large,350.0,9.0,5.0,30.0,490.0,55.0,0.0,50.0,11.0
+Diet Dr Pepper Medium,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Sausage Egg & Cheese McGriddles,550.0,32.0,13.0,215.0,1280.0,45.0,2.0,15.0,20.0
+Powerade Mountain Berry Blast Large,120.0,0.0,0.0,0.0,160.0,31.0,0.0,31.0,0.0
+Extra Value Meal w/ Egg McMuffin & Medium Coffee,450.0,21.0,7.0,245.0,1080.0,47.0,3.0,3.0,21.0
+Bacon McDouble,450.0,22.0,10.0,85.0,1080.0,34.0,2.0,7.0,28.0
+McCafe French Vanilla Cappuccino w/ Whole Milk Medium,230.0,6.0,3.5,20.0,85.0,37.0,0.0,35.0,6.0
+Extra Value Meal w/ Large Bacon Egg & Cheese Biscuit & Small Coffee,150.0,9.0,1.5,0.0,340.0,17.0,1.0,0.0,3.0
+McCafe Mocha Frappe Small,420.0,17.0,11.0,60.0,120.0,60.0,1.0,54.0,7.0
+Extra Value Meal w/ Sausage McGriddles,580.0,34.0,10.0,35.0,1330.0,59.0,3.0,15.0,14.0
+McCafe Chocolate Shake Medium,630.0,18.0,11.0,70.0,310.0,81.0,1.0,90.0,14.0
+McCafe Caramel Iced Coffee w/ Light Cream Small,140.0,5.0,3.5,20.0,220.0,23.0,0.0,20.0,3.0
+Triple Cheeseburger,520.0,28.0,13.0,110.0,1160.0,36.0,2.0,7.0,32.0
+McCafe Caramel Frappe Small,420.0,18.0,11.0,65.0,125.0,60.0,0.0,55.0,7.0
+Southwest Grilled Chicken Salad,350.0,11.0,4.5,110.0,1070.0,27.0,6.0,9.0,37.0
+Pico Guacamole w/ Buttermilk Crispy Chicken,710.0,34.0,9.0,85.0,1360.0,68.0,6.0,11.0,34.0
+Extra Value Meal w/ Sausage McMuffin Egg & Medium Coffee,620.0,39.0,13.0,275.0,1160.0,47.0,3.0,3.0,24.0
+Extra Value Meal w/ Sausage Egg & Cheese McGriddles & Medium Coffee,700.0,41.0,14.0,215.0,1620.0,63.0,4.0,16.0,23.0
+McCafe French Vanilla Latte w/ Whole Milk Medium,320.0,10.0,6.0,30.0,140.0,48.0,1.0,45.0,11.0
+Diet Dr Pepper Small,0.0,0.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+McCafe Strawberry Shake Large,810.0,23.0,15.0,95.0,310.0,97.0,0.0,115.0,19.0
+Extra Value Meal w/ Large Sausage Biscuit Egg & Small Coffee,680.0,43.0,16.0,210.0,1500.0,55.0,4.0,3.0,20.0
+McCafe Vanilla Shake Medium,600.0,17.0,11.0,70.0,270.0,73.0,0.0,72.0,14.0
+Hot Caramel Sundae,380.0,11.0,6.0,30.0,160.0,51.0,1.0,44.0,9.0
+French Fries Medium,340.0,16.0,2.0,0.0,230.0,44.0,4.0,0.0,4.0
+Honey,50.0,0.0,0.0,0.0,0.0,12.0,0.0,11.0,0.0
+Bacon Egg & Cheese McGriddles,420.0,18.0,8.0,195.0,1230.0,45.0,2.0,15.0,18.0
+McCafe Caramel Latte w/ Whole Milk Medium,320.0,10.0,5.0,30.0,430.0,48.0,0.0,45.0,11.0
+Habanero Ranch Sauce,80.0,7.0,1.0,10.0,160.0,5.0,0.0,1.0,1.0
+Newmans Own Creamy Southwest Dressing,120.0,8.0,1.5,20.0,300.0,11.0,0.0,3.0,1.0
+McCafe Caramel Mocha w/ Whole Milk Small,310.0,11.0,7.0,35.0,230.0,44.0,0.0,40.0,9.0
+McChicken,350.0,15.0,3.5,40.0,600.0,40.0,2.0,5.0,15.0
+Extra Value Meal w/ Regular Bacon Egg & Cheese Biscuit & Medium Coffee,600.0,33.0,14.0,200.0,1640.0,57.0,4.0,3.0,22.0
+McCafe Iced Coffee w/ Light Cream Small,140.0,5.0,3.5,20.0,50.0,24.0,0.0,22.0,2.0
+10 Buttermilk Crispy Tenders,1210.0,66.0,10.0,260.0,3390.0,56.0,3.0,1.0,98.0
+Sausage McMuffin,400.0,25.0,10.0,55.0,740.0,29.0,2.0,3.0,14.0
+Sweet BBQ Bacon w/ Artisan Grilled Chicken,640.0,23.0,7.0,135.0,1940.0,62.0,4.0,18.0,49.0
+Fruit N Yogurt Parfait,150.0,2.0,1.0,5.0,75.0,30.0,1.0,22.0,4.0
+Iced Tea Medium,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,1.0
+McCafe Coffee Small,0.0,0.0,0.0,0.0,20.0,1.0,0.0,0.0,2.0
+Sweet BBQ Bacon w/ Buttermilk Crispy Chicken,810.0,36.0,9.0,95.0,1820.0,81.0,5.0,18.0,40.0
+20 Chicken McNuggets,890.0,53.0,9.0,145.0,1680.0,53.0,4.0,0.0,49.0
+Diet Coke Medium,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+Iced Tea Extra Small,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+McFlurry w/ Oreo Cookies Snack Size,340.0,11.0,6.0,30.0,180.0,40.0,0.0,42.0,8.0
+McCafe Latte w/ Whole Milk Large,280.0,14.0,8.0,40.0,180.0,24.0,1.0,20.0,15.0
+Sausage McGriddles,430.0,24.0,9.0,35.0,990.0,42.0,1.0,15.0,11.0
+Extra Value Meal w/ Buttermilk Crispy Chicken Sandwich Medium Coke & Medium Fries,1130.0,39.0,7.0,60.0,1330.0,165.0,8.0,68.0,32.0
+Dr Pepper Small,140.0,0.0,0.0,0.0,40.0,38.0,0.0,37.0,0.0
+Extra Value Meal w/ Sausage Egg & Cheese McGriddles,700.0,41.0,14.0,215.0,1620.0,62.0,4.0,16.0,23.0
+McFlurry w/ M&Ms Candies Snack Size,420.0,15.0,9.0,35.0,130.0,51.0,1.0,58.0,9.0
+4 Chicken McNuggets,180.0,11.0,2.0,30.0,340.0,11.0,1.0,0.0,10.0
+Pico Guacamole w/ Artisan Grilled Chicken,550.0,21.0,7.0,120.0,1340.0,49.0,4.0,12.0,43.0
+McCafe French Vanilla Iced Coffee w/ Light Cream Medium,150.0,5.0,3.5,20.0,60.0,27.0,0.0,25.0,2.0
+McCafe Strawberry Shake Medium,600.0,18.0,11.0,75.0,230.0,71.0,0.0,84.0,14.0
+Sweet Tea Large,160.0,0.0,0.0,0.0,25.0,38.0,0.0,38.0,1.0
+Diet Dr Pepper Large,0.0,0.0,0.0,0.0,65.0,0.0,0.0,0.0,0.0
+Fat Free Chocolate Milk Jug,130.0,0.0,0.0,5.0,135.0,23.0,0.0,22.0,9.0
+Sprite Medium,210.0,0.0,0.0,0.0,95.0,55.0,0.0,54.0,0.0
+McFlurry w/ Oreo Cookies Regular Size,510.0,17.0,9.0,45.0,280.0,60.0,1.0,64.0,12.0
+McCafe Caramel Cappuccino w/ Whole Milk Medium,260.0,6.0,3.5,20.0,390.0,44.0,0.0,40.0,8.0
+McCafe Strawberry Shake Small,500.0,15.0,9.0,60.0,190.0,61.0,0.0,71.0,12.0
+Extra Value Meal w/ Regular Sausage Biscuit Egg & Medium Coffee,680.0,43.0,16.0,205.0,1490.0,55.0,4.0,3.0,21.0
+Extra Value Meal w/ 40 Pc Nuggets Medium Coke & Medium Fries,2500.0,131.0,21.0,295.0,3770.0,229.0,13.0,58.0,104.0
+Mustard,0.0,0.0,0.0,0.0,80.0,1.0,0.0,0.0,0.0
+McCafe Mango Pineapple Smoothie Small,200.0,0.5,0.0,5.0,35.0,45.0,1.0,42.0,2.0
+Buttermilk Crispy Chicken Sandwich,570.0,23.0,5.0,60.0,1050.0,64.0,4.0,11.0,28.0
+McCafe Mango Pineapple Smoothie Medium,250.0,1.0,0.0,5.0,45.0,57.0,1.0,52.0,3.0
+Spicy Buffalo Sauce,30.0,3.0,0.0,0.0,510.0,1.0,0.0,0.0,0.0
+McCafe Caramel Macchiato w/ Whole Milk Large,400.0,12.0,7.0,35.0,530.0,61.0,0.0,55.0,13.0
+Big Mac Sauce,70.0,7.0,1.0,5.0,75.0,1.0,0.0,1.0,0.0
+McCafe Caramel Iced Coffee w/ Light Cream Large,270.0,9.0,6.0,35.0,450.0,46.0,0.0,39.0,5.0
+Extra Value Meal w/ Bacon Egg & Cheese McGriddles,570.0,27.0,9.0,195.0,1570.0,62.0,4.0,15.0,22.0
+Quarter Pounder w/ Cheese,530.0,27.0,13.0,100.0,1090.0,41.0,3.0,10.0,31.0
+McCafe Vanilla Shake Small,490.0,14.0,9.0,60.0,230.0,61.0,0.0,59.0,11.0
+McCafe Iced Latte w/ Whole Milk Small,120.0,6.0,3.5,20.0,85.0,10.0,0.0,9.0,6.0
+McCafe Caramel Cappuccino w/ Whole Milk Small,210.0,5.0,3.0,15.0,300.0,35.0,0.0,32.0,6.0
+POWERade Mountain Berry Blast Small,90.0,0.0,0.0,0.0,110.0,22.0,0.0,22.0,0.0
+McDouble,380.0,18.0,8.0,70.0,840.0,34.0,2.0,7.0,23.0
+Sweet Tea Medium,110.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+McCafe Americano w/ Espresso Large,0.0,0.0,0.0,0.0,15.0,1.0,0.0,0.0,0.0
+Egg McMuffin,300.0,12.0,6.0,245.0,730.0,30.0,2.0,3.0,18.0
+French Fries Large,510.0,24.0,3.5,0.0,350.0,66.0,6.0,0.0,7.0
+Extra Value Meal w/ Double Quarter Pounder Medium Coke & Medium Fries,1330.0,61.0,23.0,175.0,1570.0,143.0,7.0,67.0,55.0
+Dasani Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Dr Pepper Extra Small,120.0,0.0,0.0,0.0,40.0,32.0,0.0,32.0,0.0
+McCafe Cappuccino w/ Whole Milk Medium,160.0,8.0,5.0,25.0,110.0,13.0,0.0,12.0,8.0
+Hot Fudge Sundae,380.0,14.0,8.0,25.0,180.0,43.0,3.0,47.0,10.0
+McCafe Caramel Latte w/ Whole Milk Small,250.0,7.0,4.0,25.0,330.0,38.0,0.0,35.0,8.0
+Extra Value Meal w/ Artisan Grilled Chicken Sandwich Medium Coke & Medium Fries,940.0,22.0,4.0,95.0,1390.0,145.0,7.0,68.0,41.0
+2 Buttermilk Crispy Tenders,240.0,13.0,2.0,50.0,680.0,11.0,1.0,0.0,20.0
+McCafe Frappe Caramel Medium,510.0,21.0,13.0,75.0,150.0,72.0,0.0,67.0,8.0
+Fanta Orange Medium,120.0,0.0,0.0,0.0,30.0,33.0,0.0,32.0,0.0
+Hotcakes & Sausage,790.0,35.0,13.0,80.0,890.0,103.0,2.0,45.0,16.0
+Diet Coke Small,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Vanilla Cone,200.0,5.0,3.5,20.0,80.0,23.0,0.0,24.0,5.0
+McCafe Caramel Iced Coffee w/ Light Cream Medium,190.0,7.0,4.5,25.0,310.0,31.0,0.0,26.0,4.0
+Iced Tea Large,5.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,1.0
+Mayonnaise,90.0,10.0,1.5,0.0,65.0,0.0,0.0,0.0,0.0
+Tangy Barbeque Sauce,45.0,0.0,0.0,0.0,250.0,11.0,0.0,9.0,0.0
+McCafe Frappe Chocolate Chip Medium,590.0,33.0,15.0,110.0,960.0,37.0,2.0,7.0,37.0
+Extra Value Meal w/ Sausage McMuffin,620.0,39.0,13.0,275.0,1150.0,47.0,3.0,3.0,24.0
+Extra Value Meal w/ Big Mac Medium Coke & Medium Fries,1090.0,44.0,12.0,80.0,1230.0,147.0,7.0,66.0,29.0
+10 Chicken McNuggets,440.0,27.0,4.5,75.0,840.0,26.0,2.0,0.0,24.0
+McCafe French Vanilla Cappuccino w/ Whole Milk Small,190.0,5.0,3.0,15.0,70.0,30.0,0.0,29.0,6.0
+McCafe Chocolate Shake Large,850.0,23.0,14.0,90.0,420.0,110.0,1.0,122.0,19.0
+Oatmeal Raisin Cookie,140.0,5.0,2.5,10.0,125.0,22.0,1.0,12.0,2.0
+McCafe Mocha Frappe Large,670.0,26.0,17.0,90.0,190.0,97.0,1.0,88.0,11.0
+Filet O Fish,410.0,20.0,5.0,50.0,660.0,39.0,2.0,5.0,18.0
+Extra Value Meal w/ Egg McMuffin,450.0,21.0,7.0,245.0,1070.0,47.0,3.0,3.0,21.0
+French Fries Small,230.0,11.0,1.5,0.0,160.0,29.0,3.0,0.0,3.0
+Dr Pepper Large,290.0,0.0,0.0,0.0,95.0,79.0,0.0,78.0,0.0
+McCafe Cappuccino w/ Whole Milk Small,120.0,6.0,3.5,20.0,80.0,9.0,0.0,9.0,6.0
+Coca Cola Large,290.0,0.0,0.0,0.0,70.0,77.0,0.0,77.0,0.0
+McCafe French Vanilla Iced Coffee w/ Light Cream Large,220.0,7.0,4.5,30.0,85.0,40.0,0.0,37.0,3.0
+Cheeseburger,300.0,12.0,5.0,40.0,680.0,33.0,2.0,7.0,15.0
+Extra Value Meal w/ 4 Pc Nuggets Medium Coke & Medium Fries,730.0,27.0,4.0,30.0,620.0,111.0,5.0,57.0,14.0
+McCafe Caramel Frappe Large,670.0,27.0,17.0,95.0,200.0,96.0,0.0,89.0,11.0
+McCafe Frappe Chocolate Chip Small,500.0,22.0,14.0,65.0,130.0,72.0,1.0,64.0,8.0
+Powerade Mountain Berry Blast Extra Small,90.0,0.0,0.0,0.0,110.0,22.0,0.0,22.0,0.0
+Creamy Ranch Sauce,110.0,12.0,2.0,5.0,150.0,1.0,0.0,1.0,0.0
+Sausage Biscuit,460.0,30.0,13.0,40.0,1050.0,36.0,2.0,3.0,11.0
+Bacon Egg & Cheese Biscuit,450.0,24.0,12.0,200.0,1290.0,40.0,3.0,3.0,18.0
+French Fries Kids,110.0,5.0,1.0,0.0,80.0,15.0,1.0,0.0,1.0
+40 Chicken McNuggets,1770.0,107.0,18.0,295.0,3370.0,105.0,7.0,1.0,98.0
+Steak Egg & Cheese Biscuit,530.0,30.0,15.0,230.0,1490.0,40.0,3.0,4.0,25.0

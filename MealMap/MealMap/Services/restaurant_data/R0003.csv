@@ -1,0 +1,372 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Sweet Almond Pretzel w/ Butter,390.0,6.0,3.5,10.0,400.0,74.0,2.0,17.0,8.0
+Sweet Almond Pretzel,350.0,2.0,1.0,0.0,400.0,74.0,2.0,17.0,8.0
+Cinnamon Sugar Pretzel w/ Butter,470.0,12.0,7.0,25.0,400.0,84.0,2.0,29.0,8.0
+Cinnamon Sugar Pretzel,380.0,1.0,0.0,0.0,400.0,84.0,2.0,29.0,8.0
+Cinnamon Sugar Nuggets w/ Butter,490.0,5.0,2.5,10.0,440.0,99.0,2.0,35.0,9.0
+Cinnamon Sugar Nuggets,460.0,2.5,0.0,0.0,300.0,99.0,2.0,35.0,9.0
+Cinnamon Sugar Stix w/ Butter,470.0,12.0,7.0,25.0,400.0,84.0,2.0,29.0,8.0
+Cinnamon Sugar Stix,380.0,1.0,0.0,0.0,400.0,84.0,2.0,29.0,8.0
+Jalapeno Pretzel w/ Butter & Salt,330.0,5.0,2.5,10.0,1060.0,63.0,2.0,9.0,8.0
+Jalapeno Pretzel w/ Salt,300.0,1.0,0.0,0.0,1060.0,63.0,2.0,9.0,8.0
+Jalapeno Pretzel,300.0,1.0,0.0,0.0,480.0,63.0,2.0,9.0,8.0
+Jalapeno Pretzel w/ Butter,330.0,5.0,3.0,10.0,480.0,63.0,2.0,9.0,8.0
+Original Pretzel w/ Butter & Salt,340.0,5.0,2.5,10.0,990.0,65.0,2.0,10.0,8.0
+Original Pretzel w/ Salt,310.0,1.0,0.0,0.0,990.0,65.0,2.0,10.0,8.0
+Original Pretzel,310.0,1.0,0.0,0.0,400.0,65.0,2.0,10.0,8.0
+Original Pretzel w/ Butter,340.0,5.0,3.0,10.0,400.0,65.0,2.0,10.0,8.0
+Original Pretzel Nuggets,390.0,5.0,2.5,10.0,1420.0,75.0,2.0,11.0,9.0
+Original Pretzel Nuggets No Butter,360.0,1.5,0.0,0.0,1420.0,75.0,2.0,11.0,9.0
+Original Stix w/ Salt & Butter,340.0,5.0,3.0,10.0,990.0,65.0,2.0,10.0,8.0
+Original Stix w/ Salt,310.0,1.0,0.0,0.0,990.0,65.0,2.0,10.0,8.0
+Pepperoni Pretzel w/ Butter,480.0,16.0,8.0,40.0,860.0,65.0,2.0,10.0,15.0
+Pepperoni Pretzel,440.0,12.0,5.0,30.0,860.0,65.0,2.0,10.0,15.0
+Raisin Pretzel w/ Butter,360.0,5.0,3.0,10.0,390.0,69.0,2.0,16.0,8.0
+Raisin Pretzel,330.0,1.0,0.0,0.0,390.0,69.0,2.0,16.0,8.0
+Sour Cream & Onion Pretzel w/ Butter & Salt,360.0,5.0,3.0,10.0,1180.0,68.0,2.0,12.0,9.0
+Sour Cream & Onion Pretzel w/ Salt,330.0,1.5,0.0,0.0,1180.0,68.0,2.0,12.0,9.0
+Sour Cream & Onion Pretzel,330.0,1.5,0.0,0.0,590.0,68.0,2.0,12.0,9.0
+Sour Cream & Onion Pretzel w/ Butter,360.0,5.0,3.0,10.0,590.0,68.0,2.0,12.0,9.0
+Icee Blue Raspberry 16 fl oz,140.0,0.0,0.0,0.0,10.0,37.0,0.0,37.0,0.0
+Icee Blue Raspberry 21 fl oz,160.0,0.0,0.0,0.0,10.0,41.0,0.0,41.0,0.0
+Icee Blue Raspberry 32 fl oz,290.0,0.0,0.0,0.0,20.0,76.0,0.0,76.0,0.0
+Icee Coca Cola 16 fl oz,140.0,0.0,0.0,0.0,15.0,39.0,0.0,39.0,0.0
+Icee Coca Cola 21 fl oz,160.0,0.0,0.0,0.0,15.0,43.0,0.0,43.0,0.0
+Icee Coca Cola 32 fl oz,290.0,0.0,0.0,0.0,25.0,80.0,0.0,80.0,0.0
+Frozen Lemonade Mixer Blue Raspberry 12 fl oz,240.0,0.0,0.0,0.0,30.0,60.0,0.0,56.0,0.0
+Frozen Lemonade Mixer Blue Raspberry 20 fl oz,310.0,0.0,0.0,0.0,40.0,80.0,0.0,74.0,0.0
+Frozen Lemonade Mixer Mango 12 fl oz,210.0,0.0,0.0,0.0,25.0,52.0,0.0,48.0,0.0
+Frozen Lemonade Mixer Mango 20 fl oz,310.0,0.0,0.0,0.0,30.0,80.0,0.0,74.0,0.0
+Frozen Lemonade Mixer Strawberry 12 fl oz,240.0,0.0,0.0,0.0,25.0,60.0,0.0,55.0,0.0
+Frozen Lemonade Mixer Strawberry 20 fl oz,310.0,0.0,0.0,0.0,35.0,79.0,0.0,73.0,0.0
+Frozen Lemonade Mixer Wild Cherry 20 fl oz,320.0,0.0,0.0,0.0,35.0,82.0,0.0,75.0,0.0
+Frozen Lemonade Mixer Wild Cherry 12 fl oz,250.0,0.0,0.0,0.0,25.0,62.0,0.0,57.0,0.0
+Lemonade Mixer Blue Raspberry 16 fl oz,240.0,0.0,0.0,0.0,20.0,60.0,0.0,56.0,0.0
+Lemonade Mixer Blue Raspberry 20 fl oz,310.0,0.0,0.0,0.0,25.0,78.0,0.0,73.0,0.0
+Lemonade Mixer Blue Raspberry 32 fl oz,450.0,0.0,0.0,0.0,35.0,116.0,0.0,108.0,0.0
+Lemonade Mixer Mango 16 fl oz,210.0,0.0,0.0,0.0,25.0,53.0,0.0,48.0,0.0
+Lemonade Mixer Mango 20 fl oz,260.0,0.0,0.0,0.0,35.0,67.0,0.0,61.0,0.0
+Lemonade Mixer Mango 32 fl oz,470.0,0.0,0.0,0.0,50.0,101.0,0.0,93.0,0.0
+Lemonade Mixer Strawberry 16 fl oz,230.0,0.0,0.0,0.0,15.0,59.0,0.0,56.0,0.0
+Lemonade Mixer Strawberry 20 fl oz,300.0,0.0,0.0,0.0,20.0,77.0,0.0,72.0,0.0
+Lemonade Mixer Strawberry 32 fl oz,450.0,0.0,0.0,0.0,30.0,114.0,0.0,107.0,0.0
+Lemonade Mixer Wild Cherry 16 fl oz,240.0,0.0,0.0,0.0,15.0,61.0,0.0,57.0,0.0
+Lemonade Mixer Wild Cherry 20 fl oz,320.0,0.0,0.0,0.0,20.0,80.0,0.0,75.0,0.0
+Lemonade Mixer Wild Cherry 32 fl oz,470.0,0.0,0.0,0.0,30.0,118.0,0.0,110.0,0.0
+Old Fashioned Lemonade 16 fl oz,200.0,0.0,0.0,0.0,10.0,50.0,0.0,47.0,0.0
+Old Fashioned Lemonade 20 fl oz,260.0,0.0,0.0,0.0,15.0,66.0,0.0,62.0,0.0
+Old Fashioned Lemonade 32 fl oz,370.0,0.0,0.0,0.0,20.0,95.0,0.0,89.0,0.0
+Icee Wild Cherry 16 fl oz,140.0,0.0,0.0,0.0,10.0,39.0,0.0,39.0,0.0
+Icee Wild Cherry 21 fl oz,160.0,0.0,0.0,0.0,10.0,43.0,0.0,43.0,0.0
+Icee Wild Cherry 32 fl oz,290.0,0.0,0.0,0.0,20.0,80.0,0.0,80.0,0.0
+Cheese Pretzel Dog w/ Butter,370.0,20.0,9.0,50.0,780.0,33.0,1.0,5.0,12.0
+Cheese Pretzel Dog,340.0,17.0,7.0,40.0,780.0,33.0,1.0,5.0,12.0
+Jalapeno & Cheese Pretzel Dog w/ Butter,370.0,20.0,9.0,50.0,840.0,34.0,1.0,5.0,12.0
+Jalapeno & Cheese Pretzel Dog,340.0,17.0,7.0,40.0,840.0,34.0,1.0,5.0,12.0
+Jumbo Pretzel Dog w/ Butter,610.0,29.0,13.0,65.0,1150.0,67.0,2.0,10.0,19.0
+Jumbo Pretzel Dog,580.0,25.0,10.0,55.0,1150.0,67.0,2.0,10.0,19.0
+Original Pretzel Dog w/ Butter,360.0,20.0,9.0,45.0,740.0,33.0,1.0,5.0,11.0
+Original Pretzel Dog,320.0,16.0,6.0,35.0,740.0,33.0,1.0,5.0,11.0
+Caramel Dip,130.0,3.0,1.5,5.0,95.0,23.0,0.0,19.0,1.0
+Melted Cheese Dip,150.0,12.0,3.0,20.0,850.0,6.0,0.0,4.0,5.0
+Cheese Dip,100.0,8.0,3.0,15.0,470.0,2.0,0.0,0.0,3.0
+Hot Salsa Cheese Dip,90.0,7.0,3.0,5.0,450.0,4.0,0.0,3.0,2.0
+Light Cream Cheese Dip,80.0,6.0,4.5,20.0,120.0,1.0,0.0,0.0,3.0
+Marinara Dip,45.0,1.0,0.0,0.0,240.0,7.0,2.0,4.0,1.0
+Sweet Glaze Dip,130.0,0.0,0.0,0.0,0.0,32.0,0.0,32.0,0.0
+Sweet Mustard Dip,60.0,2.0,1.0,35.0,0.0,10.0,0.0,9.0,2.0
+Roasted Garlic & Parmesan Pretzel,310.0,1.0,0.0,0.0,660.0,65.0,2.0,10.0,8.0
+Roasted Garlic & Parmesan Pretzel w/ Butter,350.0,5.0,3.0,10.0,660.0,65.0,2.0,10.0,8.0
+Roasted Garlic & Parmesan Pretzel w/ Butter & Salt,380.0,8.0,4.0,15.0,1250.0,68.0,2.0,10.0,9.0
+Cinnamon Sugar Party Pretzel,250.0,6.0,4.0,15.0,210.0,43.0,1.0,15.0,4.0
+Original Party Pretzel,180.0,3.0,1.5,5.0,510.0,34.0,1.0,5.0,4.0
+Mocha Ice 12 fl oz,270.0,8.0,7.0,0.0,85.0,50.0,1.0,37.0,1.0
+Mocha Ice 20 fl oz,390.0,12.0,11.0,0.0,125.0,73.0,2.0,53.0,2.0
+12 Mini Pretzel Dogs,710.0,37.0,15.0,85.0,1580.0,67.0,2.0,10.0,25.0
+8 Mini Pretzel Dogs,480.0,25.0,10.0,55.0,1060.0,45.0,1.0,6.0,16.0
+12 Mini Pretzel Dogs w/ Butter,770.0,43.0,18.0,100.0,1580.0,67.0,2.0,10.0,25.0
+8 Mini Pretzel Dogs w/ Butter,510.0,29.0,12.0,65.0,1060.0,45.0,1.0,6.0,16.0
+Lemonade Mixer Blue Raspberry 42 fl oz,640.0,0.0,0.0,0.0,50.0,162.0,0.0,152.0,0.0
+Lemonade Mixers Strawberry 42 fl oz,630.0,0.0,0.0,0.0,45.0,160.0,0.0,150.0,0.0
+Lemonade Mixers Wild Cherry 42 oz,660.0,0.0,0.0,0.0,40.0,165.0,0.0,155.0,0.0
+Nestle Hot Cocoa,80.0,3.0,2.0,0.0,170.0,15.0,1.0,12.0,1.0
+Cherry Coke 16 oz,150.0,0.0,0.0,0.0,5.0,40.0,0.0,40.0,0.0
+Cherry Coke 21 oz,200.0,0.0,0.0,0.0,10.0,53.0,0.0,53.0,0.0
+Cherry Coke 32 oz,280.0,0.0,0.0,0.0,10.0,76.0,0.0,76.0,0.0
+Coca Cola 16 oz,140.0,0.0,0.0,0.0,15.0,38.0,0.0,38.0,0.0
+Coca Cola 21 oz,180.0,0.0,0.0,0.0,15.0,51.0,0.0,51.0,0.0
+Coca Cola 32 oz,270.0,0.0,0.0,0.0,25.0,74.0,0.0,74.0,0.0
+Coca Cola Diet 16 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Coca Cola Diet 21 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Coca Cola Diet 32 oz,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Coffee 12 oz,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Coffee 16 oz,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Dr Pepper 16 oz,140.0,0.0,0.0,0.0,50.0,39.0,0.0,39.0,0.0
+Dr Pepper 21 oz,190.0,0.0,0.0,0.0,65.0,52.0,0.0,52.0,0.0
+Dr Pepper 32 oz,280.0,0.0,0.0,0.0,95.0,75.0,0.0,75.0,0.0
+Gold Peak Sweetened Black Tea 16 oz,130.0,0.0,0.0,0.0,15.0,34.0,0.0,34.0,0.0
+Gold Peak Sweetened Black Tea 21 oz,170.0,0.0,0.0,0.0,20.0,46.0,0.0,46.0,0.0
+Gold Peak Sweetened Black Tea 32 oz,240.0,0.0,0.0,0.0,25.0,66.0,0.0,66.0,0.0
+Gold Peak Green Tea 32 oz,250.0,0.0,0.0,0.0,20.0,69.0,0.0,66.0,0.0
+Gold Peak Green Tea 16 oz,130.0,0.0,0.0,0.0,10.0,36.0,0.0,34.0,0.0
+Gold Peak Green Tea 21 oz,180.0,0.0,0.0,0.0,15.0,48.0,0.0,46.0,0.0
+Root Beer 16 oz,160.0,0.0,0.0,0.0,35.0,42.0,0.0,42.0,0.0
+Root Beer 21 oz,210.0,0.0,0.0,0.0,45.0,57.0,0.0,57.0,0.0
+Root Beer 32 oz,300.0,0.0,0.0,0.0,65.0,81.0,0.0,81.0,0.0
+Sprite 16 oz,140.0,0.0,0.0,0.0,30.0,36.0,0.0,32.0,0.0
+Sprite 21 oz,190.0,0.0,0.0,0.0,45.0,48.0,0.0,42.0,0.0
+Sprite 32 oz,270.0,0.0,0.0,0.0,60.0,69.0,0.0,61.0,0.0
+Orange Fanta 21 oz,220.0,0.0,0.0,0.0,15.0,60.0,0.0,60.0,0.0
+Orange Fanta 32 oz,320.0,0.0,0.0,0.0,25.0,87.0,0.0,87.0,0.0
+Orange Fanta 16 oz,170.0,0.0,0.0,0.0,15.0,45.0,0.0,45.0,0.0
+Gold Peak Unsweetened Black Tea 16 oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Gold Peak Unsweetened Black Tea 21 oz,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Gold Peak Unsweetened Black Tea 32 oz,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Hi C Fruit Punch 16 oz,150.0,0.0,0.0,0.0,200.0,39.0,0.0,39.0,0.0
+Hi C Fruit Punch 21 oz,200.0,0.0,0.0,0.0,270.0,52.0,0.0,52.0,0.0
+Hi C Fruit Punch 32 oz,280.0,0.0,0.0,0.0,390.0,75.0,0.0,75.0,0.0
+Hot Tea 12 oz,5.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Hot Tea 16 oz,5.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Roasted Garlic & Parmesan Pretzel w/ Salt,330.0,1.5,0.5,0.0,1250.0,68.0,2.0,10.0,9.0
+Pretzel Waffle Original,260.0,16.0,10.0,40.0,240.0,25.0,1.0,4.0,3.0
+Pretzel Waffle Cinnamon Sugar,360.0,16.0,10.0,40.0,240.0,50.0,1.0,29.0,3.0
+Pretzel Waffle Powdered Sugar,280.0,16.0,10.0,40.0,240.0,30.0,1.0,9.0,3.0
+Breakfast Sausage Stix w/ Butter,760.0,43.0,15.0,100.0,1240.0,65.0,2.0,9.0,27.0
+Breakfast Sausage Stix,720.0,38.0,12.0,85.0,1240.0,65.0,2.0,9.0,27.0
+Lemonade Mixer Mango 42 oz,560.0,0.0,0.0,0.0,70.0,141.0,0.0,129.0,0.0
+Frozen Lemonade 12 oz,210.0,0.0,0.0,0.0,20.0,53.0,0.0,49.0,0.0
+Frozen Lemonade 20 oz,300.0,0.0,0.0,0.0,30.0,76.0,0.0,71.0,0.0
+Pina Colada Ice 12 oz,210.0,0.0,0.0,0.0,30.0,51.0,0.0,48.0,0.0
+Pina Colada Ice 20 oz,300.0,0.0,0.0,0.0,45.0,73.0,0.0,69.0,0.0
+Gold Peak Peach Tea 21 oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Gold Peak Peach Tea 16 oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Gold Peak Peach Tea 32 oz,170.0,0.0,0.0,0.0,20.0,45.0,0.0,45.0,0.0
+Gold Peak Raspberry Tea 16 oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Gold Peak Raspberry Tea 21 oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Gold Peak Raspberry Tea 32 oz,170.0,0.0,0.0,0.0,20.0,45.0,0.0,45.0,0.0
+Fuze Sweet Tea 16 oz,90.0,0.0,0.0,0.0,15.0,24.0,0.0,24.0,0.0
+Fuze Sweet Tea 21 oz,120.0,0.0,0.0,0.0,20.0,32.0,0.0,32.0,0.0
+Fuze Sweet Tea 32 oz,170.0,0.0,0.0,0.0,25.0,45.0,0.0,45.0,0.0
+Fuze Unsweetened Tea 16 oz,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Fuze Unsweetened Tea 21 oz,5.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Fuze Black Tea w/ Lemon 16 oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Fuze Black Tea w/ Lemon 21 oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Fuze Black Tea w/ Lemon 32 oz,170.0,0.0,0.0,0.0,20.0,45.0,0.0,45.0,0.0
+Fuze Peach Tea 16 oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Fuze Peach Tea 21 oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Fuze Peach Tea 32 oz,170.0,0.0,0.0,0.0,20.0,45.0,0.0,45.0,0.0
+Fuze Raspberry Tea 16 oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Fuze Raspberry Tea 21 oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Fuze Raspberry Tea 32 oz,170.0,0.0,0.0,0.0,25.0,45.0,0.0,45.0,0.0
+Original Sweet Iced Tea 16 oz,90.0,0.0,0.0,0.0,0.0,23.0,0.0,23.0,0.0
+Original Sweet Iced Tea 20 oz,110.0,0.0,0.0,0.0,0.0,29.0,0.0,29.0,0.0
+Original Sweet Iced Tea 32 oz,190.0,0.0,0.0,0.0,0.0,49.0,0.0,49.0,0.0
+Original Unsweetened Iced Tea 16 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Original Unsweetened Iced Tea 20 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Original Unsweetened Iced Tea 32 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Peach Sweet Iced Tea 16 oz,120.0,0.0,0.0,0.0,0.0,32.0,0.0,31.0,0.0
+Peach Sweet Iced Tea 20 oz,160.0,0.0,0.0,0.0,0.0,40.0,0.0,40.0,0.0
+Peach Sweet Iced Tea 32 oz,260.0,0.0,0.0,0.0,0.0,67.0,0.0,65.0,0.0
+Peach Unsweetened Iced Tea 16 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Peach Unsweetened Iced Tea 20 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Peach Unsweetened Iced Tea 32 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Raspberry Sweet Iced Tea 16 oz,120.0,0.0,0.0,0.0,5.0,32.0,0.0,31.0,0.0
+Raspberry Sweet Iced Tea 20 oz,160.0,0.0,0.0,0.0,5.0,40.0,0.0,39.0,0.0
+Raspberry Sweet Iced Tea 32 oz,260.0,0.0,0.0,0.0,10.0,67.0,0.0,64.0,0.0
+Raspberry Unsweetened Iced Tea 16 oz,0.0,0.0,0.0,0.0,5.0,1.0,0.0,0.0,0.0
+Raspberry Unsweetened Iced Tea 20 oz,0.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Raspberry Unsweetened Iced Tea 32 oz,0.0,0.0,0.0,0.0,10.0,2.0,0.0,0.0,0.0
+10 Mini Pretzel Dogs w/ Butter,630.0,35.0,15.0,80.0,1290.0,56.0,2.0,8.0,20.0
+Jumbo Jalapeno Cheese Pretzel Dog w/ Butter,650.0,31.0,14.0,70.0,1360.0,68.0,2.0,10.0,21.0
+Jumbo Jalapeno Cheese Pretzel Dog,610.0,27.0,12.0,60.0,1360.0,68.0,2.0,10.0,21.0
+Breakfast Pretzel Sandwich Egg & Cheese,240.0,8.0,4.0,80.0,640.0,29.0,1.0,5.0,13.0
+Breakfast Pretzel Sandwich Bacon Egg & Cheese,300.0,12.0,5.0,90.0,850.0,29.0,1.0,5.0,16.0
+Breakfast Pretzel Sandwich Sausage Egg & Cheese,390.0,21.0,9.0,110.0,950.0,29.0,1.0,5.0,20.0
+12 Cheddar Stuffed Pretzel Nuggets w/ Butter,470.0,15.0,9.0,40.0,1140.0,66.0,2.0,11.0,15.0
+12 Cheddar Stuffed Pretzel Nuggets,440.0,12.0,7.0,35.0,1140.0,66.0,2.0,11.0,15.0
+Personal Cheese Pretzel Pizza,600.0,14.0,6.0,35.0,910.0,95.0,3.0,16.0,21.0
+Personal Pepperoni Pretzel Pizza,700.0,23.0,9.0,55.0,1280.0,95.0,3.0,16.0,25.0
+Fuze Unsweetened Tea 32 oz,5.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Original Stix,310.0,1.0,0.0,0.0,400.0,65.0,2.0,10.0,8.0
+Original Stix w/ Butter,340.0,5.0,3.0,10.0,400.0,65.0,2.0,10.0,8.0
+Sour Cream & Onion Pretzel w/ Butter & Salt,380.0,8.0,4.0,15.0,1240.0,68.0,2.0,12.0,8.0
+Gold Peak Raspberry Tea 16 oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Fuze Unsweetened Tea 32 fl oz,5.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Icee Wild Cherry 21 fl oz,160.0,0.0,0.0,0.0,10.0,43.0,0.0,43.0,0.0
+Dr Pepper 32 oz,280.0,0.0,0.0,0.0,95.0,75.0,0.0,75.0,0.0
+Raspberry Sweet Iced Tea 16 fl oz,120.0,0.0,0.0,0.0,5.0,32.0,0.0,31.0,0.0
+Gold Peak Green Tea 32 oz,250.0,0.0,0.0,0.0,20.0,69.0,0.0,66.0,0.0
+Original Sweet Iced Tea 20 fl oz,110.0,0.0,0.0,0.0,0.0,29.0,0.0,29.0,0.0
+Sweet Almond Pretzel w/ Butter,390.0,6.0,3.5,10.0,400.0,74.0,2.0,17.0,8.0
+Original Pretzel Nuggets,390.0,5.0,2.5,10.0,1280.0,75.0,2.0,11.0,9.0
+Sweet Almond Pretzel,350.0,2.0,1.0,0.0,400.0,74.0,2.0,17.0,8.0
+Coffee 12 oz,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Raspberry Unsweetened Iced Tea 16 fl oz,0.0,0.0,0.0,0.0,5.0,1.0,0.0,0.0,0.0
+Jumbo Jalapeno Cheese Pretzel Dog w/ Butter,650.0,31.0,14.0,70.0,1360.0,68.0,2.0,10.0,21.0
+Coca Cola Diet 21 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Cheese Pretzel Dog w/ Butter,370.0,20.0,9.0,50.0,640.0,33.0,1.0,5.0,12.0
+Cinnamon Sugar Nuggets,460.0,2.5,0.0,0.0,300.0,99.0,2.0,35.0,9.0
+Pina Colada Ice 20 oz,300.0,0.0,0.0,0.0,45.0,73.0,0.0,69.0,0.0
+Fuze Black Tea w/ Lemon 16 fl oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Original Stix w/ Butter,340.0,5.0,3.0,10.0,400.0,65.0,2.0,10.0,8.0
+Fuze Sweet Tea 21 fl oz,120.0,0.0,0.0,0.0,20.0,32.0,0.0,32.0,0.0
+Original Party Pretzel,180.0,3.0,1.5,5.0,510.0,34.0,1.0,5.0,4.0
+12 Mini Pretzel Dogs w/ Butter,770.0,43.0,18.0,100.0,1580.0,67.0,2.0,10.0,25.0
+Breakfast Sausage Stix w/ Butter,760.0,43.0,15.0,100.0,1240.0,65.0,2.0,9.0,27.0
+Fuze Black Tea w/ Lemon 32 fl oz,170.0,0.0,0.0,0.0,20.0,45.0,0.0,45.0,0.0
+Gold Peak Peach Tea 21 oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Lemonade Mixer Blue Raspberry 20 fl oz,300.0,0.0,0.0,0.0,15.0,78.0,0.0,73.0,0.0
+Pepperoni Pretzel,440.0,12.0,5.0,30.0,860.0,65.0,2.0,10.0,15.0
+Cinnamon Sugar Stix w/ Butter,480.0,12.0,7.0,25.0,400.0,84.0,2.0,29.0,8.0
+Gold Peak Unsweetened Black Tea 21 oz,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Frozen Lemonade Mixer Wild Cherry 20 fl oz,320.0,0.0,0.0,0.0,30.0,80.0,0.0,74.0,0.0
+Frozen Lemonade Mixer Mango 20 fl oz,310.0,0.0,0.0,0.0,30.0,80.0,0.0,74.0,0.0
+Orange Fanta 32 oz,320.0,0.0,0.0,0.0,25.0,87.0,0.0,87.0,0.0
+Sour Cream & Onion Pretzel,330.0,1.5,0.5,0.0,650.0,68.0,2.0,12.0,8.0
+Peach Unsweetened Iced Tea 16 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Coca Cola Diet 32 oz,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Sprite 16 oz,140.0,0.0,0.0,0.0,30.0,36.0,0.0,32.0,0.0
+12 Mini Pretzel Dogs,710.0,37.0,15.0,85.0,1580.0,67.0,2.0,10.0,25.0
+Breakfast Sausage Stix,720.0,38.0,12.0,85.0,1240.0,65.0,2.0,9.0,27.0
+Hot Salsa Cheese Dip,90.0,8.0,3.0,15.0,370.0,2.0,0.0,2.0,3.0
+Original Stix w/ Salt,310.0,1.0,0.0,0.0,990.0,65.0,2.0,10.0,8.0
+Pretzel Waffle Original,260.0,16.0,10.0,40.0,240.0,25.0,1.0,4.0,3.0
+Jalapeno Pretzel,300.0,1.0,0.0,0.0,480.0,63.0,2.0,9.0,8.0
+Frozen Lemonade Mixer Blue Raspberry 20 fl oz,310.0,0.0,0.0,0.0,40.0,80.0,0.0,74.0,0.0
+Fuze Sweet Tea 32 fl oz,170.0,0.0,0.0,0.0,25.0,45.0,0.0,45.0,0.0
+Lemonade Mixer Blue Raspberry 32 fl oz,450.0,0.0,0.0,0.0,25.0,115.0,0.0,108.0,0.0
+Original Pretzel Nuggets No Butter,360.0,1.5,0.0,0.0,1280.0,75.0,2.0,11.0,9.0
+Caramel Dip,130.0,3.0,1.5,5.0,95.0,23.0,0.0,19.0,1.0
+Fuze Unsweetened Tea 16 fl oz,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Lemonade Mixer Mango 32 fl oz,450.0,0.0,0.0,0.0,25.0,115.0,0.0,108.0,0.0
+Fuze Raspberry Tea 32 fl oz,170.0,0.0,0.0,0.0,25.0,45.0,0.0,45.0,0.0
+Cinnamon Sugar Pretzel w/ Butter,470.0,12.0,7.0,25.0,400.0,84.0,2.0,29.0,8.0
+Roasted Garlic & Parmesan Pretzel w/ Salt,330.0,1.5,0.5,0.0,1250.0,68.0,2.0,10.0,9.0
+Jumbo Jalapeno Cheese Pretzel Dog,610.0,27.0,12.0,60.0,1360.0,68.0,2.0,10.0,21.0
+Hot Tea 16 oz,5.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Melted Cheese Dip,150.0,12.0,3.0,20.0,850.0,6.0,0.0,4.0,5.0
+Raspberry Sweet Iced Tea 32 fl oz,260.0,0.0,0.0,0.0,10.0,67.0,0.0,64.0,0.0
+Lemonade Mixer Strawberry 20 fl oz,310.0,0.0,0.0,0.0,15.0,78.0,0.0,73.0,0.0
+Original Pretzel Dog w/ Butter,360.0,20.0,9.0,45.0,740.0,33.0,1.0,5.0,11.0
+Dr Pepper 21 oz,190.0,0.0,0.0,0.0,65.0,52.0,0.0,52.0,0.0
+Jalapeno Pretzel w/ Salt,300.0,1.0,0.0,0.0,1060.0,63.0,2.0,9.0,8.0
+Fuze Peach Tea 16 fl oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Jumbo Pretzel Dog w/ Butter,610.0,29.0,13.0,65.0,1150.0,67.0,2.0,10.0,19.0
+Frozen Lemonade Mixer Strawberry 20 fl oz,320.0,0.0,0.0,0.0,30.0,80.0,0.0,74.0,0.0
+Dr Pepper 16 oz,140.0,0.0,0.0,0.0,50.0,39.0,0.0,39.0,0.0
+Lemonade Mixer Wild Cherry 20 fl oz,310.0,0.0,0.0,0.0,20.0,78.0,0.0,73.0,0.0
+Root Beer 16 oz,160.0,0.0,0.0,0.0,35.0,42.0,0.0,42.0,0.0
+Pretzel Waffle Powdered Sugar,280.0,16.0,10.0,40.0,240.0,30.0,1.0,9.0,3.0
+Fuze Black Tea w/ Lemon 21 fl oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Root Beer 32 oz,300.0,0.0,0.0,0.0,65.0,81.0,0.0,81.0,0.0
+Hi C Fruit Punch 21 oz,200.0,0.0,0.0,0.0,270.0,52.0,0.0,52.0,0.0
+Fuze Peach Tea 32 fl oz,170.0,0.0,0.0,0.0,20.0,45.0,0.0,45.0,0.0
+Original Pretzel Dog,320.0,16.0,6.0,35.0,740.0,33.0,1.0,5.0,11.0
+Roasted Garlic & Parmesan Pretzel,310.0,1.0,0.0,0.0,660.0,65.0,2.0,10.0,8.0
+Icee Wild Cherry 32 fl oz,290.0,0.0,0.0,0.0,20.0,80.0,0.0,80.0,0.0
+Pepperoni Pretzel w/ Butter,480.0,16.0,8.0,40.0,860.0,65.0,2.0,10.0,15.0
+Original Unsweetened Iced Tea 20 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Icee Coca Cola 16 fl oz,140.0,0.0,0.0,0.0,15.0,39.0,0.0,39.0,0.0
+Cinnamon Sugar Party Pretzel,250.0,6.0,4.0,15.0,210.0,43.0,1.0,15.0,4.0
+Sprite 21 oz,190.0,0.0,0.0,0.0,45.0,48.0,0.0,42.0,0.0
+Original Unsweetened Iced Tea 32 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Lemonade Mixer Blue Raspberry 16 fl oz,230.0,0.0,0.0,0.0,10.0,60.0,0.0,56.0,0.0
+Raisin Pretzel w/ Butter,360.0,5.0,3.0,10.0,390.0,69.0,2.0,16.0,8.0
+Original Pretzel w/ Salt,310.0,1.0,0.0,0.0,990.0,65.0,2.0,10.0,8.0
+Original Stix,310.0,1.0,0.0,0.0,400.0,65.0,2.0,10.0,8.0
+Coca Cola 16 oz,140.0,0.0,0.0,0.0,15.0,38.0,0.0,38.0,0.0
+Icee Blue Raspberry 16 fl oz,140.0,0.0,0.0,0.0,10.0,37.0,0.0,37.0,0.0
+Cinnamon Sugar Nuggets w/ Butter,490.0,5.0,2.5,10.0,300.0,99.0,2.0,35.0,9.0
+Cheese Dip,90.0,8.0,3.0,15.0,370.0,2.0,0.0,1.0,3.0
+Old Fashioned Lemonade 16 fl oz,200.0,0.0,0.0,0.0,10.0,50.0,0.0,47.0,0.0
+Cherry Coke 21 oz,200.0,0.0,0.0,0.0,10.0,53.0,0.0,53.0,0.0
+Peach Sweet Iced Tea 32 fl oz,260.0,0.0,0.0,0.0,0.0,67.0,0.0,65.0,0.0
+Nestle Hot Cocoa,80.0,3.0,2.0,0.0,170.0,15.0,1.0,12.0,1.0
+Original Stix w/ Salt & Butter,320.0,5.0,3.0,10.0,990.0,65.0,2.0,10.0,8.0
+Lemonade Mixer Wild Cherry 32 fl oz,460.0,0.0,0.0,0.0,25.0,115.0,0.0,108.0,0.0
+Pretzel Waffle Cinnamon Sugar,360.0,16.0,10.0,40.0,240.0,50.0,1.0,29.0,3.0
+Old Fashioned Lemonade 32 fl oz,370.0,0.0,0.0,0.0,20.0,95.0,0.0,89.0,0.0
+Lemonade Mixer Strawberry 32 fl oz,460.0,0.0,0.0,0.0,25.0,115.0,0.0,108.0,0.0
+Peach Sweet Iced Tea 16 fl oz,120.0,0.0,0.0,0.0,0.0,32.0,0.0,31.0,0.0
+Coffee 16 oz,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Personal Cheese Pretzel Pizza,600.0,14.0,6.0,35.0,910.0,95.0,3.0,16.0,21.0
+Icee Blue Raspberry 21 fl oz,160.0,0.0,0.0,0.0,10.0,41.0,0.0,41.0,0.0
+Cherry Coke 32 oz,280.0,0.0,0.0,0.0,10.0,76.0,0.0,76.0,0.0
+Pina Colada Ice 12 oz,210.0,0.0,0.0,0.0,30.0,51.0,0.0,48.0,0.0
+Jalapeno Pretzel w/ Butter,330.0,5.0,3.0,10.0,480.0,63.0,2.0,9.0,8.0
+Cheese Pretzel Dog,340.0,17.0,7.0,40.0,640.0,33.0,1.0,5.0,12.0
+Sour Cream & Onion Pretzel w/ Salt,330.0,1.5,0.5,0.0,1240.0,68.0,2.0,12.0,8.0
+Coca Cola Diet 16 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Jumbo Pretzel Dog,580.0,25.0,10.0,55.0,1150.0,67.0,2.0,10.0,19.0
+Jalapeno Pretzel w/ Butter & Salt,330.0,5.0,3.0,10.0,1060.0,63.0,2.0,9.0,8.0
+Hi C Fruit Punch 16 oz,150.0,0.0,0.0,0.0,200.0,39.0,0.0,39.0,0.0
+Coca Cola 21 oz,180.0,0.0,0.0,0.0,15.0,51.0,0.0,51.0,0.0
+Frozen Lemonade 12 oz,210.0,0.0,0.0,0.0,20.0,53.0,0.0,49.0,0.0
+Icee Wild Cherry 16 fl oz,140.0,0.0,0.0,0.0,10.0,39.0,0.0,39.0,0.0
+Cinnamon Sugar Stix,380.0,1.0,0.0,0.0,400.0,84.0,2.0,29.0,8.0
+Gold Peak Sweetened Black Tea 21 oz,170.0,0.0,0.0,0.0,20.0,46.0,0.0,46.0,0.0
+Fuze Peach Tea 21 fl oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Peach Sweet Iced Tea 20 fl oz,160.0,0.0,0.0,0.0,0.0,40.0,0.0,40.0,0.0
+Raspberry Sweet Iced Tea 20 fl oz,160.0,0.0,0.0,0.0,5.0,40.0,0.0,39.0,0.0
+Mocha Ice 20 fl oz,390.0,12.0,11.0,0.0,125.0,73.0,2.0,53.0,2.0
+Jalapeno & Cheese Pretzel Dog w/ Butter,370.0,20.0,9.0,50.0,700.0,34.0,1.0,5.0,12.0
+Gold Peak Raspberry Tea 21 oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Breakfast Pretzel Sandwich Egg & Cheese,119.0,8.0,4.0,80.0,640.0,29.0,1.0,5.0,13.0
+Cinnamon Sugar Pretzel,380.0,1.0,0.0,0.0,400.0,84.0,2.0,29.0,8.0
+Roasted Garlic & Parmesan Pretzel w/ Butter,350.0,5.0,3.0,10.0,660.0,65.0,2.0,10.0,8.0
+Original Unsweetened Iced Tea 16 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Gold Peak Green Tea 21 oz,180.0,0.0,0.0,0.0,15.0,48.0,0.0,46.0,0.0
+Frozen Lemonade 20 oz,300.0,0.0,0.0,0.0,30.0,76.0,0.0,71.0,0.0
+Lemonade Mixer Strawberry 16 fl oz,240.0,0.0,0.0,0.0,10.0,60.0,0.0,56.0,0.0
+Frozen Lemonade Mixer Strawberry 12 fl oz,240.0,0.0,0.0,0.0,20.0,60.0,0.0,56.0,0.0
+Fuze Raspberry Tea 21 fl oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Icee Coca Cola 32 oz,290.0,0.0,0.0,0.0,25.0,80.0,0.0,80.0,0.0
+Icee Blue Raspberry 32 fl oz,290.0,0.0,0.0,0.0,20.0,76.0,0.0,76.0,0.0
+Frozen Lemonade Mixer Wild Cherry 12 fl oz,240.0,0.0,0.0,0.0,25.0,60.0,0.0,56.0,0.0
+Hot Tea 12 oz,5.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Original Pretzel w/ Butter,340.0,5.0,3.0,10.0,400.0,65.0,2.0,10.0,8.0
+Raspberry Unsweetened Iced Tea 32 fl oz,0.0,0.0,0.0,0.0,10.0,2.0,0.0,0.0,0.0
+Marinara Dip,45.0,1.0,0.0,0.0,240.0,7.0,2.0,4.0,1.0
+Fuze Raspberry Tea 16 fl oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Breakfast Pretzel Sandwich Sausage Egg & Cheese,390.0,21.0,9.0,110.0,950.0,29.0,1.0,5.0,20.0
+Gold Peak Unsweetened Black Tea 16 oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Gold Peak Sweetened Black Tea 16 oz,130.0,0.0,0.0,0.0,15.0,34.0,0.0,34.0,0.0
+Cherry Coke 16 oz,150.0,0.0,0.0,0.0,5.0,40.0,0.0,40.0,0.0
+Original Sweet Iced Tea 32 fl oz,190.0,0.0,0.0,0.0,0.0,49.0,0.0,49.0,0.0
+Coca Cola 32 oz,270.0,0.0,0.0,0.0,25.0,74.0,0.0,74.0,0.0
+Frozen Lemonade Mixer Blue Raspberry 12 fl oz,240.0,0.0,0.0,0.0,25.0,60.0,0.0,56.0,0.0
+Fuze Unsweetened Tea 21 fl oz,5.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Gold Peak Green Tea 16 oz,130.0,0.0,0.0,0.0,10.0,36.0,0.0,34.0,0.0
+Original Pretzel,310.0,1.0,0.0,0.0,400.0,65.0,2.0,10.0,8.0
+Gold Peak Sweetened Black Tea 32 oz,240.0,0.0,0.0,0.0,25.0,66.0,0.0,66.0,0.0
+Lemonade Mixer Mango 16 fl oz,230.0,0.0,0.0,0.0,10.0,60.0,0.0,56.0,0.0
+Breakfast Pretzel Sandwich Bacon Egg & Cheese,300.0,12.0,5.0,90.0,850.0,29.0,1.0,5.0,16.0
+Sweet Glaze Dip,130.0,0.0,0.0,0.0,0.0,32.0,0.0,32.0,0.0
+Gold Peak Peach Tea 16 oz,90.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+8 Mini Pretzel Dogs w/ Butter,510.0,29.0,12.0,65.0,1060.0,45.0,1.0,6.0,16.0
+Jalapeno & Cheese Pretzel Dog,340.0,17.0,7.0,40.0,700.0,34.0,1.0,5.0,12.0
+Raisin Pretzel,330.0,1.0,0.0,0.0,390.0,69.0,2.0,16.0,8.0
+Mocha Ice 12 fl oz,270.0,8.0,7.0,0.0,85.0,50.0,1.0,37.0,1.0
+Gold Peak Raspberry Tea 32 oz,170.0,0.0,0.0,0.0,20.0,45.0,0.0,45.0,0.0
+Orange Fanta 16 oz,170.0,0.0,0.0,0.0,15.0,45.0,0.0,45.0,0.0
+Original Sweet Iced Tea 16 fl oz,90.0,0.0,0.0,0.0,0.0,23.0,0.0,23.0,0.0
+Raspberry Unsweetened Iced Tea 20 fl oz,0.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Sour Cream & Onion Pretzel w/ Butter,380.0,8.0,4.0,15.0,650.0,68.0,2.0,12.0,8.0
+8 Mini Pretzel Dogs,480.0,25.0,10.0,55.0,1060.0,45.0,1.0,6.0,16.0
+Root Beer 21 oz,210.0,0.0,0.0,0.0,45.0,57.0,0.0,57.0,0.0
+Peach Unsweetened Iced Tea 32 fl oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Sweet Mustard Dip,60.0,2.0,1.0,35.0,0.0,10.0,0.0,9.0,2.0
+Peach Unsweetened Iced Tea 20 fl oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Frozen Lemonade Mixer Mango 12 fl oz,240.0,0.0,0.0,0.0,25.0,60.0,0.0,56.0,0.0
+Personal Pepperoni Pretzel Pizza,700.0,23.0,9.0,55.0,1280.0,95.0,3.0,16.0,25.0
+Icee Coca Cola 21 oz,160.0,0.0,0.0,0.0,15.0,43.0,0.0,43.0,0.0
+Light Cream Cheese Dip,80.0,6.0,4.5,20.0,120.0,1.0,0.0,0.0,3.0
+Roasted Garlic & Parmesan Pretzel w/ Butter & Salt,380.0,8.0,4.0,15.0,1250.0,68.0,2.0,10.0,9.0
+Lemonade Mixer Wild Cherry 16 fl oz,240.0,0.0,0.0,0.0,15.0,60.0,0.0,56.0,0.0
+Sprite 32 oz,270.0,0.0,0.0,0.0,60.0,69.0,0.0,61.0,0.0
+Gold Peak Peach Tea 32 oz,170.0,0.0,0.0,0.0,20.0,45.0,0.0,45.0,0.0
+Fuze Sweet Tea 16 oz,90.0,0.0,0.0,0.0,15.0,24.0,0.0,24.0,0.0
+Gold Peak Unsweetened Black Tea 32 oz,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Hi C Fruit Punch 32 oz,280.0,0.0,0.0,0.0,390.0,75.0,0.0,75.0,0.0
+Orange Fanta 21 oz,220.0,0.0,0.0,0.0,15.0,60.0,0.0,60.0,0.0
+Original Pretzel w/ Butter & Salt,340.0,5.0,3.0,10.0,990.0,65.0,2.0,10.0,8.0

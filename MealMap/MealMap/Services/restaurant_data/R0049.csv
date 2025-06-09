@@ -1,0 +1,312 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Apple Fritter,350.0,19.0,9.0,0.0,110.0,42.0,1.0,26.0,4.0
+Chocolate Iced Custard Filled Doughnut,300.0,15.0,7.0,0.0,140.0,37.0,1.0,17.0,4.0
+Football Doughnut,310.0,16.0,7.0,0.0,140.0,35.0,3.0,16.0,7.0
+Chocolate Iced w/ Kreme Filling,350.0,19.0,9.0,0.0,140.0,41.0,1.0,23.0,4.0
+Chocolate Iced Raspberry Filled Doughnut,310.0,15.0,7.0,0.0,140.0,41.0,1.0,22.0,4.0
+Cinnamon Apple Filled Doughnut,270.0,14.0,7.0,0.0,135.0,31.0,1.0,11.0,4.0
+Glazed Cinnamon Bun Doughnut,270.0,15.0,7.0,0.0,120.0,29.0,1.0,13.0,4.0
+Glazed Blueberry Cake Doughnut Holes 24 Count Box,190.0,7.0,3.0,15.0,220.0,28.0,0.0,17.0,2.0
+Glazed Traditional Cake Doughnut Holes 10 Count,190.0,8.0,3.0,15.0,230.0,28.0,0.0,16.0,2.0
+Glazed Chocolate Cake Doughnut Holes 10 Count,180.0,7.0,3.0,15.0,210.0,27.0,1.0,15.0,2.0
+Double Chocolate Eclair Doughnut,400.0,21.0,9.0,0.0,170.0,50.0,2.0,32.0,5.0
+Glazed Blueberry Cake,370.0,24.0,10.0,20.0,210.0,39.0,1.0,27.0,2.0
+Glazed Chocolate Cake Doughnut,250.0,10.0,4.5,20.0,210.0,38.0,1.0,24.0,3.0
+Powdered Blueberry Filled,330.0,22.0,10.0,0.0,150.0,30.0,1.0,10.0,4.0
+Powdered Strawberry Filled Doughnut,270.0,14.0,7.0,0.0,130.0,30.0,1.0,12.0,4.0
+Tennis Ball Doughnut,330.0,18.0,8.0,0.0,140.0,38.0,1.0,17.0,5.0
+Hot Chocolate w/ 2% Milk 12 oz,390.0,14.0,10.0,30.0,310.0,57.0,2.0,48.0,12.0
+Cappuccino w/ 2% Milk 12 oz,120.0,5.0,3.0,20.0,120.0,12.0,0.0,12.0,8.0
+Cappuccino w/ 2% Milk 16 oz,150.0,6.0,4.0,25.0,150.0,15.0,0.0,15.0,10.0
+Cappuccino w/ 2% Milk 20 oz,180.0,7.0,4.5,30.0,180.0,18.0,0.0,18.0,12.0
+Cappuccino w/ Skim Milk 12 oz,80.0,0.0,0.0,5.0,105.0,12.0,0.0,12.0,8.0
+Cappuccino w/ Skim Milk 16 oz,110.0,0.0,0.0,5.0,135.0,15.0,0.0,15.0,10.0
+Cappuccino w/ Skim Milk 20 oz,130.0,0.0,0.0,5.0,170.0,18.0,0.0,18.0,12.0
+Iced Latte w/ 2% Milk 12 oz,90.0,3.5,2.5,15.0,90.0,9.0,0.0,9.0,6.0
+Iced Latte w/ 2% Milk 16 oz,120.0,5.0,3.0,20.0,125.0,12.0,0.0,12.0,8.0
+Iced Latte w/ 2% Milk 20 oz,150.0,6.0,4.0,25.0,160.0,15.0,0.0,15.0,10.0
+Iced Latte w/ Skim Milk 12 oz,60.0,0.0,0.0,5.0,80.0,9.0,0.0,9.0,6.0
+Iced Latte w/ Skim Milk 16 oz,80.0,0.0,0.0,5.0,110.0,12.0,0.0,12.0,8.0
+Iced Latte w/ Skim Milk 20 oz,110.0,0.0,0.0,5.0,140.0,15.0,0.0,15.0,10.0
+Mocha Latte w/ 2% Milk 12 oz,300.0,9.0,6.0,30.0,180.0,42.0,2.0,1.0,11.0
+Mocha Latte w/2% Milk 16 oz,390.0,11.0,7.0,35.0,190.0,64.0,3.0,58.0,12.0
+Mocha Latte w/ 2% Milk 20 oz,480.0,12.0,8.0,40.0,230.0,79.0,4.0,71.0,15.0
+Mocha Latte w/ Skim Milk 12 oz,280.0,4.5,3.0,15.0,135.0,51.0,2.0,46.0,10.0
+Mocha Latte w/ Skim Milk 16 oz,350.0,5.0,3.5,20.0,170.0,64.0,3.0,58.0,12.0
+Mocha Latte w/ Skim Milk 20 oz,420.0,5.0,3.5,20.0,210.0,80.0,4.0,72.0,15.0
+Iced Mocha w/ 2% Milk 12 oz,290.0,8.0,5.0,25.0,115.0,48.0,2.0,43.0,8.0
+Iced Mocha w/ 2% Milk 16 oz,360.0,10.0,6.0,30.0,160.0,61.0,3.0,55.0,10.0
+Iced Mocha w/ 2% Milk 20 oz,450.0,11.0,7.0,35.0,200.0,76.0,4.0,68.0,13.0
+Iced Mocha w/ Skim Milk 12 oz,260.0,4.5,3.0,15.0,110.0,48.0,2.0,43.0,8.0
+Iced Mocha w/ Skim Milk 16 oz,330.0,5.0,3.0,15.0,140.0,61.0,3.0,55.0,10.0
+Iced Mocha w/ Skim Milk 20 oz,400.0,5.0,3.5,20.0,180.0,77.0,4.0,69.0,13.0
+Iced Caramel Latte w/ 2% Milk 12 oz,310.0,7.0,6.0,25.0,150.0,50.0,0.0,49.0,9.0
+Iced Caramel Latte w/ 2% Milk 16 oz,390.0,9.0,7.0,30.0,210.0,63.0,0.0,63.0,12.0
+Iced Caramel Latte w/ 2% Milk 20 oz,470.0,10.0,9.0,35.0,260.0,79.0,0.0,79.0,15.0
+Iced Caramel Latte w/ Skim Milk 12 oz,280.0,4.0,4.0,15.0,150.0,50.0,0.0,50.0,9.0
+Iced Caramel Latte w/ Skim Milk 16 oz,350.0,4.0,4.5,20.0,190.0,64.0,0.0,63.0,12.0
+Iced Caramel Latte w/ Skim Milk 20 oz,420.0,4.0,5.0,20.0,250.0,80.0,0.0,79.0,15.0
+Hazelnut Latte w/ 2% Milk 12 oz,230.0,5.0,3.0,20.0,120.0,37.0,0.0,36.0,8.0
+Hazelnut Latte w/ 2% Milk 16 oz,290.0,6.0,4.0,25.0,150.0,49.0,0.0,47.0,10.0
+Hazelnut Latte w/ 2% Milk 20 oz,360.0,7.0,4.5,30.0,180.0,60.0,0.0,58.0,12.0
+Hazelnut Latte w/ Skim Milk 12 oz,190.0,0.0,0.0,5.0,105.0,38.0,0.0,36.0,8.0
+Hazelnut Latte w/ Skim Milk 16 oz,240.0,0.0,0.0,5.0,135.0,49.0,0.0,48.0,10.0
+Hazelnut Latte w/ Skim Milk 20 oz,300.0,0.0,0.0,5.0,170.0,61.0,0.0,59.0,12.0
+Iced Hazelnut Latte w/ 2% Milk 12 oz,200.0,3.5,2.5,15.0,90.0,34.0,0.0,33.0,6.0
+Iced Hazelnut Latte w/ 2% Milk 16 oz,260.0,5.0,3.0,20.0,125.0,46.0,0.0,44.0,8.0
+Iced Hazelnut Latte w/ 2% Milk 20 oz,330.0,6.0,4.0,25.0,160.0,57.0,0.0,55.0,10.0
+Iced Hazelnut Latte w/ Skim Milk 12 oz,170.0,0.0,0.0,5.0,80.0,35.0,0.0,33.0,6.0
+Iced Hazelnut Latte w/ Skim Milk 16 oz,220.0,0.0,0.0,5.0,110.0,46.0,0.0,44.0,8.0
+Iced Hazelnut Latte w/ Skim Milk 20 oz,280.0,0.0,0.0,5.0,140.0,58.0,0.0,56.0,10.0
+Original Kreme Latte w/ 2% Milk 12 oz,200.0,5.0,3.0,20.0,120.0,31.0,0.0,31.0,8.0
+Original Kreme Latte w/ 2% Milk 16 oz,260.0,6.0,4.0,25.0,150.0,41.0,0.0,41.0,10.0
+Original Kreme Latte w/ 2% Milk 20 oz,320.0,7.0,4.5,30.0,190.0,50.0,0.0,50.0,12.0
+Original Kreme Latte w/ Skim Milk 12 oz,160.0,0.0,0.0,5.0,105.0,32.0,0.0,32.0,8.0
+Original Kreme Latte w/ Skim Milk 16 oz,210.0,0.0,0.0,5.0,135.0,41.0,0.0,41.0,10.0
+Original Kreme Latte w/ Skim Milk 20 oz,260.0,0.0,0.0,5.0,170.0,51.0,0.0,51.0,12.0
+Hazelnut Iced Coffee 20 oz,230.0,2.0,1.5,10.0,55.0,47.0,0.0,45.0,4.0
+Iced Original Kreme Latte w/ 2% Milk 12 oz,170.0,3.5,2.5,15.0,90.0,28.0,0.0,28.0,6.0
+Iced Original Kreme Latte w/ 2% Milk 16 oz,230.0,5.0,3.0,20.0,125.0,38.0,0.0,38.0,8.0
+Iced Original Kreme Latte w/ 2% Milk 20 oz,290.0,6.0,4.0,25.0,160.0,47.0,0.0,47.0,10.0
+Iced Original Kreme Latte w/ Skim Milk 12 oz,140.0,0.0,0.0,5.0,80.0,29.0,0.0,29.0,6.0
+Iced Original Kreme Latte w/ Skim Milk 16 oz,190.0,0.0,0.0,5.0,110.0,38.0,0.0,38.0,8.0
+Iced Original Kreme Latte w/ Skim Milk 20 oz,240.0,0.0,0.0,5.0,140.0,48.0,0.0,48.0,10.0
+Vanilla Latte w/ 2% Milk 12 oz,230.0,5.0,3.0,20.0,120.0,38.0,0.0,39.0,8.0
+Vanilla Latte w/ 2% Milk 16 oz,300.0,6.0,4.0,25.0,150.0,50.0,0.0,50.0,10.0
+Vanilla Latte w/ 2% Milk 20 oz,370.0,7.0,4.5,30.0,180.0,62.0,0.0,62.0,12.0
+Vanilla Latte w/ Skim Milk 12 oz,190.0,0.0,0.0,5.0,105.0,39.0,0.0,39.0,8.0
+Vanilla Latte w/ Skim Milk 16 oz,250.0,0.0,0.0,5.0,135.0,51.0,0.0,51.0,10.0
+Vanilla Latte w/ Skim Milk 20 oz,310.0,0.0,0.0,5.0,170.0,63.0,0.0,63.0,12.0
+Iced Vanilla Latte w/ 2% Milk 12 oz,200.0,3.5,2.5,15.0,90.0,35.0,0.0,36.0,6.0
+Iced Vanilla Latte w/ 2% Milk 16 oz,270.0,5.0,3.0,20.0,125.0,47.0,0.0,47.0,8.0
+Iced Vanilla Latte w/ 2% Milk 20 oz,340.0,6.0,4.0,25.0,160.0,59.0,0.0,59.0,10.0
+Iced Vanilla Latte w/ Skim Milk 12 oz,170.0,0.0,0.0,5.0,80.0,36.0,0.0,36.0,6.0
+Iced Vanilla Latte w/ Skim Milk 16 oz,230.0,0.0,0.0,5.0,110.0,48.0,0.0,48.0,8.0
+Iced Vanilla Latte w/ Skim Milk 20 oz,290.0,0.0,0.0,5.0,140.0,60.0,0.0,60.0,10.0
+Vanilla Iced Coffee 12 oz,140.0,1.5,1.0,5.0,35.0,30.0,0.0,30.0,2.0
+Vanilla Iced Coffee 16 oz,190.0,1.5,1.0,5.0,45.0,39.0,0.0,40.0,3.0
+Vanilla Iced Coffee 20 oz,240.0,2.0,1.5,10.0,55.0,49.0,0.0,50.0,4.0
+Hazelnut Iced Coffee 12 oz,140.0,1.5,1.0,5.0,35.0,28.0,0.0,27.0,2.0
+Hazelnut Iced Coffee 16 oz,180.0,1.5,1.0,5.0,45.0,38.0,0.0,36.0,3.0
+Chocolate Kool Kreme Cone,310.0,9.0,6.0,30.0,170.0,52.0,2.0,34.0,9.0
+Chocolate Vanilla Swirl Kool Kreme Cone,310.0,9.0,6.0,30.0,180.0,51.0,1.0,34.0,8.0
+Vanilla Kool Kreme Cone,300.0,8.0,5.0,30.0,180.0,50.0,0.0,35.0,8.0
+Iced Caramel Mocha w/ Skim Milk 12 oz,220.0,4.0,2.5,15.0,190.0,38.0,0.0,38.0,6.0
+Iced Caramel Mocha w/ Skim Milk 16 oz,290.0,4.0,2.5,15.0,260.0,52.0,0.0,52.0,8.0
+Iced Caramel Mocha w/ Skim Milk 20 oz,360.0,4.0,2.5,20.0,340.0,67.0,0.0,67.0,11.0
+Iced Caramel Mocha w/ 2% Milk 12 oz,250.0,7.0,5.0,25.0,190.0,37.0,0.0,37.0,6.0
+Iced Caramel Mocha w/ 2% Milk 16 oz,330.0,9.0,6.0,30.0,280.0,52.0,0.0,52.0,8.0
+Iced Caramel Mocha w/ 2% Milk 20 oz,410.0,10.0,6.0,35.0,360.0,67.0,0.0,67.0,10.0
+Caramel Mocha w/ Skim Milk 12 oz,240.0,4.0,2.5,15.0,210.0,40.0,0.0,40.0,8.0
+Caramel Mocha w/ Skim Milk 16 oz,310.0,4.0,2.5,20.0,290.0,55.0,0.0,55.0,11.0
+Caramel Mocha w/ Skim Milk 20 oz,380.0,4.0,3.0,20.0,370.0,70.0,0.0,70.0,13.0
+Caramel Mocha w/ 2% Milk 12 oz,280.0,9.0,6.0,30.0,220.0,40.0,0.0,40.0,8.0
+Caramel Mocha w/ 2% Milk 16 oz,360.0,10.0,6.0,35.0,300.0,55.0,0.0,55.0,10.0
+Caramel Mocha w/ 2% Milk 20 oz,440.0,11.0,7.0,40.0,390.0,70.0,0.0,70.0,12.0
+Iced Original Kreme Coffee w/ 2% Milk 12 oz,170.0,3.5,2.5,15.0,90.0,28.0,0.0,28.0,6.0
+Iced Original Kreme Coffee 16 oz,230.0,5.0,3.0,20.0,125.0,38.0,0.0,38.0,8.0
+Iced Original Kreme Coffee w/ 2% Milk 20 oz,290.0,6.0,4.0,25.0,160.0,47.0,0.0,47.0,10.0
+Iced Original Kreme Coffee w/ Skim Milk 20 oz,240.0,0.0,0.0,5.0,140.0,48.0,0.0,48.0,10.0
+Iced Original Kreme Coffee w/ Skim Milk 16 oz,190.0,0.0,0.0,5.0,110.0,38.0,0.0,38.0,8.0
+Iced Original Kreme Coffee w/ Skim Milk 12 oz,140.0,0.0,0.0,5.0,80.0,29.0,0.0,29.0,6.0
+Skinny Latte w/ Skim Milk 12 oz,80.0,0.0,0.0,5.0,105.0,12.0,0.0,12.0,8.0
+Skinny Latte w/ Skim Milk 16 oz,110.0,0.0,0.0,5.0,135.0,15.0,0.0,15.0,10.0
+Skinny Latte w/ Skim Milk 20 oz,130.0,0.0,0.0,5.0,170.0,18.0,0.0,18.0,12.0
+Skinny Sugar Free Caramel Latte w/ 2% Milk 12 oz,200.0,7.0,3.0,25.0,170.0,29.0,5.0,12.0,8.0
+Skinny Sugar Free Caramel Latte w/ 2% Milk 16 oz,260.0,9.0,4.0,30.0,230.0,41.0,7.0,15.0,10.0
+Skinny Sugar Free Caramel Latte w/ 2% Milk 20 oz,330.0,11.0,4.5,40.0,290.0,52.0,9.0,18.0,12.0
+Skinny Sugar Free Caramel Latte w/ Skim Milk 20 oz,270.0,4.0,0.0,15.0,280.0,53.0,9.0,18.0,12.0
+Skinny Sugar Free Caramel Latte w/ Skim Milk 16 oz,210.0,3.0,0.0,15.0,220.0,41.0,7.0,15.0,10.0
+Skinny Sugar Free Caramel Latte w/ Skim Milk 12 oz,160.0,2.0,0.0,10.0,160.0,29.0,5.0,12.0,8.0
+Skinny Sugar Free Vanilla Latte w/ 2% Milk 12 oz,120.0,5.0,3.0,20.0,120.0,15.0,0.0,12.0,8.0
+Skinny Sugar Free Vanilla Latte w/ 2% Milk 16 oz,150.0,6.0,4.0,25.0,150.0,19.0,0.0,15.0,10.0
+Skinny Sugar Free Vanilla Latte w/ 2% Milk 20 oz,180.0,7.0,4.5,30.0,180.0,23.0,0.0,18.0,12.0
+Skinny Sugar Free Vanilla Latte w/ Skim Milk 20 oz,130.0,0.0,0.0,5.0,170.0,23.0,0.0,18.0,12.0
+Skinny Sugar Free Vanilla Latte w/ Skim Milk 16 oz,110.0,0.0,0.0,5.0,135.0,19.0,0.0,15.0,10.0
+Skinny Sugar Free Vanilla Latte w/ Skim Milk 12 oz,80.0,0.0,0.0,5.0,105.0,15.0,0.0,12.0,8.0
+Iced Skinny Sugar Free Vanilla Latte w/ 2% Milk 12 oz,90.0,3.5,2.5,15.0,90.0,12.0,0.0,9.0,6.0
+Iced Skinny Sugar Free Vanilla Latte w/ 2% Milk 16 oz,120.0,5.0,3.0,20.0,125.0,16.0,0.0,12.0,8.0
+Iced Sugar Free Skinny Vanilla Latte w/ 2% Milk 20 oz,150.0,6.0,4.0,25.0,160.0,20.0,0.0,15.0,10.0
+Iced Sugar Free Skinny Vanilla Latte w/ Skim Milk 12 oz,60.0,0.0,0.0,5.0,80.0,12.0,0.0,9.0,6.0
+Iced Sugar Free Skinny Vanilla Latte w/ Skim Milk 16 oz,80.0,0.0,0.0,5.0,110.0,16.0,0.0,12.0,8.0
+Iced Sugar Free Skinny Vanilla Latte w/ Skim Milk 20 oz,110.0,0.0,0.0,5.0,140.0,20.0,0.0,15.0,10.0
+Iced Sugar Free Skinny Caramel Latte w/ 2% Milk 12 oz,160.0,5.0,2.5,20.0,140.0,26.0,5.0,9.0,6.0
+Iced Sugar Free Skinny Caramel Latte w/ 2% Milk 16 oz,230.0,8.0,3.0,25.0,200.0,38.0,7.0,12.0,8.0
+Iced Sugar Free Skinny Caramel Latte w/ 2% Milk 20 oz,300.0,10.0,4.0,35.0,270.0,49.0,9.0,15.0,10.0
+Iced Sugar Free Skinny Caramel Latte w/ Skim Milk 12 oz,140.0,2.0,0.0,10.0,135.0,26.0,5.0,9.0,6.0
+Iced Sugar Free Skinny Caramel Latte w/ Skim Milk 16 oz,190.0,3.0,0.0,10.0,190.0,38.0,7.0,12.0,8.0
+Iced Sugar Free Skinny Caramel Latte w/ Skim Milk 20 oz,250.0,4.0,0.0,15.0,250.0,50.0,9.0,15.0,10.0
+Chocolate Iced Coffee 12 oz,130.0,2.0,1.0,5.0,50.0,26.0,2.0,23.0,3.0
+Chocolate Iced Coffee 16 oz,200.0,2.5,1.5,5.0,70.0,41.0,2.0,36.0,5.0
+Chocolate Iced Coffee 20 oz,250.0,3.0,2.0,10.0,90.0,51.0,3.0,45.0,6.0
+Kool Kreme Original Glazed Doughnut Sundae,450.0,17.0,9.0,20.0,220.0,69.0,1.0,48.0,8.0
+White Iced Glazed Doughnut w/ Chocolate Drizzle,250.0,11.0,5.0,0.0,75.0,36.0,1.0,25.0,2.0
+Lemonade Chiller 16 oz,330.0,0.0,0.0,0.0,20.0,84.0,0.0,82.0,0.0
+Frozen Vanilla Latte 12 oz,350.0,9.0,6.0,35.0,10.0,58.0,0.0,59.0,1.0
+Frozen Vanilla Latte 16 oz,420.0,10.0,7.0,35.0,10.0,74.0,0.0,75.0,2.0
+Frozen Vanilla Latte 20 oz,500.0,11.0,7.0,40.0,15.0,90.0,0.0,90.0,2.0
+Frozen Mocha 12 oz,280.0,10.0,6.0,35.0,20.0,42.0,1.0,42.0,2.0
+Frozen Mocha 16 oz,360.0,11.0,7.0,35.0,30.0,58.0,1.0,58.0,3.0
+Frozen Mocha 20 oz,440.0,12.0,7.0,40.0,40.0,73.0,2.0,73.0,3.0
+Double Dark Chocolate Doughnut,370.0,19.0,9.0,0.0,160.0,45.0,2.0,27.0,5.0
+Powdered Cinnamon Cake Doughnut,250.0,16.0,6.0,25.0,340.0,24.0,1.0,6.0,3.0
+Powdered w/ Strawberry Kreme Filling Doughnut,340.0,20.0,8.0,0.0,160.0,37.0,1.0,15.0,5.0
+Frozen Caramel Latte 12 oz,290.0,10.0,6.0,35.0,30.0,43.0,0.0,41.0,2.0
+Frozen Caramel Latte 16 oz,370.0,11.0,7.0,40.0,55.0,59.0,1.0,55.0,2.0
+Frozen Caramel Latte 20 oz,450.0,12.0,8.0,45.0,75.0,76.0,1.0,70.0,3.0
+Nutty Cocoa Ring,270.0,17.0,7.0,0.0,90.0,26.0,1.0,14.0,4.0
+Chocolate Hazelnut Kreme Filled Doughnut,390.0,24.0,10.0,0.0,135.0,40.0,2.0,23.0,5.0
+Powdered w/ Chocolate Kreme Filling Doughnut,340.0,20.0,8.0,0.0,160.0,37.0,2.0,15.0,5.0
+Strawberry Iced Glazed Doughnut w/ Sprinkles,250.0,12.0,5.0,0.0,85.0,34.0,1.0,23.0,2.0
+Latte w/ 2% Milk 12 oz,120.0,5.0,3.0,20.0,120.0,12.0,0.0,12.0,8.0
+Latte w/ 2% Milk 16 oz,150.0,6.0,4.0,25.0,150.0,15.0,0.0,15.0,10.0
+Latte w/ 2% Milk 20 oz,180.0,7.0,4.5,30.0,180.0,18.0,0.0,18.0,12.0
+Latte w/ Skim Milk 12 oz,80.0,0.0,0.0,5.0,105.0,12.0,0.0,12.0,8.0
+Latte w/ Skim Milk 16 oz,110.0,0.0,0.0,5.0,135.0,15.0,0.0,15.0,10.0
+Latte w/ Skim Milk 20 oz,130.0,0.0,0.0,5.0,170.0,18.0,0.0,18.0,12.0
+Caramel Latte w/ 2% Milk 12 oz,340.0,9.0,7.0,30.0,180.0,53.0,0.0,52.0,11.0
+Caramel Latte w/ 2% Milk 16 oz,420.0,10.0,8.0,35.0,230.0,66.0,0.0,66.0,14.0
+Caramel Latte w/ 2% Milk 20 oz,500.0,11.0,9.0,40.0,290.0,82.0,0.0,82.0,17.0
+Caramel Latte w/ Skim Milk 12 oz,300.0,4.0,4.0,15.0,170.0,53.0,0.0,53.0,11.0
+Caramel Latte w/ Skim Milk 16 oz,370.0,4.0,4.5,20.0,220.0,67.0,0.0,66.0,14.0
+Caramel Latte w/ Skim Milk 20 oz,450.0,4.5,5.0,20.0,270.0,83.0,0.0,82.0,17.0
+Jolly Rancher Blue Raspberry Chiller 12 oz,130.0,0.0,0.0,0.0,15.0,33.0,0.0,32.0,0.0
+Jolly Rancher Blue Raspberry Chiller 16 oz,170.0,0.0,0.0,0.0,25.0,44.0,0.0,43.0,0.0
+Jolly Rancher Blue Raspberry Chiller 20 oz,220.0,0.0,0.0,0.0,30.0,56.0,0.0,54.0,0.0
+Iced Hazelnut Latte w/ 2% Milk 16 oz,250.0,4.0,2.5,15.0,120.0,45.0,0.0,33.0,7.0
+Blended Lemonade Chiller 20 oz,470.0,0.0,0.0,0.0,25.0,121.0,0.0,117.0,0.0
+Iced Tea Sweet 16 oz,110.0,0.0,0.0,0.0,15.0,28.0,0.0,27.0,2.0
+Latte w/ 2% Milk 12 oz,150.0,5.0,3.5,20.0,160.0,15.0,0.0,0.0,11.0
+Iced Chocolate Coffee 20 oz,260.0,3.0,2.0,5.0,60.0,53.0,3.0,0.0,4.0
+Powdered Strawberry Filled Doughnut,270.0,14.0,7.0,0.0,130.0,30.0,1.0,12.0,4.0
+Caramel Sauce Extra Shot Hot & Iced Drinks,80.0,0.0,0.0,0.0,45.0,18.0,0.0,14.0,0.0
+Iced Hazelnut Coffee 16 oz,180.0,1.5,1.0,5.0,55.0,38.0,0.0,33.0,3.0
+Double Chocolate Eclair Doughnut,400.0,21.0,9.0,0.0,170.0,50.0,2.0,32.0,5.0
+Lemonade Chiller 12 oz,200.0,0.0,0.0,0.0,10.0,52.0,0.0,50.0,0.0
+Glazed Chocolate Cake Doughnut,250.0,10.0,4.5,20.0,210.0,38.0,1.0,24.0,3.0
+Vanilla Syrup,35.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Iced Caramel Latte w/ Skim Milk 20 oz,490.0,9.0,5.0,35.0,370.0,93.0,0.0,59.0,11.0
+Hazelnut Latte w/ 2% Milk 16 oz,330.0,7.0,4.0,25.0,210.0,53.0,0.0,33.0,13.0
+Skinny Sugar Free Caramel Latte w/ Skim Milk 12 oz,210.0,2.0,1.5,10.0,230.0,35.0,6.0,0.0,11.0
+Iced Coffee 16 oz,45.0,1.5,1.0,5.0,55.0,4.0,0.0,0.0,3.0
+Iced Mocha w/ Skim Milk 12 oz,250.0,7.0,4.5,25.0,140.0,38.0,2.0,2.0,7.0
+Lemonade Chiller 20 oz,340.0,0.0,0.0,0.0,20.0,87.0,0.0,85.0,0.0
+Hot Chocolate w/ Water 16 oz,300.0,10.0,7.0,10.0,270.0,52.0,3.0,40.0,5.0
+Iced Tea Unsweet 20 oz,5.0,0.0,0.0,0.0,20.0,1.0,0.0,0.0,2.0
+Hot Mocha w/ Skim Milk 12 oz,260.0,4.5,3.0,15.0,180.0,42.0,2.0,1.0,11.0
+Hot Chocolate w/ 2% Milk 20 oz,620.0,21.0,14.0,45.0,590.0,93.0,4.0,55.0,23.0
+Hot Mocha w/ 2% Milk 16 oz,390.0,11.0,7.0,40.0,220.0,58.0,2.0,1.0,14.0
+Iced Hazelnut Coffee 20 oz,240.0,2.0,1.0,5.0,60.0,50.0,0.0,44.0,4.0
+Latte w/ 2% Milk 16 oz,190.0,7.0,4.0,25.0,210.0,19.0,0.0,0.0,13.0
+Hot Mocha w/ Skim Milk 20 oz,420.0,5.0,3.5,20.0,260.0,74.0,3.0,1.0,16.0
+Hazelnut Latte w/ 2% Milk 12 oz,240.0,5.0,3.5,20.0,160.0,38.0,0.0,22.0,11.0
+Apple Fritter,350.0,19.0,9.0,0.0,110.0,42.0,1.0,26.0,4.0
+Caramel Mocha w/ 2% Milk 16 oz,350.0,10.0,7.0,40.0,340.0,50.0,0.0,29.0,14.0
+Cafe Americano Hot or Iced 20 oz,10.0,0.0,0.0,0.0,30.0,2.0,0.0,0.0,0.0
+Hot Chocolate w/ Water 20 oz,390.0,13.0,9.0,10.0,360.0,70.0,4.0,55.0,6.0
+Strawberry Chiller 20 oz,350.0,0.0,0.0,0.0,20.0,92.0,0.0,90.0,0.0
+Iced Caramel Latte w/ 2% Milk 16 oz,430.0,11.0,7.0,40.0,300.0,72.0,0.0,45.0,9.0
+Iced Caramel Mocha w/ Skim Milk 12 oz,230.0,7.0,4.5,25.0,220.0,33.0,0.0,22.0,8.0
+Blended Strawberry Chiller 16 oz,410.0,0.0,0.0,0.0,15.0,109.0,0.0,107.0,0.0
+Iced Caramel Mocha w/ Skim Milk 16 oz,280.0,7.0,4.5,25.0,280.0,44.0,0.0,30.0,9.0
+Vanilla Latte w/ Skim Milk 12 oz,180.0,0.5,0.0,5.0,160.0,33.0,0.0,17.0,11.0
+Iced Vanilla Latte w/ 2% Milk 12 oz,160.0,3.5,2.0,15.0,105.0,27.0,0.0,17.0,6.0
+Glazed Cinnamon Bun Doughnut,270.0,15.0,7.0,0.0,120.0,29.0,1.0,13.0,4.0
+Strawberry Chiller 12 oz,210.0,0.0,0.0,0.0,10.0,55.0,0.0,54.0,0.0
+Iced Mocha w/ Skim Milk 20 oz,390.0,8.0,5.0,25.0,190.0,67.0,3.0,2.0,10.0
+Iced Vanilla Coffee 20 oz,190.0,2.0,1.0,5.0,65.0,40.0,0.0,35.0,4.0
+Double Dark Chocolate Doughnut,370.0,19.0,9.0,0.0,160.0,45.0,2.0,27.0,5.0
+Hazelnut Latte w/ Skim Milk 20 oz,350.0,1.0,0.5,10.0,240.0,68.0,0.0,44.0,16.0
+Iced Latte w/ 2% Milk 16 oz,110.0,4.0,2.5,15.0,125.0,11.0,0.0,0.0,7.0
+Frozen Caramel Mocha 16 oz,420.0,12.0,8.0,45.0,340.0,71.0,0.0,64.0,1.0
+Blended Lemonade Chiller 16 oz,410.0,0.0,0.0,0.0,20.0,105.0,0.0,102.0,0.0
+Hazelnut Latte w/ 2% Milk 20 oz,410.0,8.0,5.0,30.0,240.0,68.0,0.0,44.0,16.0
+Hot Mocha w/ Skim Milk 16 oz,380.0,8.0,5.0,30.0,240.0,60.0,2.0,2.0,14.0
+Cappuccino w/ Skim Milk 16 oz,110.0,0.0,0.0,5.0,135.0,15.0,0.0,15.0,10.0
+Iced Mocha w/ 2% Milk 20 oz,420.0,12.0,7.0,40.0,190.0,66.0,3.0,2.0,10.0
+Dark Roast Coffee 12 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Iced Hazelnut Latte w/ 2% Milk 20 oz,320.0,4.5,3.0,20.0,150.0,59.0,0.0,44.0,9.0
+Iced Latte w/ 2% Milk 20 oz,130.0,4.5,3.0,20.0,150.0,14.0,0.0,0.0,9.0
+Skinny Cappuccino 20 oz,140.0,1.0,0.5,20.0,210.0,20.0,0.0,0.0,13.0
+Iced Caramel Latte w/ Skim Milk 12 oz,310.0,8.0,5.0,30.0,230.0,52.0,0.0,31.0,8.0
+Frozen Caramel Mocha 20 oz,500.0,13.0,9.0,50.0,420.0,88.0,0.0,80.0,2.0
+Frozen Caramel Latte 12 oz,350.0,11.0,7.0,40.0,250.0,58.0,0.0,48.0,1.0
+Iced Vanilla Latte w/ 2% Milk 20 oz,270.0,4.5,3.0,20.0,150.0,49.0,0.0,35.0,9.0
+Iced Caramel Mocha w/ 2% Milk 16 oz,310.0,11.0,7.0,40.0,280.0,44.0,0.0,30.0,9.0
+Cappuccino w/ Skim Milk 20 oz,130.0,0.0,0.0,5.0,170.0,18.0,0.0,18.0,12.0
+Iced Caramel Latte w/ Skim Milk 16 oz,400.0,8.0,5.0,30.0,300.0,72.0,0.0,45.0,9.0
+Vanilla Latte w/ Skim Milk 16 oz,250.0,1.0,0.5,5.0,210.0,46.0,0.0,26.0,13.0
+Skinny Vanilla Latte w/ Skim Milk 20 oz,170.0,1.0,0.5,10.0,240.0,29.0,0.0,0.0,16.0
+Skinny Vanilla Latte w/ Skim Milk 16 oz,140.0,1.0,0.5,5.0,210.0,24.0,0.0,0.0,13.0
+Cappuccino w/ Skim Milk 12 oz,80.0,0.0,0.0,5.0,105.0,12.0,0.0,12.0,8.0
+Frozen Caramel Latte 20 oz,530.0,13.0,9.0,50.0,380.0,94.0,0.0,77.0,1.0
+Iced Caramel Mocha w/ 2% Milk 12 oz,250.0,10.0,6.0,35.0,220.0,33.0,0.0,22.0,8.0
+Cappuccino w/ 2% Milk 12 oz,120.0,4.0,2.5,15.0,125.0,12.0,0.0,0.0,8.0
+Cinnamon Apple Filled Doughnut,270.0,14.0,7.0,0.0,135.0,31.0,1.0,11.0,4.0
+Hazelnut Syrup,45.0,0.0,0.0,0.0,0.0,11.0,0.0,11.0,0.0
+Skinny Vanilla Latte w/ Skim Milk 12 oz,110.0,0.5,0.0,5.0,160.0,18.0,0.0,0.0,11.0
+Iced Tea Unsweet 32 oz,10.0,0.0,0.0,0.0,35.0,2.0,0.0,0.0,4.0
+Hot Chocolate w/ 2% Milk 16 oz,490.0,17.0,11.0,40.0,460.0,71.0,3.0,40.0,19.0
+Iced Vanilla Coffee 16 oz,150.0,1.5,1.0,5.0,55.0,30.0,0.0,26.0,3.0
+Cappuccino w/ 2% Milk 16 oz,150.0,5.0,3.0,20.0,160.0,15.0,0.0,0.0,10.0
+Caramel Iced Coffee 20 oz,360.0,3.5,2.0,15.0,240.0,77.0,0.0,54.0,5.0
+Caramel Mocha w/ Skim Milk 12 oz,230.0,4.0,2.5,15.0,260.0,37.0,0.0,20.0,11.0
+Chocolate Iced Raspberry Filled Doughnut,310.0,15.0,7.0,0.0,140.0,41.0,1.0,22.0,4.0
+Caramel Mocha w/ Skim Milk 16 oz,300.0,4.5,3.0,20.0,340.0,51.0,0.0,29.0,14.0
+Strawberry Chiller 16 oz,280.0,0.0,0.0,0.0,15.0,74.0,0.0,72.0,0.0
+Iced Caramel Mocha w/ 2% Milk 20 oz,370.0,12.0,7.0,40.0,340.0,55.0,0.0,39.0,11.0
+House Blend Coffee 12 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Caramel Latte w/ Skim Milk 20 oz,530.0,6.0,3.5,25.0,440.0,101.0,0.0,58.0,17.0
+Hot Chocolate w/ Water 12 oz,250.0,9.0,6.0,10.0,220.0,43.0,2.0,33.0,4.0
+Skinny Latte w/ Skim Milk 20 oz,170.0,1.0,0.5,10.0,240.0,23.0,0.0,0.0,16.0
+Sugar Free Vanilla Syrup,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Iced Mocha w/ Skim Milk 16 oz,310.0,8.0,5.0,25.0,160.0,52.0,2.0,2.0,8.0
+Caramel Latte w/ 2% Milk 16 oz,470.0,11.0,7.0,45.0,360.0,79.0,0.0,44.0,14.0
+Espresso Extra Shot,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Iced Tea Sweet 20 oz,140.0,0.0,0.0,0.0,20.0,35.0,0.0,35.0,2.0
+Blended Strawberry Chiller 12 oz,320.0,0.0,0.0,0.0,15.0,85.0,0.0,83.0,0.0
+Caramel Iced Coffee 12 oz,190.0,2.0,1.5,10.0,130.0,40.0,0.0,27.0,3.0
+Hot Mocha w/ 2% Milk 20 oz,480.0,12.0,8.0,40.0,260.0,74.0,3.0,1.0,16.0
+Skinny Cappuccino 16 oz,110.0,0.5,0.0,5.0,160.0,15.0,0.0,0.0,10.0
+Blended Lemonade Chiller 12 oz,320.0,0.0,0.0,0.0,15.0,82.0,0.0,79.0,0.0
+Glazed Blueberry Cake Doughnut Holes,180.0,7.0,3.0,15.0,220.0,28.0,0.0,17.0,2.0
+Vanilla Latte w/ Skim Milk 20 oz,310.0,1.0,0.5,10.0,240.0,58.0,0.0,35.0,16.0
+Caramel Latte w/ Skim Milk 12 oz,310.0,5.0,3.0,20.0,270.0,56.0,0.0,30.0,12.0
+Hazelnut Latte w/ Skim Milk 12 oz,200.0,0.5,0.0,5.0,160.0,38.0,0.0,22.0,11.0
+Caramel Sauce Extra Shot Frozen Drinks,40.0,0.0,0.0,0.0,25.0,10.0,0.0,7.0,0.0
+Chocolate Iced Custard Filled Doughnut,300.0,15.0,7.0,0.0,140.0,37.0,1.0,17.0,4.0
+Iced Latte w/ 2% Milk 12 oz,90.0,3.5,2.0,15.0,105.0,9.0,0.0,0.0,6.0
+Frozen Caramel Mocha 12 oz,340.0,10.0,7.0,40.0,270.0,55.0,0.0,49.0,1.0
+Iced Mocha w/ 2% Milk 12 oz,280.0,10.0,6.0,35.0,140.0,38.0,2.0,2.0,7.0
+Chocolate Iced w/ Kreme Filling,350.0,19.0,9.0,0.0,140.0,41.0,1.0,23.0,4.0
+Iced Skinny Caramel Latte w/ Skim Milk 12 oz,160.0,1.5,1.5,10.0,170.0,29.0,6.0,0.0,6.0
+Iced Hazelnut Latte w/ 2% Milk 12 oz,190.0,3.5,2.0,15.0,105.0,32.0,0.0,22.0,6.0
+Caramel Mocha w/ 2% Milk 12 oz,280.0,9.0,6.0,35.0,260.0,37.0,0.0,20.0,11.0
+Caramel Iced Coffee 16 oz,280.0,3.0,1.5,10.0,190.0,60.0,0.0,41.0,4.0
+Powdered Cinnamon Cake Doughnut,250.0,16.0,6.0,25.0,340.0,24.0,1.0,6.0,3.0
+Hazelnut Latte w/ Skim Milk 16 oz,280.0,1.0,0.5,5.0,210.0,54.0,0.0,33.0,13.0
+Caramel Mocha Sauce Extra Shot Hot & Iced Drinks,50.0,0.0,0.0,0.0,50.0,12.0,0.0,12.0,0.0
+Vanilla Latte w/ 2% Milk 12 oz,220.0,5.0,3.5,20.0,160.0,33.0,0.0,17.0,11.0
+Hot Chocolate w/ 2% Milk 12 oz,410.0,15.0,10.0,35.0,380.0,59.0,2.0,33.0,16.0
+Caramel Latte w/ 2% Milk 12 oz,350.0,9.0,6.0,35.0,270.0,56.0,0.0,30.0,12.0
+Iced Mocha w/ 2% Milk 16 oz,330.0,11.0,7.0,35.0,160.0,50.0,2.0,2.0,8.0
+Decaffeinated House Blend Coffee 12 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Hot Mocha w/ 2% Milk 12 oz,300.0,9.0,6.0,30.0,180.0,42.0,2.0,1.0,11.0
+Lemonade Chiller 16 oz,270.0,0.0,0.0,0.0,15.0,70.0,0.0,68.0,0.0
+Iced Chocolate Coffee 16 oz,200.0,2.5,1.5,5.0,50.0,40.0,2.0,0.0,3.0
+Iced Caramel Latte w/ 2% Milk 20 oz,530.0,13.0,8.0,45.0,370.0,93.0,0.0,59.0,11.0
+Caramel Latte w/ 2% Milk 20 oz,590.0,13.0,8.0,50.0,440.0,101.0,0.0,58.0,17.0
+Skinny Latte w/ Skim Milk 12 oz,110.0,0.5,0.0,5.0,160.0,15.0,0.0,0.0,11.0
+Frozen Caramel Latte 16 oz,440.0,12.0,8.0,45.0,310.0,76.0,0.0,62.0,1.0
+Blended Strawberry Chiller 20 oz,480.0,0.0,0.0,0.0,20.0,125.0,0.0,123.0,0.0
+Vanilla Latte w/ 2% Milk 16 oz,220.0,5.0,3.5,20.0,160.0,33.0,0.0,17.0,11.0
+Latte w/ 2% Milk 20 oz,230.0,8.0,5.0,30.0,240.0,23.0,0.0,0.0,16.0
+Vanilla Latte w/ 2% Milk 20 oz,300.0,7.0,4.0,25.0,210.0,46.0,0.0,26.0,13.0
+Cappuccino w/ 2% Milk 20 oz,190.0,7.0,4.0,25.0,210.0,20.0,0.0,0.0,13.0
+Caramel Latte w/ Skim Milk 16 oz,420.0,6.0,3.5,25.0,360.0,79.0,0.0,44.0,14.0
+Iced Vanilla Latte w/ 2% Milk 16 oz,210.0,4.0,2.5,15.0,120.0,37.0,0.0,26.0,7.0
+Iced Caramel Latte w/ 2% Milk 12 oz,330.0,11.0,6.0,40.0,230.0,52.0,0.0,31.0,8.0
+Oreo Cookies & Kreme Doughnut,420.0,22.0,9.0,0.0,200.0,53.0,1.0,29.0,5.0
+Iced Tea Sweet 32 oz,230.0,0.0,0.0,0.0,35.0,58.0,0.0,57.0,3.0
+Skinny Latte w/ Skim Milk 16 oz,140.0,1.0,0.5,5.0,210.0,20.0,0.0,0.0,13.0
+Iced Coffee 20 oz,50.0,2.0,1.0,5.0,65.0,5.0,0.0,0.0,4.0

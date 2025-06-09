@@ -1,0 +1,583 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Vegetable Soup Bowl,130.0,3.0,0.5,0.0,1740.0,24.0,3.0,6.0,3.0
+Ultimate Banana Milkshake Kids,440.0,13.0,10.0,50.0,180.0,77.0,2.0,65.0,11.0
+Fresh Hand Cut Fries Small,300.0,18.0,4.5,0.0,65.0,31.0,2.0,0.0,4.0
+Cheese French Fries Large,830.0,44.0,12.0,24.0,1280.0,97.0,8.0,2.0,13.0
+Cheese French Fries Regular,620.0,35.0,9.0,20.0,1210.0,69.0,6.0,2.0,11.0
+Fresh Hand Cut Fries Large,720.0,43.0,11.0,0.0,160.0,74.0,5.0,0.0,10.0
+Meat Lovers Double Steakburger,700.0,44.0,17.0,110.0,1750.0,44.0,1.0,15.0,30.0
+Hash Browns 5 Pieces,260.0,17.0,6.0,0.0,570.0,23.0,2.0,0.0,3.0
+Toast Rye Buttered,240.0,10.0,1.5,0.0,440.0,30.0,2.0,1.0,6.0
+Toast Sourdough Buttered,230.0,10.0,1.5,0.0,370.0,30.0,1.0,1.0,5.0
+Coke Float,520.0,22.0,14.0,100.0,140.0,74.0,0.0,64.0,6.0
+Root Beer Float,530.0,22.0,14.0,100.0,170.0,78.0,0.0,70.0,6.0
+Frisco Melt,750.0,53.0,17.0,95.0,1160.0,41.0,1.0,12.0,26.0
+Patty Melt,650.0,40.0,14.0,80.0,1000.0,47.0,3.0,18.0,25.0
+Steakburger & Fries Kids,430.0,19.0,6.0,30.0,360.0,51.0,3.0,5.0,14.0
+Steakburger w/ Cheese & Fries Kids,480.0,23.0,8.0,40.0,620.0,52.0,3.0,5.0,16.0
+BLT Sandwich,380.0,18.0,4.0,40.0,860.0,40.0,2.0,7.0,14.0
+Grilled Cheese n Bacon Sandwich,460.0,26.0,10.0,50.0,1290.0,37.0,1.0,4.0,17.0
+Grilled Cheese Sandwich,410.0,23.0,9.0,40.0,1130.0,37.0,1.0,4.0,14.0
+Grilled Cheese & Fries Kids,570.0,30.0,10.0,40.0,1180.0,58.0,3.0,4.0,15.0
+Bagel Sandwich w/ Sausage,570.0,29.0,11.0,275.0,1240.0,50.0,2.0,4.0,26.0
+Bagel Sandwich w/ Bacon,450.0,16.0,7.0,275.0,1200.0,51.0,2.0,5.0,24.0
+Bagel Sandwich w/ Steakburger,470.0,18.0,8.0,195.0,920.0,51.0,2.0,4.0,24.0
+3 Chicken Fingers,370.0,20.0,3.0,55.0,920.0,26.0,2.0,0.0,21.0
+2 Chicken Fingers & Fries Kids,400.0,21.0,3.5,40.0,660.0,38.0,3.0,0.0,16.0
+Genuine Chili Cup,440.0,24.0,12.0,40.0,1010.0,38.0,10.0,1.0,20.0
+Genuine Chili Bowl,880.0,47.0,23.0,85.0,2030.0,75.0,19.0,3.0,40.0
+Chili Deluxe Bowl,1220.0,74.0,39.0,165.0,2560.0,81.0,20.0,5.0,61.0
+Chili Deluxe Cup,610.0,37.0,19.0,85.0,1280.0,40.0,10.0,2.0,31.0
+Thin n Crispy Fries Regular,440.0,21.0,4.0,0.0,140.0,60.0,6.0,0.0,5.0
+Thin n Crispy Fries Small,240.0,11.0,2.0,0.0,80.0,33.0,3.0,0.0,2.0
+Grilled Chicken Salad,270.0,10.0,3.5,65.0,860.0,30.0,3.0,6.0,26.0
+Fried Chicken Salad,470.0,26.0,6.0,75.0,1050.0,34.0,5.0,4.0,27.0
+Garden Salad Small,45.0,1.0,0.0,0.0,105.0,8.0,1.0,2.0,2.0
+Thick Applewood Smoked Bacon 4 Slices,200.0,14.0,5.0,55.0,660.0,1.0,0.0,1.0,16.0
+Premium Tennessee Pride Sausage 1 Patty,200.0,18.0,6.0,50.0,430.0,0.0,0.0,0.0,9.0
+Onion Rings Large,880.0,50.0,25.0,0.0,1500.0,95.0,7.0,9.0,13.0
+Onion Rings Regular,440.0,25.0,12.0,0.0,750.0,48.0,4.0,5.0,6.0
+Chili 5 Way,1170.0,63.0,33.0,145.0,2030.0,99.0,14.0,11.0,53.0
+Chili 3 Way,830.0,36.0,18.0,65.0,1490.0,94.0,12.0,9.0,33.0
+Chili Mac Supreme,1080.0,52.0,27.0,125.0,1500.0,109.0,6.0,17.0,44.0
+Chili Mac,860.0,36.0,18.0,65.0,1210.0,104.0,6.0,15.0,27.0
+Blue Cheese Dressing 1 oz,130.0,13.0,2.5,10.0,270.0,1.0,0.0,1.0,1.0
+Honey Mustard 1 oz,130.0,12.0,2.0,10.0,115.0,5.0,0.0,4.0,0.0
+Ranch Dressing 1 oz,150.0,16.0,2.5,10.0,260.0,1.0,0.0,1.0,0.0
+Thousand Island 1 oz,130.0,11.0,1.5,5.0,290.0,7.0,0.0,7.0,0.0
+Toast Thick White Buttered,260.0,10.0,1.5,0.0,360.0,36.0,1.0,3.0,6.0
+Toast Wheat Buttered,210.0,10.0,1.5,0.0,270.0,26.0,2.0,4.0,5.0
+Cheddar Scrambler a la Carte,600.0,47.0,16.0,700.0,730.0,10.0,0.0,9.0,31.0
+Sausage Gravy & Biscuits Full Order,1070.0,74.0,43.0,55.0,3150.0,86.0,2.0,7.0,13.0
+1 Egg Over Easy Medium or Hard,80.0,5.0,1.5,185.0,70.0,0.0,0.0,0.0,6.0
+2 Eggs Scrambled,160.0,11.0,4.0,375.0,150.0,1.0,0.0,0.0,13.0
+Sausage Gravy & Biscuits Half Order,540.0,37.0,21.0,25.0,1580.0,43.0,1.0,3.0,7.0
+Vegetable Soup Cup,60.0,1.5,0.0,0.0,870.0,12.0,2.0,3.0,2.0
+BBQ Steakburger Shooter,140.0,6.0,2.0,15.0,250.0,16.0,0.0,4.0,6.0
+BBQ Steakburger Shooter w/ Cheese,170.0,8.0,3.5,20.0,390.0,16.0,0.0,5.0,7.0
+Cheddar Cheesy Double Steakburger,800.0,53.0,28.0,160.0,1290.0,35.0,4.0,7.0,46.0
+Chicago Style Steak Frank,420.0,27.0,10.0,60.0,1580.0,30.0,2.0,9.0,15.0
+Chili Cheese Steak Frank,620.0,44.0,19.0,105.0,1590.0,31.0,3.0,4.0,26.0
+Chipotle Steakburger Shooter,160.0,9.0,2.5,15.0,260.0,13.0,0.0,2.0,6.0
+Chipotle Steakburger Shooter w/ Cheese,180.0,11.0,4.0,25.0,400.0,13.0,0.0,2.0,7.0
+Frisco Steakburger Shooter,160.0,9.0,2.5,15.0,280.0,14.0,0.0,3.0,6.0
+Frisco Steakburger Shooter w/ Cheese,190.0,11.0,4.0,25.0,410.0,14.0,0.0,3.0,7.0
+Guacamole Double Steakburger,670.0,44.0,13.0,75.0,940.0,47.0,6.0,9.0,25.0
+Sausage & Egg Biscuit,600.0,44.0,23.0,265.0,1310.0,31.0,1.0,3.0,19.0
+Sausage Biscuit,520.0,28.0,21.0,50.0,1240.0,30.0,1.0,3.0,12.0
+Sausage Egg & Cheese Biscuit,650.0,48.0,26.0,275.0,1570.0,31.0,1.0,4.0,21.0
+Spicy Chicken Sandwich,580.0,26.0,4.5,55.0,1780.0,51.0,4.0,10.0,27.0
+Steakburger Shooter w/ Cheese,150.0,8.0,3.5,20.0,340.0,13.0,0.0,2.0,7.0
+Cottage Cheese w/ Pineapple Ring,150.0,6.0,4.0,35.0,230.0,10.0,0.0,4.0,14.0
+Country Skillet,1240.0,94.0,36.0,450.0,2520.0,63.0,3.0,4.0,31.0
+Chocolate Chip Pancakes Kids,630.0,16.0,16.0,35.0,1270.0,116.0,2.0,57.0,9.0
+Mac & Cheese w/ Applesauce Kids,260.0,5.0,1.5,10.0,340.0,47.0,2.0,24.0,6.0
+Steak Frank & Fries Kids,540.0,34.0,12.0,60.0,1170.0,43.0,3.0,3.0,15.0
+Yogurt Parfait,210.0,4.0,2.5,15.0,95.0,38.0,1.0,29.0,7.0
+Chili Cheese Fries Large,1190.0,68.0,23.0,64.0,2160.0,120.0,14.0,3.0,27.0
+Chili Cheese Fries Small,450.0,26.0,9.0,25.0,910.0,45.0,5.0,1.0,10.0
+Chili Cheese Fries Regular,800.0,47.0,15.0,40.0,1650.0,81.0,9.0,2.0,18.0
+Applesauce,90.0,0.0,0.0,0.0,0.0,21.0,1.0,19.0,0.0
+Shredded Hash Browns,320.0,26.0,3.5,0.0,300.0,19.0,2.0,0.0,2.0
+Honey French Dressing 1 oz,120.0,10.0,1.5,0.0,310.0,8.0,0.0,7.0,0.0
+Chocolate Chip Cookie Kids,200.0,10.0,4.5,10.0,180.0,25.0,1.0,14.0,2.0
+Hot Fudge Sundae,460.0,23.0,16.0,50.0,160.0,61.0,2.0,46.0,7.0
+Brownie Fudge Sundae,810.0,41.0,26.0,75.0,460.0,106.0,3.0,71.0,9.0
+Diet Coke w/ Ice 20 oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Coca Cola Classic w/ Ice 20 oz,170.0,0.0,0.0,0.0,5.0,47.0,0.0,47.0,0.0
+Coke Zero w/ Ice 20 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Diet Coke Caffeine Free w/ Ice 20 oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Sprite w/ Ice 20 oz,170.0,0.0,0.0,0.0,40.0,45.0,0.0,45.0,0.0
+Barq's Root Beer w/ Ice 20 oz,190.0,0.0,0.0,0.0,40.0,52.0,0.0,52.0,0.0
+Dr Pepper w/ Ice 20 oz,170.0,0.0,0.0,0.0,40.0,44.0,0.0,44.0,0.0
+Hi C Flashin Fruit Punch w/ Ice 20 oz,180.0,0.0,0.0,0.0,15.0,48.0,0.0,48.0,0.0
+Cherry Limeade w/ Ice 20 oz,210.0,0.0,0.0,0.0,40.0,56.0,0.0,55.0,0.0
+Minute Maid Lemonade w/ Ice 20 oz,170.0,0.0,0.0,0.0,70.0,44.0,0.0,44.0,0.0
+Fanta Orange w/ Ice 20 oz,180.0,0.0,0.0,0.0,0.0,49.0,0.0,49.0,0.0
+Nestle Pure Life Bottled Water 16.9 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Red Bull Energy Drink 8.4 oz,110.0,0.0,0.0,0.0,100.0,28.0,0.0,27.0,0.0
+Red Bull Energy Drink Sugar Free 8.4 oz,10.0,0.0,0.0,0.0,100.0,3.0,0.0,0.0,0.0
+Iced Tea w/ Ice Unsweetened 20 oz,0.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Iced Tea w/ Ice Sweetened 20 oz,170.0,0.0,0.0,0.0,10.0,44.0,0.0,42.0,0.0
+Premium Blend Coffee Regular 8 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Premium Blend Coffee Decaf 8 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Milk Reduced Fat 12 oz,150.0,6.0,4.0,25.0,125.0,14.0,0.0,15.0,10.0
+Chocolate Milk Reduced Fat 12 oz,240.0,6.0,3.5,25.0,210.0,28.0,2.0,30.0,9.0
+Minute Maid Orange Juice,140.0,0.0,0.0,0.0,0.0,34.0,0.0,30.0,0.0
+Banana Milkshake Kids & Small,420.0,10.0,8.0,40.0,180.0,77.0,3.0,59.0,12.0
+Banana Milkshake Regular,680.0,18.0,13.0,70.0,240.0,125.0,6.0,92.0,17.0
+Chocolate Covered Strawberry Milkshake Kids & Small,490.0,18.0,14.0,55.0,210.0,75.0,1.0,64.0,12.0
+Chocolate Covered Strawberry Milkshake Regular,720.0,25.0,20.0,70.0,300.0,116.0,2.0,97.0,17.0
+Chocolate Milkshake Regular,580.0,18.0,13.0,70.0,280.0,99.0,1.0,82.0,15.0
+Double Chocolate Fudge Milkshake Kids & Small,550.0,17.0,14.0,45.0,240.0,93.0,2.0,76.0,13.0
+Double Chocolate Fudge Milkshake Regular,880.0,29.0,23.0,70.0,360.0,147.0,3.0,118.0,18.0
+Jalapeno Crunch Steakburger,700.0,44.0,12.0,75.0,1600.0,54.0,1.0,7.0,25.0
+Mocha Milkshake Kids & Small,380.0,10.0,8.0,40.0,180.0,67.0,0.0,60.0,11.0
+Orange Freeze Milkshake Kids & Small,360.0,9.0,7.0,35.0,160.0,64.0,0.0,58.0,9.0
+Orange Freeze Milkshake Regular,580.0,17.0,12.0,60.0,220.0,102.0,0.0,94.0,13.0
+Peanut Butter Cup Milkshake Kids & Small,530.0,24.0,10.0,40.0,290.0,71.0,2.0,61.0,17.0
+Strawberry Milkshake Kids & Small,430.0,13.0,10.0,50.0,180.0,75.0,0.0,69.0,10.0
+Vanilla Milkshake Kids & Small,410.0,10.0,8.0,40.0,170.0,74.0,0.0,65.0,10.0
+M&M's Milkshake Kids & Small,550.0,17.0,12.0,45.0,210.0,92.0,1.0,82.0,12.0
+M&M's Milkshake Regular,770.0,25.0,17.0,70.0,270.0,129.0,1.0,115.0,16.0
+Steakburger Minis w/ Cheese 2 & Fries Kids,400.0,19.0,6.0,30.0,310.0,46.0,3.0,3.0,13.0
+Ultimate Banana Milkshake Regular,640.0,18.0,13.0,70.0,250.0,115.0,3.0,94.0,16.0
+Chocolate Banana Milkshake Regular,690.0,18.0,14.0,70.0,280.0,126.0,4.0,97.0,16.0
+Strawberry Banana Milkshake Regular,640.0,18.0,13.0,70.0,240.0,113.0,4.0,91.0,16.0
+Chocolate Fudge Brownie Milkshake Regular,960.0,31.0,21.0,75.0,410.0,163.0,4.0,127.0,19.0
+Oreo Ice Cream Sandwich,240.0,10.0,4.0,20.0,35.0,36.0,1.0,19.0,4.0
+Portobello n Swiss Steakburger,540.0,29.0,11.0,70.0,830.0,44.0,2.0,8.0,27.0
+California Skillet w/ Sausage,760.0,58.0,16.0,525.0,1660.0,28.0,5.0,5.0,31.0
+Breakfast Bowl w/ Hash Browns,420.0,35.0,8.0,150.0,500.0,16.0,2.0,1.0,10.0
+California Skillet w/ Grilled Chicken,670.0,43.0,10.0,525.0,1770.0,40.0,5.0,6.0,42.0
+Chocolate Banana Milkshake Kids & Small,470.0,13.0,10.0,50.0,200.0,83.0,2.0,65.0,11.0
+Chocolate Fudge Brownie Milkshake Kids & Small,620.0,20.0,12.0,45.0,290.0,104.0,2.0,82.0,14.0
+Strawberry Banana Milkshake Kids & Small,400.0,10.0,8.0,40.0,180.0,71.0,2.0,58.0,11.0
+Salsa 1 oz,0.0,0.0,0.0,0.0,90.0,0.0,0.0,0.0,0.0
+Salted Caramel Pretzel Milkshake Regular,610.0,18.0,13.0,70.0,800.0,106.0,0.0,97.0,49.0
+Salted Caramel Pretzel Milkshake Kids & Small,450.0,13.0,10.0,50.0,600.0,78.0,0.0,71.0,36.0
+Strawberry Milkshake Regular,600.0,18.0,13.0,70.0,250.0,101.0,0.0,94.0,14.0
+Bacon Lovers Steakburger,690.0,43.0,16.0,115.0,1390.0,42.0,0.0,9.0,33.0
+Garlic Double Steakburger w/ Cheese,630.0,42.0,13.0,75.0,1250.0,38.0,0.0,7.0,23.0
+Guacamole Single Steakburger,380.0,21.0,7.0,40.0,650.0,34.0,3.0,5.0,15.0
+7x7 Steakburger,1330.0,98.0,45.0,290.0,4490.0,34.0,1.0,6.0,74.0
+Garlic Steakburger Shooter,250.0,19.0,5.0,25.0,520.0,13.0,0.0,2.0,7.0
+Parmesan Cheese n Herbs Seasoned Fries Regular,450.0,21.0,4.0,0.0,290.0,60.0,6.0,0.0,5.0
+Parmesan Cheese n Herbs Seasoned Fries Small,250.0,12.0,2.0,0.0,150.0,33.0,3.0,0.0,3.0
+Salt n Vinegar Seasoned Fries Regular,450.0,21.0,4.0,0.0,510.0,60.0,6.0,0.0,5.0
+Salt n Vinegar Seasoned Fries Small,250.0,11.0,2.0,0.0,260.0,33.0,0.0,2.0,3.0
+Sea Salt n Pepper Seasoned Fries Small,250.0,11.0,2.0,0.0,210.0,33.0,3.0,0.0,3.0
+Grilled Chicken Taco Salad,590.0,44.0,10.0,85.0,1760.0,34.0,5.0,7.0,28.0
+Beef Taco Salad,580.0,48.0,12.0,55.0,2250.0,26.0,6.0,6.0,15.0
+Chili Cheese Foot Long Hot Dog,720.0,49.0,10.0,105.0,1870.0,43.0,3.0,6.0,28.0
+Classic Foot Long Hot Dog,520.0,35.0,2.0,70.0,1480.0,34.0,1.0,4.0,19.0
+Birthday Cake Milkshake Kids,500.0,15.0,10.0,55.0,260.0,83.0,0.0,71.0,12.0
+Birthday Cake Milkshake Regular,820.0,27.0,17.0,95.0,410.0,135.0,0.0,115.0,16.0
+Snickers Shake Kids & Small,450.0,14.0,9.0,40.0,220.0,74.0,0.0,65.0,12.0
+Snickers Shake Regular,670.0,21.0,15.0,70.0,290.0,112.0,0.0,98.0,16.0
+Grilled Cheese Steakburger Melt,720.0,51.0,18.0,95.0,1550.0,35.0,2.0,5.0,28.0
+All American Melt,900.0,65.0,23.0,140.0,1340.0,35.0,2.0,5.0,39.0
+Cajun Seasoned Fries Small,250.0,11.0,2.0,0.0,170.0,33.0,3.0,0.0,3.0
+Cajun Seasoned Fries Regular,450.0,21.0,4.0,0.0,260.0,60.0,6.0,0.0,5.0
+Parmesan Cheese n Herbs Fresh Cut Fries Small,300.0,18.0,4.5,0.0,140.0,31.0,2.0,0.0,4.0
+Parmesan Cheese n Herbs Fresh Cut Fries Large,720.0,43.0,11.0,0.0,380.0,74.0,5.0,0.0,10.0
+Salt n Vinegar Seasoned Fresh Cut Fries Small,300.0,18.0,4.5,0.0,250.0,31.0,2.0,0.0,4.0
+Salt n Vinegar Seasoned Fresh Cut Fries Large,720.0,43.0,11.0,0.0,710.0,75.0,5.0,0.0,10.0
+Sea Salt n Pepper Seasoned Fresh Cut Fries Small,300.0,18.0,4.5,0.0,200.0,31.0,2.0,0.0,4.0
+Sea Salt n Pepper Seasoned Fresh Cut Fries Large,720.0,43.0,11.0,0.0,550.0,74.0,5.0,0.0,10.0
+Chocolate Chip Pancakes,1290.0,38.0,19.0,60.0,2470.0,224.0,4.0,118.0,20.0
+Nutella Milkshake Kids & Small,490.0,20.0,11.0,40.0,190.0,70.0,1.0,62.0,12.0
+Philly Cheese Double Steakburger,810.0,51.0,18.0,90.0,1630.0,59.0,2.0,11.0,30.0
+Cajun Double Steakburger,870.0,63.0,21.0,130.0,970.0,37.0,0.0,6.0,37.0
+Dark Chocolate Milkshake Kids & Small,460.0,14.0,10.0,40.0,200.0,78.0,1.0,68.0,12.0
+Dark Chocolate Milkshake Regular,680.0,22.0,16.0,70.0,290.0,116.0,2.0,102.0,16.0
+Blueberry Pancakes,810.0,16.0,5.0,50.0,2360.0,150.0,5.0,52.0,17.0
+Speculoos Cookie Butter Milkshake Regular,900.0,43.0,20.0,75.0,400.0,116.0,1.0,90.0,18.0
+Steakburger Shooter Plain,130.0,6.0,2.0,15.0,210.0,12.0,0.0,2.0,6.0
+Mac & Cheese Kids,170.0,5.0,1.5,10.0,340.0,26.0,1.0,5.0,6.0
+Signature Steakburger w/ Cheese,790.0,49.0,21.0,65.0,1550.0,48.0,2.0,10.0,41.0
+Nutella Milkshake Regular,800.0,37.0,20.0,70.0,260.0,109.0,2.0,97.0,18.0
+Jamaican Jerk Double Steakburger,540.0,30.0,11.0,70.0,940.0,46.0,0.0,13.0,23.0
+2 Pancakes a la Carte,540.0,16.0,9.0,45.0,1100.0,94.0,1.0,41.0,6.0
+Black Raspberry Chocolate Chip Milkshake Small & Kids LTO,660.0,31.0,20.0,85.0,160.0,89.0,2.0,77.0,14.0
+Chocolate Peanut Butter Milkshake Kids & Small,540.0,24.0,10.0,40.0,320.0,74.0,3.0,59.0,17.0
+Peppermint Chocolate Chip Milkshake Kids & Small,510.0,14.0,12.0,40.0,190.0,87.0,0.0,78.0,11.0
+Black Raspberry Chocolate Chip Milkshake Regular LTO,930.0,44.0,28.0,130.0,220.0,130.0,2.0,114.0,20.0
+Chocolate Peanut Butter Milkshake Regular,920.0,43.0,18.0,70.0,520.0,119.0,6.0,94.0,28.0
+Egg Nog Milkshake Regular,610.0,19.0,14.0,70.0,260.0,104.0,0.0,95.0,15.0
+Peanut Butter Milkshake Regular,840.0,43.0,18.0,70.0,470.0,98.0,4.0,82.0,27.0
+Peppermint Chocolate Chip Milkshake Regular,730.0,22.0,17.0,70.0,260.0,126.0,0.0,114.0,15.0
+White Chocolate Milkshake Regular,620.0,19.0,14.0,70.0,240.0,105.0,0.0,95.0,14.0
+White Chocolate Milkshake Kids & Small,400.0,11.0,9.0,40.0,180.0,68.0,0.0,61.0,11.0
+Chipotle Double Steakburger N Fries Meal,650.0,44.0,15.0,95.0,1240.0,37.0,3.0,8.0,27.0
+Garden Bowl Salad,400.0,27.0,13.0,60.0,550.0,24.0,7.0,5.0,19.0
+Frosted Flakes Cereal Shake Regular,680.0,18.0,14.0,70.0,330.0,121.0,0.0,99.0,16.0
+Mountain Berry Blast Powerade w/ Ice 22 oz,90.0,0.0,0.0,0.0,170.0,23.0,0.0,23.0,0.0
+Cherry Coke w/ Ice 12 oz,90.0,0.0,0.0,0.0,35.0,24.0,0.0,24.0,0.0
+Hi C Flashin Fruit Punch w/ Ice 24 oz,120.0,0.0,0.0,0.0,15.0,35.0,0.0,34.0,0.0
+Pepsi w/ Ice 20 oz,150.0,0.0,0.0,0.0,30.0,41.0,0.0,41.0,0.0
+Dr Pepper w/ Ice 18 oz,130.0,0.0,0.0,0.0,50.0,36.0,0.0,35.0,0.0
+Spicy Chicken Sandwich,520.0,19.0,3.5,60.0,1680.0,51.0,5.0,10.0,27.0
+Iced Tea w/ Ice Unsweetened 20 oz,0.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Sierra Mist w/ Ice 20 oz,150.0,0.0,0.0,0.0,35.0,39.0,0.0,39.0,0.0
+Pepsi w/ Ice 16 oz,120.0,0.0,0.0,0.0,25.0,33.0,0.0,33.0,0.0
+Fuze Raspberry Iced Tea w/ Ice 32 oz,100.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Mug Root Beer w/ Ice 24 oz,250.0,0.0,0.0,0.0,75.0,68.0,0.0,68.0,0.0
+Mello Yello w/ Ice 18 oz,150.0,0.0,0.0,0.0,40.0,42.0,0.0,42.0,0.0
+Chocolate Covered Strawberry Milkshake Regular,720.0,25.0,20.0,70.0,300.0,116.0,2.0,97.0,17.0
+Dr Pepper w/ Ice 16 oz,120.0,0.0,0.0,0.0,45.0,32.0,0.0,31.0,0.0
+Sierra Mist w/ Ice 24 oz,180.0,0.0,0.0,0.0,40.0,47.0,0.0,47.0,0.0
+Cheese Fries Regular,590.0,35.0,8.0,10.0,1940.0,63.0,5.0,3.0,8.0
+Steakburger Minis w/ Cheese & Fries Kids,680.0,34.0,11.0,50.0,1110.0,69.0,2.0,10.0,23.0
+Fresh Lemonade Regular,120.0,0.0,0.0,0.0,0.0,4.0,0.0,30.0,0.0
+Coke Zero w/ Ice 44 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Sausage Gravy & Biscuits Half Order,480.0,33.0,22.0,25.0,1350.0,41.0,1.0,3.0,7.0
+Pepsi w/ Ice 24 oz,180.0,0.0,0.0,0.0,35.0,49.0,0.0,49.0,0.0
+Cheese Fries Large,790.0,45.0,10.0,10.0,2390.0,88.0,7.0,3.0,9.0
+Diet Coke w/ Ice 32 oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper w/ Ice 18 oz,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Hi C Flashin Fruit Punch w/ Ice 16 oz,80.0,0.0,0.0,0.0,10.0,23.0,0.0,22.0,0.0
+Mug Root Beer w/ Ice 20 oz,210.0,0.0,0.0,0.0,65.0,57.0,0.0,57.0,0.0
+Coke Zero w/ Ice 32 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Orange Juice Minute Maid 8 fl oz,110.0,0.0,0.0,0.0,15.0,27.0,0.0,24.0,2.0
+The Original Double w/ Cheese,550.0,33.0,14.0,90.0,1370.0,33.0,2.0,6.0,28.0
+Fanta Orange w/ Ice 32 oz,170.0,0.0,0.0,0.0,10.0,46.0,0.0,46.0,0.0
+Barqs Root Beer w/ Ice 18 oz,100.0,0.0,0.0,0.0,20.0,27.0,0.0,27.0,0.0
+Sprite w/ Ice 20 oz,100.0,0.0,0.0,0.0,20.0,26.0,0.0,26.0,0.0
+Chocolate Chip Pancakes,1290.0,38.0,19.0,60.0,2470.0,224.0,4.0,118.0,20.0
+Sprite w/ Ice 32 oz,160.0,0.0,0.0,0.0,35.0,42.0,0.0,42.0,0.0
+Sprite w/ Ice 12 oz,60.0,0.0,0.0,0.0,15.0,16.0,0.0,16.0,0.0
+Coffee Brewed,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mountain Dew w/ Ice 44 oz,370.0,0.0,0.0,0.0,130.0,101.0,0.0,101.0,0.0
+Orange Freeze Milkshake Kids & Small,360.0,9.0,7.0,35.0,160.0,64.0,0.0,58.0,9.0
+Shredded Hash Brown,300.0,28.0,5.0,0.0,200.0,15.0,1.0,1.0,1.0
+Beef Taco Salad,950.0,73.0,25.0,125.0,1440.0,43.0,5.0,5.0,33.0
+Mug Root Beer w/ Ice 18 oz,190.0,0.0,0.0,0.0,60.0,51.0,0.0,51.0,0.0
+Shiner Bock Draft,140.0,0.0,0.0,0.0,0.0,13.0,0.0,13.0,0.0
+Sausage Gravy & Biscuits Full Order,970.0,67.0,43.0,50.0,2690.0,81.0,2.0,7.0,13.0
+Thin n Crispy Fries Kids,150.0,8.0,1.5,0.0,510.0,19.0,2.0,0.0,1.0
+Oreo Red Velvet Milkshake Regular,940.0,31.0,17.0,95.0,550.0,156.0,2.0,128.0,18.0
+2 Bacon Slices,80.0,7.0,2.5,15.0,230.0,0.0,0.0,0.0,5.0
+Bacon Egg & Cheese Biscuit,530.0,36.0,23.0,200.0,1570.0,34.0,1.0,4.0,18.0
+Diet Dr Pepper w/ Ice 44 oz,0.0,0.0,0.0,0.0,125.0,0.0,0.0,0.0,0.0
+Diet Coke w/ Ice 16 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Chili 5 Way,1160.0,57.0,33.0,165.0,2060.0,103.0,13.0,11.0,59.0
+Coke Classic w/ Ice 18 oz,90.0,0.0,0.0,0.0,0.0,24.0,0.0,24.0,0.0
+M&M Milkshake Regular,770.0,25.0,17.0,70.0,270.0,129.0,1.0,115.0,16.0
+Mountain Dew w/ Ice 12 oz,100.0,0.0,0.0,0.0,35.0,28.0,0.0,28.0,0.0
+Diet Dr Pepper w/ Ice 20 oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Steak Frank & Fries Kids,540.0,36.0,11.0,45.0,1560.0,40.0,1.0,4.0,13.0
+Diet Pepsi w/ Ice 12 oz,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Cajun Seasoned Fries Small,250.0,13.0,2.5,0.0,650.0,30.0,3.0,0.0,2.0
+Pepsi w/ Ice 32 oz,240.0,0.0,0.0,0.0,50.0,66.0,0.0,66.0,0.0
+Ketchup & Mustard Steakburger Shooter w/ Cheese,170.0,10.0,4.0,25.0,460.0,14.0,0.0,2.0,8.0
+Genuine Chili Cup,330.0,12.0,5.0,25.0,760.0,39.0,8.0,2.0,18.0
+Diet Coke w/ Ice 24 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Hash Brown Crispy Patty,140.0,7.0,1.0,0.0,310.0,16.0,1.0,0.0,1.0
+Diet Coke w/ Ice 44 oz,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+2 Biscuits Breakfast,640.0,40.0,32.0,0.0,1780.0,66.0,2.0,6.0,8.0
+Mug Root Beer w/ Ice 44 oz,460.0,0.0,0.0,0.0,140.0,125.0,0.0,125.0,0.0
+1 Egg Over Easy Medium or Hard,80.0,5.0,1.5,185.0,70.0,0.0,0.0,0.0,6.0
+Egg Nog Milkshake Kids & Small,380.0,10.0,8.0,40.0,180.0,66.0,0.0,59.0,11.0
+1 Slice of Bacon Breakfast,40.0,3.5,1.0,10.0,115.0,0.0,0.0,0.0,2.0
+Thin n Crispy Fries Small,240.0,13.0,2.5,0.0,550.0,30.0,3.0,0.0,2.0
+Pumpkin Spice Milkshake Regular,640.0,18.0,13.0,70.0,290.0,111.0,0.0,100.0,16.0
+Vanilla Milkshake Regular,600.0,18.0,13.0,70.0,240.0,104.0,0.0,92.0,14.0
+Chili Cheese Fries Small,430.0,22.0,6.0,15.0,1310.0,47.0,5.0,2.0,10.0
+Turkey Club Sandwich,510.0,25.0,7.0,75.0,1860.0,34.0,5.0,9.0,35.0
+Strawberry Banana Milkshake Regular,640.0,18.0,13.0,70.0,240.0,113.0,4.0,91.0,16.0
+Single Steakburger w/ Cheese,400.0,21.0,9.0,55.0,1190.0,32.0,3.0,6.0,20.0
+Diet Coke Caffeine Free w/ Ice 32 oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+1 Wheat Toast Slice/ Butter,90.0,3.0,0.5,0.0,135.0,12.0,1.0,2.0,3.0
+Gatorade Lemon Lime w/ Ice 20 oz,130.0,0.0,0.0,0.0,230.0,35.0,0.0,31.0,0.0
+Mello Yello w/ Ice 12 oz,100.0,0.0,0.0,0.0,25.0,28.0,0.0,28.0,0.0
+Bacon Add Ons,60.0,5.0,2.0,10.0,170.0,0.0,0.0,0.0,4.0
+Coke Zero w/ Ice 20 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+American Cheese Shooters Add Ons,30.0,2.5,1.5,6.5,140.0,0.0,0.0,0.0,1.5
+Gatorade Lemon Lime w/ Ice 18 oz,120.0,0.0,0.0,0.0,205.0,32.0,0.0,32.0,0.0
+Chocolate Milkshake Regular,580.0,18.0,13.0,70.0,280.0,99.0,1.0,82.0,15.0
+Fanta Orange w/ Ice 16 oz,80.0,0.0,0.0,0.0,0.0,23.0,0.0,23.0,0.0
+Coke Zero w/ Ice 24 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Bagel Sandwich w/ Sausage,700.0,38.0,14.0,270.0,1380.0,53.0,2.0,7.0,33.0
+Birthday Cake Milkshake Regular,820.0,27.0,17.0,95.0,410.0,135.0,0.0,115.0,16.0
+Diet Coke Caffeine Free w/ Ice 16 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Mello Yello w/ Ice 32 oz,270.0,0.0,0.0,0.0,70.0,75.0,0.0,75.0,0.0
+Nutella Milkshake Kids & Small,490.0,20.0,11.0,40.0,190.0,70.0,1.0,62.0,12.0
+Gatorade Lemon Lime w/ Ice 32 oz,210.0,0.0,0.0,0.0,370.0,56.0,0.0,49.0,0.0
+The Original Double,460.0,26.0,10.0,70.0,1010.0,33.0,2.0,6.0,23.0
+Reduced Fat Milk Small,150.0,6.0,4.5,30.0,150.0,14.0,0.0,14.0,0.0
+Chili Mac,1200.0,61.0,26.0,130.0,2710.0,112.0,9.0,16.0,46.0
+Portobello & Swiss Steakburger,740.0,50.0,16.0,95.0,890.0,36.0,2.0,9.0,29.0
+Reeses Peanut Butter Milkshake Kids & Small,530.0,23.0,10.0,40.0,290.0,71.0,2.0,61.0,17.0
+Mountain Berry Blast Powerade w/ Ice 24 oz,100.0,0.0,0.0,0.0,180.0,25.0,0.0,25.0,0.0
+Lemonade Tropicana w/ Ice 32 oz,240.0,0.0,0.0,0.0,250.0,65.0,0.0,65.0,0.0
+1 Steakburger Patty Add Ons,140.0,12.0,5.0,35.0,180.0,0.0,0.0,0.0,9.0
+Coke Classic w/ Ice 44 oz,220.0,0.0,0.0,0.0,5.0,59.0,0.0,59.0,0.0
+Fuze Raspberry Iced Tea w/ Ice 22 oz,70.0,0.0,0.0,0.0,10.0,16.0,0.0,16.0,0.0
+Fuze Raspberry Iced Tea w/ Ice 24 oz,70.0,0.0,0.0,0.0,10.0,18.0,0.0,18.0,0.0
+Cheese Fries Small,320.0,18.0,4.0,5.0,1050.0,34.0,3.0,1.0,4.0
+Mug Root Beer w/ Ice 16 oz,170.0,0.0,0.0,0.0,50.0,46.0,0.0,46.0,0.0
+Diet Dr Pepper w/ Ice 32 oz,0.0,0.0,0.0,0.0,90.0,0.0,0.0,0.0,0.0
+Minute Maid Lemonade w/ Ice 22 oz,100.0,0.0,0.0,0.0,50.0,30.0,0.0,27.0,0.0
+Frisco Steakburger Shooter,160.0,10.0,2.5,20.0,280.0,14.0,0.0,3.0,6.0
+Garden Salad Small Side,60.0,1.0,0.0,0.0,110.0,10.0,3.0,3.0,2.0
+Mountain Dew w/ Ice 24 oz,200.0,0.0,0.0,0.0,70.0,55.0,0.0,55.0,0.0
+Diet Pepsi w/ Ice 32 oz,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Nutella Milkshake Regular,800.0,37.0,20.0,70.0,260.0,109.0,2.0,97.0,18.0
+Fuze Raspberry Iced Tea w/ Ice 18 oz,50.0,0.0,0.0,0.0,5.0,13.0,0.0,13.0,0.0
+Chili Mac Supreme,1410.0,78.0,42.0,205.0,2660.0,114.0,8.0,16.0,64.0
+4 Bacon Slices,160.0,14.0,5.0,30.0,460.0,0.0,0.0,0.0,10.0
+Draft Brooklyn Lager,170.0,0.0,0.0,0.0,0.0,17.0,0.0,0.0,2.0
+Banana Milkshake Regular,680.0,18.0,13.0,70.0,240.0,125.0,6.0,92.0,17.0
+Cinnamon Crunch Cereal Shake Regular,620.0,18.0,13.0,70.0,280.0,107.0,0.0,93.0,15.0
+Reduced Fat Milk Large,300.0,12.0,9.0,60.0,300.0,27.0,0.0,27.0,20.0
+Dark Chocolate Milkshake Regular,690.0,22.0,16.0,70.0,300.0,119.0,2.0,99.0,16.0
+Sprite w/ Ice 16 oz,80.0,0.0,0.0,0.0,20.0,21.0,0.0,21.0,0.0
+Hi C Flashin Fruit Punch w/ Ice 32 oz,170.0,0.0,0.0,0.0,20.0,46.0,0.0,45.0,0.0
+Potato & Egg Breakfast Taco,190.0,10.0,4.0,115.0,490.0,20.0,0.0,1.0,5.0
+Grilled Cheese & Fries Kids,820.0,58.0,16.0,40.0,1660.0,51.0,2.0,2.0,20.0
+Dr Pepper w/ Ice 12 oz,90.0,0.0,0.0,0.0,35.0,24.0,0.0,23.0,0.0
+Gatorade Lemon Lime w/ Ice 22 oz,150.0,0.0,0.0,0.0,255.0,39.0,0.0,34.0,0.0
+Coke Classic w/ Ice 20 oz,100.0,0.0,0.0,0.0,0.0,27.0,0.0,27.0,0.0
+2 Sausage Patties,600.0,52.0,18.0,140.0,1020.0,0.0,0.0,0.0,26.0
+Heath Bar Milkshake Regular,670.0,23.0,16.0,65.0,290.0,113.0,0.0,101.0,13.0
+Fanta Orange w/ Ice 44 oz,230.0,0.0,0.0,0.0,10.0,64.0,0.0,64.0,0.0
+Signature Steakburger,570.0,35.0,14.0,100.0,1070.0,33.0,2.0,7.0,30.0
+Kit Kat Milkshake Regular,680.0,22.0,16.0,70.0,260.0,114.0,0.0,100.0,16.0
+Garlic Double Steakburger,750.0,51.0,17.0,95.0,1530.0,33.0,1.0,8.0,29.0
+Diet Coke Caffeine Free w/ Ice 20 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Garlic Steakburger Shooter,240.0,19.0,4.5,20.0,330.0,13.0,0.0,1.0,6.0
+Barqs Root Beer w/ Ice 20 oz,110.0,0.0,0.0,0.0,25.0,33.0,0.0,33.0,0.0
+Genuine Chili Bowl,550.0,20.0,9.0,40.0,1270.0,65.0,13.0,3.0,29.0
+Coke Classic w/ Ice 22 oz,110.0,0.0,0.0,0.0,0.0,30.0,0.0,30.0,0.0
+Cherry Coke w/ Ice 44 oz,330.0,0.0,0.0,0.0,120.0,88.0,0.0,88.0,0.0
+Diet Coke w/ Ice 18 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Caffeine Free Pepsi w/ Ice 20 oz,150.0,0.0,0.0,0.0,30.0,42.0,42.0,0.0,0.0
+Chocolate Milk Large,440.0,13.0,9.0,60.0,350.0,63.0,2.0,52.0,20.0
+Caffeine Free Pepsi w/ Ice 12 oz,90.0,0.0,0.0,0.0,20.0,25.0,25.0,0.0,0.0
+Chili Cheese Footlong Hot Dog,710.0,44.0,22.0,115.0,1620.0,46.0,4.0,5.0,33.0
+Frosted Flakes Cereal Shake Kids & Small,460.0,11.0,8.0,40.0,270.0,84.0,0.0,66.0,12.0
+Fanta Orange w/ Ice 12 oz,60.0,0.0,0.0,0.0,0.0,17.0,0.0,17.0,0.0
+Grilled Cheese Sandwich,660.0,45.0,14.0,40.0,1130.0,41.0,2.0,2.0,19.0
+Steakburger Minis & Fries Kids,620.0,30.0,8.0,35.0,840.0,69.0,2.0,10.0,20.0
+Reeses Chocolate PB Milkshake Regular,920.0,43.0,18.0,70.0,520.0,119.0,6.0,94.0,28.0
+Vanilla Milkshake Kids & Small,410.0,10.0,8.0,40.0,170.0,74.0,0.0,65.0,10.0
+Pepsi w/ Ice 22 oz,170.0,0.0,0.0,0.0,35.0,45.0,0.0,45.0,0.0
+Red Bull Energy Drink,100.0,0.0,0.0,0.0,100.0,28.0,0.0,27.0,0.0
+Garden Bowl Salad,400.0,27.0,13.0,60.0,550.0,24.0,7.0,5.0,19.0
+Triple Steakburger w/ Cheese,780.0,52.0,23.0,150.0,1910.0,32.0,3.0,6.0,42.0
+Sausage & Egg Biscuit,680.0,50.0,26.0,240.0,1550.0,34.0,1.0,4.0,23.0
+Diet Coke Caffeine Free w/ Ice 24 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Patty Melt,810.0,59.0,22.0,115.0,1570.0,30.0,2.0,4.0,34.0
+Ultimate Banana Milkshake Regular,640.0,18.0,13.0,70.0,250.0,115.0,3.0,94.0,16.0
+2 Pancakes w/ Butter & Syrup,670.0,18.0,9.0,50.0,1740.0,113.0,2.0,39.0,11.0
+Caramel Frappe Cereal Shake Kids & Small,400.0,10.0,8.0,40.0,200.0,70.0,17.0,62.0,11.0
+Veggie Melt w/ Portobellos,620.0,45.0,11.0,25.0,1000.0,44.0,11.0,8.0,16.0
+Caffeine Free Pepsi w/ Ice 44 oz,330.0,0.0,0.0,0.0,65.0,92.0,92.0,0.0,0.0
+Sierra Mist w/ Ice 22 oz,170.0,0.0,0.0,0.0,40.0,43.0,0.0,43.0,0.0
+Barqs Root Beer w/ Ice 16 oz,90.0,0.0,0.0,0.0,20.0,24.0,0.0,24.0,0.0
+Fanta Orange w/ Ice 20 oz,110.0,0.0,0.0,0.0,0.0,29.0,0.0,29.0,0.0
+Cinnamon Crunch Cereal Shake Kids & Small,400.0,11.0,8.0,40.0,220.0,70.0,0.0,60.0,11.0
+Plain Steakburger Shooter w/ Cheese,160.0,9.0,4.0,25.0,340.0,12.0,0.0,1.0,8.0
+Jalapeno Crunch Steakburger,790.0,53.0,19.0,90.0,1590.0,42.0,2.0,9.0,27.0
+Caffeine Free Pepsi w/ Ice 32 oz,240.0,0.0,0.0,0.0,50.0,67.0,67.0,0.0,0.0
+Breakfast Bowl w/ Hash Browns,460.0,42.0,11.0,180.0,600.0,11.0,1.0,2.0,12.0
+1 Sausage Patty,300.0,26.0,9.0,70.0,510.0,0.0,0.0,0.0,13.0
+Classic Footlong Hot Dog w/ Mustard,390.0,23.0,8.0,45.0,1080.0,32.0,1.0,4.0,13.0
+Coke Classic w/ Ice 24 oz,120.0,0.0,0.0,0.0,0.0,32.0,0.0,32.0,0.0
+Egg & Cheese Biscuit,470.0,31.0,21.0,190.0,1400.0,34.0,1.0,4.0,15.0
+BBQ Steakburger Shooter,140.0,7.0,2.5,20.0,240.0,15.0,0.0,4.0,6.0
+Sprite w/ Ice 18 oz,90.0,0.0,0.0,0.0,20.0,23.0,0.0,23.0,0.0
+Guacamole Single Steakburger,540.0,37.0,11.0,55.0,1020.0,36.0,4.0,7.0,18.0
+American Cheese Add Ons,90.0,7.0,4.0,20.0,360.0,0.0,0.0,0.0,5.0
+Diet Coke Caffeine Free w/ Ice 44 oz,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Country Skillet,1320.0,106.0,43.0,480.0,2340.0,57.0,2.0,5.0,37.0
+Hi C Flashin Fruit Punch w/ Ice 22 oz,110.0,0.0,0.0,0.0,15.0,32.0,0.0,31.0,0.0
+Cherry Coke w/ Ice 16 oz,120.0,0.0,0.0,0.0,45.0,32.0,0.0,32.0,0.0
+Grilled Onions Add Ons,30.0,2.5,1.0,0.0,30.0,2.0,0.0,2.0,0.0
+Coke Zero w/ Ice 16 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Sprite w/ Ice 22 oz,110.0,0.0,0.0,0.0,25.0,29.0,0.0,29.0,0.0
+Sausage Egg & Cheese Biscuit,770.0,57.0,30.0,260.0,1910.0,34.0,1.0,4.0,28.0
+Cherry Coke w/ Ice 32 oz,240.0,0.0,0.0,0.0,90.0,64.0,0.0,64.0,0.0
+Diet Coke w/ Ice 22 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Gatorade Lemon Lime w/ Ice 24 oz,160.0,0.0,0.0,0.0,275.0,42.0,0.0,37.0,0.0
+Minute Maid Lemonade w/ Ice 32 oz,150.0,0.0,0.0,0.0,70.0,43.0,0.0,40.0,0.0
+Signature Steakburger w/ Cheese,660.0,42.0,18.0,120.0,1430.0,33.0,2.0,7.0,35.0
+Bacon Lovers Steakburger,880.0,59.0,22.0,135.0,1820.0,34.0,1.0,9.0,39.0
+Mug Root Beer w/ Ice 32 oz,340.0,0.0,0.0,0.0,105.0,91.0,0.0,91.0,0.0
+Lemonade Tropicana w/ Ice 24 oz,180.0,0.0,0.0,0.0,190.0,49.0,0.0,49.0,0.0
+Reeses Chocolate PB Milkshakes Kids & Small,540.0,23.0,10.0,40.0,320.0,74.0,3.0,59.0,17.0
+Diet Coke w/ Ice 20 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Strawberry Banana Milkshake Kids & Small,400.0,10.0,8.0,40.0,180.0,71.0,2.0,58.0,11.0
+Chocolate Banana Milkshake Regular,690.0,18.0,14.0,70.0,280.0,126.0,4.0,97.0,16.0
+Red Velvet Milkshake Regular,820.0,26.0,16.0,95.0,450.0,138.0,1.0,118.0,17.0
+Fanta Orange w/ Ice 28 oz,150.0,0.0,0.0,0.0,5.0,41.0,0.0,41.0,0.0
+Bacon Lettuce n Tomato Sandwich,440.0,19.0,6.0,35.0,940.0,43.0,2.0,3.0,19.0
+Grilled Cheese n Bacon Sandwich,600.0,36.0,13.0,40.0,1130.0,41.0,2.0,2.0,19.0
+Diet Pepsi w/ Ice 22 oz,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Fuze Raspberry Iced Tea w/ Ice 20 oz,60.0,0.0,0.0,0.0,5.0,15.0,0.0,15.0,0.0
+Dark Chocolate Milkshake Kids & Small,460.0,14.0,10.0,40.0,210.0,79.0,1.0,67.0,12.0
+Sierra Mist w/ Ice 12 oz,90.0,0.0,0.0,0.0,20.0,23.0,0.0,23.0,0.0
+Mountain Dew w/ Ice 32 oz,270.0,0.0,0.0,0.0,95.0,74.0,0.0,74.0,0.0
+Diet Dr Pepper w/ Ice 12 oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Diet Pepsi w/ Ice 44 oz,0.0,0.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+Sierra Mist w/ Ice 16 oz,120.0,0.0,0.0,0.0,30.0,31.0,0.0,31.0,0.0
+Gatorade Lemon Lime w/ Ice 44 oz,290.0,0.0,0.0,0.0,505.0,77.0,0.0,67.0,0.0
+Prime Steakburger,820.0,46.0,22.0,60.0,1910.0,55.0,3.0,11.0,39.0
+Coke Zero w/ Ice 18 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Lemonade Tropicana w/ Ice 18 oz,140.0,0.0,0.0,0.0,140.0,36.0,0.0,36.0,0.0
+Grilled Chicken Taco Salad,820.0,58.0,18.0,105.0,1640.0,52.0,6.0,6.0,33.0
+Fanta Orange w/ Ice 18 oz,100.0,0.0,0.0,0.0,0.0,26.0,0.0,26.0,0.0
+Caramel Apple Milkshake Regular,770.0,20.0,15.0,75.0,380.0,139.0,0.0,116.0,15.0
+Garlic Steakburger Shooter w/ Cheese,210.0,14.0,4.6,25.0,390.0,13.0,0.0,1.0,8.0
+Mountain Dew w/ Ice 20 oz,170.0,0.0,0.0,0.0,60.0,46.0,0.0,46.0,0.0
+White Chocolate Milkshake Kids & Small,400.0,11.0,9.0,40.0,180.0,68.0,0.0,61.0,11.0
+Cherry Limeade 20 oz,150.0,0.0,0.0,0.0,25.0,38.0,0.0,38.0,0.0
+Triple Steakburger,600.0,38.0,15.0,110.0,1190.0,32.0,3.0,6.0,32.0
+Mountain Berry Blast Powerade w/ Ice 20 oz,80.0,0.0,0.0,0.0,150.0,21.0,0.0,21.0,0.0
+Dr Pepper w/ Ice 24 oz,170.0,0.0,0.0,0.0,70.0,48.0,0.0,46.0,0.0
+White Chocolate Milkshake Regular,620.0,19.0,14.0,70.0,240.0,105.0,0.0,95.0,14.0
+Lemonade Tropicana w/ Ice 16 oz,120.0,0.0,0.0,0.0,125.0,32.0,0.0,32.0,0.0
+Plain Steakburger Shooter,130.0,7.0,2.5,20.0,200.0,12.0,0.0,1.0,6.0
+Guacamole Double Steakburger,700.0,50.0,16.0,90.0,1220.0,37.0,5.0,7.0,27.0
+Chili Cheese Steak Frank,710.0,44.0,22.0,115.0,1620.0,46.0,4.0,5.0,33.0
+Coke Classic w/ Ice 12 oz,60.0,0.0,0.0,0.0,0.0,16.0,0.0,16.0,0.0
+Coke Zero w/ Ice 22 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Grilled Chicken Salad,480.0,21.0,3.5,70.0,980.0,37.0,2.0,8.0,28.0
+Chocolate Covered Strawberry Milkshake Kids & Small,490.0,18.0,14.0,55.0,210.0,75.0,1.0,64.0,12.0
+Fried Chicken Salad,600.0,36.0,15.0,120.0,1290.0,34.0,6.0,6.0,37.0
+Parmesan Cheese & Herbs Seasoned Fries Regular,450.0,24.0,4.0,0.0,1200.0,55.0,5.0,1.0,4.0
+Lemonade Tropicana w/ Ice 22 oz,170.0,0.0,0.0,0.0,170.0,45.0,0.0,45.0,0.0
+Barqs Root Beer w/ Ice 22 oz,120.0,0.0,0.0,0.0,25.0,33.0,0.0,33.0,0.0
+Fuze Raspberry Iced Tea w/ Ice 44 oz,130.0,0.0,0.0,0.0,15.0,33.0,0.0,33.0,0.0
+Fanta Orange w/ Ice 22 oz,120.0,0.0,0.0,0.0,5.0,32.0,0.0,32.0,0.0
+Sierra Mist w/ Ice 44 oz,330.0,0.0,0.0,0.0,75.0,86.0,0.0,86.0,0.0
+Minute Maid Lemonade w/ Ice 20 oz,90.0,0.0,0.0,0.0,45.0,27.0,0.0,25.0,0.0
+Minute Maid Lemonade w/ Ice 18 oz,80.0,0.0,0.0,0.0,40.0,24.0,0.0,22.0,0.0
+Minute Maid Lemonade w/ Ice 12 oz,60.0,0.0,0.0,0.0,25.0,16.0,0.0,15.0,0.0
+Minute Maid Lemonade w/ Ice 28 oz,130.0,0.0,0.0,0.0,60.0,38.0,0.0,35.0,0.0
+Chili 3 Way,710.0,21.0,9.0,45.0,1380.0,98.0,13.0,10.0,31.0
+Coffee Brewed Decaffeinated,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Steak Frank,390.0,23.0,9.0,45.0,1140.0,32.0,1.0,5.0,13.0
+Baked Beans,310.0,0.0,0.0,0.0,960.0,64.0,11.0,23.0,13.0
+Chili Deluxe Cup,500.0,28.0,16.0,80.0,980.0,36.0,7.0,2.0,29.0
+Mountain Berry Blast Powerade w/ Ice 32 oz,130.0,0.0,0.0,0.0,240.0,34.0,0.0,34.0,0.0
+Mountain Dew w/ Ice 18 oz,150.0,0.0,0.0,0.0,55.0,41.0,0.0,41.0,0.0
+Fish Plate,890.0,59.0,10.0,90.0,780.0,63.0,4.0,6.0,25.0
+Diet Pepsi w/ Ice 18 oz,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Banana Milkshake Kids & Small,420.0,10.0,8.0,40.0,180.0,77.0,3.0,59.0,12.0
+Vegetable Soup Bowl,140.0,2.5,0.0,0.0,2120.0,27.0,4.0,9.0,5.0
+Cherry Coke w/ Ice 20 oz,150.0,0.0,0.0,0.0,55.0,40.0,0.0,40.0,0.0
+Hi C Flashin Fruit Punch w/ Ice 20 oz,100.0,0.0,0.0,0.0,15.0,29.0,0.0,28.0,0.0
+Oreo Red Velvet Specialty Milkshake Kids & Small,610.0,19.0,10.0,55.0,380.0,101.0,1.0,82.0,13.0
+Banana Pancakes,950.0,16.0,6.0,50.0,2440.0,187.0,6.0,70.0,18.0
+3 Pancakes w/ Butter & Syrup Kids,520.0,12.0,6.0,35.0,1310.0,93.0,1.0,34.0,9.0
+Hi C Flashin Fruit Punch w/ Ice 18 oz,90.0,0.0,0.0,0.0,10.0,26.0,0.0,25.0,0.0
+Barqs Root Beer w/ Ice 28 oz,160.0,0.0,0.0,0.0,35.0,42.0,0.0,42.0,0.0
+Gatorade Lemon Lime w/ Ice 12 oz,80.0,0.0,0.0,0.0,140.0,21.0,0.0,18.0,0.0
+Double Chocolate Fudge Milkshake Kids & Small,550.0,17.0,14.0,45.0,240.0,93.0,2.0,76.0,13.0
+Diet Pepsi w/ Ice 24 oz,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Fish Sandwich,470.0,23.0,4.0,50.0,630.0,47.0,2.0,5.0,21.0
+Steakburger w/ Cheese & Fries Kids,550.0,34.0,12.0,55.0,1350.0,39.0,1.0,4.0,20.0
+Mountain Berry Blast Powerade w/ Ice 16 oz,60.0,0.0,0.0,0.0,120.0,17.0,0.0,17.0,0.0
+Royale Steakburger,800.0,56.0,20.0,295.0,1380.0,32.0,2.0,6.0,38.0
+Cherry Coke w/ Ice 18 oz,130.0,0.0,0.0,0.0,50.0,36.0,0.0,36.0,0.0
+3 Pancakes w/ Butter & Syrup,880.0,21.0,9.0,60.0,2520.0,151.0,3.0,47.0,17.0
+Mountain Dew w/ Ice 16 oz,140.0,0.0,0.0,0.0,50.0,37.0,0.0,37.0,0.0
+Gatorade Lemon Lime w/ Ice 16 oz,110.0,0.0,0.0,0.0,185.0,28.0,0.0,24.0,0.0
+Mac & Cheese Kids,170.0,5.0,1.5,10.0,310.0,26.0,1.0,5.0,6.0
+Frisco Melt,980.0,67.0,21.0,120.0,1630.0,52.0,4.0,12.0,35.0
+2 Eggs Scrambled,120.0,8.0,2.5,340.0,300.0,3.0,0.0,2.0,11.0
+Diet Coke Caffeine Free w/ Ice 12 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper w/ Ice 24 oz,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper w/ Ice 16 oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Chipotle Steakburger Shooter w/ Cheese,190.0,13.0,4.5,25.0,390.0,13.0,0.0,1.0,8.0
+Diet Coke Caffeine Free w/ Ice 18 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Sprite w/ Ice 24 oz,120.0,0.0,0.0,0.0,25.0,31.0,0.0,31.0,0.0
+Heath Bar Milkshake Kids & Small,460.0,15.0,10.0,40.0,220.0,76.0,0.0,67.0,10.0
+Peppermint Chocolate Chip Milkshake Kids & Small,510.0,14.0,12.0,40.0,200.0,88.0,0.0,78.0,11.0
+Caramel Apple Milkshake Kids & Small,620.0,19.0,14.0,70.0,310.0,105.0,0.0,90.0,15.0
+Cajun Double Steakburger,740.0,53.0,17.0,100.0,1170.0,30.0,1.0,7.0,28.0
+Sierra Mist w/ Ice 18 oz,130.0,0.0,0.0,0.0,30.0,35.0,0.0,35.0,0.0
+Iced Tea w/ Ice Sweetened 20 oz,110.0,0.0,0.0,0.0,10.0,28.0,0.0,27.0,0.0
+Lemonade Tropicana w/ Ice 12 oz,90.0,0.0,0.0,0.0,95.0,24.0,0.0,24.0,0.0
+Mello Yello w/ Ice 22 oz,190.0,0.0,0.0,0.0,50.0,52.0,0.0,52.0,0.0
+Pepsi w/ Ice 44 oz,330.0,0.0,0.0,0.0,65.0,90.0,0.0,90.0,0.0
+Pepsi w/ Ice 12 oz,90.0,0.0,0.0,0.0,20.0,25.0,0.0,25.0,0.0
+Hi C Flashin Fruit Punch w/ Ice 44 oz,230.0,0.0,0.0,0.0,30.0,64.0,0.0,62.0,0.0
+Caffeine Free Pepsi w/ Ice 22 oz,170.0,0.0,0.0,0.0,35.0,46.0,46.0,0.0,0.0
+Strawberry Milkshake Kids & Small,430.0,13.0,10.0,50.0,180.0,75.0,0.0,69.0,10.0
+Chocolate Banana Milkshake Kids & Small,470.0,13.0,10.0,50.0,200.0,83.0,2.0,65.0,11.0
+Diet Pepsi w/ Ice 16 oz,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Minute Maid Lemonade w/ Ice 44 oz,210.0,0.0,0.0,0.0,95.0,59.0,0.0,55.0,0.0
+Meiomi Pinot Noir,125.0,0.0,0.0,0.0,10.0,4.0,0.0,1.0,0.0
+Steakburger & Fries Kids,460.0,27.0,8.0,35.0,990.0,39.0,1.0,4.0,15.0
+Breakfast Bowl w/out Hash Browns,350.0,27.0,10.0,355.0,830.0,5.0,1.0,3.0,21.0
+Campfire Smore Milkshake Regular,880.0,30.0,22.0,70.0,420.0,145.0,2.0,116.0,18.0
+Bagel Sandwich w/ Bacon,460.0,17.0,7.0,210.0,1050.0,53.0,2.0,7.0,24.0
+Minute Maid Lemonade w/ Ice 16 oz,80.0,0.0,0.0,0.0,35.0,22.0,0.0,20.0,0.0
+Mug Root Beer w/ Ice 12 oz,130.0,0.0,0.0,0.0,40.0,34.0,0.0,34.0,0.0
+Mug Root Beer w/ Ice 22 oz,230.0,0.0,0.0,0.0,70.0,63.0,0.0,63.0,0.0
+Mello Yello w/ Ice 20 oz,170.0,0.0,0.0,0.0,45.0,47.0,0.0,47.0,0.0
+M&M Milkshake Kids & Small,550.0,17.0,12.0,45.0,210.0,92.0,1.0,82.0,12.0
+Lemonade Tropicana w/ Ice 44 oz,330.0,0.0,0.0,0.0,350.0,89.0,0.0,89.0,0.0
+Ketchup & Mustard Steakburger Shooter,140.0,7.0,2.5,20.0,320.0,14.0,0.0,2.0,7.0
+Reeses Peanut Butter Milkshake Regular,840.0,43.0,18.0,70.0,470.0,98.0,4.0,82.0,27.0
+Caffeine Free Pepsi w/ Ice 16 oz,120.0,0.0,0.0,0.0,25.0,34.0,34.0,0.0,0.0
+Orange Freeze Milkshake Regular,580.0,17.0,12.0,60.0,220.0,102.0,0.0,94.0,13.0
+Frisco Steakburger Shooter w/ Cheese,190.0,12.0,4.0,25.0,410.0,14.0,0.0,3.0,8.0
+Chili Deluxe Bowl,1000.0,56.0,33.0,165.0,1960.0,71.0,14.0,5.0,58.0
+Minute Maid Lemonade w/ Ice 24 oz,110.0,0.0,0.0,0.0,55.0,32.0,0.0,30.0,0.0
+Ultimate Banana Milkshake Kids & Small,440.0,13.0,10.0,50.0,180.0,77.0,2.0,65.0,11.0
+Dr Pepper w/ Ice 22 oz,160.0,0.0,0.0,0.0,65.0,44.0,0.0,42.0,0.0
+Mello Yello w/ Ice 24 oz,200.0,0.0,0.0,0.0,55.0,56.0,0.0,56.0,0.0
+Single Steakburger,310.0,14.0,5.0,35.0,830.0,32.0,3.0,6.0,15.0
+Wisconsin Butter Steakburger,830.0,58.0,27.0,135.0,1230.0,34.0,2.0,9.0,29.0
+Sierra Mist w/ Ice 32 oz,240.0,0.0,0.0,0.0,55.0,62.0,0.0,62.0,0.0
+Fanta Orange w/ Ice 24 oz,130.0,0.0,0.0,0.0,5.0,35.0,0.0,35.0,0.0
+3 Chicken Fingers,330.0,18.0,3.0,60.0,900.0,22.0,2.0,0.0,21.0
+Bacon Biscuit Breakfast,380.0,25.0,18.0,10.0,1060.0,33.0,1.0,3.0,8.0
+2 Chicken Fingers & Fries Kids,380.0,25.0,4.5,40.0,1140.0,25.0,2.0,0.0,15.0
+Dr Pepper w/ Ice 20 oz,140.0,0.0,0.0,0.0,60.0,40.0,0.0,38.0,0.0
+BBQ Steakburger Shooter w/ Cheese,170.0,9.0,4.0,25.0,380.0,15.0,0.0,4.0,8.0
+Diet Dr Pepper w/ Ice 22 oz,0.0,0.0,0.0,0.0,65.0,0.0,0.0,0.0,0.0
+Applesauce,90.0,0.0,0.0,0.0,10.0,22.0,2.0,18.0,0.0
+Chili Cheese Fries Regular,760.0,41.0,10.0,25.0,2320.0,83.0,9.0,3.0,16.0
+Mountain Berry Blast Powerade w/ Ice 44 oz,370.0,0.0,0.0,0.0,130.0,101.0,0.0,101.0,0.0
+Chocolate Chip Pancakes Kids,940.0,21.0,8.0,50.0,2440.0,174.0,3.0,70.0,18.0
+Caffeine Free Pepsi w/ Ice 24 oz,180.0,0.0,0.0,0.0,35.0,50.0,50.0,0.0,0.0
+Kit Kat Milkshake Kids & Small,470.0,15.0,11.0,45.0,190.0,77.0,0.0,67.0,12.0
+Cherry Coke w/ Ice 22 oz,170.0,0.0,0.0,0.0,60.0,44.0,0.0,44.0,0.0
+Diet Coke Caffeine Free w/ Ice 22 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Barqs Root Beer w/ Ice 32 oz,180.0,0.0,0.0,0.0,40.0,48.0,0.0,48.0,0.0
+Barqs Root Beer w/ Ice 24 oz,130.0,0.0,0.0,0.0,30.0,36.0,0.0,36.0,0.0
+Kendall Jackson Cabernet,125.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Mountain Berry Blast Powerade w/ Ice 18 oz,70.0,0.0,0.0,0.0,135.0,19.0,0.0,19.0,0.0
+Mountain Berry Blast Powerade w/ Ice 12 oz,50.0,0.0,0.0,0.0,90.0,13.0,0.0,13.0,0.0
+Hi C Flashin Fruit Punch w/ Ice 12 oz,60.0,0.0,0.0,0.0,10.0,17.0,0.0,17.0,0.0
+Diet Pepsi w/ Ice 20 oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Coke Zero w/ Ice 12 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Coke Classic w/ Ice 16 oz,80.0,0.0,0.0,0.0,0.0,22.0,0.0,22.0,0.0
+Dr Pepper w/ Ice 32 oz,230.0,0.0,0.0,0.0,90.0,65.0,0.0,61.0,0.0
+Coke Classic w/ Ice 32 oz,160.0,0.0,0.0,0.0,0.0,43.0,0.0,43.0,0.0
+2 Sourdough Toast Slices w/ Butter,270.0,6.0,1.0,0.0,410.0,41.0,2.0,2.0,9.0
+Vegetable Soup Cup,70.0,1.5,0.0,0.0,1060.0,13.0,2.0,4.0,2.0
+Chili Cheese Fries Large,1070.0,55.0,14.0,30.0,3030.0,120.0,14.0,4.0,24.0
+Honey Mustard,120.0,10.0,1.5,0.0,320.0,8.0,0.0,8.0,0.0
+Chipotle Steakburger Shooter,160.0,10.0,3.0,20.0,260.0,13.0,0.0,1.0,6.0
+Caramel Frappe Cereal Shake Regular,630.0,18.0,13.0,70.0,270.0,109.0,33.0,97.0,15.0
+Oreo Ice Cream Sandwich,240.0,10.0,4.0,20.0,35.0,36.0,1.0,19.0,4.0
+Cherry Coke w/ Ice 24 oz,180.0,0.0,0.0,0.0,65.0,48.0,0.0,48.0,0.0
+Chocolate Chip Cookie Kids,190.0,9.0,4.5,10.0,170.0,25.0,1.0,14.0,2.0
+Bagel,250.0,1.0,0.0,10.0,360.0,52.0,2.0,6.0,9.0
+1 Biscuit,320.0,20.0,16.0,0.0,890.0,33.0,1.0,3.0,4.0
+Kendall Jackson Chardonnay,120.0,0.0,0.0,0.0,1.0,5.0,0.0,0.0,0.0
+Caffeine Free Pepsi w/ Ice 18 oz,140.0,0.0,0.0,0.0,25.0,38.0,38.0,0.0,0.0
+Lemonade Tropicana w/ Ice 20 oz,150.0,0.0,0.0,0.0,160.0,40.0,0.0,40.0,0.0
+Double Chocolate Fudge Milkshake Regular,880.0,29.0,23.0,70.0,360.0,147.0,3.0,118.0,18.0
+Pumpkin Spice Milkshake Kids & Small,400.0,10.0,8.0,40.0,200.0,70.0,0.0,63.0,12.0
+Egg Nog Milkshake Regular,610.0,19.0,14.0,70.0,260.0,104.0,0.0,95.0,15.0
+Mello Yello w/ Ice 44 oz,370.0,0.0,0.0,0.0,100.0,103.0,0.0,103.0,0.0
+Side of Syrup,140.0,0.0,0.0,0.0,80.0,35.0,0.0,22.0,0.0
+Onion Rings Regular,330.0,17.0,3.0,0.0,940.0,39.0,2.0,3.0,4.0
+Strawberry Milkshake Regular,600.0,18.0,13.0,70.0,250.0,102.0,0.0,94.0,14.0
+Diet Coke w/ Ice 12 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Pepsi w/ Ice 18 oz,130.0,0.0,0.0,0.0,25.0,37.0,0.0,37.0,0.0
+2 Wheat Toast Slices w/ Butter,180.0,6.0,1.0,0.0,270.0,23.0,2.0,3.0,5.0
+Grilled Chicken Sandwich,480.0,21.0,3.5,70.0,980.0,37.0,2.0,8.0,28.0
+Sprite w/ Ice 44 oz,210.0,0.0,0.0,0.0,50.0,57.0,0.0,57.0,0.0
+Fresh Lemonade Light,15.0,0.0,0.0,0.0,0.0,5.0,0.0,2.0,0.0
+Sausage Biscuit,620.0,46.0,25.0,70.0,1400.0,33.0,1.0,3.0,17.0
+Western BBQ n Bacon Steakburger,810.0,48.0,18.0,105.0,1550.0,52.0,1.0,23.0,32.0
+Mountain Dew w/ Ice 22 oz,190.0,0.0,0.0,0.0,65.0,51.0,0.0,51.0,0.0
+Peppermint Chocolate Chip Milkshake Regular,730.0,22.0,17.0,70.0,260.0,126.0,0.0,114.0,15.0
+Mello Yello w/ Ice 16 oz,140.0,0.0,0.0,0.0,35.0,38.0,0.0,38.0,0.0
+Campfire Smore Milkshake Kids & Small,560.0,18.0,13.0,40.0,310.0,92.0,1.0,73.0,13.0
+Hot Fudge Sundae,460.0,23.0,16.0,50.0,160.0,61.0,2.0,46.0,7.0
+Birthday Cake Milkshake Kids & Small,500.0,15.0,10.0,55.0,260.0,83.0,0.0,71.0,12.0
+Barqs Root Beer w/ Ice 12 oz,70.0,0.0,0.0,0.0,15.0,18.0,0.0,18.0,0.0
+Kilt Lifter,200.0,0.0,0.0,0.0,0.0,30.0,0.0,0.0,10.0
+Fuze Raspberry Iced Tea w/ Ice 16 oz,50.0,0.0,0.0,0.0,5.0,12.0,0.0,12.0,0.0
+Fuze Raspberry Iced Tea w/ Ice 12 oz,35.0,0.0,0.0,0.0,0.0,9.0,0.0,9.0,0.0
+Root Beer Float,280.0,9.0,6.0,35.0,75.0,51.0,0.0,47.0,3.0
+Barqs Root Beer w/ Ice 44 oz,250.0,0.0,0.0,0.0,55.0,66.0,0.0,66.0,0.0

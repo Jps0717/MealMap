@@ -1,0 +1,412 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Dave's Single,590.0,37.0,14.0,95.0,1170.0,37.0,2.0,8.0,29.0
+Spicy Chicken Sandwich,490.0,20.0,4.0,70.0,940.0,51.0,3.0,5.0,28.0
+Fries (Medium),420.0,19.0,3.0,0.0,370.0,47.0,5.0,0.0,5.0
+Chocolate Frosty (Small),350.0,9.0,6.0,35.0,160.0,58.0,0.0,48.0,9.0
+Diet Coke Medium,0.0,0.0,0.0,0.0,100.0,1.0,0.0,0.0,0.0
+Diet Coke Large,0.0,0.0,0.0,0.0,125.0,1.0,0.0,0.0,0.0
+Dr Pepper Small,120.0,0.0,0.0,0.0,35.0,33.0,0.0,32.0,0.0
+Dr Pepper Medium,190.0,0.0,0.0,0.0,55.0,53.0,0.0,51.0,0.0
+Dr Pepper Large,240.0,0.0,0.0,0.0,70.0,66.0,0.0,64.0,0.0
+Sprite Small,200.0,0.0,0.0,0.0,90.0,53.0,0.0,53.0,0.0
+Sprite Medium,310.0,0.0,0.0,0.0,140.0,84.0,0.0,84.0,0.0
+Jr Hamburger,240.0,10.0,3.5,40.0,620.0,25.0,1.0,5.0,14.0
+Jr Cheeseburger,280.0,13.0,6.0,50.0,820.0,25.0,1.0,5.0,16.0
+Jr Bacon Cheeseburger,380.0,22.0,8.0,65.0,850.0,26.0,1.0,5.0,19.0
+Double Stack,390.0,21.0,9.0,90.0,1070.0,25.0,1.0,5.0,25.0
+Jr Cheeseburger Deluxe,330.0,19.0,7.0,55.0,810.0,27.0,2.0,6.0,16.0
+Grilled Chicken Wrap,270.0,11.0,3.5,55.0,620.0,24.0,2.0,3.0,20.0
+Spicy Chicken Wrap,370.0,20.0,5.0,50.0,850.0,30.0,2.0,2.0,18.0
+Crispy Chicken Sandwich,350.0,17.0,3.0,35.0,600.0,35.0,1.0,4.0,15.0
+Homestyle Chicken Sandwich,520.0,21.0,4.0,75.0,1200.0,52.0,4.0,6.0,30.0
+Spicy Chicken Sandwich,510.0,21.0,4.0,75.0,1110.0,51.0,3.0,6.0,30.0
+Chicken Nuggets 10 Pieces,450.0,32.0,7.0,80.0,960.0,26.0,2.0,0.0,24.0
+Nestle Pure Life Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Rich & Meaty Chili Small,170.0,5.0,2.0,35.0,780.0,16.0,4.0,6.0,15.0
+Rich & Meaty Chili Large,250.0,7.0,3.0,50.0,1170.0,23.0,5.0,9.0,23.0
+Value Natural Cut Fries,230.0,10.0,2.0,0.0,230.0,30.0,3.0,0.0,3.0
+Natural Cut Fries Small,320.0,15.0,2.5,0.0,320.0,43.0,4.0,0.0,5.0
+Natural Cut Fries Medium,420.0,19.0,3.5,0.0,420.0,56.0,5.0,0.0,6.0
+Natural Cut Fries Large,530.0,24.0,4.5,0.0,520.0,70.0,6.0,0.0,7.0
+Sour Cream & Chive Baked Potato,310.0,2.5,1.5,10.0,35.0,63.0,7.0,4.0,8.0
+Bacon Cheese Baked Potato,480.0,17.0,8.0,40.0,780.0,66.0,7.0,6.0,17.0
+Broccoli Cheese Baked Potato,430.0,11.0,6.0,25.0,570.0,70.0,10.0,7.0,15.0
+Barbecue Dipping Sauce,45.0,0.0,0.0,0.0,130.0,11.0,0.0,9.0,0.0
+Sweet & Sour Dipping Sauce,45.0,0.0,0.0,0.0,120.0,12.0,0.0,4.0,0.0
+Honey Mustard Dipping Sauce,80.0,6.0,1.0,10.0,220.0,7.0,0.0,3.0,0.0
+Buttery Spread,50.0,6.0,2.0,0.0,90.0,0.0,0.0,0.0,0.0
+Hot Chili Seasoning,5.0,0.0,0.0,0.0,280.0,2.0,0.0,1.0,0.0
+Saltine Crackers,25.0,0.5,0.0,0.0,80.0,5.0,0.0,0.0,1.0
+Cheddar Cheese Shredded,70.0,6.0,3.0,15.0,105.0,1.0,0.0,0.0,4.0
+Apple Pecan Chicken Salad Full,570.0,25.0,8.0,110.0,1070.0,51.0,7.0,40.0,38.0
+Apple Pecan Chicken Salad Half Size,340.0,17.0,4.5,55.0,570.0,29.0,4.0,22.0,20.0
+Garden Side Salad,210.0,13.0,2.0,10.0,380.0,18.0,2.0,4.0,4.0
+Vanilla Frosty Jr,190.0,5.0,3.0,20.0,95.0,33.0,0.0,27.0,5.0
+Spicy Chicken Caesar Salad Full,720.0,43.0,15.0,155.0,1760.0,41.0,6.0,6.0,43.0
+Spicy Chicken Caesar Salad Half,410.0,23.0,7.0,80.0,990.0,29.0,5.0,4.0,23.0
+Asiago Ranch Chicken Club,670.0,33.0,9.0,110.0,1610.0,54.0,4.0,7.0,38.0
+Baconator,950.0,62.0,24.0,205.0,1860.0,38.0,2.0,8.0,59.0
+Cheeseburger Kid's,270.0,13.0,6.0,50.0,700.0,25.0,1.0,5.0,15.0
+Dave's Double,810.0,51.0,20.0,175.0,1510.0,39.0,3.0,9.0,49.0
+Dave's Triple,1090.0,72.0,30.0,260.0,1990.0,40.0,3.0,9.0,71.0
+Kids Hamburger,240.0,9.0,3.5,40.0,500.0,24.0,1.0,5.0,14.0
+Chicken Nuggets 4 Piece,180.0,13.0,2.5,30.0,390.0,10.0,1.0,0.0,10.0
+Spicy Chicken Nuggets 10 Pieces,470.0,29.0,6.0,85.0,1200.0,29.0,1.0,0.0,23.0
+Apple Slices,35.0,0.0,0.0,0.0,0.0,9.0,2.0,7.0,0.0
+Applewood Smoked Bacon for Baconator Fries,70.0,6.0,2.0,15.0,230.0,0.0,0.0,0.0,5.0
+Broccoli,25.0,0.0,0.0,0.0,25.0,5.0,3.0,1.0,3.0
+Potato,270.0,0.0,0.0,0.0,25.0,61.0,7.0,3.0,7.0
+Chives,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Crispy Chicken Patty,170.0,10.0,2.0,30.0,350.0,11.0,0.0,0.0,10.0
+Gourmet Croutons,90.0,3.5,0.0,0.0,190.0,12.0,1.0,0.0,2.0
+Homestyle Chicken Breast,270.0,12.0,2.5,70.0,830.0,18.0,1.0,0.0,24.0
+Iceberg Romaine Lettuce Blend,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Ketchup for Son of Baconator,10.0,0.0,0.0,0.0,85.0,2.0,0.0,2.0,0.0
+Lemon Garlic Caesar Dressing for Caesar Side Salad,110.0,11.0,2.0,10.0,180.0,2.0,0.0,1.0,2.0
+Lettuce,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Mayonnaise for Spicy Chicken Sandwich,60.0,6.0,1.0,5.0,40.0,0.0,0.0,0.0,0.0
+Mustard,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Pomegranate Vinaigrette Dressing  for Garden Side Salad,60.0,2.0,0.0,0.0,120.0,10.0,0.0,9.0,0.0
+Premium Bun,180.0,2.5,0.5,0.0,320.0,33.0,2.0,4.0,5.0
+Ranch Sauce for Grilled Chicken Wrap,70.0,7.0,1.0,5.0,95.0,1.0,0.0,1.0,1.0
+Red Onion for Kid's Hamburger,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Roasted Pecans,110.0,9.0,1.0,0.0,60.0,6.0,1.0,4.0,1.0
+Sandwich Bun,120.0,1.5,0.0,0.0,210.0,23.0,1.0,4.0,4.0
+Vanilla Frosty Small,340.0,8.0,5.0,35.0,160.0,56.0,0.0,47.0,9.0
+Spicy Chicken Breast,270.0,12.0,2.5,70.0,750.0,16.0,0.0,0.0,24.0
+Tomato,5.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Tortilla,130.0,3.5,1.0,0.0,320.0,21.0,2.0,1.0,4.0
+Coca Cola Kids Meal,120.0,0.0,0.0,0.0,25.0,33.0,0.0,33.0,0.0
+Sprite Large,390.0,0.0,0.0,0.0,180.0,105.0,0.0,105.0,0.0
+Sprite Kids Meal,120.0,0.0,0.0,0.0,55.0,32.0,0.0,32.0,0.0
+Sprite Value,160.0,0.0,0.0,0.0,70.0,42.0,0.0,42.0,0.0
+Classic Chocolate Frosty Jr,200.0,5.0,3.0,20.0,90.0,32.0,0.0,27.0,5.0
+Original Redhead Roasters Coffee Large,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Original Redhead Roasters Coffee Small,0.0,1.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Brewed Decaffeinated Coffee Large 12 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Hot Tea Small,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Hi C Flashin Fruit Punch Kids Meal,130.0,0.0,0.0,0.0,40.0,35.0,0.0,34.0,0.0
+Barq's Root Beer Kids Meal,130.0,0.0,0.0,0.0,55.0,37.0,0.0,37.0,0.0
+Fanta Orange Small,210.0,0.0,0.0,0.0,55.0,59.0,0.0,58.0,0.0
+Coke Zero Kids Meal,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Hot Cocoa,120.0,2.0,2.0,0.0,160.0,24.0,1.0,16.0,1.0
+1% Chocolate Milk Kids,150.0,2.5,1.5,10.0,170.0,26.0,0.0,23.0,7.0
+Diet Coke Kids Meal,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Vanilla Frosty Large,570.0,15.0,9.0,65.0,270.0,97.0,0.0,81.0,15.0
+Vanilla Frosty Medium,460.0,12.0,8.0,50.0,220.0,77.0,0.0,65.0,12.0
+Caesar Side Salad,250.0,18.0,4.5,25.0,460.0,18.0,3.0,2.0,7.0
+Romaine Grape Tomatoes & Asiago Cheese,60.0,4.0,2.0,10.0,90.0,4.0,2.0,1.0,4.0
+American Cheese for Kid's Hamburger,40.0,3.5,2.0,10.0,190.0,1.0,0.0,0.0,2.0
+Ranch Sauce for Asiago Ranch Chicken Club,80.0,9.0,1.5,10.0,110.0,1.0,0.0,1.0,1.0
+Blue Cheese Crumbles Full Salad,120.0,9.0,6.0,25.0,380.0,1.0,0.0,0.0,7.0
+Son of Baconator,630.0,40.0,15.0,130.0,1650.0,37.0,2.0,8.0,34.0
+Red Onion for Spicy Sriracha Chicken Sandwich,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Applewood Smoked Bacon Add On,50.0,4.0,1.5,10.0,160.0,0.0,0.0,0.0,3.0
+Mayonnaise for Kids Hamburger,50.0,6.0,1.0,5.0,35.0,0.0,0.0,0.0,0.0
+Smoky Honey Mustard,45.0,4.0,0.5,5.0,105.0,3.0,0.0,3.0,0.0
+Shredded Cheddar Cheese,35.0,3.0,1.5,10.0,60.0,0.0,0.0,0.0,2.0
+Dr Pepper Kids Meal,90.0,0.0,0.0,0.0,25.0,26.0,0.0,26.0,0.0
+Dr Pepper Value,100.0,0.0,0.0,0.0,30.0,26.0,0.0,26.0,0.0
+Brewed Unsweetened Iced Tea Value,0.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Chicken Nuggets 6 Piece,270.0,19.0,4.0,50.0,580.0,15.0,1.0,0.0,14.0
+Spicy Chicken Nuggets 6 Pieces,280.0,17.0,4.0,50.0,720.0,17.0,1.0,0.0,14.0
+Spicy Chicken Nuggets 4 Pieces,190.0,12.0,2.5,35.0,480.0,11.0,1.0,0.0,9.0
+Lemon Garlic Caesar Dressing for Apple Pecan Chicken Salad Full Size,220.0,21.0,4.0,25.0,360.0,4.0,0.0,1.0,3.0
+Pomegranate Vinaigrette Dressing for Apple Pecan Chicken Salad Full Size,120.0,4.0,0.5,0.0,240.0,20.0,0.0,18.0,0.0
+Blue Cheese Crumbles Half Salad,60.0,4.5,3.0,15.0,190.0,0.0,0.0,0.0,4.0
+Homestyle Chicken Breast for Half Size Salads,130.0,6.0,1.5,30.0,420.0,8.0,1.0,0.0,11.0
+Cheddar Cheese Sauce for Broccoli Cheese Baked Potato,130.0,11.0,6.0,25.0,520.0,5.0,0.0,2.0,5.0
+Strawberry Lemonade Value 12 oz,220.0,0.0,0.0,0.0,0.0,55.0,0.0,52.0,0.0
+Strawberry Lemonade Medium,400.0,0.0,0.0,0.0,0.0,102.0,0.0,96.0,0.0
+Strawberry Lemonade Small,230.0,0.0,0.0,0.0,0.0,60.0,0.0,56.0,0.0
+Strawberry Lemonade Large,440.0,0.0,0.0,0.0,5.0,113.0,1.0,107.0,0.0
+Strawberry Tea Medium,60.0,0.0,0.0,0.0,15.0,16.0,0.0,14.0,0.0
+Strawberry Tea Small,45.0,0.0,0.0,0.0,10.0,11.0,0.0,10.0,0.0
+Strawberry Tea Large,90.0,0.0,0.0,0.0,20.0,22.0,0.0,20.0,0.0
+Classic Chocolate Frosty Small,340.0,9.0,6.0,35.0,160.0,56.0,0.0,46.0,9.0
+Classic Chocolate Frosty Medium,460.0,12.0,0.0,50.0,210.0,76.0,0.0,63.0,13.0
+Classic Chocolate Frosty Large,580.0,15.0,9.0,60.0,270.0,96.0,1.0,79.0,16.0
+BBQ Ranch Chicken Salad Full,590.0,30.0,9.0,135.0,1340.0,42.0,5.0,27.0,42.0
+BBQ Ranch Chicken Salad Half,310.0,15.0,4.5,65.0,710.0,25.0,3.0,17.0,21.0
+Mocha Iced Coffee Small,170.0,6.0,3.5,20.0,30.0,28.0,0.0,25.0,2.0
+Applewood Smoked Bacon for BBQ Ranch Chicken Salad Half Size,25.0,2.0,0.5,5.0,80.0,0.0,0.0,0.0,2.0
+Artisan Egg Sandwich w/ Bacon,360.0,19.0,8.0,250.0,760.0,29.0,1.0,4.0,20.0
+Artisan Muffin,140.0,1.5,0.0,0.0,270.0,27.0,1.0,3.0,5.0
+Asiago Cheese,50.0,4.0,2.5,15.0,100.0,1.0,0.0,0.0,3.0
+BBQ Chicken Salad Blend Full Size,180.0,10.0,5.0,25.0,210.0,16.0,4.0,4.0,10.0
+BBQ Ranch Chicken Base Salad Blend Half,90.0,5.0,2.5,15.0,110.0,8.0,2.0,2.0,5.0
+BBQ Ranch Dressing Full Salad,190.0,14.0,2.5,15.0,510.0,15.0,1.0,13.0,1.0
+BBQ Ranch Dressing Half Salads,100.0,7.0,1.0,5.0,260.0,8.0,0.0,6.0,1.0
+Black Pepper & Sea Salt,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Brown Sugar,40.0,0.0,0.0,0.0,0.0,9.0,0.0,9.0,0.0
+Butter Biscuit,250.0,9.0,7.0,10.0,770.0,35.0,2.0,4.0,6.0
+Buttermilk Ranch Dipping Sauce,120.0,12.0,2.0,10.0,230.0,2.0,0.0,1.0,0.0
+Creamy Sriracha Dipping Sauce,120.0,12.0,2.0,10.0,340.0,3.0,0.0,2.0,0.0
+Crinkle Cut Pickles,0.0,0.0,0.0,0.0,110.0,0.0,0.0,0.0,0.0
+Crispy Chicken BLT,440.0,24.0,7.0,55.0,950.0,37.0,1.0,5.0,20.0
+Dried Cranberries,60.0,0.0,0.0,0.0,0.0,15.0,1.0,12.0,0.0
+Egg,70.0,5.0,1.5,210.0,70.0,0.0,0.0,0.0,6.0
+Fresh Baked Biscuit w/ Sausage,570.0,37.0,18.0,270.0,1440.0,38.0,2.0,5.0,21.0
+Diet Coke Value Size,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Garden Side Salad Blend,25.0,0.0,0.0,0.0,20.0,5.0,2.0,3.0,1.0
+Grilled Chicken Breast Half Size,70.0,1.0,0.0,45.0,180.0,0.0,0.0,0.0,14.0
+Grilled Chicken Sandwich,360.0,8.0,1.5,90.0,820.0,38.0,3.0,11.0,35.0
+Hollandaise Sauce,30.0,3.0,1.5,10.0,80.0,1.0,0.0,0.0,0.0
+Honest Kids Fruit Punch Kids Meal,35.0,0.0,0.0,0.0,15.0,8.0,0.0,8.0,0.0
+Honest Tropical Green Tea Large,130.0,0.0,0.0,0.0,15.0,33.0,0.0,33.0,0.0
+Honest Tropical Green Tea Medium,120.0,0.0,0.0,0.0,10.0,30.0,0.0,30.0,0.0
+Honey Butter Chicken Biscuit,510.0,25.0,11.0,55.0,1400.0,52.0,2.0,9.0,21.0
+Honey Butter Spread,45.0,3.5,1.5,5.0,15.0,4.0,0.0,3.0,0.0
+Hot Sauce,10.0,0.0,0.0,0.0,135.0,2.0,0.0,1.0,0.0
+Jr Homestyle Chicken Fillet,220.0,12.0,2.5,40.0,610.0,13.0,0.0,2.0,15.0
+Jr Hamburger Patty Kids,110.0,8.0,3.5,40.0,250.0,0.0,0.0,0.0,9.0
+Light Balsamic Vinaigrette,90.0,4.0,0.5,0.0,250.0,13.0,0.0,10.0,0.0
+Light Balsamic Vinaigrette Half & Side,45.0,2.0,0.0,0.0,125.0,6.0,0.0,5.0,0.0
+Light Sour Cream,30.0,2.0,1.5,10.0,10.0,2.0,0.0,1.0,1.0
+Light Spicy Asian Chili Vinaigrette,45.0,1.5,0.0,0.0,190.0,8.0,0.0,6.0,0.0
+Mediterranean Hummus,35.0,2.5,0.0,0.0,55.0,2.0,1.0,0.0,1.0
+Mediterranean Hummus Half Size,25.0,2.0,0.0,0.0,35.0,2.0,0.0,0.0,1.0
+Mild Cheddar Slice,60.0,4.5,2.5,15.0,90.0,0.0,0.0,0.0,4.0
+Mocha Iced Coffee Medium,250.0,8.0,5.0,25.0,45.0,42.0,0.0,38.0,3.0
+Diet Coke Small,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Mornin Melt Panini,520.0,33.0,10.0,285.0,790.0,33.0,1.0,3.0,31.0
+Multigrain Bun,160.0,1.5,0.0,0.0,320.0,33.0,2.0,7.0,6.0
+Oatmeal Bar,290.0,10.0,4.5,20.0,230.0,47.0,5.0,23.0,4.0
+Panini Bread w/ Butter for Mornin Melt Panini,260.0,13.0,1.0,30.0,290.0,31.0,1.0,2.0,12.0
+Power Mediterranean Chicken Salad Full,450.0,15.0,3.0,100.0,1070.0,42.0,8.0,18.0,40.0
+Power Mediterranean Chicken Salad Half Size,240.0,9.0,2.5,50.0,520.0,22.0,5.0,10.0,20.0
+Power Mediterranean Chicken Salad Blend Full Size,200.0,6.0,2.5,15.0,400.0,26.0,7.0,8.0,11.0
+Power Mediterranean Chicken Salad Blend Half Size,110.0,4.0,2.0,10.0,0.0,14.0,4.0,4.0,6.0
+Ranch Dressing,100.0,10.0,1.5,10.0,170.0,2.0,0.0,1.0,1.0
+Sausage & Egg Burrito,280.0,20.0,7.0,210.0,770.0,14.0,1.0,3.0,12.0
+Sausage Biscuit,460.0,29.0,14.0,50.0,1160.0,37.0,2.0,4.0,12.0
+Sausage for Sausage & Egg Burrito,80.0,7.0,2.5,15.0,125.0,1.0,0.0,0.0,3.0
+Scrambled Eggs for Sausage & Egg Burrito,100.0,7.0,2.0,185.0,130.0,1.0,0.0,1.0,6.0
+Seasoned Home Style Potatoes,150.0,4.0,0.0,0.0,480.0,26.0,2.0,0.0,2.0
+Skinny Vanilla Iced Coffee Medium,100.0,8.0,5.0,25.0,45.0,14.0,0.0,0.0,3.0
+Skinny Vanilla Iced Coffee Small,70.0,6.0,3.5,20.0,30.0,9.0,0.0,0.0,2.0
+Orange Juice Small,130.0,0.0,0.0,0.0,0.0,31.0,1.0,23.0,2.0
+Spicy Caesar Salad Blend Base for Full Size,210.0,13.0,7.0,60.0,460.0,10.0,5.0,4.0,15.0
+Spicy Caesar Salad Blend Base Half Size,120.0,7.0,4.0,30.0,240.0,7.0,4.0,3.0,8.0
+Spicy Roasted Cashews,80.0,6.0,1.0,0.0,65.0,4.0,0.0,1.0,2.0
+All Natural Lemonade Value Size,170.0,0.0,0.0,0.0,0.0,43.0,0.0,41.0,0.0
+Spring Mix Add On,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Steel Cut Oatmeal,330.0,12.0,1.0,0.0,250.0,57.0,4.0,33.0,5.0
+Steel Cut Oatmeal Component,120.0,2.0,0.0,0.0,180.0,27.0,2.0,8.0,4.0
+Strawberry Tea Kids,30.0,0.0,0.0,0.0,5.0,8.0,0.0,7.0,0.0
+Sweet BBQ Glaze for Full Size Salad,45.0,0.0,0.0,0.0,110.0,11.0,0.0,10.0,0.0
+Sweet BBQ Glaze for Half Size Salad,35.0,0.0,0.0,0.0,90.0,9.0,0.0,8.0,0.0
+Tomato Slice for Mornin Melt Panini,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Tortilla for Burrito,60.0,15.0,0.5,0.0,180.0,9.0,0.0,0.0,1.0
+Vanilla Iced Coffee Medium,240.0,8.0,5.0,25.0,45.0,41.0,0.0,37.0,3.0
+Vanilla Iced Coffee Small,160.0,6.0,3.5,20.0,30.0,27.0,0.0,24.0,2.0
+Blueberry Pineapple Fruitea Chiller Small,170.0,0.0,0.0,0.0,10.0,44.0,0.0,41.0,0.0
+Blueberry Pineapple Fruitea Chiller Medium,300.0,0.0,0.0,0.0,15.0,75.0,0.0,69.0,0.0
+Blueberry Pineapple Fruitea Chiller Large,330.0,0.0,0.0,0.0,25.0,85.0,0.0,78.0,0.0
+Orange Mango Fruitea Chiller Small,170.0,0.0,0.0,0.0,25.0,44.0,0.0,42.0,0.0
+Orange Mango Fruitea Chiller Medium,300.0,0.0,0.0,0.0,35.0,76.0,0.0,72.0,0.0
+Orange Mango Fruitea Chiller Large,320.0,0.0,0.0,0.0,40.0,83.0,0.0,79.0,0.0
+Honest Tropical Green Tea,60.0,0.0,0.0,0.0,5.0,14.0,0.0,14.0,0.0
+Coca Cola Small,200.0,0.0,0.0,0.0,45.0,54.0,0.0,54.0,0.0
+Coca Cola Large,400.0,0.0,0.0,0.0,90.0,109.0,0.0,109.0,0.0
+Brewed Unsweetened Iced Tea Small,0.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Brewed Unsweetened Iced Tea Medium,0.0,0.0,0.0,0.0,15.0,1.0,0.0,0.0,0.0
+Brewed Unsweetened Iced Tea Large,5.0,0.0,0.0,0.0,25.0,2.0,0.0,0.0,0.0
+All Natural Lemonade Small,180.0,0.0,0.0,0.0,0.0,47.0,0.0,44.0,0.0
+All Natural Lemonade Medium,330.0,0.0,0.0,0.0,0.0,86.0,0.0,81.0,0.0
+All Natural Lemonade Large,380.0,0.0,0.0,0.0,0.0,100.0,0.0,93.0,0.0
+Brewed Decaffeinated Coffee Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Caramel Iced Coffee Small,160.0,6.0,3.5,20.0,30.0,26.0,0.0,24.0,2.0
+Caramel Iced Coffee Medium,240.0,70.0,5.0,25.0,45.0,40.0,0.0,36.0,3.0
+Hi C Flashin Fruit Punch Value Size,170.0,0.0,0.0,0.0,55.0,46.0,0.0,45.0,0.0
+Hi C Flashin Fruit Punch Small,210.0,0.0,0.0,0.0,70.0,58.0,0.0,56.0,0.0
+Hi C Flashin Fruit Punch Medium,340.0,0.0,0.0,0.0,115.0,92.0,0.0,90.0,0.0
+Hi C Flashin Fruit Punch Large,420.0,0.0,0.0,0.0,140.0,115.0,0.0,113.0,0.0
+Barq's Root Beer Value Size,180.0,0.0,0.0,0.0,75.0,49.0,0.0,49.0,0.0
+Barq's Root Beer Small,220.0,0.0,0.0,0.0,90.0,61.0,0.0,61.0,0.0
+Barq's Root Beer Medium,360.0,0.0,0.0,0.0,150.0,98.0,0.0,98.0,0.0
+Barq's Root Beer Large,450.0,0.0,0.0,0.0,180.0,122.0,0.0,122.0,0.0
+Fanta Orange Kids Meal,130.0,0.0,0.0,0.0,30.0,35.0,0.0,35.0,0.0
+Fanta Orange Medium,340.0,0.0,0.0,0.0,85.0,94.0,0.0,92.0,0.0
+Fanta Orange Large,430.0,0.0,0.0,0.0,110.0,117.0,0.0,115.0,0.0
+Coke Zero Value Size,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Coke Zero Small,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Coke Zero Large,0.0,0.0,0.0,0.0,100.0,1.0,0.0,0.0,0.0
+Bacon Ranch Fries,600.0,39.0,11.0,60.0,970.0,46.0,5.0,1.0,18.0
+Bacon Sriracha Fries,600.0,39.0,11.0,45.0,1110.0,47.0,4.0,3.0,14.0
+Baconator Fries,490.0,28.0,9.0,35.0,550.0,45.0,4.0,2.0,14.0
+Taco Salad Full Size,660.0,32.0,13.0,85.0,1820.0,63.0,10.0,18.0,32.0
+Taco Salad Half Size,470.0,23.0,8.0,45.0,1320.0,49.0,7.0,12.0,19.0
+Apple Pecan Base Salad Blend Half,50.0,0.0,0.0,0.0,25.0,13.0,3.0,9.0,1.0
+Salad Blend Taco Full,140.0,80.0,5.0,25.0,190.0,9.0,3.0,5.0,8.0
+Salad Blend Taco Half,70.0,4.5,2.5,15.0,95.0,5.0,2.0,3.0,4.0
+Spicy Sriracha Chicken Sandwich,670.0,35.0,11.0,110.0,1690.0,51.0,2.0,6.0,39.0
+Sausage Patty,210.0,19.0,7.0,40.0,380.0,2.0,0.0,1.0,7.0
+1/4 lb Hamburger Patty,240.0,18.0,7.0,75.0,280.0,0.0,0.0,0.0,20.0
+American Cheese for Son of Baconator,80.0,7.0,4.5,20.0,390.0,1.0,0.0,1.0,4.0
+American Cheese 3 Slices,120.0,11.0,7.0,35.0,580.0,2.0,0.0,1.0,6.0
+Crinkle Cut Pickles 2 Slices,0.0,0.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+Ketchup for Kids Natural Cut Fries,5.0,0.0,0.0,0.0,40.0,1.0,0.0,1.0,0.0
+Tomato Slice,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Grilled Chicken Breast,130.0,2.0,0.5,85.0,360.0,0.0,0.0,0.0,28.0
+Smoky Honey Mustard Sauce,60.0,5.0,1.0,5.0,140.0,4.0,0.0,3.0,0.0
+Grilled Chicken Breast for Wraps,60.0,1.0,0.0,45.0,180.0,0.0,0.0,0.0,14.0
+Smoky Honey Mustard Sauce for Wraps,35.0,3.0,0.0,5.0,65.0,2.0,0.0,2.0,0.0
+Spicy Chicken Breast for Wraps & Half Size Salads,130.0,6.0,1.0,35.0,370.0,8.0,0.0,0.0,12.0
+Sriracha Aioli for Bacon Sriracha Fries,100.0,10.0,1.5,10.0,240.0,2.0,0.0,1.0,0.0
+Sriracha Jack Cheese,80.0,6.0,4.0,20.0,160.0,0.0,0.0,0.0,5.0
+Ranch Dressing for Full Size Salads,200.0,20.0,3.0,20.0,340.0,4.0,0.0,2.0,1.0
+Asiago Cheese for Salads,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Caesar Dressing,160.0,15.0,3.0,25.0,360.0,3.0,1.0,2.0,2.0
+Caesar Dressing for Half Salads,80.0,8.0,1.5,15.0,180.0,1.0,0.0,1.0,1.0
+Light Sour Cream for Full Size Taco Salad,60.0,4.0,2.5,15.0,25.0,4.0,0.0,3.0,2.0
+Roasted Tomato Salsa for Taco Salad,35.0,0.0,0.0,0.0,650.0,7.0,1.0,4.0,1.0
+Taco Chips,220.0,11.0,1.5,0.0,115.0,27.0,2.0,0.0,3.0
+Chili for Taco Salad Half Size,80.0,2.5,1.0,15.0,390.0,8.0,2.0,3.0,8.0
+Italian 3 Cheese Blend,100.0,7.0,4.0,35.0,260.0,1.0,1.0,0.0,7.0
+Cheddar Cheese Sauce for Bacon Sriracha Fries,70.0,5.0,3.0,10.0,260.0,2.0,0.0,1.0,2.0
+Light Balsamic Vinaigrette for Garden Side Salad,70.0,2.0,0.0,0.0,150.0,11.0,2.0,8.0,1.0
+Light Classic Ranch Dressing for Garden Side Salad,50.0,4.5,1.0,10.0,180.0,2.0,0.0,1.0,1.0
+Light Honey French Dressing for Garden Side Salad,40.0,0.0,0.0,9.0,95.0,9.0,0.0,8.0,0.0
+Shredded Cheddar Cheese for Garden Side Salad,50.0,4.5,2.5,15.0,85.0,0.0,0.0,0.0,3.0
+Sriracha Aioli for Spicy Sriracha Chicken Sandwich,70.0,7.0,1.0,5.0,180.0,1.0,0.0,1.0,0.0
+Parmesan Ranch Sauce for Bacon Ranch Fries,110.0,11.0,2.0,10.0,160.0,2.0,0.0,1.0,1.0
+Pomegranate Vinaigrette Dressing for Power Mediterranean Chicken Salad,120.0,4.0,0.5,0.0,240.0,20.0,0.0,18.0,0.0
+Caesar Dressing for Garden Side Salad,100.0,8.0,1.5,15.0,200.0,6.0,2.0,3.0,2.0
+Sprite Small,200.0,0.0,0.0,0.0,90.0,53.0,0.0,53.0,0.0
+Homestyle Chicken Sandwich,520.0,22.0,4.0,75.0,1070.0,52.0,3.0,6.0,29.0
+1% Milk,90.0,2.0,1.5,10.0,105.0,10.0,0.0,10.0,7.0
+Barqs Root Beer Small,220.0,0.0,0.0,0.0,90.0,61.0,0.0,61.0,0.0
+Daves Single,570.0,34.0,13.0,100.0,1210.0,39.0,3.0,9.0,30.0
+Jr Bacon Cheeseburger,380.0,22.0,8.0,65.0,770.0,26.0,1.0,5.0,19.0
+Strawberry Lemonade Large,460.0,0.0,0.0,0.0,10.0,118.0,0.0,111.0,0.0
+Minute Maid Light Lemonade Large,15.0,0.0,0.0,0.0,10.0,2.0,0.0,0.0,0.0
+Honest Tropical Green Tea Small,60.0,0.0,0.0,0.0,25.0,14.0,0.0,14.0,0.0
+Fresh Baked Biscuit w/ Sausage,590.0,41.0,19.0,270.0,1290.0,36.0,1.0,5.0,20.0
+Chili Small,170.0,5.0,2.0,35.0,780.0,16.0,4.0,6.0,15.0
+Coca Cola Large,400.0,0.0,0.0,0.0,90.0,109.0,0.0,109.0,0.0
+Dr Pepper Large,240.0,0.0,0.0,0.0,70.0,66.0,0.0,64.0,0.0
+Barqs Root Beer Large,450.0,0.0,0.0,0.0,180.0,122.0,0.0,122.0,0.0
+Jr Cheeseburger,280.0,13.0,6.0,50.0,740.0,25.0,1.0,5.0,16.0
+Grilled Chicken Sandwich,360.0,8.0,1.5,90.0,820.0,38.0,3.0,11.0,35.0
+Barqs Root Beer Medium,360.0,0.0,0.0,0.0,150.0,98.0,0.0,98.0,0.0
+Hi-C Flashin Fruit Punch Small,210.0,0.0,0.0,0.0,70.0,58.0,0.0,56.0,0.0
+Sweetened Iced Tea Large,300.0,0.0,0.0,0.0,25.0,77.0,0.0,75.0,0.0
+Honest Tropical Green Tea Large,110.0,0.0,0.0,0.0,55.0,29.0,0.0,29.0,0.0
+Mornin Melt Panini w/ Applewood Smoked Bacon,520.0,33.0,10.0,285.0,790.0,33.0,1.0,3.0,31.0
+Strawberry Lemonade Small,230.0,0.0,0.0,0.0,0.0,58.0,0.0,55.0,0.0
+Nestle Pure Life Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Baconator,940.0,62.0,24.0,205.0,1810.0,38.0,2.0,8.0,59.0
+Natural-Cut Fries Medium,420.0,19.0,3.5,0.0,420.0,56.0,5.0,0.0,6.0
+All Natural Lemonade Medium,330.0,0.0,0.0,0.0,0.0,86.0,0.0,81.0,0.0
+Mocha Iced Coffee Medium,210.0,8.0,5.0,25.0,40.0,32.0,0.0,28.0,3.0
+Classic Chocolate Frosty Medium,460.0,12.0,8.0,50.0,210.0,76.0,0.0,63.0,13.0
+3 Piece Chicken Tenders,300.0,14.0,2.5,70.0,920.0,20.0,0.0,0.0,22.0
+Dr Pepper Medium,190.0,0.0,0.0,0.0,55.0,53.0,0.0,51.0,0.0
+4 Piece Chicken Nuggets,170.0,11.0,2.0,35.0,340.0,10.0,0.0,0.0,9.0
+Fanta Orange Large,430.0,0.0,0.0,0.0,110.0,117.0,0.0,115.0,0.0
+Strawberry Passion FruiTea Chillers Small,150.0,0.0,0.0,0.0,30.0,38.0,0.0,36.0,0.0
+Hamburger Kids,240.0,9.0,3.5,40.0,420.0,24.0,1.0,5.0,13.0
+Artisan Egg Sandwich w/ Bacon,360.0,19.0,8.0,250.0,750.0,29.0,1.0,4.0,20.0
+Sugar Cookie,330.0,16.0,8.0,25.0,300.0,43.0,1.0,24.0,3.0
+Lemon Grass Hot Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Crispy Chicken BLT,420.0,23.0,6.0,50.0,950.0,35.0,2.0,5.0,20.0
+2 Piece Chicken Tenders,200.0,10.0,1.5,45.0,620.0,13.0,0.0,0.0,15.0
+Baconator Fries,490.0,28.0,9.0,35.0,550.0,46.0,4.0,2.0,14.0
+Hi-C Flashin Fruit Punch Large,420.0,0.0,0.0,0.0,140.0,115.0,0.0,113.0,0.0
+Classic Chocolate Frosty Jr,200.0,5.0,3.0,20.0,95.0,33.0,1.0,27.0,6.0
+Honey Butter Chicken Biscuit,500.0,26.0,12.0,50.0,1120.0,48.0,1.0,9.0,19.0
+Mango Peach FruiTea Chillers Small,150.0,0.0,0.0,0.0,30.0,37.0,0.0,36.0,0.0
+Coffee Regular,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Caramel Iced Coffee Small,160.0,6.0,3.5,20.0,30.0,26.0,0.0,24.0,2.0
+Apple Bites,35.0,0.0,0.0,0.0,0.0,8.0,1.0,6.0,0.0
+Minute Maid Light Lemonade Medium,10.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Steel Cut Oatmeal,340.0,11.0,1.5,0.0,250.0,57.0,6.0,33.0,5.0
+Garden Side Salad,260.0,18.0,4.5,20.0,460.0,19.0,2.0,4.0,7.0
+Natural-Cut Fries Large,530.0,24.0,4.5,0.0,520.0,70.0,6.0,0.0,7.0
+Decaffeinated Coffee Regular,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Sprite Medium,310.0,0.0,0.0,0.0,140.0,84.0,0.0,84.0,0.0
+Fanta Orange Medium,340.0,0.0,0.0,0.0,85.0,94.0,0.0,92.0,0.0
+Chocolate Chunk Cookie,310.0,16.0,8.0,20.0,210.0,40.0,2.0,24.0,3.0
+Spicy Asiago Ranch Club,660.0,33.0,9.0,105.0,1610.0,52.0,3.0,6.0,39.0
+Coke Zero Large,0.0,0.0,0.0,0.0,100.0,1.0,0.0,0.0,0.0
+Spicy Chicken Sandwich,510.0,21.0,4.0,75.0,1110.0,51.0,3.0,6.0,30.0
+Oatmeal Bar,290.0,10.0,4.5,20.0,230.0,47.0,5.0,24.0,4.0
+Strawberry Sweet Tea Medium,240.0,0.0,0.0,0.0,15.0,60.0,0.0,59.0,0.0
+Brewed Unsweetened Iced Tea Large,5.0,0.0,0.0,0.0,25.0,2.0,0.0,0.0,0.0
+Dr Pepper Small,120.0,0.0,0.0,0.0,35.0,33.0,0.0,32.0,0.0
+Strawberry Sweet Tea Small,140.0,0.0,0.0,0.0,10.0,36.0,0.0,35.0,0.0
+Regular Coffee Large,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Diet Coke Large,0.0,0.0,0.0,0.0,125.0,1.0,0.0,0.0,0.0
+Classic Chocolate Frosty Small,340.0,9.0,6.0,35.0,170.0,56.0,2.0,47.0,10.0
+Vanilla Frosty Medium,460.0,12.0,8.0,50.0,220.0,77.0,0.0,65.0,12.0
+Strawberry Tea Small,45.0,0.0,0.0,0.0,10.0,11.0,0.0,10.0,0.0
+Minute Maid Light Lemonade Small,5.0,0.0,0.0,0.0,5.0,1.0,0.0,0.0,0.0
+Vanilla Iced Coffee Small,170.0,6.0,3.5,20.0,30.0,28.0,0.0,26.0,2.0
+Sausage & Egg Burrito,390.0,29.0,11.0,260.0,970.0,14.0,1.0,2.0,17.0
+Grilled Asiago Ranch Chicken Club,530.0,23.0,7.0,120.0,1220.0,36.0,3.0,6.0,43.0
+Grilled Chicken Wrap,270.0,10.0,3.5,55.0,640.0,24.0,2.0,3.0,20.0
+10 Piece Chicken Nuggets,420.0,27.0,5.0,80.0,850.0,24.0,1.0,0.0,22.0
+English Breakfast Hot Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Hi-C Flashin Fruit Punch Medium,340.0,0.0,0.0,0.0,115.0,92.0,0.0,90.0,0.0
+Hot Tea,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Seasoned Home-Style Potatoes,230.0,8.0,1.5,0.0,680.0,35.0,4.0,0.0,3.0
+Caramel Iced Coffee Medium,240.0,8.0,5.0,25.0,45.0,40.0,0.0,36.0,3.0
+Coke Zero Small,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Jr Cheeseburger Deluxe,330.0,19.0,7.0,55.0,740.0,27.0,2.0,6.0,16.0
+Diet Coke Medium,0.0,0.0,0.0,0.0,100.0,1.0,0.0,0.0,0.0
+Vanilla Frosty Jr,190.0,4.5,3.0,20.0,90.0,32.0,0.0,27.0,5.0
+Honest Tropical Green Tea Medium,90.0,0.0,0.0,0.0,40.0,22.0,0.0,22.0,0.0
+Sprite Large,390.0,0.0,0.0,0.0,180.0,105.0,0.0,105.0,0.0
+Mango Peach FruiTea Chillers Large,280.0,0.0,0.0,0.0,60.0,72.0,0.0,70.0,0.0
+Brewed Unsweetened Iced Tea Medium,0.0,0.0,0.0,0.0,15.0,1.0,0.0,0.0,0.0
+Broccoli Cheese Baked Potato,430.0,11.0,6.0,25.0,570.0,70.0,10.0,7.0,15.0
+Strawberry Passion FruiTea Chillers Medium,250.0,0.0,0.0,0.0,45.0,65.0,0.0,61.0,0.0
+Cheese Baked Potato,550.0,23.0,12.0,60.0,770.0,67.0,7.0,6.0,20.0
+All Natural Lemonade Small,190.0,0.0,0.0,0.0,0.0,50.0,0.0,47.0,0.0
+Sweetened Iced Tea Small,160.0,0.0,0.0,0.0,10.0,41.0,0.0,40.0,0.0
+Skinny Vanilla Iced Coffee Small,70.0,5.0,3.5,15.0,30.0,6.0,0.0,0.0,2.0
+Bacon Cheese Baked Potato,480.0,17.0,7.0,40.0,780.0,66.0,7.0,6.0,17.0
+Sour Cream & Chive Baked Potato,310.0,2.5,1.5,10.0,35.0,63.0,7.0,4.0,8.0
+Taco Salad Full Size,660.0,32.0,13.0,85.0,1820.0,63.0,10.0,18.0,32.0
+Skinny Vanilla Iced Coffee Medium,100.0,8.0,5.0,25.0,45.0,14.0,0.0,0.0,3.0
+Sweetened Iced Tea Medium,220.0,0.0,0.0,0.0,20.0,58.0,0.0,56.0,0.0
+Homestyle Asiago Ranch Chicken Club,670.0,34.0,9.0,110.0,1570.0,53.0,3.0,7.0,38.0
+Chili Large,250.0,7.0,3.0,50.0,1170.0,23.0,5.0,9.0,23.0
+Taco Salad 1/2 Size,470.0,23.0,8.0,45.0,1320.0,49.0,7.0,12.0,19.0
+Power Mediterranean Chicken Salad Full,480.0,16.0,5.0,105.0,1200.0,42.0,8.0,18.0,43.0
+Diet Coke Small,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Double Stack,390.0,21.0,9.0,90.0,910.0,25.0,1.0,5.0,25.0
+Vanilla Iced Coffee Medium,250.0,8.0,5.0,25.0,40.0,42.0,0.0,39.0,3.0
+Mocha Iced Coffee Small,170.0,6.0,3.5,20.0,30.0,28.0,0.0,25.0,2.0
+Vanilla Frosty Small,340.0,8.0,5.0,35.0,160.0,56.0,0.0,47.0,9.0
+Apple Pecan Chicken Salad Full Size,560.0,24.0,7.0,115.0,1020.0,52.0,7.0,40.0,38.0
+Double Chocolate Chunk Cookie,290.0,14.0,7.0,20.0,230.0,39.0,4.0,21.0,4.0
+Vanilla Frosty Large,570.0,15.0,9.0,65.0,270.0,97.0,0.0,81.0,15.0
+Mango Peach FruiTea Chillers Medium,250.0,0.0,0.0,0.0,45.0,64.0,0.0,62.0,0.0
+4 Piece Chicken Tenders,400.0,19.0,3.0,90.0,1230.0,26.0,0.0,1.0,29.0
+Classic Chocolate Frosty Large,580.0,15.0,9.0,60.0,270.0,96.0,1.0,79.0,16.0
+Daves Triple,1090.0,72.0,30.0,260.0,1910.0,40.0,3.0,9.0,71.0
+Chili & Cheese Baked Potato,610.0,24.0,13.0,70.0,1060.0,72.0,8.0,8.0,26.0
+Apple Pecan Chicken Salad 1/2 Size,340.0,17.0,4.0,55.0,550.0,29.0,4.0,22.0,20.0
+Brewed Decaffeinated Coffee Large,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Strawberry Tea Medium,60.0,0.0,0.0,0.0,15.0,16.0,0.0,14.0,0.0
+Natural-Cut Fries Jr,230.0,10.0,2.0,0.0,15.0,30.0,3.0,0.0,3.0
+Brewed Unsweetened Iced Tea Small,0.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+6 Piece Chicken Nuggets,250.0,16.0,3.5,50.0,510.0,14.0,1.0,0.0,13.0
+Coca Cola Medium,320.0,0.0,0.0,0.0,70.0,87.0,0.0,87.0,0.0
+Son of Baconator,630.0,39.0,15.0,125.0,1490.0,37.0,2.0,8.0,34.0
+Coca Cola Small,200.0,0.0,0.0,0.0,45.0,54.0,0.0,54.0,0.0
+All Natural Lemonade Large,380.0,0.0,0.0,0.0,0.0,100.0,0.0,93.0,0.0
+Strawberry Sweet Tea Large,270.0,0.0,0.0,0.0,15.0,69.0,0.0,67.0,0.0
+Orange Juice Small,130.0,0.0,0.0,0.0,10.0,30.0,1.0,25.0,2.0
+Crispy Chicken Sandwich,330.0,16.0,3.0,30.0,600.0,33.0,2.0,4.0,14.0
+Strawberry Passion FruiTea Chillers Large,290.0,0.0,0.0,0.0,60.0,73.0,0.0,69.0,0.0
+Strawberry Lemonade Medium,380.0,0.0,0.0,0.0,5.0,98.0,0.0,92.0,0.0
+Daves Double,810.0,51.0,20.0,175.0,1460.0,39.0,3.0,9.0,49.0
+Sausage Biscuit,480.0,33.0,15.0,50.0,1010.0,35.0,1.0,5.0,12.0
+Natural-Cut Fries Small,320.0,15.0,2.5,0.0,320.0,43.0,4.0,0.0,5.0
+1% Chocolate Milk,150.0,2.5,1.5,10.0,170.0,26.0,0.0,23.0,7.0
+Strawberry Tea Large,90.0,0.0,0.0,0.0,20.0,22.0,0.0,20.0,0.0
+Power Mediterranean Chicken Salad 1/2 Size,250.0,9.0,2.5,50.0,620.0,23.0,5.0,10.0,22.0
+Spicy Chicken Wrap,370.0,20.0,5.0,50.0,850.0,30.0,2.0,2.0,18.0

@@ -1,0 +1,936 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Miller Genuine Draft 12 oz,140.0,0.0,0.0,0.0,5.0,13.0,0.0,0.0,1.0
+Sprite Kids,150.0,0.0,0.0,0.0,70.0,38.0,0.0,38.0,0.0
+Miller High Life 12 oz,140.0,0.0,0.0,0.0,5.0,13.0,0.0,0.0,1.0
+Miller Lite 12 oz,100.0,0.0,0.0,0.0,5.0,3.0,0.0,0.0,1.0
+English Muffin w/ Whipped Butter,230.0,11.0,3.0,0.0,410.0,28.0,1.0,2.0,5.0
+Applesauce,40.0,0.0,0.0,0.0,0.0,9.0,1.0,9.0,0.0
+Fresh Fruit Seasonal,70.0,0.0,0.0,0.0,60.0,19.0,3.0,15.0,1.0
+Applewood Smoked Bacon 4 Slices,140.0,12.0,4.0,30.0,500.0,0.0,0.0,0.0,8.0
+4 Sausage Links,460.0,44.0,17.0,0.0,580.0,2.0,0.0,0.0,12.0
+2 Sausage Patties,380.0,38.0,15.0,0.0,480.0,1.0,0.0,0.0,12.0
+Polska Kielbasa Smoked Sausage,380.0,34.0,13.0,70.0,980.0,8.0,0.0,8.0,12.0
+MozzaSticks w/ Marinara,790.0,48.0,16.0,95.0,2070.0,56.0,0.0,11.0,33.0
+Baked Potato,180.0,0.0,0.0,0.0,20.0,40.0,4.0,3.0,4.0
+Buttered Corn,150.0,8.0,2.0,0.0,70.0,17.0,2.0,3.0,3.0
+Mashed Potatoes & Gravy,240.0,9.0,4.0,15.0,860.0,34.0,3.0,1.0,5.0
+Sauteed Spinach,70.0,3.5,0.5,0.0,90.0,4.0,2.0,0.0,4.0
+Fresh Broccoli,20.0,1.5,1.0,5.0,15.0,1.0,1.0,0.0,1.0
+White Toast Buttered,310.0,16.0,4.0,0.0,460.0,34.0,1.0,2.0,7.0
+2 Biscuits,650.0,36.0,25.0,0.0,2090.0,68.0,2.0,6.0,12.0
+Apple Cinnamon Mammoth Muffin w/ Whipped Butter Blend,630.0,33.0,8.0,80.0,820.0,76.0,3.0,44.0,7.0
+Banana Nut Mammoth Muffin,790.0,46.0,10.0,80.0,890.0,85.0,2.0,46.0,11.0
+Chocolate Chocolate Chip Muffin,720.0,36.0,10.0,80.0,790.0,88.0,3.0,42.0,10.0
+Sticky Bun also called Sweet Sticky Bun,790.0,41.0,14.0,0.0,710.0,98.0,5.0,48.0,11.0
+Whole Wheat Toast 2 Slices,310.0,13.0,3.0,0.0,490.0,38.0,6.0,4.0,12.0
+Blueberry Mammoth Muffin w/ Whipped Butter Blend,650.0,33.0,8.0,85.0,820.0,81.0,3.0,42.0,10.0
+Bran Muffin,520.0,16.0,3.5,0.0,590.0,91.0,7.0,49.0,10.0
+Raspberry & Cream Muffin,600.0,26.0,5.0,80.0,750.0,81.0,3.0,42.0,10.0
+Milk 2% White Small,210.0,8.0,5.0,35.0,200.0,20.0,0.0,18.0,14.0
+Cherry Coke Kids,160.0,0.0,0.0,0.0,35.0,42.0,0.0,42.0,0.0
+Coca Cola Kids also called Coca Cola Classic,150.0,0.0,0.0,0.0,50.0,39.0,0.0,39.0,0.0
+Coffee,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Diet Coke Kids,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Hot Chocolate,120.0,2.0,1.5,0.0,105.0,24.0,1.0,21.0,1.0
+Hot Tea,10.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Iced Tea,10.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Apple Juice Small,180.0,0.0,0.0,0.0,35.0,45.0,0.0,38.0,0.0
+Grapefruit Juice,180.0,0.0,0.0,0.0,95.0,44.0,0.0,44.0,0.0
+Orange Juice Small,160.0,0.0,0.0,0.0,20.0,38.0,1.0,35.0,3.0
+Tomato Juice Small,70.0,0.0,0.0,0.0,1020.0,15.0,3.0,9.0,3.0
+Lemonade Kids,150.0,0.0,0.0,0.0,50.0,38.0,0.0,37.0,0.0
+Chocolate Milk Small,240.0,0.0,0.0,0.0,330.0,47.0,0.0,42.0,12.0
+Raspberry Iced Tea,130.0,0.0,0.0,0.0,75.0,34.0,0.0,34.0,0.0
+Root Beer Kids,170.0,0.0,0.0,0.0,70.0,43.0,0.0,43.0,0.0
+Strawberry Malt,900.0,48.0,28.0,175.0,340.0,107.0,0.0,76.0,12.0
+Vanilla Malt,950.0,48.0,28.0,175.0,340.0,118.0,0.0,100.0,12.0
+Chocolate Malt,980.0,48.0,28.0,175.0,360.0,125.0,0.0,102.0,12.0
+Chocolate Shake,950.0,47.0,27.0,175.0,330.0,120.0,0.0,98.0,11.0
+Strawberry Shake,870.0,47.0,27.0,175.0,300.0,101.0,0.0,72.0,11.0
+Vanilla Shake,920.0,47.0,27.0,175.0,300.0,112.0,0.0,97.0,11.0
+The BBQ Bacon Supreme Beef,1070.0,62.0,27.0,180.0,2070.0,76.0,1.0,39.0,49.0
+The Tangler Beef,1090.0,72.0,24.0,175.0,1410.0,57.0,2.0,12.0,51.0
+Classic Cheeseburger Kids,660.0,37.0,12.0,105.0,860.0,41.0,1.0,8.0,30.0
+Cinnamon Roll,690.0,35.0,16.0,5.0,770.0,85.0,3.0,35.0,9.0
+Crazy Cookie,310.0,17.0,8.0,40.0,105.0,36.0,1.0,21.0,3.0
+Chocolate Chipper Sundae,1010.0,59.0,34.0,120.0,340.0,113.0,4.0,92.0,8.0
+Chocolate Walnut Brownie,560.0,27.0,10.0,90.0,220.0,76.0,4.0,55.0,6.0
+Eclair,500.0,16.0,7.0,45.0,380.0,87.0,2.0,66.0,3.0
+Fudge Brownie Supreme,860.0,43.0,24.0,135.0,370.0,111.0,4.0,84.0,8.0
+Vanilla Ice Cream 1 Scoop,210.0,13.0,7.0,50.0,70.0,22.0,0.0,18.0,2.0
+Vanilla Ice Cream 2 Scoops,420.0,25.0,14.0,95.0,140.0,44.0,0.0,36.0,4.0
+Chocolate Chip Cookie,310.0,20.0,8.0,25.0,90.0,30.0,2.0,21.0,3.0
+2 Mini Chocolate Chip Cookies Kids Treats,160.0,10.0,4.0,15.0,45.0,15.0,1.0,11.0,2.0
+2 Mini Sugar Cookies Kids Treats,160.0,7.0,3.5,25.0,60.0,21.0,0.0,11.0,2.0
+Sugar Cookie,310.0,14.0,7.0,50.0,115.0,42.0,0.0,21.0,3.0
+Banana Cream Pie Slice,700.0,46.0,23.0,110.0,320.0,67.0,1.0,35.0,2.0
+Banana Cream Pie Whole,117.0,8.0,4.0,18.0,53.0,11.0,0.0,6.0,0.0
+Chocolate French Silk Pie Slice,760.0,54.0,27.0,195.0,330.0,66.0,3.0,44.0,6.0
+Chocolate French Silk Pie Whole,760.0,54.0,27.0,195.0,330.0,66.0,3.0,44.0,6.0
+Coconut Cream Pie Slice,640.0,40.0,23.0,85.0,470.0,60.0,1.0,34.0,7.0
+Coconut Cream Pie Whole,640.0,40.0,23.0,85.0,470.0,60.0,1.0,34.0,7.0
+Peanut Butter Silk Pie Whole,930.0,65.0,33.0,145.0,420.0,72.0,2.0,47.0,12.0
+Apple Pie No Sugar Added Slice,370.0,15.0,6.0,0.0,420.0,52.0,2.0,15.0,5.0
+Caramel Apple Pie Slice,500.0,22.0,9.0,0.0,520.0,68.0,1.0,34.0,6.0
+Cherry Pie Slice,580.0,27.0,12.0,0.0,600.0,75.0,2.0,33.0,8.0
+Lemon Meringue Pie Slice,500.0,17.0,6.0,30.0,480.0,80.0,2.0,57.0,6.0
+Lemon Meringue Pie Whole,500.0,17.0,6.0,30.0,480.0,80.0,2.0,57.0,6.0
+Southern Pecan Pie Slice,670.0,33.0,9.0,100.0,430.0,86.0,1.0,58.0,7.0
+Homestyle Apple Pie Slice,570.0,27.0,9.0,0.0,390.0,76.0,1.0,36.0,5.0
+Southern Pecan Pie Whole,670.0,33.0,9.0,100.0,430.0,86.0,1.0,58.0,7.0
+Wildberry Pie No Sugar Added Slice,470.0,27.0,12.0,0.0,470.0,50.0,3.0,6.0,5.0
+Wildberry Pie No Sugar Added Whole,470.0,27.0,12.0,0.0,470.0,50.0,3.0,6.0,5.0
+Classic Eggs Benedict,690.0,45.0,18.0,515.0,1650.0,42.0,1.0,7.0,31.0
+Egg Beaters Exchange 2 Eggs,45.0,0.0,0.0,0.0,210.0,2.0,0.0,1.0,10.0
+Egg Beaters Exchange 3 Eggs,70.0,0.0,0.0,0.0,310.0,2.0,0.0,1.0,15.0
+2 Grade AA Eggs Large,170.0,13.0,3.5,430.0,130.0,2.0,0.0,0.0,12.0
+Oatmeal w/ Brown Sugar,330.0,6.0,2.0,10.0,90.0,60.0,4.0,33.0,10.0
+Southern Fried Chicken Biscuit Breakfast,1340.0,76.0,42.0,555.0,4230.0,110.0,3.0,10.0,58.0
+Chicken Strips w/ Honey Mustard Dressing,1010.0,62.0,14.0,165.0,2390.0,70.0,0.0,23.0,45.0
+Grilled Salmon Dinner,430.0,29.0,4.5,120.0,120.0,2.0,0.0,2.0,40.0
+Jumbo Shrimp Dinner,370.0,11.0,2.5,75.0,1600.0,44.0,0.0,16.0,25.0
+Tilapia Grille Dinner,360.0,18.0,3.5,105.0,420.0,9.0,0.0,6.0,42.0
+Chicken Strips Dinner,800.0,43.0,12.0,150.0,2110.0,59.0,0.0,11.0,44.0
+Country Fried Steak Dinner,570.0,32.0,10.0,85.0,1810.0,45.0,2.0,2.0,27.0
+Macaroni & Cheese,300.0,16.0,8.0,40.0,540.0,26.0,1.0,4.0,10.0
+55+ Griddle Greats w/ 3 Blueberry Pancakes,560.0,26.0,7.0,55.0,1670.0,71.0,1.0,18.0,8.0
+55+ One Egg Benedict,400.0,29.0,11.0,260.0,880.0,21.0,1.0,4.0,16.0
+55+ Traveler,100.0,8.0,2.0,215.0,65.0,1.0,0.0,0.0,6.0
+55+ Two Egg Omelette,170.0,13.0,3.5,430.0,130.0,2.0,0.0,0.0,12.0
+55+ Tilapia Grille Dinner,360.0,18.0,3.5,105.0,420.0,9.0,0.0,6.0,42.0
+Deliciously Fit Mac & Cheese Kids,300.0,9.0,2.5,15.0,580.0,46.0,2.0,8.0,6.0
+Deliciously Fit Perky Bear Pancakes,430.0,29.0,9.0,30.0,990.0,37.0,0.0,11.0,4.0
+Deliciously Fit Rainbow Pancake Breakfast Kids,290.0,12.0,5.0,45.0,790.0,40.0,0.0,13.0,4.0
+All American,240.0,19.0,6.0,445.0,380.0,2.0,0.0,0.0,16.0
+Brioche French Toast Platter,850.0,44.0,15.0,900.0,900.0,68.0,2.0,19.0,45.0
+Spinach & Mushroom Scramble,480.0,13.0,1.0,40.0,1200.0,62.0,11.0,22.0,31.0
+Steak Medallions & Mushrooms Dinner,480.0,29.0,8.0,115.0,1230.0,6.0,1.0,2.0,51.0
+Brioche French Toast 3 Slices,990.0,45.0,15.0,660.0,1090.0,98.0,3.0,27.0,47.0
+Hash Browns,490.0,13.0,1.5,0.0,1830.0,87.0,7.0,5.0,8.0
+Seasoned Breakfast Potatoes,250.0,12.0,3.5,0.0,580.0,32.0,5.0,0.0,3.0
+French Fries,570.0,36.0,8.0,0.0,770.0,56.0,6.0,0.0,6.0
+Sweet Potato Fries,470.0,26.0,2.5,0.0,440.0,58.0,7.0,14.0,2.0
+Honey Mustard Chicken Crunch Salad,980.0,63.0,17.0,155.0,2050.0,63.0,5.0,28.0,44.0
+Side Salad,110.0,4.5,1.5,10.0,270.0,13.0,1.0,3.0,5.0
+Deliciously Fit Mini Chef Salad Kids,190.0,5.0,2.5,65.0,1150.0,9.0,2.0,5.0,28.0
+Open Face Turkey Sandwich,670.0,21.0,7.0,65.0,2190.0,84.0,5.0,14.0,36.0
+55+ Sandwich N Such Ham & Cheese,380.0,21.0,7.0,65.0,1270.0,24.0,3.0,6.0,23.0
+55+ Sandwich N Such Turkey,280.0,14.0,2.0,35.0,680.0,21.0,3.0,3.0,18.0
+Grilled Cheese Sandwich Kids,560.0,39.0,16.0,45.0,1160.0,36.0,1.0,4.0,16.0
+Homestyle Chicken Noodle Soup Bowl,260.0,6.0,0.0,10.0,1430.0,37.0,2.0,1.0,11.0
+Homestyle Chicken Noodle Soup Cup,150.0,3.5,0.0,10.0,890.0,21.0,1.0,1.0,7.0
+Diced Ham,140.0,11.0,4.0,15.0,490.0,2.0,0.0,2.0,7.0
+Mushrooms,5.0,0.0,0.0,0.0,110.0,1.0,1.0,1.0,1.0
+Pancake Syrup 2 oz,140.0,0.0,0.0,0.0,50.0,35.0,0.0,29.0,0.0
+American Cheese Shredded for Build Your Own Omelette,170.0,14.0,8.0,45.0,240.0,1.0,0.0,0.0,11.0
+Ranch Dressing 3 oz,250.0,28.0,4.0,25.0,680.0,3.0,0.0,3.0,0.0
+Bacon for Build Your Own Egg Omelette,35.0,3.0,3.0,10.0,125.0,0.0,0.0,0.0,2.0
+Green Bell Peppers for Build Your Own Omelette,5.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,0.0
+Swiss Cheese Sliced for 55+ Build Your Own Omelette,110.0,8.0,5.0,25.0,110.0,1.0,0.0,0.0,7.0
+Glazed Blueberries 6 oz,200.0,0.0,0.0,0.0,25.0,51.0,5.0,44.0,0.0
+Glazed Strawberries 6 oz,140.0,0.0,0.0,0.0,0.0,36.0,0.0,6.0,0.0
+Hollandaise Sauce for Build Your Own Omelette,220.0,19.0,11.0,55.0,420.0,9.0,0.0,3.0,2.0
+Broccoli for Build Your Own Omelette,40.0,2.5,1.5,5.0,25.0,3.0,2.0,1.0,2.0
+Pepper Jack Cheese Shredded for Build Your Own Omelette,150.0,12.0,8.0,45.0,260.0,2.0,0.0,0.0,11.0
+Apricot Syrup 2 oz,120.0,0.0,0.0,0.0,25.0,30.0,0.0,26.0,0.0
+Sugar Free Pancake Syrup 2 oz,10.0,0.0,0.0,0.0,50.0,3.0,0.0,0.0,0.0
+Blue Cheese Dressing 3 oz,400.0,43.0,9.0,40.0,580.0,3.0,0.0,3.0,3.0
+Italian Dressing Fat Free 3 oz,25.0,0.0,0.0,0.0,1230.0,8.0,0.0,5.0,0.0
+French Dressing 3 oz,350.0,28.0,4.0,0.0,850.0,25.0,0.0,23.0,0.0
+Honey Mustard Dressing 3 oz,380.0,33.0,5.0,25.0,500.0,20.0,0.0,20.0,3.0
+Thousand Island Dressing 3 oz,280.0,28.0,4.0,40.0,650.0,10.0,0.0,10.0,0.0
+BBQ Sauce,45.0,0.0,0.0,0.0,170.0,11.0,0.0,10.0,0.0
+Parmesan Cheese Grated,120.0,8.0,5.0,25.0,510.0,1.0,0.0,0.0,10.0
+Buffalo Hot Sauce,5.0,0.0,0.0,0.0,1100.0,1.0,0.0,1.0,0.0
+Sliced American Cheese 2 Slices,170.0,14.0,9.0,45.0,600.0,2.0,0.0,2.0,9.0
+American Cheese Shredded for Granny's Country Omelette,110.0,9.0,5.0,30.0,160.0,1.0,0.0,0.0,7.0
+Cheddar Monterey Jack & Swiss Cheese Blend Shredded,110.0,9.0,5.0,30.0,180.0,1.0,0.0,0.0,7.0
+Mild Cheddar Cheese Shredded for 55+ Build Your Own Omelette,110.0,9.0,5.0,30.0,180.0,1.0,0.0,0.0,7.0
+Pepper Jack Cheese Shredded for 55+ Build Your Own Omelette,100.0,8.0,5.0,30.0,170.0,0.0,0.0,0.0,7.0
+Parmesan Cheese Shredded,110.0,8.0,5.0,20.0,330.0,1.0,0.0,0.0,9.0
+Pepper Jack Cheese 2 Slices,150.0,12.0,8.0,45.0,260.0,0.0,0.0,0.0,11.0
+Pepper Jack Cheese Sliced for My Little Chick Adilla,80.0,6.0,4.0,25.0,130.0,0.0,0.0,0.0,5.0
+Swiss Cheese 2 Slices for 3 Egg Omelette,170.0,12.0,8.0,40.0,170.0,2.0,0.0,0.0,11.0
+Ketchup Packet,10.0,0.0,0.0,0.0,100.0,2.0,0.0,2.0,0.0
+Mayonnaise 2 Tbsp,200.0,22.0,3.0,20.0,170.0,0.0,0.0,0.0,0.0
+Mustard Yellow,5.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Salsa,10.0,0.0,0.0,0.0,230.0,3.0,1.0,3.0,0.0
+Steak Sauce also called A1 Original Steak Sauce,25.0,0.0,0.0,0.0,500.0,6.0,0.0,4.0,0.0
+Tartar Sauce,100.0,9.0,1.5,10.0,250.0,5.0,0.0,3.0,0.0
+Turkey Gravy,50.0,4.0,1.0,0.0,200.0,3.0,0.0,1.0,1.0
+Diced Ham for 55+ Build Your Own Omelette,80.0,6.0,2.0,10.0,270.0,1.0,0.0,1.0,4.0
+2 Pork Sausage Links,240.0,24.0,9.0,0.0,290.0,1.0,0.0,0.0,6.0
+Applewood Smoked Bacon 2 Slices,70.0,6.0,2.0,15.0,250.0,0.0,0.0,0.0,4.0
+Chicken Apple Sausage 2 Links for Blueberry Banana Pancake Breakfast,90.0,4.0,0.0,40.0,330.0,3.0,0.0,2.0,10.0
+4 Chicken Apple Sausage Links,210.0,12.0,0.5,80.0,660.0,6.0,0.0,4.0,20.0
+1 Sausage Patty,210.0,21.0,8.0,0.0,240.0,1.0,0.0,0.0,6.0
+Option Mashed Potatoes & Gravy Kids,240.0,9.0,4.0,15.0,850.0,34.0,3.0,1.0,5.0
+Fresh Broccoli Florets,35.0,0.0,0.0,0.0,35.0,5.0,3.0,3.0,4.0
+Pumpkin Pie Slice,400.0,15.0,5.0,55.0,410.0,60.0,1.0,40.0,8.0
+Pumpkin Pie Whole,400.0,15.0,5.0,55.0,410.0,60.0,1.0,40.0,8.0
+Pumpkin Pie w/ Whipped Cream Slice,580.0,30.0,14.0,115.0,430.0,69.0,1.0,46.0,8.0
+Pumpkin Pie w/ Whipped Cream Whole,580.0,30.0,14.0,115.0,430.0,69.0,8.0,46.0,8.0
+Cranberry Orange Mammoth Muffin,530.0,20.0,7.0,80.0,680.0,75.0,0.0,39.0,10.0
+Rye Toast 2 Slices,390.0,15.0,3.0,0.0,530.0,54.0,4.0,2.0,10.0
+Pumpkin Cream Cheese Mammoth Muffin w/ Lemon Flavored Cream Cheese Icing,690.0,31.0,9.0,80.0,780.0,95.0,3.0,55.0,10.0
+Sweet Tea,100.0,0.0,0.0,0.0,0.0,24.0,0.0,24.0,0.0
+Cherry Pie Whole also called Premium Cherry Pie,580.0,27.0,12.0,0.0,600.0,75.0,2.0,33.0,8.0
+Caramel Apple Pie Whole,500.0,22.0,9.0,0.0,520.0,68.0,1.0,34.0,6.0
+Mediterranean Omelet,550.0,39.0,17.0,695.0,1080.0,22.0,4.0,2.0,27.0
+Granny's Country Omelet,970.0,47.0,15.0,690.0,2810.0,98.0,8.0,8.0,40.0
+Everything Omelet,550.0,40.0,16.0,705.0,1070.0,14.0,2.0,5.0,37.0
+Chicken Noodle Soup & Side Salad 55+,350.0,9.0,1.5,20.0,1570.0,49.0,4.0,5.0,16.0
+Tomato Basil Soup & Side Salad 55+,550.0,28.0,16.0,85.0,1980.0,57.0,4.0,8.0,11.0
+5 Blueberry Pancakes,870.0,37.0,10.0,95.0,2760.0,118.0,2.0,28.0,14.0
+Belgian Waffle,470.0,23.0,11.0,130.0,870.0,57.0,2.0,10.0,9.0
+3 Potato Pancakes,850.0,43.0,12.0,135.0,2370.0,95.0,7.0,12.0,19.0
+Belgian Waffle Platter,610.0,36.0,14.0,560.0,1000.0,53.0,2.0,5.0,21.0
+Brioche French Toast 2 Slices,700.0,35.0,11.0,445.0,760.0,66.0,2.0,18.0,32.0
+Green Beans & Bacon,45.0,2.5,0.5,5.0,630.0,4.0,3.0,0.0,2.0
+55+ Continental,390.0,15.0,5.0,10.0,180.0,57.0,4.0,32.0,8.0
+Hearty Mans Combo,800.0,69.0,26.0,515.0,1650.0,11.0,0.0,8.0,34.0
+Steak Medallions & Eggs,530.0,28.0,6.0,520.0,1260.0,8.0,1.0,2.0,63.0
+Steak Medallions & Fried Shrimp Dinner,750.0,37.0,9.0,170.0,2420.0,40.0,1.0,14.0,69.0
+Blueberry Banana Pancake Breakfast,540.0,18.0,3.0,80.0,1630.0,65.0,2.0,20.0,27.0
+55+ One Egg Classic,100.0,8.0,2.0,215.0,65.0,1.0,0.0,0.0,6.0
+Homemade Meatloaf Dinner,1150.0,68.0,26.0,170.0,2780.0,93.0,7.0,18.0,42.0
+Country Fried Steak & Eggs,740.0,45.0,14.0,515.0,1940.0,47.0,2.0,2.0,39.0
+Country Sausage Biscuit Breakfast,1240.0,83.0,44.0,455.0,3330.0,82.0,2.0,8.0,44.0
+Fresh Baked Chicken Pot Pie,1380.0,92.0,33.0,215.0,2920.0,84.0,5.0,11.0,50.0
+Twice as Nice Combo,170.0,13.0,3.5,430.0,130.0,2.0,0.0,0.0,12.0
+Brioche French Toast Tower Kids,420.0,24.0,8.0,235.0,440.0,35.0,1.0,11.0,16.0
+Eggs in a Hole,1270.0,64.0,17.0,430.0,2980.0,147.0,9.0,7.0,30.0
+Fabulous Five,170.0,16.0,4.5,215.0,170.0,1.0,0.0,0.0,6.0
+Double Catch,1210.0,66.0,14.0,95.0,2880.0,112.0,6.0,14.0,43.0
+The Farmers Omelet,660.0,54.0,22.0,705.0,930.0,8.0,1.0,2.0,39.0
+Deliciously Fit Silver Dollar Short Stack Kids,250.0,16.0,4.5,20.0,700.0,24.0,0.0,5.0,3.0
+Tremendous Twelve,920.0,48.0,13.0,720.0,2410.0,88.0,0.0,16.0,29.0
+55+ Griddle Greats 3 Buttermilk Pancakes,540.0,26.0,7.0,55.0,1700.0,66.0,0.0,12.0,8.0
+55+ Butterball Turkey & Dressing Dinner,480.0,17.0,4.5,75.0,2090.0,75.0,2.0,13.0,41.0
+55+ Country Fried Steak,570.0,32.0,10.0,85.0,1810.0,45.0,2.0,2.0,27.0
+55+ Grilled Chicken Breast Plain,200.0,8.0,1.5,95.0,790.0,0.0,0.0,0.0,32.0
+Option French Fries 4 oz Kids,320.0,20.0,4.5,0.0,430.0,31.0,3.0,0.0,3.0
+Big BLT & Fries,1210.0,79.0,17.0,70.0,2070.0,95.0,12.0,6.0,30.0
+Chicken Strips Melt,1290.0,80.0,26.0,180.0,3010.0,88.0,2.0,4.0,54.0
+Tomato Basil Soup Bowl,460.0,26.0,15.0,75.0,1850.0,46.0,2.0,5.0,7.0
+Tomato Basil Soup Cup w/ Premium Saltine Crackers,280.0,17.0,10.0,50.0,1180.0,27.0,1.0,3.0,4.0
+Fresh Spinach for Build Your Own Omelet,20.0,0.0,0.0,0.0,45.0,2.0,1.0,0.0,2.0
+Twinberry Syrup 2 oz,120.0,0.0,0.0,0.0,35.0,31.0,0.0,25.0,0.0
+White Balsamic Vinaigrette Dressing 3 oz,180.0,15.0,2.5,0.0,400.0,8.0,0.0,5.0,0.0
+Pick 3 Sampler w/ Breaded Chicken Tenders Mozzarella Sticks & Onion Rings,1630.0,95.0,23.0,195.0,3910.0,121.0,3.0,29.0,57.0
+Pick 4 Sampler w/ Breaded Chicken Tenders Breaded Pickle Chips Mozzarella Sticks & Onion Rings,2110.0,135.0,28.0,210.0,5490.0,148.0,4.0,32.0,61.0
+Onion Rings,500.0,17.0,3.5,10.0,680.0,54.0,3.0,9.0,7.0
+Fried Pickles,790.0,61.0,7.0,20.0,2670.0,53.0,3.0,5.0,8.0
+Peanut Butter Silk Pie Slice,930.0,65.0,33.0,145.0,420.0,72.0,2.0,47.0,12.0
+Turkey & Dressing Dinner,480.0,17.0,4.5,75.0,2090.0,42.0,2.0,13.0,41.0
+Cinnamon Roll French Toast Platter,800.0,45.0,18.0,660.0,920.0,71.0,3.0,19.0,29.0
+Cinnamon Roll Short French Toast,670.0,36.0,15.0,230.0,790.0,69.0,3.0,19.0,17.0
+Ooh La La French Toast,650.0,33.0,10.0,755.0,810.0,54.0,2.0,8.0,33.0
+4 Tail On Breaded Jumbo Fried Shrimp Add On for 55+ Double Catch,230.0,7.0,1.0,50.0,720.0,23.0,0.0,3.0,18.0
+Fish N Chips,1370.0,87.0,18.0,85.0,2530.0,107.0,8.0,10.0,38.0
+Baked Potato Loaded,390.0,20.0,8.0,30.0,350.0,42.0,4.0,5.0,11.0
+55+ Griddle Greats Ooh La La French Toast,510.0,24.0,7.0,325.0,680.0,52.0,2.0,8.0,21.0
+2 Buttermilk Pancakes,380.0,21.0,6.0,40.0,1160.0,43.0,0.0,8.0,5.0
+55+ 3 Potato Pancakes,850.0,43.0,12.0,135.0,2370.0,95.0,7.0,12.0,19.0
+Garden Salad Side,90.0,3.0,1.5,10.0,140.0,11.0,2.0,3.0,5.0
+Garden Salad & Bowl of Chicken Noodle Soup,370.0,9.0,1.0,15.0,1610.0,51.0,4.0,4.0,17.0
+Garden Salad & Bowl of Tomato Basil Soup,570.0,28.0,16.0,80.0,2030.0,60.0,4.0,8.0,12.0
+3 Large Fresh Eggs,200.0,14.0,4.5,645.0,200.0,3.0,0.0,0.0,18.0
+2 Large Fresh Eggs,140.0,9.0,3.0,430.0,130.0,2.0,0.0,0.0,12.0
+3 Blueberry Pancakes,560.0,26.0,7.0,55.0,1670.0,71.0,1.0,18.0,8.0
+3 Buttermilk Pancakes also called The Buttermilk Pancake Shortstack 3 Pancakes,540.0,26.0,7.0,55.0,1700.0,66.0,0.0,12.0,8.0
+55+ Chicken Strips Dinner,800.0,43.0,12.0,150.0,2110.0,59.0,0.0,11.0,44.0
+55+ Double Catch,1330.0,78.0,16.0,110.0,3080.0,116.0,6.0,16.0,43.0
+55+ Meatloaf Dinner,910.0,54.0,21.0,125.0,2200.0,79.0,6.0,13.0,29.0
+Alaskan Amber,180.0,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0
+Alexander Keith's 12 oz,150.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+AmberBock 12 oz,170.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,1.0
+Apple Juice Large,230.0,0.0,0.0,0.0,50.0,60.0,0.0,50.0,0.0
+Arthur Guinness 12 oz,130.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0
+Grilled Asparagus,45.0,3.5,0.5,0.0,0.0,2.0,1.0,1.0,1.0
+Copper Moon Sauvignon Blanc 5 oz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Southwest Avocado Salad,820.0,50.0,10.0,95.0,1960.0,61.0,1.0,14.0,36.0
+Avocado,100.0,9.0,1.0,0.0,0.0,6.0,2.0,0.0,2.0
+Bacardi Strawberry 12 oz,230.0,0.0,0.0,0.0,0.0,33.0,0.0,0.0,0.0
+Bacon Grilled Cheese w/ Fries,1480.0,93.0,33.0,105.0,2720.0,116.0,8.0,4.0,41.0
+Pancake Dippers,660.0,25.0,8.0,75.0,1670.0,96.0,0.0,52.0,15.0
+Bella Sera Pino Grigio 5 oz,100.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Beringer White Zinfidel 5 oz,100.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Blue Moon 12 oz,160.0,0.0,0.0,0.0,10.0,13.0,0.0,0.0,2.0
+Boulevard Wheat 12 oz,130.0,0.0,0.0,0.0,0.0,17.0,0.0,0.0,0.0
+Brownstone Chardonnay 5 oz,120.0,0.0,0.0,0.0,5.0,4.0,0.0,0.0,0.0
+Brownstone Merlot 5 oz,120.0,0.0,0.0,0.0,5.0,4.0,0.0,1.0,0.0
+Brownstone Pinot Grigio 5 oz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Brownstone Syrah 5 oz,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Brownstone White Zinfidel 5 oz,110.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Brownstone Moscato 5 oz,130.0,0.0,0.0,0.0,0.0,12.0,0.0,0.0,0.0
+Bud Light 12 oz,110.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,1.0
+Budweiser 12 oz,150.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,1.0
+Cabernet 5 oz,120.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Cali Club Salad,580.0,35.0,11.0,95.0,1650.0,24.0,5.0,13.0,40.0
+Cedar Creek Pinot Gris 5 oz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Chardonnay 5 oz,120.0,0.0,0.0,0.0,5.0,4.0,0.0,0.0,0.0
+Heineken 12 oz,150.0,0.0,0.0,0.0,10.0,12.0,0.0,0.0,2.0
+Cheeseburger Fries,1940.0,127.0,27.0,120.0,3820.0,143.0,13.0,2.0,46.0
+Cherry Coke Large,210.0,0.0,0.0,0.0,45.0,56.0,0.0,56.0,0.0
+2 Chicken Apple Sausage,90.0,4.0,0.0,40.0,330.0,3.0,0.0,2.0,10.0
+The Classic Chicken Breast Sandwich,510.0,20.0,5.0,95.0,1350.0,44.0,1.0,9.0,38.0
+Chipotle Ranch Dressing,140.0,15.0,2.0,10.0,530.0,3.0,0.0,3.0,0.0
+Chorizo Flats,950.0,63.0,29.0,155.0,2180.0,50.0,6.0,9.0,43.0
+Cinnsational Cinnamon Roll,710.0,35.0,16.0,5.0,780.0,90.0,3.0,38.0,9.0
+The Classic Burger,710.0,42.0,16.0,120.0,750.0,44.0,1.0,10.0,36.0
+Gallo Cabernet 5 oz,110.0,0.0,0.0,0.0,5.0,1.0,0.0,1.0,0.0
+The Classic Cheeseburger,700.0,42.0,16.0,120.0,660.0,44.0,1.0,9.0,36.0
+The Classic Cobb Salad,570.0,34.0,14.0,310.0,1840.0,22.0,7.0,7.0,49.0
+The Classic Crispy Chicken Sandwich,610.0,26.0,7.0,60.0,1370.0,71.0,2.0,9.0,23.0
+Coca Cola Large,200.0,0.0,0.0,0.0,65.0,52.0,0.0,52.0,0.0
+Coors Banquet 12 oz,150.0,0.0,0.0,0.0,15.0,11.0,0.0,0.0,1.0
+Coors Light 12 oz,100.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+Copa Chardonnay 5oz,150.0,0.0,0.0,0.0,10.0,10.0,0.0,5.0,0.0
+Copa Merlot 5 oz,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Copa Pinot 5 oz,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Copa Zinfidel 5 oz,130.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+The Big Country Smasher,1110.0,79.0,26.0,475.0,2540.0,62.0,5.0,6.0,38.0
+Cranberry Juice Small,170.0,0.0,0.0,0.0,10.0,43.0,0.0,43.0,0.0
+Diet Coke Large,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Down Home Biscuit Breakfast,680.0,45.0,23.0,430.0,1810.0,48.0,1.0,5.0,26.0
+3 Egg Whites,80.0,0.0,0.0,0.0,230.0,2.0,0.0,0.0,15.0
+Everything Smasher,1020.0,68.0,23.0,705.0,2050.0,61.0,7.0,8.0,41.0
+Fat Tire 12 oz,160.0,0.0,0.0,0.0,0.0,14.0,0.0,0.0,0.0
+Fit Favorite Roast Turkey Sandwich,560.0,17.0,4.5,70.0,1520.0,64.0,9.0,21.0,42.0
+Gallo Chardonnay 5 oz,100.0,0.0,0.0,0.0,5.0,1.0,0.0,1.0,0.0
+Gallo Merlot 5 oz,110.0,0.0,0.0,0.0,10.0,5.0,0.0,1.0,0.0
+Gallo White Zinfidel 5 oz,130.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Gerwurtztraminer 5 oz,130.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,0.0
+The Grannys,910.0,61.0,19.0,475.0,1900.0,57.0,6.0,6.0,31.0
+Grapefruit Juice Large,230.0,0.0,0.0,0.0,125.0,58.0,0.0,58.0,0.0
+Grilled Chicken w/ Mushrooms & Asparagus Dinner,590.0,22.0,5.0,95.0,2600.0,61.0,4.0,12.0,38.0
+Grilled Garlic Tilapia w/ Shrimp,550.0,20.0,8.0,135.0,1400.0,57.0,4.0,11.0,35.0
+Grilled Cajun Tilapia & Shrimp,460.0,11.0,3.0,110.0,1520.0,57.0,4.0,11.0,35.0
+Grits Cooked,150.0,0.0,0.0,0.0,600.0,33.0,0.0,3.0,3.0
+Hammin Egger,1160.0,52.0,16.0,475.0,3010.0,129.0,13.0,11.0,45.0
+Honey Mustard Dressing for Appetizers,290.0,25.0,4.0,20.0,380.0,15.0,0.0,15.0,2.0
+India Pale Ale 12 oz,150.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+Jackson Triggs Merlot 5 oz,120.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0
+Jackson Triggs Sauvignon Blanc 5 oz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Jalapeno Peppers,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Chicken Strips Kids,350.0,15.0,5.0,85.0,1100.0,29.0,0.0,0.0,26.0
+Labatt Blue Light 12 oz,110.0,0.0,0.0,0.0,0.0,8.0,0.0,0.0,0.0
+Labatt Blue 12 oz,150.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Leinenkugal Honey Weiss 12 oz,150.0,0.0,0.0,0.0,0.0,12.0,0.0,0.0,2.0
+Lemon Berry Pie Pancakes,680.0,22.0,9.0,55.0,1670.0,112.0,1.0,51.0,8.0
+Lemon Blueberry Pie Pancakes Platter,850.0,34.0,12.0,485.0,1800.0,114.0,1.0,51.0,20.0
+Lemonade Large,190.0,0.0,0.0,0.0,70.0,50.0,0.0,49.0,0.0
+My Little Chick Adilla w/ Fruit,460.0,18.0,6.0,70.0,1040.0,49.0,8.0,15.0,26.0
+Marinara Sauce,45.0,2.5,0.0,0.0,260.0,5.0,0.0,2.0,1.0
+Mediterranean Smasher,1020.0,67.0,24.0,695.0,2060.0,68.0,9.0,4.0,32.0
+Mello Yello 12 oz,170.0,0.0,0.0,0.0,45.0,47.0,0.0,47.0,0.0
+Merlot 5 oz,120.0,0.0,0.0,0.0,5.0,4.0,0.0,1.0,0.0
+Michelob Golden Draft Light 12 oz,110.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,1.0
+Michelob Light 12 oz,120.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,1.0
+Michelob Ultra 12 oz,100.0,0.0,0.0,0.0,10.0,3.0,0.0,0.0,1.0
+Michelob 12 oz,160.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Salsa Mild,10.0,0.0,0.0,0.0,220.0,3.0,1.0,3.0,0.0
+Mimosa,100.0,0.0,0.0,0.0,5.0,11.0,0.0,9.0,1.0
+Molson Canadian Ale 12 oz,150.0,0.0,0.0,0.0,10.0,11.0,0.0,0.0,1.0
+Molson Old Style Pilsner 12 oz,150.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0
+Monterey Chicken Pasta,1130.0,71.0,42.0,265.0,1730.0,69.0,5.0,5.0,49.0
+Monterey Shrimp Pasta,1040.0,68.0,41.0,300.0,1670.0,70.0,5.0,5.0,29.0
+Moosehead 12 oz,140.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+Mornin Quesadilla,550.0,31.0,12.0,25.0,1350.0,42.0,5.0,19.0,26.0
+Moscato 5 oz,130.0,0.0,0.0,0.0,0.0,12.0,0.0,0.0,0.0
+Mott's Clamato Caesar 12 oz,170.0,1.0,0.0,0.0,1310.0,40.0,0.0,0.0,2.0
+Naked Grape Chardonnay 5 oz,120.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+New Castle Brown Ale 12 oz,140.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,1.0
+O'Doul's 12 oz,90.0,0.0,0.0,0.0,0.0,18.0,0.0,18.0,2.0
+Onions Rings w/ Chipotle Ranch Dressing for Pick 3/4,470.0,26.0,4.0,15.0,970.0,39.0,2.0,8.0,4.0
+Option Buttered Corn Kids 4 oz,170.0,11.0,3.0,0.0,810.0,17.0,2.0,6.0,3.0
+Orange Juice Large,210.0,0.0,0.0,0.0,30.0,50.0,0.0,47.0,4.0
+Pasqua Pino Grigio Italy 5 oz,110.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0
+Patty Melt Pile On Sandwich,1550.0,105.0,33.0,240.0,2230.0,64.0,2.0,5.0,67.0
+Peller Estates Shiraz 5 oz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Pineapple Upside Down Mammoth Muffin,730.0,30.0,7.0,90.0,820.0,111.0,3.0,69.0,9.0
+Pinot Grigio 5 oz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+2 Pork Sausage Links for hearty Mans Combo,210.0,20.0,8.0,0.0,290.0,1.0,0.0,0.0,6.0
+Sawmill Creek Chardonnay 5 oz,110.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Tots also called Tater Tots,470.0,28.0,7.0,0.0,980.0,47.0,5.0,2.0,5.0
+Pumpkin Doughnut Muffin,700.0,33.0,11.0,110.0,810.0,91.0,3.0,52.0,10.0
+Quails Gate Pinot Noir 5 oz,150.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Ragin Cajun Pasta,640.0,22.0,7.0,100.0,1660.0,82.0,6.0,14.0,25.0
+Ranch Dressing for Appetizers,190.0,21.0,3.0,20.0,510.0,2.0,0.0,2.0,0.0
+Red Wine Blend 5 oz,120.0,0.0,0.0,0.0,5.0,4.0,0.0,3.0,0.0
+Rickard's Red Beer 12 oz,160.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+Riesling 5 oz,120.0,0.0,0.0,0.0,0.0,6.0,0.0,0.0,0.0
+Roast Turkey Sandwich,490.0,17.0,4.5,70.0,1460.0,45.0,6.0,7.0,41.0
+Rolling Rock 12 oz,130.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,1.0
+Root Beer Large,220.0,0.0,0.0,0.0,95.0,57.0,0.0,57.0,0.0
+Sam Adams Boston Larger 12 oz,170.0,0.0,0.0,0.0,0.0,18.0,0.0,0.0,2.0
+Santa Carolina Cabernet Chile 5 oz,120.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Santa Carolina Chardonnay Chile 5 oz,120.0,0.0,0.0,0.0,5.0,5.0,0.0,2.0,0.0
+Santa Carolina Merlot Chile 5 oz,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Santa Carolina Shiraz Chile 5 oz,130.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Santa Fe Chicken Chipotle Dinner,920.0,44.0,9.0,120.0,2690.0,87.0,11.0,11.0,48.0
+Sausage Biscuit Sandwich,720.0,43.0,22.0,0.0,1810.0,66.0,6.0,3.0,15.0
+Sauvignon Blanc 5 oz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Sawmill Creek Merlot 5oz,120.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Sourdough Toast 2 Slices,390.0,13.0,3.0,0.0,710.0,58.0,2.0,2.0,10.0
+Spotted Cow 12 oz,150.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Sprite Large,200.0,0.0,0.0,0.0,95.0,51.0,0.0,51.0,0.0
+Stella 12 oz,170.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,1.0
+Strawberry & Cream Cheese Crispers,310.0,18.0,7.0,25.0,390.0,32.0,1.0,12.0,5.0
+Ice Cream Sundae w/ Hot Fudge,440.0,27.0,15.0,40.0,150.0,46.0,2.0,38.0,4.0
+Sutter Home Riesling 5 oz,130.0,0.0,0.0,0.0,0.0,8.0,0.0,0.0,0.0
+Sutter Home White Wine Spritzer 5 oz,120.0,0.0,0.0,0.0,10.0,3.0,0.0,0.0,0.0
+Sutter Home White Zinfidel 5 oz,110.0,0.0,0.0,0.0,0.0,8.0,0.0,0.0,0.0
+Syrah Wine 5 oz,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+The Tangler w/ Chicken Breast,890.0,50.0,14.0,150.0,2090.0,57.0,2.0,12.0,53.0
+The Tangler w/ Crispy Chicken,1000.0,56.0,16.0,115.0,2110.0,84.0,3.0,12.0,38.0
+Tinhorn Creek Cab Franc 5 oz,110.0,0.0,0.0,0.0,5.0,1.0,0.0,0.0,0.0
+Tomato Juice Large,90.0,0.0,0.0,0.0,1360.0,19.0,4.0,12.0,4.0
+Turkey Bacon 4 Slices,100.0,6.0,0.0,40.0,640.0,0.0,0.0,0.0,8.0
+The Ultimate Beef Nachos,1200.0,60.0,9.0,115.0,2220.0,110.0,8.0,8.0,41.0
+The Ultimate Chicken Nachos,1000.0,46.0,6.0,70.0,2530.0,110.0,8.0,8.0,36.0
+The Ultimate Club Sandwich,1000.0,58.0,21.0,125.0,2330.0,64.0,2.0,14.0,54.0
+White Wine Spritzer 5 oz,120.0,0.0,0.0,0.0,10.0,3.0,0.0,0.0,0.0
+White Zinfidel 5 oz,110.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+William Hill Estates Chardonnay 5 oz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Woodbridge Chardonnay 5 oz,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Wrappin Granny,1090.0,62.0,20.0,480.0,2660.0,92.0,6.0,5.0,39.0
+Yellow Onions,10.0,0.0,0.0,0.0,0.0,3.0,0.0,1.0,0.0
+Yuengling 12 oz,130.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,1.0
+Corona Extra 12 oz,150.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Sunrise Burger w/ French Fries,1530.0,99.0,34.0,380.0,2100.0,102.0,7.0,11.0,57.0
+The BBQ Bacon Supreme w/ Crispy Chicken,980.0,46.0,18.0,120.0,2780.0,103.0,2.0,39.0,36.0
+The BBQ Bacon Supreme w/ Chicken Breast,870.0,39.0,16.0,155.0,2760.0,76.0,1.0,39.0,51.0
+4 Pork Sausage Links,430.0,40.0,16.0,0.0,580.0,2.0,0.0,0.0,12.0
+2 Pork Sausage Patties,350.0,34.0,14.0,0.0,480.0,1.0,0.0,0.0,12.0
+Smoked Sausage,350.0,30.0,12.0,70.0,980.0,8.0,0.0,8.0,12.0
+Turkey Bacon 2 Slices,50.0,3.0,0.0,20.0,320.0,0.0,0.0,0.0,4.0
+MozzaSticks w/ Marinara for Pick 3/4,400.0,25.0,8.0,50.0,1100.0,29.0,0.0,6.0,17.0
+Baked Potato w/ Butter,300.0,12.0,5.0,10.0,150.0,42.0,4.0,5.0,6.0
+Bagel,230.0,1.0,0.0,0.0,480.0,49.0,2.0,5.0,6.0
+Bagel & Cream Cheese,630.0,41.0,24.0,120.0,840.0,51.0,2.0,5.0,14.0
+Bagel w/ Whipped Butter,290.0,8.0,2.0,0.0,550.0,49.0,2.0,5.0,6.0
+Buttered Wheat Toast,220.0,3.0,0.0,0.0,380.0,40.0,6.0,4.0,12.0
+Buttered White Toast also called White Bread Toast,220.0,6.0,1.0,0.0,350.0,34.0,1.0,2.0,7.0
+2 Jumbo Round Biscuit,560.0,26.0,22.0,0.0,1960.0,68.0,2.0,6.0,12.0
+Peanut Butter Mammoth Muffin,810.0,40.0,11.0,65.0,740.0,97.0,5.0,53.0,15.0
+Mango Smoothie,200.0,1.0,0.0,0.0,40.0,49.0,0.0,45.0,1.0
+Pomegranate Berry Smoothie,100.0,1.0,0.0,0.0,40.0,24.0,0.0,21.0,1.0
+Strawberry Smoothie,190.0,1.0,0.0,0.0,40.0,47.0,0.0,42.0,1.0
+2% White Milk Large,340.0,13.0,8.0,55.0,340.0,34.0,0.0,30.0,23.0
+Chocolate Milk Large,400.0,0.0,0.0,0.0,550.0,78.0,0.0,70.0,20.0
+Coffee Decaffeinated,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Fat Free Chocolate Milk,240.0,0.0,0.0,0.0,330.0,47.0,0.0,42.0,12.0
+Spring Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Brownstone Cabernet,120.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Pinot Noir,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Shiraz,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Smirnoff Grape,230.0,0.0,0.0,0.0,0.0,36.0,0.0,0.0,0.0
+Smirnoff Green Apple,180.0,0.0,0.0,0.0,0.0,175.0,0.0,0.0,0.0
+Sparkling Brut,80.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Sutter Home Cabernet,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Sutter Home Chardonnay,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Sutter Home Merlot,120.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,0.0
+Mint Julip Iced Tea,150.0,0.0,0.0,0.0,0.0,36.0,0.0,36.0,0.0
+Mint Julip Iced Tea Kids,80.0,0.0,0.0,0.0,0.0,18.0,0.0,18.0,0.0
+Pineapple Sparkler,220.0,0.0,0.0,0.0,55.0,56.0,0.0,52.0,0.0
+Pineapple Sparkler Kids,110.0,0.0,0.0,0.0,30.0,27.0,0.0,26.0,0.0
+55+ Cheeseburger,690.0,39.0,12.0,110.0,860.0,41.0,1.0,8.0,32.0
+55+ Hamburger,610.0,32.0,8.0,90.0,560.0,40.0,1.0,7.0,27.0
+Chocolate French Silk Pie,480.0,32.0,16.0,135.0,310.0,44.0,1.0,28.0,5.0
+Apple Pie No Sugar Added Whole Pie,370.0,15.0,6.0,0.0,420.0,52.0,2.0,15.0,5.0
+Caramel Apple Pie,470.0,22.0,9.0,0.0,500.0,61.0,1.0,29.0,6.0
+Key Lime Pie Slice w/ Whipped Cream,620.0,29.0,17.0,85.0,300.0,79.0,0.0,63.0,8.0
+Key Lime Pie Slice,440.0,14.0,8.0,25.0,280.0,70.0,0.0,57.0,8.0
+Key Lime Pie Whole w/ Whipped Cream,3720.0,174.0,102.0,515.0,1770.0,474.0,0.0,378.0,48.0
+Key Lime Pie Whole,2640.0,84.0,48.0,155.0,1680.0,420.0,0.0,342.0,48.0
+Chocolate Pretzel Caramel Silk Pie,850.0,59.0,32.0,245.0,390.0,73.0,2.0,46.0,6.0
+Fudge Brownie Silk Pie,710.0,47.0,23.0,155.0,390.0,69.0,2.0,46.0,6.0
+Oatmeal Cranberry Cookie,290.0,22.0,6.0,35.0,270.0,45.0,1.0,18.0,3.0
+Bacon Pancake Dippers Kids,270.0,15.0,1.5,45.0,960.0,24.0,0.0,5.0,9.0
+Bacon Spinach & Tomato Omelette,620.0,43.0,16.0,705.0,930.0,21.0,5.0,0.0,37.0
+2 Buttermilk Pancakes,380.0,21.0,6.0,40.0,1160.0,43.0,0.0,8.0,5.0
+Corned Beef Hash & Eggs,520.0,35.0,14.0,500.0,1030.0,22.0,2.0,1.0,30.0
+Country Biscuit & Eggs,750.0,51.0,25.0,445.0,2060.0,48.0,1.0,5.0,30.0
+Pork Chops & Eggs,670.0,41.0,14.0,590.0,1810.0,4.0,0.0,0.0,70.0
+The Skinny Scramble,350.0,9.0,0.5,40.0,810.0,43.0,6.0,20.0,28.0
+Creamed Chipped Beef,270.0,14.0,8.0,60.0,1100.0,18.0,0.0,10.0,18.0
+Chicken Bacon & Broccoli Pasta,1290.0,85.0,48.0,295.0,2250.0,71.0,6.0,5.0,52.0
+Fit Favorite Lemon Pepper Tilapia,510.0,14.0,3.0,45.0,1330.0,68.0,7.0,10.0,30.0
+Top Sirloin Steak & Fried Shrimp Dinner,530.0,19.0,4.5,155.0,1290.0,33.0,0.0,12.0,58.0
+Top Sirloin Steak Dinner,250.0,11.0,3.0,100.0,105.0,0.0,0.0,0.0,39.0
+55+ Brioche French Toast 2 Pieces,720.0,36.0,12.0,480.0,780.0,66.0,2.0,19.0,33.0
+55+ Steak Medallions & Mushrooms,480.0,29.0,8.0,115.0,1230.0,6.0,1.0,2.0,51.0
+55+ Top Sirloin Steak Dinner,220.0,8.0,2.5,100.0,105.0,0.0,0.0,0.0,39.0
+Eggs Hashbrowns & Toast Kids,670.0,20.0,3.5,215.0,2070.0,105.0,8.0,6.0,18.0
+Big Texas Country Fried Steak Melt,1350.0,90.0,35.0,590.0,3300.0,77.0,3.0,9.0,61.0
+California Avocado Benedict,1060.0,78.0,29.0,545.0,1580.0,60.0,7.0,5.0,37.0
+Heartland Sausage & Cheese Smasher,1190.0,85.0,29.0,540.0,2510.0,65.0,6.0,12.0,40.0
+New York Steakhouse Omelet,970.0,68.0,24.0,740.0,1420.0,42.0,42.0,3.0,42.0
+Northwest Blueberry Crisp Pancake Platter,890.0,36.0,12.0,500.0,1950.0,120.0,3.0,49.0,21.0
+Northwest Blueberry Crisp Pancakes,720.0,23.0,9.0,70.0,1820.0,118.0,3.0,49.0,9.0
+Southern Shrimp n Grits Bowl,670.0,39.0,18.0,265.0,2540.0,40.0,3.0,5.0,37.0
+Southwest Breakfast Burrito Sandwich,1400.0,84.0,34.0,565.0,3270.0,103.0,10.0,20.0,55.0
+Grilled Cheese & Tomato Soup,970.0,65.0,33.0,130.0,2860.0,67.0,2.0,9.0,23.0
+Mushroom & Swiss Omelette w/ 3 Buttermilk Pancakes,950.0,55.0,20.0,740.0,2290.0,73.0,1.0,13.0,38.0
+Magnificent Seven,620.0,29.0,8.0,485.0,1730.0,68.0,0.0,12.0,20.0
+Marble Rye Toast 2 Slices,300.0,5.0,0.0,0.0,420.0,54.0,4.0,2.0,10.0
+Hash Brown Potatoes,460.0,9.0,1.0,0.0,1830.0,87.0,7.0,5.0,8.0
+2 Potato Pancakes,440.0,18.0,5.0,75.0,1330.0,59.0,4.0,4.0,10.0
+Honey Mustard Dressing 2 oz,250.0,22.0,3.5,15.0,330.0,13.0,0.0,13.0,2.0
+Granny's Loaded Hash Browns,1230.0,42.0,11.0,45.0,4450.0,182.0,15.0,13.0,30.0
+Country Club Melt,1140.0,72.0,30.0,180.0,3450.0,67.0,2.0,9.0,58.0
+Reuben Melt,1090.0,61.0,22.0,155.0,3430.0,79.0,4.0,5.0,56.0
+Cheesy Egg Melt,1240.0,65.0,24.0,490.0,3320.0,125.0,8.0,9.0,39.0
+Tomato Basil Soup Cup,200.0,15.0,10.0,50.0,970.0,14.0,0.0,3.0,2.0
+Tomato Basil Soup 6 oz Kids,200.0,15.0,10.0,50.0,970.0,14.0,0.0,3.0,2.0
+Pork Roll SINY,360.0,32.0,14.0,80.0,1160.0,2.0,0.0,0.0,18.0
+Chicken Apple Sausage for 4 Chicken Apple Sausage Links,180.0,8.0,0.0,80.0,660.0,6.0,0.0,4.0,20.0
+Champaign for Mimosa,60.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Premium Saltine Crackers,80.0,1.5,0.0,0.0,210.0,13.0,1.0,0.0,2.0
+Blue Cheese Dressing 2 oz,270.0,28.0,6.0,25.0,380.0,2.0,0.0,2.0,2.0
+Fat Free Italian Dressing 2 oz,15.0,0.0,0.0,0.0,820.0,5.0,0.0,3.0,0.0
+French Dressing 2 oz also called Western French Dressing,230.0,18.0,2.5,0.0,570.0,17.0,0.0,15.0,0.0
+Ranch Dressing 2 oz,170.0,18.0,2.5,15.0,450.0,2.0,0.0,2.0,0.0
+Thousand Island Dressing 2 oz,180.0,18.0,2.5,25.0,430.0,7.0,0.0,7.0,0.0
+White Balsamic Dressing 2 oz,120.0,10.0,1.5,0.0,270.0,5.0,0.0,3.0,0.0
+Cream Gravy,35.0,1.0,0.5,0.0,240.0,6.0,0.0,1.0,1.0
+Oatmeal,160.0,3.0,0.5,0.0,10.0,27.0,4.0,1.0,5.0
+"8"" Flour Tortilla for Chorizo Flats",230.0,5.0,2.0,0.0,620.0,36.0,2.0,0.0,6.0
+Beef Steak Medallions for Steak Medallions & Eggs,340.0,16.0,2.5,90.0,900.0,0.0,0.0,0.0,50.0
+Cocktail Sauce for Jumbo Shrimp Dinner,60.0,1.5,1.0,5.0,630.0,11.0,0.0,10.0,1.0
+Sauteed Spinach,70.0,3.5,0.5,0.0,90.0,4.0,2.0,0.0,4.0
+Oatmeal Cranberry Cookie,290.0,22.0,6.0,35.0,270.0,45.0,1.0,18.0,3.0
+2 Pork Sausage Patties,350.0,34.0,14.0,0.0,480.0,1.0,0.0,0.0,12.0
+Cheesy Egg Melt,1240.0,65.0,24.0,490.0,3320.0,125.0,8.0,9.0,39.0
+Labatt Blue Light,110.0,0.0,0.0,0.0,0.0,8.0,0.0,0.0,0.0
+Sticky Bun,790.0,41.0,14.0,0.0,710.0,98.0,5.0,48.0,11.0
+Sweet Tea,100.0,0.0,0.0,0.0,0.0,24.0,0.0,24.0,0.0
+Woodbridge Chardonnay,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Smirnoff Grape,230.0,0.0,0.0,0.0,0.0,36.0,0.0,0.0,0.0
+Silver Dollar Pancake Short Stack Kids,250.0,16.0,4.5,20.0,700.0,24.0,0.0,5.0,3.0
+55 Plus Chicken Strips Dinner,800.0,43.0,12.0,150.0,2110.0,59.0,0.0,11.0,44.0
+Add On Breaded Fantail Shrimp Fried 4 Shrimp,230.0,7.0,1.0,50.0,720.0,23.0,0.0,3.0,18.0
+The Grannys Country Smasher,910.0,61.0,19.0,475.0,1900.0,57.0,6.0,6.0,31.0
+Open Face Turkey Sandwich,670.0,21.0,7.0,65.0,2190.0,84.0,5.0,14.0,36.0
+Diced Ham for 55 Plus Build Your Own Omelette,80.0,6.0,2.0,10.0,270.0,1.0,0.0,1.0,4.0
+Root Beer Kids,170.0,0.0,0.0,0.0,70.0,43.0,0.0,43.0,0.0
+Mediterranean Smasher,1020.0,67.0,24.0,695.0,2060.0,68.0,9.0,4.0,32.0
+Buttered Sourdough Toast,390.0,13.0,3.0,0.0,710.0,58.0,2.0,2.0,10.0
+Bagel,290.0,8.0,2.0,0.0,550.0,49.0,2.0,5.0,6.0
+Brioche French Toast 2 Slices,640.0,31.0,10.0,290.0,710.0,63.0,2.0,16.0,26.0
+Blueberry Banana Pancake Breakfast,630.0,26.0,7.0,110.0,1680.0,64.0,2.0,18.0,29.0
+2 Sausage Patties,380.0,38.0,15.0,0.0,480.0,1.0,0.0,0.0,12.0
+Grilled Cheese Sandwich Kids,560.0,39.0,16.0,45.0,1160.0,36.0,1.0,4.0,16.0
+BBQ Smoked Chicken Sandwich,600.0,19.0,3.0,130.0,2530.0,63.0,1.0,25.0,42.0
+Chocolate Milk Small,240.0,0.0,0.0,0.0,330.0,47.0,0.0,42.0,12.0
+Lemon Poppy Seed Muffin,700.0,30.0,7.0,100.0,950.0,97.0,3.0,55.0,10.0
+Banana Nut Mammoth Muffin,790.0,46.0,10.0,80.0,890.0,85.0,2.0,46.0,11.0
+Grannys Country Omelet,970.0,47.0,15.0,690.0,2810.0,98.0,8.0,8.0,40.0
+Brownstone Pinot Grigio,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+55 Plus One Egg Classic,100.0,8.0,2.0,215.0,65.0,1.0,0.0,0.0,6.0
+Tremendous Twelve,920.0,48.0,13.0,720.0,2410.0,89.0,0.0,16.0,29.0
+Sutter Home Cabernet,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Parmesan Cheese Grated,120.0,8.0,5.0,25.0,510.0,1.0,0.0,0.0,10.0
+Homemade Meatloaf Dinner,1150.0,68.0,26.0,170.0,2780.0,93.0,7.0,18.0,42.0
+Chicken & Wild Rice Soup Bowl,390.0,18.0,10.0,65.0,1350.0,41.0,3.0,1.0,12.0
+Alexander Keiths,150.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+White Balsamic Vinaigrette Dressing 3 oz,180.0,15.0,2.5,0.0,400.0,8.0,0.0,5.0,0.0
+The Classic Burger,710.0,42.0,16.0,120.0,750.0,44.0,1.0,10.0,36.0
+Vanilla Shake,920.0,47.0,27.0,175.0,300.0,112.0,0.0,97.0,11.0
+Parmesan Cheese Shredded,110.0,8.0,5.0,20.0,330.0,1.0,0.0,0.0,9.0
+Salsa Mild,10.0,0.0,0.0,0.0,220.0,3.0,1.0,3.0,0.0
+Mashed Potatoes & Gravy,240.0,9.0,4.0,15.0,860.0,34.0,3.0,1.0,5.0
+Build Your Own Omelet,200.0,14.0,4.5,645.0,200.0,3.0,0.0,0.0,18.0
+Honey Mustard Dressing for Appetizers,290.0,25.0,4.0,20.0,380.0,15.0,0.0,15.0,2.0
+3 Large Fresh Eggs,200.0,14.0,4.5,645.0,200.0,3.0,0.0,0.0,18.0
+Boulevard Wheat,130.0,0.0,0.0,0.0,0.0,17.0,0.0,0.0,0.0
+Quails Gate Pinot Noir,150.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Raspberry & Cream Muffin,600.0,26.0,5.0,80.0,750.0,81.0,3.0,42.0,10.0
+2 Large Fresh Eggs,140.0,9.0,3.0,430.0,130.0,2.0,0.0,0.0,12.0
+Coconut Cream Pie Whole,640.0,40.0,23.0,85.0,470.0,60.0,1.0,34.0,7.0
+Glazed Strawberries 6 oz,140.0,0.0,0.0,0.0,0.0,36.0,0.0,6.0,0.0
+Pomegranate Berry Smoothie,100.0,1.0,0.0,0.0,40.0,24.0,0.0,21.0,1.0
+Vanilla Ice Cream 1 Scoop,210.0,13.0,7.0,50.0,70.0,22.0,0.0,18.0,2.0
+Gerwurtztraminer,130.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,0.0
+Twinberry Syrup 2 oz,120.0,0.0,0.0,0.0,35.0,31.0,0.0,25.0,0.0
+Sutter Home Riesling,130.0,0.0,0.0,0.0,0.0,8.0,0.0,0.0,0.0
+Cinnamon Roll Short French Toast,670.0,36.0,15.0,230.0,790.0,69.0,3.0,19.0,17.0
+Onion Rings Basket w/ Chipotle Ranch for Pick 3/4,470.0,26.0,4.0,15.0,970.0,39.0,2.0,8.0,4.0
+Turkey & Dressing Dinner,510.0,20.0,3.0,90.0,2150.0,39.0,2.0,16.0,41.0
+Rainbow Pancake Breakfast Kids,290.0,12.0,5.0,30.0,790.0,40.0,0.0,13.0,4.0
+Syrah Wine,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Brownstone Merlot,120.0,0.0,0.0,0.0,5.0,4.0,0.0,1.0,0.0
+Buttered Corn,150.0,8.0,2.0,0.0,70.0,17.0,2.0,3.0,3.0
+Brownstone Moscato,130.0,0.0,0.0,0.0,0.0,12.0,0.0,0.0,0.0
+Patty Melt Pile On Sandwich,1470.0,104.0,33.0,240.0,2080.0,49.0,2.0,5.0,64.0
+Salsa,10.0,0.0,0.0,0.0,230.0,3.0,1.0,3.0,0.0
+Apple Pie No Sugar Added Slice,370.0,15.0,6.0,0.0,420.0,52.0,2.0,15.0,5.0
+Belgian Waffle w/ Strawberry Topping,540.0,7.0,4.0,0.0,960.0,113.0,4.0,53.0,5.0
+Sprite Large,200.0,0.0,0.0,0.0,95.0,51.0,0.0,51.0,0.0
+Iced Tea,10.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+55 Plus Brioche French Toast 2 Pieces,640.0,31.0,10.0,290.0,710.0,63.0,2.0,16.0,26.0
+Chocolate Malt,980.0,48.0,28.0,175.0,360.0,125.0,0.0,102.0,12.0
+Chardonnay,120.0,0.0,0.0,0.0,5.0,4.0,0.0,0.0,0.0
+Molson Old Style Pilsner,150.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0
+Banana Cream Pie Slice,700.0,46.0,23.0,110.0,320.0,67.0,1.0,35.0,2.0
+French Toast Platter,620.0,32.0,9.0,705.0,790.0,53.0,2.0,8.0,31.0
+Strawberry Topping,170.0,0.0,0.0,0.0,60.0,46.0,2.0,39.0,0.0
+BBQ Sauce,45.0,0.0,0.0,0.0,170.0,11.0,0.0,10.0,0.0
+Chicken Strips w/ Honey Mustard Dressing,1010.0,62.0,14.0,165.0,2390.0,70.0,0.0,23.0,45.0
+Copa Chardonnay,150.0,0.0,0.0,0.0,10.0,10.0,0.0,5.0,0.0
+Homestyle Apple Pie Slice,570.0,27.0,9.0,0.0,390.0,76.0,1.0,36.0,5.0
+Hash Browns,490.0,13.0,1.5,0.0,1830.0,87.0,7.0,5.0,8.0
+Caramel Apple Pie Whole,500.0,22.0,9.0,0.0,520.0,68.0,1.0,34.0,6.0
+Budweiser,150.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,1.0
+4 Sausage Links,460.0,44.0,17.0,0.0,580.0,2.0,0.0,0.0,12.0
+Baked Potato,300.0,12.0,5.0,10.0,150.0,42.0,4.0,5.0,6.0
+Crimini Mushrooms,15.0,0.0,0.0,0.0,220.0,3.0,1.0,1.0,1.0
+The Chopped Cobb Salad,510.0,30.0,9.0,305.0,1540.0,18.0,6.0,9.0,44.0
+Pancake Dippers,660.0,25.0,8.0,75.0,1670.0,96.0,0.0,52.0,15.0
+Oven Roasted Vegetable Frittata Breakfast,580.0,29.0,12.0,685.0,1000.0,51.0,8.0,20.0,32.0
+Blue Moon,160.0,0.0,0.0,0.0,10.0,13.0,0.0,0.0,2.0
+Perky Bear Pancakes Kids,430.0,29.0,9.0,30.0,990.0,37.0,0.0,11.0,4.0
+Magnificent Seven,620.0,29.0,8.0,485.0,1730.0,68.0,0.0,12.0,20.0
+Sawmill Creek Merlot,120.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Tinhorn Creek Cab Franc,110.0,0.0,0.0,0.0,5.0,1.0,0.0,0.0,0.0
+Copa Merlot,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Strawberry Malt,900.0,48.0,28.0,175.0,340.0,107.0,0.0,76.0,12.0
+3 Blueberry Pancakes,560.0,26.0,7.0,55.0,1670.0,71.0,1.0,18.0,8.0
+Baked Potato Loaded,390.0,20.0,8.0,30.0,350.0,42.0,4.0,5.0,11.0
+Santa Carolina Shiraz Chile,130.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+55 Plus Two Egg Omelette,170.0,13.0,3.5,430.0,130.0,2.0,0.0,0.0,12.0
+Creamed Chipped Beef,980.0,33.0,11.0,60.0,3280.0,139.0,8.0,17.0,33.0
+55 Plus Butterball Turkey & Dressing Dinner,510.0,20.0,3.0,90.0,2150.0,39.0,2.0,16.0,41.0
+Bacon Pancake Dippers Kids,410.0,15.0,4.5,45.0,1010.0,59.0,0.0,33.0,9.0
+2 Buttermilk Pancakes,380.0,21.0,6.0,40.0,1160.0,43.0,0.0,8.0,5.0
+Tomato Basil Soup Bowl,460.0,26.0,15.0,75.0,1850.0,46.0,2.0,5.0,7.0
+Big BLT & Fries,1210.0,79.0,17.0,70.0,2070.0,95.0,12.0,6.0,30.0
+Yuengling,130.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,1.0
+Cream Gravy,35.0,1.0,0.5,0.0,240.0,6.0,0.0,1.0,1.0
+Egg Beaters Exchange 3 Eggs,70.0,0.0,0.0,0.0,310.0,2.0,0.0,1.0,15.0
+55 Plus Grilled Chicken Breast,200.0,8.0,1.5,95.0,790.0,0.0,0.0,0.0,32.0
+Spring Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Eclair,500.0,16.0,7.0,45.0,380.0,87.0,2.0,66.0,3.0
+Steak Medallions & Mushrooms Dinner,480.0,29.0,8.0,115.0,1230.0,6.0,1.0,2.0,51.0
+Chicken Noodle Soup Bowl,260.0,6.0,0.0,10.0,1430.0,37.0,2.0,1.0,11.0
+Crispy Fries,570.0,36.0,8.0,0.0,770.0,55.0,6.0,0.0,6.0
+Monterey Jack Cheese Shredded,100.0,8.0,5.0,30.0,170.0,0.0,0.0,0.0,7.0
+Peanut Butter Silk Pie Slice,930.0,65.0,33.0,145.0,420.0,72.0,2.0,47.0,12.0
+Apricot Syrup 2 oz,120.0,0.0,0.0,0.0,25.0,30.0,0.0,26.0,0.0
+French Toast 3 Slices,490.0,23.0,6.0,275.0,660.0,51.0,2.0,8.0,19.0
+Spotted Cow,150.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Peller Estates Shiraz,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+2 Mini Chocolate Chip Cookies,160.0,10.0,4.0,15.0,45.0,15.0,1.0,11.0,2.0
+Santa Carolina Chardonnay Chile,120.0,0.0,0.0,0.0,5.0,5.0,0.0,2.0,0.0
+Reuben Melt,1090.0,61.0,22.0,155.0,3430.0,79.0,4.0,5.0,56.0
+Chicken Strips Kids,630.0,39.0,9.0,100.0,1470.0,43.0,0.0,15.0,27.0
+Applewood Smoked Bacon for Build Your Own Egg Omelet,35.0,3.0,1.0,10.0,125.0,0.0,0.0,0.0,2.0
+Southern Pecan Pie Slice,670.0,33.0,9.0,100.0,430.0,86.0,1.0,58.0,7.0
+Jumbo Shrimp Dinner,370.0,11.0,2.5,75.0,1600.0,44.0,0.0,16.0,25.0
+Tots,470.0,28.0,7.0,0.0,980.0,47.0,5.0,2.0,5.0
+Merlot,120.0,0.0,0.0,0.0,5.0,4.0,0.0,1.0,0.0
+Jackson Triggs Malbec,120.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0
+Copa Zinfandel,130.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Grits,150.0,0.0,0.0,0.0,600.0,33.0,0.0,3.0,3.0
+Coors Banquet,150.0,0.0,0.0,0.0,15.0,11.0,0.0,0.0,1.0
+Moosehead,140.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+Apple Juice Small,180.0,0.0,0.0,0.0,35.0,45.0,0.0,38.0,0.0
+French Fries Side,570.0,36.0,8.0,0.0,770.0,56.0,6.0,0.0,6.0
+Gallo Chardonnay,100.0,0.0,0.0,0.0,5.0,1.0,0.0,1.0,0.0
+Homestyle Apple Pie Whole,570.0,27.0,9.0,0.0,390.0,76.0,1.0,36.0,5.0
+2 Bacon Strips,70.0,6.0,2.0,15.0,250.0,0.0,0.0,0.0,4.0
+Vanilla Malt,950.0,48.0,28.0,175.0,340.0,118.0,0.0,100.0,12.0
+Garden Salad Side,90.0,3.0,1.5,10.0,140.0,11.0,2.0,3.0,5.0
+Pancake Syrup 2 oz,140.0,0.0,0.0,0.0,50.0,35.0,0.0,29.0,0.0
+Sparkling Brut,80.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Side Salad,110.0,4.5,1.5,10.0,270.0,13.0,1.0,3.0,5.0
+Cherry Coke Large,210.0,0.0,0.0,0.0,45.0,56.0,0.0,56.0,0.0
+Herb Rice Pilaf,270.0,6.0,2.0,0.0,890.0,50.0,2.0,6.0,6.0
+Cheeseburger Fries,1940.0,127.0,27.0,120.0,3820.0,143.0,13.0,2.0,46.0
+Turkey Bacon 4 Slices,100.0,6.0,0.0,40.0,640.0,0.0,0.0,0.0,8.0
+Cherry Pie Whole,580.0,27.0,12.0,0.0,600.0,75.0,2.0,33.0,8.0
+Pick 3 Sampler,1630.0,95.0,23.0,195.0,3910.0,121.0,3.0,29.0,57.0
+Chicken Strips Dinner,800.0,43.0,12.0,150.0,2110.0,59.0,0.0,11.0,44.0
+Grilled Ham,80.0,2.0,0.5,30.0,700.0,3.0,0.0,2.0,12.0
+New Castle Brown Ale,140.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,1.0
+Egg Hashbrowns & Toast Kids,670.0,20.0,3.5,215.0,2070.0,105.0,8.0,6.0,18.0
+Blue Cheese Dressing 3 oz,400.0,43.0,9.0,40.0,580.0,3.0,0.0,3.0,3.0
+Raspberry Iced Tea,130.0,0.0,0.0,0.0,75.0,34.0,0.0,34.0,0.0
+Diet Coke Large,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Honey Mustard Chicken Crunch Salad,980.0,63.0,17.0,155.0,2050.0,63.0,5.0,28.0,44.0
+Michelob Ultra,100.0,0.0,0.0,0.0,10.0,3.0,0.0,0.0,1.0
+Brownstone Chardonnay,120.0,0.0,0.0,0.0,5.0,4.0,0.0,0.0,0.0
+Santa Carolina Merlot Chile,120.0,0.0,0.0,0.0,5.0,4.0,0.0,0.0,0.0
+Key Lime Pie Whole,620.0,29.0,17.0,85.0,300.0,79.0,0.0,63.0,8.0
+Tomato Basil Soup Cup w/ Premium Saltine Crackers,280.0,17.0,10.0,50.0,1180.0,27.0,1.0,3.0,4.0
+Buffalo Hot Sauce,5.0,0.0,0.0,0.0,1100.0,1.0,0.0,1.0,0.0
+Cranberry Orange Mammoth Muffin,530.0,20.0,7.0,80.0,680.0,75.0,0.0,39.0,10.0
+Pepper Jack Cheese Shredded for Build Your Own Omelet,150.0,12.0,8.0,45.0,260.0,2.0,0.0,0.0,11.0
+3 Egg Whites,80.0,0.0,0.0,0.0,230.0,2.0,0.0,0.0,15.0
+Fried Pickles w/ Ranch for Pick 3/4,430.0,37.0,4.5,20.0,1370.0,22.0,1.0,3.0,3.0
+Top Sirloin Steak Dinner,250.0,11.0,3.0,100.0,105.0,0.0,0.0,0.0,39.0
+Option French Fries 4 oz Kids,320.0,20.0,4.5,0.0,430.0,31.0,3.0,0.0,3.0
+Option Breakfast Potatoes Kids,150.0,7.0,2.0,0.0,350.0,19.0,3.0,0.0,2.0
+55 Plus Traveler,100.0,8.0,2.0,215.0,65.0,1.0,0.0,0.0,6.0
+The Classic Cheeseburger,700.0,42.0,16.0,120.0,660.0,44.0,1.0,9.0,36.0
+William Hill Estates Chardonnay,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Blue Cheese Dressing 2 fl oz,270.0,28.0,6.0,25.0,380.0,2.0,0.0,2.0,2.0
+2 Biscuits,650.0,36.0,25.0,0.0,2090.0,68.0,2.0,6.0,12.0
+Cherry Pie Slice,580.0,27.0,12.0,0.0,600.0,75.0,2.0,33.0,8.0
+Sunrise Burger,1530.0,99.0,34.0,380.0,2100.0,102.0,7.0,11.0,57.0
+English Muffin,230.0,11.0,3.0,0.0,410.0,28.0,1.0,2.0,5.0
+Swiss Cheese Sliced for 55 Plus Build Your Own Omelet,110.0,8.0,5.0,25.0,110.0,1.0,0.0,0.0,7.0
+Vanilla Ice Cream 2 Scoops,420.0,25.0,14.0,95.0,140.0,44.0,0.0,36.0,4.0
+Maple Glazed Pork Chop Breakfast,990.0,55.0,15.0,670.0,1310.0,22.0,0.0,14.0,97.0
+Gallo White Zinfandel,130.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Fabulous Five,170.0,16.0,4.5,215.0,170.0,1.0,0.0,0.0,6.0
+2 Pork Sausage Links,210.0,20.0,8.0,0.0,290.0,1.0,0.0,0.0,6.0
+Smoked Sausage,380.0,34.0,13.0,70.0,980.0,8.0,0.0,8.0,12.0
+55 Plus Continental,390.0,15.0,5.0,10.0,180.0,57.0,4.0,32.0,8.0
+Sauvignon Blanc,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Steak & Peppers Dinner,630.0,27.0,9.0,120.0,1200.0,53.0,6.0,6.0,42.0
+Cheddar Monterey Jack & Swiss Cheese Blend Shredded,110.0,9.0,5.0,30.0,180.0,1.0,0.0,0.0,7.0
+Chocolate Chipper Sundae,1010.0,59.0,34.0,120.0,340.0,113.0,4.0,92.0,8.0
+Fried Pickles,790.0,61.0,7.0,20.0,2670.0,53.0,3.0,5.0,8.0
+Option Tots Kids,200.0,12.0,3.0,0.0,420.0,20.0,2.0,1.0,2.0
+Chorizo Flats,950.0,63.0,29.0,155.0,2180.0,50.0,6.0,9.0,43.0
+Fresh Baked Chicken Pot Pie,1280.0,88.0,28.0,180.0,2570.0,82.0,5.0,7.0,36.0
+Ranch Dressing 3 oz,250.0,28.0,4.0,25.0,680.0,3.0,0.0,3.0,0.0
+Sausage Biscuit Sandwich,720.0,43.0,22.0,0.0,1810.0,66.0,6.0,3.0,15.0
+Miller High Life,140.0,0.0,0.0,0.0,5.0,13.0,0.0,0.0,1.0
+AmberBock,170.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,1.0
+Grilled Chicken Classic,510.0,20.0,5.0,95.0,1430.0,44.0,1.0,10.0,38.0
+Tomato Juice Small,70.0,0.0,0.0,0.0,1020.0,15.0,3.0,9.0,3.0
+Cherry Coke Kids,160.0,0.0,0.0,0.0,35.0,42.0,0.0,42.0,0.0
+Grapefruit Juice,180.0,0.0,0.0,0.0,95.0,44.0,0.0,44.0,0.0
+Ketchup Packet,10.0,0.0,0.0,0.0,100.0,2.0,0.0,2.0,0.0
+Fat Tire,160.0,0.0,0.0,0.0,0.0,14.0,0.0,0.0,0.0
+Diced Ham,140.0,11.0,4.0,15.0,490.0,2.0,0.0,2.0,7.0
+Top Sirloin Steak & Fried Shrimp Dinner,530.0,19.0,4.5,155.0,1290.0,33.0,0.0,12.0,58.0
+Bacardi Strawberry,230.0,0.0,0.0,0.0,0.0,33.0,0.0,0.0,0.0
+Monterey Shrimp Pasta,1040.0,68.0,41.0,300.0,1670.0,70.0,5.0,5.0,29.0
+Cabernet,120.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Smirnoff Green Apple,180.0,0.0,0.0,0.0,0.0,175.0,0.0,0.0,0.0
+Everything Omelet,550.0,40.0,16.0,705.0,1070.0,14.0,2.0,5.0,37.0
+Option Tomato Basil Soup 6 oz Kids,200.0,15.0,10.0,50.0,970.0,14.0,0.0,3.0,2.0
+Orange Juice Large,210.0,0.0,0.0,0.0,30.0,50.0,0.0,47.0,4.0
+Chocolate French Silk Pie Slice,760.0,54.0,27.0,195.0,330.0,66.0,3.0,44.0,6.0
+Country Fried Steak & Eggs,740.0,45.0,14.0,515.0,1940.0,47.0,2.0,2.0,39.0
+Wildberry Pie No Sugar Added Whole,470.0,27.0,12.0,0.0,470.0,50.0,3.0,6.0,5.0
+Ice Cream Sundae w/ Hot Fudge,440.0,27.0,15.0,40.0,150.0,46.0,2.0,38.0,4.0
+Mustard,5.0,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Brownstone White Zinfandel,110.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Pick 4 Sampler,2110.0,135.0,28.0,210.0,5490.0,148.0,4.0,32.0,61.0
+Wrappin Granny,1090.0,62.0,20.0,480.0,2660.0,92.0,6.0,5.0,39.0
+Fat Free Chocolate Milk,240.0,0.0,0.0,0.0,330.0,47.0,0.0,42.0,12.0
+Chocolate French Silk Pie Whole,760.0,54.0,27.0,195.0,330.0,66.0,3.0,44.0,6.0
+Tartar Sauce,100.0,9.0,1.5,10.0,250.0,5.0,0.0,3.0,0.0
+Loaded Potato Soup Bowl,460.0,26.0,11.0,40.0,1520.0,46.0,3.0,1.0,9.0
+Jalapeno Peppers,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Strawberry Shake,870.0,47.0,27.0,175.0,300.0,101.0,0.0,72.0,11.0
+Mango Smoothie,200.0,1.0,0.0,0.0,40.0,49.0,0.0,45.0,1.0
+Chicken Strips Melt,1290.0,80.0,26.0,180.0,3010.0,88.0,2.0,4.0,54.0
+Banana Cream Pie Whole,700.0,46.0,23.0,105.0,320.0,67.0,1.0,35.0,2.0
+The Big Country Smasher,1110.0,79.0,26.0,475.0,2540.0,62.0,5.0,6.0,38.0
+Pepper Jack Cheese 2 Slices,150.0,12.0,8.0,45.0,260.0,0.0,0.0,0.0,11.0
+Apple Cinnamon Mammoth Muffin,630.0,33.0,8.0,80.0,820.0,76.0,3.0,44.0,7.0
+Spinach & Mushroom Scramble,570.0,21.0,5.0,70.0,1250.0,61.0,11.0,20.0,33.0
+Onion Rings Substitute,500.0,17.0,3.5,10.0,680.0,54.0,3.0,9.0,7.0
+55 Plus Maple Glazed Pork Chop Dinner,850.0,46.0,12.0,240.0,1180.0,20.0,0.0,14.0,85.0
+Stella,170.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,1.0
+Wildberry Pie No Sugar Added Slice,470.0,27.0,12.0,0.0,470.0,50.0,3.0,6.0,5.0
+Brioche French Toast Platter,770.0,40.0,13.0,720.0,840.0,65.0,2.0,16.0,38.0
+White Zinfandel,110.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Avocado Fresh,100.0,9.0,1.0,0.0,0.0,6.0,2.0,0.0,2.0
+Gallo Merlot,110.0,0.0,0.0,0.0,10.0,5.0,0.0,1.0,0.0
+A1 BBQ Sauce,45.0,0.0,0.0,0.0,280.0,11.0,0.0,10.0,0.0
+Brioche French Toast w/ Strawberry Platter,920.0,34.0,14.0,720.0,800.0,118.0,4.0,62.0,38.0
+55 Plus Cheeseburger,690.0,39.0,12.0,110.0,860.0,41.0,1.0,8.0,32.0
+Riesling,120.0,0.0,0.0,0.0,0.0,6.0,0.0,0.0,0.0
+Rickards Red Beer,160.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+Monterey Chicken Pasta,1140.0,70.0,42.0,300.0,2250.0,69.0,5.0,5.0,51.0
+Double Catch,1330.0,78.0,16.0,110.0,3080.0,116.0,6.0,16.0,43.0
+Sprite Kids,150.0,0.0,0.0,0.0,70.0,38.0,0.0,38.0,0.0
+Steak Sauce,25.0,0.0,0.0,0.0,500.0,6.0,0.0,4.0,0.0
+Ranch Dressing 2 fl oz,170.0,18.0,2.5,15.0,450.0,2.0,0.0,2.0,0.0
+Classic Cheeseburger Kids,660.0,37.0,12.0,105.0,860.0,41.0,1.0,8.0,30.0
+Shiraz,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Sutter Home White Wine Spritzer,120.0,0.0,0.0,0.0,10.0,3.0,0.0,0.0,0.0
+Applewood Smoked Bacon 4 Slices,140.0,12.0,4.0,30.0,500.0,0.0,0.0,0.0,8.0
+Fresh Spinach Build Your Own Omelet,20.0,0.0,0.0,0.0,45.0,2.0,1.0,0.0,2.0
+Cedar Creek Pinot Gris,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Coffee Decaffeinated,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Coconut Cream Pie Slice,640.0,40.0,23.0,85.0,470.0,60.0,1.0,34.0,7.0
+Jackson Triggs Sauvignon Blanc,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Mac & Cheese Kids,300.0,9.0,2.5,15.0,580.0,46.0,2.0,8.0,6.0
+Whole Wheat Toast 2 Slices,310.0,13.0,3.0,0.0,490.0,38.0,6.0,4.0,12.0
+Option Buttered Corn Kids 4 oz,170.0,11.0,3.0,0.0,810.0,17.0,2.0,6.0,3.0
+Option Mashed Potatoes & Gravy Kids,240.0,9.0,4.0,15.0,850.0,34.0,3.0,1.0,5.0
+Rolling Rock,130.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,1.0
+Grapefruit Juice Large,230.0,0.0,0.0,0.0,125.0,58.0,0.0,58.0,0.0
+2 Mini Sugar Cookies,160.0,7.0,3.5,25.0,60.0,22.0,0.0,12.0,2.0
+Steak Medallions & Eggs,530.0,28.0,6.0,520.0,1260.0,8.0,1.0,2.0,63.0
+Hammin Egger,1160.0,52.0,16.0,475.0,3010.0,129.0,13.0,11.0,45.0
+Chocolate Walnut Brownie,560.0,27.0,10.0,90.0,220.0,76.0,4.0,55.0,6.0
+55 Plus 3 Potato Pancakes,850.0,43.0,12.0,135.0,2370.0,95.0,7.0,12.0,19.0
+Southwest Avocado Salad,820.0,50.0,10.0,110.0,2220.0,61.0,11.0,14.0,37.0
+Rye Toast 2 Slices,390.0,15.0,3.0,0.0,530.0,54.0,4.0,2.0,10.0
+55 Plus Top Sirloin Steak Dinner,220.0,8.0,2.5,100.0,105.0,0.0,0.0,0.0,39.0
+Grilled Garlic Tilapia & Shrimp Dinner,550.0,20.0,8.0,135.0,1400.0,57.0,4.0,11.0,35.0
+Pineapple Upside Down Mammoth Muffin,730.0,30.0,7.0,90.0,820.0,111.0,3.0,69.0,9.0
+MozzaSticks,790.0,48.0,16.0,95.0,2070.0,56.0,0.0,11.0,33.0
+Chocolate Chocolate Chip Muffin,720.0,36.0,10.0,80.0,790.0,88.0,3.0,42.0,10.0
+3 Lemon Blueberry Pie Pancakes,680.0,22.0,9.0,55.0,1670.0,112.0,1.0,51.0,8.0
+2 Potato Pancakes,440.0,18.0,5.0,75.0,1330.0,59.0,4.0,4.0,10.0
+Swiss Cheese 2 Slices,170.0,12.0,8.0,40.0,170.0,2.0,0.0,0.0,11.0
+Pork Roll SINY,360.0,32.0,14.0,80.0,1160.0,2.0,0.0,0.0,18.0
+Corona Extra,150.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Candied Jalapenos,30.0,0.0,0.0,0.0,0.0,7.0,0.0,5.0,0.0
+Orange Juice Small,160.0,0.0,0.0,0.0,20.0,38.0,0.0,35.0,3.0
+Motts Clamato Caesar,170.0,1.0,0.0,0.0,1310.0,40.0,0.0,0.0,2.0
+2 Grade AA Eggs Large,170.0,13.0,3.5,430.0,130.0,2.0,0.0,0.0,12.0
+Pinot Grigio,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Bud Light,110.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,1.0
+Big Bacon Smasher,860.0,57.0,17.0,470.0,2100.0,60.0,5.0,5.0,29.0
+Strawberry Smoothie,190.0,1.0,0.0,0.0,40.0,47.0,0.0,42.0,1.0
+55 Plus Steak Medallions & Mushrooms,480.0,29.0,8.0,115.0,1230.0,6.0,1.0,2.0,51.0
+Turkey Bacon 2 Slices,50.0,3.0,0.0,20.0,320.0,0.0,0.0,0.0,4.0
+Red Wine Blend,120.0,0.0,0.0,0.0,5.0,4.0,0.0,3.0,0.0
+Glazed Blueberries 6 oz,200.0,0.0,0.0,0.0,25.0,51.0,5.0,44.0,0.0
+Pasqua Pinot Grigio Italy,110.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0
+Brioche French Toast Kids,380.0,22.0,7.0,145.0,410.0,33.0,1.0,10.0,13.0
+Coca Cola Large,200.0,0.0,0.0,0.0,65.0,52.0,0.0,52.0,0.0
+Perkins Steak & Eggs,390.0,20.0,6.0,530.0,230.0,2.0,0.0,0.0,51.0
+Corned Beef Hash & Eggs,980.0,44.0,15.0,500.0,2860.0,109.0,9.0,6.0,38.0
+Option Broccoli 4 oz,35.0,0.0,0.0,0.0,35.0,5.0,3.0,3.0,4.0
+Chocolate Chip Cookie,310.0,20.0,8.0,25.0,90.0,30.0,2.0,21.0,3.0
+The BBQ Bacon Supreme Beef,1070.0,62.0,27.0,180.0,2070.0,76.0,1.0,39.0,49.0
+Tomato Juice Large,90.0,0.0,0.0,0.0,1360.0,19.0,4.0,12.0,4.0
+Belgian Waffle,390.0,13.0,3.0,0.0,1010.0,61.0,2.0,8.0,5.0
+Twice as Nice Combo,170.0,13.0,3.5,430.0,130.0,2.0,0.0,0.0,12.0
+The Ultimate Chicken Nachos,1000.0,46.0,6.0,70.0,2530.0,110.0,8.0,8.0,36.0
+Mello Yello,170.0,0.0,0.0,0.0,45.0,47.0,0.0,47.0,0.0
+Yellow Onions,10.0,0.0,0.0,0.0,0.0,3.0,0.0,1.0,0.0
+Southern Pecan Pie Whole,670.0,33.0,9.0,100.0,430.0,86.0,1.0,58.0,7.0
+Ranch Dressing for Appetizers,190.0,21.0,3.0,20.0,510.0,2.0,0.0,2.0,0.0
+Country Sausage Biscuit Breakfast,1240.0,83.0,44.0,455.0,3330.0,82.0,2.0,8.0,44.0
+Heineken,150.0,0.0,0.0,0.0,10.0,12.0,0.0,0.0,2.0
+Brioche French Toast 3 Slices,890.0,40.0,13.0,435.0,1010.0,93.0,3.0,23.0,39.0
+Chocolate Shake,950.0,47.0,27.0,175.0,330.0,120.0,0.0,98.0,11.0
+Diet Coke Kids,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Jackson Triggs Merlot,120.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0
+Michelob,160.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Coffee,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Belgian Waffle w/ Strawberry Platter,700.0,20.0,8.0,430.0,1090.0,115.0,4.0,53.0,17.0
+Mayonnaise 2 Tbsp,200.0,22.0,3.0,20.0,170.0,0.0,0.0,0.0,0.0
+Chocolate Milk Large,400.0,0.0,0.0,0.0,550.0,78.0,0.0,70.0,20.0
+Coca Cola Kids,150.0,0.0,0.0,0.0,50.0,39.0,0.0,39.0,0.0
+Root Beer Large,220.0,0.0,0.0,0.0,95.0,57.0,0.0,57.0,0.0
+Country Club Melt,1080.0,67.0,24.0,165.0,3190.0,64.0,2.0,10.0,54.0
+Sutter Home White Zinfandel,110.0,0.0,0.0,0.0,0.0,8.0,0.0,0.0,0.0
+Mushroom & Swiss Omelette,950.0,55.0,20.0,740.0,2290.0,73.0,1.0,13.0,38.0
+Buttered White Toast,310.0,16.0,4.0,0.0,460.0,34.0,1.0,2.0,7.0
+Sliced American Cheese 2 Slices,170.0,14.0,9.0,45.0,600.0,2.0,0.0,2.0,9.0
+2% White Milk Large,340.0,13.0,8.0,55.0,340.0,34.0,0.0,30.0,23.0
+Italian Dressing Fat Free 2 fl oz,15.0,0.0,0.0,0.0,820.0,5.0,0.0,3.0,0.0
+Lemonade Large,190.0,0.0,0.0,0.0,70.0,50.0,0.0,49.0,0.0
+Bacon Grilled Cheese w/ Fries,1480.0,93.0,33.0,105.0,2720.0,116.0,8.0,4.0,41.0
+Grilled Cajun Tilapia & Shrimp,460.0,11.0,3.0,110.0,1520.0,57.0,4.0,11.0,35.0
+Milk 2% White Small,210.0,8.0,5.0,35.0,200.0,20.0,0.0,18.0,14.0
+Caramelized Red Onions,20.0,1.0,0.0,0.0,10.0,3.0,0.0,1.0,0.0
+Strawberry & Cream Cheese Crispers,310.0,18.0,7.0,25.0,390.0,32.0,1.0,12.0,5.0
+Hearty Mans Combo,800.0,69.0,26.0,515.0,1650.0,11.0,0.0,8.0,34.0
+Honey Mustard Dressing 3 oz,380.0,33.0,5.0,25.0,500.0,20.0,0.0,20.0,3.0
+Eggs in a Hole,1270.0,64.0,17.0,430.0,2980.0,147.0,9.0,7.0,30.0
+Michelob Golden Draft Light,110.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,1.0
+Cinnamon Roll French Toast Platter,870.0,51.0,20.0,675.0,1170.0,71.0,3.0,19.0,33.0
+Bagel & Cream Cheese,630.0,41.0,24.0,120.0,840.0,51.0,2.0,5.0,14.0
+Sawmill Creek Chardonnay,110.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Fish N Chips,1370.0,87.0,18.0,85.0,2530.0,107.0,8.0,10.0,38.0
+55 Plus Double Catch,1330.0,78.0,16.0,110.0,3080.0,116.0,6.0,16.0,43.0
+Bella Sera Pinot Grigio,100.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Pepper Jack Cheese Shredded,100.0,8.0,5.0,30.0,170.0,1.0,0.0,0.0,7.0
+Lemonade Kids,150.0,0.0,0.0,0.0,50.0,38.0,0.0,37.0,0.0
+Ham Grilled,160.0,4.5,1.0,60.0,1390.0,6.0,0.0,4.0,24.0
+55 Plus Meatloaf Dinner,1050.0,65.0,24.0,170.0,2660.0,77.0,7.0,17.0,41.0
+Alaskan Amber,180.0,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0
+3 Buttermilk Pancakes,540.0,26.0,7.0,55.0,1700.0,66.0,0.0,12.0,8.0
+Beringer White Zinfandel,100.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Chicken Strips for Pick 3/4 w/ Honey Mustard Dressing,750.0,44.0,11.0,130.0,1830.0,53.0,0.0,15.0,36.0
+Oatmeal,330.0,6.0,2.0,10.0,90.0,60.0,4.0,33.0,10.0
+Steak Medallions w/ Fried Shrimp Dinner,750.0,37.0,9.0,170.0,2420.0,40.0,1.0,14.0,69.0
+Chipotle Ranch Dressing for Appetizers,140.0,15.0,2.0,10.0,530.0,3.0,0.0,3.0,0.0
+Sutter Home Chardonnay,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+3 Potato Pancakes,850.0,43.0,12.0,135.0,2370.0,95.0,7.0,12.0,19.0
+55 Plus Hamburger,610.0,32.0,8.0,90.0,560.0,40.0,1.0,7.0,27.0
+Key Lime Pie Slice,620.0,29.0,17.0,85.0,300.0,79.0,0.0,63.0,8.0
+MozzaSticks w/ Marinara for Pick 3/4,400.0,25.0,8.0,50.0,1100.0,29.0,0.0,6.0,17.0
+Leinenkugal Honey Weiss,150.0,0.0,0.0,0.0,5.0,12.0,0.0,0.0,2.0
+ODouls,90.0,0.0,0.0,0.0,0.0,18.0,0.0,18.0,2.0
+Grilled Cheese & Tomato Soup,970.0,65.0,33.0,130.0,2860.0,67.0,2.0,9.0,23.0
+French Dressing 3 oz,350.0,28.0,4.0,0.0,850.0,25.0,0.0,23.0,0.0
+Miller Genuine Draft,140.0,0.0,0.0,0.0,5.0,13.0,0.0,0.0,1.0
+55 Plus French Toast Breakfast 2 Pieces,370.0,20.0,5.0,180.0,470.0,35.0,1.0,6.0,13.0
+Mediterranean Omelet,550.0,39.0,17.0,695.0,1080.0,22.0,4.0,2.0,27.0
+Copper Moon Sauvignon Blanc,120.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Caramel Apple Pie Slice,500.0,22.0,9.0,0.0,520.0,68.0,1.0,34.0,6.0
+Arthur Guiness,130.0,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0
+Gallo Cabernet,110.0,0.0,0.0,0.0,5.0,1.0,0.0,1.0,0.0
+Copa Pinot,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+Fudge Brownie Supreme,860.0,43.0,24.0,135.0,370.0,111.0,4.0,84.0,8.0
+Honey Mustard Dressing 2 fl oz,250.0,22.0,3.5,15.0,330.0,13.0,0.0,13.0,2.0
+Lemon Meringue Pie Whole,500.0,17.0,6.0,30.0,480.0,80.0,2.0,57.0,6.0
+Chicken Bacon & Broccoli Pasta,1240.0,80.0,44.0,280.0,2230.0,71.0,6.0,5.0,52.0
+Sugar Cookie,310.0,14.0,7.0,50.0,115.0,42.0,0.0,21.0,3.0
+Buttered Wheat Toast,310.0,13.0,3.0,0.0,490.0,40.0,6.0,4.0,12.0
+Southern Fried Chicken Biscuit Breakfast,1340.0,76.0,42.0,555.0,4230.0,110.0,3.0,10.0,58.0
+Grilled Salmon Dinner,430.0,29.0,4.5,120.0,120.0,2.0,0.0,2.0,40.0
+White Wine Spritzer,120.0,0.0,0.0,0.0,10.0,3.0,0.0,0.0,0.0
+Santa Carolina Cabernet Chile,120.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Coors Light,100.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+Naked Grape Chardonnay,120.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Bran Muffin,520.0,16.0,3.5,0.0,590.0,91.0,7.0,49.0,10.0
+Italian Dressing Fat Free 3 oz,25.0,0.0,0.0,0.0,1230.0,8.0,0.0,5.0,0.0
+Seasoned Breakfast Potatoes,250.0,12.0,3.5,0.0,580.0,32.0,5.0,0.0,3.0
+Thousand Island Dressing 2 fl oz,180.0,18.0,2.5,25.0,430.0,7.0,0.0,7.0,0.0
+Sutter Home Merlot,120.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,0.0
+Apple Juice Large,230.0,0.0,0.0,0.0,50.0,60.0,0.0,50.0,0.0
+Applewood Smoked Bacon 2 Slices,70.0,6.0,2.0,15.0,250.0,0.0,0.0,0.0,4.0
+Turkey & Avocado BLT,700.0,39.0,5.0,90.0,1640.0,47.0,8.0,9.0,42.0
+Pinot Noir,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+French Dressing 2 fl oz,230.0,18.0,2.5,0.0,570.0,17.0,0.0,15.0,0.0
+Labatt Blue,150.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Moscato,130.0,0.0,0.0,0.0,0.0,12.0,0.0,0.0,0.0
+Cranberry Juice Small,170.0,0.0,0.0,0.0,10.0,43.0,0.0,43.0,0.0
+Belgian Waffle Platter,560.0,26.0,7.0,430.0,1140.0,63.0,2.0,8.0,17.0
+The Ultimate Beef Nachos,1200.0,60.0,9.0,115.0,2220.0,110.0,8.0,8.0,41.0
+Hot Tea,10.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Sonoma Chicken Salad Sandwich,490.0,35.0,4.5,90.0,1030.0,23.0,1.0,9.0,20.0
+Blueberry Mammoth Muffin,650.0,33.0,8.0,85.0,820.0,81.0,3.0,42.0,10.0
+Brownstone Cabernet,120.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Molson Canadian Ale,150.0,0.0,0.0,0.0,10.0,11.0,0.0,0.0,1.0
+Grannys Loaded Hash Browns,1230.0,42.0,11.0,45.0,4450.0,182.0,15.0,13.0,30.0
+Brownstone Syrah,120.0,0.0,0.0,0.0,0.0,4.0,0.0,0.0,0.0
+English Muffin w/ Whipped Butter Blend,230.0,11.0,3.0,0.0,410.0,28.0,1.0,2.0,5.0
+Hollandaise Sauce for Build Your Own Omelet,220.0,19.0,11.0,55.0,420.0,9.0,0.0,3.0,2.0
+Country Fried Steak Dinner,570.0,32.0,10.0,85.0,1810.0,45.0,2.0,2.0,27.0
+55 Plus Country Fried Steak,570.0,32.0,10.0,85.0,1810.0,45.0,2.0,2.0,27.0
+Peanut Butter Silk Pie Whole,930.0,65.0,33.0,145.0,420.0,72.0,2.0,47.0,12.0
+Lemon Meringue Pie Slice,500.0,17.0,6.0,30.0,480.0,80.0,2.0,57.0,6.0
+Michelob Light,120.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,1.0
+5 Blueberry Pancakes,870.0,37.0,10.0,95.0,2760.0,118.0,2.0,28.0,14.0
+India Pale Ale,150.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0
+Apple Pie No Sugar Added Whole Pie,370.0,15.0,6.0,0.0,420.0,52.0,2.0,15.0,5.0
+Sugar Free Pancake Syrup 2 oz,10.0,0.0,0.0,0.0,50.0,3.0,0.0,0.0,0.0
+White Balsamic Dressing 2 fl oz,120.0,10.0,1.5,0.0,270.0,5.0,0.0,3.0,0.0
+Classic Eggs Benedict,690.0,45.0,18.0,515.0,1650.0,42.0,1.0,7.0,31.0
+The Tangler Beef,1090.0,72.0,24.0,175.0,1410.0,57.0,2.0,12.0,51.0
+Mini Chef Salad Kids,300.0,17.0,3.0,75.0,1430.0,9.0,2.0,7.0,28.0
+Thousand Island Dressing 3 oz,280.0,28.0,4.0,40.0,650.0,10.0,0.0,10.0,0.0
+Grilled Chicken w/ Asparagus & Mushrooms Dinner,620.0,25.0,6.0,95.0,2600.0,61.0,4.0,12.0,38.0
+Sam Adams Boston Lager,170.0,0.0,0.0,0.0,0.0,18.0,0.0,0.0,2.0
+Crazy Cookie,310.0,17.0,8.0,40.0,105.0,36.0,1.0,21.0,3.0
+Grilled Asparagus,45.0,3.5,0.5,0.0,0.0,2.0,1.0,1.0,1.0
+French Toast w/ Strawberry Platter,770.0,26.0,10.0,705.0,750.0,105.0,3.0,53.0,31.0

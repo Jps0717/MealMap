@@ -1,0 +1,836 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Sprite Small,210.0,0.0,0.0,0.0,95.0,57.0,0.0,57.0,0.0
+Flamethrower Grillburger 1/2 lb,970.0,68.0,25.0,175.0,1580.0,39.0,2.0,9.0,51.0
+GrillBurger w/ Cheese 1/2 lb,800.0,49.0,21.0,165.0,1110.0,42.0,2.0,12.0,47.0
+GrillBurger w/ Cheese 1/4 lb,540.0,30.0,12.0,90.0,1000.0,42.0,2.0,12.0,27.0
+FlameThrower GrillBurger 1/4 lb,720.0,49.0,16.0,105.0,1230.0,37.0,2.0,9.0,31.0
+Bacon Cheese GrillBurger 1/4 lb,620.0,35.0,14.0,100.0,1250.0,42.0,2.0,12.0,32.0
+Cheeseburger,370.0,18.0,8.0,60.0,870.0,31.0,1.0,7.0,21.0
+Original Double Cheeseburger,580.0,34.0,16.0,120.0,1180.0,32.0,1.0,7.0,37.0
+Deluxe Cheeseburger,460.0,24.0,9.0,65.0,820.0,39.0,3.0,11.0,22.0
+Bacon 3 Slices,390.0,35.0,12.0,60.0,1280.0,1.0,0.0,1.0,20.0
+Mushroom Swiss GrillBurger 1/4 lb,590.0,36.0,13.0,100.0,620.0,37.0,2.0,8.0,28.0
+Chicken Sandwich Crispy,530.0,29.0,4.5,60.0,900.0,45.0,3.0,5.0,23.0
+Chicken Wrap Crispy,330.0,17.0,4.5,25.0,820.0,31.0,2.0,2.0,12.0
+Chicken Sandwich Grilled,440.0,15.0,2.5,60.0,1150.0,44.0,2.0,3.0,31.0
+Grilled Chicken Wrap,260.0,12.0,4.0,35.0,820.0,22.0,1.0,2.0,16.0
+Hot Dog,340.0,20.0,8.0,35.0,970.0,28.0,1.0,5.0,13.0
+Chicken Strip Basket 4 Piece,1000.0,49.0,9.0,60.0,2530.0,103.0,6.0,2.0,37.0
+Chicken Strip Basket 6 Pieces,1250.0,61.0,10.0,90.0,3190.0,121.0,8.0,2.0,52.0
+Fries Kids,180.0,8.0,1.0,0.0,370.0,24.0,2.0,0.0,2.0
+French Fries Large,470.0,21.0,3.0,0.0,950.0,63.0,4.0,1.0,5.0
+French Fries Regular,290.0,13.0,2.0,0.0,590.0,39.0,3.0,0.0,3.0
+Side Salad,25.0,0.0,0.0,0.0,15.0,5.0,2.0,3.0,1.0
+BBQ Dipping Sauce Cup,80.0,0.0,0.0,0.0,430.0,1.0,1.0,15.0,1.0
+Wild Buffalo Dipping Sauce Cup,110.0,12.0,2.0,0.0,840.0,1.0,0.0,0.0,0.0
+Ranch Dipping Sauce Cup,230.0,23.0,3.5,25.0,490.0,5.0,0.0,3.0,1.0
+Sweet & Sour Dipping Sauce Cup,90.0,0.0,0.0,0.0,240.0,24.0,0.0,22.0,0.0
+Honey Mustard Dipping Sauce Cup,250.0,21.0,3.0,20.0,380.0,16.0,0.0,9.0,1.0
+Country Gravy,90.0,6.0,2.0,0.0,480.0,8.0,0.0,1.0,1.0
+Biscuits & Gravy,680.0,37.0,13.0,5.0,1850.0,51.0,1.0,3.0,7.0
+Sausage Biscuit Sandwich,400.0,24.0,8.0,195.0,810.0,18.0,1.0,1.0,15.0
+Bacon Biscuit Sandwich,420.0,26.0,9.0,190.0,940.0,19.0,1.0,1.0,14.0
+Ham Biscuit Sandwich,350.0,18.0,6.0,185.0,980.0,19.0,1.0,1.0,13.0
+Sausage Biscuit Twin Pak,670.0,38.0,13.0,45.0,1300.0,34.0,1.0,1.0,17.0
+Hash Browns,180.0,12.0,2.0,0.0,360.0,18.0,2.0,0.0,1.0
+Country Platter,760.0,38.0,12.0,340.0,1510.0,55.0,3.0,2.0,19.0
+Pancake Platter,260.0,5.0,1.5,45.0,530.0,46.0,3.0,8.0,7.0
+Ultimate Hashbrown Platter,640.0,42.0,13.0,370.0,1380.0,42.0,4.0,2.0,23.0
+Buster Bar,470.0,30.0,18.0,15.0,220.0,46.0,3.0,37.0,10.0
+Banana Split Royal Treats,510.0,14.0,9.0,30.0,150.0,92.0,4.0,71.0,9.0
+Banana Split Blizzard Treat Large,810.0,22.0,14.0,75.0,300.0,138.0,2.0,115.0,19.0
+Banana Split Blizzard Treat Medium,580.0,16.0,10.0,55.0,220.0,97.0,1.0,81.0,14.0
+Banana Split Blizzard Treat Mini,280.0,8.0,5.0,25.0,105.0,47.0,1.0,39.0,6.0
+Banana Split Blizzard Treat Small,450.0,13.0,8.0,45.0,170.0,73.0,1.0,61.0,11.0
+Brownie Batter Blizzard Large,1150.0,48.0,23.0,115.0,610.0,163.0,6.0,121.0,25.0
+Brownie Batter Blizzard Medium,880.0,37.0,18.0,90.0,460.0,126.0,4.0,93.0,20.0
+Brownie Batter Blizzard Mini,370.0,15.0,8.0,40.0,190.0,54.0,1.0,41.0,9.0
+Brownie Batter Blizzard Small,660.0,27.0,14.0,65.0,340.0,94.0,3.0,71.0,15.0
+Butterfinger Blizzard Large,960.0,34.0,20.0,70.0,400.0,146.0,1.0,112.0,21.0
+Butterfinger Blizzard Treat Medium,720.0,25.0,15.0,55.0,300.0,109.0,1.0,82.0,16.0
+Butterfinger Blizzard Treat Mini,350.0,12.0,7.0,30.0,150.0,52.0,0.0,41.0,8.0
+Butterfinger Blizzard Treat Small,510.0,18.0,11.0,40.0,220.0,77.0,1.0,59.0,11.0
+Chocolate Coated Waffle Cone w/ Soft Serve,540.0,21.0,13.0,40.0,160.0,77.0,1.0,57.0,10.0
+Chocolate Cone Kids,170.0,4.5,3.0,15.0,70.0,28.0,0.0,18.0,4.0
+Chocolate Cone Large,470.0,14.0,9.0,45.0,200.0,75.0,0.0,52.0,12.0
+Chocolate Cone Medium,330.0,9.0,6.0,30.0,140.0,53.0,0.0,36.0,8.0
+Chocolate Cone Small,240.0,7.0,4.5,20.0,100.0,38.0,0.0,26.0,6.0
+Chocolate Xtreme Blizzard Cake 10 in,590.0,27.0,19.0,35.0,280.0,81.0,2.0,63.0,10.0
+Chocolate Xtreme Blizzard Treat Large,1120.0,50.0,28.0,100.0,600.0,155.0,6.0,123.0,22.0
+Chocolate Xtreme Blizzard Treat Medium,800.0,35.0,20.0,75.0,430.0,112.0,4.0,89.0,16.0
+Pineapple Sundae Large,470.0,14.0,9.0,45.0,180.0,76.0,1.0,66.0,11.0
+Chocolate Xtreme Blizzard Treat Mini,400.0,17.0,9.0,35.0,200.0,56.0,1.0,45.0,9.0
+Chocolate Xtreme Blizzard Treat Small,620.0,27.0,15.0,55.0,330.0,86.0,3.0,69.0,13.0
+Chocolate Xtreme Blizzard Cake 8 in,580.0,27.0,19.0,35.0,270.0,80.0,2.0,62.0,10.0
+Chocolate Chip Cookie Dough Blizzard Treat Large,1340.0,54.0,32.0,75.0,750.0,195.0,2.0,142.0,22.0
+Chocolate Chip Cookie Dough Blizzard Treat Mini,420.0,16.0,9.0,30.0,220.0,61.0,0.0,46.0,8.0
+Chocolate Chip Cookie Dough Blizzard Small,710.0,28.0,16.0,45.0,390.0,103.0,1.0,76.0,12.0
+Chocolate Dipped Cone Kids,220.0,9.0,7.0,15.0,70.0,30.0,0.0,20.0,4.0
+Chocolate Dipped Cone Large,640.0,30.0,24.0,45.0,200.0,83.0,1.0,60.0,13.0
+Chocolate Dipped Cone Medium,460.0,22.0,17.0,30.0,140.0,59.0,1.0,43.0,9.0
+Chocolate Dipped Cone Small,330.0,15.0,12.0,25.0,100.0,42.0,1.0,30.0,6.0
+DQ Round Cake 10 in,4950.0,183.0,131.0,360.0,2270.0,728.0,7.0,569.0,103.0
+DQ Round Cake 8 in,3260.0,120.0,86.0,235.0,1490.0,479.0,5.0,374.0,68.0
+Caramel Sundae Large,600.0,16.0,10.0,55.0,260.0,102.0,0.0,81.0,12.0
+Caramel Sundae Medium,430.0,11.0,7.0,35.0,190.0,73.0,0.0,58.0,9.0
+Caramel Sundae Small,300.0,8.0,5.0,25.0,130.0,50.0,0.0,40.0,6.0
+Chocolate Sundae Large,560.0,14.0,9.0,45.0,220.0,97.0,1.0,84.0,12.0
+Chocolate Sundae Medium,400.0,10.0,6.0,30.0,150.0,70.0,1.0,60.0,8.0
+Chocolate Sundae Small,270.0,7.0,4.5,25.0,105.0,48.0,1.0,41.0,6.0
+Hot Fudge Sundae Large,610.0,21.0,16.0,50.0,260.0,93.0,1.0,73.0,13.0
+Hot Fudge Sundae Medium,430.0,15.0,11.0,35.0,190.0,66.0,1.0,52.0,9.0
+Hot Fudge Sundae Small,300.0,10.0,8.0,25.0,125.0,46.0,0.0,36.0,6.0
+Pineapple Sundae Medium,330.0,10.0,6.0,30.0,130.0,54.0,0.0,46.0,8.0
+Pineapple Sundae Small,230.0,7.0,4.5,25.0,90.0,37.0,0.0,32.0,6.0
+Strawberry Sundae Large,470.0,14.0,9.0,45.0,180.0,75.0,0.0,63.0,12.0
+Strawberry Sundae Medium,330.0,10.0,6.0,30.0,130.0,53.0,0.0,44.0,8.0
+Strawberry Sundae Small,230.0,7.0,4.5,25.0,90.0,37.0,0.0,31.0,6.0
+Heath Blizzard Treat Large,1160.0,50.0,31.0,85.0,580.0,159.0,1.0,142.0,20.0
+Heath Blizzard Treat Medium,870.0,37.0,23.0,65.0,440.0,119.0,1.0,106.0,16.0
+Heath Blizzard Treat Mini,380.0,15.0,9.0,30.0,180.0,53.0,0.0,46.0,8.0
+Heath Blizzard Treat Small,610.0,25.0,16.0,50.0,300.0,83.0,1.0,74.0,11.0
+M&M's Milk Chocolate Candies Blizzard Treat Large,1100.0,35.0,22.0,80.0,350.0,173.0,3.0,150.0,22.0
+M&M's Milk Chocolate Candies Blizzard Treat Medium,800.0,26.0,17.0,60.0,250.0,124.0,2.0,107.0,16.0
+M&M's Milk Chocolate Candies Blizzard Treat Mini,370.0,12.0,8.0,30.0,125.0,58.0,1.0,50.0,8.0
+M&M's Milk Chocolate Candies Blizzard Treat Small,630.0,20.0,13.0,50.0,210.0,99.0,1.0,86.0,13.0
+Oreo Blizzard Cake 10 in,560.0,23.0,16.0,30.0,300.0,79.0,1.0,59.0,9.0
+Oreo Blizzard Cake 8 in,560.0,24.0,17.0,30.0,290.0,78.0,1.0,59.0,9.0
+Oreo Cookies Blizzard Treat Large,1130.0,41.0,19.0,75.0,740.0,169.0,2.0,122.0,22.0
+Oreo Cookies Blizzard Treat Medium,780.0,29.0,13.0,50.0,530.0,117.0,1.0,84.0,15.0
+Oreo Cookies Blizzard Treat Mini,370.0,13.0,7.0,30.0,220.0,56.0,0.0,42.0,8.0
+Oreo Cookies Blizzard Treat Small,610.0,22.0,11.0,40.0,390.0,91.0,1.0,67.0,12.0
+Reese's Peanut Butter Cups Blizzard Cake 10 in,590.0,27.0,19.0,30.0,270.0,78.0,2.0,63.0,11.0
+Plain Waffle Cone w/ Soft Serve,410.0,12.0,7.0,40.0,125.0,66.0,0.0,47.0,10.0
+Cone Small,230.0,7.0,4.5,25.0,95.0,37.0,0.0,26.0,6.0
+Reese's Peanut Butter Cups Blizzard Cake 8 in,4620.0,214.0,150.0,230.0,2120.0,607.0,12.0,493.0,83.0
+Reese's Peanut Butter Cups Blizzard Treat Large,1010.0,43.0,21.0,80.0,510.0,136.0,3.0,118.0,25.0
+Reese's Peanut Butter Cups Blizzard Treat Medium,750.0,32.0,16.0,60.0,380.0,102.0,2.0,88.0,19.0
+Reese's Peanut Butter Cups Blizzard Treat Mini,360.0,14.0,8.0,30.0,170.0,50.0,1.0,43.0,9.0
+Reese's Peanut Butter Cups Blizzard Treat Small,580.0,24.0,12.0,45.0,290.0,79.0,1.0,68.0,15.0
+Snickers Blizzard Large,1050.0,37.0,19.0,75.0,450.0,159.0,2.0,135.0,23.0
+Snickers Blizzard Medium,770.0,27.0,14.0,55.0,330.0,114.0,2.0,97.0,17.0
+Snickers Blizzard Mini,360.0,12.0,7.0,30.0,150.0,55.0,1.0,47.0,9.0
+Snickers Blizzard Small,610.0,21.0,11.0,45.0,260.0,92.0,1.0,78.0,14.0
+Strawberry Cheesecake Blizzard Large,890.0,34.0,20.0,120.0,440.0,127.0,1.0,103.0,21.0
+Strawberry Cheesecake Blizzard Medium,670.0,25.0,15.0,90.0,330.0,95.0,1.0,77.0,16.0
+Strawberry Cheesecake Blizzard Mini,320.0,12.0,7.0,40.0,150.0,45.0,0.0,37.0,8.0
+Strawberry Cheesecake Blizzard Small,510.0,19.0,12.0,70.0,250.0,72.0,0.0,59.0,12.0
+Peanut Butter Sundae Large,780.0,44.0,13.0,45.0,520.0,79.0,3.0,58.0,18.0
+Peanut Butter Sundae Medium,560.0,32.0,10.0,30.0,380.0,56.0,2.0,40.0,13.0
+Peanut Butter Sundae Small,380.0,22.0,7.0,25.0,260.0,39.0,1.0,28.0,9.0
+Banana Shake Small,470.0,19.0,13.0,45.0,190.0,64.0,1.0,53.0,13.0
+Turtle Pecan Cluster Blizzard Treat Large,1310.0,68.0,38.0,80.0,500.0,158.0,4.0,126.0,23.0
+Turtle Pecan Cluster Blizzard Treat Medium,900.0,48.0,26.0,60.0,340.0,105.0,3.0,85.0,16.0
+Turtle Pecan Cluster Blizzard Treat Mini,400.0,18.0,10.0,30.0,160.0,52.0,1.0,42.0,8.0
+Turtle Pecan Cluster Blizzard Treat Small,670.0,31.0,16.0,50.0,270.0,86.0,2.0,69.0,13.0
+Cone Kids,170.0,4.5,3.0,15.0,65.0,27.0,0.0,18.0,4.0
+Cone Large,460.0,14.0,9.0,45.0,190.0,72.0,0.0,52.0,12.0
+Cone Medium,330.0,9.0,6.0,30.0,130.0,52.0,0.0,36.0,9.0
+Blue Raspberry Arctic Rush Large,340.0,0.0,0.0,0.0,55.0,85.0,0.0,85.0,0.0
+Blue Raspberry Arctic Rush Medium,260.0,0.0,0.0,0.0,40.0,64.0,0.0,64.0,0.0
+Blue Raspberry Arctic Rush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Cherry Arctic Rush Large,340.0,0.0,0.0,0.0,55.0,85.0,0.0,85.0,0.0
+Cherry Arctic Rush Medium,260.0,0.0,0.0,0.0,40.0,64.0,0.0,64.0,0.0
+Cherry Arctic Rush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Grape Arctic Rush Large,340.0,0.0,0.0,0.0,55.0,85.0,0.0,85.0,0.0
+Grape Arctic Rush Medium,260.0,0.0,0.0,0.0,40.0,64.0,0.0,64.0,0.0
+Grape Arctic Rush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Strawberry Kiwi Arctic Rush Large,340.0,0.0,0.0,0.0,55.0,85.0,0.0,85.0,0.0
+Strawberry Kiwi Arctic Rush Medium,260.0,0.0,0.0,0.0,40.0,64.0,0.0,64.0,0.0
+Strawberry Kiwi Arctic Rush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Banana Shake Large,760.0,27.0,19.0,75.0,310.0,111.0,2.0,90.0,21.0
+Banana Shake Medium,590.0,22.0,16.0,55.0,240.0,83.0,1.0,68.0,16.0
+Caramel Shake Large,980.0,31.0,21.0,85.0,450.0,154.0,0.0,124.0,22.0
+Caramel Shake Medium,750.0,25.0,17.0,65.0,330.0,115.0,0.0,93.0,17.0
+Caramel Shake Small,550.0,20.0,14.0,50.0,240.0,79.0,0.0,65.0,13.0
+Chocolate Shake Large,920.0,28.0,19.0,75.0,380.0,147.0,2.0,128.0,21.0
+Chocolate Shake Medium,710.0,23.0,16.0,60.0,290.0,110.0,1.0,96.0,16.0
+Chocolate Shake Small,530.0,19.0,14.0,45.0,220.0,77.0,1.0,67.0,13.0
+Hot Fudge Shake Large,990.0,38.0,29.0,75.0,440.0,140.0,1.0,112.0,23.0
+Hot Fudge Shake Medium,750.0,30.0,23.0,60.0,330.0,105.0,1.0,85.0,17.0
+Hot Fudge Shake Small,430.0,15.0,11.0,35.0,190.0,66.0,1.0,52.0,9.0
+Peanut Butter Shake Large,1250.0,72.0,26.0,75.0,830.0,119.0,4.0,89.0,30.0
+Peanut Butter Shake Medium,930.0,53.0,20.0,60.0,590.0,91.0,3.0,69.0,22.0
+Strawberry Shake Large,780.0,27.0,19.0,75.0,330.0,113.0,1.0,97.0,21.0
+Strawberry Shake Medium,620.0,23.0,16.0,60.0,250.0,87.0,0.0,75.0,16.0
+Peanut Butter Shake Small,640.0,34.0,16.0,45.0,370.0,67.0,1.0,54.0,16.0
+Strawberry Shake Small,480.0,19.0,14.0,45.0,200.0,66.0,0.0,56.0,13.0
+Vanilla Shake Large,860.0,29.0,20.0,80.0,340.0,128.0,0.0,113.0,22.0
+Vanilla Shake Medium,660.0,23.0,16.0,60.0,250.0,97.0,0.0,85.0,16.0
+Vanilla Shake Small,520.0,19.0,14.0,50.0,200.0,73.0,0.0,65.0,13.0
+Barq's Large,520.0,0.0,0.0,0.0,210.0,141.0,0.0,141.0,0.0
+Barq's Medium,320.0,0.0,0.0,0.0,130.0,87.0,0.0,87.0,0.0
+Barq's Small,240.0,0.0,0.0,0.0,100.0,67.0,0.0,67.0,0.0
+Coke also called Coca Cola Large,460.0,0.0,0.0,0.0,105.0,125.0,0.0,125.0,0.0
+Coke also called Coca Cola Medium,280.0,0.0,0.0,0.0,65.0,78.0,0.0,78.0,0.0
+Coke also called Coca Cola Small,220.0,0.0,0.0,0.0,50.0,59.0,0.0,59.0,0.0
+Diet Coke Large,0.0,0.0,0.0,0.0,150.0,0.0,0.0,0.0,0.0
+Diet Coke Medium,0.0,0.0,0.0,0.0,80.0,0.0,0.0,0.0,0.0
+Diet Coke Small,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+Diet Pepsi Large,0.0,0.0,0.0,0.0,115.0,0.0,0.0,1.0,0.0
+Diet Pepsi Medium,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+Diet Pepsi Small,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Dr Pepper Large,430.0,0.0,0.0,0.0,150.0,116.0,0.0,116.0,0.0
+Dr Pepper Medium,270.0,0.0,0.0,0.0,95.0,72.0,0.0,72.0,0.0
+Dr Pepper Small,200.0,0.0,0.0,0.0,70.0,55.0,0.0,55.0,0.0
+Milk Whole Kids,220.0,9.0,6.0,35.0,210.0,21.0,0.0,21.0,15.0
+Mountain Dew Large,470.0,0.0,0.0,0.0,150.0,123.0,0.0,123.0,0.0
+Mountain Dew Medium,290.0,0.0,0.0,0.0,90.0,76.0,0.0,76.0,0.0
+Mountain Dew Small,220.0,0.0,0.0,0.0,70.0,58.0,0.0,58.0,0.0
+Mug Root Beer Large,430.0,0.0,0.0,0.0,65.0,111.0,0.0,111.0,0.0
+Mug Root Beer Medium,260.0,0.0,0.0,0.0,40.0,68.0,0.0,68.0,0.0
+Mug Root Beer Small,200.0,0.0,0.0,0.0,30.0,52.0,0.0,52.0,0.0
+Pepsi Large,430.0,0.0,0.0,0.0,85.0,119.0,0.0,119.0,0.0
+Pepsi Medium,260.0,0.0,0.0,0.0,55.0,74.0,0.0,74.0,0.0
+Pepsi Small,200.0,0.0,0.0,0.0,40.0,56.0,0.0,56.0,0.0
+Sierra Mist Large,430.0,0.0,0.0,0.0,85.0,115.0,0.0,115.0,0.0
+Sierra Mist Medium,260.0,0.0,0.0,0.0,55.0,71.0,0.0,71.0,0.0
+Sierra Mist Small,200.0,0.0,0.0,0.0,40.0,54.0,0.0,54.0,0.0
+Sprite Large,450.0,0.0,0.0,0.0,200.0,121.0,0.0,121.0,0.0
+Sprite Medium,280.0,0.0,0.0,0.0,125.0,75.0,0.0,75.0,0.0
+Cappuccino MooLatte Large,670.0,21.0,15.0,55.0,260.0,107.0,0.0,96.0,13.0
+Cappuccino MooLatte Medium,540.0,18.0,13.0,45.0,210.0,83.0,0.0,74.0,11.0
+Cappuccino MooLatte Small,430.0,15.0,11.0,30.0,160.0,65.0,0.0,58.0,8.0
+Caramel MooLatte Large,730.0,20.0,14.0,50.0,270.0,127.0,0.0,107.0,12.0
+Caramel MooLatte Medium,570.0,17.0,12.0,40.0,210.0,96.0,0.0,81.0,9.0
+Caramel MooLatte Small,470.0,15.0,11.0,30.0,170.0,77.0,0.0,66.0,7.0
+French Vanilla MooLatte Large,670.0,18.0,13.0,40.0,190.0,117.0,0.0,106.0,11.0
+French Vanilla MooLatte Medium,530.0,16.0,11.0,35.0,150.0,90.0,0.0,81.0,8.0
+French Vanilla MooLatte Small,440.0,14.0,10.0,25.0,125.0,72.0,0.0,66.0,7.0
+Mocha MooLatte Large,740.0,27.0,15.0,45.0,270.0,114.0,2.0,100.0,13.0
+Mocha MooLatte Medium,580.0,22.0,13.0,35.0,210.0,88.0,1.0,77.0,10.0
+Mocha MooLatte Small,460.0,17.0,11.0,30.0,160.0,70.0,1.0,62.0,8.0
+Applesauce Kids,45.0,0.0,0.0,0.0,0.0,11.0,2.0,7.0,0.0
+2 Chicken Strips Kids,240.0,12.0,2.0,30.0,660.0,19.0,1.0,0.0,15.0
+Mango Pineapple Premium Fruit Smoothie Large,420.0,0.5,0.0,0.0,170.0,99.0,1.0,89.0,6.0
+Mango Pineapple Premium Fruit Smoothie Medium,340.0,0.0,0.0,0.0,130.0,79.0,1.0,72.0,5.0
+Mango Pineapple Premium Fruit Smoothie Small,250.0,0.0,0.0,0.0,85.0,60.0,1.0,55.0,3.0
+Orange Smoothie Large,460.0,0.0,0.0,0.0,180.0,108.0,0.0,96.0,6.0
+Orange Smoothie Medium,360.0,0.0,0.0,0.0,135.0,84.0,0.0,75.0,4.0
+Orange Smoothie Small,250.0,0.0,0.0,0.0,90.0,60.0,0.0,54.0,3.0
+Strawberry Banana Premium Fruit Smoothie Large,440.0,1.0,0.0,0.0,170.0,110.0,3.0,94.0,8.0
+Strawberry Banana Premium Fruit Smoothie Medium,350.0,0.5,0.0,0.0,130.0,89.0,2.0,76.0,6.0
+Strawberry Banana Premium Fruit Smoothie Small,260.0,0.0,0.0,0.0,90.0,66.0,2.0,57.0,4.0
+Strawberry Smoothie Large,390.0,0.5,0.0,0.0,170.0,97.0,1.0,86.0,7.0
+Strawberry Smoothie Medium,310.0,0.5,0.0,0.0,130.0,78.0,1.0,70.0,5.0
+Strawberry Smoothie Small,230.0,0.0,0.0,0.0,90.0,59.0,1.0,53.0,4.0
+Tripleberry Premium Fruit Smoothie Large,470.0,1.5,0.0,0.0,170.0,113.0,2.0,103.0,7.0
+Tripleberry Premium Fruit Smoothie Medium,380.0,1.0,0.0,0.0,125.0,91.0,2.0,83.0,5.0
+Tripleberry Premium Fruit Smoothie Small,290.0,1.0,0.0,0.0,85.0,70.0,1.0,64.0,3.0
+Banana Kids,110.0,0.0,0.0,0.0,0.0,27.0,3.0,14.0,1.0
+Berry Pomegranate Smoothie Large,470.0,1.0,0.0,0.0,170.0,112.0,1.0,100.0,6.0
+Berry Pomegranate Smoothie Small,280.0,0.5,0.0,0.0,90.0,69.0,1.0,63.0,3.0
+Pina Colada Julius Medium,510.0,7.0,6.0,0.0,100.0,109.0,3.0,98.0,3.0
+Pina Colada Julius Large,750.0,9.0,8.0,0.0,140.0,164.0,4.0,148.0,4.0
+Pina Colada Julius Small,380.0,4.5,4.0,0.0,70.0,82.0,2.0,74.0,2.0
+Berry Pomegranate Smoothie Medium,340.0,0.0,0.0,0.0,45.0,84.0,1.0,81.0,1.0
+Orange Berry Smoothie Medium Light Premium Fruit Smoothies,220.0,0.0,0.0,0.0,20.0,57.0,1.0,54.0,1.0
+Orange Berry Smoothie Large Light Premium Fruit Smoothies,280.0,0.0,0.0,0.0,25.0,74.0,1.0,69.0,1.0
+Orange Berry Smoothie Small Light Premium Fruit Smoothies,180.0,0.0,0.0,0.0,15.0,47.0,1.0,44.0,1.0
+Orange Berry Smoothie Julius Large,470.0,0.0,0.0,0.0,70.0,119.0,1.0,114.0,1.0
+Pina Colada Smoothie Medium Light Premium Fruit Smoothies,200.0,0.0,0.0,0.0,20.0,49.0,1.0,47.0,1.0
+Pina Colada Smoothie Large Light Premium Fruit Smoothies,270.0,0.0,0.0,0.0,30.0,66.0,1.0,64.0,1.0
+Pina Colada Smoothie Small Light Premium Fruit Smoothies,160.0,0.0,0.0,0.0,20.0,40.0,1.0,38.0,1.0
+Strawberry Smoothie Medium Light Premium Fruit Smoothies,210.0,0.0,0.0,0.0,20.0,56.0,1.0,54.0,1.0
+Strawberry Smoothie Large Light Premium Fruit Smoothies,260.0,0.0,0.0,0.0,30.0,70.0,1.0,67.0,1.0
+Strawberry Smoothie Small Light Premium Fruit Smoothies,170.0,0.0,0.0,0.0,15.0,46.0,1.0,44.0,1.0
+Berry Pomegranate Smoothie Small Light Premium Fruit Smoothies,150.0,0.0,0.0,0.0,15.0,39.0,1.0,37.0,0.0
+Orange Smoothie Medium Light Premium Fruit Smoothies,170.0,0.0,0.0,0.0,15.0,41.0,0.0,38.0,0.0
+Orange Smoothie Large Light Premium Fruit Smoothies,230.0,0.0,0.0,0.0,25.0,56.0,0.0,52.0,0.0
+Orange Smoothie Small Light Premium Fruit Smoothies,140.0,0.0,0.0,0.0,15.0,35.0,0.0,32.0,0.0
+Strawberry Banana Smoothie Medium Light Premium Fruit Smoothies,210.0,0.0,0.0,0.0,20.0,58.0,2.0,53.0,1.0
+Strawberry Banana Smoothie Large Light Premium Fruit Smoothies,260.0,0.0,0.0,0.0,25.0,71.0,2.0,64.0,2.0
+Strawberry Banana Smoothie Small Light Premium Fruit Smoothies,170.0,0.0,0.0,0.0,15.0,46.0,1.0,42.0,1.0
+Mango Pineapple Smoothie Medium Light Premium Fruit Smoothies,210.0,0.0,0.0,0.0,15.0,53.0,1.0,51.0,1.0
+Mango Pineapple Smoothie Large Light Premium Fruit Smoothies,260.0,0.0,0.0,0.0,20.0,65.0,1.0,62.0,1.0
+Mango Pineapple Smoothie Small Light Premium Fruit Smoothies,170.0,0.0,0.0,0.0,15.0,43.0,1.0,41.0,0.0
+Tripleberry Smoothie Medium Light Premium Fruit Smoothies,210.0,0.5,0.0,0.0,15.0,52.0,1.0,50.0,1.0
+Tripleberry Smoothie Large Light Premium Fruit Smoothies,260.0,1.0,0.0,0.0,20.0,66.0,2.0,63.0,1.0
+Tripleberry Smoothie Small Light Premium Fruit Smoothies,160.0,0.0,0.0,0.0,10.0,40.0,1.0,38.0,1.0
+Orange Julius Original Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,48.0,0.0
+Orange Julius Originals Medium,260.0,0.0,0.0,0.0,45.0,65.0,0.0,62.0,0.0
+Orange Julius Originals Large,400.0,0.0,0.0,0.0,65.0,99.0,0.0,95.0,0.0
+Pina Colada Smoothie Large,470.0,0.0,0.0,0.0,180.0,109.0,1.0,100.0,7.0
+Pina Colada Smoothie Medium,350.0,0.0,0.0,0.0,135.0,83.0,1.0,76.0,5.0
+Pina Colada Smoothie Small,240.0,0.0,0.0,0.0,95.0,56.0,1.0,52.0,4.0
+Strawberry Banana Julius Original Small,330.0,4.5,4.0,0.0,70.0,73.0,2.0,63.0,2.0
+Strawberry Banana Julius Original Medium,460.0,7.0,6.0,0.0,100.0,101.0,3.0,86.0,3.0
+Strawberry Banana Julius Original Large,670.0,9.0,8.0,0.0,140.0,149.0,4.0,129.0,4.0
+Berry Pomegranate Smoothie Small Premium Fruit Smoothies,280.0,0.5,0.0,0.0,90.0,69.0,1.0,63.0,3.0
+Berry Pomegranate Smoothie Medium Premium Fruit Smoothies,380.0,1.0,0.0,0.0,130.0,90.0,1.0,81.0,5.0
+Berry Pomegranate Smoothie Large Premium Fruit Smoothies,470.0,1.0,0.0,0.0,170.0,112.0,1.0,100.0,6.0
+Berry Pomegranate Smoothie Medium Light Premium Fruit Smoothies,210.0,0.0,0.0,0.0,15.0,52.0,1.0,49.0,1.0
+Berry Pomegranate Smoothie Large Light Premium Fruit Smoothies,260.0,0.5,0.0,0.0,25.0,65.0,1.0,61.0,1.0
+Mango Pineapple Julius Large,470.0,0.0,0.0,0.0,70.0,117.0,1.0,114.0,1.0
+Mango Pineapple Julius Medium,310.0,0.0,0.0,0.0,45.0,78.0,1.0,76.0,1.0
+Mango Pineapple Julius Small,240.0,0.0,0.0,0.0,35.0,58.0,0.0,57.0,0.0
+Strawberry Julius Large,450.0,0.0,0.0,0.0,70.0,116.0,1.0,112.0,1.0
+Strawberry Julius Medium,300.0,0.0,0.0,0.0,45.0,77.0,1.0,74.0,1.0
+Strawberry Julius Small,220.0,0.0,0.0,0.0,35.0,58.0,1.0,56.0,1.0
+Tripleberry Julius Large,680.0,9.0,8.0,0.0,135.0,149.0,3.0,134.0,3.0
+Tripleberry Julius Medium,470.0,7.0,6.0,0.0,95.0,102.0,2.0,91.0,2.0
+Tripleberry Julius Small,340.0,4.5,4.0,0.0,70.0,75.0,2.0,67.0,1.0
+Coffee 12 oz,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Orange Juice 12 oz,190.0,0.0,0.0,0.0,25.0,44.0,0.0,40.0,3.0
+Arctic Rush All Flavors Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Arctic Rush All Flavors Medium,260.0,0.0,0.0,0.0,40.0,64.0,0.0,64.0,0.0
+Arctic Rush All Flavors Large,340.0,0.0,0.0,0.0,55.0,85.0,0.0,85.0,0.0
+Cinnamon Roll,480.0,20.0,4.5,20.0,530.0,71.0,2.0,34.0,6.0
+1/4 lb Bacon Cheese Grillburger Combo,800.0,43.0,15.0,100.0,1700.0,66.0,4.0,12.0,34.0
+1/4 lb Flame Thrower GrillBurger Combo,900.0,57.0,17.0,105.0,1680.0,61.0,4.0,9.0,33.0
+1/2 lb Flame Thrower GrillBurger Combo,1150.0,76.0,26.0,175.0,2030.0,63.0,4.0,6.0,53.0
+1/4 lb Cheese GrillBurger Combo,720.0,38.0,13.0,90.0,1450.0,66.0,4.0,12.0,29.0
+1/2 lb Cheese GrillBurger Combo,980.0,57.0,22.0,165.0,1560.0,66.0,4.0,12.0,49.0
+1/4 lb Mushroom Swiss GrillBurger Combo,770.0,44.0,14.0,100.0,1070.0,61.0,4.0,8.0,30.0
+Original Double Cheeseburger Combo,760.0,42.0,17.0,120.0,1630.0,56.0,3.0,7.0,39.0
+3 Chicken Strips,360.0,18.0,2.5,45.0,990.0,28.0,2.0,0.0,22.0
+Chicken Garden Greens Salad Crispy,290.0,12.0,2.0,30.0,690.0,28.0,4.0,6.0,17.0
+Chicken Garden Greens Salad Grilled,160.0,2.0,0.5,50.0,710.0,10.0,3.0,6.0,26.0
+Chicken BLT Salad w/ Grilled Chicken,270.0,11.0,5.0,80.0,1090.0,10.0,3.0,5.0,35.0
+Chicken BLT Salad w/ Crispy Chicken,400.0,21.0,6.0,60.0,1070.0,28.0,4.0,5.0,26.0
+Chili Cheese Dog,420.0,26.0,11.0,55.0,1070.0,28.0,1.0,4.0,18.0
+Crispy Chicken Sandwich Combo,710.0,37.0,5.5,60.0,1350.0,69.0,5.0,5.0,25.0
+Chili Cheese Fries,1000.0,52.0,15.0,55.0,2280.0,107.0,9.0,4.0,25.0
+Grilled Chicken Sandwich Combo,620.0,23.0,3.5,60.0,1600.0,68.0,4.0,3.0,33.0
+Chili Cheese Dog Combo,600.0,34.0,12.0,55.0,1520.0,52.0,3.0,4.0,20.0
+Chicken Biscuit Sandwich,430.0,17.0,4.5,30.0,1040.0,36.0,2.0,1.0,17.0
+Ham Ultimate Breakfast Burrito,560.0,27.0,9.0,195.0,1540.0,58.0,4.0,2.0,22.0
+Sausage Ultimate Breakfast Burrito,620.0,33.0,11.0,205.0,1370.0,57.0,4.0,1.0,23.0
+Bacon Ultimate Breakfast Burrito,640.0,35.0,12.0,200.0,1500.0,57.0,4.0,1.0,23.0
+Honey French Dressing,190.0,15.0,2.5,0.0,300.0,13.0,0.0,12.0,0.0
+Light Ranch Dressing,80.0,4.5,0.5,0.0,330.0,9.0,0.0,3.0,1.0
+Buttermilk Ranch Dressing,210.0,22.0,3.5,10.0,330.0,2.0,0.0,1.0,0.0
+Light Italian Dressing,20.0,1.0,0.0,0.0,720.0,2.0,0.0,2.0,0.0
+Dijon Honey Mustard,180.0,16.0,2.5,10.0,230.0,8.0,0.0,7.0,0.0
+Balsamic Vinaigrette Dressing,130.0,12.0,2.0,0.0,470.0,4.0,0.0,4.0,0.0
+Waffle Cone Dipped,240.0,11.0,6.0,5.0,35.0,32.0,1.0,20.0,2.0
+Waffle Cone Plain,110.0,2.5,0.0,5.0,0.0,22.0,0.0,10.0,2.0
+Apple Tart,570.0,26.0,15.0,50.0,290.0,78.0,2.0,47.0,8.0
+Brownie Cookie Dough Blizzard Treat Large,1500.0,63.0,39.0,125.0,790.0,218.0,6.0,158.0,26.0
+Brownie Cookie Dough Blizzard Treat Medium,1140.0,48.0,29.0,95.0,600.0,166.0,4.0,121.0,20.0
+Brownie Cookie Dough Blizzard Treat Mini,440.0,18.0,11.0,40.0,220.0,64.0,1.0,48.0,8.0
+Brownie Cookie Dough Blizzard Treat Small,790.0,33.0,20.0,70.0,410.0,115.0,3.0,84.0,14.0
+Buffalo Chicken Snack Melt,290.0,16.0,6.0,30.0,1010.0,21.0,1.0,1.0,14.0
+Cheese Curds Regular,530.0,38.0,22.0,90.0,1110.0,26.0,0.0,1.0,21.0
+Chicken Bacon BBQ Snack Melt,280.0,11.0,5.0,40.0,880.0,27.0,1.0,7.0,17.0
+Chicken Bacon Ranch Sandwich,500.0,20.0,8.0,75.0,1160.0,45.0,3.0,3.0,33.0
+Chicken Mozzarella Sandwich,640.0,25.0,8.0,60.0,1530.0,68.0,4.0,3.0,34.0
+Chicken Quesadilla Snack Melt,270.0,13.0,6.0,40.0,760.0,22.0,1.0,1.0,17.0
+Onion Rings Regular,360.0,16.0,2.5,0.0,840.0,48.0,2.0,3.0,6.0
+Peanut Butter Cookie Dough Smash Blizzard Treat Large,1510.0,70.0,33.0,115.0,890.0,196.0,5.0,142.0,29.0
+Peanut Butter Cookie Dough Smash Blizzard Treat Mini,440.0,18.0,10.0,35.0,230.0,60.0,1.0,45.0,9.0
+Peanut Butter Cookie Dough Smash Blizzard Treat Small,810.0,35.0,18.0,65.0,450.0,109.0,2.0,81.0,16.0
+Salted Caramel Truffle Blizzard Treat Large,1410.0,67.0,41.0,120.0,720.0,188.0,4.0,153.0,23.0
+Salted Caramel Truffle Blizzard Treat Medium,1050.0,49.0,31.0,90.0,530.0,141.0,3.0,115.0,18.0
+Salted Caramel Truffle Blizzard Treat Mini,440.0,20.0,12.0,40.0,220.0,61.0,1.0,50.0,8.0
+Salted Caramel Truffle Blizzard Treat Small,780.0,35.0,22.0,65.0,390.0,105.0,2.0,87.0,13.0
+Triple Chocolate Brownie,540.0,25.0,9.0,40.0,280.0,74.0,3.0,57.0,8.0
+Turkey BLT Sandwich,550.0,26.0,8.0,65.0,1480.0,45.0,3.0,3.0,31.0
+Cheese Curds Large,1050.0,75.0,43.0,180.0,2210.0,52.0,0.0,3.0,43.0
+Crispy Fish Sandwich Favorites,410.0,18.0,3.0,30.0,1010.0,46.0,2.0,6.0,14.0
+Breaded Mushrooms,230.0,10.0,1.5,0.0,480.0,31.0,2.0,2.0,5.0
+Steak Finger Basket,910.0,48.0,13.0,45.0,2210.0,95.0,5.0,2.0,23.0
+Pork Tenderloin Sandwich,580.0,34.0,7.0,45.0,910.0,48.0,2.0,6.0,19.0
+DQ Ultimate Burger,740.0,48.0,20.0,125.0,1480.0,30.0,1.0,6.0,44.0
+BBQ Pork Sandwich,310.0,10.0,3.0,50.0,800.0,37.0,1.0,8.0,17.0
+Corn Dog,240.0,13.0,3.0,25.0,390.0,25.0,2.0,7.0,6.0
+Chili Cheese Dog Mega,760.0,49.0,21.0,100.0,1570.0,48.0,2.0,6.0,32.0
+Bacon Cheese Dog,420.0,26.0,11.0,60.0,1140.0,26.0,1.0,3.0,19.0
+Cheese Dog,390.0,24.0,11.0,50.0,1000.0,26.0,1.0,3.0,16.0
+Relish Dog,350.0,20.0,8.0,35.0,1000.0,30.0,1.0,6.0,13.0
+Lay's Potato Chips Original,240.0,16.0,2.0,0.0,250.0,23.0,2.0,1.0,3.0
+Lay's BBQ Potato Chips,230.0,15.0,2.0,0.0,230.0,23.0,2.0,3.0,3.0
+Oven Baked Lay's Original Potato Crisps,130.0,2.0,0.0,0.0,150.0,26.0,2.0,2.0,2.0
+Dorito's Nacho Cheese Tortilla Chips,240.0,14.0,2.0,0.0,360.0,28.0,2.0,0.0,3.0
+Hamburger Kids,320.0,14.0,6.0,50.0,620.0,31.0,1.0,7.0,18.0
+Grilled Cheese Sandwich Kids,480.0,26.0,12.0,50.0,1420.0,42.0,1.0,3.0,18.0
+Chicken Wrap Kids,250.0,10.0,2.5,40.0,780.0,22.0,1.0,1.0,18.0
+Ham 2 Slices,60.0,2.0,1.0,20.0,720.0,2.0,0.0,1.0,9.0
+Sausage 2 Pieces,170.0,14.0,4.5,45.0,420.0,0.0,0.0,0.0,12.0
+Country Platter w/ Sausage,1060.0,62.0,19.0,405.0,2230.0,58.0,3.0,2.0,38.0
+Country Platter w/ Bacon,1150.0,73.0,24.0,400.0,2790.0,55.0,3.0,2.0,39.0
+Country Platter w/ Ham,850.0,42.0,13.0,365.0,2350.0,60.0,3.0,2.0,28.0
+Ultimate Hashbrown Platter w/ Bacon,1030.0,77.0,25.0,430.0,2660.0,43.0,4.0,3.0,43.0
+Ultimate Hashbrown Platter w/ Ham,700.0,44.0,14.0,390.0,2140.0,44.0,4.0,3.0,32.0
+Ultimate Hashbrown Platter w/ Sausage Patties,810.0,56.0,17.0,415.0,1800.0,42.0,4.0,2.0,35.0
+Pancake Platter w/ Bacon,730.0,42.0,14.0,120.0,1970.0,60.0,3.0,11.0,29.0
+Pancake Platter w/ Ham,390.0,9.0,3.0,80.0,1410.0,61.0,3.0,11.0,18.0
+Pancake Platter w/ Sausage,510.0,21.0,7.0,100.0,1110.0,60.0,3.0,11.0,21.0
+Biscuit,250.0,12.0,4.0,0.0,430.0,17.0,1.0,1.0,2.0
+2 Eggs,150.0,9.0,3.0,340.0,340.0,2.0,0.0,0.0,12.0
+Sausage Gravy,110.0,8.0,3.0,5.0,590.0,10.0,0.0,1.0,2.0
+Peanut Butter Cookie Dough Smash Medium,1130.0,51.0,25.0,85.0,660.0,149.0,4.0,109.0,22.0
+Make It a Malt Adds Small,60.0,0.5,0.0,0.0,40.0,12.0,0.0,9.0,1.0
+Make It a Malt Adds Medium,90.0,1.0,0.0,5.0,60.0,17.0,0.0,14.0,2.0
+Make It a Malt Adds Large,110.0,1.5,0.5,5.0,80.0,23.0,0.0,18.0,2.0
+Coffee 16 oz,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Milk 2% 12 oz,220.0,9.0,6.0,35.0,210.0,21.0,0.0,21.0,15.0
+Milk 2% 16 oz,280.0,11.0,7.0,45.0,260.0,27.0,0.0,27.0,18.0
+Orange Juice 16 oz,230.0,0.0,0.0,0.0,35.0,55.0,0.0,49.0,4.0
+Fudge Stuffed Cookie,640.0,33.0,17.0,50.0,380.0,80.0,3.0,55.0,10.0
+Orange Berry Smoothie Small,250.0,0.0,0.0,0.0,85.0,63.0,1.0,55.0,3.0
+Orange Berry Smoothie Medium,340.0,0.0,0.0,0.0,125.0,83.0,1.0,73.0,5.0
+Orange Berry Smoothie Large,420.0,0.5,0.0,0.0,170.0,103.0,1.0,90.0,6.0
+Orange Berry Smoothie Julius Small,230.0,0.0,0.0,0.0,35.0,59.0,0.0,57.0,0.0
+Orange Berry Smoothie Julius Medium,310.0,0.0,0.0,0.0,45.0,79.0,1.0,76.0,1.0
+Banana for Small Drinks,25.0,0.0,0.0,0.0,0.0,7.0,1.0,4.0,0.0
+Banana for Medium Drinks,40.0,0.0,0.0,0.0,0.0,10.0,1.0,5.0,0.0
+Banana for Large Drinks,50.0,0.0,0.0,0.0,0.0,13.0,2.0,7.0,1.0
+Protein Nutrition Boost,50.0,0.0,0.0,5.0,100.0,0.0,0.0,0.0,12.0
+Cheeseburger Combo,550.0,26.0,9.0,60.0,1320.0,55.0,3.0,7.0,23.0
+Chicken Bacon Ranch Combo,680.0,28.0,9.0,75.0,1610.0,69.0,5.0,3.0,35.0
+Chicken Mozzarella Combo,820.0,33.0,9.0,60.0,1980.0,92.0,6.0,3.0,36.0
+Turkey BLT Combo,730.0,34.0,9.0,65.0,1930.0,69.0,5.0,3.0,33.0
+Potato Skins,270.0,15.0,6.0,35.0,1030.0,21.0,3.0,1.0,12.0
+Onion Rings Large,540.0,24.0,3.5,0.0,1260.0,71.0,3.0,5.0,9.0
+Pretzel Sticks w/ Zesty Queso,330.0,9.0,3.0,5.0,500.0,52.0,2.0,1.0,9.0
+Mocha Iced Coffee Large,370.0,8.0,5.0,30.0,210.0,70.0,1.0,58.0,7.0
+Mocha Iced Coffee Medium,270.0,6.0,4.0,20.0,150.0,50.0,1.0,42.0,5.0
+Mocha Iced Coffee Small,220.0,5.0,3.0,20.0,125.0,40.0,1.0,33.0,4.0
+Salted Caramel Iced Coffee Large,360.0,8.0,5.0,30.0,290.0,66.0,0.0,57.0,6.0
+Salted Caramel Iced Coffee Medium,250.0,6.0,3.5,20.0,200.0,46.0,0.0,39.0,4.0
+Salted Caramel Iced Coffee Small,210.0,5.0,3.0,20.0,170.0,39.0,0.0,33.0,4.0
+Vanilla Iced Coffee Large,380.0,8.0,5.0,30.0,180.0,72.0,0.0,62.0,6.0
+Vanilla Iced Coffee Medium,280.0,6.0,3.5,20.0,130.0,54.0,0.0,47.0,4.0
+Vanilla Iced Coffee Small,230.0,5.0,3.0,20.0,110.0,43.0,0.0,37.0,4.0
+Midnight Mocha Ultimate Frappe Large,810.0,38.0,24.0,35.0,260.0,111.0,3.0,95.0,12.0
+Midnight Mocha Ultimate Frappe Medium,630.0,30.0,18.0,30.0,210.0,85.0,2.0,73.0,9.0
+Midnight Mocha Ultimate Frappe Small,490.0,23.0,15.0,25.0,160.0,67.0,2.0,58.0,7.0
+Oreo Cookie Ultimate Frappe Large,780.0,27.0,15.0,35.0,430.0,124.0,1.0,96.0,11.0
+Oreo Cookie Ultimate Frappe Medium,620.0,23.0,13.0,30.0,340.0,96.0,1.0,74.0,9.0
+Oreo Cookie Ultimate Frappe Small,490.0,18.0,11.0,20.0,250.0,75.0,1.0,59.0,7.0
+Caramel Chip Ultimate Frappe Large,760.0,28.0,22.0,40.0,230.0,117.0,1.0,98.0,10.0
+Caramel Chip Ultimate Frappe Medium,580.0,22.0,17.0,30.0,180.0,89.0,0.0,75.0,8.0
+Caramel Chip Ultimate Frappe Small,470.0,17.0,14.0,25.0,150.0,71.0,0.0,60.0,7.0
+Lemon Lime Arctic Rush Large,340.0,0.0,0.0,0.0,55.0,85.0,0.0,85.0,0.0
+Lemon Lime Arctic Rush Medium,260.0,0.0,0.0,0.0,40.0,64.0,0.0,64.0,0.0
+Lemon Lime Arctic Rush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Diet Coke 21 oz,0.0,0.0,0.0,0.0,80.0,0.0,0.0,0.0,0.0
+Milk Kids,100.0,2.5,1.5,10.0,105.0,12.0,0.0,12.0,8.0
+New Deluxe Bacon Cheeseburger,480.0,27.0,10.0,65.0,1020.0,33.0,2.0,8.0,24.0
+Royal Oreo Blizzard Treat Large,1320.0,49.0,26.0,80.0,840.0,199.0,2.0,148.0,25.0
+Royal Oreo Blizzard Treat Medium,1050.0,39.0,22.0,65.0,660.0,158.0,2.0,119.0,19.0
+Royal Oreo Blizzard Treat Mini,470.0,17.0,11.0,30.0,270.0,71.0,1.0,55.0,9.0
+Royal Oreo Blizzard Treat Small,760.0,28.0,16.0,50.0,460.0,114.0,1.0,87.0,15.0
+Royal New York Cheesecake Blizzard Treat Large,1340.0,61.0,27.0,135.0,690.0,172.0,2.0,135.0,25.0
+Royal New York Cheesecake Blizzard Treat Medium,1030.0,46.0,21.0,100.0,530.0,135.0,2.0,106.0,19.0
+Royal New York Cheesecake Blizzard Treat Mini,440.0,18.0,8.0,40.0,210.0,61.0,1.0,49.0,9.0
+Royal New York Cheesecake Blizzard Treat Small,750.0,33.0,15.0,75.0,380.0,99.0,1.0,78.0,15.0
+Royal Reese's Brownie Blizzard Treat Large,1510.0,72.0,31.0,120.0,1000.0,189.0,6.0,149.0,34.0
+Royal Reese's Brownie Blizzard Treat Medium,1170.0,58.0,24.0,90.0,790.0,142.0,5.0,111.0,26.0
+Royal Reese's Brownie Blizzard Treat Mini,530.0,27.0,10.0,40.0,350.0,62.0,2.0,48.0,12.0
+Royal Reese's Brownie Blizzard Treat Small,850.0,41.0,17.0,65.0,560.0,105.0,3.0,83.0,19.0
+Royal Ultimate Choco Brownie Blizzard Treat Large,1330.0,59.0,35.0,105.0,700.0,187.0,6.0,151.0,25.0
+Royal Ultimate Choco Brownie Blizzard Treat Medium,1040.0,44.0,28.0,85.0,540.0,147.0,4.0,119.0,19.0
+Royal Ultimate Choco Brownie Blizzard Treat Mini,480.0,20.0,13.0,35.0,240.0,68.0,2.0,56.0,9.0
+Royal Ultimate Choco Brownie Blizzard Treat Small,760.0,33.0,20.0,60.0,400.0,107.0,3.0,87.0,14.0
+Dilly Bar Chocolate No Sugar Added,200.0,13.0,10.0,15.0,55.0,23.0,5.0,5.0,3.0
+Funnel Cake Caramel,540.0,22.0,11.0,40.0,360.0,77.0,1.0,47.0,9.0
+Funnel Cake Hot Fudge,540.0,25.0,14.0,40.0,350.0,72.0,1.0,43.0,9.0
+Funnel Cake Strawberry,490.0,21.0,10.0,40.0,320.0,67.0,1.0,41.0,8.0
+Cookie Dough Mini Blizzard Cake,1900.0,83.0,56.0,100.0,1010.0,281.0,4.0,206.0,32.0
+Oreo Mini Blizzard Cake,1760.0,71.0,48.0,95.0,910.0,252.0,4.0,189.0,31.0
+Reese's Peanut Butter Cups Mini Blizzard Cake,1750.0,74.0,51.0,100.0,830.0,242.0,4.0,192.0,34.0
+3 Piece Chicken Strip,430.0,22.0,4.0,45.0,1350.0,34.0,2.0,1.0,23.0
+Deluxe Cheeseburger,460.0,24.0,9.0,65.0,820.0,39.0,3.0,11.0,22.0
+Chili Cheese Fries,1000.0,52.0,15.0,55.0,2280.0,107.0,9.0,4.0,25.0
+Tripleberry Smoothie Light Small,160.0,0.0,0.0,0.0,10.0,40.0,1.0,38.0,1.0
+2 Chicken Strips,240.0,12.0,2.0,30.0,660.0,19.0,1.0,0.0,15.0
+OrangeBerry Julius Medium,310.0,0.0,0.0,0.0,45.0,79.0,1.0,76.0,1.0
+Vanilla Cone Medium,330.0,9.0,6.0,30.0,130.0,52.0,0.0,36.0,9.0
+Breaded Mushrooms Regular,230.0,10.0,1.5,0.0,480.0,31.0,2.0,2.0,5.0
+Caramel Shake Medium,750.0,25.0,17.0,65.0,330.0,115.0,0.0,93.0,17.0
+Berry Pomegranate Julius Small,250.0,0.0,0.0,0.0,35.0,63.0,1.0,61.0,0.0
+1/4 lb Bacon Cheese GrillBurger,630.0,36.0,14.0,115.0,1250.0,42.0,2.0,12.0,34.0
+Strawberry Shake Medium,620.0,23.0,16.0,60.0,250.0,87.0,0.0,75.0,16.0
+Tropical Green Tea Xtreme Light Large,270.0,0.0,0.0,0.0,35.0,66.0,1.0,64.0,1.0
+OrangeBerry Julius Small,230.0,0.0,0.0,0.0,35.0,59.0,0.0,57.0,0.0
+Make It a Malt Adds Large,110.0,1.0,1.0,5.0,105.0,23.0,1.0,16.0,2.0
+DQ Round Cake 10 in,4950.0,183.0,131.0,360.0,2270.0,728.0,7.0,569.0,103.0
+Tripleberry Smoothie Medium,380.0,1.0,0.0,0.0,125.0,91.0,2.0,83.0,5.0
+Sunshine Orange Smoothie Large,460.0,0.0,0.0,0.0,180.0,108.0,0.0,96.0,6.0
+Tropi-Colada Smoothie Small,240.0,0.0,0.0,0.0,95.0,56.0,1.0,52.0,4.0
+Ultimate Breakfast Burrito Bacon,640.0,35.0,12.0,200.0,1500.0,57.0,4.0,1.0,23.0
+Cookie Dough Blizzard Cake 8 in,4820.0,214.0,158.0,220.0,2280.0,659.0,9.0,497.0,73.0
+Chocolate Dipped Cone Kids,220.0,9.0,7.0,15.0,70.0,30.0,0.0,20.0,4.0
+Triple Truffle Peanut Butter Caramel & Fudge Blizzard Large,1180.0,48.0,32.0,85.0,430.0,166.0,3.0,142.0,24.0
+Mango Pineapple Julius Small,240.0,0.0,0.0,0.0,35.0,58.0,0.0,57.0,0.0
+6 Pc Honey BBQ Glazed Chicken Strip Basket,1600.0,80.0,12.0,110.0,4150.0,167.0,9.0,48.0,53.0
+Chicken Buffalo Snack Melt,290.0,16.0,6.0,30.0,1010.0,21.0,1.0,1.0,14.0
+Chili Cheese Dog,420.0,26.0,11.0,55.0,1070.0,28.0,1.0,4.0,18.0
+Heath Blizzard Treat Small,610.0,25.0,16.0,50.0,300.0,83.0,1.0,74.0,11.0
+Ultimate Hashbrown Platter w/ Sausage,810.0,56.0,17.0,415.0,1800.0,42.0,4.0,2.0,35.0
+Pineapple Sundae Small,230.0,7.0,4.5,25.0,90.0,37.0,0.0,32.0,6.0
+Caramel Chip Frappe Medium,580.0,22.0,17.0,30.0,180.0,89.0,0.0,75.0,8.0
+Mango Pineapple Smoothie Large,420.0,0.5,0.0,0.0,170.0,99.0,1.0,89.0,6.0
+3 Chicken Strips,430.0,22.0,4.0,45.0,1350.0,34.0,2.0,1.0,23.0
+Heath Blizzard Treat Medium,870.0,37.0,23.0,65.0,440.0,119.0,1.0,106.0,16.0
+Grape Misty Slush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Pancake Platter w/ Bacon,730.0,42.0,14.0,120.0,1970.0,60.0,3.0,11.0,29.0
+Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Banana Split Blizzard Treat Small,450.0,13.0,8.0,45.0,170.0,73.0,1.0,61.0,11.0
+Mango Pineapple Julius Large,470.0,0.0,0.0,0.0,70.0,117.0,1.0,114.0,1.0
+Mango Pineapple Smoothie Medium,340.0,0.0,0.0,0.0,130.0,79.0,1.0,72.0,5.0
+Strawberry Sundae Large,470.0,14.0,9.0,45.0,180.0,75.0,0.0,63.0,12.0
+Make It a Malt Adds Medium,80.0,1.0,0.5,5.0,80.0,18.0,1.0,12.0,1.0
+OrangeBerry Xtreme Smoothie Light Large,270.0,0.0,0.0,0.0,25.0,74.0,1.0,69.0,1.0
+Tripleberry Smoothie Xlarge,660.0,2.0,0.5,0.0,210.0,161.0,3.0,147.0,9.0
+Tropical Green Tea Xtreme Light Small,170.0,0.0,0.0,0.0,15.0,44.0,1.0,42.0,0.0
+Oreo Cookies Blizzard Treat Mini,370.0,13.0,7.0,30.0,220.0,56.0,0.0,42.0,8.0
+Pineapple Sundae Medium,330.0,10.0,6.0,30.0,130.0,54.0,0.0,46.0,8.0
+Oreo Cookies Blizzard Treat Large,1130.0,41.0,19.0,75.0,740.0,169.0,2.0,122.0,22.0
+Dilly Bar Chocolate,220.0,12.0,10.0,15.0,55.0,25.0,1.0,21.0,3.0
+Banana Shake Small,470.0,19.0,13.0,45.0,190.0,64.0,1.0,53.0,13.0
+Biscuits & Gravy 1/2 Order,340.0,18.0,6.0,5.0,920.0,25.0,1.0,1.0,4.0
+Cheese Curds Large,1050.0,75.0,43.0,180.0,2210.0,52.0,0.0,3.0,43.0
+Banana Shake Large,750.0,27.0,19.0,75.0,310.0,109.0,2.0,88.0,21.0
+Strawberry Banana Julius Small,330.0,4.5,4.0,0.0,70.0,73.0,2.0,63.0,2.0
+Tripleberry Smoothie Large,470.0,1.5,0.0,0.0,170.0,113.0,2.0,103.0,7.0
+Pork Tenderloin Sandwich,580.0,34.0,7.0,45.0,910.0,48.0,2.0,6.0,19.0
+Tripleberry Julius Large,680.0,9.0,8.0,0.0,135.0,149.0,3.0,134.0,3.0
+Strawberry Shake Large,780.0,27.0,19.0,75.0,330.0,113.0,1.0,97.0,21.0
+Coffee 12 oz,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Butterfinger Blizzard Treat Mini,350.0,12.0,7.0,30.0,150.0,52.0,0.0,41.0,8.0
+Strawberry Smoothie Medium,310.0,0.5,0.0,0.0,130.0,78.0,1.0,70.0,5.0
+Reeses Peanut Butter Cups Blizzard Cake 10 in,6850.0,311.0,221.0,365.0,3110.0,910.0,17.0,737.0,126.0
+Pomegranate Berry Blast Smoothie Light Large,260.0,0.5,0.0,0.0,25.0,65.0,1.0,61.0,1.0
+Blue Raspberry Misty Slush Large,340.0,0.0,0.0,0.0,55.0,86.0,0.0,85.0,0.0
+Oreo Mini Blizzard Cake,1760.0,71.0,48.0,95.0,910.0,252.0,4.0,189.0,31.0
+Chocolate Chip Cookie Dough Blizzard Treat Medium,1040.0,41.0,24.0,60.0,580.0,151.0,1.0,110.0,17.0
+Diet Coke Medium,0.0,0.0,0.0,0.0,80.0,0.0,0.0,0.0,0.0
+Tropi-Colada Smoothie Medium,350.0,0.0,0.0,0.0,135.0,83.0,1.0,76.0,5.0
+6 Chicken Strip Basket,1250.0,61.0,10.0,90.0,3190.0,121.0,8.0,2.0,52.0
+Strawberry Light Large,260.0,0.0,0.0,0.0,30.0,70.0,1.0,67.0,1.0
+Blue Raspberry Misty Slush Medium,260.0,0.0,0.0,0.0,40.0,65.0,0.0,64.0,0.0
+Banana Split,510.0,14.0,9.0,30.0,150.0,92.0,4.0,71.0,9.0
+Best Chocolate Cake Blizzard Small,830.0,39.0,18.0,60.0,310.0,111.0,3.0,89.0,15.0
+Chicken Bacon Ranch Sandwich Combo,680.0,28.0,9.0,75.0,1610.0,69.0,5.0,3.0,35.0
+Pomegranate Berry Blast Smoothie Medium,380.0,1.0,0.0,0.0,130.0,90.0,1.0,81.0,5.0
+Original Double Cheeseburger,540.0,30.0,14.0,110.0,1030.0,31.0,1.0,7.0,35.0
+Chocolate Chip Cookie Dough Blizzard Treat Large,1340.0,54.0,32.0,75.0,750.0,195.0,2.0,142.0,22.0
+Grape Misty Slush Medium,260.0,0.0,0.0,0.0,40.0,65.0,0.0,64.0,0.0
+Biscuit Sandwich Bacon,420.0,26.0,9.0,190.0,940.0,19.0,1.0,1.0,14.0
+Chocolate Xtreme Blizzard Cake 8 in,4570.0,205.0,153.0,270.0,2120.0,621.0,14.0,482.0,75.0
+Strawberry Banana Smoothie Small,260.0,0.0,0.0,0.0,90.0,66.0,2.0,57.0,4.0
+Hot Fudge Funnel Cake,540.0,25.0,14.0,40.0,350.0,72.0,1.0,43.0,9.0
+Ultimate Breakfast Burrito Ham,560.0,27.0,9.0,195.0,1540.0,58.0,4.0,2.0,22.0
+Sunshine Orange Smoothie Xlarge,610.0,0.0,0.0,0.0,230.0,144.0,0.0,129.0,7.0
+Sunshine Orange Smoothie Light Small,140.0,0.0,0.0,0.0,15.0,35.0,0.0,32.0,0.0
+Chicken Sandwich Crispy,530.0,29.0,4.5,60.0,900.0,45.0,3.0,5.0,23.0
+Pumpkin Pie Blizzard Mini,360.0,14.0,9.0,30.0,200.0,52.0,2.0,41.0,7.0
+French Fries Regular,290.0,13.0,2.0,0.0,590.0,39.0,3.0,0.0,3.0
+OrangeBerry Xtreme Smoothie Light Medium,210.0,0.0,0.0,0.0,20.0,56.0,1.0,53.0,1.0
+Caramel Shake Small,550.0,20.0,14.0,50.0,240.0,79.0,0.0,65.0,13.0
+Chili Cheese Dog Combo,600.0,34.0,12.0,55.0,1520.0,52.0,3.0,4.0,20.0
+1/3 lb Double w/ Cheese Lunch,540.0,30.0,14.0,110.0,1030.0,31.0,1.0,7.0,35.0
+Royal Reeses Brownie Blizzard Mini,530.0,27.0,10.0,40.0,350.0,62.0,2.0,48.0,12.0
+Chocolate Cone Small,240.0,7.0,4.5,20.0,100.0,38.0,0.0,26.0,6.0
+Strawberry Banana Smoothie Medium,350.0,0.5,0.0,0.0,130.0,78.0,1.0,70.0,5.0
+Vanilla Cone Large,460.0,14.0,9.0,45.0,190.0,72.0,0.0,52.0,12.0
+Strawberry Banana Julius Medium,460.0,7.0,6.0,0.0,100.0,101.0,3.0,86.0,3.0
+Chicken BLT Salad Crispy,400.0,21.0,6.0,60.0,1070.0,28.0,4.0,5.0,26.0
+Turkey BLT Sandwich Combo,760.0,36.0,10.0,90.0,2000.0,69.0,5.0,3.0,36.0
+Lays Potato Chips Original,240.0,16.0,2.0,0.0,250.0,23.0,2.0,1.0,3.0
+Salted Caramel Blondie Blizzard Mini,420.0,16.0,10.0,40.0,200.0,62.0,0.0,49.0,8.0
+Pomegranate Berry Blast Smoothie Small,280.0,0.5,0.0,0.0,90.0,69.0,1.0,63.0,3.0
+Strawberry Kiwi Misty Slush Medium,260.0,0.0,0.0,0.0,40.0,65.0,0.0,64.0,0.0
+1/2 lb Cheese GrillBurger Combo,980.0,49.0,22.0,165.0,1560.0,66.0,4.0,12.0,49.0
+Salted Caramel Blondie Blizzard Large,1370.0,53.0,34.0,130.0,700.0,206.0,2.0,160.0,22.0
+Pina Colada Julius Medium,510.0,7.0,6.0,0.0,100.0,109.0,3.0,98.0,3.0
+Chocolate Xtreme Blizzard Cake 10 in,6940.0,309.0,229.0,420.0,3210.0,946.0,21.0,735.0,116.0
+Strawberry Kiwi Misty Slush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Tropi Colada Smoothie Xlarge,600.0,0.0,0.0,0.0,230.0,139.0,2.0,127.0,9.0
+Best Chocolate Cake Blizzard Mini,460.0,21.0,10.0,35.0,170.0,62.0,1.0,50.0,9.0
+Tripleberry Light Xlarge,360.0,1.0,0.0,0.0,25.0,92.0,2.0,88.0,1.0
+Misty Slush Medium,260.0,0.0,0.0,0.0,40.0,65.0,0.0,64.0,0.0
+Turtle Pecan Cluster Blizzard Treat Medium,900.0,48.0,26.0,60.0,340.0,105.0,3.0,85.0,16.0
+Strawberry Sundae Small,230.0,7.0,4.5,25.0,90.0,37.0,0.0,31.0,6.0
+Milk 16 oz,280.0,11.0,7.0,45.0,260.0,27.0,0.0,27.0,18.0
+Cherry Misty Slush Large,340.0,0.0,0.0,0.0,55.0,86.0,0.0,85.0,0.0
+Oreo Cookie Frappe Medium,620.0,23.0,13.0,30.0,340.0,96.0,1.0,74.0,9.0
+Triple Truffle Peanut Butter Caramel & Fudge Blizzard Mini,380.0,15.0,10.0,30.0,140.0,54.0,1.0,46.0,8.0
+2 Chili Cheese Dogs,850.0,53.0,23.0,115.0,2140.0,56.0,2.0,7.0,36.0
+Caramel Sundae Small,300.0,8.0,5.0,25.0,130.0,50.0,0.0,40.0,6.0
+Royal Ultimate Choco Brownie Blizzard Small,760.0,33.0,20.0,60.0,400.0,107.0,3.0,87.0,14.0
+Pretzel Sticks w/ Zesty Queso,330.0,9.0,3.0,5.0,500.0,52.0,2.0,1.0,9.0
+Pancake Platter w/ Ham,390.0,9.0,3.0,80.0,1410.0,61.0,3.0,11.0,18.0
+Corn Dog,240.0,13.0,3.0,25.0,390.0,25.0,2.0,7.0,6.0
+Hot Fudge Sundae Medium,430.0,15.0,11.0,35.0,190.0,66.0,1.0,52.0,9.0
+Tropical Green Tea Xtreme Smoothie Medium,340.0,0.5,0.5,0.0,140.0,81.0,1.0,74.0,5.0
+M&Ms Milk Chocolate Candies Blizzard Treat Small,630.0,20.0,13.0,50.0,210.0,99.0,1.0,86.0,13.0
+Strawberry Banana Smoothie Light Medium,210.0,0.0,0.0,0.0,20.0,58.0,2.0,53.0,1.0
+Applesauce,45.0,0.0,0.0,0.0,0.0,11.0,2.0,7.0,0.0
+Oreo Cookie Frappe Large,780.0,27.0,15.0,35.0,430.0,124.0,1.0,96.0,11.0
+Side Salad,25.0,0.0,0.0,0.0,15.0,5.0,2.0,3.0,1.0
+Royal Ultimate Choco Brownie Blizzard Medium,1040.0,44.0,28.0,85.0,540.0,147.0,4.0,119.0,19.0
+Vanilla Cone Small,230.0,7.0,4.5,25.0,95.0,37.0,0.0,26.0,6.0
+Lemon Lime Misty Slush Medium,260.0,0.0,0.0,0.0,40.0,65.0,0.0,64.0,0.0
+Lemon Lime Misty Slush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Heath Blizzard Treat Mini,380.0,15.0,9.0,30.0,180.0,53.0,0.0,46.0,8.0
+Caramel MooLatte Large,730.0,20.0,14.0,50.0,270.0,127.0,0.0,107.0,12.0
+Reeses Peanut Butter Cups Blizzard Treat Large,1010.0,43.0,21.0,80.0,510.0,136.0,3.0,118.0,25.0
+Cheese Dog,390.0,24.0,11.0,50.0,1000.0,26.0,1.0,3.0,16.0
+Mango Pineapple Smoothie Light Small,170.0,0.0,0.0,0.0,15.0,43.0,1.0,41.0,0.0
+Mocha MooLatte Large,740.0,27.0,15.0,45.0,270.0,114.0,2.0,100.0,13.0
+Caramel Shake Large,980.0,31.0,21.0,85.0,450.0,154.0,0.0,124.0,22.0
+Strawberry Kiwi Misty Slush Large,340.0,0.0,0.0,0.0,55.0,86.0,0.0,85.0,0.0
+Kansas City BBQ Pulled Pork Sandwich,430.0,15.0,4.5,90.0,1410.0,69.0,2.0,26.0,33.0
+Strawberry Julius Small,220.0,0.0,0.0,0.0,35.0,58.0,1.0,56.0,1.0
+Chocolate Chip Cookie Dough Blizzard Small,710.0,28.0,16.0,45.0,390.0,103.0,1.0,76.0,12.0
+Ultimate Hashbrown Platter w/ Ham,700.0,44.0,14.0,390.0,2140.0,44.0,4.0,3.0,32.0
+Hot Fudge Sundae Large,610.0,21.0,16.0,50.0,260.0,93.0,1.0,73.0,13.0
+Chocolate Xtreme Blizzard Treat Mini,400.0,17.0,9.0,35.0,200.0,56.0,1.0,45.0,9.0
+Strawberry Shake Small,480.0,19.0,14.0,45.0,200.0,66.0,0.0,56.0,13.0
+Strawberry Banana Julius Large,670.0,9.0,8.0,0.0,140.0,149.0,4.0,129.0,4.0
+Royal Oreo Blizzard Large,1320.0,49.0,26.0,80.0,840.0,199.0,2.0,148.0,25.0
+Pina Colada Julius Small,380.0,4.5,4.0,0.0,70.0,82.0,2.0,74.0,2.0
+Strawberry Banana Smoothie Large,440.0,1.0,0.0,0.0,170.0,110.0,3.0,94.0,8.0
+Misty Slush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Fudge Stuffed Cookie Dessert,640.0,33.0,17.0,50.0,380.0,80.0,3.0,55.0,10.0
+Chicken Bacon Ranch Sandwich,500.0,20.0,8.0,75.0,1160.0,45.0,3.0,3.0,33.0
+3 Pancakes,260.0,5.0,1.5,45.0,530.0,46.0,3.0,8.0,7.0
+Chicken Sandwich Grilled,440.0,15.0,2.5,60.0,1150.0,44.0,2.0,3.0,31.0
+Triple Truffle Peanut Butter Caramel & Fudge Blizzard Medium,890.0,37.0,25.0,65.0,320.0,123.0,2.0,105.0,19.0
+Grape Misty Slush Large,340.0,0.0,0.0,0.0,55.0,86.0,0.0,85.0,0.0
+Tripleberry Smoothie Light Medium,210.0,0.5,0.0,0.0,15.0,52.0,1.0,50.0,1.0
+Strawberry Smoothie Small,230.0,0.0,0.0,0.0,90.0,59.0,1.0,53.0,4.0
+Cheese Curds Regular,530.0,38.0,22.0,90.0,1110.0,26.0,0.0,1.0,21.0
+Chocolate Sundae Large,560.0,14.0,9.0,45.0,220.0,97.0,1.0,84.0,12.0
+Strawberry Banana Smoothie Xlarge,610.0,1.0,0.5,0.0,220.0,155.0,4.0,133.0,10.0
+Bacon Cheese Dog,420.0,26.0,11.0,60.0,1140.0,26.0,1.0,3.0,19.0
+Caramel Sundae Medium,430.0,11.0,7.0,35.0,190.0,73.0,0.0,58.0,9.0
+OrangeBerry Xtreme Smoothie Light Small,170.0,0.0,0.0,0.0,15.0,46.0,1.0,44.0,1.0
+Hot Dog,340.0,20.0,8.0,35.0,970.0,28.0,1.0,5.0,13.0
+Chicken Garden Greens Salad Grilled,270.0,11.0,5.0,80.0,1090.0,10.0,3.0,5.0,35.0
+Ultimate Hashbrown Platter w/ Bacon,1030.0,77.0,25.0,430.0,2660.0,43.0,4.0,3.0,43.0
+Cookie Dough Mini Blizzard Cake,1990.0,83.0,56.0,100.0,1010.0,281.0,4.0,206.0,32.0
+Tropical Green Tea Xtreme Light Medium,210.0,0.0,0.0,0.0,20.0,55.0,1.0,53.0,1.0
+Peanut Butter Shake Small,640.0,34.0,16.0,45.0,370.0,67.0,1.0,54.0,16.0
+Tripleberry Smoothie Small,290.0,1.0,0.0,0.0,85.0,70.0,1.0,64.0,3.0
+Mango Pineapple Julius Medium,310.0,0.0,0.0,0.0,45.0,78.0,1.0,76.0,1.0
+1/4 lb FlameThrower GrillBurger,720.0,49.0,16.0,105.0,1230.0,37.0,2.0,9.0,31.0
+Pomegranate Berry Blast Smoothie XLarge,660.0,1.5,0.5,0.0,220.0,159.0,2.0,144.0,8.0
+Tropi-Colada Smoothie Large,470.0,0.0,0.0,0.0,180.0,109.0,1.0,100.0,7.0
+Orange Julius Large,400.0,0.0,0.0,0.0,65.0,99.0,0.0,95.0,0.0
+DQ Round Cake 8 in,3260.0,120.0,86.0,235.0,1490.0,479.0,5.0,374.0,68.0
+Butterfinger Blizzard Large,950.0,34.0,20.0,70.0,400.0,145.0,1.0,109.0,21.0
+Heath Blizzard Treat Large,1160.0,50.0,31.0,85.0,580.0,159.0,1.0,142.0,20.0
+Banana Shake Medium,590.0,22.0,16.0,55.0,240.0,83.0,1.0,68.0,16.0
+Royal Reeses Brownie Blizzard Large,1510.0,72.0,31.0,120.0,1000.0,189.0,6.0,149.0,34.0
+Strawberry Julius Medium,300.0,0.0,0.0,0.0,45.0,77.0,1.0,74.0,1.0
+Chocolate Sundae Small,270.0,7.0,4.5,25.0,105.0,48.0,1.0,41.0,6.0
+Cookie Dough Blizzard Cake 10 in,7560.0,332.0,241.0,360.0,3620.0,1041.0,13.0,783.0,116.0
+Cheese Dog Orange Julius,460.0,30.0,13.0,65.0,1270.0,27.0,1.0,3.0,20.0
+Chocolate Dipped Cone Large,640.0,30.0,24.0,45.0,200.0,83.0,1.0,60.0,13.0
+Buster Bar,470.0,30.0,18.0,15.0,220.0,46.0,3.0,37.0,10.0
+Oven Baked Lays Original Potato Crisps,130.0,2.0,0.0,0.0,150.0,26.0,2.0,2.0,2.0
+Sausage Biscuit Twin Pak,670.0,38.0,13.0,45.0,1300.0,34.0,1.0,1.0,17.0
+Strawberry Sundae Medium,330.0,10.0,6.0,30.0,130.0,53.0,0.0,44.0,8.0
+Mango Pineapple Smoothie Light Large,260.0,0.0,0.0,0.0,20.0,65.0,1.0,62.0,1.0
+Turkey BLT Sandwich,580.0,28.0,9.0,90.0,1550.0,45.0,3.0,3.0,34.0
+M&Ms Milk Chocolate Candies Blizzard Treat Large,1100.0,35.0,22.0,80.0,350.0,173.0,3.0,150.0,22.0
+Strawberry Light Small,170.0,0.0,0.0,0.0,15.0,46.0,1.0,44.0,1.0
+French Fries Large,470.0,21.0,3.0,0.0,950.0,63.0,4.0,1.0,5.0
+Chocolate Xtreme Blizzard Treat Small,620.0,27.0,15.0,55.0,330.0,86.0,3.0,69.0,13.0
+OrangeBerry Julius Large,470.0,0.0,0.0,0.0,70.0,119.0,1.0,114.0,1.0
+Pumpkin Pie Blizzard Small,570.0,20.0,13.0,45.0,340.0,86.0,4.0,67.0,11.0
+Royal Oreo Blizzard Mini,470.0,17.0,11.0,30.0,270.0,71.0,1.0,55.0,9.0
+Chocolate Chip Cookie Dough Blizzard Treat Mini,420.0,16.0,9.0,30.0,220.0,61.0,0.0,46.0,8.0
+Orange Juice 16 oz,230.0,0.0,0.0,0.0,35.0,55.0,0.0,49.0,4.0
+Hot Fudge Sundae Small,300.0,10.0,8.0,25.0,125.0,46.0,0.0,36.0,6.0
+Pomegranate Berry Blast Smoothie Large,470.0,1.0,0.0,0.0,170.0,112.0,1.0,100.0,6.0
+Royal New York Cheesecake Blizzard Large,1340.0,61.0,27.0,135.0,690.0,172.0,2.0,135.0,25.0
+Hot Fudge Shake Small,550.0,22.0,17.0,45.0,240.0,75.0,0.0,61.0,13.0
+Royal Ultimate Choco Brownie Blizzard Large,1330.0,59.0,35.0,105.0,700.0,187.0,6.0,151.0,25.0
+Tripleberry Julius Small,340.0,4.5,4.0,0.0,70.0,75.0,2.0,67.0,1.0
+Biscuit,250.0,12.0,4.0,0.0,430.0,17.0,1.0,1.0,2.0
+Midnight Mocha Frappe Small,490.0,23.0,15.0,25.0,160.0,67.0,2.0,58.0,7.0
+Reeses Peanut Butter Cups Blizzard Cake 8 in,4450.0,203.0,146.0,230.0,2010.0,589.0,11.0,476.0,80.0
+Midnight Mocha Frappe Large,810.0,38.0,24.0,35.0,260.0,111.0,3.0,95.0,12.0
+Biscuit Sandwich Ham,350.0,18.0,6.0,185.0,980.0,19.0,1.0,1.0,13.0
+Oreo Blizzard Cake 10 in,6870.0,292.0,203.0,345.0,3550.0,960.0,14.0,720.0,114.0
+Turtle Pecan Cluster Blizzard Treat Large,1310.0,68.0,38.0,80.0,500.0,158.0,4.0,126.0,23.0
+Salted Caramel Blondie Blizzard Small,770.0,29.0,19.0,75.0,380.0,114.0,1.0,90.0,14.0
+OrangeBerry Xtreme Light Xlarge,390.0,0.0,0.0,0.0,35.0,102.0,1.0,97.0,1.0
+Chocolate Xtreme Blizzard Treat Medium,800.0,35.0,20.0,75.0,430.0,112.0,4.0,89.0,16.0
+Caramel MooLatte Medium,570.0,17.0,12.0,40.0,210.0,96.0,0.0,81.0,9.0
+Dilly Bar No Sugar Added,200.0,13.0,10.0,15.0,55.0,23.0,5.0,5.0,3.0
+Oreo Blizzard Cake 8 in,4460.0,191.0,136.0,220.0,2260.0,619.0,9.0,467.0,73.0
+Caramel Chip Frappe Small,470.0,17.0,14.0,25.0,150.0,71.0,0.0,60.0,7.0
+Vanilla Shake Medium,660.0,23.0,16.0,60.0,250.0,97.0,0.0,85.0,16.0
+Hot Fudge Shake Medium,750.0,30.0,23.0,60.0,330.0,105.0,1.0,85.0,17.0
+Chocolate Shake Large,920.0,28.0,19.0,75.0,380.0,147.0,2.0,128.0,21.0
+Royal Oreo Blizzard Medium,1050.0,39.0,22.0,65.0,660.0,158.0,2.0,119.0,19.0
+Sunshine Orange Light Xlarge,310.0,0.0,0.0,0.0,30.0,76.0,0.0,69.0,0.0
+1/4 lb Mushroom Swiss GrillBurger,590.0,36.0,13.0,100.0,620.0,37.0,2.0,8.0,28.0
+4 Chicken Strip Basket,1000.0,49.0,9.0,60.0,2530.0,103.0,6.0,2.0,37.0
+Tropical Green Tea Xtreme Light Xlarge,400.0,0.0,0.0,0.0,40.0,99.0,1.0,95.0,1.0
+Strawberry Smoothie Large,390.0,0.5,0.0,0.0,170.0,97.0,1.0,86.0,7.0
+Fries Kids,180.0,8.0,1.0,0.0,370.0,24.0,2.0,0.0,2.0
+Pomegranate Berry Blast Smoothie Light Small,150.0,0.0,0.0,0.0,15.0,39.0,1.0,37.0,0.0
+Original Double Cheeseburger Combo,720.0,38.0,15.0,110.0,1480.0,55.0,3.0,7.0,37.0
+Banana Split Blizzard Treat Medium,580.0,16.0,10.0,55.0,220.0,97.0,1.0,81.0,14.0
+Strawberry Julius Large,450.0,0.0,0.0,0.0,70.0,116.0,1.0,112.0,1.0
+Salted Caramel Blondie Blizzard Medium,1070.0,41.0,26.0,105.0,540.0,160.0,1.0,125.0,18.0
+Doritos Nacho Cheese Tortilla Chips,240.0,14.0,2.0,0.0,360.0,28.0,2.0,0.0,3.0
+Tropi-Colada Light Small,160.0,0.0,0.0,0.0,20.0,40.0,1.0,38.0,1.0
+Peanut Butter Sundae Small,380.0,22.0,7.0,25.0,260.0,39.0,1.0,28.0,9.0
+Mango Pineapple Smoothie Xlarge,250.0,0.0,0.0,0.0,85.0,63.0,1.0,55.0,3.0
+Salted Caramel Truffle Blizzard Treat Small,780.0,35.0,22.0,65.0,390.0,105.0,2.0,87.0,13.0
+Salted Caramel Truffle Blizzard Treat Medium,1050.0,48.0,31.0,90.0,530.0,142.0,2.0,117.0,18.0
+Relish Dog Orange Julius,420.0,26.0,10.0,55.0,1270.0,31.0,1.0,6.0,16.0
+Peanut Butter Shake Large,1250.0,72.0,26.0,75.0,830.0,119.0,4.0,89.0,30.0
+Bacon Cheese Dog Orange Julius,490.0,32.0,14.0,75.0,1410.0,27.0,1.0,3.0,23.0
+M&Ms Milk Chocolate Candies Blizzard Treat Mini,370.0,12.0,8.0,30.0,125.0,58.0,1.0,50.0,8.0
+Oreo Cookies Blizzard Treat Small,610.0,22.0,11.0,40.0,390.0,91.0,1.0,67.0,12.0
+Reeses Peanut Butter Cups Blizzard Treat Medium,750.0,32.0,16.0,60.0,380.0,102.0,2.0,88.0,19.0
+Chili Cheese Dog Orange Julius,500.0,33.0,14.0,75.0,1340.0,29.0,1.0,4.0,22.0
+2 Ham Slices,60.0,2.0,1.0,20.0,720.0,2.0,0.0,1.0,9.0
+Banana Split Blizzard Large,810.0,22.0,14.0,75.0,300.0,138.0,2.0,115.0,19.0
+Salted Caramel Truffle Blizzard Treat Large,1410.0,65.0,41.0,120.0,720.0,190.0,4.0,156.0,23.0
+Tropical Green Tea Xtreme Smoothie Large,430.0,1.0,0.5,0.0,180.0,101.0,1.0,92.0,6.0
+Chocolate Dipped Cone Medium,460.0,22.0,17.0,30.0,140.0,59.0,1.0,43.0,9.0
+1/4 lb Bacon Cheese Grillburger Combo,810.0,44.0,15.0,115.0,1700.0,66.0,4.0,12.0,36.0
+OrangeBerry Xtreme Smoothie Small,250.0,0.0,0.0,0.0,85.0,63.0,1.0,55.0,3.0
+DQ Treatzza Pizza Choco Brownie,190.0,10.0,6.0,10.0,100.0,26.0,1.0,18.0,3.0
+Chocolate Cone Kids,170.0,4.5,3.0,15.0,70.0,28.0,0.0,18.0,4.0
+Orange Julius Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,48.0,0.0
+Best Chocolate Cake Blizzard Medium,1020.0,47.0,19.0,80.0,400.0,136.0,2.0,107.0,19.0
+Chicken BLT Salad Grilled,270.0,11.0,5.0,80.0,1090.0,10.0,3.0,5.0,35.0
+Banana,110.0,0.0,0.0,0.0,0.0,27.0,3.0,14.0,1.0
+1/2 lb GrillBurger w/ Cheese,800.0,49.0,21.0,165.0,1110.0,42.0,2.0,12.0,47.0
+Triple Truffle Peanut Butter Caramel & Fudge Blizzard Small,660.0,27.0,18.0,50.0,240.0,94.0,1.0,80.0,14.0
+Coffee 16 oz,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Triple Chocolate Brownie,540.0,25.0,9.0,40.0,280.0,74.0,3.0,57.0,8.0
+Berry Pomegranate Julius Medium,340.0,0.0,0.0,0.0,45.0,84.0,1.0,81.0,1.0
+1/2 lb Flamethrower Grillburger,970.0,68.0,25.0,175.0,1580.0,39.0,2.0,9.0,51.0
+Pumpkin Pie Blizzard Large,950.0,33.0,20.0,75.0,580.0,145.0,6.0,111.0,19.0
+Royal New York Cheesecake Blizzard Medium,1030.0,46.0,21.0,100.0,530.0,135.0,2.0,106.0,19.0
+Royal Reeses Brownie Blizzard Medium,1170.0,58.0,24.0,90.0,790.0,142.0,5.0,111.0,26.0
+Vanilla Shake Large,860.0,29.0,20.0,80.0,340.0,128.0,0.0,113.0,22.0
+Chocolate Cone Large,470.0,14.0,9.0,45.0,200.0,75.0,0.0,52.0,12.0
+Chocolate Shake Small,530.0,19.0,14.0,45.0,220.0,77.0,1.0,67.0,13.0
+Mocha MooLatte Small,460.0,17.0,11.0,30.0,160.0,70.0,1.0,62.0,8.0
+Peanut Butter Shake Medium,930.0,53.0,20.0,60.0,590.0,91.0,3.0,69.0,22.0
+Salted Caramel Truffle Blizzard Treat Mini,440.0,20.0,12.0,40.0,220.0,61.0,1.0,50.0,8.0
+Chocolate Xtreme Mini Blizzard Cake,1900.0,80.0,58.0,120.0,890.0,269.0,5.0,207.0,34.0
+Pina Colada Julius Large,750.0,9.0,8.0,0.0,140.0,164.0,4.0,148.0,4.0
+Sunshine Orange Smoothie Light Large,230.0,0.0,0.0,0.0,25.0,56.0,0.0,52.0,0.0
+Chocolate Sundae Medium,400.0,10.0,6.0,30.0,150.0,70.0,1.0,60.0,8.0
+Royal New York Cheesecake Blizzard Small,750.0,33.0,15.0,75.0,380.0,99.0,1.0,78.0,15.0
+Biscuit Sandwich Sausage,400.0,24.0,8.0,195.0,810.0,18.0,1.0,1.0,15.0
+Butterfinger Blizzard Treat Medium,720.0,25.0,15.0,55.0,300.0,109.0,1.0,82.0,16.0
+Cheeseburger,370.0,18.0,8.0,60.0,870.0,31.0,1.0,7.0,21.0
+Make It a Malt Adds Small,60.0,0.5,0.0,0.0,50.0,12.0,0.0,8.0,1.0
+Berry Pomegranate Julius Large,500.0,0.5,0.0,0.0,70.0,125.0,1.0,121.0,1.0
+Potato Skins,270.0,15.0,6.0,35.0,1030.0,21.0,3.0,1.0,12.0
+3 Bacon,390.0,35.0,12.0,60.0,1280.0,1.0,0.0,1.0,20.0
+Hamburger,320.0,14.0,6.0,50.0,620.0,31.0,1.0,7.0,18.0
+Country Platter w/ Sausage,1060.0,62.0,19.0,405.0,2230.0,58.0,3.0,2.0,38.0
+Strawberry Banana Smoothie Light Large,260.0,0.0,0.0,0.0,25.0,71.0,2.0,64.0,2.0
+Mango Pineapple Smoothie Small,250.0,0.0,0.0,0.0,85.0,60.0,1.0,55.0,3.0
+Lays BBQ Potato Chips,230.0,15.0,2.0,0.0,230.0,23.0,2.0,3.0,3.0
+Caramel Funnel Cake,540.0,22.0,11.0,40.0,360.0,77.0,1.0,47.0,9.0
+Orange Juice 12 oz,190.0,0.0,0.0,0.0,25.0,44.0,0.0,40.0,3.0
+Misty Slush Large,340.0,0.0,0.0,0.0,55.0,86.0,0.0,85.0,0.0
+Royal Oreo Blizzard Small,760.0,28.0,16.0,50.0,460.0,114.0,1.0,87.0,15.0
+Pomegranate Berry Blast Light XLarge,360.0,1.0,0.0,0.0,30.0,92.0,2.0,87.0,1.0
+Original Cheeseburger Combo,550.0,26.0,9.0,60.0,1320.0,55.0,3.0,7.0,23.0
+Peanut Butter Sundae Large,780.0,44.0,13.0,45.0,520.0,79.0,3.0,58.0,18.0
+Peanut Buster Parfait,710.0,31.0,18.0,35.0,340.0,95.0,3.0,68.0,17.0
+4 Pc Honey BBQ Glazed Chicken Strip Basket,1290.0,68.0,11.0,85.0,3200.0,132.0,7.0,33.0,38.0
+Strawberry Funnel Cake,490.0,21.0,10.0,40.0,320.0,67.0,1.0,41.0,8.0
+OrangeBerry Xtreme Smoothie Large,420.0,0.5,0.0,0.0,170.0,103.0,1.0,90.0,6.0
+Caramel MooLatte Small,470.0,15.0,11.0,30.0,170.0,77.0,0.0,66.0,7.0
+Sunshine Orange Smoothie Medium,360.0,0.0,0.0,0.0,135.0,84.0,0.0,75.0,4.0
+Diet Coke Large,0.0,0.0,0.0,0.0,150.0,0.0,0.0,0.0,0.0
+Molten Lava Cake Hot Dessert,590.0,28.0,17.0,85.0,290.0,78.0,3.0,57.0,10.0
+Pineapple Sundae Large,470.0,14.0,9.0,45.0,180.0,76.0,1.0,66.0,11.0
+Oreo Cookies Blizzard Treat Medium,780.0,29.0,13.0,50.0,530.0,117.0,1.0,84.0,15.0
+DQ Bakes Cinnamon Pull-A-Parts,480.0,20.0,4.5,20.0,530.0,71.0,2.0,34.0,6.0
+Chocolate Dipped Cone Small,330.0,15.0,12.0,25.0,100.0,42.0,1.0,30.0,6.0
+Strawberry Banana Light Xlarge,380.0,0.5,0.0,0.0,30.0,104.0,3.0,94.0,3.0
+Royal Ultimate Choco Brownie Blizzard Mini,480.0,20.0,13.0,35.0,240.0,68.0,2.0,56.0,9.0
+Turtle Pecan Cluster Blizzard Treat Small,670.0,31.0,16.0,50.0,270.0,86.0,2.0,69.0,13.0
+Vanilla Shake Small,520.0,19.0,14.0,50.0,200.0,73.0,0.0,65.0,13.0
+2 Eggs,150.0,9.0,3.0,340.0,340.0,2.0,0.0,0.0,12.0
+Royal New York Cheesecake Blizzard Mini,440.0,18.0,8.0,40.0,210.0,61.0,1.0,49.0,9.0
+Milk,100.0,2.5,1.5,10.0,105.0,12.0,0.0,12.0,8.0
+Sausage 2 Pieces,170.0,14.0,4.5,45.0,420.0,0.0,0.0,0.0,12.0
+1/4 lb Mushroom Swiss GrillBurger Combo,770.0,44.0,14.0,100.0,1070.0,61.0,4.0,8.0,30.0
+Alaskan Pacific Cod Sandwich,410.0,18.0,3.0,30.0,1010.0,46.0,2.0,6.0,14.0
+1/2 lb Flame Thrower GrillBurger Combo,1150.0,76.0,26.0,175.0,2030.0,63.0,4.0,9.0,53.0
+Reeses Peanut Butter Cups Blizzard Treat Small,580.0,24.0,12.0,45.0,290.0,79.0,1.0,68.0,15.0
+Biscuits & Gravy,680.0,37.0,13.0,5.0,1850.0,51.0,1.0,3.0,7.0
+Reeses Peanut Butter Cups Blizzard Treat Mini,360.0,14.0,8.0,30.0,170.0,50.0,1.0,43.0,9.0
+Chocolate Xtreme Blizzard Treat Large,1120.0,50.0,28.0,100.0,600.0,155.0,6.0,123.0,22.0
+Tropical Green Tea Xtreme Smoothie Small,260.0,0.0,0.0,0.0,95.0,61.0,1.0,56.0,3.0
+Strawberry Smoothie Xlarge,540.0,1.0,0.0,0.0,220.0,137.0,2.0,123.0,9.0
+Butterfinger Blizzard Treat Small,510.0,18.0,11.0,40.0,220.0,77.0,1.0,59.0,11.0
+Tropi-Colada Light Medium,200.0,0.0,0.0,0.0,20.0,49.0,1.0,47.0,1.0
+Chicken Bacon BBQ Snack Melt,280.0,11.0,5.0,40.0,880.0,27.0,1.0,7.0,17.0
+Oreo Cookie Frappe Small,490.0,18.0,11.0,20.0,250.0,75.0,1.0,59.0,7.0
+Royal Reeses Brownie Blizzard Small,850.0,41.0,17.0,65.0,560.0,105.0,3.0,83.0,19.0
+Tripleberry Julius Medium,470.0,7.0,6.0,0.0,95.0,102.0,2.0,91.0,2.0
+Hot Fudge Shake Large,990.0,38.0,29.0,75.0,440.0,140.0,1.0,112.0,23.0
+Chocolate Shake Medium,710.0,23.0,16.0,60.0,290.0,110.0,1.0,96.0,16.0
+Pumpkin Pie Blizzard Medium,730.0,26.0,16.0,55.0,450.0,110.0,5.0,85.0,14.0
+Mango Pineapple Smoothie Light Medium,210.0,0.0,0.0,0.0,15.0,53.0,1.0,51.0,1.0
+Grilled Chicken Wrap Kids,250.0,10.0,2.5,40.0,780.0,22.0,1.0,1.0,18.0
+Turtle Pecan Cluster Blizzard Treat Mini,400.0,18.0,10.0,30.0,160.0,52.0,1.0,42.0,8.0
+Mega Chili Cheese Dog,760.0,49.0,21.0,100.0,1910.0,48.0,2.0,6.0,32.0
+Ultimate Breakfast Burrito Sausage,620.0,33.0,11.0,205.0,1370.0,57.0,4.0,1.0,23.0
+M&Ms Milk Chocolate Candies Blizzard Treat Medium,800.0,26.0,17.0,60.0,250.0,124.0,2.0,107.0,16.0
+Onion Rings Large,540.0,24.0,3.5,0.0,1260.0,71.0,3.0,5.0,9.0
+Country Platter w/ Ham,850.0,42.0,13.0,365.0,2350.0,60.0,3.0,2.0,28.0
+OrangeBerry Xtreme Smoothie Xlarge,590.0,0.5,0.0,0.0,210.0,145.0,1.0,128.0,8.0
+1/4 lb Flame Thrower GrillBurger Combo,900.0,57.0,17.0,105.0,1680.0,61.0,4.0,9.0,33.0
+Sunshine Orange Smoothie Light Medium,170.0,0.0,0.0,0.0,15.0,41.0,0.0,38.0,0.0
+OrangeBerry Xtreme Smoothie Medium,340.0,0.0,0.0,0.0,125.0,83.0,1.0,73.0,5.0
+Lemon Lime Misty Slush Large,340.0,0.0,0.0,0.0,55.0,86.0,0.0,85.0,0.0
+DQ Treatzza Pizza Reeses Peanut Butter Cup,200.0,10.0,6.0,5.0,110.0,24.0,1.0,17.0,3.0
+Mango Pineapple Light Xlarge,390.0,0.0,0.0,0.0,30.0,96.0,1.0,92.0,1.0
+Steak Finger Basket,910.0,48.0,13.0,45.0,2210.0,95.0,5.0,2.0,23.0
+A1 Bacon Cheeseburger,480.0,27.0,11.0,85.0,880.0,30.0,1.0,6.0,27.0
+1/4 lb GrillBurger w/ Cheese,540.0,30.0,12.0,90.0,1000.0,42.0,2.0,12.0,27.0
+Peanut Butter Sundae Medium,560.0,32.0,10.0,30.0,380.0,56.0,2.0,40.0,13.0
+Pancake Platter w/ Sausage,510.0,21.0,7.0,100.0,1110.0,60.0,3.0,11.0,21.0
+DQ Treatzza Pizza M&Ms Chocolate Candies,25.0,1.0,1.0,1.0,11.0,4.0,0.0,3.0,0.0
+Caramel Chip Frappe Large,760.0,28.0,22.0,40.0,230.0,117.0,1.0,98.0,10.0
+DQ Treatzza Pizza Heath,190.0,9.0,6.0,5.0,90.0,26.0,1.0,19.0,2.0
+DQ Ultimate Burger,720.0,47.0,19.0,125.0,1390.0,30.0,1.0,6.0,44.0
+Sunshine Orange Smoothie Small,250.0,0.0,0.0,0.0,90.0,60.0,0.0,54.0,3.0
+Mocha MooLatte Medium,580.0,22.0,13.0,35.0,210.0,88.0,1.0,77.0,10.0
+Blue Raspberry Misty Slush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+1/4 lb Cheese GrillBurger,540.0,30.0,12.0,90.0,1000.0,42.0,2.0,12.0,27.0
+Tropi-Colada Light Large,270.0,0.0,0.0,0.0,30.0,66.0,1.0,64.0,1.0
+Pomegranate Berry Blast Smoothie Light Medium,210.0,0.0,0.0,0.0,15.0,52.0,1.0,49.0,1.0
+Vanilla MooLatte Large,670.0,18.0,13.0,40.0,190.0,117.0,0.0,106.0,11.0
+Tripleberry Smoothie Light Large,260.0,1.0,0.0,0.0,20.0,66.0,2.0,63.0,1.0
+Crispy Chicken Sandwich Combo,710.0,37.0,5.5,60.0,1350.0,69.0,5.0,5.0,25.0
+Midnight Mocha Frappe Medium,630.0,30.0,18.0,30.0,210.0,85.0,2.0,73.0,9.0
+Milk 12 oz,220.0,9.0,6.0,35.0,210.0,21.0,0.0,21.0,15.0
+Caramel Sundae Large,600.0,16.0,10.0,55.0,260.0,102.0,0.0,81.0,12.0
+Cherry Misty Slush Small,200.0,0.0,0.0,0.0,35.0,50.0,0.0,50.0,0.0
+Strawberry Light Xlarge,380.0,0.0,0.0,0.0,35.0,102.0,2.0,97.0,2.0
+Strawberry Light Medium,210.0,0.0,0.0,0.0,20.0,56.0,1.0,54.0,1.0
+Best Chocolate Cake Blizzard Large,1520.0,73.0,34.0,105.0,560.0,201.0,5.0,161.0,26.0
+Country Platter w/ Bacon,1150.0,73.0,24.0,400.0,2790.0,55.0,3.0,2.0,39.0
+Banana Split Blizzard Treat Mini,280.0,8.0,5.0,25.0,105.0,47.0,1.0,39.0,6.0
+Hash Browns,180.0,12.0,2.0,0.0,360.0,18.0,2.0,0.0,1.0
+Relish Dog,350.0,20.0,8.0,35.0,1000.0,30.0,1.0,6.0,13.0
+Vanilla MooLatte Small,440.0,14.0,10.0,25.0,125.0,72.0,0.0,66.0,7.0
+Onion Rings Regular,360.0,16.0,2.5,0.0,840.0,48.0,2.0,3.0,6.0
+Orange Julius Medium,260.0,0.0,0.0,0.0,45.0,65.0,0.0,62.0,0.0
+Cherry Misty Slush Medium,260.0,0.0,0.0,0.0,40.0,65.0,0.0,64.0,0.0
+Chicken & Gravy Biscuit Sandwich,420.0,21.0,6.0,25.0,1020.0,29.0,1.0,1.0,13.0
+Milk Whole,220.0,9.0,6.0,35.0,210.0,21.0,0.0,21.0,15.0
+Strawberry Banana Smoothie Light Small,170.0,0.0,0.0,0.0,15.0,46.0,1.0,42.0,1.0
+Vanilla MooLatte Medium,530.0,16.0,11.0,35.0,150.0,90.0,0.0,81.0,8.0
+Kansas City BBQ Pulled Pork Sandwich Combo,610.0,23.0,5.5,90.0,1860.0,93.0,4.0,26.0,35.0
+Vanilla Cone Kids,170.0,4.5,3.0,15.0,65.0,27.0,0.0,18.0,4.0
+Tropical Green Tea Xtreme Smoothie Xlarge,600.0,1.0,1.0,0.0,230.0,142.0,1.0,130.0,8.0
+Tropi Colada Light Xlarge,360.0,0.0,0.0,0.0,40.0,88.0,2.0,85.0,2.0
+Reeses Peanut Butter Cups Mini Blizzard Cake,1750.0,74.0,50.0,100.0,830.0,242.0,4.0,192.0,34.0
+Chocolate Cone Medium,330.0,9.0,6.0,30.0,140.0,53.0,0.0,36.0,8.0

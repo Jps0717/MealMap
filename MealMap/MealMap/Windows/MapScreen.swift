@@ -50,15 +50,19 @@ struct MapScreen: View {
     @State private var isOpenNow: Bool = false
     @State private var maxDistance: Double = 5.0 // in miles
 
+    @State private var restaurantCache: [String: [Restaurant]] = [:] // Cache by area
+    @State private var lastSuccessfulFetch: CLLocationCoordinate2D?
+    @State private var pendingFetchTask: Task<Void, Never>?
+
     private let minimumGeocodeInterval: TimeInterval = 5.0
     private let minimumDistanceChange: CLLocationDegrees = 0.01
     private let zoomedOutThreshold: CLLocationDegrees = 0.5 // Threshold for showing state vs city
     private let pinVisibilityThreshold: CLLocationDegrees = 0.1 // Threshold for showing individual pins
     private let clusterVisibilityThreshold: CLLocationDegrees = 0.15 // Threshold for showing clusters
-    private let clusterUpdateThrottle: TimeInterval = 0.5 // Throttle cluster updates to every 0.5 seconds
 
-    private let minimumDataFetchInterval: TimeInterval = 2.0
-    private let minimumDataFetchDistance: CLLocationDegrees = 0.05
+    private let minimumDataFetchInterval: TimeInterval = 3.0 // Increased from 2.0
+    private let minimumDataFetchDistance: CLLocationDegrees = 0.08 // Increased from 0.05
+    private let clusterUpdateThrottle: TimeInterval = 0.8 // Increased from 0.5
 
     // List of restaurants with nutrition data
     private let restaurantsWithNutritionData = [
@@ -111,7 +115,7 @@ struct MapScreen: View {
     }
     
     private func getFilteredRestaurantsForDisplay(from restaurantList: [Restaurant]) -> [Restaurant] {
-        let maxRestaurants = showSearchResults ? 100 : 50 // Show more results when searching
+        let maxRestaurants = showSearchResults ? 75 : 30 // Reduced from 100:50
         let center = region.center
         let isZoomedIn = region.span.latitudeDelta <= pinVisibilityThreshold
         let isZoomedOutTooFar = region.span.latitudeDelta > clusterVisibilityThreshold && !showSearchResults
@@ -200,30 +204,35 @@ struct MapScreen: View {
                             let oldRegion = region
                             region = newRegion
                             
-                            // Only update area name if significantly moved
-                            let regionChange = abs(oldRegion.center.latitude - newRegion.center.latitude) + 
+                            // More aggressive throttling for area name updates
+                            let regionChange = abs(oldRegion.center.latitude - newRegion.center.latitude) +
                                              abs(oldRegion.center.longitude - newRegion.center.longitude)
-                            if regionChange > 0.01 {
+                            if regionChange > 0.02 { // Increased from 0.01
                                 updateAreaName(for: newRegion.center)
                             }
 
-                            // More efficient cluster and data updates with transition detection
+                            // More efficient cluster and data updates with better debouncing
                             let now = Date()
                             let zoomChange = abs(oldRegion.span.latitudeDelta - newRegion.span.latitudeDelta)
                             
-                            // Only update clusters if zoom changed significantly or enough time has passed and not searching
-                            if !showSearchResults && (zoomChange > 0.001 || now.timeIntervalSince(lastClusterUpdateTime) > clusterUpdateThrottle) {
-                                clusterManager.updateClusters(
-                                    restaurants: restaurants,
-                                    zoomLevel: newRegion.span.latitudeDelta,
-                                    span: newRegion.span,
-                                    center: newRegion.center,
-                                    debounceDelay: zoomChange > 0.005 ? 0.1 : 0.3
-                                )
-                                lastClusterUpdateTime = now
+                            // Only update clusters if zoom changed significantly or enough time has passed
+                            if !showSearchResults && (zoomChange > 0.005 || now.timeIntervalSince(lastClusterUpdateTime) > clusterUpdateThrottle) {
+                                // Debounce cluster updates more aggressively
+                                Task { @MainActor in
+                                    try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 second delay
+                                    clusterManager.updateClusters(
+                                        restaurants: restaurants,
+                                        zoomLevel: newRegion.span.latitudeDelta,
+                                        span: newRegion.span,
+                                        center: newRegion.center,
+                                        debounceDelay: zoomChange > 0.01 ? 0.05 : 0.5 // Faster for big changes
+                                    )
+                                    lastClusterUpdateTime = Date()
+                                }
                             }
 
-                            fetchRestaurantDataAndUpdateClusters(for: newRegion.center)
+                            // Debounce restaurant data fetching
+                            debouncedFetchRestaurantData(for: newRegion.center)
                         }
                     ), showsUserLocation: true, annotationItems: mapItems) { item in
                         MapAnnotation(coordinate: item.coordinate) {
@@ -236,7 +245,7 @@ struct MapScreen: View {
                                 )
                                 .transition(.asymmetric(
                                     insertion: clusterManager.transitionState == .mergingToClusters ? 
-                                        .scale(scale: 0.1).combined(with: .opacity) : 
+                                        .scale(scale: 0.1).combined(with: .opacity) :
                                         .scale.combined(with: .opacity),
                                     removal: clusterManager.transitionState == .splittingToIndividual ?
                                         .scale(scale: 3.0).combined(with: .opacity) :
@@ -509,6 +518,8 @@ struct MapScreen: View {
         }
         .onDisappear {
             clusterManager.clearCache()
+            pendingFetchTask?.cancel()
+            restaurantCache.removeAll()
         }
         .alert("Search Results", isPresented: $showSearchError) {
             Button("OK") { }
@@ -525,7 +536,10 @@ struct MapScreen: View {
 
         Task { @MainActor in
             do {
-                let placemarks = try await geocoder.reverseGeocodeLocation(location)
+                let placemarks = try await withTimeout(seconds: 3) {
+                    try await geocoder.reverseGeocodeLocation(location)
+                }
+                
                 guard let placemark = placemarks.first else {
                     print("No placemark found")
                     return
@@ -564,11 +578,11 @@ struct MapScreen: View {
                 print("Town: \(placemark.subLocality ?? "nil")")
                 print("State: \(placemark.administrativeArea ?? "nil")")
             } catch {
-                print("Geocoding error: \(error.localizedDescription)")
+                print("Geocoding error or timeout: \(error.localizedDescription)")
             }
         }
     }
-
+    
     private func shouldUpdateLocation(_ newLocation: CLLocationCoordinate2D) -> Bool {
         let timeSinceLastGeocode = Date().timeIntervalSince(lastGeocodeTime)
         guard timeSinceLastGeocode >= minimumGeocodeInterval else { return false }
@@ -582,8 +596,30 @@ struct MapScreen: View {
         return true
     }
 
+    private func debouncedFetchRestaurantData(for center: CLLocationCoordinate2D) {
+        // Cancel any pending fetch
+        pendingFetchTask?.cancel()
+        
+        // Schedule new fetch with delay
+        pendingFetchTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 second delay
+            
+            guard !Task.isCancelled else { return }
+            fetchRestaurantDataAndUpdateClusters(for: center)
+        }
+    }
+
     private func fetchRestaurantDataAndUpdateClusters(for center: CLLocationCoordinate2D) {
         guard shouldFetchNewData(for: center) && !isLoadingRestaurants else { return }
+        
+        // Check cache first
+        let cacheKey = "\(Int(center.latitude * 100))-\(Int(center.longitude * 100))"
+        if let cachedData = restaurantCache[cacheKey], !cachedData.isEmpty {
+            print("Using cached restaurant data for \(cacheKey)")
+            restaurants = cachedData
+            updateClustersAsync()
+            return
+        }
         
         // Update tracking variables immediately to prevent duplicate requests
         lastDataFetchLocation = center
@@ -594,22 +630,24 @@ struct MapScreen: View {
             do {
                 let fetched = try await overpassService.fetchFastFoodRestaurants(near: center)
                 print("Found \(fetched.count) restaurants in the current region")
-                if let firstRestaurant = fetched.first {
-                    print("First restaurant: \(firstRestaurant.name) at \(firstRestaurant.latitude), \(firstRestaurant.longitude)")
-                }
                 
                 await MainActor.run {
+                    // Cache the results
+                    restaurantCache[cacheKey] = fetched
+                    
+                    // Limit cache size to prevent memory issues
+                    if restaurantCache.count > 20 {
+                        let oldestKey = restaurantCache.keys.first
+                        if let key = oldestKey {
+                            restaurantCache.removeValue(forKey: key)
+                        }
+                    }
+                    
                     restaurants = fetched
                     isLoadingRestaurants = false
-                    // Always update clusters when new restaurant data arrives
-                    clusterManager.updateClusters(
-                        restaurants: restaurants,
-                        zoomLevel: region.span.latitudeDelta,
-                        span: region.span,
-                        center: region.center,
-                        debounceDelay: 0.3
-                    )
-                    print("Updated clusters with \(clusterManager.clusters.count) clusters")
+                    lastSuccessfulFetch = center
+                    
+                    updateClustersAsync()
                 }
             } catch {
                 await MainActor.run {
@@ -617,6 +655,19 @@ struct MapScreen: View {
                 }
                 print("Error fetching restaurants: \(error)")
             }
+        }
+    }
+    
+    private func updateClustersAsync() {
+        Task { @MainActor in
+            clusterManager.updateClusters(
+                restaurants: restaurants,
+                zoomLevel: region.span.latitudeDelta,
+                span: region.span,
+                center: region.center,
+                debounceDelay: 0.1
+            )
+            print("Updated clusters with \(clusterManager.clusters.count) clusters")
         }
     }
 
@@ -627,6 +678,15 @@ struct MapScreen: View {
         if let lastLocation = lastDataFetchLocation {
             let distance = abs(newCenter.latitude - lastLocation.latitude) +
                           abs(newCenter.longitude - lastLocation.longitude)
+            
+            if let successfulFetch = lastSuccessfulFetch {
+                let distanceFromSuccess = abs(newCenter.latitude - successfulFetch.latitude) +
+                                        abs(newCenter.longitude - successfulFetch.longitude)
+                if distanceFromSuccess < minimumDataFetchDistance {
+                    return false
+                }
+            }
+            
             return distance >= minimumDataFetchDistance
         }
         
@@ -733,6 +793,28 @@ struct MapScreen: View {
         showSearchResults = false
         searchManager.hasActiveSearch = false
     }
+    
+    private func withTimeout<T>(seconds: TimeInterval, operation: @escaping () async throws -> T) async throws -> T {
+        return try await withThrowingTaskGroup(of: T.self) { group in
+            group.addTask {
+                try await operation()
+            }
+            
+            group.addTask {
+                try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+                throw TimeoutError()
+            }
+            
+            guard let result = try await group.next() else {
+                throw TimeoutError()
+            }
+            
+            group.cancelAll()
+            return result
+        }
+    }
+
+    struct TimeoutError: Error {}
 }
 
 // MARK: - Enhanced Bottom Overlay Bar
@@ -844,10 +926,10 @@ struct FilterPanel: View {
 
     private func calculateContentHeight() -> CGFloat {
         let baseHeight: CGFloat = 160
-        let itemHeight: CGFloat = 76  
-        let spacing: CGFloat = 16     
+        let itemHeight: CGFloat = 76
+        let spacing: CGFloat = 16
         let padding: CGFloat = 32
-        let maxHeight: CGFloat = 600 
+        let maxHeight: CGFloat = 600
 
         let contentHeight: CGFloat
         switch selectedSection {

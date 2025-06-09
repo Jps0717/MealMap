@@ -1,0 +1,817 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Cheetos,310.0,21.0,4.0,0.0,500.0,26.0,1.0,2.0,3.0
+Baked Lay's,120.0,2.0,0.0,0.0,135.0,23.0,2.0,2.0,2.0
+Chili Regular,255.0,10.5,3.0,70.0,985.0,23.0,5.0,7.0,15.0
+Mac & Cheese,580.0,35.0,21.0,120.0,1150.0,52.0,3.0,2.0,19.0
+Chili in a Bread Bowl,820.0,28.0,7.0,65.0,1910.0,108.0,7.0,7.0,35.0
+Broccoli Cheese Soup in a Bread Bowl,760.0,27.0,8.0,35.0,2210.0,103.0,5.0,4.0,31.0
+Acai Vinaigrette,140.0,11.0,1.5,0.0,280.0,10.0,0.0,9.0,0.0
+Cheddar Kids,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Peppercorn Caesar,310.0,32.0,6.0,25.0,550.0,4.0,0.0,2.0,2.0
+Red Wine Vinaigrette Kids,90.0,9.0,1.5,0.0,220.0,2.0,0.0,1.0,0.0
+Broccoli Cheese Soup Small,85.0,4.5,2.5,15.0,855.0,8.0,1.0,1.0,4.0
+Broccoli Cheese Soup w/ 2 Crackers Small,110.0,5.0,2.5,15.0,930.0,12.0,1.0,1.0,4.0
+Broccoli Cheese Soup w/ 2 Crackers Regular,180.0,9.0,4.5,25.0,1610.0,17.0,1.0,2.0,7.0
+Broccoli Cheese Soup Regular,155.0,8.5,4.5,25.0,1535.0,13.0,1.0,2.0,7.0
+Chicken Soup Small,65.0,2.5,0.5,15.0,815.0,8.0,1.0,1.0,4.0
+Chicken Soup Regular,115.0,4.0,1.0,25.0,1465.0,15.0,1.0,2.0,7.0
+Chicken Noodle Soup w/ 2 Crackers Small,90.0,3.0,0.5,15.0,890.0,12.0,1.0,1.0,4.0
+Chicken Noodle Soup w/ 2 Crackers Regular,140.0,4.5,1.0,25.0,1540.0,19.0,1.0,2.0,7.0
+Chili Small,145.0,5.5,1.5,40.0,545.0,13.0,3.0,4.0,8.0
+Chili w/ 2 Crackers Small,170.0,6.0,1.5,40.0,620.0,17.0,3.0,4.0,8.0
+Chili w/ 2 Crackers Regular,280.0,11.0,3.0,70.0,1060.0,27.0,5.0,7.0,15.0
+Chicken Tortilla Soup Small,95.0,5.5,2.5,15.0,475.0,8.0,1.0,2.0,5.0
+Chicken Tortilla Soup Regular,175.0,9.5,4.0,30.0,845.0,15.0,2.0,4.0,8.0
+Chicken Tortilla Soup w/ 2 Crackers Small,120.0,6.0,25.0,15.0,550.0,12.0,1.0,2.0,5.0
+Chicken Tortilla Soup w/ 2 Crackers Regular,200.0,10.0,4.0,30.0,920.0,19.0,2.0,4.0,8.0
+Chicken Tortilla Soup in a Bread Bowl,770.0,28.0,8.0,40.0,1830.0,104.0,5.0,5.0,31.0
+Tomato Bisque Soup Small,105.0,7.5,4.0,20.0,565.0,12.0,1.0,5.0,3.0
+Tomato Bisque Soup Regular,185.0,12.5,7.0,40.0,1015.0,21.0,2.0,9.0,5.0
+Tomato Bisque Soup w/ 2 Crackers Small,130.0,8.0,4.0,20.0,640.0,16.0,1.0,5.0,3.0
+Tomato Bisque Soup w/ 2 Crackers Regular,210.0,13.0,7.0,40.0,1090.0,25.0,2.0,9.0,5.0
+Tomato Bisque Soup in a Bread Bowl,690.0,22.0,5.0,20.0,1780.0,106.0,5.0,8.0,24.0
+Clam Chowder Small,145.0,8.5,4.5,20.0,775.0,14.0,1.0,3.0,3.0
+Clam Chowder Regular,255.0,15.5,8.0,35.0,1395.0,25.0,1.0,5.0,5.0
+Clam Chowder w/ 2 Crackers Small,170.0,9.0,4.5,20.0,850.0,18.0,1.0,3.0,3.0
+Clam Chowder w/ 2 Crackers Regular,280.0,16.0,8.0,35.0,1470.0,29.0,1.0,5.0,5.0
+Clam Chowder in a Bread Bowl,730.0,23.0,6.0,20.0,1990.0,108.0,5.0,6.0,24.0
+Ham,80.0,3.0,1.0,20.0,490.0,3.0,0.0,2.0,10.0
+Apple Harvest Chicken Half,200.0,8.0,2.0,25.0,320.0,20.0,4.0,14.0,13.0
+Apple Harvest Chicken Full,40.0,16.0,3.5,50.0,630.0,42.0,7.0,29.0,25.0
+Honey Mustard Chicken Half,130.0,7.0,3.0,45.0,510.0,3.0,1.0,1.0,17.0
+Honey Mustard Chicken Full,270.0,12.0,6.0,90.0,1020.0,6.0,3.0,3.0,35.0
+Pizza Flatbread Cheese Kids,260.0,10.0,4.5,20.0,460.0,30.0,1.0,5.0,12.0
+Peppercorn Caesar Half,80.0,1.0,0.0,30.0,380.0,4.0,2.0,2.0,14.0
+Peppercorn Caesar Full,170.0,4.0,2.0,65.0,760.0,7.0,2.0,3.0,28.0
+Chocolate Chunk Cookie,390.0,19.0,11.0,55.0,170.0,54.0,1.0,31.0,4.0
+Cinnamon Sugar Cookie,400.0,17.0,11.0,50.0,290.0,58.0,1.0,33.0,4.0
+Oatmeal Raisin Cookie,360.0,12.0,7.0,50.0,200.0,58.0,3.0,34.0,5.0
+Chocolate Brownie,310.0,16.0,3.5,15.0,150.0,40.0,2.0,24.0,4.0
+Egg & Cheddar Sub,370.0,16.0,6.0,270.0,760.0,39.0,1.0,4.0,18.0
+Egg & Cheddar Grilled Flatbread,330.0,15.0,6.0,275.0,660.0,31.0,1.0,5.0,16.0
+Egg & Cheddar Biscuit,420.0,24.0,12.0,270.0,1240.0,38.0,1.0,6.0,15.0
+Ham & Egg Sub,360.0,13.0,5.0,155.0,860.0,39.0,1.0,5.0,19.0
+Ham & Egg Grilled Flatbread,300.0,12.0,5.0,155.0,760.0,32.0,1.0,5.0,17.0
+Ham & Egg Biscuit,400.0,21.0,12.0,155.0,1340.0,39.0,1.0,6.0,17.0
+Bacon & Egg Sub,470.0,24.0,9.0,170.0,1170.0,38.0,1.0,5.0,25.0
+Bacon & Egg Grilled Flatbread,400.0,23.0,9.0,170.0,1070.0,31.0,1.0,4.0,24.0
+Bacon & Egg Biscuit,510.0,31.0,15.0,170.0,1650.0,38.0,1.0,6.0,23.0
+Sausage & Egg Sub,490.0,28.0,11.0,175.0,970.0,39.0,1.0,5.0,20.0
+Sausage & Egg Grilled Flatbread,450.0,27.0,11.0,180.0,870.0,32.0,1.0,4.0,18.0
+Sausage & Egg Biscuit,530.0,36.0,17.0,175.0,1450.0,39.0,1.0,6.0,18.0
+SW Steak & Egg Sub,500.0,28.0,8.0,165.0,1300.0,40.0,1.0,5.0,21.0
+SW Steak & Egg Grilled Flatbread,450.0,27.0,8.0,170.0,1200.0,33.0,2.0,5.0,19.0
+SW Steak & Egg Biscuit,540.0,36.0,14.0,165.0,1790.0,40.0,1.0,6.0,18.0
+Honey Mustard,290.0,26.0,4.0,20.0,330.0,12.0,0.0,10.0,1.0
+Artisan Wheat,114.0,1.5,0.0,0.0,246.0,21.0,1.2,3.0,4.2
+Italian White,120.0,1.8,0.9,0.0,228.0,21.6,0.6,1.8,4.2
+Rosemary Parmesan,114.0,1.8,0.6,0.0,222.0,19.8,0.6,1.2,4.2
+Turkey Breast,80.0,2.5,0.0,25.0,670.0,2.0,0.0,1.0,13.0
+Swiss,50.0,4.0,0.5,5.0,10.0,1.0,0.0,0.0,4.0
+Mayo,50.0,5.0,1.0,5.0,200.0,2.0,0.0,1.0,0.0
+Yellow Mustard,15.0,1.0,0.0,0.0,220.0,1.0,1.0,0.0,1.0
+Fat Free Balsamic,30.0,0.0,0.0,0.0,170.0,8.0,0.0,5.0,0.0
+Chicken Noodle Soup in a Bread Bowl,650.0,17.0,2.0,15.0,2030.0,103.0,5.0,4.0,25.0
+Jalapeno Cheddar,132.0,2.4,1.2,3.0,300.0,22.8,0.6,1.8,4.8
+Balsamic Vinaigrette,80.0,0.0,0.0,0.0,450.0,20.0,0.0,12.0,0.0
+Red Wine Vinaigrette,240.0,24.0,4.0,0.0,580.0,4.0,0.0,3.0,0.0
+6 in Grilled Flatbread,160.0,3.5,0.5,0.0,290.0,28.0,1.0,3.0,5.0
+Pickles,0.0,0.0,0.0,0.0,160.0,0.0,0.0,0.0,0.0
+Sauteed Mushrooms,20.0,2.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Salad for Side Garden Salad,60.0,3.0,1.0,5.0,90.0,6.0,1.0,2.0,4.0
+Pizza Flatbread Pepperoni Kids,400.0,21.0,9.0,50.0,940.0,34.0,2.0,5.0,18.0
+Raspberry Lemonade 21 oz,45.0,0.0,0.0,0.0,15.0,11.0,0.0,11.0,0.0
+Raspberry Lemonade 32 oz,70.0,0.0,0.0,0.0,25.0,17.0,0.0,17.0,0.0
+Kettle Cooked BBQ Chips,180.0,8.0,1.0,0.0,190.0,26.0,2.0,3.0,2.0
+Baked Lay's Barbeque,140.0,4.0,1.0,0.0,220.0,24.0,2.0,4.0,2.0
+Lay's Classic,240.0,16.0,2.0,0.0,250.0,23.0,2.0,1.0,3.0
+Ruffles Sour Cream & Cheddar,240.0,15.0,3.0,0.0,280.0,23.0,2.0,2.0,3.0
+Lay's Barbeque,230.0,15.0,2.0,0.0,230.0,23.0,2.0,3.0,3.0
+Miss Vickie's Salt & Vinegar,210.0,12.0,2.0,0.0,230.0,23.0,2.0,2.0,2.0
+Miss Vickie's Jalapeno,210.0,12.0,2.0,0.0,180.0,22.0,2.0,2.0,3.0
+Sun Chips Harvest Cheddar,210.0,9.0,2.0,0.0,320.0,27.0,4.0,3.0,4.0
+Doritos Nacho Cheese,240.0,13.0,2.0,0.0,370.0,28.0,2.0,1.0,3.0
+Side Pasta Salad,170.0,7.0,1.0,0.0,260.0,22.0,1.0,2.0,8.0
+Side Garden Salad w/ Dressing,240.0,21.0,4.0,5.0,520.0,9.0,1.0,4.0,4.0
+Dressing for Side Garden Salad,180.0,18.0,3.0,0.0,430.0,3.0,0.0,2.0,0.0
+Mozzarella,40.0,3.0,2.0,10.0,60.0,0.0,0.0,0.0,4.0
+Fresh Green Peppers,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Peppercorn Steak on Flatbread,440.0,26.0,6.0,50.0,910.0,32.0,4.0,3.0,19.0
+Peppercorn Steak 12 in,1270.0,68.0,16.0,150.0,2680.0,106.0,9.0,13.0,61.0
+Peppercorn Steak 8 in,830.0,43.0,11.0,95.0,1770.0,70.0,6.0,9.0,41.0
+Peppercorn Steak 4 in,410.0,22.0,5.0,50.0,890.0,35.0,3.0,4.0,20.0
+Black Angus Steak 12 in,1160.0,43.0,19.0,150.0,2930.0,125.0,9.0,33.0,72.0
+Black Angus Steak 8 in,770.0,29.0,13.0,100.0,1930.0,82.0,6.0,21.0,48.0
+Black Angus Steak 4 in,380.0,14.0,6.0,50.0,970.0,41.0,3.0,10.0,24.0
+Black Angus Steak on Flatbread,390.0,16.0,6.0,50.0,990.0,39.0,4.0,10.0,23.0
+Pesto Caesar 12 in,1130.0,49.0,15.0,150.0,2920.0,101.0,9.0,13.0,76.0
+Pesto Caesar 4 in,370.0,16.0,5.0,50.0,960.0,34.0,3.0,5.0,25.0
+Pesto Caesar 8 in,740.0,32.0,10.0,100.0,1930.0,68.0,6.0,9.0,51.0
+Carbonara 4 in,450.0,23.0,6.0,60.0,1100.0,34.0,2.0,5.0,28.0
+Carbonara 8 in,890.0,46.0,13.0,115.0,2210.0,68.0,5.0,9.0,56.0
+Carbonara 12 in,1360.0,70.0,20.0,175.0,3340.0,103.0,7.0,14.0,83.0
+Carbonara on Flatbread,470.0,26.0,7.0,60.0,1130.0,31.0,3.0,3.0,26.0
+Ultimate Turkey Club 4 in,370.0,16.0,6.0,50.0,1200.0,34.0,3.0,5.0,24.0
+Ultimate Turkey Club 8 in,770.0,33.0,12.0,100.0,2390.0,68.0,6.0,8.0,48.0
+Ultimate Turkey Club 12 in,1120.0,50.0,19.0,150.0,3620.0,102.0,9.0,14.0,72.0
+Ultimate Turkey Club on Flatbread,380.0,19.0,6.0,50.0,1220.0,31.0,4.0,3.0,22.0
+Turkey Bacon Guacamole 4 in,420.0,20.0,6.0,45.0,1240.0,36.0,4.0,5.0,25.0
+Turkey Bacon Guacamole 8 in,840.0,41.0,12.0,90.0,2480.0,74.0,9.0,11.0,50.0
+Turkey Bacon Guacamole 12 in,1260.0,62.0,18.0,140.0,3740.0,108.0,13.0,15.0,74.0
+Turkey Bacon Guacamole on Flatbread,430.0,23.0,6.0,45.0,1260.0,33.0,5.0,4.0,23.0
+Meatball Sub 3 in Kids,410.0,19.0,6.0,40.0,940.0,40.0,4.0,6.0,22.0
+Turkey Ranch & Swiss 4 in,350.0,15.0,5.0,45.0,970.0,32.0,2.0,5.0,21.0
+Turkey Ranch & Swiss 8 in,650.0,26.0,9.0,80.0,1810.0,68.0,6.0,9.0,40.0
+Turkey Ranch & Swiss 12 in,990.0,40.0,13.0,120.0,2740.0,102.0,9.0,14.0,60.0
+Base for 4 in Turkey Ranch & Swiss,240.0,5.0,1.5,25.0,785.0,30.0,2.0,5.0,17.0
+Cheese for 4 in Turkey Ranch & Swiss,50.0,4.0,2.5,15.0,25.0,1.0,0.0,0.0,4.0
+Dressing for 4 in Turkey Ranch & Swiss,60.0,6.0,1.0,5.0,160.0,1.0,0.0,0.0,0.0
+Base for 8 in Turkey Ranch & Swiss,420.0,5.0,2.0,40.0,1435.0,65.0,6.0,8.0,31.0
+Dressing for 8 in Turkey Ranch & Swiss,120.0,13.0,2.0,15.0,320.0,1.0,0.0,1.0,1.0
+Base for 12 in Turkey Ranch & Swiss,630.0,8.0,2.0,60.0,2150.0,98.0,9.0,12.0,48.0
+Cheese for 12 in Turkey Ranch & Swiss,160.0,12.0,8.0,40.0,80.0,2.0,0.0,1.0,11.0
+Turkey Ranch & Swiss on Flatbread,340.0,16.0,4.5,40.0,930.0,31.0,4.0,3.0,19.0
+Dressing for Flatbread Turkey Ranch & Swiss,70.0,8.0,1.0,10.0,190.0,1.0,0.0,0.0,0.0
+Base for Flatbread Turkey Ranch & Swiss,220.0,4.0,1.0,15.0,715.0,29.0,4.0,3.0,15.0
+Base for 4 in Turkey Bacon Guacamole,320.0,11.0,3.0,30.0,1020.0,35.0,4.0,5.0,21.0
+Base for 8 in Turkey Bacon Guacamole,590.0,18.0,6.0,65.0,2100.0,72.0,9.0,10.0,43.0
+Cheese for 8 in Turkey Bacon Guacamole,80.0,6.0,3.5,20.0,120.0,1.0,0.0,0.0,7.0
+Dressing for 8 in Turkey Bacon Guacamole,170.0,17.0,2.5,5.0,260.0,1.0,0.0,1.0,0.0
+Base for 12 in Turkey Bacon Guacamole,940.0,33.0,10.0,95.0,3050.0,105.0,13.0,13.0,62.0
+Cheese for 12 in Turkey Bacon Guacamole,120.0,9.0,5.0,25.0,180.0,1.0,0.0,1.0,11.0
+Base for Flatbread Turkey Bacon Guacamole,320.0,12.0,3.0,25.0,1010.0,32.0,5.0,4.0,19.0
+Base for 4 in Ultimate Turkey Club,265.0,7.0,2.5,30.0,940.0,32.0,3.0,4.0,20.0
+Cheese for 4 in Ultimate Turkey Club,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Dressing for 4 in Ultimate Turkey Club,45.0,4.5,0.5,5.0,170.0,2.0,0.0,1.0,0.0
+Base for 8 in Ultimate Turkey Club,540.0,15.0,4.5,60.0,1870.0,65.0,6.0,8.0,41.0
+Cheese for 8 in Ultimate Turkey Club,110.0,9.0,6.0,30.0,180.0,0.0,0.0,0.0,7.0
+Dressing for 8 in Ultimate Turkey Club,90.0,9.0,1.5,10.0,340.0,3.0,0.0,1.0,0.0
+Dressing for 12 in Chipotle Turkey,350.0,38.0,6.0,25.0,570.0,2.0,0.0,1.0,1.0
+Base for 12 in Ultimate Turkey Club,810.0,22.0,8.0,90.0,2820.0,96.0,9.0,12.0,61.0
+Dressing for 12 in Ultimate Turkey Club,140.0,14.0,2.0,15.0,540.0,5.0,0.0,2.0,0.0
+Base for Flatbread Ultimate Turkey Club,270.0,9.5,2.0,30.0,930.0,29.0,4.0,2.0,18.0
+Cheese for Flatbread Ultimate Turkey Club,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Basil Pesto Turkey 4 in,330.0,13.0,4.5,40.0,1040.0,34.0,3.0,5.0,22.0
+Base for 4 in Basil Pesto Turkey,240.0,5.0,2.0,25.0,820.0,33.0,3.0,5.0,18.0
+Base for 4 in The Traditional,230.0,5.5,1.0,20.0,770.0,35.0,3.0,6.0,15.0
+Cheese for 4 in Basil Pesto Turkey,40.0,3.0,2.0,10.0,60.0,0.0,0.0,0.0,4.0
+Dressing for 4 in Basil Pesto Turkey,50.0,5.0,0.5,5.0,160.0,1.0,0.0,0.0,0.0
+Basil Pesto Turkey 8 in,670.0,26.0,9.0,75.0,2080.0,67.0,6.0,9.0,44.0
+Base for 8 in Basil Pesto Turkey,480.0,9.0,4.0,50.0,1640.0,64.0,6.0,8.0,36.0
+Dressing for 8 in Basil Pesto Turkey,110.0,11.0,1.5,5.0,320.0,2.0,0.0,1.0,1.0
+Basil Pesto Turkey 12 in,1010.0,40.0,14.0,115.0,3160.0,101.0,9.0,13.0,67.0
+Base for 12 in Basil Pesto Turkey,720.0,14.0,7.0,80.0,2470.0,96.0,8.0,11.0,55.0
+Base for 12 in Tuna,810.0,21.0,4.0,75.0,2040.0,106.0,8.0,13.0,58.0
+Dressing for 12 in Basil Pesto Turkey,170.0,17.0,2.0,10.0,510.0,4.0,1.0,1.0,1.0
+Basil Pesto Turkey on Flatbread,350.0,15.0,4.5,35.0,1070.0,30.0,4.0,3.0,21.0
+Base for Flatbread Basil Pesto Turkey,250.0,6.0,1.5,20.0,820.0,29.0,4.0,3.0,17.0
+Dressing for Flatbread Basil Pesto Turkey,60.0,6.0,1.0,5.0,190.0,1.0,0.0,0.0,0.0
+Classic Italian 4 in,450.0,25.0,8.0,45.0,1280.0,37.0,3.0,7.0,21.0
+Base for 4 in Classic Italian,330.0,14.0,5.0,35.0,1040.0,36.0,3.0,6.0,17.0
+Dressing for 4 in Classic Italian,80.0,8.0,1.0,0.0,180.0,1.0,0.0,1.0,0.0
+Classic Italian 8 in,900.0,51.0,17.0,95.0,2560.0,73.0,6.0,13.0,42.0
+Base for 8 in Classic Italian,670.0,30.0,11.0,75.0,2080.0,69.0,6.0,11.0,35.0
+Dressing for 8 in Classic Italian,150.0,15.0,2.5,0.0,360.0,3.0,0.0,2.0,0.0
+Classic Italian 12 in,1370.0,78.0,26.0,140.0,3880.0,109.0,9.0,20.0,62.0
+Base for 12 in Classic Italian,1010.0,45.0,17.0,115.0,3120.0,104.0,9.0,16.0,51.0
+Classic Italian on Flatbread,470.0,29.0,9.0,50.0,1310.0,33.0,4.0,5.0,19.0
+Base for Flatbread Classic Italian,340.0,17.0,5.5,40.0,1030.0,31.0,4.0,4.0,15.0
+The Traditional 4 in,350.0,16.0,5.0,40.0,1020.0,36.0,3.0,6.0,19.0
+Cheese for 4 in The Traditional,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+The Traditional 8 in,710.0,31.0,10.0,85.0,2050.0,72.0,6.0,12.0,39.0
+Base for 8 in The Traditional,430.0,5.0,1.5,50.0,1610.0,71.0,6.0,11.0,32.0
+The Traditional 12 in,1070.0,48.0,16.0,130.0,3100.0,108.0,9.0,17.0,58.0
+Base for 8 in Baja,560.0,15.0,5.0,80.0,1710.0,64.0,5.0,6.0,46.0
+Base for 12 in The Traditional,700.0,14.0,4.0,65.0,2330.0,105.0,9.0,16.0,46.0
+The Traditional on Flatbread,370.0,18.0,5.0,45.0,1050.0,33.0,4.0,5.0,18.0
+Base for Flatbread The Traditional,240.0,5.5,1.0,20.0,770.0,32.0,4.0,5.0,14.0
+Honey Bacon Club 4 in,430.0,19.0,6.0,45.0,1170.0,43.0,3.0,12.0,24.0
+Base for 4 in Honey Bacon Club,300.0,9.0,4.5,40.0,1035.0,36.0,3.0,6.0,20.0
+Dressing for 4 in Honey Bacon Club,80.0,6.0,1.0,0.0,125.0,6.0,0.0,6.0,0.0
+Honey Bacon Club 8 in,850.0,38.0,13.0,85.0,2330.0,84.0,6.0,24.0,47.0
+Cheese for 8 in Honey Bacon Club,110.0,8.0,5.0,25.0,55.0,2.0,0.0,0.0,8.0
+Base for 8 in Honey Bacon Club,570.0,17.0,6.0,60.0,1985.0,68.0,6.0,12.0,39.0
+Dressing for 8 in Honey Bacon Club,170.0,13.0,2.0,0.0,290.0,14.0,0.0,12.0,0.0
+Honey Bacon Club 12 in,1290.0,58.0,19.0,130.0,3520.0,127.0,9.0,37.0,71.0
+Base for 12 in Honey Bacon Club,860.0,26.0,8.0,90.0,3040.0,104.0,9.0,16.0,60.0
+Dressing for 12 in Honey Bacon Club,270.0,20.0,3.0,0.0,400.0,21.0,0.0,20.0,0.0
+Honey Bacon Club on Flatbread,440.0,22.0,6.0,40.0,1180.0,40.0,4.0,12.0,22.0
+Base for Flatbread Honey Bacon Club,290.0,10.0,5.0,35.0,1020.0,31.0,4.0,5.0,18.0
+Dressing for Flatbread Honey Bacon Club,100.0,8.0,1.0,0.0,150.0,8.0,0.0,7.0,0.0
+Spicy Monterey 4 in,300.0,9.0,3.5,30.0,1100.0,39.0,3.0,8.0,19.0
+Spicy Monterey 8 in,600.0,18.0,7.0,60.0,2210.0,77.0,6.0,17.0,37.0
+Spicy Monterey 12 in,900.0,27.0,10.0,90.0,3340.0,116.0,9.0,25.0,56.0
+Mesquite 4 in,400.0,18.0,7.0,65.0,1100.0,34.0,3.0,5.0,27.0
+Spicy Monterey on Flatbread,310.0,11.0,3.5,30.0,1120.0,36.0,4.0,7.0,17.0
+Base for 4 in Spicy Monterey,225.0,4.0,1.5,20.0,910.0,35.0,3.0,5.0,15.0
+Base for 8 in Spicy Monterey,450.0,7.5,3.0,35.0,1830.0,69.0,6.0,11.0,30.0
+Base for 12 in Spicy Monterey,270.0,11.0,4.0,55.0,2740.0,103.0,9.0,15.0,45.0
+Base for Flatbread Spicy Monterey,230.0,5.5,1.5,15.0,900.0,32.0,4.0,4.0,13.0
+Dressing for 4 in Spicy Monterey,35.0,2.0,0.0,0.0,130.0,4.0,0.0,3.0,0.0
+Dressing for 8 in Spicy Monterey,70.0,4.5,0.5,5.0,260.0,7.0,0.0,6.0,0.0
+Dressing for 12 in Spicy Monterey,110.0,7.0,1.0,10.0,420.0,12.0,0.0,9.0,0.0
+Dressing for Flatbread Spicy Monterey,40.0,2.5,0.0,5.0,160.0,4.0,0.0,3.0,0.0
+Veggie Guacamole 4 in,390.0,22.0,7.0,25.0,720.0,38.0,4.0,8.0,15.0
+Veggie Guacamole 8 in,790.0,43.0,15.0,50.0,1440.0,75.0,8.0,15.0,30.0
+Veggie Guacamole 12 in,1190.0,67.0,22.0,75.0,2190.0,112.0,13.0,23.0,44.0
+Veggie Guacamole on Flatbread,430.0,26.0,8.0,25.0,770.0,35.0,6.0,5.0,14.0
+Base for 4 in Veggie Guacamole,210.0,6.0,1.0,0.0,390.0,36.0,4.0,7.0,8.0
+Base for 8 in Veggie Guacamole,440.0,13.0,3.0,5.0,780.0,71.0,8.0,12.0,16.0
+Base for 12 in Veggie Guacamole,650.0,20.0,4.0,5.0,1170.0,106.0,13.0,19.0,23.0
+Base for Flatbread Veggie Guacamole,240.0,9.0,2.0,0.0,400.0,32.0,6.0,4.0,7.0
+Cheese for 8 in Veggie Guacamole,200.0,15.0,10.0,45.0,300.0,1.0,0.0,1.0,14.0
+Cheese for 12 in Veggie Guacamole,300.0,23.0,14.0,70.0,440.0,2.0,0.0,1.0,21.0
+Tuna 4 in,400.0,19.0,6.0,40.0,950.0,37.0,3.0,6.0,23.0
+Tuna 8 in,800.0,38.0,11.0,80.0,1900.0,74.0,5.0,11.0,46.0
+Tuna 12 in,1120.0,59.0,17.0,120.0,2880.0,111.0,8.0,16.0,69.0
+Tuna on Flatbread,420.0,22.0,6.0,40.0,980.0,34.0,4.0,4.0,21.0
+Base for 4 in Tuna,260.0,6.5,2.0,25.0,680.0,36.0,3.0,5.0,19.0
+Base for 8 in Tuna,540.0,14.0,2.5,50.0,1360.0,71.0,5.0,9.0,39.0
+Base for Flatbread Tuna,270.0,8.5,1.5,25.0,670.0,32.0,4.0,3.0,17.0
+Cheese for 4 in Tuna,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Mesquite 8 in,810.0,37.0,13.0,125.0,2210.0,68.0,6.0,6.0,54.0
+Mesquite 12 in,1220.0,57.0,20.0,190.0,3350.0,101.0,8.0,14.0,81.0
+Mesquite on Flatbread,420.0,21.0,7.0,65.0,1130.0,30.0,4.0,3.0,26.0
+Base for 4 in Mesquite,280.0,7.5,3.0,45.0,850.0,33.0,3.0,5.0,23.0
+Base for 8 in Mesquite,530.0,11.0,4.5,90.0,1770.0,67.0,6.0,8.0,47.0
+Base for 12 in Mesquite,850.0,23.0,8.0,125.0,2580.0,98.0,8.0,13.0,69.0
+Base for Flatbread Mesquite,290.0,8.5,3.0,40.0,850.0,29.0,4.0,3.0,22.0
+Cheese for 4 in Mesquite,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Pesto Caesar on Flatbread,390.0,19.0,5.0,50.0,990.0,30.0,4.0,3.0,24.0
+Base for 4 in Pesto Caesar,220.0,3.0,1.0,30.0,630.0,32.0,3.0,5.0,18.0
+Base for 8 in Pesto Caesar,440.0,6.0,2.0,60.0,1270.0,65.0,6.0,7.0,37.0
+Base for 12 in Pesto Caesar,650.0,8.0,3.0,90.0,1900.0,96.0,8.0,11.0,55.0
+Base for Flatbread Pesto Caesar,220.0,4.0,1.0,30.0,630.0,28.0,4.0,3.0,17.0
+Cheese for 4 in Pesto Caesar,70.0,5.0,3.0,15.0,170.0,1.0,0.0,0.0,6.0
+Cheese for 8 in Pesto Caesar,140.0,10.0,6.0,30.0,340.0,1.0,0.0,1.0,13.0
+Cheese for 12 in Pesto Caesar,220.0,15.0,9.0,45.0,510.0,2.0,0.0,1.0,19.0
+Dressing for 4 in Pesto Caesar,80.0,8.0,1.0,5.0,160.0,1.0,0.0,0.0,1.0
+Dressing for 8 in Pesto Caesar,160.0,16.0,3.0,10.0,320.0,2.0,0.0,1.0,1.0
+Dressing for 12 in Pesto Caesar,260.0,26.0,4.0,15.0,510.0,3.0,1.0,1.0,2.0
+Dressing for Flatbread Pesto Caesar,100.0,10.0,2.0,5.0,190.0,1.0,0.0,0.0,1.0
+Honey Mustard 4 in,430.0,20.0,6.0,60.0,990.0,38.0,3.0,8.0,27.0
+Honey Mustard 8 in,860.0,39.0,13.0,120.0,1980.0,75.0,6.0,15.0,54.0
+Honey Mustard 12 in,1300.0,61.0,19.0,185.0,2990.0,113.0,8.0,23.0,81.0
+Honey Mustard on Flatbread,450.0,23.0,7.0,60.0,1000.0,35.0,4.0,7.0,26.0
+Base for 4 in Honey Mustard,290.0,8.0,2.0,40.0,860.0,33.0,3.0,5.0,23.0
+Base for 8 in Honey Mustard,570.0,14.0,5.5,80.0,1715.0,66.0,6.0,9.0,46.0
+Base for 12 in Honey Mustard,850.0,23.0,7.0,125.0,2580.0,99.0,8.0,12.0,69.0
+Base for Flatbread Honey Mustard,290.0,9.0,3.0,35.0,850.0,30.0,4.0,3.0,22.0
+Dressing for 4 in Honey Mustard,90.0,8.0,1.5,5.0,15.0,4.0,0.0,3.0,0.0
+Dressing for 8 in Honey Mustard,180.0,17.0,2.5,15.0,210.0,7.0,0.0,6.0,0.0
+Dressing for Flatbread Honey Mustard,110.0,10.0,1.5,10.0,125.0,4.0,0.0,4.0,0.0
+Base for 4 in Carbonara,310.0,10.0,2.5,40.0,880.0,32.0,2.0,4.0,23.0
+Base for 8 in Carbonara,610.0,20.0,6.0,80.0,1770.0,63.0,5.0,7.0,47.0
+Base for 12 in Carbonara,910.0,29.0,9.0,125.0,2650.0,95.0,7.0,10.0,69.0
+Base for Flatbread Carbonara,310.0,11.0,3.0,40.0,880.0,28.0,3.0,2.0,21.0
+Dressing for 4 in Carbonara,100.0,10.0,1.5,10.0,160.0,2.0,0.0,1.0,1.0
+Dressing for 8 in Carbonara,200.0,20.0,3.5,15.0,320.0,4.0,0.0,2.0,2.0
+Dressing for 12 in Carbonara,330.0,32.0,6.0,25.0,510.0,7.0,0.0,3.0,3.0
+Dressing for Flatbread Carbonara,120.0,12.0,2.0,10.0,190.0,3.0,0.0,1.0,1.0
+Baja 4 in,400.0,18.0,7.0,60.0,1180.0,35.0,2.0,7.0,26.0
+Baja 8 in,810.0,36.0,13.0,120.0,2360.0,71.0,5.0,13.0,53.0
+Baja 12 in,1230.0,55.0,20.0,180.0,3590.0,107.0,7.0,21.0,79.0
+Baja on Flatbread,420.0,21.0,7.0,60.0,1220.0,32.0,3.0,6.0,25.0
+Base for 4 in Baja,270.0,7.5,3.0,40.0,850.0,31.0,2.0,4.0,22.0
+Base for 12 in Baja,840.0,22.0,8.0,120.0,2570.0,94.0,7.0,10.0,67.0
+Base for Flatbread Baja,280.0,9.5,3.0,40.0,850.0,28.0,3.0,2.0,21.0
+Cheese for 4 in Baja,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Cheese for Baja on Flatbread,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Dressing for 4 in Baja,70.0,6.0,1.0,5.0,240.0,4.0,0.0,3.0,0.0
+Dressing for 8 in Baja,140.0,12.0,2.0,10.0,470.0,7.0,0.0,7.0,0.0
+Dressing for 12 in Baja,220.0,19.0,3.0,15.0,760.0,12.0,0.0,11.0,1.0
+Dressing for Baja on Flatbread,80.0,7.0,1.0,5.0,280.0,4.0,0.0,4.0,0.0
+Base for 4 in Black Angus Steak,245.0,5.5,1.0,25.0,690.0,32.0,3.0,3.0,17.0
+Base for 8 in Black Angus Steak,500.0,13.0,3.0,55.0,1370.0,66.0,6.0,6.0,33.0
+Base for 12 in Black Angus Steak,740.0,18.0,5.0,80.0,2070.0,98.0,10.0,8.0,50.0
+Base for Flatbread Black Angus Steak,245.0,7.5,1.0,25.0,680.0,29.0,4.0,2.0,16.0
+Cheese for 4 in Black Angus Steak,100.0,8.0,5.0,25.0,150.0,1.0,0.0,0.0,7.0
+Dressing for 4 in Black Angus Steak,35.0,0.5,0.0,0.0,130.0,8.0,0.0,7.0,0.0
+Dressing for 8 in Black Angus Steak,70.0,1.0,0.0,0.0,260.0,15.0,0.0,14.0,1.0
+Dressing for 12 in Black Angus Steak,120.0,2.0,0.0,0.0,420.0,25.0,1.0,22.0,1.0
+Dressing for Flatbread Black Angus Steak,45.0,0.5,0.0,0.0,160.0,9.0,0.0,8.0,0.0
+Chipotle Steak & Cheddar 4 in,420.0,23.0,6.0,50.0,950.0,34.0,3.0,4.0,20.0
+Chipotle Steak & Cheddar 8 in,840.0,45.0,13.0,105.0,1970.0,68.0,6.0,11.0,42.0
+Chipotle Steak & Cheddar 12 in,1270.0,70.0,19.0,150.0,2890.0,101.0,8.0,12.0,61.0
+Chipotle Steak & Cheddar on Flatbread,440.0,26.0,7.0,50.0,980.0,30.0,4.0,2.0,19.0
+Base for 4 in Chipotle Steak & Cheddar,250.0,6.5,1.0,25.0,680.0,33.0,3.0,4.0,16.0
+Base for 8 in Chipotle Steak & Cheddar,510.0,12.0,3.5,60.0,1440.0,67.0,6.0,10.0,35.0
+Base for 12 in Chipotle Steak & Cheddar,750.0,18.0,4.0,80.0,2060.0,98.0,8.0,11.0,49.0
+Base for Flatbread Chipotle Steak & Cheddar,250.0,7.5,2.0,25.0,680.0,29.0,4.0,2.0,15.0
+Cheese for 4 in Chipotle Steak & Cheddar,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Dressing for 4 in Chipotle Steak & Cheddar,110.0,12.0,2.0,10.0,180.0,1.0,0.0,0.0,0.0
+Dressing for 8 in Chipotle Steak & Cheddar,220.0,24.0,3.5,15.0,350.0,1.0,0.0,1.0,0.0
+Dressing for Flatbread Chipotle Steak & Cheddar,130.0,14.0,2.0,10.0,210.0,1.0,0.0,0.0,0.0
+Base for 4 in Peppercorn Steak,250.0,6.0,1.0,25.0,690.0,34.0,3.0,3.0,16.0
+Base for 8 in Peppercorn Steak,510.0,11.0,3.5,50.0,1370.0,66.0,6.0,8.0,33.0
+Base for 12 in Peppercorn Steak,760.0,18.0,5.0,85.0,2060.0,101.0,9.0,10.0,49.0
+Base for Flatbread Peppercorn Steak,250.0,8.0,1.5,25.0,680.0,30.0,4.0,2.0,15.0
+Cheese for Flatbread Peppercorn Steak,40.0,3.0,2.0,15.0,60.0,0.0,0.0,0.0,4.0
+Dressing for 4 in Peppercorn Steak,120.0,13.0,2.0,15.0,140.0,1.0,0.0,1.0,0.0
+Dressing for 8 in Peppercorn Steak,240.0,26.0,4.0,25.0,280.0,3.0,0.0,1.0,1.0
+Dressing for 12 in Peppercorn Steak,390.0,41.0,6.0,40.0,440.0,4.0,0.0,2.0,1.0
+Dressing for Flatbread Peppercorn Steak,150.0,15.0,2.5,15.0,170.0,2.0,0.0,1.0,0.0
+Steak Bacon & Swiss 4 in,410.0,19.0,6.0,55.0,1110.0,36.0,3.0,5.0,25.0
+Steak Bacon & Swiss 8 in,790.0,36.0,13.0,110.0,2180.0,70.0,5.0,8.0,50.0
+Steak Bacon & Swiss 12 in,1200.0,54.0,19.0,170.0,3310.0,106.0,8.0,12.0,75.0
+Steak Bacon & Swiss on Flatbread,420.0,21.0,7.0,55.0,1130.0,33.0,4.0,3.0,24.0
+Base for 4 in Steak Bacon & Swiss,315.0,10.5,3.0,35.0,915.0,33.0,3.0,4.0,21.0
+Base for 8 in Steak Bacon & Swiss,590.0,19.0,6.5,75.0,1785.0,65.0,5.0,7.0,42.0
+Base for 12 in Steak Bacon & Swiss,900.0,28.0,9.0,115.0,2690.0,99.0,8.0,9.0,64.0
+Base for Flatbread Steak Bacon & Swiss,320.0,12.0,3.5,35.0,905.0,30.0,4.0,2.0,20.0
+Ranch,200.0,20.0,3.0,20.0,510.0,2.0,0.0,1.0,1.0
+2 Crackers,25.0,0.5,0.0,0.0,75.0,4.0,0.0,0.0,0.0
+Italian Meatball 4 in,540.0,28.0,10.0,65.0,1200.0,43.0,5.0,7.0,33.0
+Italian Meatball 8 in,1090.0,57.0,19.0,135.0,2390.0,86.0,10.0,13.0,66.0
+Italian Meatball 12 in,1630.0,85.0,29.0,200.0,3590.0,129.0,16.0,20.0,99.0
+Base for 4 in Italian Meatball,440.0,21.5,6.5,45.0,1035.0,39.0,4.0,5.0,25.0
+Base for 8 in Italian Meatball,895.0,45.0,12.0,100.0,2060.0,78.0,9.0,8.0,51.0
+Base for 12 in Italian Meatball,1330.0,66.5,18.0,125.0,3095.0,118.0,14.0,14.0,76.0
+Cheese for 8 in Italian Meatball,160.0,11.0,7.0,35.0,240.0,2.0,0.0,1.0,14.0
+Cheese for 12 in Italian Meatball,250.0,17.0,11.0,55.0,360.0,2.0,0.0,1.0,21.0
+Dressing for 4 in Italian Meatball,20.0,0.5,0.0,0.0,45.0,3.0,1.0,2.0,1.0
+Dressing for 8 in Italian Meatball,35.0,1.0,0.0,0.0,90.0,6.0,1.0,4.0,1.0
+Dressing for 12 in Italian Meatball,50.0,1.5,0.0,0.0,135.0,9.0,2.0,5.0,2.0
+Lobster & Seafood Salad Full,200.0,9.0,2.0,40.0,930.0,19.0,5.0,5.0,13.0
+Lobster & Seafood Salad Half,90.0,4.0,1.0,20.0,470.0,10.0,3.0,2.0,7.0
+Mac & Cheese w/ Bacon,700.0,44.0,25.0,140.0,1600.0,53.0,3.0,2.0,28.0
+Mac & Cheese w/ Chicken,640.0,36.0,21.0,150.0,1470.0,53.0,3.0,2.0,31.0
+Base for Egg & Cheddar Sub,310.0,11.5,3.0,255.0,670.0,39.0,1.0,4.0,14.0
+Cheese for Egg & Cheddar Sub,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Base for Egg & Cheddar Flatbread,270.0,11.0,3.0,260.0,570.0,31.0,1.0,5.0,12.0
+Cheese for SW Steak & Egg Biscuit,60.0,5.0,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Base for Egg & Cheddar Biscuit,360.0,20.0,9.0,255.0,1150.0,38.0,1.0,6.0,11.0
+Base for Ham & Egg Sub,300.0,9.0,2.0,140.0,770.0,39.0,1.0,5.0,15.0
+Base for Ham & Egg Flatbread,240.0,7.5,2.0,140.0,670.0,32.0,1.0,5.0,13.0
+Base for Ham & Egg Biscuit,340.0,17.0,9.0,140.0,1250.0,39.0,1.0,6.0,13.0
+Base for Bacon & Egg Sub,410.0,20.0,6.0,155.0,1080.0,38.0,1.0,5.0,21.0
+Base for Bacon & Egg Flatbread,360.0,19.0,6.0,155.0,980.0,31.0,1.0,4.0,20.0
+Base for Bacon & Egg Biscuit,450.0,26.5,13.0,155.0,1570.0,38.0,1.0,5.0,23.0
+Base for Sausage & Egg Sub,430.0,24.0,8.0,160.0,880.0,39.0,1.0,5.0,16.0
+Base for Sausage & Egg Grilled Flatbread,390.0,23.0,8.0,165.0,780.0,32.0,1.0,4.0,14.0
+Base for Sausage & Egg Biscuit,470.0,32.0,14.0,160.0,1360.0,39.0,1.0,6.0,14.0
+Base for SW Steak & Egg Sub,310.0,10.0,3.0,140.0,960.0,39.0,1.0,5.0,17.0
+Base for Southwest Steak & Egg Grilled Flatbread,260.0,9.0,3.0,145.0,860.0,32.0,2.0,5.0,15.0
+Base for Southwest Steak & Egg Biscuit,350.0,18.0,9.0,140.0,1450.0,39.0,1.0,6.0,14.0
+Dressing for Southwest Steak & Egg Sub Biscuit & Grilled Flatbread,130.0,14.0,2.0,10.0,250.0,1.0,0.0,0.0,0.0
+Black Olives,10.0,1.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+Cucumber,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Fresh Mushrooms,5.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Guacamole,60.0,5.0,1.0,0.0,105.0,3.0,2.0,0.0,1.0
+Lettuce,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Red Onions,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Sauteed Green Peppers,20.0,2.5,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Tomatoes,5.0,0.0,0.0,0.0,0.0,2.0,0.0,1.0,0.0
+Base for Kids Meatball Flatbread,360.0,17.5,5.0,35.0,930.0,32.0,3.0,4.0,19.0
+Cheese for Kids Meatball 3 in Sub,20.0,1.5,1.0,5.0,30.0,0.0,0.0,0.0,2.0
+Base for Kids Meatball 3 in Sub,390.0,17.5,5.0,35.0,910.0,40.0,4.0,6.0,20.0
+Triple Cheese Sub 3 in Kids,230.0,10.0,6.0,25.0,420.0,23.0,1.0,2.0,12.0
+Mac & Cheese Kids,330.0,13.0,8.0,40.0,280.0,39.0,2.0,2.0,11.0
+Meatball Marinara Kids,330.0,9.0,2.5,15.0,430.0,47.0,3.0,6.0,14.0
+Sun Chips Garden Salsa,210.0,9.0,1.0,0.0,220.0,27.0,4.0,4.0,4.0
+Sauteed Onions,25.0,2.5,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Mac & Cheese w/ Bacon & Chicken,760.0,45.0,25.0,170.0,1920.0,53.0,3.0,3.0,40.0
+Mac & Cheese w/ Lobster,630.0,35.0,21.0,135.0,1470.0,57.0,4.0,3.0,25.0
+Ham & Swiss Ciabatta Toastie,490.0,21.0,5.0,40.0,1210.0,58.0,2.0,9.0,20.0
+Little Italy Ciabatta Toastie,550.0,28.0,9.0,45.0,1520.0,52.0,2.0,5.0,23.0
+Southwest Club Ciabatta Toastie,490.0,23.0,5.0,40.0,1350.0,48.0,2.0,3.0,23.0
+Chipotle Turkey 4 in,380.0,19.0,6.0,45.0,980.0,34.0,3.0,5.0,20.0
+Shroomalicious 4 in,340.0,13.0,4.0,40.0,1000.0,35.0,3.0,4.0,21.0
+Shroomalicious 8 in,670.0,26.0,8.0,80.0,1980.0,70.0,5.0,8.0,41.0
+Shroomalicious 12 in,1020.0,40.0,12.0,125.0,3020.0,105.0,8.0,12.0,62.0
+Chipotle Turkey 8 in,750.0,38.0,11.0,85.0,1960.0,67.0,6.0,9.0,39.0
+Chipotle Turkey 12 in,1150.0,60.0,17.0,130.0,2980.0,100.0,9.0,14.0,58.0
+A1 Steak Dip 4 in,370.0,13.0,5.0,45.0,1660.0,45.0,2.0,3.0,21.0
+A1 Steak Dip 8 in,710.0,25.0,10.0,85.0,2710.0,83.0,4.0,6.0,40.0
+A1 Steak Dip 12 in,1060.0,38.0,15.0,130.0,3840.0,122.0,6.0,9.0,60.0
+A1 Steak Dip Flatbread,370.0,15.0,5.0,45.0,1660.0,39.0,4.0,3.0,20.0
+Chipotle Turkey on Flatbread,400.0,23.0,6.0,45.0,1010.0,30.0,4.0,3.0,18.0
+Shroomalicious on Flatbread,340.0,15.0,4.0,40.0,1020.0,32.0,4.0,3.0,19.0
+Italian Meatball on Flatbread,540.0,30.0,10.0,65.0,1190.0,39.0,6.0,5.0,32.0
+Ultimate Turkey Club NYC area 8 in,710.0,30.0,12.0,95.0,2280.0,68.0,6.0,9.0,45.0
+Honey Bacon Club NYC Area 8 in,820.0,35.0,12.0,80.0,2220.0,84.0,6.0,24.0,45.0
+Baja Chicken 8 in,780.0,34.0,12.0,115.0,2250.0,71.0,5.0,13.0,51.0
+Base for 4 in A1 Steak Dip,250.0,6.0,2.0,30.0,770.0,37.0,2.0,2.0,16.0
+Cheese for 4 in A1 Steak Dip,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Dressing for 4 in A1 Steak Dip,30.0,2.5,0.0,0.0,210.0,2.0,0.0,0.0,0.0
+Au Jus for 4 in A1 Steak Dip,30.0,0.0,0.0,0.0,590.0,6.0,0.0,1.0,1.0
+Base for 8 in A1 Steak Dip,510.0,11.5,3.5,50.0,1510.0,73.0,4.0,4.0,32.0
+Dressing for 8 in A1 Steak Dip,60.0,4.5,0.5,5.0,430.0,4.0,0.0,1.0,0.0
+Base for 12 in A1 Steak Dip,770.0,17.0,5.0,75.0,2310.0,108.0,6.0,7.0,48.0
+Dressing for 12 in A1 Steak Dip,90.0,7.0,1.0,10.0,680.0,7.0,0.0,1.0,0.0
+Base for A1 Steak Dip Flatbread,245.0,8.0,2.0,25.0,720.0,30.0,4.0,2.0,15.0
+Cheese for A1 Steak Dip Flatbread,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Dressing for A1 Steak Dip Flatbread,35.0,2.5,0.0,5.0,260.0,3.0,0.0,0.0,0.0
+Stack It! A1 Steak Dip,60.0,1.5,0.5,25.0,380.0,2.0,0.0,0.0,10.0
+Base for 4 in Chipotle Turkey,210.0,2.5,1.0,20.0,710.0,33.0,3.0,5.0,16.0
+Cheese for 4 in Chipotle Turkey,60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Base for 8 in Chipotle Turkey,420.0,5.0,1.5,40.0,1430.0,66.0,6.0,8.0,32.0
+Dressing for 8 in Chipotle Turkey,220.0,24.0,3.5,15.0,350.0,1.0,0.0,1.0,0.0
+Base for 12 in Chipotle Turkey,630.0,8.0,2.0,60.0,2150.0,97.0,9.0,13.0,46.0
+Base for Flatbread Chipotle Turkey,210.0,4.5,1.0,20.0,710.0,29.0,4.0,3.0,14.0
+Base for 4 in Shroomalicious,255.0,5.5,1.5,25.0,770.0,33.0,3.0,3.0,17.0
+Base for 8 in Shroomalicious,500.0,11.0,3.0,50.0,1520.0,66.0,5.0,7.0,34.0
+Base for 12 in Shroomalicious,760.0,17.0,5.0,85.0,2300.0,99.0,8.0,9.0,51.0
+Base for Flatbread Shroomalicious,250.0,7.0,1.0,25.0,760.0,30.0,4.0,2.0,15.0
+Base for Flatbread Italian Meatball,440.0,23.5,6.5,45.0,1025.0,35.0,5.0,3.0,24.0
+"Base for Chipotle Turkey 4""",230.0,2.5,0.0,30.0,830.0,36.0,2.0,5.0,16.0
+"French Dip 4""",400.0,16.0,4.5,50.0,1670.0,40.0,2.0,5.0,22.0
+Base for Italian Meatball on Flatbread,440.0,23.5,6.5,45.0,1025.0,35.0,5.0,3.0,24.0
+"Honey Bacon Club 8"" Regional",810.0,31.0,10.0,90.0,2150.0,90.0,4.0,22.0,42.0
+Base for Chipotle Steak & Cheddar on Flatbread,250.0,7.5,2.0,25.0,680.0,29.0,4.0,2.0,15.0
+"Base for Spicy Monterey 8""",480.0,6.5,2.0,45.0,1980.0,75.0,4.0,9.0,30.0
+"Dressing for Honey Bacon Club 8""",170.0,13.0,2.0,0.0,290.0,14.0,0.0,12.0,0.0
+"Italian Meatball 8""",1100.0,55.0,19.0,130.0,2460.0,92.0,9.0,11.0,65.0
+Raspberry Lemonade 32 oz,70.0,0.0,0.0,0.0,25.0,17.0,0.0,17.0,0.0
+"Base for Honey Bacon Club 12""",910.0,30.0,7.0,130.0,3610.0,95.0,9.0,14.0,60.0
+"Cheese for Turkey Ranch & Swiss 12""",160.0,12.0,8.0,40.0,80.0,2.0,0.0,1.0,11.0
+"Dressing for Chipotle Turkey 12""",350.0,38.0,6.0,25.0,570.0,2.0,0.0,1.0,1.0
+Base for Ham & Egg Sub,300.0,9.0,2.0,140.0,770.0,39.0,1.0,5.0,15.0
+Lettuce Kids,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Base for Sausage & Egg Biscuit,470.0,32.0,14.0,160.0,1360.0,39.0,1.0,6.0,14.0
+Dressing for Honey Mustard on Flatbread,110.0,10.0,1.5,10.0,125.0,4.0,0.0,4.0,0.0
+Apple Harvest Chicken Full,540.0,28.0,5.0,50.0,910.0,52.0,7.0,39.0,26.0
+Chili w/ 2 Crackers Small,185.0,5.5,1.5,40.0,625.0,23.0,6.0,4.0,11.0
+"Peppercorn Steak 12""",1290.0,66.0,16.0,145.0,2780.0,114.0,6.0,10.0,60.0
+"French Dip 12""",1140.0,45.0,14.0,145.0,3370.0,119.0,6.0,16.0,62.0
+Dressing for Apple Harvest Chicken Half,140.0,11.0,1.5,0.0,280.0,10.0,0.0,9.0,0.0
+Red Onions Kids,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+"Base for Italian Meatball 12""",1350.0,64.5,18.0,140.0,3195.0,126.0,11.0,11.0,75.0
+"Baja 4""",410.0,17.0,6.0,60.0,1210.0,38.0,1.0,6.0,26.0
+Egg & Cheddar Grilled Flatbread,330.0,15.0,6.0,275.0,660.0,31.0,1.0,5.0,16.0
+"Dressing for Turkey Bacon Guacamole 8""",170.0,17.0,2.5,5.0,260.0,1.0,0.0,1.0,0.0
+"Base for Honey Mustard 4""",300.0,7.0,2.0,40.0,890.0,35.0,2.0,4.0,23.0
+"Baja 12""",1190.0,47.0,17.0,180.0,3510.0,115.0,5.0,18.0,75.0
+Chili w/ 2 Crackers Regular,315.0,10.5,2.5,75.0,1055.0,38.0,10.0,8.0,20.0
+Miss Vickies Salt & Vinegar,210.0,12.0,2.0,0.0,230.0,23.0,2.0,2.0,2.0
+"Ultimate Turkey Club 4""",400.0,16.0,6.0,60.0,1220.0,37.0,2.0,5.0,25.0
+Mac & Cheese w/ Chicken,640.0,36.0,21.0,150.0,1470.0,53.0,3.0,2.0,31.0
+"Classic Italian 8""",930.0,51.0,17.0,90.0,2740.0,78.0,4.0,11.0,40.0
+Base for Chef Salad Half,160.0,8.0,4.0,45.0,660.0,8.0,2.0,4.0,16.0
+"Cheese for Classic Italian 12""",120.0,9.0,5.0,25.0,180.0,1.0,0.0,1.0,11.0
+"Dressing for Gyro 12""",110.0,8.0,8.0,0.0,160.0,5.0,0.0,2.0,2.0
+Baked Lays Barbeque,140.0,4.0,1.0,0.0,220.0,24.0,2.0,4.0,2.0
+"Base for Chipotle Steak & Cheddar 4""",250.0,5.5,1.0,25.0,720.0,35.0,2.0,3.0,16.0
+Yellow Mustard Kids,15.0,1.0,0.0,0.0,220.0,1.0,1.0,0.0,1.0
+"Dressing for Italian Meatball 12""",50.0,1.5,0.0,0.0,135.0,9.0,2.0,5.0,2.0
+"Base for Black Angus Steak 4""",255.0,4.5,1.0,25.0,730.0,35.0,2.0,2.0,16.0
+Base for Peppercorn Steak on Flatbread,250.0,8.0,1.5,25.0,680.0,30.0,4.0,2.0,15.0
+SW Steak & Egg Sub,500.0,28.0,8.0,165.0,1300.0,40.0,1.0,5.0,21.0
+Base for The Traditional on Flatbread,250.0,6.5,1.0,20.0,840.0,32.0,4.0,5.0,14.0
+"Base for Turkey Ranch & Swiss 4""",240.0,3.0,0.5,30.0,835.0,36.0,2.0,5.0,17.0
+"Ultimate Turkey Club 8"" Regional",720.0,26.0,10.0,115.0,2200.0,74.0,4.0,9.0,44.0
+"Turkey Ranch & Swiss 4""",350.0,13.0,4.0,50.0,930.0,38.0,2.0,5.0,21.0
+"Dressing for Chipotle Turkey 4""",110.0,12.0,2.0,10.0,180.0,1.0,0.0,0.0,0.0
+Mac & Cheese w/ Bacon & Chicken,760.0,45.0,25.0,170.0,1920.0,53.0,3.0,3.0,40.0
+"Mesquite 4""",410.0,18.0,7.0,60.0,1140.0,37.0,2.0,4.0,27.0
+Base for Classic Italian on Flatbread,340.0,16.0,5.5,35.0,1090.0,31.0,4.0,4.0,15.0
+"Lobster & Seafood Sub 8""",710.0,34.0,17.0,100.0,1790.0,80.0,5.0,6.0,24.0
+"Base for Turkey Bacon Guacamole 8""",640.0,18.0,6.0,90.0,2330.0,79.0,7.0,10.0,44.0
+Broccoli Cheese Soup in a Bread Bowl,770.0,27.0,11.0,35.0,1970.0,104.0,5.0,6.0,30.0
+"Base for Spicy Monterey 4""",245.0,4.0,1.0,25.0,990.0,38.0,2.0,5.0,15.0
+Sausage & Egg Grilled Flatbread,450.0,27.0,11.0,180.0,870.0,32.0,1.0,4.0,18.0
+Egg & Cheddar Biscuit,420.0,24.0,12.0,270.0,1240.0,38.0,1.0,6.0,15.0
+"Base for Gyro 8""",765.0,37.5,15.5,75.0,2065.0,80.0,5.0,6.0,46.0
+Base for Lobster & Seafood Salad Half,90.0,4.0,1.0,20.0,470.0,11.0,3.0,3.0,7.0
+"Italian Meatball 12""",1650.0,83.0,29.0,195.0,3690.0,137.0,13.0,17.0,98.0
+"Base for Classic Italian 8""",700.0,30.0,11.0,70.0,2260.0,74.0,4.0,9.0,33.0
+Base for Bacon & Egg Sub,410.0,20.0,6.0,155.0,1080.0,38.0,1.0,5.0,21.0
+Lobster & Seafood Salad Full,390.0,29.0,4.5,60.0,1440.0,22.0,6.0,7.0,15.0
+"Dressing for Southwest Chicken 12""",350.0,38.0,6.0,25.0,570.0,2.0,0.0,1.0,1.0
+"Veggie Guacamole 8""",810.0,44.0,14.0,50.0,1610.0,81.0,7.0,10.0,28.0
+Ham & Egg Sub,360.0,13.0,5.0,155.0,860.0,39.0,1.0,5.0,19.0
+Herb Toast,160.0,11.0,1.5,0.0,250.0,15.0,1.0,1.0,3.0
+Chef Salad Full,510.0,36.0,10.0,110.0,1820.0,16.0,4.0,8.0,33.0
+"Dressing for Baja 12""",220.0,19.0,3.0,15.0,760.0,12.0,0.0,11.0,1.0
+Base for Bacon & Egg Biscuit,450.0,26.5,13.0,155.0,1570.0,38.0,1.0,5.0,19.0
+Broccoli Cheese Soup Regular,220.0,14.0,9.0,25.0,1380.0,18.0,1.0,6.0,6.0
+"Base for Honey Bacon Club 4""",310.0,9.0,4.5,45.0,1105.0,39.0,2.0,6.0,20.0
+"Dressing for Honey Bacon Club 4""",80.0,6.0,1.0,0.0,125.0,6.0,0.0,6.0,0.0
+Cheetos,310.0,21.0,4.0,0.0,500.0,26.0,1.0,2.0,3.0
+"Lobster & Seafood Sub 12""",1060.0,51.0,26.0,145.0,2680.0,120.0,7.0,10.0,36.0
+"Dressing for Turkey Bacon Guacamole 4""",60.0,6.0,1.0,5.0,160.0,1.0,0.0,0.0,0.0
+Honey Mustard on Flatbread,420.0,21.0,7.0,60.0,1220.0,32.0,3.0,6.0,25.0
+"Base for Carbonara 8""",580.0,14.0,4.0,80.0,1720.0,68.0,3.0,5.0,43.0
+"Dressing for Turkey Ranch & Swiss 12""",200.0,20.0,3.0,20.0,510.0,2.0,0.0,1.0,1.0
+"Cheese for Ultimate Turkey Club 4""",60.0,4.5,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+"Base for Baja 12""",800.0,14.0,5.0,120.0,2490.0,102.0,5.0,7.0,63.0
+"Dressing for Black Angus Steak 12""",110.0,0.5,0.0,0.0,450.0,25.0,1.0,22.0,1.0
+Mayo,50.0,5.0,1.0,5.0,200.0,2.0,0.0,1.0,0.0
+Broccoli Cheese Soup w/ 2 Crackers Small,145.0,8.5,5.0,15.0,835.0,14.0,1.0,3.0,4.0
+"Classic Italian 12""",1410.0,78.0,25.0,140.0,4150.0,117.0,6.0,17.0,60.0
+"Baja 8""",780.0,31.0,11.0,120.0,2310.0,76.0,3.0,11.0,50.0
+"Dressing for Ultimate Turkey Club 4""",45.0,4.5,0.5,5.0,170.0,2.0,0.0,1.0,0.0
+"Dressing for Baja 8""",140.0,12.0,2.0,10.0,470.0,7.0,0.0,7.0,0.0
+Veggie Guacamole on Flatbread,420.0,25.0,7.0,25.0,800.0,34.0,5.0,5.0,13.0
+"Dressing for Mesquite 4""",60.0,6.0,1.0,5.0,160.0,1.0,0.0,0.0,0.0
+"Base for Peppercorn Steak 4""",260.0,5.0,1.0,25.0,720.0,37.0,2.0,2.0,16.0
+Ruffles Sour Cream & Cheddar,240.0,15.0,3.0,0.0,280.0,23.0,2.0,2.0,3.0
+"Black Angus Steak 4""",390.0,13.0,6.0,50.0,1010.0,44.0,2.0,9.0,23.0
+BBQ Chicken Ranch Half,330.0,25.0,5.0,65.0,1100.0,9.0,2.0,5.0,18.0
+"Dressing for Honey Mustard 8""",180.0,17.0,2.5,15.0,210.0,7.0,0.0,6.0,0.0
+Greek Gyro Salad Half,350.0,26.0,15.0,45.0,910.0,15.0,3.0,5.0,22.0
+Chipotle Steak & Cheddar on Flatbread,440.0,26.0,7.0,50.0,980.0,30.0,4.0,2.0,19.0
+"Dressing for Italian Meatball 4""",20.0,0.5,0.0,0.0,45.0,3.0,1.0,2.0,1.0
+Base for Ham & Egg Biscuit,340.0,17.0,9.0,140.0,1250.0,39.0,1.0,6.0,13.0
+Chef Salad Half,360.0,28.0,7.0,65.0,1170.0,10.0,2.0,5.0,17.0
+Dressing for Gyro Salad Half,100.0,7.0,7.0,0.0,140.0,4.0,0.0,2.0,2.0
+"Base for Italian Meatball 4""",450.0,21.5,6.5,45.0,1065.0,44.0,4.0,4.0,25.0
+Tomatoes Kids,5.0,0.0,0.0,0.0,0.0,2.0,0.0,1.0,0.0
+"Base for Honey Mustard 8""",570.0,14.0,5.5,80.0,1715.0,66.0,6.0,9.0,46.0
+Honey Bacon Club on Flatbread,450.0,22.0,6.0,50.0,1230.0,41.0,4.0,12.0,23.0
+"Base for Veggie Guacamole 12""",700.0,20.0,4.0,0.0,1430.0,115.0,10.0,10.0,21.0
+Dressing for Baja on Flatbread,80.0,7.0,1.0,5.0,280.0,4.0,0.0,4.0,0.0
+Artisan Wheat Kids,150.0,1.5,0.0,0.0,260.0,29.0,3.0,3.0,6.0
+"Dressing for Turkey Ranch & Swiss 4""",60.0,6.0,1.0,5.0,160.0,1.0,0.0,0.0,0.0
+Southwest Chicken on Flatbread,440.0,27.0,7.0,55.0,1000.0,30.0,4.0,2.0,21.0
+"Black Angus Steak 8""",780.0,27.0,13.0,100.0,2020.0,88.0,4.0,19.0,47.0
+Guacamole Kids,60.0,5.0,1.0,0.0,105.0,3.0,2.0,0.0,1.0
+Red Wine Vinaigrette Kids,90.0,9.0,1.5,0.0,220.0,2.0,0.0,1.0,0.0
+"Dressing for Chipotle Turkey 8""",220.0,24.0,3.5,15.0,350.0,1.0,0.0,1.0,0.0
+Ham Kids,70.0,3.0,1.0,20.0,550.0,5.0,0.0,3.0,8.0
+"Dressing for Spicy Monterey 12""",110.0,7.0,1.0,10.0,420.0,12.0,0.0,9.0,0.0
+Chicken Noodle Soup in a Bread Bowl,720.0,21.0,7.0,35.0,1990.0,102.0,4.0,4.0,30.0
+Base for French Dip on Flatbread,270.0,8.0,2.0,25.0,1495.0,29.0,4.0,1.0,17.0
+"Dressing for Peppercorn Steak 12""",390.0,41.0,6.0,40.0,440.0,4.0,0.0,2.0,1.0
+"Cheese for Veggie Guacamole 8""",200.0,15.0,10.0,45.0,300.0,1.0,0.0,1.0,14.0
+"Base for Italian Meatball 8""",905.0,43.0,12.0,95.0,2130.0,84.0,8.0,6.0,50.0
+"Southwest Chicken 12""",1310.0,70.0,19.0,160.0,3040.0,109.0,8.0,8.0,65.0
+Base for Southwest Steak & Egg Grilled Flatbread,260.0,9.0,3.0,145.0,860.0,32.0,2.0,5.0,15.0
+Dressing for Honey Bacon Club on Flatbread,100.0,8.0,1.0,0.0,150.0,8.0,0.0,7.0,0.0
+Miss Vickies Jalapeno,210.0,12.0,2.0,0.0,180.0,22.0,2.0,2.0,3.0
+"Baked Lays 8""",120.0,2.0,0.0,0.0,135.0,23.0,2.0,2.0,2.0
+"Base for Honey Mustard 12""",810.0,15.0,5.0,125.0,2500.0,107.0,6.0,9.0,65.0
+"Honey Bacon Club 4""",440.0,19.0,6.0,50.0,1200.0,46.0,2.0,12.0,24.0
+Tuna Melt on Flatbread,330.0,13.0,4.5,40.0,880.0,32.0,4.0,3.0,21.0
+Base for BBQ Chicken Ranch Full,270.0,10.0,5.0,90.0,1180.0,15.0,4.0,9.0,34.0
+"Cheese for Spicy Monterey 8""",80.0,6.0,3.5,20.0,120.0,1.0,0.0,0.0,7.0
+"Cheese for Honey Bacon Club 8""",110.0,8.0,5.0,25.0,55.0,2.0,0.0,0.0,8.0
+Black Angus Steak on Flatbread,390.0,15.0,6.0,50.0,1000.0,39.0,4.0,10.0,23.0
+Doritos Nacho Cheese,240.0,13.0,2.0,0.0,370.0,28.0,2.0,1.0,3.0
+Chicken Soup Small,70.0,2.0,1.0,15.0,780.0,8.0,0.0,1.0,4.0
+2 Crackers,25.0,0.5,0.0,0.0,75.0,4.0,0.0,0.0,0.0
+Honey Mustard Chicken w/ Dressing Full,550.0,39.0,10.0,110.0,1350.0,20.0,4.0,14.0,36.0
+Bacon & Egg Biscuit,510.0,31.0,15.0,170.0,1650.0,38.0,1.0,6.0,23.0
+"Base for Baja 8""",530.0,10.0,3.0,80.0,1660.0,69.0,3.0,4.0,43.0
+"The Traditional 12""",1120.0,49.0,16.0,135.0,3360.0,117.0,6.0,15.0,57.0
+Gyro Salad Wrap,840.0,49.0,22.0,85.0,2320.0,71.0,10.0,5.0,49.0
+"Honey Bacon Club 8""",880.0,37.0,12.0,95.0,23090.0,90.0,4.0,23.0,47.0
+Cheese for Egg & Cheddar on Grilled Flatbread,60.0,5.0,3.0,15.0,90.0,0.0,0.0,0.0,4.0
+Base for Honey Mustard on Flatbread,80.0,7.0,3.0,35.0,1070.0,27.0,3.0,2.0,21.0
+Mesquite on Flatbread,420.0,21.0,7.0,65.0,1130.0,30.0,4.0,3.0,26.0
+"Peppercorn Steak 8""",840.0,42.0,11.0,95.0,1840.0,76.0,4.0,6.0,40.0
+"Chipotle Turkey 12""",1230.0,59.0,17.0,165.0,3050.0,110.0,6.0,13.0,60.0
+"Base for Ultimate Turkey Club 8""",590.0,14.0,4.5,80.0,2100.0,71.0,4.0,8.0,42.0
+"Dressing for Honey Mustard 12""",290.0,26.0,4.0,20.0,330.0,12.0,0.0,10.0,1.0
+"Base for Chipotle Steak & Cheddar 8""",510.0,11.0,3.5,55.0,1440.0,72.0,4.0,5.0,32.0
+"Dressing for Veggie Guacamole 8""",150.0,15.0,2.5,0.0,360.0,3.0,0.0,2.0,0.0
+Cinnamon Sugar Cookie,400.0,17.0,11.0,50.0,290.0,58.0,1.0,33.0,4.0
+"Base for Spicy Monterey 12""",720.0,10.0,4.0,70.0,2960.0,112.0,6.0,13.0,45.0
+Base for Southwest Steak & Egg Sub,310.0,10.0,3.0,140.0,960.0,39.0,1.0,5.0,17.0
+Kettle Cooked BBQ Chips,180.0,8.0,1.0,0.0,190.0,26.0,2.0,3.0,2.0
+"Chipotle Steak & Cheddar 4""",420.0,22.0,6.0,50.0,990.0,36.0,2.0,3.0,20.0
+"Base for Turkey Bacon Guacamole 12""",1020.0,33.0,10.0,125.0,3400.0,115.0,9.0,12.0,64.0
+The Traditional on Flatbread,380.0,19.0,5.0,45.0,1120.0,33.0,4.0,5.0,18.0
+"Base for Gyro 4""",385.0,18.5,7.5,40.0,1025.0,39.0,3.0,3.0,23.0
+"Dressing for Carbonara 4""",100.0,10.0,1.5,10.0,160.0,2.0,0.0,1.0,1.0
+Carbonara on Flatbread,450.0,24.0,6.0,60.0,1070.0,31.0,4.0,3.0,25.0
+"Base for French Dip 12""",770.0,15.0,3.0,75.0,2940.0,106.0,5.0,6.0,50.0
+"Honey Bacon Club 12""",1340.0,62.0,18.0,170.0,3610.0,118.0,9.0,35.0,71.0
+"Dressing for Ultimate Turkey Club 12""",140.0,14.0,2.0,15.0,540.0,5.0,0.0,2.0,0.0
+Mac & Cheese w/ Bacon,700.0,44.0,25.0,140.0,1600.0,53.0,3.0,2.0,28.0
+"Dressing for Gyro 4""",40.0,2.5,2.5,0.0,55.0,2.0,0.0,1.0,1.0
+Lobster & Seafood Sub on Flatbread,350.0,19.0,9.0,50.0,850.0,34.0,4.0,3.0,11.0
+Dressing for Black Angus Steak on Flatbread,40.0,0.0,0.0,0.0,170.0,9.0,0.0,8.0,0.0
+"Base for Turkey Bacon Guacamole 4""",340.0,11.0,3.0,40.0,1130.0,39.0,3.0,5.0,21.0
+"Base for Baja 4""",280.0,6.5,2.0,40.0,880.0,34.0,1.0,3.0,22.0
+"Carbonara 8""",860.0,40.0,11.0,115.0,2160.0,73.0,3.0,7.0,52.0
+Peppercorn Steak on Flatbread,440.0,26.0,6.0,50.0,910.0,32.0,4.0,3.0,19.0
+Chili in a Bread Bowl,810.0,24.0,7.5,60.0,1760.0,113.0,10.0,7.0,37.0
+"Dressing for Classic Italian 12""",240.0,24.0,4.0,0.0,580.0,4.0,0.0,3.0,0.0
+"Turkey Ranch & Swiss 12""",1060.0,40.0,13.0,150.0,2810.0,112.0,6.0,13.0,62.0
+Dressing for Veggie Guacamole on Flatbread,90.0,9.0,1.5,0.0,220.0,2.0,0.0,1.0,0.0
+"Base for French Dip 4""",280.0,6.0,1.0,25.0,1535.0,35.0,2.0,2.0,18.0
+"Dressing for Honey Bacon Club 12""",270.0,20.0,3.0,0.0,400.0,21.0,0.0,20.0,0.0
+Base for Apple Harvest Chicken Half,200.0,9.0,2.0,25.0,320.0,21.0,4.0,15.0,13.0
+Base for Southwest Chicken on Flatbread,250.0,8.5,2.0,30.0,700.0,29.0,4.0,2.0,17.0
+"Chipotle Steak & Cheddar 12""",1290.0,68.0,19.0,150.0,2990.0,110.0,6.0,8.0,59.0
+Tomato Bisque Soup Regular,185.0,12.5,7.0,40.0,1015.0,21.0,2.0,9.0,5.0
+Dressing for Peppercorn Steak on Flatbread,150.0,15.0,2.5,15.0,170.0,2.0,0.0,1.0,0.0
+Cucumber Kids,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Tomato Bisque Soup w/ 2 Crackers Regular,210.0,13.0,7.0,40.0,1090.0,25.0,2.0,9.0,5.0
+"Triple Cheese Sub 4"" Kids",230.0,10.0,6.0,25.0,420.0,23.0,1.0,2.0,12.0
+"Turkey Bacon Guacamole 4""",440.0,20.0,6.0,55.0,1260.0,40.0,3.0,5.0,25.0
+Base for Carbonara on Flatbread,290.0,9.0,2.0,40.0,820.0,28.0,4.0,2.0,20.0
+Sausage & Egg Sub,490.0,28.0,11.0,175.0,970.0,39.0,1.0,5.0,20.0
+Turkey Breast Kids,60.0,1.0,0.0,30.0,450.0,1.0,0.0,1.0,10.0
+Base for Turkey Ranch & Swiss on Flatbread,220.0,4.0,1.0,15.0,715.0,29.0,4.0,3.0,15.0
+"Lobster & Seafood Sub 4""",350.0,17.0,9.0,50.0,890.0,40.0,2.0,3.0,12.0
+Base for Gyro Salad Wrap,740.0,39.0,20.5,75.0,2060.0,70.0,10.0,4.0,48.0
+"Turkey Bacon Guacamole 12""",1340.0,62.0,18.0,170.0,3820.0,118.0,9.0,14.0,76.0
+Dressing for Turkey Ranch & Swiss on Flatbread,70.0,8.0,1.0,10.0,190.0,1.0,0.0,0.0,0.0
+Southwest Club Ciabatta Toastie,510.0,24.0,4.5,50.0,1430.0,49.0,2.0,4.0,24.0
+"Base for Tuna Melt 8""",550.0,13.0,3.0,45.0,1670.0,76.0,3.0,6.0,37.0
+"Base for Carbonara 12""",870.0,21.0,6.0,125.0,2570.0,103.0,5.0,7.0,65.0
+Base for Ham & Egg Grilled Flatbread,240.0,7.5,2.0,140.0,670.0,32.0,1.0,5.0,13.0
+"Black Angus Steak 12""",1170.0,40.0,19.0,150.0,3060.0,134.0,6.0,30.0,70.0
+Dressing for Carbonara on Flatbread,120.0,12.0,2.0,10.0,190.0,3.0,0.0,1.0,1.0
+Sauteed Onions Kids,25.0,2.5,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+"Cheese for Gyro 8""",45.0,3.5,2.0,15.0,200.0,1.0,0.0,0.0,4.0
+Dressing for Chipotle Turkey on Flatbread,130.0,14.0,2.0,10.0,210.0,1.0,0.0,0.0,0.0
+"The Traditional 8""",740.0,32.0,10.0,90.0,2220.0,78.0,4.0,10.0,38.0
+Italian Meatball on Flatbread,540.0,30.0,10.0,65.0,1190.0,39.0,6.0,5.0,32.0
+"Base for Ultimate Turkey Club 12""",890.0,21.0,7.0,125.0,3160.0,106.0,5.0,11.0,62.0
+"Spicy Monterey 8""",630.0,17.0,6.0,70.0,2270.0,83.0,4.0,15.0,37.0
+Base for Honey Bacon Club on Flatbread,300.0,10.0,4.5,45.0,1070.0,32.0,4.0,5.0,19.0
+Base for Lobster & Seafood Salad Full,190.0,9.0,1.5,40.0,930.0,20.0,6.0,6.0,14.0
+BBQ Chicken Ranch Full,470.0,30.0,8.0,110.0,1690.0,17.0,4.0,10.0,35.0
+"Cheese for Black Angus Steak 8""",200.0,15.0,10.0,45.0,300.0,1.0,0.0,1.0,14.0
+Honey Mustard Chicken Half,420.0,33.0,7.0,65.0,840.0,16.0,2.0,12.0,18.0
+"Dressing for Ultimate Turkey Club 8""",90.0,9.0,1.5,10.0,340.0,3.0,0.0,1.0,0.0
+"Carbonara 12""",1320.0,62.0,17.0,175.0,3260.0,111.0,5.0,11.0,79.0
+Little Italy Ciabatta Toastie,560.0,29.0,9.0,45.0,1580.0,52.0,2.0,5.0,23.0
+Base for Honey Mustard Chicken Full,260.0,13.0,6.0,90.0,1020.0,8.0,4.0,4.0,35.0
+"Base for Veggie Guacamole 4""",230.0,6.0,1.0,0.0,480.0,39.0,3.0,4.0,7.0
+"Dressing for Mesquite 8""",170.0,17.0,2.5,5.0,260.0,1.0,0.0,1.0,0.0
+"Base for Mesquite 12""",810.0,15.0,5.0,125.0,2510.0,106.0,6.0,10.0,65.0
+"Veggie Guacamole 12""",1240.0,67.0,22.0,70.0,2450.0,121.0,10.0,14.0,42.0
+Base for Gyro Salad Half,250.0,19.0,8.0,45.0,770.0,11.0,3.0,3.0,20.0
+Dressing for French Dip on Flatbread,80.0,7.0,1.0,10.0,130.0,4.0,0.0,4.0,0.0
+Chili Small,160.0,5.0,1.5,40.0,550.0,19.0,6.0,4.0,11.0
+"Cheese for Tuna Melt 12""",170.0,14.0,9.0,45.0,260.0,1.0,0.0,0.0,11.0
+"Base for The Traditional 12""",750.0,15.0,4.0,70.0,2660.0,114.0,6.0,14.0,45.0
+"Southwest Chicken 4""",430.0,22.0,6.0,55.0,1000.0,36.0,3.0,3.0,22.0
+Mac & Cheese,580.0,35.0,21.0,120.0,1150.0,52.0,3.0,2.0,19.0
+"Turkey Ranch & Swiss 8""",700.0,26.0,8.0,100.0,1860.0,75.0,4.0,9.0,41.0
+Chocolate Brownie,310.0,16.0,3.5,15.0,150.0,40.0,2.0,24.0,4.0
+Black Olives Kids,10.0,1.0,0.0,0.0,75.0,0.0,0.0,0.0,0.0
+Egg & Cheddar Sub,370.0,16.0,6.0,270.0,760.0,39.0,1.0,4.0,18.0
+"Dressing for French Dip 4""",70.0,6.0,1.0,10.0,110.0,4.0,0.0,3.0,0.0
+Dressing for Honey Mustard Chicken Half,290.0,26.0,4.0,20.0,330.0,12.0,0.0,10.0,1.0
+Pickles Kids,0.0,0.0,0.0,0.0,160.0,0.0,0.0,0.0,0.0
+"Ultimate Turkey Club 8""",790.0,32.0,12.0,120.0,2440.0,74.0,4.0,9.0,49.0
+"Dressing for Chipotle Steak & Cheddar 4""",110.0,12.0,2.0,10.0,180.0,1.0,0.0,0.0,0.0
+Tomato Bisque Soup in a Bread Bowl,690.0,22.0,5.0,20.0,1780.0,106.0,5.0,8.0,24.0
+Chipotle Turkey on Flatbread,420.0,23.0,6.0,55.0,1010.0,30.0,4.0,4.0,19.0
+"Honey Mustard 12""",1260.0,53.0,17.0,185.0,2910.0,121.0,6.0,20.0,77.0
+"Base for French Dip 8""",520.0,11.0,2.0,50.0,2235.0,70.0,3.0,4.0,34.0
+"Base for Mesquite 8""",500.0,6.0,2.5,90.0,1720.0,72.0,4.0,6.0,44.0
+Tomato Bisque Soup Small,105.0,7.5,4.0,20.0,565.0,12.0,1.0,5.0,3.0
+"Cheese for Black Angus Steak 4""",100.0,8.0,5.0,25.0,150.0,1.0,0.0,0.0,7.0
+"Italian Meatball 4""",550.0,28.0,10.0,65.0,1230.0,48.0,5.0,6.0,33.0
+"Dressing for The Traditional 4""",60.0,6.0,1.0,5.0,160.0,1.0,0.0,0.0,0.0
+"Cheese for Black Angus Steak 12""",300.0,23.0,14.0,70.0,440.0,2.0,0.0,1.0,21.0
+Italian White Kids,170.0,1.5,0.5,0.0,340.0,33.0,1.0,2.0,6.0
+"6"" Grilled Flatbread Kids",160.0,3.5,0.5,0.0,300.0,26.0,3.0,1.0,5.0
+Turkey Bacon Guacamole on Flatbread,450.0,24.0,6.0,60.0,1260.0,33.0,5.0,5.0,24.0
+SW Steak & Egg Biscuit,540.0,36.0,14.0,165.0,1790.0,40.0,1.0,6.0,18.0
+"The Traditional 4""",370.0,16.0,5.0,45.0,1110.0,39.0,2.0,5.0,19.0
+"Chipotle Turkey 4""",400.0,19.0,5.0,55.0,1010.0,37.0,2.0,5.0,20.0
+Baja on Flatbread,420.0,21.0,7.0,60.0,1220.0,32.0,3.0,6.0,25.0
+"Gyro 12""",1330.0,68.0,34.0,130.0,3550.0,126.0,7.0,12.0,78.0
+Lobster & Seafood Salad Half,290.0,24.0,4.0,40.0,980.0,13.0,3.0,4.0,8.0
+Bacon & Egg Grilled Flatbread,420.0,23.0,9.0,170.0,1070.0,31.0,1.0,4.0,24.0
+Base for Chipotle Turkey on Flatbread,210.0,4.5,1.0,20.0,710.0,29.0,4.0,3.0,14.0
+"Spicy Monterey 12""",950.0,26.0,10.0,105.0,3430.0,125.0,6.0,23.0,56.0
+Dressing for Classic Italian on Flatbread,90.0,9.0,1.5,0.0,220.0,2.0,0.0,1.0,0.0
+"Gyro 8""",890.0,46.0,22.0,90.0,2370.0,84.0,5.0,8.0,52.0
+Dressing for Turkey Bacon Guacamole on Flatbread,70.0,8.0,1.0,10.0,190.0,1.0,0.0,0.0,0.0
+Base for Gyro on Flatbread,385.0,21.5,8.0,40.0,1000.0,34.0,5.0,3.0,24.0
+"Dressing for Carbonara 12""",330.0,32.0,6.0,25.0,510.0,7.0,0.0,3.0,3.0
+Dressing for Chipotle Steak & Cheddar on Flatbread,130.0,14.0,2.0,10.0,210.0,1.0,0.0,0.0,0.0
+Lays Classic,240.0,16.0,2.0,0.0,250.0,23.0,2.0,1.0,3.0
+"Dressing for French Dip 8""",130.0,11.0,2.0,20.0,220.0,7.0,1.0,6.0,0.0
+"Cheese for Gyro 12""",70.0,5.0,3.0,20.0,290.0,2.0,0.0,0.0,5.0
+Dressing for Mesquite on Flatbread,70.0,8.0,1.0,10.0,190.0,1.0,0.0,0.0,0.0
+"Dressing for Black Angus Steak 4""",35.0,0.0,0.0,0.0,140.0,8.0,0.0,7.0,0.0
+Fresh Mushrooms Kids,5.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"Base for Chipotle Turkey 8""",470.0,5.0,1.5,60.0,1660.0,72.0,4.0,8.0,33.0
+Sausage & Egg Biscuit,530.0,36.0,17.0,175.0,1450.0,39.0,1.0,6.0,18.0
+Base for BBQ Chicken Ranch Half,130.0,5.0,2.0,45.0,590.0,7.0,2.0,4.0,17.0
+Spicy Monterey on Flatbread,320.0,11.0,3.0,35.0,1120.0,36.0,4.0,8.0,18.0
+Chili Regular,290.0,10.0,2.5,75.0,980.0,34.0,10.0,8.0,20.0
+"Base for Tuna Melt 4""",270.0,6.5,1.5,25.0,840.0,38.0,2.0,3.0,18.0
+Sun Chips Garden Salsa,210.0,9.0,1.0,0.0,220.0,27.0,4.0,4.0,4.0
+Base for Ultimate Turkey Club on Flatbread,290.0,9.5,2.0,30.0,930.0,29.0,4.0,2.0,18.0
+"Dressing for Baja 4""",70.0,6.0,1.0,5.0,240.0,4.0,0.0,3.0,0.0
+Chicken Soup Regular,120.0,4.0,1.5,25.0,1400.0,14.0,1.0,2.0,7.0
+"Base for Southwest Chicken 4""",260.0,5.5,1.0,30.0,730.0,35.0,3.0,3.0,18.0
+"Base for Veggie Guacamole 8""",460.0,14.0,2.0,5.0,950.0,77.0,7.0,7.0,14.0
+Base for Mesquite on Flatbread,290.0,8.5,3.0,40.0,850.0,29.0,4.0,3.0,22.0
+"Base for The Traditional 8""",460.0,6.0,1.5,55.0,1830.0,77.0,4.0,9.0,31.0
+"Chipotle Steak & Cheddar 8""",840.0,44.0,13.0,100.0,1970.0,73.0,4.0,6.0,39.0
+"Dressing for Carbonara 8""",200.0,20.0,3.5,15.0,320.0,4.0,0.0,2.0,2.0
+"Honey Mustard 4""",440.0,19.0,6.0,60.0,1020.0,40.0,2.0,7.0,27.0
+Gyro on Flatbread,440.0,25.0,11.0,45.0,1140.0,36.0,5.0,4.0,25.0
+Dressing for Spicy Monterey on Flatbread,40.0,2.5,0.0,5.0,160.0,4.0,0.0,3.0,0.0
+"Cheese for Gyro 4""",25.0,2.0,1.0,5.0,100.0,1.0,0.0,0.0,2.0
+Base for Egg & Cheddar Sub,310.0,11.5,3.0,255.0,670.0,39.0,1.0,4.0,14.0
+Ham & Swiss Ciabatta Toastie,490.0,21.0,5.0,40.0,1210.0,58.0,2.0,9.0,20.0
+"Mesquite 8""",780.0,32.0,11.0,125.0,2160.0,73.0,4.0,7.0,51.0
+"Base for Mesquite 4""",290.0,7.5,3.0,40.0,890.0,36.0,2.0,4.0,23.0
+Turkey Ranch & Swiss on Flatbread,360.0,16.0,4.5,50.0,930.0,31.0,4.0,4.0,20.0
+Base for Sausage & Egg Grilled Flatbread,390.0,23.0,8.0,165.0,780.0,32.0,1.0,4.0,14.0
+"Base for Classic Italian 12""",1050.0,45.0,16.0,115.0,3390.0,112.0,6.0,13.0,49.0
+"Cheese for Turkey Ranch & Swiss 4""",50.0,4.0,2.5,15.0,25.0,1.0,0.0,0.0,4.0
+"Gyro 4""",450.0,23.0,11.0,45.0,1180.0,42.0,3.0,4.0,26.0
+"Base for Tuna Melt 12""",820.0,18.0,5.0,70.0,2510.0,113.0,5.0,9.0,55.0
+Dressing for Italian Meatball on Flatbread,20.0,0.5,0.0,0.0,45.0,3.0,1.0,2.0,1.0
+Ultimate Turkey Club on Flatbread,400.0,19.0,6.0,60.0,1220.0,31.0,4.0,4.0,24.0
+"Dressing for Italian Meatball 8""",35.0,1.0,0.0,0.0,90.0,6.0,1.0,4.0,1.0
+Base for Spicy Monterey on Flatbread,240.0,5.5,1.0,20.0,900.0,32.0,4.0,5.0,14.0
+"Dressing for Spicy Monterey 8""",70.0,4.5,0.5,5.0,260.0,7.0,0.0,6.0,0.0
+Dressing for Southwest Steak & Egg Sub Southwest Steak & Egg Grilled Flatbread & Southwest Steak & Egg Biscuit,130.0,14.0,2.0,10.0,250.0,1.0,0.0,0.0,0.0
+"Cheese for Spicy Monterey 4""",40.0,3.0,2.0,10.0,60.0,0.0,0.0,0.0,4.0
+"Base for Peppercorn Steak 12""",780.0,16.0,5.0,80.0,2160.0,109.0,6.0,7.0,48.0
+"Base for Carbonara 4""",310.0,7.0,2.5,40.0,860.0,35.0,2.0,3.0,21.0
+Base for Baja on Flatbread,280.0,9.5,3.0,40.0,850.0,28.0,3.0,2.0,21.0
+"Classic Italian 4""",470.0,26.0,8.0,45.0,1370.0,39.0,2.0,6.0,20.0
+"Turkey Bacon Guacamole 8""",890.0,41.0,12.0,115.0,2530.0,81.0,7.0,11.0,51.0
+"Mesquite 12""",1180.0,49.0,17.0,190.0,3280.0,109.0,6.0,11.0,77.0
+"Base for Southwest Chicken 12""",790.0,18.0,4.0,90.0,2210.0,106.0,8.0,7.0,53.0
+Base for Tuna Melt on Flatbread,270.0,8.5,1.5,25.0,790.0,32.0,4.0,3.0,17.0
+"Dressing for Veggie Guacamole 4""",80.0,8.0,1.0,0.0,180.0,1.0,0.0,1.0,0.0
+Lays Barbeque,230.0,15.0,2.0,0.0,230.0,23.0,2.0,3.0,3.0
+"Cheese for Italian Meatball 8""",160.0,11.0,7.0,35.0,240.0,2.0,0.0,1.0,14.0
+Base for Honey Mustard Chicken Half,130.0,7.0,3.0,45.0,510.0,4.0,2.0,2.0,17.0
+"Base for Honey Bacon Club 8""",600.0,16.0,5.0,70.0,2135.0,74.0,4.0,11.0,39.0
+Rosemary Parmesan Kids,140.0,2.5,1.0,5.0,270.0,25.0,1.0,2.0,5.0
+Ham & Egg Biscuit,400.0,21.0,12.0,155.0,1340.0,39.0,1.0,6.0,17.0
+Dressing for Ultimate Turkey Club on Flatbread,50.0,5.0,1.0,5.0,200.0,2.0,0.0,1.0,0.0
+Base for Black Angus Steak on Flatbread,245.0,7.5,1.0,25.0,680.0,29.0,4.0,2.0,16.0
+"French Dip 8""",760.0,30.0,9.0,95.0,2510.0,79.0,4.0,10.0,42.0
+"Dressing for Honey Mustard 4""",90.0,8.0,1.5,5.0,105.0,4.0,0.0,3.0,0.0
+"Base for Black Angus Steak 8""",510.0,11.0,3.0,55.0,1460.0,72.0,4.0,4.0,32.0
+Fresh Green Peppers Kids,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Base for Chef Salad Full,310.0,16.0,10.0,90.0,1310.0,14.0,4.0,7.0,32.0
+"Base for The Traditional 4""",250.0,5.5,1.0,25.0,880.0,38.0,2.0,5.0,15.0
+"Baja Chicken 8"" Regional",750.0,29.0,11.0,110.0,2190.0,76.0,3.0,11.0,47.0
+Base for Sausage & Egg Sub,430.0,24.0,8.0,160.0,880.0,39.0,1.0,5.0,16.0
+Cheese for Gyro on Flatbread,15.0,1.0,0.5,5.0,85.0,0.0,0.0,0.0,0.0
+Chicken Noodle Soup w/ 2 Crackers Small,95.0,2.5,1.0,15.0,855.0,12.0,0.0,1.0,4.0
+"Base for Classic Italian 4""",350.0,15.0,5.0,35.0,1130.0,38.0,2.0,5.0,16.0
+Jalapeno Cheddar Kids,150.0,2.0,1.0,5.0,260.0,26.0,1.0,2.0,6.0
+"Dressing for Turkey Ranch & Swiss 8""",120.0,13.0,2.0,15.0,320.0,1.0,0.0,1.0,1.0
+"Dressing for Gyro 8""",80.0,5.0,5.0,0.0,105.0,3.0,0.0,2.0,2.0
+"Ultimate Turkey Club 12""",1200.0,49.0,18.0,185.0,36090.0,112.0,5.0,13.0,73.0
+Gyro Greek Salad Full,610.0,45.0,23.0,90.0,1680.0,25.0,6.0,7.0,43.0
+French Dip on Flatbread,400.0,19.0,5.0,50.0,1650.0,34.0,4.0,5.0,21.0
+"Cheese for Veggie Guacamole 12""",300.0,23.0,14.0,70.0,440.0,2.0,0.0,1.0,21.0
+Triple Cheese Flatbread Kids,260.0,11.0,4.5,20.0,400.0,29.0,1.0,3.0,12.0
+"Veggie Guacamole 4""",410.0,22.0,7.0,25.0,810.0,41.0,3.0,5.0,14.0
+Sauteed Mushrooms Kids,20.0,2.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"Base for Chipotle Turkey 12""",710.0,7.0,2.0,95.0,2490.0,107.0,6.0,12.0,48.0
+Base for Veggie Guacamole on Flatbread,230.0,8.0,0.5,0.0,430.0,31.0,5.0,4.0,6.0
+Apple Harvest Chicken Half,340.0,20.0,3.5,25.0,600.0,31.0,4.0,24.0,13.0
+"Dressing for Spicy Monterey 4""",35.0,2.0,0.0,0.0,130.0,4.0,0.0,3.0,0.0
+"Peppercorn Steak 4""",420.0,21.0,5.0,50.0,920.0,38.0,2.0,3.0,20.0
+Base for Bacon & Egg Grilled Flatbread,360.0,19.0,6.0,155.0,980.0,31.0,1.0,4.0,20.0
+Dressing for Gyro Salad Wrap,100.0,10.0,1.5,10.0,260.0,1.0,0.0,1.0,1.0
+"Dressing for Peppercorn Steak 4""",120.0,13.0,2.0,15.0,140.0,1.0,0.0,1.0,0.0
+Broccoli Cheese Soup w/ 2 Crackers Regular,245.0,14.5,9.0,25.0,1455.0,22.0,1.0,6.0,6.0
+"Dressing for Classic Italian 4""",80.0,8.0,1.0,0.0,180.0,1.0,0.0,1.0,0.0
+"Base for Southwest Chicken 8""",530.0,12.0,2.5,60.0,1470.0,72.0,5.0,4.0,36.0
+"Base for Turkey Ranch & Swiss 12""",700.0,8.0,2.0,90.0,2500.0,108.0,6.0,11.0,50.0
+"Cheese for Ultimate Turkey Club 8""",110.0,9.0,6.0,30.0,180.0,0.0,0.0,0.0,7.0
+Chicken Noodle Soup w/ 2 Crackers Regular,145.0,4.5,1.5,25.0,1475.0,18.0,1.0,2.0,7.0
+Sun Chips Harvest Cheddar,210.0,9.0,2.0,0.0,320.0,27.0,4.0,3.0,4.0
+Ham & Egg Grilled Flatbread,300.0,12.0,5.0,155.0,760.0,32.0,1.0,5.0,17.0
+Oatmeal Raisin Cookie,360.0,12.0,7.0,50.0,200.0,58.0,3.0,34.0,5.0
+"Base for Peppercorn Steak 8""",520.0,10.0,3.5,50.0,1440.0,72.0,4.0,5.0,32.0
+"Base for Turkey Ranch & Swiss 8""",470.0,5.0,1.0,60.0,1665.0,72.0,4.0,8.0,32.0
+Raspberry Lemonade 21 oz,45.0,0.0,0.0,0.0,15.0,11.0,0.0,11.0,0.0
+"Chipotle Turkey 8""",800.0,38.0,11.0,105.0,2010.0,73.0,4.0,9.0,40.0
+"Cheese for Honey Bacon Club 4""",50.0,4.0,0.5,5.0,10.0,1.0,0.0,0.0,4.0
+Broccoli Cheese Soup Small,120.0,8.0,5.0,15.0,760.0,10.0,1.0,3.0,4.0
+"Honey Mustard 8""",830.0,34.0,11.0,120.0,1930.0,80.0,4.0,13.0,51.0
+"Dressing for Chipotle Steak & Cheddar 8""",220.0,24.0,3.5,15.0,350.0,1.0,0.0,1.0,0.0
+"Base for Ultimate Turkey Club 4""",295.0,7.0,2.5,40.0,1050.0,35.0,2.0,4.0,21.0
+Sauteed Green Peppers Kids,20.0,2.5,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Chocolate Chunk Cookie,390.0,19.0,11.0,55.0,170.0,54.0,1.0,31.0,4.0
+"Cheese for Italian Meatball 12""",250.0,17.0,11.0,55.0,360.0,2.0,0.0,1.0,21.0
+Dressing for The Traditional on Flatbread,70.0,8.0,1.0,10.0,190.0,1.0,0.0,0.0,0.0
+Base for Gyro Salad Full,510.0,38.0,16.0,90.0,1540.0,21.0,6.0,5.0,41.0
+"Tuna Melt 12""",990.0,32.0,14.0,115.0,2770.0,114.0,5.0,9.0,66.0
+"Dressing for Peppercorn Steak 8""",240.0,26.0,4.0,25.0,280.0,3.0,0.0,1.0,1.0
+"Southwest Chicken 8""",860.0,45.0,12.0,105.0,2000.0,73.0,5.0,5.0,43.0
+"Dressing for Veggie Guacamole 12""",240.0,24.0,4.0,0.0,580.0,4.0,0.0,3.0,0.0
+"Base for Gyro 12""",1150.0,55.0,23.0,110.0,3100.0,119.0,7.0,10.0,71.0
+SW Steak & Egg Grilled Flatbread,450.0,27.0,8.0,170.0,1200.0,33.0,2.0,5.0,19.0
+Base for Turkey Bacon Guacamole on Flatbread,340.0,13.0,3.0,40.0,1090.0,32.0,5.0,5.0,20.0
+"Dressing for Classic Italian 8""",150.0,15.0,2.5,0.0,360.0,3.0,0.0,2.0,0.0
+Base for Egg & Cheddar Biscuit,360.0,20.0,9.0,255.0,1150.0,38.0,1.0,6.0,11.0
+Base for Egg & Cheddar Flatbread,270.0,11.0,3.0,260.0,570.0,31.0,1.0,5.0,12.0
+Tomato Bisque Soup w/ 2 Crackers Small,130.0,8.0,4.0,20.0,640.0,16.0,1.0,5.0,3.0
+"Base for Black Angus Steak 12""",750.0,15.0,5.0,80.0,2200.0,107.0,5.0,7.0,48.0
+"Tuna Melt 4""",330.0,11.0,4.5,40.0,930.0,38.0,2.0,3.0,22.0
+Mac & Cheese w/ Lobster,690.0,43.0,22.0,135.0,1550.0,58.0,4.0,3.0,25.0
+"Spicy Monterey 4""",320.0,9.0,3.0,35.0,1130.0,42.0,2.0,8.0,19.0
+Bacon & Egg Sub,470.0,24.0,9.0,170.0,1170.0,38.0,1.0,5.0,25.0
+Classic Italian on Flatbread,470.0,29.0,9.0,45.0,1370.0,33.0,4.0,5.0,19.0
+"Dressing for Black Angus Steak 8""",70.0,0.0,0.0,0.0,280.0,16.0,0.0,14.0,0.0
+Base for Apple Harvest Chicken Full,400.0,17.0,3.5,50.0,630.0,42.0,7.0,30.0,26.0
+Base for Southwest Steak & Egg Biscuit,350.0,18.0,9.0,140.0,1450.0,39.0,1.0,6.0,14.0
+"Carbonara 4""",450.0,20.0,6.0,60.0,1080.0,37.0,2.0,4.0,26.0
+"Tuna Melt 8""",660.0,22.0,9.0,75.0,1850.0,76.0,3.0,6.0,44.0
+"Dressing for French Dip 12""",210.0,18.0,3.0,30.0,350.0,11.0,1.0,9.0,1.0
+"Base for Chipotle Steak & Cheddar 12""",770.0,16.0,4.0,80.0,2160.0,107.0,6.0,7.0,47.0

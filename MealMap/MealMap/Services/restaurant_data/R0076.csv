@@ -1,0 +1,794 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Side of Grilled Chicken,110.0,5.0,1.5,45.0,590.0,0.0,0.0,0.0,13.0
+Garlic Parmesan Twists,170.0,5.0,2.0,10.0,460.0,26.0,1.0,1.0,6.0
+Garlic Bread,70.0,3.5,1.5,0.0,115.0,9.0,0.0,0.0,2.0
+Garlic Bread w/ Cheese,100.0,6.0,2.5,10.0,180.0,9.0,0.0,0.0,4.0
+Beer,153.0,0.0,0.0,0.0,14.0,13.0,0.0,0.0,0.0
+Light Beer,103.0,0.0,0.0,0.0,14.0,6.0,0.0,0.0,0.0
+Wine,122.0,0.0,0.0,0.0,7.0,4.0,0.0,0.0,0.0
+Wild Cherry Pepsi 12 oz,130.0,0.0,0.0,0.0,25.0,37.0,37.0,0.0,0.0
+Wild Cherry Pepsi 16 oz,180.0,0.0,0.0,0.0,35.0,49.0,49.0,0.0,0.0
+Pepsi 12 oz,130.0,0.0,0.0,0.0,25.0,37.0,37.0,0.0,0.0
+Pepsi 16 oz,180.0,0.0,0.0,0.0,35.0,49.0,49.0,0.0,0.0
+Dr Pepper 12 oz,113.0,0.0,0.0,0.0,39.0,30.0,30.0,0.0,0.0
+Dr Pepper 16 oz,150.0,0.0,0.0,0.0,52.0,41.0,41.0,0.0,0.0
+Mountain Dew 12 oz,140.0,0.0,0.0,0.0,45.0,38.0,38.0,0.0,0.0
+Mountain Dew 16 oz,190.0,0.0,0.0,0.0,60.0,51.0,51.0,0.0,0.0
+Sierra Mist 12 oz,130.0,0.0,0.0,0.0,25.0,35.0,35.0,0.0,0.0
+Sierra Mist 16 oz,180.0,0.0,0.0,0.0,35.0,47.0,47.0,0.0,0.0
+Mug Root Beer 12 oz,130.0,0.0,0.0,0.0,20.0,34.0,34.0,0.0,0.0
+Mug Root Beer 16 oz,180.0,0.0,0.0,0.0,25.0,46.0,46.0,0.0,0.0
+Tropicana Twister Orange 12 oz,140.0,0.0,0.0,0.0,35.0,41.0,39.0,0.0,0.0
+Tropicana Twister Orange 16 oz,190.0,0.0,0.0,0.0,45.0,54.0,53.0,0.0,0.0
+Tropicana Fruit Punch 12 oz,140.0,0.0,0.0,0.0,35.0,39.0,0.0,39.0,0.0
+Tropicana Fruit Punch 16 oz,190.0,0.0,0.0,0.0,45.0,53.0,0.0,53.0,0.0
+Tropicana Lemonade 12 oz,130.0,0.0,0.0,0.0,140.0,35.0,35.0,0.0,0.0
+Tropicana Lemonade 16 oz,180.0,0.0,0.0,0.0,185.0,47.0,47.0,0.0,0.0
+Lipton Brisk Raspberry Ice Tea 12 oz,110.0,0.0,0.0,0.0,35.0,28.0,28.0,0.0,0.0
+Lipton Brisk Raspberry Iced Tea 16 oz,140.0,0.0,0.0,0.0,45.0,37.0,37.0,0.0,0.0
+Diet Pepsi 12 oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Diet Pepsi 16 oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper 12 oz,113.0,0.0,0.0,0.0,39.0,30.0,30.0,0.0,0.0
+Diet Dr Pepper 16 oz,150.0,0.0,0.0,0.0,52.0,41.0,41.0,0.0,0.0
+Sobe Lean Cranberry Grapefruit 12 oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Sobe Lean Cranberry Grapefruit 16 oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Lipton Brisk Unsweetened Iced Tea 12 oz,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Lipton Brisk Unsweetened Iced Tea 16 oz,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Tropicana Apple Juice,90.0,0.0,0.0,0.0,10.0,23.0,0.0,0.0,0.0
+Dole Orange Juice,210.0,0.0,0.0,0.0,30.0,51.0,0.0,0.0,0.0
+Hot Coffee,2.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Hot Tea,2.0,0.0,0.0,0.0,7.0,0.0,0.0,0.0,0.0
+Dessert Pizza,210.0,8.0,1.5,0.0,250.0,32.0,1.0,10.0,3.0
+Chicken Bacon Alfredo Pasta,660.0,36.0,15.0,80.0,1360.0,48.0,3.0,6.0,36.0
+Turkey Santa Fe,730.0,40.0,14.0,90.0,1660.0,57.0,3.0,2.0,36.0
+BBQ Chicken Pizza on Skinny Crust Personal,160.0,8.0,3.5,15.0,440.0,15.0,1.0,5.0,8.0
+BBQ Chicken Pizza on Skinny Crust Small,220.0,10.0,4.5,20.0,580.0,21.0,1.0,6.0,11.0
+BBQ Chicken Pizza on Skinny Crust Medium,260.0,11.0,6.0,25.0,680.0,25.0,1.0,8.0,13.0
+BBQ Chicken Pizza on Skinny Crust Large,250.0,12.0,5.0,20.0,640.0,23.0,1.0,7.0,12.0
+BBQ Chicken Pizza on Original Crust Personal,190.0,8.0,3.5,15.0,490.0,20.0,1.0,5.0,9.0
+BBQ Chicken Pizza on Original Crust Small,250.0,11.0,4.5,20.0,650.0,27.0,1.0,7.0,12.0
+BBQ Chicken Pizza on Original Crust Medium,290.0,12.0,6.0,25.0,760.0,33.0,1.0,8.0,14.0
+BBQ Chicken Pizza on Original Crust Large,280.0,12.0,5.0,20.0,720.0,30.0,1.0,8.0,13.0
+BBQ Chicken Pizza on Original Crust Extra Large,280.0,12.0,5.0,20.0,710.0,29.0,1.0,8.0,13.0
+BBQ Chicken Pizza on Pan Crust Personal,250.0,9.0,4.0,15.0,630.0,31.0,1.0,5.0,11.0
+BBQ Chicken Pizza on Pan Crust Small,340.0,13.0,6.0,25.0,860.0,41.0,2.0,7.0,15.0
+BBQ Chicken Pizza on Pan Crust Medium,380.0,14.0,7.0,30.0,960.0,47.0,2.0,9.0,17.0
+BBQ Chicken Pizza on Pan Crust Large,370.0,14.0,6.0,25.0,910.0,44.0,2.0,8.0,16.0
+BBQ Chicken Pizza on Pan Crust Extra Large,370.0,14.0,7.0,30.0,920.0,44.0,2.0,8.0,16.0
+Big Vinnie Cheese Pizza Extra Large,450.0,17.0,9.0,55.0,1070.0,54.0,3.0,3.0,20.0
+RT Veggie Sandwich,630.0,32.0,11.0,50.0,1740.0,65.0,5.0,5.0,23.0
+Big Vinnie Pepperoni Pizza Extra Large,480.0,20.0,9.0,60.0,1240.0,53.0,3.0,3.0,21.0
+Italiano Cheese Pizza Large,350.0,12.0,6.0,35.0,830.0,46.0,2.0,3.0,15.0
+Italiano Pepperoni Pizza Large,370.0,14.0,6.0,35.0,950.0,46.0,2.0,3.0,15.0
+Cheese Pizza on Skinny Crust Large,190.0,9.0,5.0,30.0,420.0,18.0,1.0,1.0,10.0
+Cheese Pizza on Original Crust Large,230.0,9.0,5.0,30.0,500.0,25.0,1.0,2.0,11.0
+Cheese Pizza on Pan Crust Large,300.0,11.0,6.0,35.0,670.0,38.0,2.0,2.0,13.0
+Chicken & Garlic Gourmet on Skinny Crust Personal,140.0,7.0,3.0,25.0,350.0,12.0,1.0,1.0,8.0
+Chicken & Garlic Gourmet on Skinny Crust Small,200.0,10.0,4.5,30.0,480.0,17.0,1.0,1.0,10.0
+Chicken & Garlic Gourmet on Skinny Crust Medium,230.0,12.0,5.0,40.0,580.0,20.0,1.0,1.0,12.0
+Chicken & Garlic Gourmet on Skinny Crust Large,220.0,11.0,5.0,35.0,540.0,18.0,1.0,1.0,11.0
+Chicken & Garlic Gourmet on Original Crust Personal,160.0,7.0,3.0,25.0,400.0,17.0,1.0,1.0,8.0
+Chicken & Garlic Gourmet on Original Crust Small,230.0,10.0,4.5,30.0,560.0,23.0,1.0,2.0,11.0
+Chicken & Garlic Gourmet on Original Crust Medium,270.0,12.0,5.0,40.0,670.0,27.0,1.0,2.0,13.0
+Chicken & Garlic Gourmet on Original Crust Large,250.0,11.0,5.0,35.0,620.0,25.0,1.0,2.0,12.0
+Chicken & Garlic Gourmet on Original Crust Extra Large,240.0,11.0,5.0,35.0,600.0,24.0,1.0,2.0,12.0
+Chicken & Garlic Gourmet on Pan Crust Personal,220.0,8.0,3.5,25.0,530.0,28.0,1.0,2.0,10.0
+Chicken & Garlic Gourmet on Pan Crust Small,320.0,12.0,5.0,35.0,750.0,37.0,2.0,2.0,14.0
+Chicken & Garlic Gourmet on Pan Crust Medium,360.0,14.0,6.0,45.0,870.0,42.0,2.0,2.0,17.0
+Chicken & Garlic Gourmet on Pan Crust Large,340.0,13.0,6.0,40.0,810.0,39.0,2.0,2.0,16.0
+Chicken & Garlic Gourmet on Pan Crust Extra Large,340.0,13.0,6.0,40.0,810.0,39.0,2.0,2.0,16.0
+Gourmet Veggie on Skinny Crust Personal,130.0,6.0,3.0,15.0,350.0,13.0,1.0,1.0,6.0
+Gourmet Veggie on Skinny Crust Small,180.0,9.0,4.0,25.0,460.0,17.0,1.0,2.0,8.0
+Gourmet Veggie on Skinny Crust Medium,220.0,11.0,5.0,25.0,560.0,21.0,2.0,2.0,10.0
+Gourmet Veggie on Skinny Crust Large,200.0,10.0,4.5,25.0,540.0,20.0,2.0,2.0,9.0
+Gourmet Veggie on Original Crust Personal,160.0,7.0,3.0,15.0,400.0,18.0,1.0,2.0,7.0
+Gourmet Veggie on Original Crust Small,220.0,9.0,4.0,25.0,530.0,24.0,2.0,2.0,9.0
+Gourmet Veggie on Original Crust Medium,260.0,11.0,5.0,25.0,650.0,29.0,2.0,2.0,11.0
+Gourmet Veggie on Original Crust Large,240.0,10.0,4.5,25.0,620.0,27.0,2.0,2.0,10.0
+Gourmet Veggie on Original Crust Extra Large,230.0,10.0,4.5,25.0,600.0,25.0,2.0,2.0,10.0
+Gourmet Veggie on Pan Crust Personal,210.0,7.0,3.0,15.0,540.0,29.0,2.0,2.0,9.0
+Gourmet Veggie on Pan Crust Small,310.0,12.0,5.0,30.0,730.0,38.0,2.0,2.0,13.0
+Gourmet Veggie on Pan Crust Medium,350.0,13.0,6.0,35.0,850.0,43.0,3.0,3.0,14.0
+Gourmet Veggie on Pan Crust Large,320.0,12.0,5.0,30.0,810.0,41.0,3.0,3.0,13.0
+Gourmet Veggie on Pan Crust Extra Large,320.0,12.0,6.0,30.0,810.0,40.0,3.0,3.0,14.0
+Guinevere's Garden Delight on Skinny Crust Personal,120.0,5.0,2.5,15.0,270.0,12.0,1.0,1.0,6.0
+Guinevere's Garden Delight on Skinny Crust Small,170.0,7.0,3.5,20.0,380.0,17.0,1.0,2.0,8.0
+Guinevere's Garden Delight on Skinny Crust Medium,200.0,9.0,4.0,25.0,450.0,21.0,2.0,2.0,9.0
+Guinevere's Garden Delight on Skinny Crust Large,180.0,8.0,4.0,25.0,420.0,19.0,1.0,2.0,8.0
+Guinevere's Garden Delight on Original Crust Personal,140.0,6.0,2.5,15.0,320.0,17.0,1.0,2.0,6.0
+Guinevere's Garden Delight on Original Crust Small,200.0,8.0,3.5,20.0,450.0,24.0,2.0,2.0,9.0
+Guinevere's Garden Delight on Original Crust Medium,240.0,9.0,4.0,25.0,540.0,28.0,2.0,3.0,10.0
+Guinevere's Garden Delight on Original Crust Large,220.0,8.0,4.0,25.0,500.0,26.0,2.0,2.0,9.0
+Guinevere's Garden Delight on Original Crust Extra Large,210.0,8.0,4.0,25.0,490.0,25.0,2.0,3.0,9.0
+Guinevere's Garden Delight on Pan Crust Personal,200.0,6.0,2.5,15.0,450.0,28.0,1.0,2.0,8.0
+Guinevere's Garden Delight on Pan Crust Small,280.0,10.0,4.5,25.0,640.0,37.0,2.0,3.0,12.0
+Guinevere's Garden Delight on Pan Crust Medium,320.0,11.0,5.0,30.0,720.0,42.0,2.0,3.0,13.0
+Guinevere's Garden Delight on Pan Crust Large,300.0,10.0,5.0,30.0,670.0,39.0,2.0,3.0,12.0
+Guinevere's Garden Delight on Pan Crust Extra Large,300.0,10.0,5.0,30.0,680.0,39.0,2.0,3.0,13.0
+Hawaiian on Skinny Crust Personal,120.0,5.0,2.5,20.0,330.0,13.0,1.0,3.0,6.0
+Hawaiian on Skinny Crust Small,170.0,7.0,3.5,25.0,480.0,18.0,1.0,4.0,9.0
+Hawaiian on Skinny Crust Medium,210.0,8.0,4.5,30.0,550.0,22.0,1.0,4.0,11.0
+Hawaiian on Skinny Crust Large,190.0,8.0,4.0,30.0,510.0,20.0,1.0,4.0,10.0
+Hawaiian on Original Crust Personal,150.0,5.0,3.0,20.0,380.0,17.0,1.0,3.0,7.0
+Hawaiian on Original Crust Small,210.0,7.0,3.5,25.0,550.0,25.0,1.0,4.0,10.0
+Hawaiian on Original Crust Medium,240.0,9.0,4.5,30.0,640.0,29.0,2.0,4.0,12.0
+Hawaiian on Original Crust Large,220.0,8.0,4.0,30.0,590.0,27.0,1.0,4.0,11.0
+Hawaiian on Original Crust Extra Large,220.0,8.0,4.0,30.0,580.0,26.0,1.0,4.0,11.0
+Hawaiian on Pan Crust Personal,200.0,6.0,3.0,20.0,500.0,28.0,1.0,3.0,9.0
+Hawaiian on Pan Crust Small,290.0,9.0,5.0,30.0,720.0,38.0,2.0,4.0,13.0
+Hawaiian on Pan Crust Medium,330.0,11.0,5.0,35.0,810.0,43.0,2.0,4.0,15.0
+Hawaiian on Pan Crust Large,300.0,10.0,5.0,35.0,760.0,40.0,2.0,4.0,14.0
+Hawaiian on Pan Crust Extra Large,310.0,10.0,5.0,35.0,760.0,40.0,2.0,4.0,14.0
+Italian Garlic Supreme on Skinny Crust Personal,170.0,10.0,4.0,25.0,410.0,12.0,1.0,1.0,8.0
+Italian Garlic Supreme on Skinny Crust Small,230.0,14.0,6.0,35.0,560.0,16.0,1.0,1.0,10.0
+Italian Garlic Supreme on Skinny Crust Medium,260.0,15.0,6.0,40.0,610.0,20.0,1.0,1.0,12.0
+Smokehouse Combo on Original Crust w/ Pepperoni Medium,310.0,15.0,7.0,45.0,770.0,29.0,2.0,3.0,14.0
+Italian Garlic Supreme on Skinny Crust Large,240.0,14.0,6.0,35.0,570.0,18.0,1.0,1.0,11.0
+Italian Garlic Supreme on Original Crust Personal,190.0,10.0,4.5,25.0,460.0,16.0,1.0,1.0,8.0
+Italian Garlic Supreme on Original Crust Small,260.0,14.0,6.0,35.0,630.0,23.0,1.0,2.0,11.0
+Italian Garlic Supreme on Original Crust Medium,300.0,15.0,6.0,40.0,700.0,27.0,1.0,2.0,13.0
+Italian Garlic Supreme on Original Crust Large,270.0,14.0,6.0,35.0,640.0,25.0,1.0,2.0,12.0
+Italian Garlic Supreme on Original Crust Extra Large,260.0,14.0,6.0,35.0,620.0,24.0,1.0,2.0,11.0
+Italian Garlic Supreme on Pan Crust Personal,250.0,11.0,4.5,25.0,590.0,28.0,1.0,2.0,10.0
+Italian Garlic Supreme on Pan Crust Small,350.0,16.0,7.0,40.0,830.0,37.0,2.0,2.0,15.0
+Italian Garlic Supreme on Pan Crust Medium,390.0,17.0,7.0,45.0,900.0,42.0,2.0,2.0,16.0
+Italian Garlic Supreme on Pan Crust Large,360.0,16.0,7.0,40.0,840.0,39.0,2.0,2.0,15.0
+Italian Garlic Supreme on Pan Crust Extra Large,360.0,16.0,7.0,40.0,830.0,39.0,2.0,2.0,15.0
+King Arthur Supreme on Skinny Crust Personal,160.0,9.0,4.0,25.0,380.0,12.0,1.0,1.0,8.0
+King Arthur Supreme on Skinny Crust Small,220.0,12.0,5.0,30.0,510.0,17.0,1.0,2.0,10.0
+King Arthur Supreme on Skinny Crust Medium,260.0,14.0,6.0,40.0,640.0,21.0,2.0,2.0,13.0
+Turkey Pesto,710.0,37.0,14.0,90.0,1600.0,56.0,3.0,2.0,40.0
+King Arthur Supreme on Skinny Crust Large,240.0,13.0,6.0,35.0,570.0,19.0,1.0,2.0,11.0
+King Arthur Supreme on Original Crust Personal,180.0,9.0,4.0,25.0,430.0,17.0,1.0,1.0,8.0
+King Arthur Supreme on Original Crust Small,250.0,12.0,5.0,30.0,590.0,24.0,2.0,2.0,11.0
+King Arthur Supreme on Original Crust Medium,300.0,15.0,6.0,40.0,720.0,28.0,2.0,3.0,14.0
+King Arthur Supreme on Original Crust Large,270.0,13.0,6.0,35.0,650.0,26.0,2.0,2.0,12.0
+King Arthur Supreme on Original Crust Extra Large,260.0,13.0,6.0,35.0,640.0,25.0,2.0,2.0,12.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Small,340.0,14.0,6.0,40.0,820.0,38.0,2.0,3.0,15.0
+King Arthur Supreme on Pan Crust Personal,220.0,8.0,3.5,20.0,530.0,28.0,1.0,2.0,9.0
+King Arthur Supreme on Pan Crust Small,310.0,12.0,6.0,35.0,740.0,37.0,2.0,2.0,14.0
+King Arthur Supreme on Pan Crust Medium,360.0,15.0,7.0,40.0,850.0,42.0,2.0,3.0,16.0
+King Arthur Supreme on Pan Crust Large,340.0,14.0,6.0,40.0,790.0,39.0,2.0,2.0,15.0
+King Arthur Supreme on Pan Crust Extra Large,340.0,14.0,6.0,40.0,800.0,39.0,2.0,3.0,15.0
+Maui Zaui on Skinny Crust w/ Polynesian Sauce Personal,150.0,7.0,3.5,20.0,420.0,15.0,1.0,4.0,7.0
+Maui Zaui on Skinny Crust w/ Polynesian Sauce Small,200.0,9.0,4.5,25.0,570.0,20.0,1.0,5.0,10.0
+Maui Zaui on Skinny Crust w/ Polynesian Sauce Medium,240.0,11.0,5.0,35.0,680.0,24.0,1.0,6.0,12.0
+Maui Zaui on Skinny Crust w/ Polynesian Sauce Large,220.0,10.0,5.0,30.0,630.0,22.0,1.0,5.0,11.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Personal,170.0,7.0,3.5,20.0,470.0,19.0,1.0,4.0,8.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Small,230.0,9.0,4.5,25.0,640.0,26.0,1.0,5.0,11.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Medium,280.0,11.0,5.0,35.0,770.0,32.0,2.0,6.0,13.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Large,260.0,10.0,5.0,30.0,710.0,29.0,2.0,6.0,12.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Personal,240.0,9.0,4.0,25.0,600.0,29.0,2.0,3.0,10.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Extra Large,250.0,10.0,5.0,30.0,690.0,28.0,2.0,5.0,12.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Personal,230.0,7.0,3.5,20.0,600.0,31.0,2.0,4.0,10.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Small,320.0,12.0,6.0,35.0,840.0,40.0,2.0,6.0,14.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Medium,370.0,13.0,6.0,40.0,970.0,46.0,2.0,7.0,16.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Large,340.0,12.0,6.0,35.0,900.0,43.0,2.0,6.0,15.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Extra Large,340.0,12.0,6.0,35.0,900.0,43.0,2.0,6.0,15.0
+Maui Zaui on Skinny Crust w/ Zesty Red Sauce Personal,140.0,7.0,3.5,20.0,380.0,13.0,1.0,2.0,7.0
+Maui Zaui on Skinny Crust w/ Zesty Red Sauce Small,200.0,9.0,4.5,25.0,520.0,18.0,1.0,3.0,10.0
+Maui Zaui on Skinny Crust w/ Zesty Red Sauce Medium,230.0,11.0,5.0,35.0,640.0,22.0,1.0,4.0,12.0
+Maui Zaui on Skinny Crust w/ Zesty Red Sauce Large,220.0,10.0,5.0,30.0,590.0,20.0,1.0,4.0,11.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Personal,170.0,7.0,3.5,20.0,430.0,17.0,1.0,2.0,8.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Small,230.0,9.0,4.5,25.0,600.0,25.0,1.0,3.0,11.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Medium,270.0,11.0,5.0,35.0,720.0,29.0,2.0,4.0,13.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Large,250.0,10.0,5.0,30.0,660.0,27.0,2.0,4.0,12.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Extra Large,240.0,10.0,5.0,30.0,650.0,26.0,2.0,4.0,12.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Personal,220.0,7.0,3.5,20.0,560.0,29.0,1.0,3.0,10.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Small,320.0,12.0,6.0,35.0,790.0,38.0,2.0,4.0,14.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Medium,360.0,13.0,6.0,40.0,920.0,44.0,2.0,5.0,16.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Large,330.0,12.0,6.0,35.0,850.0,41.0,2.0,4.0,15.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Extra Large,340.0,12.0,6.0,35.0,850.0,41.0,2.0,4.0,15.0
+Montague's All Meat Marvel on Skinny Crust Personal,170.0,10.0,4.5,30.0,430.0,12.0,1.0,1.0,8.0
+Montague's All Meat Marvel on Skinny Crust Small,230.0,13.0,6.0,40.0,580.0,16.0,1.0,2.0,11.0
+Montague's All Meat Marvel on Skinny Crust Medium,290.0,17.0,7.0,50.0,730.0,20.0,1.0,2.0,14.0
+Montague's All Meat Marvel on Skinny Crust Large,260.0,15.0,7.0,40.0,650.0,18.0,1.0,2.0,13.0
+Montague's All Meat Marvel on Original Crust Personal,190.0,10.0,4.5,30.0,480.0,16.0,1.0,1.0,9.0
+Montague's All Meat Marvel on Original Crust Small,260.0,14.0,6.0,40.0,660.0,23.0,1.0,2.0,12.0
+Montague's All Meat Marvel on Original Crust Medium,330.0,17.0,7.0,50.0,820.0,27.0,2.0,2.0,15.0
+Montague's All Meat Marvel on Original Crust Large,290.0,15.0,7.0,40.0,730.0,25.0,2.0,2.0,14.0
+Montague's All Meat Marvel on Original Crust Extra Large,290.0,15.0,7.0,40.0,720.0,24.0,2.0,2.0,14.0
+Montague's All Meat Marvel on Pan Crust Personal,250.0,10.0,4.5,30.0,610.0,27.0,1.0,2.0,11.0
+Montague's All Meat Marvel on Pan Crust Small,330.0,14.0,6.0,40.0,790.0,36.0,2.0,2.0,15.0
+Montague's All Meat Marvel on Pan Crust Medium,380.0,16.0,7.0,45.0,920.0,45.0,2.0,3.0,17.0
+Montague's All Meat Marvel on Pan Crust Large,360.0,15.0,7.0,45.0,850.0,38.0,2.0,2.0,16.0
+Montague's All Meat Marvel on Pan Crust Extra Large,360.0,15.0,7.0,45.0,850.0,38.0,2.0,2.0,16.0
+Smokehouse Combo on Skinny Crust w/ Pepperoni Personal,160.0,9.0,4.0,25.0,430.0,13.0,1.0,2.0,8.0
+Smokehouse Combo on Skinny Crust w/ Pepperoni Small,220.0,12.0,5.0,35.0,550.0,18.0,1.0,3.0,11.0
+Smokehouse Combo on Skinny Crust w/ Pepperoni Medium,270.0,15.0,7.0,45.0,690.0,21.0,2.0,3.0,13.0
+Smokehouse Combo on Skinny Crust w/ Pepperoni Large,250.0,14.0,6.0,40.0,640.0,20.0,2.0,3.0,12.0
+Smokehouse Combo on Original Crust w/ Pepperoni Personal,180.0,9.0,4.0,25.0,480.0,17.0,1.0,2.0,8.0
+Smokehouse Combo on Original Crust w/ Pepperoni Small,250.0,12.0,5.0,35.0,630.0,24.0,2.0,3.0,11.0
+Smokehouse Combo on Original Crust w/ Pepperoni Large,290.0,14.0,6.0,40.0,720.0,26.0,2.0,3.0,13.0
+Smokehouse Combo on Original Crust w/ Pepperoni Extra Large,280.0,14.0,6.0,40.0,700.0,26.0,2.0,3.0,13.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Medium,390.0,17.0,7.0,45.0,960.0,43.0,2.0,4.0,17.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Large,370.0,16.0,7.0,45.0,900.0,40.0,2.0,3.0,16.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Extra Large,370.0,16.0,7.0,45.0,900.0,40.0,2.0,3.0,16.0
+Ulti Meat on Skinny Crust Personal,180.0,11.0,4.5,30.0,480.0,12.0,1.0,1.0,9.0
+Ulti Meat on Skinny Crust Small,240.0,14.0,6.0,40.0,660.0,16.0,1.0,2.0,12.0
+Ulti Meat on Skinny Crust Medium,290.0,17.0,7.0,45.0,750.0,20.0,1.0,2.0,14.0
+Ulti Meat on Skinny Crust Large,270.0,16.0,7.0,40.0,690.0,18.0,1.0,2.0,13.0
+Ulti Meat on Original Crust Personal,200.0,11.0,5.0,30.0,530.0,16.0,1.0,1.0,10.0
+Ulti Meat on Original Crust Small,280.0,15.0,6.0,40.0,730.0,23.0,1.0,2.0,13.0
+Ulti Meat on Original Crust Medium,330.0,17.0,7.0,45.0,830.0,27.0,2.0,2.0,15.0
+Ulti Meat on Original Crust Large,300.0,16.0,7.0,40.0,770.0,25.0,2.0,2.0,14.0
+Ulti Meat on Original Crust Extra Large,300.0,16.0,7.0,40.0,750.0,24.0,2.0,2.0,14.0
+Ulti Meat on Pan Crust Personal,260.0,11.0,5.0,30.0,660.0,26.0,1.0,2.0,11.0
+Ulti Meat on Pan Crust Small,370.0,17.0,7.0,45.0,930.0,37.0,2.0,2.0,16.0
+Ulti Meat on Pan Crust Medium,410.0,19.0,8.0,50.0,1020.0,41.0,2.0,3.0,18.0
+Ulti Meat on Pan Crust Large,390.0,18.0,8.0,45.0,950.0,38.0,2.0,2.0,17.0
+Ulti Meat on Pan Crust Extra Large,390.0,18.0,8.0,45.0,950.0,39.0,2.0,3.0,17.0
+Wombo Combo on Skinny Crust Personal,160.0,9.0,4.0,25.0,430.0,12.0,1.0,1.0,8.0
+Wombo Combo on Skinny Crust Small,220.0,12.0,5.0,30.0,590.0,17.0,2.0,2.0,11.0
+Wombo Combo on Skinny Crust Medium,270.0,14.0,6.0,40.0,750.0,21.0,2.0,2.0,13.0
+Wombo Combo on Skinny Crust Large,250.0,13.0,6.0,35.0,710.0,20.0,2.0,2.0,12.0
+Wombo Combo on Original Crust Personal,180.0,9.0,4.0,25.0,480.0,17.0,1.0,2.0,9.0
+Wombo Combo on Original Crust Small,250.0,12.0,5.0,30.0,660.0,24.0,2.0,2.0,12.0
+Wombo Combo on Original Crust Medium,300.0,14.0,7.0,40.0,840.0,29.0,2.0,3.0,14.0
+Wombo Combo on Original Crust Large,280.0,13.0,6.0,35.0,790.0,26.0,2.0,3.0,13.0
+Wombo Combo on Original Crust Extra Large,270.0,13.0,6.0,35.0,770.0,26.0,2.0,3.0,13.0
+Wombo Combo on Pan Crust Personal,240.0,9.0,4.0,25.0,610.0,28.0,2.0,2.0,10.0
+Wombo Combo on Pan Crust Small,340.0,14.0,6.0,40.0,860.0,38.0,2.0,3.0,15.0
+Pepperoni on Pan Crust Large,320.0,13.0,6.0,35.0,790.0,38.0,2.0,2.0,14.0
+Wombo Combo on Pan Crust Large,360.0,15.0,7.0,40.0,970.0,40.0,3.0,3.0,16.0
+Wombo Combo on Pan Crust Extra Large,370.0,15.0,7.0,40.0,980.0,40.0,3.0,3.0,16.0
+Triple Play Pepperoni on Skinny Crust Medium,240.0,13.0,6.0,40.0,670.0,19.0,1.0,2.0,12.0
+Triple Play Pepperoni on Skinny Crust Large,220.0,12.0,6.0,35.0,600.0,17.0,1.0,2.0,11.0
+Triple Play Pepperoni on Original Crust Small,230.0,12.0,5.0,35.0,640.0,22.0,1.0,2.0,11.0
+Triple Play Pepperoni on Original Crust Medium,280.0,13.0,6.0,40.0,750.0,26.0,1.0,2.0,13.0
+Triple Play Pepperoni on Original Crust Large,250.0,12.0,6.0,35.0,680.0,24.0,1.0,2.0,12.0
+Triple Play Pepperoni on Original Crust Extra Large,240.0,12.0,6.0,35.0,660.0,23.0,1.0,2.0,12.0
+Triple Play Pepperoni on Pan Crust Personal,210.0,8.0,3.5,20.0,530.0,26.0,1.0,1.0,9.0
+Triple Play Pepperoni on Pan Crust Small,320.0,14.0,7.0,40.0,840.0,35.0,1.0,2.0,15.0
+Triple Play Pepperoni on Pan Crust Medium,360.0,16.0,7.0,45.0,950.0,39.0,1.0,2.0,17.0
+Triple Play Pepperoni on Pan Crust Large,330.0,14.0,7.0,40.0,870.0,36.0,1.0,2.0,15.0
+Triple Play Pepperoni on Pan Crust Extra Large,330.0,14.0,7.0,40.0,870.0,37.0,1.0,2.0,15.0
+Pepperoni on Skinny Crust Large,210.0,11.0,5.0,30.0,550.0,18.0,1.0,2.0,10.0
+Pepperoni on Original Crust Large,240.0,11.0,5.0,30.0,630.0,24.0,1.0,2.0,11.0
+Pepperoni Artisan Individual,150.0,8.0,2.5,20.0,390.0,14.0,1.0,1.0,7.0
+Pepperoni Artisan Full Size,150.0,8.0,2.5,20.0,390.0,14.0,1.0,1.0,7.0
+Roasted Veggies & Chicken Individual,150.0,7.0,2.0,15.0,360.0,14.0,1.0,1.0,7.0
+Roasted Veggies & Chicken Full Size,150.0,7.0,2.0,15.0,360.0,14.0,1.0,1.0,7.0
+Roasted Veggies & Mozzarella Individual,140.0,7.0,3.0,15.0,300.0,14.0,1.0,1.0,6.0
+Roasted Veggies & Mozzarella Full Size,140.0,7.0,3.0,15.0,300.0,14.0,1.0,1.0,6.0
+Tomato Pesto Individual,130.0,6.0,2.5,10.0,280.0,13.0,1.0,1.0,5.0
+Tomato Pesto Full Size,130.0,6.0,2.5,10.0,280.0,13.0,1.0,1.0,5.0
+Garden Salad Individual Small,90.0,2.5,0.0,0.0,190.0,14.0,3.0,4.0,2.0
+Chicken Club,800.0,43.0,14.0,135.0,2300.0,59.0,3.0,4.0,43.0
+Ham Club,740.0,40.0,14.0,100.0,2440.0,60.0,3.0,5.0,37.0
+Turkey Club,720.0,38.0,14.0,95.0,2090.0,59.0,3.0,4.0,40.0
+Lemon Bar,270.0,13.0,8.0,95.0,105.0,35.0,0.0,24.0,3.0
+Cheesecake,300.0,19.0,12.0,20.0,250.0,28.0,0.0,20.0,4.0
+Tiramisu,240.0,15.0,10.0,40.0,125.0,24.0,1.0,18.0,3.0
+Brownie,200.0,6.0,2.5,45.0,230.0,34.0,1.0,25.0,3.0
+Hearty Bacon Supreme on Original Crust Extra Large,270.0,14.0,6.0,30.0,690.0,22.0,1.0,2.0,13.0
+Hearty Bacon Supreme on Original Crust Personal,180.0,9.0,4.0,25.0,460.0,15.0,1.0,1.0,9.0
+Hearty Bacon Supreme on Skinny Crust Personal,160.0,9.0,4.0,25.0,410.0,11.0,0.0,1.0,8.0
+Hearty Bacon Supreme on Original Crust Medium,310.0,17.0,7.0,35.0,800.0,25.0,1.0,2.0,15.0
+Hearty Bacon Supreme on Pan Crust Extra Large,360.0,17.0,7.0,40.0,900.0,36.0,1.0,2.0,17.0
+Hearty Bacon Supreme on Original Crust Small,260.0,14.0,6.0,30.0,670.0,21.0,1.0,2.0,13.0
+Hearty Bacon Supreme on Original Crust Large,280.0,15.0,6.0,35.0,710.0,23.0,1.0,2.0,14.0
+Hearty Bacon Supreme on Skinny Crust Medium,270.0,16.0,7.0,35.0,710.0,18.0,1.0,1.0,14.0
+Hearty Bacon Supreme on Skinny Crust Small,230.0,14.0,6.0,30.0,600.0,15.0,1.0,1.0,12.0
+Hearty Bacon Supreme on Skinny Crust Large,240.0,14.0,6.0,35.0,630.0,16.0,1.0,1.0,13.0
+Hearty Bacon Supreme on Pan Crust Personal,230.0,10.0,4.0,25.0,590.0,26.0,1.0,2.0,11.0
+Hearty Bacon Supreme on Pan Crust Medium,400.0,19.0,8.0,40.0,1000.0,39.0,1.0,2.0,19.0
+Hearty Bacon Supreme on Pan Crust Small,350.0,16.0,7.0,35.0,880.0,34.0,1.0,2.0,17.0
+Hearty Bacon Supreme on Pan Crust Large,360.0,17.0,7.0,40.0,910.0,36.0,1.0,2.0,17.0
+Meatball Sandwich,750.0,37.0,14.0,85.0,1790.0,70.0,8.0,8.0,35.0
+Buffalo Sauce Medium,0.0,0.0,0.0,0.0,4560.0,0.0,0.0,0.0,0.0
+Buffalo Sauce Mild,28.0,2.0,0.0,0.0,3296.0,3.0,0.0,1.0,1.0
+Buffalo Sauce Hot,40.0,2.0,0.0,0.0,2900.0,5.0,0.0,0.0,1.0
+Polynesian Sauce for Appetizers,45.0,0.0,0.0,0.0,250.0,12.0,0.0,11.0,0.0
+Buffalo Ranch,184.0,20.0,3.0,19.0,2045.0,3.0,0.0,0.0,0.0
+Creamy Pesto,400.0,40.0,8.0,20.0,1000.0,4.0,2.0,0.0,8.0
+Bleu Cheese,603.0,60.0,13.0,57.0,940.0,4.0,0.0,0.0,4.0
+BBQ Sauce,216.0,0.0,0.0,0.0,888.0,52.0,0.0,48.0,0.0
+Marinara,100.0,5.0,1.0,0.0,580.0,10.0,6.0,4.0,4.0
+Boneless Wings w/ Buffalo Sauce Hot,445.0,15.0,2.7,85.0,2899.0,42.0,3.0,2.0,36.0
+Boneless Wings w/ Buffalo Sauce Medium,430.0,14.0,2.5,85.0,3574.0,40.0,2.0,2.0,36.0
+Boneless Wings w/ Buffalo Sauce Mild,445.0,14.0,2.5,85.0,2950.0,43.0,2.0,2.0,36.0
+Boneless Wings Original,430.0,14.0,2.5,85.0,1810.0,40.0,2.0,2.0,36.0
+Boneless Wings w/ Polynesian Sauce,535.0,14.0,2.5,85.0,2350.0,64.0,4.0,20.0,36.0
+Boneless Wings w/ BBQ Sauce,564.0,14.0,2.5,85.0,2367.0,73.0,2.0,32.0,36.0
+Classic Wings w/ BBQ Sauce,434.0,20.0,6.0,173.0,1502.0,33.0,0.0,30.0,30.0
+Classic Wings w/ Buffalo Sauce Hot,315.0,21.0,6.0,173.0,2034.0,2.0,1.0,0.04,30.0
+Classic Wings w/ Buffalo Sauce Medium,300.0,20.0,6.0,173.0,2709.0,0.0,0.0,0.0,30.0
+Classic Wings w/ Buffalo Sauce Mild,315.0,20.0,6.0,173.0,2085.0,3.0,0.0,0.0,30.0
+Classic Wings Original,300.0,20.0,6.0,173.0,945.0,0.0,0.0,0.0,30.0
+Classic Wings w/ Polynesian Sauce,405.0,20.0,6.0,173.0,1485.0,24.0,1.5,18.0,30.0
+1% Milk 8 oz,120.0,2.5,0.0,10.0,150.0,14.0,0.0,14.0,11.0
+Marinara w/ Sausage & Mushrooms Pasta,600.0,29.0,11.0,65.0,1500.0,57.0,7.0,13.0,29.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Small,350.0,15.0,6.0,35.0,920.0,39.0,2.0,6.0,15.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Medium,300.0,14.0,5.0,35.0,800.0,30.0,1.0,6.0,13.0
+Maui Zaui Pepperoni on Skinny Crust w/ Polynesian Sauce Medium,270.0,14.0,5.0,35.0,720.0,23.0,1.0,6.0,12.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Large,280.0,14.0,6.0,35.0,750.0,28.0,1.0,5.0,13.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Large,360.0,11.0,7.0,40.0,940.0,41.0,2.0,6.0,16.0
+Maui Zaui Pepperoni on Skinny Crust w/ Polynesian Sauce Large,250.0,13.0,6.0,35.0,670.0,21.0,1.0,5.0,11.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Medium,400.0,13.0,7.0,45.0,1040.0,44.0,2.0,7.0,17.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Small,260.0,9.0,6.0,25.0,720.0,26.0,1.0,5.0,12.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Extra Large,270.0,13.0,5.0,35.0,710.0,27.0,1.0,5.0,12.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Extra Large,360.0,11.0,6.0,40.0,920.0,41.0,2.0,6.0,16.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Personal,250.0,10.0,4.5,25.0,660.0,29.0,1.0,4.0,11.0
+Maui Zaui Pepperoni on Skinny Crust w/ Polynesian Sauce Small,230.0,13.0,6.0,25.0,640.0,19.0,1.0,5.0,11.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Extra Large,350.0,12.0,6.0,40.0,880.0,39.0,2.0,4.0,16.0
+Maui Zaui Pepperoni on Skinny Crust w/ Zesty Red Sauce Large,240.0,13.0,6.0,35.0,630.0,19.0,1.0,4.0,12.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Medium,290.0,14.0,5.0,35.0,760.0,28.0,1.0,4.0,14.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Small,340.0,15.0,6.0,35.0,870.0,37.0,2.0,4.0,16.0
+Maui Zaui Pepperoni on Skinny Crust w/ Zesty Red Sauce Small,230.0,13.0,6.0,25.0,600.0,17.0,1.0,3.0,11.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Medium,390.0,13.0,7.0,45.0,980.0,42.0,2.0,5.0,18.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Large,280.0,14.0,6.0,35.0,710.0,26.0,1.0,4.0,13.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Small,260.0,10.0,6.0,25.0,670.0,24.0,1.0,3.0,12.0
+Maui Zaui Pepperoni on Skinny Crust w/ Zesty Red Sauce Medium,260.0,14.0,5.0,35.0,670.0,21.0,1.0,4.0,12.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Large,350.0,12.0,7.0,40.0,890.0,39.0,2.0,4.0,16.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Extra Large,260.0,13.0,5.0,35.0,670.0,25.0,1.0,4.0,12.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Personal,240.0,10.0,4.5,25.0,620.0,28.0,1.0,3.0,11.0
+West Coast Combo on Skinny Crust Personal,150.0,8.0,3.5,25.0,350.0,11.0,0.0,1.0,7.0
+West Coast Combo on Pan Crust Medium,370.0,16.0,7.0,45.0,880.0,39.0,1.0,2.0,17.0
+West Coast Combo on Skinny Crust Medium,250.0,14.0,6.0,40.0,590.0,18.0,1.0,2.0,12.0
+West Coast Combo on Original Crust Personal,170.0,8.0,3.5,25.0,400.0,15.0,1.0,1.0,8.0
+West Coast Combo on Original Crust Large,260.0,13.0,6.0,35.0,630.0,23.0,1.0,2.0,12.0
+West Coast Combo on Original Crust Small,230.0,11.0,5.0,30.0,540.0,21.0,1.0,2.0,11.0
+West Coast Combo on Original Crust Extra Large,250.0,13.0,6.0,35.0,610.0,22.0,1.0,2.0,12.0
+West Coast Combo on Pan Crust Small,320.0,14.0,6.0,40.0,760.0,34.0,1.0,2.0,15.0
+West Coast Combo on Skinny Crust Small,190.0,11.0,4.5,30.0,460.0,15.0,1.0,1.0,10.0
+West Coast Combo on Pan Crust Extra Large,350.0,15.0,7.0,40.0,820.0,36.0,1.0,2.0,16.0
+West Coast Combo on Pan Crust Large,340.0,15.0,7.0,40.0,820.0,36.0,1.0,2.0,16.0
+West Coast Combo on Skinny Crust Large,230.0,13.0,6.0,35.0,550.0,16.0,1.0,1.0,11.0
+West Coast Combo on Original Crust Medium,280.0,14.0,6.0,40.0,680.0,25.0,1.0,2.0,13.0
+West Coast Combo on Pan Crust Personal,230.0,9.0,4.0,25.0,540.0,26.0,1.0,2.0,10.0
+Italiano Classic & Mini Pepperoni Medium,280.0,11.0,5.0,25.0,760.0,34.0,1.0,2.0,12.0
+Italiano Sausage & Mushroom Medium,240.0,8.0,3.5,20.0,570.0,34.0,2.0,3.0,11.0
+Italiano Ham & Pineapple Medium,240.0,7.0,3.5,20.0,610.0,35.0,1.0,4.0,11.0
+Caesar Salad Individual Small,120.0,6.0,2.5,10.0,350.0,9.0,2.0,1.0,6.0
+Caesar Salad Family Large,60.0,3.0,1.0,5.0,170.0,5.0,1.0,1.0,3.0
+Creamy Ranch Sauce,339.0,38.0,6.0,38.0,829.0,4.0,0.0,0.0,0.0
+Garden Salad Family,45.0,1.0,0.0,0.0,95.0,7.0,1.0,2.0,1.0
+Smokehouse Combo Chicken on Skinny Crust Personal 1 Slice,160.0,8.0,3.5,30.0,420.0,13.0,1.0,2.0,9.0
+Smokehouse Combo Chicken on Skinny Crust Small 1 Slice,220.0,11.0,5.0,35.0,550.0,18.0,1.0,2.0,12.0
+Smokehouse Combo Chicken on Skinny Crust Medium 1 Slice,260.0,13.0,6.0,45.0,650.0,21.0,2.0,3.0,14.0
+Smokehouse Combo Chicken on Skinny Crust Large 1 Slice,240.0,12.0,5.0,40.0,590.0,19.0,1.0,3.0,13.0
+Smokehouse Combo Chicken on Original Crust Personal 1 Slice,180.0,8.0,3.5,30.0,480.0,17.0,1.0,2.0,9.0
+Smokehouse Combo Chicken on Original Crust Small 1 Slice,250.0,11.0,5.0,35.0,630.0,24.0,2.0,3.0,13.0
+Smokehouse Combo Chicken on Original Crust Medium 1 Slice,300.0,13.0,6.0,45.0,740.0,29.0,2.0,3.0,15.0
+Smokehouse Combo Chicken on Original Crust Large 1 Slice,270.0,12.0,5.0,40.0,670.0,26.0,2.0,3.0,14.0
+Smokehouse Combo Chicken on Original Crust Extra Large 1 Slice,260.0,12.0,5.0,40.0,640.0,25.0,2.0,3.0,13.0
+Smokehouse Combo Chicken on Pan Crust Personal 1 Slice,240.0,9.0,3.5,30.0,600.0,29.0,2.0,3.0,11.0
+Smokehouse Combo Chicken on Pan Crust Small 1 Slice,340.0,13.0,6.0,45.0,830.0,38.0,2.0,3.0,16.0
+Smokehouse Combo Chicken on Pan Crust Medium 1 Slice,380.0,15.0,7.0,50.0,920.0,43.0,2.0,4.0,18.0
+Smokehouse Combo Chicken on Pan Crust Large 1 Slice,360.0,14.0,6.0,45.0,850.0,40.0,2.0,3.0,17.0
+Smokehouse Combo Chicken on Pan Crust Extra Large 1 Slice,360.0,14.0,6.0,45.0,850.0,40.0,2.0,3.0,17.0
+Crispy Pepperoni & Bacon Pizza Personal Skinny Crust,160.0,9.0,4.0,30.0,470.0,11.0,1.0,1.0,9.0
+Crispy Pepperoni & Bacon Pizza Small Skinny Crust,220.0,12.0,6.0,40.0,630.0,15.0,1.0,1.0,12.0
+Crispy Pepperoni & Bacon Pizza Medium Skinny Crust,250.0,14.0,7.0,45.0,740.0,18.0,1.0,2.0,14.0
+Crispy Pepperoni & Bacon Pizza Large Skinny Crust,230.0,13.0,6.0,40.0,670.0,17.0,1.0,1.0,13.0
+Crispy Pepperoni & Bacon Pizza Personal Original Crust,180.0,9.0,4.5,30.0,520.0,15.0,1.0,1.0,9.0
+Crispy Pepperoni & Bacon Pizza Small Original Crust,250.0,12.0,6.0,40.0,710.0,21.0,1.0,2.0,13.0
+Crispy Pepperoni & Bacon Pizza Medium Original Crust,290.0,14.0,7.0,45.0,830.0,25.0,1.0,2.0,15.0
+Crispy Pepperoni & Bacon Pizza Large Original Crust,260.0,13.0,6.0,40.0,750.0,23.0,1.0,2.0,14.0
+Crispy Pepperoni & Bacon Pizza Extra Large Original Crust,260.0,13.0,6.0,40.0,730.0,23.0,1.0,2.0,13.0
+Crispy Pepperoni & Bacon Pizza Personal Crispy Crust Pan,230.0,10.0,4.5,30.0,650.0,26.0,1.0,1.0,11.0
+Crispy Pepperoni & Bacon Pizza Small Crispy Crust Pan,330.0,15.0,7.0,45.0,910.0,34.0,1.0,2.0,17.0
+Crispy Pepperoni & Bacon Pizza Medium Crispy Crust Pan,370.0,16.0,8.0,50.0,1020.0,39.0,1.0,2.0,18.0
+Crispy Pepperoni & Bacon Pizza Large Crispy Crust Pan,340.0,15.0,7.0,45.0,930.0,36.0,1.0,2.0,17.0
+Crispy Pepperoni & Bacon Pizza Extra Large Crispy Crust Pan,340.0,15.0,7.0,45.0,920.0,36.0,1.0,2.0,17.0
+Cinnamon Twists,180.0,3.5,0.5,0.0,290.0,34.0,1.0,11.0,4.0
+Island Flatbread Full Size,140.0,6.0,2.5,15.0,380.0,15.0,1.0,2.0,7.0
+Island Flatbread Individual,140.0,6.0,2.5,15.0,380.0,15.0,1.0,2.0,7.0
+Cheese Pizza Original Extra Large,220.0,9.0,5.0,30.0,490.0,24.0,1.0,2.0,10.0
+Cheese Pizza Original Medium,250.0,10.0,5.0,35.0,540.0,27.0,1.0,2.0,12.0
+Cheese Original Personal,150.0,7.0,3.5,20.0,340.0,16.0,1.0,1.0,7.0
+Cheese Original Small,200.0,8.0,4.5,25.0,450.0,22.0,1.0,2.0,10.0
+Cheese Pizza Pan Extra Large,310.0,11.0,6.0,35.0,680.0,38.0,2.0,2.0,13.0
+Cheese Pizza Pan Medium,330.0,12.0,6.0,35.0,730.0,41.0,2.0,2.0,14.0
+Cheese Pizza Pan Personal,210.0,7.0,3.5,20.0,460.0,27.0,1.0,1.0,9.0
+Cheese Pizza Pan Small,290.0,10.0,5.0,35.0,640.0,36.0,2.0,2.0,13.0
+Cheese Pizza Skinny Medium,210.0,10.0,5.0,35.0,460.0,19.0,1.0,2.0,10.0
+Cheese Pizza Skinny Personal,130.0,7.0,3.5,20.0,290.0,11.0,1.0,1.0,7.0
+Cheese Pizza Skinny Small,170.0,8.0,4.5,25.0,380.0,16.0,1.0,1.0,9.0
+Chicken Maui Zaui w/ Polynesian Sauce Pan Extra Large,340.0,13.0,8.0,40.0,860.0,41.0,1.0,7.0,16.0
+Chicken Maui Zaui w/ Polynesian Sauce Pan Large,340.0,12.0,8.0,35.0,860.0,41.0,1.0,7.0,16.0
+Chicken Maui Zaui w/ Polynesian Sauce Pan Medium,370.0,14.0,8.0,40.0,940.0,44.0,1.0,7.0,18.0
+Chicken Maui Zaui w/ Polynesian Sauce Pan Small,320.0,12.0,7.0,35.0,820.0,38.0,1.0,6.0,16.0
+Chicken Maui Zaui w/ Zesty Red Sauce Original Extra Large,240.0,10.0,6.0,30.0,610.0,25.0,1.0,4.0,13.0
+Chicken Maui Zaui w/ Zesty Red Sauce Original Large,250.0,11.0,6.0,35.0,620.0,26.0,1.0,4.0,13.0
+Chicken Maui Zaui w/ Zesty Red Sauce Original Medium,270.0,12.0,7.0,35.0,690.0,28.0,1.0,4.0,14.0
+Chicken Maui Zaui w/ Zesty Red Sauce Original Small,230.0,10.0,6.0,30.0,580.0,24.0,1.0,3.0,12.0
+Chicken Maui Zaui w/ Zesty Red Sauce Pan Extra Large,330.0,13.0,8.0,40.0,810.0,39.0,2.0,4.0,16.0
+Chicken Maui Zaui w/ Zesty Red Sauce Pan Large,330.0,12.0,8.0,35.0,800.0,39.0,2.0,4.0,16.0
+Chicken Maui Zaui w/ Zesty Red Sauce Pan Medium,360.0,14.0,8.0,40.0,880.0,41.0,2.0,4.0,18.0
+Chicken Maui Zaui w/ Zesty Red Sauce Pan Personal,220.0,8.0,5.0,25.0,550.0,28.0,1.0,3.0,11.0
+Chicken Maui Zaui w/ Zesty Red Sauce Pan Small,320.0,12.0,7.0,35.0,780.0,37.0,1.0,4.0,16.0
+Chicken Maui Zaui w/ Zesty Red Sauce Skinny Large,220.0,10.0,6.0,35.0,540.0,19.0,1.0,3.0,12.0
+Chicken Maui Zaui w/ Zesty Red Sauce Skinny Medium,240.0,11.0,6.0,35.0,600.0,21.0,1.0,3.0,13.0
+Pepperoni Pizza Original Extra Large,240.0,11.0,5.0,30.0,610.0,24.0,1.0,2.0,10.0
+Pepperoni Pizza Original Medium,270.0,12.0,6.0,35.0,700.0,27.0,2.0,2.0,12.0
+Pepperoni Pizza Original Personal,160.0,8.0,3.5,25.0,430.0,16.0,1.0,1.0,7.0
+Pepperoni Pizza Original Small,230.0,11.0,5.0,30.0,590.0,22.0,1.0,2.0,10.0
+Pepperoni Pizza Pan Extra Large,320.0,13.0,6.0,35.0,800.0,38.0,2.0,2.0,14.0
+Pepperoni Pizza Pan Medium,350.0,14.0,7.0,40.0,850.0,41.0,2.0,2.0,15.0
+Pepperoni Pizza Pan Personal,210.0,8.0,3.5,20.0,520.0,27.0,1.0,1.0,9.0
+Pepperoni Pizza Pan Small,300.0,12.0,6.0,35.0,740.0,36.0,2.0,2.0,13.0
+Pepperoni Pizza Skinny Medium,230.0,12.0,6.0,35.0,610.0,19.0,1.0,2.0,11.0
+Pepperoni Pizza Skinny Personal,140.0,8.0,3.5,25.0,380.0,11.0,1.0,1.0,7.0
+Pepperoni Pizza Skinny Small,190.0,10.0,5.0,30.0,520.0,16.0,1.0,1.0,9.0
+Guineveres Garden Delight on Pan Crust Small,280.0,10.0,5.0,25.0,640.0,36.0,2.0,3.0,13.0
+Beer,153.0,0.0,0.0,0.0,14.0,13.0,0.0,0.0,0.0
+Mountain Dew 16 oz,190.0,0.0,0.0,0.0,60.0,51.0,51.0,0.0,0.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Personal,170.0,7.0,3.5,20.0,470.0,18.0,1.0,4.0,8.0
+BBQ Chicken Pizza on Pan Crust Personal,250.0,9.0,4.0,15.0,650.0,31.0,1.0,6.0,12.0
+Pepsi 12 oz,130.0,0.0,0.0,0.0,25.0,37.0,37.0,0.0,0.0
+Wombo Combo on Skinny Crust Personal,160.0,9.0,4.0,25.0,430.0,12.0,1.0,1.0,8.0
+BBQ Chicken Pizza on Original Crust Large,280.0,12.0,6.0,20.0,720.0,29.0,1.0,8.0,14.0
+Pepperoni Parmesano on Original Crust Personal,190.0,9.0,5.0,30.0,490.0,17.0,1.0,1.0,10.0
+Hearty Bacon Supreme on Original Crust Large,280.0,15.0,6.0,35.0,710.0,23.0,1.0,2.0,14.0
+Hawaiian on Pan Crust Personal,200.0,6.0,3.0,20.0,510.0,27.0,1.0,3.0,9.0
+Tropicana Lemonade 12 oz,130.0,0.0,0.0,0.0,140.0,35.0,35.0,0.0,0.0
+Gourmet Veggie on Skinny Crust Large,200.0,10.0,4.5,25.0,540.0,19.0,2.0,2.0,10.0
+Smokehouse Combo Chicken on Pan Crust Small,330.0,13.0,6.0,45.0,840.0,36.0,2.0,3.0,17.0
+Italian Garlic Supreme on Pan Crust Personal,240.0,11.0,4.5,25.0,590.0,27.0,1.0,2.0,11.0
+Guineveres Garden Delight on Skinny Crust Personal,120.0,5.0,2.5,15.0,270.0,12.0,1.0,1.0,6.0
+Montagues All Meat Marvel on Original Crust Extra Large,280.0,15.0,7.0,40.0,720.0,23.0,1.0,2.0,14.0
+West Coast Combo on Pan Crust Personal,230.0,9.0,4.0,25.0,540.0,26.0,1.0,2.0,10.0
+Hearty Bacon Supreme on Original Crust Personal,180.0,9.0,4.0,25.0,460.0,15.0,1.0,1.0,9.0
+Maui Zaui on Skinny Crust w/ Polynesian Sauce Large,220.0,10.0,5.0,30.0,630.0,21.0,1.0,5.0,11.0
+Tropicana Fruit Punch 12 oz,140.0,0.0,0.0,0.0,35.0,39.0,0.0,39.0,0.0
+King Arthur Supreme on Original Crust Extra Large,260.0,13.0,6.0,35.0,650.0,24.0,1.0,2.0,13.0
+West Coast Combo on Original Crust Medium,280.0,14.0,6.0,40.0,680.0,25.0,1.0,2.0,13.0
+Maui Zaui on Skinny Crust w/ Zesty Red Sauce Small,190.0,9.0,4.5,25.0,520.0,17.0,1.0,3.0,10.0
+Maui Zaui on Skinny Crust w/ Polynesian Sauce Personal,150.0,7.0,3.5,20.0,420.0,14.0,1.0,4.0,8.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Medium,270.0,11.0,5.0,35.0,730.0,28.0,1.0,4.0,14.0
+Garden Salad Individual,90.0,2.5,0.0,0.0,190.0,14.0,3.0,4.0,2.0
+Smokehouse Combo on Original Crust w/ Pepperoni Personal,180.0,9.0,4.0,25.0,480.0,17.0,1.0,2.0,9.0
+Smokehouse Combo Chicken on Original Crust Large,270.0,12.0,6.0,40.0,670.0,25.0,1.0,3.0,14.0
+West Coast Combo on Pan Crust Medium,370.0,16.0,7.0,45.0,880.0,39.0,1.0,2.0,17.0
+Montagues All Meat Marvel on Skinny Crust Medium,290.0,17.0,7.0,50.0,720.0,19.0,1.0,2.0,15.0
+Maui Zaui on Skinny Crust w/ Zesty Red Sauce Personal,140.0,7.0,3.5,20.0,380.0,13.0,1.0,2.0,8.0
+BBQ Chicken Pizza on Skinny Crust Personal,170.0,8.0,3.5,15.0,450.0,15.0,0.0,5.0,9.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Large,350.0,12.0,7.0,40.0,890.0,39.0,2.0,4.0,16.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Extra Large,260.0,13.0,5.0,35.0,670.0,25.0,1.0,4.0,12.0
+Cheese Pizza on Pan Crust Large,300.0,11.0,6.0,35.0,670.0,38.0,2.0,2.0,13.0
+Wombo Combo on Pan Crust Extra Large,360.0,16.0,7.0,40.0,980.0,39.0,2.0,3.0,17.0
+Hawaiian on Pan Crust Large,300.0,10.0,5.0,35.0,760.0,38.0,1.0,4.0,15.0
+BBQ Chicken Pizza on Skinny Crust Small,250.0,11.0,4.5,20.0,670.0,27.0,1.0,8.0,12.0
+BBQ Chicken Pizza on Pan Crust Small,350.0,14.0,6.0,30.0,890.0,41.0,1.0,8.0,17.0
+6 Classic Wings w/ BBQ Sauce,434.0,20.0,6.0,173.0,1502.0,33.0,0.0,30.0,30.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Medium,360.0,13.0,7.0,40.0,980.0,44.0,2.0,7.0,17.0
+Triple Play Pepperoni on Original Crust Medium,280.0,13.0,6.0,40.0,750.0,26.0,1.0,2.0,13.0
+Chicken & Garlic Gourmet on Pan Crust Small,310.0,13.0,6.0,35.0,760.0,36.0,1.0,2.0,15.0
+Guineveres Garden Delight on Skinny Crust Medium,200.0,9.0,4.5,25.0,460.0,20.0,1.0,2.0,10.0
+Buffalo Ranch,184.0,20.0,3.0,19.0,2045.0,3.0,0.0,0.0,0.0
+Caesar Salad Individual,370.0,31.0,7.0,65.0,800.0,11.0,2.0,1.0,8.0
+Montagues All Meat Marvel on Pan Crust Extra Large,350.0,15.0,7.0,45.0,860.0,37.0,2.0,2.0,17.0
+Roasted Veggies & Chicken Individual,150.0,7.0,2.0,15.0,360.0,14.0,1.0,1.0,7.0
+Triple Play Pepperoni on Skinny Crust Medium,240.0,13.0,6.0,40.0,670.0,19.0,1.0,2.0,12.0
+Wild Cherry Pepsi 12 oz,130.0,0.0,0.0,0.0,25.0,37.0,37.0,0.0,0.0
+Ulti Meat on Original Crust Extra Large,290.0,16.0,7.0,40.0,750.0,23.0,2.0,2.0,14.0
+Wombo Combo on Original Crust Medium,300.0,15.0,7.0,40.0,840.0,28.0,2.0,3.0,15.0
+8 Boneless Wings w/ Polynesian Sauce,535.0,14.0,2.5,85.0,2350.0,64.0,4.0,20.0,36.0
+Italiano Classic & Mini Pepperoni Medium,280.0,11.0,5.0,25.0,760.0,34.0,1.0,2.0,12.0
+Smokehouse Combo on Skinny Crust w/ Pepperoni Medium,270.0,15.0,7.0,45.0,690.0,21.0,1.0,3.0,14.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Personal,190.0,10.0,3.5,25.0,490.0,17.0,1.0,2.0,9.0
+Gourmet Veggie on Pan Crust Small,300.0,12.0,6.0,30.0,740.0,36.0,2.0,2.0,14.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Large,280.0,14.0,6.0,35.0,710.0,26.0,1.0,4.0,13.0
+Ulti Meat on Skinny Crust Personal,180.0,11.0,5.0,30.0,480.0,1.0,1.0,1.0,9.0
+West Coast Combo on Skinny Crust Large,230.0,13.0,6.0,35.0,550.0,16.0,1.0,1.0,11.0
+Roasted Veggies & Mozzarella Full Size,140.0,7.0,3.0,15.0,300.0,14.0,1.0,1.0,6.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Small,340.0,14.0,7.0,40.0,830.0,37.0,2.0,3.0,16.0
+Lipton Brisk Unsweetened Iced Tea 12 oz,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Pepperoni Parmesano on Skinny Crust Personal,170.0,9.0,4.5,25.0,430.0,12.0,1.0,1.0,9.0
+Hot Tea,2.0,0.0,0.0,0.0,7.0,0.0,0.0,0.0,0.0
+Chicken & Garlic Gourmet on Skinny Crust Large,210.0,11.0,5.0,35.0,540.0,18.0,1.0,1.0,12.0
+Triple Play Pepperoni on Skinny Crust Small,200.0,11.0,5.0,35.0,570.0,15.0,1.0,1.0,10.0
+Big Vinnie Cheese Pizza Extra Large,450.0,18.0,9.0,55.0,1070.0,51.0,2.0,3.0,22.0
+Guineveres Garden Delight on Skinny Crust Small,160.0,7.0,3.5,20.0,380.0,17.0,1.0,2.0,8.0
+Hawaiian on Pan Crust Small,290.0,10.0,5.0,30.0,720.0,37.0,1.0,4.0,14.0
+Smokehouse Combo on Skinny Crust w/ Pepperoni Small,220.0,12.0,5.0,35.0,560.0,17.0,1.0,3.0,11.0
+Italian Garlic Supreme on Original Crust Small,260.0,14.0,6.0,35.0,630.0,22.0,1.0,2.0,12.0
+Sobe Lean Cranberry Grapefruit 12 oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Hawaiian on Original Crust Medium,240.0,9.0,4.5,30.0,640.0,28.0,1.0,4.0,12.0
+Meatball Sandwich,750.0,37.0,14.0,85.0,1790.0,70.0,8.0,8.0,35.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Large,250.0,10.0,5.0,30.0,670.0,26.0,1.0,4.0,13.0
+Triple Play Pepperoni on Pan Crust Personal,210.0,8.0,3.5,20.0,530.0,26.0,1.0,1.0,9.0
+Smokehouse Combo on Original Crust w/ Pepperoni Medium,300.0,15.0,7.0,45.0,790.0,28.0,2.0,3.0,15.0
+West Coast Combo on Original Crust Small,230.0,11.0,5.0,30.0,540.0,21.0,1.0,2.0,11.0
+Triple Play Pepperoni on Pan Crust Medium,360.0,16.0,7.0,45.0,950.0,39.0,1.0,2.0,17.0
+Diet Dr Pepper 16 oz,150.0,0.0,0.0,0.0,52.0,41.0,41.0,0.0,0.0
+Diet Pepsi 12 oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Light Beer,103.0,0.0,0.0,0.0,14.0,6.0,0.0,0.0,0.0
+Hot Coffee,2.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Pepperoni Parmesano on Original Crust Medium,320.0,16.0,8.0,45.0,850.0,27.0,2.0,2.0,16.0
+Hawaiian on Original Crust Large,220.0,8.0,4.0,30.0,550.0,26.0,1.0,4.0,11.0
+Garlic Bread,60.0,3.0,1.5,0.0,100.0,12.0,0.0,0.0,2.0
+Smokehouse Combo Chicken on Skinny Crust Medium,260.0,13.0,6.0,45.0,650.0,20.0,1.0,3.0,14.0
+Pepperoni on Pan Crust Large,320.0,13.0,6.0,35.0,790.0,38.0,2.0,2.0,14.0
+Chicken Bacon Alfredo Pasta,660.0,36.0,15.0,80.0,1360.0,48.0,3.0,6.0,36.0
+Dr Pepper 16 oz,150.0,0.0,0.0,0.0,52.0,41.0,41.0,0.0,0.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Extra Large,340.0,12.0,6.0,35.0,900.0,41.0,2.0,6.0,16.0
+Guineveres Garden Delight on Original Crust Large,210.0,9.0,4.0,25.0,500.0,25.0,1.0,2.0,10.0
+King Arthur Supreme on Pan Crust Extra Large,340.0,14.0,6.0,40.0,800.0,38.0,2.0,3.0,16.0
+Ulti Meat on Original Crust Medium,320.0,17.0,8.0,45.0,830.0,26.0,1.0,2.0,16.0
+Wombo Combo on Original Crust Large,280.0,14.0,6.0,35.0,790.0,26.0,2.0,3.0,13.0
+Maui Zaui on Skinny Crust w/ Polynesian Sauce Medium,240.0,11.0,5.0,35.0,690.0,23.0,1.0,6.0,12.0
+Garlic Parmesan Twists,170.0,5.0,2.0,10.0,440.0,24.0,1.0,1.0,6.0
+Tropicana Apple Juice,90.0,0.0,0.0,0.0,10.0,23.0,0.0,0.0,0.0
+Montagues All Meat Marvel on Skinny Crust Personal,170.0,10.0,4.5,30.0,430.0,11.0,1.0,1.0,9.0
+Garden Salad Family,45.0,1.0,0.0,0.0,95.0,7.0,1.0,2.0,1.0
+Wombo Combo on Skinny Crust Large,240.0,13.0,6.0,35.0,710.0,19.0,2.0,2.0,13.0
+Italiano Pepperoni Pizza Large,360.0,14.0,6.0,35.0,960.0,44.0,2.0,3.0,16.0
+Sobe Lean Cranberry Grapefruit 16 oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Cheese Pizza on Original Crust Large,230.0,9.0,5.0,30.0,500.0,25.0,1.0,2.0,11.0
+Maui Zaui on Skinny Crust w/ Polynesian Sauce Small,200.0,9.0,4.5,25.0,570.0,19.0,1.0,5.0,10.0
+BBQ Chicken Pizza on Pan Crust Extra Large,360.0,15.0,7.0,30.0,920.0,42.0,1.0,8.0,17.0
+King Arthur Supreme on Pan Crust Medium,360.0,15.0,7.0,40.0,860.0,40.0,2.0,3.0,17.0
+Triple Play Pepperoni on Skinny Crust Large,220.0,12.0,6.0,35.0,600.0,17.0,1.0,2.0,11.0
+Cinnamon Twists,180.0,3.5,0.5,0.0,290.0,34.0,1.0,11.0,4.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Extra Large,370.0,16.0,7.0,45.0,910.0,38.0,2.0,3.0,17.0
+Hearty Bacon Supreme on Skinny Crust Large,240.0,14.0,6.0,35.0,630.0,16.0,1.0,1.0,13.0
+8 Boneless Wings w/ Medium Buffalo Sauce,430.0,14.0,2.5,85.0,3574.0,40.0,2.0,2.0,36.0
+Hearty Bacon Supreme on Skinny Crust Small,230.0,14.0,6.0,30.0,600.0,15.0,1.0,1.0,12.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Personal,220.0,8.0,3.5,20.0,570.0,28.0,1.0,3.0,10.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Extra Large,350.0,12.0,6.0,40.0,880.0,39.0,2.0,4.0,16.0
+Montagues All Meat Marvel on Skinny Crust Large,260.0,15.0,7.0,40.0,650.0,17.0,1.0,2.0,13.0
+Hearty Bacon Supreme on Skinny Crust Personal,160.0,9.0,4.0,25.0,410.0,11.0,0.0,1.0,8.0
+BBQ Chicken Pizza on Skinny Crust Medium,260.0,12.0,6.0,25.0,670.0,25.0,1.0,8.0,14.0
+Roasted Veggies & Chicken Full Size,150.0,7.0,2.0,15.0,360.0,14.0,1.0,1.0,7.0
+Tiramisu,240.0,15.0,10.0,40.0,125.0,24.0,1.0,18.0,3.0
+Maui Zaui Pepperoni on Skinny Crust w/ Zesty Red Sauce Personal,170.0,9.0,3.5,25.0,440.0,13.0,1.0,2.0,8.0
+Brownie,200.0,6.0,2.5,45.0,230.0,34.0,1.0,25.0,3.0
+6 Classic Wings w/ Polynesian Sauce,405.0,20.0,6.0,173.0,1485.0,24.0,1.5,18.0,30.0
+Italian Garlic Supreme on Skinny Crust Personal,170.0,10.0,4.5,25.0,410.0,11.0,1.0,1.0,8.0
+Maui Zaui Pepperoni on Skinny Crust w/ Zesty Red Sauce Large,240.0,13.0,6.0,35.0,630.0,19.0,1.0,4.0,12.0
+Smokehouse Combo on Skinny Crust w/ Pepperoni Personal,170.0,10.0,4.5,30.0,430.0,11.0,1.0,1.0,9.0
+West Coast Combo on Original Crust Personal,170.0,8.0,3.5,25.0,400.0,15.0,1.0,1.0,8.0
+Guineveres Garden Delight on Pan Crust Extra Large,300.0,11.0,5.0,30.0,690.0,38.0,2.0,3.0,13.0
+Sierra Mist 16 oz,180.0,0.0,0.0,0.0,35.0,47.0,47.0,0.0,0.0
+Italiano Cheese Pizza Large,340.0,6.0,6.0,35.0,830.0,44.0,2.0,3.0,16.0
+Smokehouse Combo Chicken on Skinny Crust Large,240.0,12.0,5.0,40.0,590.0,19.0,1.0,3.0,13.0
+Smokehouse Combo Chicken on Skinny Crust Personal,160.0,8.0,3.5,30.0,420.0,13.0,1.0,2.0,9.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Extra Large,360.0,11.0,6.0,40.0,920.0,41.0,2.0,6.0,16.0
+Lemon Bar,270.0,13.0,8.0,95.0,105.0,35.0,0.0,24.0,3.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Personal,190.0,10.0,3.5,25.0,530.0,18.0,1.0,4.0,9.0
+Cheesecake,300.0,19.0,12.0,20.0,250.0,28.0,0.0,20.0,4.0
+Guineveres Garden Delight on Original Crust Small,190.0,8.0,3.5,20.0,450.0,23.0,1.0,2.0,9.0
+Smokehouse Combo Chicken on Original Crust Medium,290.0,13.0,6.0,45.0,740.0,28.0,2.0,3.0,16.0
+Italian Garlic Supreme on Original Crust Extra Large,260.0,14.0,6.0,35.0,630.0,23.0,1.0,2.0,12.0
+Pepperoni Parmesano on Original Crust Extra Large,290.0,15.0,7.0,45.0,790.0,24.0,2.0,2.0,15.0
+West Coast Combo on Pan Crust Small,320.0,14.0,6.0,40.0,760.0,34.0,1.0,2.0,15.0
+Dessert Pizza,210.0,8.0,1.5,0.0,250.0,32.0,1.0,10.0,3.0
+Smokehouse Combo on Skinny Crust w/ Pepperoni Large,250.0,14.0,6.0,40.0,640.0,19.0,1.0,3.0,13.0
+Lipton Brisk Raspberry Ice Tea 12 oz,110.0,0.0,0.0,0.0,35.0,28.0,28.0,0.0,0.0
+Pepperoni Parmesano on Original Crust Large,290.0,15.0,8.0,45.0,800.0,25.0,2.0,2.0,15.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Extra Large,250.0,10.0,5.0,30.0,690.0,27.0,1.0,5.0,12.0
+6 Classic Wings w/ Mild Buffalo Sauce,315.0,20.0,6.0,173.0,2085.0,3.0,0.0,0.0,30.0
+Pepperoni Parmesano on Skinny Crust Small,230.0,12.0,6.0,35.0,600.0,17.0,1.0,1.0,12.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Extra Large,340.0,12.0,6.0,35.0,850.0,41.0,4.0,4.0,15.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Personal,160.0,7.0,3.5,20.0,440.0,17.0,1.0,2.0,8.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Extra Large,240.0,10.0,5.0,30.0,650.0,25.0,4.0,4.0,12.0
+Hearty Bacon Supreme on Pan Crust Personal,230.0,10.0,4.0,25.0,590.0,26.0,1.0,2.0,11.0
+West Coast Combo on Original Crust Extra Large,250.0,13.0,6.0,35.0,610.0,22.0,1.0,2.0,12.0
+Ulti Meat on Skinny Crust Small,240.0,15.0,6.0,40.0,670.0,16.0,1.0,2.0,12.0
+Gourmet Veggie on Pan Crust Medium,340.0,13.0,6.0,35.0,860.0,42.0,2.0,3.0,15.0
+Caesar Salad Family,62.0,5.0,1.0,11.0,133.0,2.0,0.0,0.0,1.0
+Gourmet Veggie on Original Crust Medium,250.0,11.0,5.0,25.0,650.0,28.0,2.0,2.0,12.0
+Creamy Pesto,400.0,40.0,8.0,20.0,1000.0,4.0,2.0,0.0,8.0
+Guineveres Garden Delight on Original Crust Medium,230.0,9.0,4.5,25.0,540.0,27.0,2.0,3.0,11.0
+8 Boneless Wings w/ BBQ Sauce,564.0,14.0,2.5,85.0,2367.0,73.0,2.0,32.0,36.0
+Maui Zaui Pepperoni on Skinny Crust w/ Polynesian Sauce Personal,170.0,9.0,3.5,25.0,480.0,14.0,1.0,4.0,8.0
+Chicken & Garlic Gourmet on Original Crust Medium,270.0,12.0,5.0,40.0,670.0,26.0,1.0,2.0,14.0
+Hearty Bacon Supreme on Original Crust Medium,310.0,17.0,7.0,35.0,800.0,25.0,1.0,2.0,15.0
+Chicken & Garlic Gourmet on Original Crust Small,230.0,10.0,4.5,30.0,530.0,22.0,1.0,2.0,12.0
+King Arthur Supreme on Pan Crust Small,310.0,13.0,6.0,35.0,740.0,35.0,1.0,2.0,15.0
+Wombo Combo on Pan Crust Large,360.0,16.0,7.0,40.0,980.0,38.0,2.0,3.0,17.0
+Montagues All Meat Marvel on Original Crust Medium,320.0,17.0,8.0,50.0,820.0,26.0,1.0,2.0,16.0
+Ulti Meat on Original Crust Small,270.0,15.0,7.0,40.0,720.0,22.0,1.0,2.0,13.0
+Bleu Cheese,603.0,60.0,13.0,57.0,940.0,4.0,0.0,0.0,4.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Large,280.0,14.0,6.0,35.0,750.0,28.0,1.0,5.0,13.0
+Montagues All Meat Marvel on Pan Crust Personal,250.0,11.0,4.5,30.0,610.0,26.0,1.0,2.0,11.0
+8 Boneless Wings Original,430.0,14.0,2.5,85.0,1810.0,40.0,2.0,2.0,36.0
+Ulti Meat on Pan Crust Small,360.0,17.0,8.0,45.0,930.0,35.0,1.0,2.0,17.0
+Guineveres Garden Delight on Pan Crust Personal,190.0,6.0,3.0,15.0,450.0,27.0,1.0,2.0,8.0
+Gourmet Veggie on Original Crust Extra Large,230.0,10.0,4.5,25.0,600.0,25.0,2.0,2.0,11.0
+Gourmet Veggie on Original Crust Large,230.0,10.0,4.5,25.0,620.0,26.0,2.0,2.0,11.0
+Pepperoni Parmesano on Pan Crust Extra Large,380.0,17.0,9.0,50.0,990.0,38.0,2.0,2.0,18.0
+Maui Zaui on Skinny Crust w/ Zesty Red Sauce Medium,230.0,11.0,5.0,35.0,640.0,21.0,1.0,4.0,13.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Large,360.0,16.0,7.0,45.0,910.0,38.0,2.0,3.0,17.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Medium,400.0,13.0,7.0,45.0,1040.0,44.0,2.0,7.0,17.0
+Pepperoni Parmesano on Pan Crust Large,380.0,17.0,9.0,50.0,980.0,38.0,2.0,2.0,18.0
+8 Boneless Wings w/ Mild Buffalo Sauce,445.0,14.0,2.5,85.0,2950.0,43.0,2.0,2.0,36.0
+BBQ Chicken Pizza on Original Crust Extra Large,270.0,12.0,6.0,20.0,710.0,28.0,1.0,7.0,13.0
+King Arthur Supreme on Original Crust Personal,180.0,9.0,4.0,25.0,430.0,16.0,1.0,1.0,9.0
+Montagues All Meat Marvel on Skinny Crust Small,230.0,13.0,6.0,40.0,600.0,16.0,1.0,2.0,12.0
+Mug Root Beer 16 oz,180.0,0.0,0.0,0.0,25.0,46.0,46.0,0.0,0.0
+Dole Orange Juice,210.0,0.0,0.0,0.0,30.0,51.0,0.0,0.0,0.0
+Smokehouse Combo Chicken on Original Crust Extra Large,260.0,12.0,5.0,40.0,650.0,24.0,1.0,3.0,14.0
+Chicken & Garlic Gourmet on Pan Crust Medium,360.0,14.0,7.0,45.0,880.0,40.0,2.0,2.0,18.0
+Montagues All Meat Marvel on Pan Crust Medium,380.0,17.0,8.0,45.0,920.0,40.0,2.0,3.0,18.0
+Pepperoni Parmesano on Skinny Crust Medium,280.0,16.0,8.0,45.0,770.0,20.0,2.0,2.0,15.0
+Gourmet Veggie on Pan Crust Personal,210.0,7.0,3.5,15.0,550.0,28.0,1.0,2.0,9.0
+Wombo Combo on Original Crust Extra Large,270.0,13.0,6.0,35.0,790.0,25.0,2.0,3.0,13.0
+Chicken & Garlic Gourmet on Original Crust Personal,160.0,7.0,3.5,25.0,400.0,16.0,1.0,1.0,9.0
+Buffalo Sauce Hot,40.0,2.0,0.0,0.0,2900.0,5.0,0.0,0.0,1.0
+Triple Play Pepperoni on Original Crust Personal,150.0,7.0,3.5,20.0,400.0,15.0,1.0,1.0,7.0
+Wombo Combo on Original Crust Small,250.0,12.0,5.0,30.0,670.0,23.0,2.0,2.0,12.0
+6 Classic Wings w/ Hot Buffalo Sauce,315.0,21.0,6.0,173.0,2034.0,2.0,1.0,0.04,30.0
+Hawaiian on Original Crust Extra Large,220.0,8.0,4.0,30.0,580.0,25.0,1.0,4.0,11.0
+Guineveres Garden Delight on Skinny Crust Large,180.0,8.0,4.0,25.0,420.0,19.0,1.0,2.0,9.0
+West Coast Combo on Skinny Crust Medium,250.0,14.0,6.0,40.0,590.0,18.0,1.0,2.0,12.0
+Hawaiian on Skinny Crust Large,190.0,8.0,4.0,30.0,510.0,20.0,1.0,4.0,10.0
+Wombo Combo on Skinny Crust Medium,260.0,14.0,7.0,40.0,750.0,21.0,2.0,3.0,14.0
+Smokehouse Combo Chicken on Pan Crust Large,350.0,14.0,7.0,45.0,860.0,38.0,2.0,3.0,18.0
+Gourmet Veggie on Original Crust Personal,150.0,7.0,3.0,15.0,410.0,17.0,1.0,2.0,7.0
+Diet Dr Pepper 12 oz,113.0,0.0,0.0,0.0,39.0,30.0,30.0,0.0,0.0
+Marinara,100.0,5.0,1.0,0.0,580.0,10.0,6.0,4.0,4.0
+Smokehouse Combo on Original Crust w/ Pepperoni Extra Large,280.0,14.0,6.0,40.0,700.0,25.0,2.0,3.0,13.0
+Smokehouse Combo Chicken on Skinny Crust Small,210.0,11.0,5.0,35.0,550.0,17.0,1.0,2.0,12.0
+Guineveres Garden Delight on Original Crust Extra Large,210.0,8.0,4.0,25.0,480.0,24.0,1.0,3.0,10.0
+Chicken & Garlic Gourmet on Skinny Crust Small,190.0,10.0,4.5,30.0,480.0,16.0,1.0,1.0,11.0
+RT Veggie Sandwich,630.0,32.0,11.0,50.0,1740.0,65.0,5.0,5.0,23.0
+Wine,122.0,0.0,0.0,0.0,7.0,4.0,0.0,0.0,0.0
+Italiano Sausage & Mushroom Medium,240.0,8.0,3.5,20.0,570.0,34.0,2.0,3.0,11.0
+Smokehouse Combo Chicken on Pan Crust Extra Large,350.0,14.0,7.0,45.0,840.0,38.0,2.0,3.0,18.0
+Hawaiian on Skinny Crust Medium,200.0,8.0,4.5,30.0,550.0,21.0,1.0,4.0,11.0
+King Arthur Supreme on Skinny Crust Medium,260.0,14.0,6.0,40.0,640.0,20.0,1.0,2.0,13.0
+Guineveres Garden Delight on Pan Crust Large,290.0,10.0,5.0,30.0,670.0,38.0,2.0,3.0,13.0
+King Arthur Supreme on Skinny Crust Large,230.0,13.0,6.0,35.0,570.0,18.0,1.0,2.0,12.0
+Italian Garlic Supreme on Original Crust Personal,190.0,10.0,4.5,25.0,460.0,16.0,1.0,1.0,9.0
+Italian Garlic Supreme on Pan Crust Extra Large,350.0,16.0,7.0,40.0,840.0,37.0,1.0,2.0,16.0
+Pepperoni Artisan Individual,150.0,8.0,2.5,20.0,390.0,14.0,1.0,1.0,7.0
+Turkey Club,720.0,38.0,14.0,95.0,2090.0,59.0,3.0,4.0,40.0
+Roasted Veggies & Mozzarella Individual,140.0,7.0,3.0,15.0,300.0,14.0,1.0,1.0,6.0
+Wombo Combo on Skinny Crust Small,220.0,12.0,5.0,30.0,580.0,17.0,1.0,2.0,11.0
+Italian Garlic Supreme on Pan Crust Small,350.0,16.0,7.0,40.0,840.0,35.0,1.0,2.0,16.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Small,350.0,15.0,6.0,35.0,920.0,39.0,2.0,6.0,15.0
+Chicken & Garlic Gourmet on Original Crust Large,250.0,11.0,5.0,35.0,620.0,24.0,1.0,2.0,13.0
+Triple Play Pepperoni on Skinny Crust Personal,130.0,7.0,3.5,20.0,350.0,11.0,1.0,1.0,7.0
+King Arthur Supreme on Skinny Crust Personal,160.0,9.0,4.0,25.0,380.0,12.0,1.0,1.0,8.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Small,310.0,12.0,6.0,35.0,800.0,37.0,1.0,4.0,15.0
+Montagues All Meat Marvel on Original Crust Large,290.0,15.0,7.0,40.0,730.0,24.0,1.0,2.0,14.0
+Ulti Meat on Pan Crust Medium,410.0,19.0,9.0,50.0,1030.0,40.0,2.0,3.0,19.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Personal,230.0,8.0,3.5,20.0,610.0,30.0,1.0,4.0,10.0
+Maui Zaui Pepperoni on Skinny Crust w/ Polynesian Sauce Medium,270.0,14.0,5.0,35.0,720.0,23.0,1.0,6.0,12.0
+Maui Zaui Pepperoni on Skinny Crust w/ Polynesian Sauce Small,230.0,13.0,6.0,25.0,640.0,19.0,1.0,5.0,11.0
+Maui Zaui Pepperoni on Skinny Crust w/ Zesty Red Sauce Medium,260.0,14.0,5.0,35.0,670.0,21.0,1.0,4.0,12.0
+6 Classic Wings w/ Medium Buffalo Sauce,300.0,20.0,6.0,173.0,2709.0,0.0,0.0,0.0,30.0
+Pepsi 16 oz,180.0,0.0,0.0,0.0,35.0,49.0,49.0,0.0,0.0
+Smokehouse Combo Chicken on Original Crust Personal,180.0,8.0,4.0,30.0,480.0,17.0,1.0,2.0,10.0
+West Coast Combo on Skinny Crust Small,190.0,11.0,4.5,30.0,460.0,15.0,1.0,1.0,10.0
+Hearty Bacon Supreme on Pan Crust Large,360.0,17.0,7.0,40.0,910.0,36.0,1.0,2.0,17.0
+BBQ Chicken Pizza on Original Crust Personal,190.0,8.0,3.5,15.0,500.0,20.0,1.0,6.0,9.0
+Lipton Brisk Raspberry Iced Tea 16 oz,140.0,0.0,0.0,0.0,45.0,37.0,37.0,0.0,0.0
+Hearty Bacon Supreme on Pan Crust Medium,400.0,19.0,8.0,40.0,1000.0,39.0,1.0,2.0,19.0
+Hawaiian on Pan Crust Extra Large,300.0,10.0,5.0,35.0,770.0,38.0,1.0,4.0,15.0
+Pepperoni on Original Crust Large,240.0,11.0,5.0,30.0,630.0,24.0,1.0,2.0,11.0
+Hawaiian on Original Crust Personal,140.0,5.0,3.0,20.0,380.0,17.0,1.0,3.0,7.0
+Marinara w/ Sausage & Mushrooms,600.0,29.0,11.0,65.0,1500.0,57.0,7.0,13.0,29.0
+Hawaiian on Skinny Crust Personal,120.0,5.0,3.0,20.0,330.0,13.0,1.0,3.0,7.0
+Italian Garlic Supreme on Original Crust Medium,290.0,15.0,7.0,40.0,700.0,26.0,1.0,2.0,13.0
+Buffalo Sauce Mild,28.0,2.0,0.0,0.0,3296.0,3.0,0.0,1.0,1.0
+Guineveres Garden Delight on Original Crust Personal,140.0,6.0,2.5,15.0,320.0,16.0,1.0,2.0,7.0
+Tropicana Twister Orange 12 oz,140.0,0.0,0.0,0.0,35.0,41.0,39.0,0.0,0.0
+Triple Play Pepperoni on Pan Crust Large,330.0,14.0,7.0,40.0,870.0,36.0,1.0,2.0,15.0
+Pepperoni Parmesano on Pan Crust Personal,240.0,10.0,5.0,25.0,620.0,28.0,1.0,2.0,11.0
+Ulti Meat on Skinny Crust Large,270.0,16.0,7.0,40.0,690.0,17.0,1.0,2.0,14.0
+Chicken & Garlic Gourmet on Original Crust Extra Large,240.0,11.0,5.0,35.0,600.0,23.0,1.0,2.0,13.0
+Maui Zaui Pepperoni on Skinny Crust w/ Polynesian Sauce Large,250.0,13.0,6.0,35.0,670.0,21.0,1.0,5.0,11.0
+Pepperoni Parmesano on Pan Crust Medium,400.0,18.0,9.0,50.0,1040.0,41.0,2.0,2.0,19.0
+Dr Pepper 12 oz,113.0,0.0,0.0,0.0,39.0,30.0,30.0,0.0,0.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Medium,300.0,14.0,5.0,35.0,800.0,30.0,1.0,6.0,13.0
+Chicken & Garlic Gourmet on Skinny Crust Medium,230.0,12.0,5.0,40.0,590.0,19.0,1.0,1.0,13.0
+Wombo Combo on Pan Crust Small,330.0,14.0,7.0,40.0,860.0,36.0,2.0,3.0,16.0
+Chicken Club,800.0,43.0,14.0,135.0,2300.0,59.0,3.0,4.0,43.0
+Wild Cherry Pepsi 16 oz,180.0,0.0,0.0,0.0,35.0,49.0,49.0,0.0,0.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Extra Large,270.0,13.0,5.0,35.0,710.0,27.0,1.0,5.0,12.0
+Montagues All Meat Marvel on Pan Crust Small,330.0,14.0,7.0,40.0,800.0,35.0,1.0,2.0,16.0
+Side of Grilled Chicken for Salads,110.0,5.0,1.5,45.0,590.0,0.0,0.0,0.0,13.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Small,320.0,12.0,6.0,35.0,850.0,39.0,2.0,6.0,15.0
+BBQ Chicken Pizza on Skinny Crust Large,250.0,12.0,6.0,20.0,650.0,23.0,1.0,7.0,13.0
+Chicken & Garlic Gourmet on Skinny Crust Personal,140.0,7.0,3.5,25.0,350.0,12.0,1.0,1.0,8.0
+Italian Garlic Supreme on Skinny Crust Large,240.0,14.0,6.0,35.0,570.0,17.0,1.0,1.0,11.0
+Smokehouse Combo Chicken on Pan Crust Medium,380.0,15.0,7.0,50.0,930.0,41.0,2.0,4.0,19.0
+Chicken & Garlic Gourmet on Pan Crust Extra Large,330.0,13.0,6.0,40.0,810.0,37.0,1.0,2.0,17.0
+Diet Pepsi 16 oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Wombo Combo on Original Crust Personal,180.0,9.0,4.0,25.0,490.0,16.0,1.0,2.0,9.0
+King Arthur Supreme on Original Crust Large,270.0,13.0,6.0,35.0,650.0,25.0,1.0,2.0,13.0
+Tropicana Lemonade 16 oz,180.0,0.0,0.0,0.0,185.0,47.0,47.0,0.0,0.0
+Creamy Ranch Sauce,339.0,38.0,6.0,38.0,829.0,4.0,0.0,0.0,0.0
+Italian Garlic Supreme on Original Crust Large,270.0,14.0,6.0,35.0,650.0,24.0,1.0,2.0,12.0
+Ulti Meat on Skinny Crust Medium,290.0,17.0,8.0,45.0,750.0,19.0,1.0,2.0,15.0
+Pepperoni Parmesano on Skinny Crust Large,260.0,15.0,7.0,45.0,720.0,18.0,1.0,2.0,14.0
+Sierra Mist 12 oz,130.0,0.0,0.0,0.0,25.0,35.0,35.0,0.0,0.0
+Turkey Santa Fe,730.0,40.0,14.0,90.0,1660.0,57.0,3.0,2.0,36.0
+Ulti Meat on Original Crust Personal,200.0,11.0,5.0,30.0,550.0,15.0,1.0,1.0,10.0
+Hawaiian on Original Crust Small,200.0,7.0,4.0,25.0,550.0,24.0,1.0,4.0,11.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Small,230.0,9.0,4.5,25.0,640.0,26.0,1.0,5.0,11.0
+Tomato Pesto Full Size,130.0,6.0,2.5,10.0,280.0,13.0,1.0,1.0,5.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Personal,240.0,9.0,4.0,25.0,610.0,28.0,2.0,3.0,11.0
+Smokehouse Combo Chicken on Original Crust Small,240.0,11.0,5.0,35.0,630.0,23.0,2.0,3.0,13.0
+Montagues All Meat Marvel on Original Crust Small,260.0,14.0,6.0,40.0,660.0,22.0,1.0,2.0,13.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Large,260.0,10.0,5.0,30.0,710.0,29.0,1.0,6.0,12.0
+Gourmet Veggie on Pan Crust Large,320.0,12.0,6.0,30.0,820.0,39.0,2.0,3.0,14.0
+Hawaiian on Skinny Crust Small,170.0,7.0,4.0,25.0,480.0,18.0,1.0,4.0,9.0
+Tropicana Fruit Punch 16 oz,190.0,0.0,0.0,0.0,45.0,53.0,0.0,53.0,0.0
+Smokehouse Combo on Pan Crust w/ Pepperoni Medium,390.0,17.0,8.0,45.0,970.0,41.0,2.0,4.0,18.0
+6 Classic Wings Original,300.0,20.0,6.0,173.0,945.0,0.0,0.0,0.0,30.0
+Smokehouse Combo on Original Crust w/ Pepperoni Small,250.0,12.0,5.0,35.0,630.0,23.0,1.0,3.0,12.0
+Big Vinnie Pepperoni Pizza Extra Large,470.0,20.0,10.0,60.0,1250.0,51.0,2.0,3.0,22.0
+Tropicana Twister Orange 16 oz,190.0,0.0,0.0,0.0,45.0,54.0,53.0,0.0,0.0
+Pepperoni Parmesano on Pan Crust Small,350.0,15.0,8.0,45.0,860.0,36.0,2.0,2.0,17.0
+Montagues All Meat Marvel on Original Crust Personal,190.0,10.0,4.5,30.0,480.0,15.0,1.0,1.0,9.0
+Mountain Dew 12 oz,140.0,0.0,0.0,0.0,45.0,38.0,38.0,0.0,0.0
+Triple Play Pepperoni on Original Crust Extra Large,240.0,12.0,6.0,35.0,660.0,23.0,1.0,2.0,12.0
+Hearty Bacon Supreme on Pan Crust Small,350.0,16.0,7.0,35.0,880.0,34.0,1.0,2.0,17.0
+Pepperoni on Skinny Crust Large,210.0,11.0,5.0,30.0,550.0,18.0,1.0,2.0,10.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Medium,290.0,14.0,5.0,35.0,760.0,28.0,1.0,4.0,14.0
+Pepperoni Parmesano on Original Crust Small,260.0,13.0,6.0,35.0,670.0,23.0,2.0,2.0,13.0
+Smokehouse Combo Chicken on Pan Crust Personal,230.0,9.0,4.0,30.0,610.0,28.0,1.0,3.0,12.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Small,340.0,15.0,6.0,35.0,870.0,37.0,2.0,4.0,16.0
+West Coast Combo on Pan Crust Extra Large,350.0,15.0,7.0,40.0,820.0,36.0,1.0,2.0,16.0
+West Coast Combo on Pan Crust Large,340.0,15.0,7.0,40.0,820.0,36.0,1.0,2.0,16.0
+Turkey Pesto,710.0,37.0,14.0,90.0,1600.0,56.0,3.0,2.0,40.0
+BBQ Chicken Pizza on Original Crust Medium,290.0,12.0,6.0,25.0,770.0,32.0,1.0,8.0,15.0
+Hawaiian on Pan Crust Medium,320.0,11.0,6.0,35.0,820.0,41.0,2.0,4.0,16.0
+Pepperoni Artisan Full Size,150.0,8.0,2.5,20.0,390.0,14.0,1.0,1.0,7.0
+Tomato Pesto Individual,130.0,6.0,2.5,10.0,280.0,13.0,1.0,1.0,5.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Personal,240.0,10.0,4.5,25.0,620.0,28.0,1.0,3.0,11.0
+BBQ Chicken Pizza on Pan Crust Medium,380.0,14.0,7.0,30.0,980.0,46.0,1.0,9.0,18.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Large,360.0,11.0,7.0,40.0,940.0,41.0,2.0,6.0,16.0
+Cheese Pizza on Skinny Crust Large,190.0,9.0,5.0,30.0,420.0,18.0,1.0,1.0,10.0
+Mug Root Beer 12 oz,130.0,0.0,0.0,0.0,20.0,34.0,34.0,0.0,0.0
+Italian Garlic Supreme on Skinny Crust Small,230.0,14.0,6.0,35.0,560.0,16.0,1.0,1.0,11.0
+Triple Play Pepperoni on Pan Crust Small,320.0,14.0,7.0,40.0,840.0,35.0,1.0,2.0,15.0
+8 Boneless Wings w/ Hot Buffalo Sauce,445.0,15.0,2.7,85.0,2899.0,42.0,3.0,2.0,36.0
+Triple Play Pepperoni on Pan Crust Extra Large,330.0,14.0,7.0,40.0,870.0,37.0,1.0,2.0,15.0
+1% Milk 8 oz,120.0,2.5,0.0,10.0,150.0,14.0,0.0,14.0,11.0
+Triple Play Pepperoni on Original Crust Large,250.0,12.0,6.0,35.0,680.0,24.0,1.0,2.0,12.0
+Buffalo Sauce Medium,0.0,0.0,0.0,0.0,4560.0,0.0,0.0,0.0,0.0
+Montagues All Meat Marvel on Pan Crust Large,350.0,15.0,7.0,45.0,860.0,37.0,1.0,2.0,17.0
+Hearty Bacon Supreme on Skinny Crust Medium,270.0,16.0,7.0,35.0,710.0,18.0,1.0,1.0,14.0
+Ulti Meat on Original Crust Large,300.0,16.0,7.0,40.0,770.0,24.0,1.0,2.0,15.0
+Guineveres Garden Delight on Pan Crust Medium,310.0,11.0,5.0,30.0,730.0,40.0,2.0,3.0,14.0
+Italian Garlic Supreme on Skinny Crust Medium,260.0,15.0,7.0,40.0,620.0,19.0,1.0,1.0,12.0
+Hearty Bacon Supreme on Original Crust Small,260.0,14.0,6.0,30.0,670.0,21.0,1.0,2.0,13.0
+Lipton Brisk Unsweetened Iced Tea 16 oz,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Italian Garlic Supreme on Pan Crust Large,350.0,16.0,7.0,40.0,840.0,37.0,1.0,2.0,16.0
+Maui Zaui Pepperoni on Pan Crust w/ Zesty Red Sauce Medium,390.0,13.0,7.0,45.0,980.0,42.0,2.0,5.0,18.0
+West Coast Combo on Skinny Crust Personal,150.0,8.0,3.5,25.0,350.0,11.0,0.0,1.0,7.0
+King Arthur Supreme on Pan Crust Personal,220.0,8.0,4.0,20.0,530.0,27.0,1.0,2.0,10.0
+Maui Zaui Pepperoni on Skinny Crust w/ Zesty Red Sauce Small,230.0,13.0,6.0,25.0,600.0,17.0,1.0,3.0,11.0
+Gourmet Veggie on Skinny Crust Personal,130.0,7.0,3.0,15.0,360.0,13.0,1.0,1.0,7.0
+Chicken & Garlic Gourmet on Pan Crust Large,330.0,13.0,6.0,40.0,820.0,37.0,1.0,2.0,17.0
+Garlic Bread w/ Cheese,90.0,6.0,2.5,10.0,160.0,12.0,0.0,0.0,4.0
+Maui Zaui on Skinny Crust w/ Zesty Red Sauce Large,210.0,10.0,5.0,30.0,590.0,20.0,1.0,4.0,12.0
+King Arthur Supreme on Skinny Crust Small,210.0,12.0,5.0,30.0,520.0,17.0,1.0,2.0,11.0
+Polynesian Sauce,45.0,0.0,0.0,0.0,250.0,12.0,0.0,11.0,0.0
+King Arthur Supreme on Original Crust Small,240.0,12.0,5.0,30.0,590.0,23.0,1.0,2.0,12.0
+West Coast Combo on Original Crust Large,260.0,13.0,6.0,35.0,630.0,23.0,1.0,2.0,12.0
+Ulti Meat on Pan Crust Extra Large,380.0,18.0,8.0,45.0,960.0,37.0,2.0,3.0,18.0
+Triple Play Pepperoni on Original Crust Small,230.0,12.0,5.0,35.0,640.0,22.0,1.0,2.0,11.0
+Ham Club,740.0,40.0,14.0,100.0,2440.0,60.0,3.0,5.0,37.0
+Italian Garlic Supreme on Pan Crust Medium,380.0,18.0,8.0,45.0,910.0,40.0,1.0,2.0,17.0
+Gourmet Veggie on Skinny Crust Medium,220.0,11.0,5.0,25.0,560.0,20.0,2.0,2.0,11.0
+Maui Zaui on Original Crust w/ Polynesian Sauce Medium,280.0,11.0,5.0,35.0,770.0,30.0,1.0,6.0,14.0
+King Arthur Supreme on Original Crust Medium,300.0,15.0,6.0,40.0,730.0,27.0,2.0,3.0,14.0
+Hearty Bacon Supreme on Original Crust Extra Large,270.0,14.0,6.0,30.0,690.0,22.0,1.0,2.0,13.0
+Maui Zaui on Original Crust w/ Zesty Red Sauce Small,220.0,9.0,4.5,25.0,600.0,24.0,1.0,3.0,12.0
+Wombo Combo on Pan Crust Medium,380.0,17.0,8.0,45.0,1030.0,41.0,2.0,3.0,18.0
+Wombo Combo on Pan Crust Personal,230.0,9.0,4.0,25.0,600.0,27.0,1.0,2.0,11.0
+Gourmet Veggie on Original Crust Small,210.0,9.0,4.5,25.0,530.0,23.0,1.0,2.0,10.0
+King Arthur Supreme on Pan Crust Large,330.0,14.0,6.0,40.0,790.0,37.0,2.0,3.0,16.0
+Gourmet Veggie on Skinny Crust Small,180.0,9.0,4.5,25.0,460.0,17.0,1.0,2.0,9.0
+Ulti Meat on Pan Crust Large,380.0,18.0,8.0,45.0,960.0,37.0,2.0,2.0,18.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Large,330.0,12.0,6.0,35.0,840.0,39.0,2.0,4.0,16.0
+Maui Zaui on Pan Crust w/ Polynesian Sauce Large,340.0,12.0,6.0,35.0,900.0,41.0,2.0,6.0,16.0
+BBQ Chicken Pizza on Pan Crust Large,360.0,14.0,7.0,25.0,920.0,42.0,1.0,8.0,17.0
+Hearty Bacon Supreme on Pan Crust Extra Large,360.0,17.0,7.0,40.0,900.0,36.0,1.0,2.0,17.0
+Italiano Ham & Pineapple Medium,240.0,7.0,3.5,20.0,610.0,35.0,1.0,4.0,11.0
+Maui Zaui Pepperoni on Original Crust w/ Zesty Red Sauce Small,260.0,10.0,6.0,25.0,670.0,24.0,1.0,3.0,12.0
+Maui Zaui Pepperoni on Original Crust w/ Polynesian Sauce Small,260.0,9.0,6.0,25.0,720.0,26.0,1.0,5.0,12.0
+Smokehouse Combo on Original Crust w/ Pepperoni Large,280.0,14.0,6.0,40.0,720.0,25.0,2.0,3.0,14.0
+Maui Zaui on Pan Crust w/ Zesty Red Sauce Medium,350.0,13.0,7.0,40.0,920.0,42.0,2.0,5.0,17.0
+BBQ Chicken Pizza on Original Crust Small,250.0,11.0,4.5,20.0,670.0,27.0,1.0,8.0,12.0
+Maui Zaui Pepperoni on Pan Crust w/ Polynesian Sauce Personal,250.0,10.0,4.5,25.0,660.0,29.0,1.0,4.0,11.0
+Chicken & Garlic Gourmet on Pan Crust Personal,220.0,8.0,3.5,25.0,530.0,27.0,1.0,2.0,10.0
+Ulti Meat on Pan Crust Personal,260.0,12.0,5.0,30.0,660.0,26.0,1.0,2.0,11.0

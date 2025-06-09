@@ -1,0 +1,601 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Ham & Swiss Sandwich,380.0,15.0,7.0,60.0,1230.0,36.0,2.0,4.0,23.0
+Turkey Bacon Club Sandwich,510.0,27.0,9.0,80.0,1650.0,36.0,2.0,2.0,28.0
+Bagel BELT,560.0,24.0,8.0,190.0,1140.0,62.0,7.0,11.0,24.0
+Chicken Noodle Soup Small,120.0,1.5,0.0,5.0,710.0,21.0,1.0,2.0,5.0
+Hearty Vegetable Soup,80.0,0.0,0.0,0.0,590.0,14.0,2.0,3.0,4.0
+Turkey & Wild Rice Soup,130.0,1.5,0.0,0.0,660.0,25.0,1.0,1.0,3.0
+Clam Chowder Small,190.0,7.0,2.0,20.0,680.0,23.0,1.0,6.0,9.0
+Italian Wedding Soup,130.0,4.0,1.5,10.0,500.0,18.0,1.0,1.0,6.0
+Chili Small,330.0,18.0,7.0,55.0,960.0,18.0,5.0,5.0,23.0
+Hash Brown,130.0,7.0,0.5,0.0,280.0,16.0,1.0,0.0,1.0
+Plain Cream Cheese Spread,130.0,12.0,8.0,40.0,210.0,3.0,0.0,2.0,2.0
+Light Plain Cream Cheese Spread,90.0,7.0,4.5,20.0,240.0,5.0,0.0,4.0,3.0
+Garden Vegetable Cream Cheese Spread,130.0,12.0,8.0,35.0,270.0,3.0,0.0,2.0,2.0
+Plain Bagel,300.0,2.5,0.0,0.0,490.0,59.0,3.0,6.0,10.0
+Blueberry Bagel,300.0,2.5,0.0,0.0,450.0,59.0,3.0,8.0,11.0
+Everything Bagel,300.0,3.0,0.5,0.0,450.0,58.0,3.0,6.0,11.0
+Cinnamon Raisin Bagel,300.0,2.0,0.0,0.0,390.0,61.0,2.0,10.0,9.0
+12 Grain Bagel,350.0,9.0,1.0,0.0,450.0,55.0,6.0,8.0,11.0
+Plain Croissant,280.0,15.0,6.0,0.0,280.0,30.0,1.0,3.0,6.0
+Cheese Croissant,310.0,17.0,8.0,5.0,330.0,30.0,1.0,3.0,7.0
+Chocolate Chunk Cookie,210.0,9.0,5.0,20.0,240.0,32.0,1.0,17.0,2.0
+Peanut Butter Cookie,250.0,15.0,6.0,20.0,240.0,24.0,2.0,14.0,5.0
+Oatmeal Raisin Spice Cookie,210.0,8.0,4.5,20.0,190.0,32.0,1.0,19.0,3.0
+White Chocolate Macadamia Nut Cookie,220.0,11.0,5.0,20.0,240.0,29.0,1.0,15.0,2.0
+Wild Blueberry Muffin,340.0,11.0,2.0,30.0,430.0,57.0,2.0,25.0,5.0
+Chocolate Chip Muffin,420.0,16.0,4.5,35.0,330.0,66.0,2.0,35.0,6.0
+Fruit Explosion Muffin,340.0,10.0,1.5,30.0,470.0,58.0,2.0,25.0,5.0
+Apple Fritter Donut,290.0,8.0,3.5,0.0,330.0,48.0,2.0,15.0,7.0
+Chocolate Dip Donut,190.0,7.0,2.5,0.0,210.0,29.0,1.0,8.0,5.0
+Maple Dip Donut,190.0,6.0,2.5,0.0,210.0,29.0,1.0,9.0,4.0
+Honey Dip Donut,190.0,6.0,2.5,0.0,210.0,31.0,1.0,11.0,4.0
+Boston Cream Donut,220.0,6.0,2.5,0.0,250.0,35.0,1.0,13.0,5.0
+Strawberry Filled Donut,200.0,5.0,2.0,0.0,230.0,34.0,1.0,14.0,5.0
+Blueberry Bloom Donut,240.0,9.0,4.5,0.0,180.0,37.0,1.0,15.0,3.0
+Strawberry Bloom Donut,350.0,7.0,3.5,0.0,190.0,66.0,1.0,44.0,4.0
+Honey Dip Timbit,45.0,1.0,0.5,0.0,30.0,8.0,0.0,4.0,1.0
+Apple Fritter Timbit,50.0,1.5,1.0,0.0,40.0,9.0,0.0,4.0,1.0
+Old Fashion Plain Donut,210.0,10.0,5.0,15.0,260.0,25.0,1.0,8.0,3.0
+Old Fashion Glazed Donut,270.0,10.0,5.0,15.0,270.0,41.0,1.0,23.0,3.0
+Chocolate Glazed Donut,280.0,14.0,6.0,5.0,320.0,37.0,1.0,19.0,4.0
+Sour Cream Plain Donut,270.0,16.0,8.0,10.0,210.0,27.0,1.0,11.0,3.0
+Honey Cruller Donut,310.0,18.0,9.0,50.0,200.0,37.0,0.0,22.0,2.0
+Old Fashion Plain Timbit,50.0,2.5,1.0,5.0,75.0,7.0,0.0,2.0,1.0
+Sour Cream Glazed Timbit,90.0,4.5,2.0,5.0,55.0,12.0,0.0,7.0,1.0
+Chocolate Glazed Timbit,70.0,3.0,1.5,0.0,85.0,10.0,0.0,5.0,1.0
+Lemon Filled Timbit,45.0,1.0,0.5,0.0,35.0,7.0,0.0,3.0,1.0
+Strawberry Filled Timbit,50.0,1.0,0.5,0.0,35.0,8.0,0.0,4.0,1.0
+Cinnamon Roll Frosted,400.0,14.0,6.0,0.0,380.0,60.0,2.0,24.0,7.0
+Cinnamon Roll Glazed,350.0,13.0,5.0,0.0,350.0,51.0,2.0,16.0,7.0
+Maple Pecan Danish,400.0,19.0,6.0,0.0,270.0,53.0,2.0,21.0,7.0
+Cherry Cheese Danish,370.0,16.0,6.0,0.0,310.0,50.0,1.0,24.0,5.0
+Canadian Maple Donut,210.0,6.0,2.5,0.0,250.0,35.0,1.0,14.0,5.0
+Caramel Apple Fritter Donut,300.0,8.0,3.5,0.0,390.0,52.0,2.0,17.0,7.0
+Double Chocolate Donut,270.0,15.0,6.0,5.0,330.0,32.0,2.0,13.0,4.0
+Oatmeal Maple Large,360.0,4.0,0.5,0.0,320.0,80.0,6.0,37.0,8.0
+Double Chocolate Timbit,70.0,3.0,1.5,0.0,85.0,9.0,0.0,4.0,1.0
+English Muffin,133.0,1.0,0.3,0.3,137.0,26.0,1.0,2.0,5.0
+Regular Homestyle Softbun White,210.0,1.0,0.0,0.0,450.0,42.0,2.0,1.0,7.0
+Maple Cinnamon French Toast Bagel,350.0,4.0,1.5,5.0,540.0,67.0,2.0,15.0,10.0
+Old Fashion Glazed Timbit,70.0,2.5,1.0,5.0,75.0,10.0,0.0,5.0,1.0
+Cinnamon Sugar Donut,220.0,10.0,5.0,15.0,270.0,28.0,1.0,10.0,3.0
+Cinnamon Sugar Timbit,60.0,2.5,1.0,5.0,75.0,8.0,1.0,3.0,1.0
+Old Fashion Dip Donut,250.0,11.0,5.0,15.0,270.0,33.0,1.0,15.0,4.0
+Peanut Crunch Donut,300.0,14.0,5.0,15.0,270.0,39.0,1.0,20.0,5.0
+Sour Cream Cinnamon Donut,270.0,16.0,8.0,10.0,210.0,29.0,1.0,12.0,3.0
+Sour Cream Glazed Donut,340.0,16.0,8.0,10.0,220.0,46.0,1.0,29.0,3.0
+Sundried Tomato Asiago Parm Bagel,320.0,4.5,2.0,5.0,860.0,59.0,3.0,4.0,12.0
+Whole Grain Carrot Orange Muffin,350.0,11.0,1.5,25.0,360.0,59.0,6.0,26.0,5.0
+Breakfast Sandwich on English Muffin w/ Sausage Egg & Cheese,460.0,29.0,11.0,215.0,900.0,29.0,1.0,4.0,18.0
+Breakfast Sandwich on English Muffin w/ Bacon Egg & Cheese,350.0,17.0,7.0,195.0,830.0,29.0,1.0,4.0,18.0
+Grilled Cheese Panini,450.0,15.0,9.0,40.0,1440.0,57.0,2.0,4.0,21.0
+Tuscan Chicken Panini,560.0,20.0,6.0,65.0,1250.0,62.0,7.0,6.0,36.0
+Strawberry Greek Yogurt w/ Mixed Berries & Almond Granola,250.0,5.0,0.0,5.0,110.0,29.0,3.0,21.0,14.0
+Mac & Cheese Large,490.0,27.0,10.0,40.0,1120.0,48.0,1.0,7.0,16.0
+Oatmeal Maple Regular,220.0,2.5,0.5,0.0,220.0,49.0,4.0,20.0,5.0
+Oatmeal Mixed Berry Large,320.0,4.0,0.5,0.0,320.0,71.0,8.0,26.0,8.0
+Oatmeal Mixed Berry Regular,210.0,3.0,0.5,0.0,220.0,44.0,6.0,14.0,6.0
+Dark Roast Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Concord Grape Jelly,35.0,0.0,0.0,0.0,0.0,9.0,0.0,8.0,0.0
+Honey,45.0,0.0,0.0,0.0,100.0,11.0,0.0,11.0,0.0
+Margarine Portion,60.0,7.0,2.0,0.0,115.0,0.0,0.0,0.0,0.0
+Peanut Butter,120.0,11.0,2.0,0.0,100.0,5.0,2.0,2.0,5.0
+Strawberry Cream Cheese Spread,130.0,11.0,7.0,35.0,190.0,7.0,0.0,6.0,2.0
+Strawberry Jam,35.0,0.0,0.0,0.0,0.0,9.0,0.0,8.0,0.0
+Butter Portion,100.0,11.0,7.0,30.0,95.0,0.0,0.0,0.0,0.0
+Smile Cookie,300.0,12.0,7.0,25.0,370.0,47.0,1.0,27.0,3.0
+Cafe Mocha Small,170.0,6.0,5.0,0.0,170.0,27.0,1.0,23.0,1.0
+Cafe Mocha Medium,240.0,9.0,8.0,0.0,240.0,38.0,2.0,32.0,2.0
+Cafe Mocha Large,280.0,10.0,9.0,0.0,300.0,45.0,2.0,38.0,2.0
+Cafe Mocha Extra Large,300.0,10.0,9.0,0.0,340.0,50.0,2.0,42.0,2.0
+Apple Juice,130.0,0.0,0.0,0.0,30.0,33.0,0.0,31.0,0.0
+Orange Juice,140.0,0.0,0.0,0.0,30.0,35.0,0.0,33.0,1.0
+Citrus Green Iced Tea,144.0,0.0,0.0,0.0,14.0,36.0,0.0,36.0,0.0
+Brewed Iced Tea Sweetened Small,100.0,0.0,0.0,0.0,15.0,26.0,0.0,25.0,0.0
+Brewed Iced Tea Sweetened Medium,130.0,0.0,0.0,0.0,20.0,34.0,0.0,33.0,0.0
+Brewed Iced Tea Sweetened Large,170.0,0.0,0.0,0.0,30.0,44.0,0.0,42.0,0.0
+Hot Chocolate Small,240.0,6.0,5.0,0.0,360.0,45.0,2.0,36.0,2.0
+Hot Chocolate Medium,300.0,7.0,6.0,0.0,460.0,57.0,3.0,49.0,2.0
+Hot Chocolate Large,420.0,10.0,9.0,0.0,640.0,79.0,4.0,67.0,3.0
+Hot Chocolate Extra Large,530.0,13.0,11.0,0.0,810.0,101.0,5.0,86.0,4.0
+Caramel Hot Chocolate Small,330.0,11.0,10.0,0.0,350.0,55.0,2.0,47.0,2.0
+Caramel Hot Chocolate Medium,400.0,13.0,11.0,0.0,430.0,68.0,3.0,57.0,3.0
+Caramel Hot Chocolate Large,500.0,15.0,13.0,0.0,560.0,87.0,4.0,74.0,3.0
+Caramel Hot Chocolate Extra Large,630.0,18.0,16.0,0.0,730.0,112.0,5.0,95.0,4.0
+English Toffee Cappuccino Small,220.0,6.0,5.0,0.0,240.0,40.0,0.0,30.0,3.0
+English Toffee Cappuccino Medium,280.0,8.0,7.0,0.0,300.0,51.0,0.0,38.0,4.0
+English Toffee Cappuccino Extra Large,500.0,13.0,12.0,0.0,530.0,90.0,0.0,66.0,7.0
+English Toffee Cappuccino Large,390.0,10.0,9.0,0.0,420.0,70.0,0.0,52.0,5.0
+French Vanilla Cappuccino Small,240.0,7.0,7.0,0.0,240.0,39.0,0.0,31.0,4.0
+French Vanilla Cappuccino Medium,300.0,9.0,9.0,0.0,300.0,49.0,0.0,40.0,6.0
+French Vanilla Cappuccino Large,420.0,13.0,13.0,0.0,420.0,67.0,0.0,54.0,8.0
+French Vanilla Cappuccino X-Large,530.0,17.0,17.0,0.0,530.0,86.0,0.0,70.0,10.0
+Apple Cider Small,210.0,0.0,0.0,0.0,5.0,52.0,0.0,52.0,0.0
+Apple Cider Medium,260.0,0.0,0.0,0.0,10.0,66.0,0.0,66.0,0.0
+Apple Cider Large,350.0,0.0,0.0,0.0,15.0,87.0,0.0,87.0,0.0
+Apple Cider Extra Large,460.0,0.0,0.0,0.0,20.0,116.0,0.0,116.0,0.0
+Caramel Apple Cider Supreme Small,290.0,5.0,5.0,0.0,30.0,61.0,0.0,37.0,0.0
+Caramel Apple Cider Supreme Medium,350.0,5.0,5.0,0.0,30.0,75.0,0.0,45.0,0.0
+Caramel Apple Cider Supreme Large,440.0,5.0,5.0,0.0,35.0,98.0,0.0,58.0,0.0
+Caramel Apple Cider Supreme Extra Large,560.0,5.0,5.0,0.0,40.0,127.0,0.0,75.0,0.0
+Mocha Iced Capp w/ Cream Small,410.0,21.0,14.0,50.0,60.0,54.0,1.0,47.0,3.0
+Mocha Iced Capp w/ Cream Medium,550.0,28.0,19.0,75.0,80.0,72.0,1.0,62.0,4.0
+Mocha Iced Capp w/ Cream Large,670.0,32.0,22.0,90.0,100.0,91.0,1.0,79.0,5.0
+Mocha Latte Medium,230.0,7.0,6.0,5.0,200.0,32.0,0.0,30.0,9.0
+Mocha Latte Large,270.0,7.0,6.0,10.0,260.0,40.0,0.0,37.0,12.0
+Iced Latte Small,210.0,6.0,3.5,25.0,150.0,28.0,0.0,28.0,10.0
+Iced Latte Medium,240.0,7.0,4.0,25.0,170.0,35.0,0.0,34.0,12.0
+Iced Latte Large,380.0,11.0,7.0,45.0,280.0,51.0,0.0,50.0,20.0
+Iced Mocha Latte Small,320.0,8.0,6.0,10.0,270.0,54.0,1.0,45.0,10.0
+Iced Mocha Latte Medium,390.0,9.0,7.0,10.0,330.0,68.0,2.0,56.0,12.0
+Iced Mocha Latte Large,590.0,12.0,10.0,20.0,520.0,102.0,2.0,86.0,20.0
+Flavored Iced Latte Supreme Small,290.0,11.0,8.0,25.0,150.0,37.0,0.0,35.0,11.0
+Flavored Iced Latte Supreme Medium,330.0,12.0,9.0,25.0,180.0,43.0,0.0,41.0,12.0
+Flavored Iced Latte Supreme Large,490.0,18.0,13.0,45.0,290.0,62.0,0.0,59.0,20.0
+Iced Capp w/ Milk,180.0,1.5,1.0,5.0,45.0,39.0,0.0,35.0,3.0
+Iced Capp w/ Chocolate Milk Small,200.0,1.0,0.0,5.0,75.0,45.0,0.0,44.0,3.0
+Espresso Shot,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Latte Small,80.0,0.0,0.0,5.0,120.0,12.0,0.0,12.0,8.0
+Latte Medium,100.0,0.0,0.0,10.0,160.0,15.0,0.0,15.0,10.0
+Latte Large,160.0,0.0,0.0,15.0,230.0,23.0,0.0,22.0,15.0
+Flavored Latte Supreme Small,190.0,5.0,5.0,5.0,135.0,28.0,0.0,26.0,8.0
+Flavored Latte Supreme Medium,220.0,5.0,5.0,10.0,170.0,34.0,0.0,32.0,10.0
+Flavored Latte Supreme Large,290.0,6.0,5.0,15.0,250.0,46.0,0.0,43.0,15.0
+Cappuccino Small,70.0,0.0,0.0,5.0,105.0,11.0,0.0,10.0,7.0
+Cappuccino Medium,100.0,0.0,0.0,10.0,150.0,15.0,0.0,14.0,9.0
+Cappuccino Large,130.0,0.0,0.0,10.0,200.0,20.0,0.0,18.0,12.0
+Mocha Latte Small,190.0,6.0,5.0,5.0,160.0,26.0,0.0,24.0,7.0
+Blueberry Filled Donut,200.0,5.0,2.0,0.0,230.0,34.0,1.0,12.0,4.0
+Jalapeno Asiago Mozzarella Bagel,310.0,3.5,1.5,5.0,730.0,58.0,3.0,2.0,12.0
+Vanilla Dip Donut w/ Colored Sprinkles,270.0,9.0,3.5,0.0,220.0,45.0,1.0,22.0,4.0
+Breakfast Sandwich on English Muffin w/ Bacon Egg White & Cheese,290.0,11.0,5.0,30.0,690.0,28.0,1.0,3.0,17.0
+Regular Homestyle Softbun Whole Wheat,200.0,1.0,0.0,0.0,430.0,40.0,4.0,1.0,8.0
+Strawberry Double Chocolate Donut,280.0,15.0,6.0,5.0,330.0,33.0,2.0,14.0,4.0
+Double Strawberry Donut,230.0,5.0,2.5,0.0,230.0,40.0,1.0,20.0,5.0
+Strawberry Cream Donut,290.0,10.0,4.0,0.0,230.0,45.0,1.0,25.0,4.0
+Strawberry Dip Donut,210.0,6.0,2.5,0.0,210.0,35.0,1.0,14.0,4.0
+Sugar Loop Donut,180.0,6.0,2.5,0.0,210.0,28.0,1.0,8.0,4.0
+Caramel Apple Bagel,340.0,3.5,1.0,0.0,520.0,67.0,3.0,16.0,9.0
+Pretzel Bagel,300.0,3.0,0.0,0.0,850.0,60.0,2.0,4.0,11.0
+Lemon Poppyseed Muffin,370.0,14.0,2.5,30.0,410.0,56.0,3.0,26.0,6.0
+Breakfast Sandwich w/ Homestyle Biscuit Turkey Sausage Egg & Cheese,430.0,23.0,13.0,210.0,1260.0,35.0,2.0,5.0,21.0
+Original Blend Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Breakfast Sandwich on Homestyle Biscuit w/ Sausage Egg & Cheese,530.0,35.0,17.0,215.0,1190.0,34.0,2.0,5.0,19.0
+Breakfast Sandwich on Homestyle Biscuit w/ Bacon Egg & Cheese,420.0,23.0,13.0,195.0,1120.0,34.0,2.0,5.0,19.0
+Flavor Shot,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Vanilla Greek Yogurt w/ Mixed Berries & Almond Granola,250.0,5.0,0.0,5.0,110.0,29.0,3.0,21.0,14.0
+Kettle Cooked Potato Chips,220.0,14.0,1.0,0.0,110.0,22.0,1.0,0.0,2.0
+Four Cheese Bagel,320.0,5.0,2.0,5.0,580.0,57.0,2.0,3.0,12.0
+Game Day Donut,270.0,9.0,3.5,0.0,220.0,45.0,1.0,22.0,4.0
+Football Donut,230.0,8.0,3.5,0.0,240.0,34.0,1.0,11.0,5.0
+Buckeye Bloom Donut OSU Only,250.0,12.0,4.0,0.0,210.0,32.0,1.0,12.0,5.0
+Game Day Timbit,50.0,1.0,0.5,0.0,30.0,9.0,0.0,5.0,1.0
+Birthday Cake Timbit,80.0,3.0,1.5,5.0,60.0,12.0,0.0,8.0,1.0
+Cran Apple Walnut Bran Muffin,350.0,14.0,2.0,15.0,370.0,54.0,8.0,20.0,5.0
+Whole Grain Pecan Banana Bread Muffin,350.0,11.0,1.5,30.0,400.0,60.0,5.0,27.0,6.0
+Ultimate Cinnamon Bun,570.0,21.0,10.0,20.0,670.0,89.0,3.0,50.0,8.0
+Honey Cruller Timbit,60.0,3.0,1.5,10.0,35.0,8.0,0.0,5.0,0.0
+Old Fashion Sugar Timbit,60.0,2.5,1.0,5.0,75.0,8.0,0.0,3.0,1.0
+Sour Cream Plain Timbit,70.0,4.5,2.0,5.0,55.0,7.0,0.0,3.0,1.0
+Toasted Coconut Timbit,70.0,3.5,1.5,5.0,75.0,11.0,1.0,6.0,1.0
+Raspberry Filled Donut,200.0,5.0,2.0,0.0,220.0,33.0,1.0,12.0,4.0
+Strawberry Vanilla Filled Donut,290.0,8.0,3.5,0.0,240.0,51.0,1.0,29.0,5.0
+Chocolate Toasted Coconut Cake Donut,310.0,16.0,9.0,5.0,330.0,39.0,2.0,20.0,4.0
+Toasted Coconut Donut,290.0,13.0,7.0,15.0,280.0,40.0,1.0,22.0,4.0
+Decaffeinated Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Specialty Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Iced Coffee w/ Milk,45.0,0.0,0.0,0.0,20.0,9.0,0.0,9.0,1.0
+Iced Coffee w/ Chocolate Milk,50.0,0.0,0.0,0.0,25.0,11.0,0.0,11.0,1.0
+Original Frozen Lemonade Small,140.0,0.0,0.0,0.0,15.0,34.0,0.0,32.0,0.0
+Original Frozen Lemonade Medium,190.0,0.0,0.0,0.0,20.0,46.0,0.0,43.0,0.0
+Original Frozen Lemonade Large,230.0,0.0,0.0,0.0,25.0,58.0,0.0,55.0,0.0
+Strawberry Banana Fruit Smoothie w/ Greek Yogurt Small,170.0,0.0,0.0,0.0,45.0,37.0,0.0,34.0,5.0
+Strawberry Banana Fruit Smoothie w/ Greek Yogurt Medium,230.0,0.0,0.0,5.0,65.0,52.0,1.0,47.0,8.0
+Strawberry Banana Fruit Smoothie w/ Greek Yogurt Large,300.0,0.0,0.0,5.0,85.0,66.0,1.0,61.0,11.0
+Flavored Mocha Latte Medium,240.0,6.0,5.0,5.0,220.0,34.0,0.0,31.0,10.0
+Flavored Mocha Latte Large,280.0,6.0,5.0,10.0,280.0,42.0,0.0,39.0,12.0
+Frozen Hot Chocolate w/ Cream Small,420.0,21.0,14.0,55.0,220.0,57.0,1.0,50.0,3.0
+Frozen Hot Chocolate w/ Cream Medium,570.0,27.0,18.0,75.0,360.0,80.0,2.0,71.0,4.0
+Frozen Hot Chocolate w/ Cream Large,700.0,31.0,21.0,90.0,490.0,103.0,2.0,92.0,5.0
+Brewed Iced Tea Unsweetened Small,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Brewed Iced Tea Unsweetened Medium,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Brewed Iced Tea Unsweetened Large,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Tea w/ 1 Milk & 1 Sugar,45.0,0.0,0.0,0.0,10.0,9.0,0.0,9.0,1.0
+Flavored Iced Capp w/ Cream,320.0,16.0,10.0,55.0,40.0,41.0,0.0,37.0,3.0
+Flavored Iced Coffee w/ Cream,80.0,4.0,2.0,15.0,30.0,11.0,0.0,10.0,0.0
+Flavored Iced Latte,210.0,6.0,3.5,25.0,150.0,30.0,0.0,28.0,10.0
+Mocha Iced Coffee,210.0,9.0,7.0,15.0,50.0,29.0,1.0,23.0,2.0
+Red Velvet Cookie w/ Cream Cheese Filling,300.0,13.0,9.0,35.0,250.0,42.0,1.0,23.0,3.0
+Angus Steak & Cheese Panini,400.0,17.0,7.0,65.0,1120.0,35.0,2.0,2.0,27.0
+Right Start Turkey Sausage Breakfast Sandwich,310.0,11.0,4.5,45.0,820.0,29.0,2.0,3.0,21.0
+Angus Steak & Egg Breakfast Sandwich,400.0,20.0,12.0,195.0,1200.0,34.0,2.0,5.0,21.0
+Steak & Four Cheese Bagel Breakfast Sandwich,510.0,17.0,7.0,200.0,1360.0,62.0,2.0,5.0,27.0
+Breakfast Sandwich on Homestyle Biscuit w/ Bacon Egg White & Cheese,360.0,17.0,11.0,30.0,980.0,32.0,2.0,4.0,19.0
+Breakfast Sandwich on Homestyle Biscuit w/ Sausage Egg White & Cheese,470.0,29.0,15.0,50.0,1050.0,32.0,2.0,4.0,19.0
+Broccoli Cheddar Soup Small,180.0,9.0,4.0,15.0,680.0,16.0,2.0,6.0,8.0
+Whipped Topping & Drizzle,80.0,5.0,5.0,0.0,5.0,7.0,0.0,6.0,0.0
+Bacon Egg & Cheese on Maple Flatbread,360.0,19.0,8.0,195.0,990.0,32.0,2.0,8.0,17.0
+Bacon Egg White & Cheese on Maple Flatbread,290.0,13.0,6.0,30.0,850.0,30.0,3.0,8.0,17.0
+Steak Egg & Cheese on Maple Flatbread,340.0,16.0,7.0,195.0,1090.0,32.0,2.0,9.0,19.0
+Steak Egg White & Cheese on Maple Flatbread,280.0,10.0,5.0,35.0,950.0,31.0,3.0,8.0,19.0
+Breakfast Sandwich on English Muffin w/ Steak Egg & Cheese,330.0,14.0,6.0,195.0,930.0,30.0,1.0,4.0,20.0
+Breakfast Sandwich on English Muffin w/ Steak Egg White & Cheese,270.0,8.0,4.0,35.0,790.0,29.0,1.0,3.0,20.0
+Breakfast Sandwich on English Muffin w/ Turkey Sausage Egg & Cheese,360.0,17.0,7.0,210.0,970.0,30.0,1.0,4.0,20.0
+Breakfast Sandwich on English Muffin w/ Turkey Sausage Egg White & Cheese,300.0,11.0,4.5,45.0,830.0,29.0,1.0,3.0,20.0
+Breakfast Sandwich on Homestyle Biscuit w/ Steak Egg & Cheese,400.0,20.0,12.0,195.0,1220.0,35.0,2.0,5.0,21.0
+Breakfast Sandwich on Homestyle Biscuit w/ Steak Egg White & Cheese,340.0,14.0,10.0,35.0,1080.0,33.0,2.0,4.0,21.0
+Chicken Fajita Grilled Wrap,430.0,19.0,8.0,70.0,1060.0,39.0,3.0,4.0,28.0
+Coffee Mocha,170.0,6.0,5.0,0.0,170.0,27.0,1.0,23.0,1.0
+Flavored Latte 10 oz,140.0,0.0,0.0,5.0,120.0,27.0,0.0,26.0,8.0
+Homestyle Biscuit,211.0,8.0,6.0,0.0,421.0,29.0,2.0,3.0,6.0
+Italiano Grilled Bagel Sandwich,640.0,27.0,11.0,85.0,2320.0,64.0,4.0,6.0,36.0
+Sausage Egg White & Cheese on Maple Flatbread,410.0,24.0,10.0,55.0,920.0,30.0,3.0,8.0,17.0
+Steak & Cheddar Grilled Breakfast Wrap,440.0,21.0,8.0,200.0,1130.0,40.0,2.0,4.0,22.0
+Turkey Sausage Egg White & Cheese on Maple Flatbread,310.0,12.0,6.0,45.0,990.0,31.0,3.0,7.0,19.0
+Aged Cheddar Biscuit Breakfast Sandwich,540.0,37.0,19.0,225.0,1220.0,30.0,1.0,4.0,20.0
+Cinnamon French Toast Timbit,70.0,3.5,1.5,5.0,65.0,8.0,0.0,3.0,1.0
+Iced Capp w/ Cream,310.0,16.0,10.0,55.0,40.0,40.0,0.0,37.0,3.0
+Donut Filled w/ Nutella,290.0,14.0,4.5,0.0,180.0,34.0,2.0,14.0,6.0
+Pineapple Orange Fruit Smoothie w/ Greek Yogurt Large 20 oz,330.0,0.0,0.0,5.0,95.0,71.0,0.0,68.0,11.0
+Pineapple Orange Fruit Smoothie w/ Greek Yogurt Medium 16 oz,260.0,0.0,0.0,5.0,75.0,56.0,0.0,55.0,8.0
+Pineapple Orange Fruit Smoothie w/ Greek Yogurt Small 12 oz,180.0,0.0,0.0,0.0,50.0,39.0,0.0,38.0,5.0
+Salted Caramel Timbit,70.0,3.0,1.5,5.0,120.0,11.0,0.0,6.0,1.0
+Strawberry Frozen Lemonade Large 20 oz,240.0,0.0,0.0,0.0,25.0,60.0,0.0,55.0,0.0
+Strawberry Frozen Lemonade Medium 16 oz,190.0,0.0,0.0,0.0,20.0,47.0,0.0,43.0,0.0
+Strawberry Frozen Lemonade Small 12 oz,140.0,0.0,0.0,0.0,15.0,34.0,0.0,32.0,0.0
+Steak Fajita Grilled Wrap,430.0,20.0,8.0,60.0,1140.0,40.0,3.0,4.0,26.0
+Caramel Iced Capp w/ Cream Large 20 oz,600.0,32.0,22.0,90.0,80.0,73.0,0.0,65.0,5.0
+Caramel Iced Capp w/ Cream Medium 16 oz,500.0,28.0,19.0,75.0,70.0,60.0,0.0,53.0,4.0
+Caramel Iced Capp w/ Cream Small 12 oz,400.0,22.0,15.0,55.0,55.0,47.0,0.0,42.0,3.0
+Chocolate Caramel Donut,280.0,9.0,4.0,0.0,330.0,47.0,1.0,23.0,5.0
+Chocolate Caramel Muffin,410.0,15.0,4.0,40.0,480.0,64.0,2.0,35.0,5.0
+Cranberry White Chocolate Muffin,370.0,12.0,2.5,25.0,370.0,60.0,2.0,30.0,5.0
+Croissant Breakfast Sandwich,600.0,19.0,19.0,235.0,1040.0,36.0,2.0,6.0,19.0
+Double Chocolate Cookie w/ Peanut Butter Filling,360.0,20.0,11.0,50.0,290.0,40.0,2.0,23.0,5.0
+Farmer's Breakfast Grilled Wrap,650.0,38.0,12.0,215.0,1220.0,55.0,3.0,4.0,21.0
+Frozen Strawberries & Cream Large 20 oz,660.0,31.0,21.0,100.0,180.0,92.0,0.0,83.0,5.0
+Frozen Strawberries & Cream Medium 16 oz,530.0,27.0,18.0,80.0,130.0,70.0,0.0,62.0,4.0
+Frozen Strawberries & Cream Small 12 oz,390.0,21.0,15.0,60.0,80.0,47.0,0.0,42.0,3.0
+Frozen Sugar Cookie & Cream Large 20 oz,670.0,32.0,22.0,105.0,180.0,94.0,0.0,84.0,5.0
+Frozen Sugar Cookie & Cream Medium 16 oz,540.0,28.0,19.0,85.0,135.0,71.0,0.0,63.0,4.0
+Frozen Sugar Cookie & Cream Small 12 oz,400.0,22.0,15.0,60.0,85.0,49.0,0.0,43.0,3.0
+Frozen Vanilla & Cream Large 20 oz,660.0,31.0,21.0,100.0,180.0,92.0,0.0,84.0,5.0
+Frozen Vanilla & Cream Medium 16 oz,530.0,27.0,18.0,85.0,135.0,70.0,0.0,64.0,4.0
+Frozen Vanilla & Cream Small 12 oz,390.0,21.0,15.0,60.0,85.0,48.0,0.0,43.0,3.0
+Lemon Blueberry Greek Yogurt Muffin,360.0,12.0,2.0,35.0,400.0,58.0,5.0,24.0,6.0
+Lemon Shortbread Cookie w/ Raspberry Filling,280.0,10.0,7.0,35.0,250.0,44.0,1.0,21.0,3.0
+Cookie Filled w/ Nutella,360.0,18.0,7.0,20.0,190.0,44.0,1.0,25.0,4.0
+Pastry Pocket Filled w/ Nutella 1 Pastry Pocket,150.0,9.0,4.0,0.0,105.0,16.0,1.0,8.0,2.0
+Roasted Red Pepper & Gouda Soup Small,220.0,14.0,6.0,25.0,680.0,17.0,3.0,11.0,6.0
+Spicy Chorizo Grilled Breakfast Wrap,440.0,22.0,9.0,200.0,1150.0,40.0,2.0,4.0,21.0
+Potato Bacon Cheddar Soup,260.0,15.0,8.0,35.0,820.0,22.0,1.0,5.0,7.0
+Sausage & Biscuit,380.0,24.0,12.0,35.0,660.0,29.0,2.0,3.0,11.0
+Original Blend Coffee w/ 1 Cream & 1 Sugar 10 oz,75.0,3.5,2.0,15.0,15.0,9.0,0.0,9.0,1.0
+Turkey Sausage Egg White & Cheese on Biscuit,370.0,17.0,11.0,45.0,1120.0,33.0,2.0,4.0,21.0
+Sausage Egg & Cheese on Maple Flatbread,470.0,30.0,12.0,215.0,1060.0,31.0,2.0,8.0,18.0
+Turkey Sausage Egg & Cheese on Maple Flatbread,370.0,18.0,8.0,210.0,1130.0,32.0,2.0,8.0,19.0
+Raspberry Timbit,45.0,1.0,0.5,0.0,35.0,8.0,0.0,4.0,1.0
+Sausage Egg White & Cheese on English Muffin,400.0,23.0,9.0,55.0,760.0,28.0,1.0,3.0,18.0
+Kettle Cooked Potato Chips Large,430.0,27.0,2.5,0.0,220.0,43.0,3.0,0.0,5.0
+Blueberry Donut,370.0,19.0,9.0,5.0,180.0,46.0,1.0,31.0,3.0
+Oreo Donut,420.0,18.0,7.0,0.0,270.0,60.0,1.0,33.0,5.0
+Blueberry Timbit,90.0,5.0,2.5,0.0,45.0,11.0,0.0,7.0,1.0
+Bagged Tea Extra Large,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Bagged Tea Large,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Bagged Tea Medium,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Bagged Tea Small,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Dark Roast Coffee Extra Large,5.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,1.0
+Dark Roast Coffee Large,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Dark Roast Coffee Medium,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Dark Roast Coffee Small,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Decaffeinated Coffee Extra Large,5.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,1.0
+Decaffeinated Coffee Large,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Decaffeinated Coffee Medium,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Decaffeinated Coffee Small,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Original Blend Coffee Extra Large,5.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,1.0
+Original Blend Coffee Large,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Original Blend Coffee Medium,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Original Blend Coffee Small,5.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Iced Capp Large,500.0,25.0,15.0,85.0,60.0,67.0,0.0,62.0,4.0
+Iced Capp Medium,430.0,22.0,14.0,75.0,55.0,55.0,0.0,50.0,4.0
+Iced Capp Small,310.0,16.0,10.0,55.0,40.0,40.0,0.0,37.0,3.0
+Oreo Iced Capp w/ Cream Large,670.0,35.0,22.0,90.0,140.0,86.0,0.0,74.0,5.0
+Oreo Iced Capp w/ Cream Medium,560.0,30.0,19.0,75.0,115.0,69.0,0.0,59.0,4.0
+Oreo Iced Capp w/ Cream Small,430.0,23.0,15.0,55.0,90.0,53.0,0.0,45.0,3.0
+Iced Coffee w/ Cream & Sugar Large,140.0,9.0,5.0,30.0,40.0,14.0,0.0,12.0,2.0
+Iced Coffee w/ Cream & Sugar Medium,110.0,7.0,4.5,25.0,30.0,11.0,0.0,9.0,1.0
+Iced Coffee w/ Cream & Sugar Small,70.0,4.0,2.5,15.0,20.0,8.0,0.0,7.0,1.0
+Iced Capp Supreme,310.0,16.0,10.0,55.0,40.0,40.0,0.0,37.0,3.0
+Iced Capp Supreme Mocha Iced Capp,410.0,21.0,14.0,50.0,60.0,54.0,1.0,47.0,3.0
+Caramel Latte Supreme Large,290.0,6.0,5.0,15.0,250.0,46.0,0.0,43.0,15.0
+Caramel Latte Supreme Medium,220.0,5.0,5.0,10.0,170.0,34.0,0.0,32.0,10.0
+Caramel Latte Supreme Small,190.0,5.0,5.0,5.0,135.0,28.0,0.0,26.0,8.0
+Steeped Tea Made w/ Whole Leaf Extra Large,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Steeped Tea Made w/ Whole Leaf Large,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Steeped Tea Made w/ Whole Leaf Medium,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Steeped Tea Made w/ Whole Leaf Small,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Vanilla Greek Yogurt Parfait,250.0,5.0,0.0,5.0,110.0,29.0,3.0,21.0,14.0
+Strawberry Greek Yogurt Parfait,250.0,5.0,0.0,5.0,110.0,29.0,3.0,21.0,14.0
+Bacon Breakfast Sandwich,420.0,23.0,13.0,190.0,1110.0,33.0,2.0,4.0,19.0
+Sausage Breakfast Sandwich,530.0,34.0,17.0,215.0,1180.0,33.0,2.0,4.0,19.0
+Turkey Sausage Breakfast Sandwich,350.0,16.0,6.0,205.0,960.0,31.0,1.0,3.0,20.0
+Broccoli Cheddar Soup Regular,270.0,15.0,6.0,30.0,990.0,23.0,3.0,8.0,12.0
+Chicken Noodle Soup Regular,160.0,2.0,0.5,10.0,990.0,30.0,2.0,3.0,7.0
+Chili Regular,480.0,27.0,11.0,85.0,1380.0,26.0,7.0,7.0,32.0
+Hearty Vegetable Soup Regular,110.0,0.5,0.0,0.0,830.0,20.0,3.0,4.0,6.0
+Potato Bacon Cheddar Soup Regular,380.0,23.0,11.0,55.0,1170.0,31.0,2.0,7.0,11.0
+Roasted Red Pepper & Gouda Soup Regular,310.0,20.0,8.0,35.0,950.0,24.0,4.0,15.0,8.0
+Turkey & Wild Rice Soup Regular,180.0,2.0,0.0,5.0,930.0,35.0,2.0,2.0,5.0
+Clam Chowder Regular,270.0,10.0,3.0,30.0,950.0,32.0,1.0,8.0,13.0
+Basic Ingredients for Steeped Tea Made w/ Whole Leaf,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Cream for 24 oz Original Blend Coffee,100.0,10.0,5.0,33.0,50.0,3.0,0.0,3.0,0.0
+Honey for Steeped Tea Made w/ Whole Leaf,60.0,0.0,0.0,0.0,0.0,17.0,0.0,17.0,0.0
+Milk for 24 oz Steeped Tea Made w/ Whole Leaf,26.0,1.0,0.5,4.0,24.0,2.0,0.0,2.0,2.0
+Soy Beverage for 24 oz Steeped Tea Made w/ Whole Leaf,22.0,1.0,0.1,0.0,30.0,2.0,0.4,1.0,1.0
+Splenda for Original Blend Coffee,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Sugar for 24 oz Original Blend Coffee,59.0,0.0,0.0,0.0,0.2,15.0,0.0,15.0,0.0
+Cream for 20 oz Original Blend Coffee,86.0,8.0,4.0,29.0,43.0,3.0,0.0,3.0,0.0
+Milk for 20 oz Steeped Tea Made w/ Whole Leaf,22.0,1.0,0.4,3.0,20.0,2.0,0.0,2.0,1.0
+Soy Beverage for 20 oz Steeped Tea Made w/ Whole Leaf,18.0,1.0,0.1,0.0,25.0,2.0,0.3,1.0,1.0
+Sugar for 20 oz Original Blend Coffee,46.0,0.0,0.0,0.0,0.1,12.0,0.0,12.0,0.0
+Chocolate Milk for 20 oz Iced Latte,221.0,4.0,2.0,11.0,214.0,37.0,2.0,35.0,11.0
+Cream for 15 oz Original Blend Coffee,70.0,7.0,4.0,23.0,35.0,2.0,0.0,2.0,0.0
+Milk for 15 oz Steeped Tea Made w/ Whole Leaf,15.0,1.0,0.3,2.0,14.0,1.0,0.0,1.0,1.0
+Soy Beverage for 15 oz Steeped Tea Made w/ Whole Leaf,13.0,0.5,0.1,0.0,17.0,1.0,0.2,1.0,1.0
+Sugar for 15 oz Original Blend Coffee,36.0,0.0,0.0,0.0,0.1,9.0,0.0,9.0,0.0
+Cream for 10 oz Original Blend Coffee,42.0,4.0,2.0,14.0,21.0,1.0,0.0,1.0,0.0
+Milk for 10 oz Steeped Tea Made w/ Whole Leaf,11.0,0.4,0.2,2.0,10.0,1.0,0.0,1.0,1.0
+Soy Beverage for 10 oz Steeped Tea Made w/ Whole Leaf,9.0,0.3,0.0,0.0,13.0,1.0,0.2,0.5,1.0
+Sugar for 10 oz Original Blend Coffee,28.0,0.0,0.0,0.0,0.1,7.0,0.0,7.0,0.0
+Basic Ingredients for Original Blend Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Flavor Shot for 24 oz Original Blend Coffee,10.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0
+Basic Ingredients for 10 oz Latte,85.0,0.2,0.1,7.0,127.0,13.0,0.0,12.0,8.0
+Milk for 24 oz Original Blend Coffee,48.0,2.0,1.0,8.0,45.0,5.0,0.0,5.0,3.0
+Soy Beverage for 24 oz Original Blend Coffee,41.0,1.0,0.2,0.0,56.0,4.0,1.0,2.0,3.0
+Flavor Shot for 20 oz Original Blend Coffee,8.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0
+Milk for 20 oz Original Blend Coffee,40.0,2.0,1.0,6.0,38.0,4.0,0.0,4.0,3.0
+Soy Beverage for 20 oz Original Blend Coffee,34.0,1.0,0.2,0.0,47.0,3.0,1.0,2.0,2.0
+Flavor Shot for 15 oz Original Blend Coffee,6.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Milk for 15 oz Original Blend Coffee,28.0,1.0,1.0,5.0,27.0,3.0,0.0,3.0,2.0
+Soy Beverage for 15 oz Original Blend Coffee,24.0,1.0,0.1,0.0,33.0,2.0,0.4,1.0,2.0
+Flavor Shot for 10 oz Original Blend Coffee,4.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Milk for 10 oz Original Blend Coffee,20.0,1.0,0.4,3.0,19.0,2.0,0.0,2.0,1.0
+Soy Beverage for 10 oz Original Blend Coffee,17.0,1.0,0.1,0.0,23.0,2.0,0.3,1.0,1.0
+Basic Ingredients for 20 oz Cappuccino,129.0,0.3,0.2,11.0,195.0,20.0,0.0,18.0,12.0
+Chocolate Whipped Topping for Iced Coffees w/ Cream & Sugar,69.0,4.0,4.0,0.1,23.0,7.0,0.3,6.0,0.5
+Chocolatey Drizzle for Iced Coffees w/ Cream & Sugar,8.0,0.1,0.1,0.0,3.0,2.0,0.1,1.0,0.1
+Basic Ingredients for 20 oz Mocha Latte,197.0,2.0,1.0,8.0,248.0,33.0,0.0,31.0,12.0
+White Whipped Topping for Iced Coffees w/ Cream & Sugar,69.0,5.0,5.0,0.1,4.0,5.0,0.0,5.0,0.3
+Basic Ingredients for 15 oz Cappuccino,96.0,0.3,0.2,8.0,146.0,15.0,0.0,14.0,9.0
+Basic Ingredients for 10 oz Cappuccino,68.0,0.2,0.1,6.0,103.0,11.0,0.0,10.0,7.0
+Flavored Mocha Latte Small,190.0,6.0,5.0,5.0,170.0,27.0,0.0,25.0,7.0
+Basic Ingredients for Iced Lattes,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chocolate Milk for 32 oz Iced Latte,364.0,6.0,4.0,17.0,353.0,60.0,3.0,57.0,19.0
+Milk for 32 oz Iced Latte,282.0,11.0,6.0,45.0,265.0,27.0,0.0,27.0,19.0
+Soy for 32 oz Iced Latte,241.0,9.0,1.0,0.0,328.0,24.0,4.0,13.0,15.0
+Sugar for 32 oz Iced Latte,92.0,0.0,0.0,0.0,0.2,24.0,0.0,24.0,0.0
+Milk for 20 oz Iced Latte,172.0,7.0,3.0,27.0,161.0,16.0,0.0,16.0,11.0
+Soy for 20 oz Iced Latte,146.0,5.0,1.0,0.0,200.0,15.0,3.0,8.0,9.0
+Sugar for 20 oz Iced Latte,70.0,0.0,0.0,0.0,0.2,19.0,0.0,19.0,0.0
+Chocolate Milk for 16 oz Iced Latte,192.0,3.0,2.0,9.0,186.0,32.0,2.0,30.0,10.0
+Milk for 16 oz Iced Latte,149.0,6.0,3.0,24.0,140.0,14.0,0.0,14.0,10.0
+Soy for 16 oz Iced Latte,127.0,5.0,1.0,0.0,173.0,13.0,2.0,7.0,8.0
+Sugar for 16 oz Iced Latte,55.0,0.0,0.0,0.0,0.1,14.0,0.0,14.0,0.0
+Basic Ingredients for 20 oz Latte,155.0,0.4,0.2,14.0,235.0,23.0,0.0,22.0,15.0
+Basic Ingredients for 15 oz Latte,103.0,0.3,0.2,9.0,155.0,15.0,0.0,15.0,10.0
+Basic Ingredients for 15 oz Mocha Latte,148.0,1.0,1.0,6.0,186.0,24.0,0.0,23.0,9.0
+Basic Ingredients for 10 oz Mocha Latte,112.0,1.0,1.0,4.0,140.0,19.0,0.0,17.0,7.0
+Basic Ingredients for 20 oz Iced Capp,225.0,0.0,0.0,0.0,11.0,62.0,0.0,61.0,1.0
+Chocolate Milk for 20 oz Iced Capp,89.0,1.0,1.0,4.0,86.0,15.0,1.0,14.0,5.0
+Cream for 20 oz Iced Capp,263.0,26.0,16.0,89.0,54.0,5.0,0.0,0.2,4.0
+Milk for 20 oz Iced Capp,69.0,3.0,1.0,11.0,64.0,7.0,0.0,7.0,5.0
+Soy for 20 oz Iced Capp,59.0,2.0,0.3,0.0,80.0,6.0,1.0,3.0,4.0
+Basic Ingredients for 16 oz Iced Capp,206.0,0.0,0.0,0.0,9.0,51.0,0.0,50.0,1.0
+Chocolate Milk for 16 oz Iced Capp,74.0,1.0,1.0,4.0,72.0,12.0,1.0,12.0,4.0
+Cream for 16 oz Iced Capp,220.0,22.0,14.0,74.0,45.0,4.0,0.0,0.2,3.0
+Milk for 16 oz Iced Capp,57.0,2.0,1.0,9.0,54.0,5.0,0.0,5.0,4.0
+Soy for 16 oz Iced Capp,49.0,2.0,0.2,0.0,67.0,5.0,1.0,3.0,3.0
+Basic Ingredients for 12 oz Iced Capp,151.0,0.0,0.0,0.0,7.0,37.0,0.0,36.0,0.4
+Chocolate Milk for 12 oz Iced Capp,54.0,1.0,0.5,3.0,52.0,9.0,0.4,9.0,3.0
+Cream for 12 oz Iced Capp,160.0,16.0,10.0,54.0,33.0,3.0,0.0,0.1,2.0
+Milk for 12 oz Iced Capp,42.0,2.0,1.0,7.0,39.0,4.0,0.0,4.0,3.0
+Soy for 12 oz Iced Capp,36.0,1.0,0.2,0.0,49.0,4.0,1.0,2.0,2.0
+Basic Ingredients for Iced Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chocolate Milk for 32 oz Iced Coffee,52.0,1.0,0.5,2.0,50.0,9.0,0.4,8.0,3.0
+Cream for 32 oz Iced Coffee,85.0,8.0,5.0,29.0,17.0,2.0,0.0,0.1,1.0
+Chocolate Milk for 20 oz Iced Coffee,37.0,1.0,0.4,2.0,35.0,6.0,0.3,6.0,2.0
+Cream for 20 oz Iced Coffee,69.0,7.0,4.0,23.0,14.0,1.0,0.0,0.1,1.0
+Chocolate Milk for 16 oz Iced Coffee w/ Cream & Sugar,26.0,0.4,0.3,1.0,25.0,4.0,0.2,4.0,1.0
+Cream for 16 oz Iced Coffee w/ Cream & Sugar,42.0,4.0,3.0,14.0,9.0,1.0,0.0,0.0,1.0
+12 Grain Bagel for Bagel BELT,347.0,9.0,1.0,0.0,445.0,55.0,6.0,8.0,11.0
+American Cheese for Turkey Sausage Breakfast Sandwich 1 Slice,40.0,3.0,2.0,10.0,198.0,0.3,0.0,0.2,2.0
+Bacon for Bacon Breakfast Sandwich,60.0,5.0,2.0,14.0,172.0,0.1,0.0,0.1,4.0
+Cucumber for Bagel BELT,4.0,0.0,0.0,0.0,1.0,1.0,0.2,0.5,0.2
+Egg Omelette for Turkey Sausage Breakfast Sandwich,105.0,7.0,3.0,167.0,314.0,4.0,0.1,1.0,6.0
+Egg White Omelette for Turkey Sausage Breakfast Sandwich,44.0,1.0,1.0,3.0,172.0,2.0,0.5,0.5,6.0
+Everything Bagel for Bagel BELT,303.0,3.0,0.5,0.0,454.0,58.0,3.0,6.0,11.0
+Lettuce for Bagel BELT,4.0,0.0,0.0,0.0,8.0,1.0,0.4,0.2,0.4
+Plain Bagel for Bagel BELT,297.0,2.0,0.4,0.0,487.0,59.0,3.0,6.0,10.0
+Pretzel Bagel for Bagel BELT,304.0,3.0,0.5,0.0,846.0,60.0,2.0,4.0,11.0
+Red Onion for Bagel BELT,1.0,0.0,0.0,0.0,0.1,0.3,0.1,0.2,0.0
+Sausage for Sausage Breakfast Sandwich,172.0,16.0,6.0,37.0,243.0,0.0,0.1,0.2,5.0
+Tomato for Bagel BELT,7.0,0.1,0.0,0.0,2.0,2.0,0.5,1.0,0.4
+Turkey Sausage for Turkey Sausage Breakfast Sandwich,71.0,5.0,1.0,30.0,314.0,1.0,0.0,0.0,7.0
+White Tortilla for Turkey Sausage Breakfast Sandwich,197.0,5.0,1.0,0.0,365.0,33.0,1.0,1.0,6.0
+Seasoned Sliced Steak for Steak & Four Cheese Bagel Breakfast Sandwich,45.0,2.0,1.0,18.0,268.0,1.0,0.0,0.3,7.0
+Hash Brown for Farmer's Breakfast Grilled Wrap,128.0,7.0,1.0,0.0,275.0,16.0,1.0,0.0,1.0
+Pepper & Onion Blend for Steak & Cheddar Grilled Breakfast Wrap,6.0,0.1,0.0,0.0,2.0,1.0,0.1,1.0,0.3
+Swiss Cheese for Spicy Chorizo Grilled Breakfast Wrap 1 Slice,42.0,3.0,2.0,11.0,17.0,0.2,0.0,0.1,3.0
+Chorizo Sausage for Spicy Chorizo Grilled Breakfast Wrap,62.0,5.0,2.0,18.0,318.0,1.0,0.0,0.3,5.0
+Spicy Mayo for Spicy Chorizo Grilled Breakfast Wrap,26.0,3.0,0.4,3.0,138.0,1.0,0.0,0.2,0.1
+Black Pepper Mustard Mayo for Steak & Cheddar Grilled Breakfast Wrap,38.0,4.0,1.0,3.0,101.0,1.0,0.1,1.0,0.2
+Cheddar Cheese for Steak & Cheddar Grilled Breakfast Wrap 1 Slice,45.0,4.0,3.0,10.0,80.0,0.0,0.0,0.0,3.0
+American Cheese for Tuscan Chicken Panini 2 Slices,80.0,7.0,4.0,20.0,395.0,1.0,0.0,0.4,4.0
+Cheddar Cheese for Tuscan Chicken Panini 2 Slices,90.0,8.0,5.0,20.0,160.0,0.0,0.0,0.0,6.0
+Processed Mozzarella Cheese for Tuscan Chicken Panini 2 Slices,93.0,7.0,5.0,22.0,387.0,2.0,0.0,1.0,6.0
+Swiss Cheese for Tuscan Chicken Panini 2 Slices,84.0,6.0,4.0,22.0,35.0,0.4,0.0,0.1,6.0
+Chicken Strips for Tuscan Chicken Panini,91.0,2.0,0.2,41.0,323.0,2.0,0.3,0.2,17.0
+Chipotle Sauce for Tuscan Chicken Panini,38.0,4.0,1.0,4.0,69.0,1.0,0.1,0.4,0.2
+Creamy Sundried Tomato Spread for Tuscan Chicken Panini,49.0,5.0,1.0,4.0,84.0,1.0,0.1,0.5,0.4
+Honey Mustard Sauce for Tuscan Chicken Panini,22.0,0.1,0.0,0.0,37.0,5.0,0.0,2.0,0.1
+Light Mayo for Tuscan Chicken Panini,31.0,3.0,0.4,0.0,96.0,1.0,0.0,0.2,0.1
+Mustard for Tuscan Chicken Panini,6.0,0.3,0.0,0.0,108.0,0.5,0.2,0.1,0.3
+Ranch Sauce for Tuscan Chicken Panini,23.0,2.0,0.4,2.0,97.0,1.0,0.1,0.4,0.2
+Red Onion for Tuscan Chicken Panini,3.0,0.0,0.0,0.0,0.3,1.0,0.1,0.3,0.1
+Tomato for Tuscan Chicken Panini,8.0,0.1,0.0,0.0,2.0,2.0,1.0,1.0,0.4
+Flavor Shot,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Steak Egg & Cheese on English Muffin,330.0,14.0,6.0,195.0,930.0,30.0,1.0,4.0,20.0
+Raspberry Timbit,45.0,1.0,0.5,0.0,35.0,8.0,0.0,4.0,1.0
+Jalapeno Asiago Mozzarella Bagel,310.0,3.5,1.5,5.0,730.0,58.0,3.0,2.0,12.0
+Sausage & Biscuit,380.0,24.0,12.0,35.0,660.0,29.0,2.0,3.0,11.0
+Double Chocolate Cookie w/ Peanut Butter Filling,360.0,20.0,11.0,50.0,290.0,40.0,2.0,23.0,5.0
+Right Start Turkey Sausage Breakfast Sandwich,310.0,11.0,4.5,45.0,820.0,29.0,2.0,3.0,21.0
+Mocha Latte Small,190.0,6.0,5.0,5.0,160.0,26.0,0.0,24.0,7.0
+Cran Apple Walnut Bran Muffin,350.0,14.0,2.0,15.0,370.0,54.0,8.0,20.0,5.0
+Old Fashion Glazed Donut,270.0,10.0,5.0,15.0,270.0,41.0,1.0,23.0,3.0
+Sausage Egg & Cheese on Biscuit,530.0,35.0,17.0,215.0,1190.0,34.0,2.0,5.0,19.0
+Flavored Iced Latte Small,210.0,6.0,3.5,25.0,150.0,30.0,0.0,28.0,10.0
+Oatmeal Maple Regular,220.0,2.5,0.5,0.0,220.0,49.0,4.0,20.0,5.0
+Sour Cream Plain Timbit,70.0,4.5,2.0,5.0,55.0,7.0,0.0,3.0,1.0
+Sausage Egg White & Cheese on Maple Flatbread,410.0,24.0,10.0,55.0,920.0,30.0,3.0,8.0,17.0
+Honey Crueller,310.0,18.0,9.0,50.0,200.0,37.0,0.0,22.0,2.0
+Lemon Poppyseed Muffin,370.0,14.0,2.5,30.0,410.0,56.0,3.0,26.0,6.0
+Apple Cider Small,210.0,0.0,0.0,0.0,5.0,52.0,0.0,52.0,0.0
+Turkey Sausage Egg White & Cheese on Biscuit,370.0,17.0,11.0,45.0,1120.0,33.0,2.0,4.0,21.0
+Maple Cinnamon French Toast Bagel,350.0,4.0,1.5,5.0,540.0,67.0,2.0,15.0,10.0
+Whole Grain Pecan Banana Bread Muffin,350.0,11.0,1.5,30.0,400.0,60.0,5.0,27.0,6.0
+Honey Dip Timbit,45.0,1.0,0.5,0.0,30.0,8.0,0.0,4.0,1.0
+Garden Vegetable Cream Cheese Spread,100.0,10.0,6.0,30.0,230.0,2.0,0.0,2.0,2.0
+Mocha Iced Coffee,210.0,9.0,7.0,15.0,50.0,29.0,1.0,23.0,2.0
+Strawberry Banana Fruit Smoothie w/ Greek Yogurt Small,170.0,0.0,0.0,0.0,45.0,37.0,0.0,34.0,5.0
+Turkey Sausage White Egg & Cheese on English Muffin,300.0,11.0,4.5,45.0,830.0,29.0,1.0,3.0,20.0
+Vanilla Dip Donut w/ Colored Sprinkles,270.0,9.0,3.5,0.0,220.0,45.0,1.0,22.0,4.0
+Hot Chocolate Small,240.0,6.0,5.0,0.0,320.0,45.0,2.0,38.0,2.0
+Frozen Strawberries & Cream Small,390.0,21.0,15.0,60.0,80.0,47.0,0.0,42.0,3.0
+Raspberry Filled Donut,200.0,5.0,2.0,0.0,220.0,33.0,1.0,12.0,4.0
+Turkey Sausage Egg & Cheese on Biscuit,430.0,23.0,13.0,210.0,1260.0,35.0,2.0,5.0,21.0
+Chocolate Glazed Timbit,70.0,3.0,1.5,0.0,85.0,10.0,0.0,5.0,1.0
+Apple Fritter Donut,290.0,8.0,3.5,0.0,330.0,48.0,2.0,15.0,7.0
+Plain Croissant,280.0,15.0,6.0,0.0,280.0,30.0,1.0,3.0,6.0
+Margarine,60.0,7.0,2.0,0.0,115.0,0.0,0.0,0.0,0.0
+Cinnamon Roll Frosted,400.0,14.0,6.0,0.0,380.0,60.0,2.0,24.0,7.0
+Steak & Cheddar Grilled Breakfast Wrap,440.0,21.0,8.0,200.0,1130.0,40.0,2.0,4.0,22.0
+Canadian Maple Donut,210.0,6.0,2.5,0.0,250.0,35.0,1.0,14.0,5.0
+Mocha Iced Capp w/ Cream Small,410.0,21.0,14.0,50.0,60.0,54.0,1.0,47.0,3.0
+Cinnamon Roll Glazed,350.0,13.0,5.0,0.0,350.0,51.0,2.0,16.0,7.0
+Iced Coffee w/ Milk,45.0,0.0,0.0,0.0,20.0,9.0,0.0,9.0,1.0
+Cappuccino Small,70.0,0.0,0.0,5.0,105.0,11.0,0.0,10.0,7.0
+Maple Pecan Danish,390.0,21.0,7.0,5.0,250.0,48.0,2.0,19.0,5.0
+Boston Cream Donut,220.0,6.0,2.5,0.0,250.0,35.0,1.0,13.0,5.0
+Honey Dip Donut,190.0,6.0,2.5,0.0,210.0,31.0,1.0,11.0,4.0
+Cheese Croissant,310.0,17.0,8.0,5.0,330.0,30.0,1.0,3.0,7.0
+Old Fashion Sugar Timbit,60.0,2.5,1.0,5.0,75.0,8.0,0.0,3.0,1.0
+Strawberry Vanilla Filled Donut,290.0,8.0,3.5,0.0,240.0,51.0,1.0,29.0,5.0
+Old Fashion Plain Donut,210.0,10.0,5.0,15.0,260.0,25.0,1.0,8.0,3.0
+Sausage Egg & Cheese on Maple Flatbread,470.0,30.0,12.0,215.0,1060.0,31.0,2.0,8.0,18.0
+Toasted Coconut Donut,290.0,13.0,7.0,15.0,280.0,40.0,1.0,22.0,4.0
+Light Plain Cream Cheese Spread,90.0,7.0,4.5,25.0,160.0,3.0,0.0,2.0,3.0
+Steeped Tea Made w/ Whole Leaf Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Lemon Shortbread Cookie w/ Raspberry Filling,280.0,10.0,7.0,35.0,250.0,44.0,1.0,21.0,3.0
+Iced Coffee w/ Cream Small,80.0,4.0,2.0,15.0,30.0,10.0,0.0,10.0,0.0
+Wild Blueberry Muffin,340.0,11.0,2.0,30.0,430.0,57.0,2.0,25.0,5.0
+Chocolate Chip Muffin,420.0,16.0,4.5,35.0,330.0,66.0,2.0,35.0,6.0
+Bacon Egg White & Cheese on Maple Flatbread,290.0,13.0,6.0,30.0,850.0,30.0,3.0,8.0,17.0
+Steak Egg & Cheese on Biscuit,400.0,20.0,12.0,195.0,1220.0,35.0,2.0,5.0,21.0
+Sour Cream Glazed Donut,340.0,16.0,8.0,10.0,220.0,46.0,1.0,29.0,3.0
+Steak Egg White & Cheese on Maple Flatbread,280.0,10.0,5.0,35.0,950.0,31.0,3.0,8.0,19.0
+Cinnamon Sugar Donut,220.0,10.0,5.0,15.0,270.0,28.0,1.0,10.0,3.0
+Toasted Coconut Timbit,70.0,3.5,1.5,5.0,75.0,11.0,1.0,6.0,1.0
+Whipped Topping & Drizzle,80.0,5.0,5.0,0.0,5.0,7.0,0.0,6.0,0.0
+Old Fashion Dip Donut,250.0,11.0,5.0,15.0,270.0,33.0,1.0,15.0,4.0
+Turkey Sausage Egg & Cheese on Maple Flatbread,370.0,18.0,8.0,210.0,1130.0,32.0,2.0,8.0,19.0
+12 Grain Bagel,350.0,9.0,1.0,0.0,450.0,55.0,6.0,8.0,11.0
+Pretzel Bagel,300.0,3.0,0.0,0.0,850.0,60.0,2.0,4.0,11.0
+Iced Capp w/ Chocolate Milk Small,200.0,1.0,0.0,5.0,75.0,45.0,0.0,44.0,3.0
+Dark Roast Coffee Small,5.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Hearty Vegetable Soup,80.0,0.0,0.0,0.0,590.0,14.0,2.0,3.0,4.0
+Turkey Sausage Egg & Cheese on English Muffin,360.0,17.0,7.0,210.0,970.0,30.0,1.0,4.0,20.0
+Cherry Cheese Danish,320.0,16.0,7.0,0.0,410.0,41.0,1.0,19.0,4.0
+Chocolate Dip Donut,190.0,7.0,2.5,0.0,210.0,29.0,1.0,8.0,5.0
+Angus Steak & Cheese Panini,400.0,17.0,7.0,65.0,1120.0,35.0,2.0,2.0,27.0
+Sausage Egg White & Cheese on Biscuit,470.0,29.0,15.0,50.0,1050.0,32.0,2.0,4.0,19.0
+Italiano Grilled Bagel Sandwich,640.0,27.0,11.0,85.0,2320.0,64.0,4.0,6.0,36.0
+Turkey Bacon Club Sandwich,510.0,27.0,9.0,80.0,1650.0,36.0,2.0,2.0,28.0
+Strawberry Filled Timbit,50.0,1.0,0.5,0.0,35.0,8.0,0.0,4.0,1.0
+Plain Cream Cheese Spread,110.0,10.0,7.0,25.0,170.0,3.0,0.0,1.0,2.0
+Bacon Egg & Cheese on Biscuit,420.0,23.0,13.0,195.0,1120.0,34.0,2.0,5.0,19.0
+Iced Latte Small,210.0,6.0,3.5,25.0,150.0,29.0,0.0,28.0,10.0
+Latte Small,80.0,0.0,0.0,5.0,120.0,12.0,0.0,12.0,8.0
+Hash Brown,130.0,7.0,0.5,0.0,280.0,16.0,1.0,0.0,1.0
+Bagel BELT,570.0,25.0,8.0,195.0,1160.0,62.0,7.0,11.0,24.0
+Bacon Egg White & Cheese on English Muffin,290.0,11.0,5.0,30.0,690.0,28.0,1.0,3.0,17.0
+Sausage Egg & Cheese on English Muffin,460.0,29.0,11.0,215.0,900.0,29.0,1.0,4.0,18.0
+Frozen Hot Chocolate Small,420.0,21.0,14.0,55.0,220.0,57.0,1.0,50.0,3.0
+Turkey Sausage Egg White & Cheese on Maple Flatbread,310.0,12.0,6.0,45.0,990.0,31.0,3.0,7.0,19.0
+Chili,300.0,16.0,6.0,50.0,1180.0,18.0,5.0,5.0,21.0
+Cinnamon Raisin Bagel,300.0,2.0,0.0,0.0,390.0,61.0,2.0,10.0,9.0
+Flavored Iced Capp w/ Cream,320.0,16.0,10.0,55.0,40.0,41.0,0.0,37.0,3.0
+Flavored Iced Coffee w/ Cream,80.0,4.0,2.0,15.0,30.0,11.0,0.0,10.0,0.0
+Tea w/ 1 Milk & 1 Sugar,45.0,0.0,0.0,0.0,10.0,9.0,0.0,9.0,1.0
+Original Blend Coffee Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Plain Bagel,300.0,2.5,0.0,0.0,490.0,59.0,3.0,6.0,10.0
+Steak Egg White & Cheese on Biscuit,340.0,14.0,10.0,35.0,1080.0,33.0,2.0,4.0,21.0
+Steak Egg & Cheese on Maple Flatbread,340.0,16.0,7.0,195.0,1090.0,32.0,2.0,9.0,19.0
+Maple Dip Donut,190.0,6.0,2.5,0.0,210.0,29.0,1.0,9.0,4.0
+Espresso Shot,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Chocolate Chunk Cookie,240.0,10.0,6.0,25.0,250.0,34.0,1.0,19.0,3.0
+Sundried Tomato Asiago Parm Bagel,320.0,4.5,2.0,5.0,860.0,59.0,3.0,4.0,12.0
+Iced Capp w/ Milk,180.0,1.5,1.0,5.0,45.0,39.0,0.0,35.0,3.0
+Steak Egg White & Cheese on English Muffin,270.0,8.0,4.0,35.0,790.0,29.0,1.0,3.0,20.0
+Four Cheese Bagel,320.0,5.0,2.0,5.0,580.0,57.0,2.0,3.0,12.0
+Sausage Egg White & Cheese on English Muffin,400.0,23.0,9.0,55.0,760.0,28.0,1.0,3.0,18.0
+Decaffeinated Coffee Small,5.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicken Fajita Grilled Wrap,430.0,19.0,8.0,70.0,1060.0,39.0,3.0,4.0,28.0
+Broccoli Cheddar Soup,180.0,9.0,4.0,15.0,680.0,16.0,2.0,6.0,8.0
+Homestyle Biscuit,210.0,8.0,6.0,0.0,420.0,29.0,2.0,3.0,6.0
+Strawberry Double Chocolate Donut,310.0,15.0,7.0,5.0,320.0,41.0,1.0,23.0,4.0
+Strawberry Cream Cheese Spread,110.0,9.0,5.0,25.0,140.0,6.0,0.0,6.0,2.0
+Bacon Egg & Cheese on English Muffin,350.0,17.0,7.0,195.0,830.0,29.0,1.0,4.0,18.0
+Bacon Egg White & Cheese on Biscuit,360.0,17.0,11.0,30.0,980.0,32.0,2.0,4.0,19.0
+Flavored Latte Small,140.0,0.0,0.0,5.0,120.0,27.0,0.0,26.0,8.0
+Apple Fritter Timbit,50.0,1.5,1.0,0.0,40.0,9.0,0.0,4.0,1.0
+Blueberry Bagel,300.0,2.5,0.0,0.0,450.0,59.0,3.0,8.0,11.0
+Chocolate Glazed Donut,280.0,14.0,6.0,5.0,320.0,37.0,1.0,19.0,4.0
+Mac & Cheese,490.0,27.0,10.0,40.0,1120.0,48.0,1.0,7.0,16.0
+Iced Capp w/ Cream,310.0,16.0,10.0,55.0,40.0,40.0,0.0,37.0,3.0
+Sour Cream Glazed Timbit,90.0,4.5,2.0,5.0,55.0,12.0,0.0,7.0,1.0
+Original Blend Coffee w/ 1 Cream & 1 Sugar,75.0,3.5,2.0,15.0,15.0,9.0,0.0,9.0,1.0
+Cafe Mocha Small,170.0,6.0,5.0,0.0,170.0,27.0,1.0,23.0,1.0
+English Toffee Cappuccino Small,220.0,6.0,5.0,0.0,240.0,40.0,0.0,30.0,3.0
+Old Fashion Glazed Timbit,70.0,2.5,1.0,5.0,75.0,10.0,0.0,5.0,1.0
+Potato Bacon Cheddar Soup,260.0,15.0,8.0,35.0,820.0,22.0,1.0,5.0,7.0
+Frozen Vanilla & Cream Small,390.0,21.0,15.0,60.0,85.0,48.0,0.0,43.0,3.0
+Chicken Noodle Soup,120.0,1.5,0.0,5.0,710.0,21.0,1.0,2.0,5.0
+Old Fashion Plain Timbit,50.0,2.5,1.0,5.0,75.0,7.0,0.0,2.0,1.0
+Bacon Egg & Cheese on Maple Flatbread,360.0,19.0,8.0,195.0,990.0,32.0,2.0,8.0,17.0
+Angus Steak Fajita Grilled Wrap,430.0,20.0,8.0,60.0,1140.0,40.0,3.0,4.0,26.0
+Oatmeal Mixed Berry Regular,210.0,3.0,0.5,0.0,220.0,44.0,6.0,14.0,6.0
+Fruit Explosion Muffin,340.0,10.0,1.5,30.0,470.0,58.0,2.0,25.0,5.0
+Butter,100.0,11.0,7.0,30.0,95.0,0.0,0.0,0.0,0.0
+Kettle Cooked Potato Chips,220.0,14.0,1.0,0.0,110.0,22.0,1.0,0.0,2.0
+Birthday Cake Timbit,80.0,3.0,1.5,5.0,60.0,12.0,0.0,8.0,1.0
+Iced Mocha Latte Small,320.0,8.0,6.0,10.0,270.0,54.0,1.0,45.0,10.0
+Farmers Breakfast Grilled Wrap,650.0,38.0,12.0,215.0,1220.0,55.0,3.0,4.0,21.0
+French Vanilla Cappuccino Small,240.0,7.0,7.0,0.0,240.0,39.0,0.0,31.0,4.0
+Italian Wedding Soup,130.0,4.0,1.5,10.0,500.0,18.0,1.0,1.0,6.0
+Double Chocolate Donut,270.0,15.0,6.0,5.0,330.0,32.0,2.0,13.0,4.0
+Specialty Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Oatmeal Raisin Spice Cookie,220.0,9.0,6.0,25.0,190.0,34.0,2.0,19.0,3.0
+Chocolate Toasted Coconut Cake Donut,310.0,16.0,9.0,5.0,330.0,39.0,2.0,20.0,4.0
+Vanilla Greek Yogurt w/ Mixed Berries & Almond Granola,250.0,5.0,0.0,5.0,110.0,29.0,3.0,21.0,14.0
+Honey Cruller Timbit,60.0,3.0,1.5,10.0,35.0,8.0,0.0,5.0,0.0
+Tuscan Chicken Panini,420.0,15.0,5.0,65.0,1170.0,42.0,3.0,3.0,30.0
+Red Velvet Cookie w/ Cream Cheese Filling,300.0,13.0,9.0,35.0,250.0,42.0,1.0,23.0,3.0
+Original Frozen Lemonade Small,140.0,0.0,0.0,0.0,15.0,34.0,0.0,32.0,0.0
+Iced Coffee w/ Chocolate Milk,50.0,0.0,0.0,0.0,25.0,11.0,0.0,11.0,1.0
+Grilled Cheese Panini,460.0,29.0,18.0,80.0,1360.0,39.0,2.0,3.0,14.0
+Clam Chowder,190.0,7.0,2.0,20.0,680.0,23.0,1.0,6.0,9.0
+Everything Bagel,300.0,3.0,0.5,0.0,450.0,58.0,3.0,6.0,11.0
+Lemon Filled Timbit,45.0,1.0,0.5,0.0,35.0,7.0,0.0,3.0,1.0
+Strawberry Greek Yogurt w/ Mixed Berries & Almond Granola,250.0,5.0,0.0,5.0,110.0,29.0,3.0,21.0,14.0

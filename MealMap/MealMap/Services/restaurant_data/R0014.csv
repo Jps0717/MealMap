@@ -1,0 +1,338 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Chicken Bryan Half,320.0,15.0,5.0,40.0,390.0,29.0,1.0,1.0,15.0
+Calamari Regular,900.0,64.0,13.0,320.0,1670.0,53.0,5.0,7.0,29.0
+Shrimp Scampi,710.0,56.0,26.0,235.0,2310.0,28.0,0.0,2.0,26.0
+Plain Freshly Steamed Spinach,30.0,0.0,0.0,0.0,365.0,5.0,3.0,1.0,4.0
+Garlic Mashed Potatoes,330.0,21.0,11.0,20.0,801.0,31.0,4.0,1.0,5.0
+Italian Green Beans,102.0,6.0,1.0,0.0,300.0,8.0,4.0,3.0,2.0
+Sauteed Broccoli Seasonal Vegetable,160.0,14.0,2.0,0.0,300.0,8.0,3.0,2.0,3.0
+Sogno Di Cioccolata,1050.0,66.0,35.0,210.0,680.0,110.0,6.0,79.0,8.0
+Tiramisu,1010.0,78.0,43.0,230.0,105.0,62.0,4.0,40.0,13.0
+Veal Marsala,430.0,22.0,13.0,190.0,550.0,8.0,1.0,0.0,46.0
+Chicken Parmesan,690.0,34.0,15.0,195.0,2060.0,25.0,7.0,11.0,70.0
+Carrabba's Italian Classics,730.0,40.0,19.0,170.0,2290.0,35.0,6.0,16.0,58.0
+Chicken Bryan,680.0,44.0,28.0,225.0,1060.0,9.0,0.0,1.0,59.0
+Shrimp & Sea Scallop Spiedino,550.0,38.0,18.0,250.0,1030.0,11.0,1.0,2.0,38.0
+Lasagne,770.0,46.0,24.0,140.0,2510.0,46.0,6.0,21.0,46.0
+Lobster Ravioli,710.0,38.0,22.0,165.0,960.0,64.0,1.0,3.0,20.0
+Mezzaluna,630.0,29.0,14.0,110.0,1240.0,61.0,2.0,6.0,29.0
+Fettuccine Carrabba,1390.0,74.0,46.0,250.0,2030.0,100.0,10.0,6.0,65.0
+Fettuccine Weesie Dinner,1460.0,90.0,57.0,365.0,3330.0,96.0,8.0,6.0,58.0
+Fettuccine Weesie w/ Whole Grain Spaghetti,1460.0,90.0,56.0,355.0,3610.0,98.0,18.0,6.0,58.0
+Spaghetti w/ Pomodoro Sauce,670.0,11.0,1.0,0.0,1720.0,120.0,10.0,15.0,21.0
+Caprese w/ Chicken Half,290.0,11.0,4.0,40.0,480.0,28.0,2.0,1.0,18.0
+Spaghetti w/ Pomodoro Sauce & Whole Grain Spaghetti,630.0,7.0,2.0,0.0,2010.0,111.0,23.0,17.0,22.0
+Spaghetti w/ Meatballs Dinner,1040.0,33.0,10.0,105.0,2590.0,131.0,14.0,20.0,52.0
+Spaghetti w/ Meatballs & Whole Grain Spaghetti,990.0,29.0,11.0,105.0,2870.0,122.0,27.0,21.0,53.0
+Spaghetti w/ Bolognese Meat Sauce,880.0,28.0,8.0,50.0,1790.0,119.0,10.0,14.0,33.0
+Spaghetti w/ Bolognese Meat Sauce & Whole Grain Spaghetti,840.0,25.0,9.0,50.0,2070.0,109.0,22.0,15.0,34.0
+Spaghetti w/ Sausage Dinner,1040.0,38.0,12.0,95.0,2600.0,122.0,10.0,16.0,49.0
+Spaghetti w/ Sausage & Whole Grain Spaghetti Dinner,1000.0,34.0,13.0,95.0,2880.0,113.0,23.0,18.0,50.0
+Fettuccine Alfredo,653.0,45.0,29.0,117.0,801.0,38.0,2.0,3.0,18.0
+Cavatappi Amatriciana,417.0,14.0,6.0,13.0,1136.0,60.0,2.0,5.0,14.0
+Grilled Chicken w/ Steamed Spinach Kids,250.0,3.0,1.0,75.0,200.0,24.0,3.0,19.0,35.0
+Whole Grain Spaghetti Pomodoro w/ Spinach Kids,330.0,4.0,1.0,0.0,1070.0,59.0,13.0,9.0,14.0
+Cheese Ravioli Kids,350.0,13.0,7.0,65.0,820.0,33.0,3.0,5.0,19.0
+Pepperoni Pizza Kids,410.0,17.0,6.0,30.0,940.0,48.0,2.0,3.0,16.0
+Spaghetti & Meatball Kids,450.0,12.0,4.0,35.0,1100.0,63.0,6.0,9.0,21.0
+Spaghetti & Meatballs w/ Whole Grain Spaghetti Kids,430.0,11.0,4.0,35.0,1240.0,58.0,13.0,9.0,21.0
+Create Your Own Wood Fried Pizza,570.0,17.0,6.0,25.0,1200.0,80.0,3.0,6.0,21.0
+Cheese Pizza Kids,360.0,12.0,5.0,15.0,750.0,48.0,2.0,3.0,13.0
+Tomato Caprese w/ Fresh Burrata,500.0,43.0,18.0,80.0,1460.0,20.0,3.0,14.0,14.0
+Chicken Bryan Whole,630.0,29.0,10.0,80.0,780.0,57.0,3.0,3.0,30.0
+Caesar Salad Side,350.0,30.0,7.0,30.0,590.0,8.0,3.0,2.0,11.0
+House Side Salad,280.0,24.0,5.0,15.0,470.0,11.0,5.0,4.0,6.0
+Italian Side Salad,340.0,32.0,5.0,10.0,550.0,10.0,4.0,5.0,4.0
+Caesar Salad w/ Wood Grilled Chicken,780.0,59.0,12.0,110.0,1400.0,16.0,7.0,4.0,43.0
+Caesar Salad w/ Shrimp,700.0,58.0,11.0,195.0,1780.0,15.0,7.0,4.0,31.0
+Caprese Sandwich,480.0,20.0,8.0,30.0,650.0,55.0,3.0,2.0,18.0
+Caprese Sandwich w/ Chicken,580.0,22.0,8.0,80.0,950.0,56.0,3.0,2.0,36.0
+Chicken Parmesan Sandwich,620.0,18.0,7.0,100.0,1310.0,66.0,6.0,7.0,44.0
+Steak Sandwich,720.0,34.0,17.0,100.0,820.0,56.0,3.0,1.0,38.0
+Minestrone Soup Bowl,240.0,9.0,5.0,0.0,1360.0,33.0,9.0,0.0,9.0
+Minestrone Soup Cup,120.0,5.0,3.0,0.0,680.0,16.0,5.0,0.0,5.0
+Sausage & Lentil Soup Bowl,430.0,21.0,6.0,10.0,2560.0,38.0,16.0,7.0,24.0
+Mama Mandola's Sicilian Chicken Soup Bowl,190.0,5.0,2.0,20.0,1960.0,20.0,5.0,4.0,16.0
+Mama Mandola's Sicilian Chicken Soup Cup,100.0,2.0,1.0,10.0,1490.0,11.0,3.0,2.0,8.0
+Kalamata Olives for Create Your Own Wood Fired Pizza,40.0,5.0,1.0,0.0,320.0,0.0,0.0,0.0,0.0
+Meatballs for Create Your Own Wood Fired Pizza,230.0,14.0,6.0,70.0,470.0,6.0,2.0,2.0,20.0
+Pepperoni for Create Your Own Wood Fired Pizza,60.0,5.0,2.0,15.0,200.0,0.0,0.0,0.0,3.0
+Onions for Create Your Own Wood Fired Pizza,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Italian Sausage for Create Your Own Wood Fired Pizza,150.0,12.0,5.0,0.0,490.0,1.0,1.0,0.0,11.0
+Mushrooms for Create Your Own Wood Fired Pizza,40.0,3.0,0.0,0.0,160.0,2.0,2.0,0.0,2.0
+Sundried Tomatoes for Create Your Own Wood Fired Pizza,90.0,6.0,6.0,0.0,10.0,6.0,0.0,0.0,2.0
+Arancini,310.0,15.0,4.0,20.0,1720.0,33.0,3.0,5.0,9.0
+Mezzaluna Lunch Portion,570.0,27.0,14.0,100.0,1140.0,53.0,2.0,6.0,26.0
+Shrimp & Scallop Linguine Alla Vodka,1060.0,38.0,17.0,130.0,1750.0,116.0,5.0,10.0,42.0
+Shrimp & Scallop Linguine Alla Vodka w/ Whole Grain Spaghetti,1010.0,35.0,18.0,130.0,2020.0,105.0,18.0,11.0,43.0
+Fettuccine Weesie w/ Whole Grain Spaghetti Lunch Portion,1030.0,66.0,41.0,245.0,2420.0,66.0,12.0,4.0,38.0
+Lasagne Lunch Portion,740.0,44.0,23.0,135.0,2410.0,44.0,6.0,20.0,43.0
+Fettuccine Carrabba w/ Whole Grain Spaghetti,1390.0,74.0,45.0,235.0,2300.0,103.0,8.0,6.0,65.0
+Johnny Rocco Salad,540.0,42.0,8.0,160.0,1790.0,13.0,6.0,4.0,29.0
+Caprese Half,240.0,10.0,4.0,15.0,330.0,28.0,2.0,1.0,9.0
+Chicken Parmesan Half,310.0,9.0,4.0,50.0,660.0,33.0,3.0,3.0,22.0
+Meatball Sandwich Whole,710.0,29.0,14.0,110.0,1360.0,65.0,6.0,8.0,42.0
+Meatball Sandwich Half,350.0,15.0,7.0,55.0,680.0,33.0,3.0,4.0,21.0
+Bruschette Siciliani,320.0,5.0,5.0,5.0,800.0,22.0,1.0,2.0,5.0
+Grilled Asparagus w/ Prosciutto,210.0,6.0,6.0,55.0,940.0,5.0,2.0,3.0,18.0
+Mozzarella Marinara,990.0,68.0,31.0,210.0,2350.0,43.0,7.0,16.0,53.0
+Meatballs & Ricotta,370.0,22.0,9.0,85.0,1180.0,17.0,6.0,10.0,26.0
+Three Cheese & Sausage Stuffed Mushrooms,300.0,23.0,9.0,20.0,1290.0,10.0,2.0,5.0,16.0
+Italian Lettuce Wraps,210.0,10.0,6.0,45.0,450.0,11.0,2.0,5.0,18.0
+Mussels in White Wine Lemon Butter,650.0,59.0,34.0,170.0,640.0,13.0,2.0,4.0,19.0
+Parmesan Crusted Chicken Arugula,660.0,34.0,8.0,165.0,1380.0,25.0,7.0,6.0,60.0
+Chianti Chicken,550.0,27.0,6.0,140.0,1140.0,14.0,3.0,7.0,57.0
+Tuscan Grilled Filet 9 oz,640.0,47.0,19.0,165.0,670.0,1.0,0.0,0.0,47.0
+Tuscan Grilled Pork Chop 1 Chop,390.0,20.0,7.0,150.0,730.0,1.0,0.0,0.0,47.0
+Tuscan Grilled Veal Chop,450.0,24.0,10.0,190.0,450.0,0.0,0.0,0.0,57.0
+Prosciutto Wrapped Shrimp,490.0,21.0,8.0,150.0,2290.0,50.0,4.0,5.0,30.0
+Salmon Cetriolini,850.0,69.0,24.0,215.0,650.0,2.0,0.0,1.0,52.0
+Cioppino,580.0,29.0,9.0,180.0,1160.0,27.0,1.0,7.0,49.0
+Linguine Positano Dinner,950.0,30.0,5.0,70.0,2220.0,119.0,4.0,10.0,48.0
+Linguine & White Clam Sauce,1270.0,70.0,34.0,160.0,2060.0,113.0,5.0,4.0,40.0
+Grilled Asparagus,70.0,5.0,1.0,0.0,200.0,4.0,2.0,2.0,2.0
+Tuscan Strawberry Salad w/ Chicken,530.0,33.0,7.0,85.0,780.0,24.0,8.0,13.0,34.0
+Tuscan Strawberry Salad w/ Shrimp,450.0,31.0,6.0,165.0,1150.0,23.0,8.0,13.0,22.0
+Linguine & White Clam Sauce w/ Whole Grain Pasta,1210.0,66.0,34.0,160.0,2330.0,102.0,18.0,5.0,41.0
+Linguine Positano w/ Whole Grain Spaghetti Dinner,900.0,27.0,5.0,70.0,2500.0,108.0,17.0,12.0,50.0
+Bryan Topping,320.0,32.0,21.0,80.0,240.0,5.0,0.0,1.0,4.0
+Plain Freshly Steamed Broccoli,40.0,0.0,0.0,0.0,35.0,8.0,3.0,2.0,3.0
+Plain Freshly Steamed Green Beans,30.0,0.0,0.0,0.0,5.0,6.0,3.0,1.0,2.0
+Plain Asparagus,25.0,0.0,0.0,0.0,0.0,4.0,2.0,2.0,2.0
+Caesar Salad w/ Salmon,930.0,77.0,15.0,115.0,1230.0,15.0,7.0,4.0,43.0
+Sicilian Orzo,210.0,6.0,1.0,0.0,530.0,33.0,2.0,2.0,5.0
+Grilled Chicken Breast w/ Steamed Broccoli Kids,240.0,3.0,1.0,75.0,120.0,23.0,2.0,19.0,33.0
+Grilled Chicken Breast w/ Steamed Green Beans Kids,250.0,3.0,1.0,75.0,1170.0,25.0,3.0,20.0,34.0
+Tuscan Grilled Sirloin Marsala 6 oz,510.0,38.0,19.0,110.0,630.0,3.0,1.0,0.0,35.0
+Fettuccine Weesie Lunch,1000.0,66.0,42.0,255.0,2180.0,58.0,5.0,4.0,37.0
+Mahi Wulfe,540.0,37.0,20.0,145.0,1160.0,12.0,0.0,1.0,38.0
+Spaghetti w/ Meatballs Lunch,710.0,23.0,7.0,70.0,1890.0,90.0,10.0,15.0,35.0
+Spaghetti w/ Meatballs & Whole Grain Spaghetti,880.0,22.0,8.0,70.0,2640.0,119.0,26.0,21.0,43.0
+Spaghetti w/ Sausage Lunch,650.0,21.0,6.0,45.0,1700.0,83.0,7.0,12.0,28.0
+Spaghetti w/ Sausage & Whole Grain Spaghetti Lunch,810.0,21.0,7.0,45.0,2440.0,112.0,23.0,17.0,36.0
+Margherita Pizza,700.0,31.0,11.0,45.0,1810.0,81.0,4.0,6.0,26.0
+Shrimp Orzo & Arugula Salad,520.0,24.0,3.0,150.0,1380.0,57.0,3.0,5.0,24.0
+Zucchini Fritte,920.0,75.0,14.0,15.0,1120.0,51.0,6.0,7.0,11.0
+Zucchini Stefano,152.0,12.0,2.0,2.0,643.0,9.0,2.0,5.0,4.0
+Zucchini Fritte Lunch Side,340.0,25.0,5.0,0.0,440.0,23.0,2.0,2.0,5.0
+Banbini Sundae,430.0,26.0,16.0,85.0,95.0,44.0,1.0,35.0,6.0
+Seasonal Pasta Rigatoni Campagnolo,1070.0,47.0,18.0,60.0,2760.0,111.0,10.0,16.0,54.0
+Fettuccine Carrabba w/ Gluten Free Pasta,1420.0,72.0,43.0,220.0,5680.0,147.0,10.0,6.0,53.0
+Fettuccine Weesie w/ Gluten Free Pasta,1310.0,78.0,47.0,320.0,6200.0,119.0,11.0,7.0,44.0
+Linguine Positano w/ Gluten Free Pasta,980.0,28.0,5.0,70.0,6040.0,152.0,12.0,13.0,43.0
+Spaghetti w/ Bolognese Meat Sauce & Gluten Free Pasta,920.0,16.0,8.0,50.0,5620.0,153.0,18.0,17.0,27.0
+Spaghetti & Meatballs w/ Gluten Free Pasta,990.0,29.0,11.0,105.0,2870.0,122.0,27.0,21.0,53.0
+Spaghetti w/ Pomodoro & Gluten Free Pasta,710.0,9.0,1.0,0.0,5550.0,155.0,18.0,18.0,15.0
+Spaghetti w/ Sausage & Gluten Free Pasta,1080.0,36.0,12.0,95.0,6430.0,157.0,18.0,19.0,43.0
+Seasonal Pasta Rigatoni Campagnolo w/ Gluten Free Pasta,1210.0,45.0,18.0,60.0,6730.0,158.0,19.0,19.0,52.0
+Seasonal Pasta Rigatoni Campagnolo w/ Whole Grain Spaghetti,1500.0,11.0,3.0,0.0,13340.0,318.0,50.0,14.0,68.0
+Filet w/ Prosciutto Wrapped Shrimp 9 oz,10.0,53.0,22.0,0.0,1400.0,240.0,1400.0,0.0,0.0
+Fettuccine Weesie w/ Gluten Free Pasta Lunch,1080.0,67.0,40.0,245.0,4780.0,96.0,9.0,5.0,34.0
+Tuscan Strawberry Salad w/ Salmon,684.0,51.0,10.0,90.0,602.0,243.0,8.0,13.0,34.0
+Mama Mandolas Sicilian Chicken Soup Bowl,190.0,5.0,1.5,25.0,3220.0,24.0,6.0,4.0,18.0
+Meatballs for Create Your Own Wood Fired Pizza,230.0,14.0,6.0,70.0,470.0,6.0,2.0,2.0,20.0
+1 Tuscan Grilled Pork Chop,390.0,20.0,7.0,150.0,730.0,1.0,0.0,0.0,47.0
+Classic Red Sangria Pitcher,1310.0,0.0,0.0,0.0,30.0,139.0,2.0,120.0,3.0
+Linguine Positano,810.0,27.0,3.5,0.0,1830.0,118.0,4.0,10.0,22.0
+Spaghetti w/ Meatballs Family Bundle,770.0,28.0,10.0,90.0,2080.0,87.0,10.0,15.0,41.0
+Fettuccine Weesie w/ Gluten Free Pasta,1410.0,79.0,48.0,320.0,3130.0,132.0,14.0,5.0,45.0
+Spaghetti w/ Meat Sauce Family Bundle Serves 4,2670.0,101.0,33.0,200.0,6470.0,317.0,30.0,50.0,109.0
+Spaghetti w/ Bolognese Meat Sauce & Gluten Free Pasta,930.0,27.0,9.0,55.0,1840.0,143.0,19.0,15.0,26.0
+Chianti Kiss,210.0,0.0,0.0,0.0,10.0,20.0,0.0,14.0,0.0
+Shrimp & Scallop Linguine Alla Vodka w/ Whole Grain Spaghetti,1070.0,39.0,18.0,175.0,2120.0,106.0,18.0,11.0,55.0
+Caesar Salad w/ Shrimp,700.0,58.0,11.0,195.0,1780.0,15.0,7.0,4.0,31.0
+Fettucine Weesie,1460.0,90.0,57.0,365.0,3330.0,96.0,8.0,6.0,58.0
+White Wine Glass 6 oz,150.0,0.0,0.0,0.0,5.0,5.0,0.0,2.0,0.0
+Shrimp & Sea Scallop Spiedino,550.0,38.0,18.0,250.0,1010.0,12.0,1.0,2.0,38.0
+Spaghetti w/ Sausage Family Bundle,770.0,31.0,11.0,85.0,2080.0,80.0,7.0,13.0,39.0
+Cavatappi Pomodoro,330.0,5.0,0.5,0.0,820.0,63.0,5.0,8.0,10.0
+Strawberry Cheesecake,1020.0,62.0,37.0,320.0,670.0,101.0,3.0,84.0,17.0
+Spaghetti w/ Pomodoro Sauce,670.0,11.0,1.0,0.0,1720.0,120.0,10.0,15.0,21.0
+Garlic Mashed Potatoes,330.0,21.0,11.0,20.0,710.0,31.0,4.0,1.0,5.0
+Diet Coke,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mozzarella Marinara,990.0,68.0,31.0,210.0,2350.0,43.0,7.0,16.0,53.0
+Chicken Parmesan Sandwich,620.0,18.0,7.0,100.0,1310.0,66.0,6.0,7.0,44.0
+Chicken Bryan,680.0,44.0,27.0,225.0,1040.0,9.0,0.0,1.0,59.0
+House Salad Serves 10,2150.0,188.0,35.0,125.0,3370.0,77.0,34.0,31.0,46.0
+Spaghetti w/ Meatballs & Whole Grain Spaghetti,990.0,33.0,11.0,122.0,2870.0,122.0,27.0,21.0,53.0
+Shrimp Orzo & Arugula Salad,520.0,24.0,3.0,150.0,1380.0,57.0,3.0,5.0,24.0
+Linguine Pescatore w/ Gluten Free Pasta,890.0,10.0,1.5,165.0,2010.0,147.0,16.0,13.0,50.0
+Italian Salad Family Bundle,340.0,32.0,5.0,10.0,530.0,10.0,4.0,4.0,3.0
+Fettuccine Carrabba w/ Gluten Free Pasta,1430.0,73.0,43.0,225.0,1900.0,137.0,16.0,6.0,52.0
+Cafe Godiva,290.0,8.0,4.0,25.0,90.0,31.0,0.0,26.0,6.0
+Cheese Ravioli Kids,350.0,13.0,7.0,65.0,820.0,33.0,3.0,5.0,19.0
+Raspberry Italian Soda,190.0,0.0,0.0,0.0,0.0,47.0,0.0,47.0,0.0
+Sparkling Wine Bottle 750 ml,600.0,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0
+Caesar Salad Kids,260.0,23.0,5.0,20.0,420.0,5.0,2.0,1.0,7.0
+Linguine Pescatore,850.0,11.0,1.0,160.0,1970.0,123.0,7.0,12.0,57.0
+Bread Herbs & Oil Family Bundle Serves 4,1070.0,40.0,6.0,0.0,1980.0,156.0,6.0,2.0,26.0
+Meatballs & Ricotta,370.0,22.0,9.0,85.0,1180.0,17.0,6.0,10.0,26.0
+Linguine Pescatore w/ Whole Grain Spaghetti,790.0,11.0,2.0,160.0,2240.0,113.0,20.0,13.0,58.0
+Bruschette Siciliani,320.0,25.0,4.5,5.0,800.0,22.0,1.0,2.0,5.0
+Italian Salad w/ Salmon,1010.0,86.0,14.0,95.0,1350.0,25.0,10.0,12.0,34.0
+Margherita Flatbread,630.0,34.0,12.0,65.0,1110.0,47.0,3.0,3.0,33.0
+Pepperoni for Create Your Own Wood Fired Pizza,60.0,6.0,2.0,15.0,220.0,0.0,0.0,0.0,3.0
+Italian Salad Kids,270.0,26.0,4.0,10.0,430.0,8.0,3.0,4.0,3.0
+Caesar Salad Serves 10,2570.0,229.0,49.0,210.0,4220.0,47.0,21.0,13.0,75.0
+Parmesan Crusted Chicken Arugula,660.0,34.0,8.0,165.0,1380.0,25.0,7.0,6.0,60.0
+House Salad Kids,220.0,19.0,3.5,10.0,340.0,8.0,3.0,3.0,5.0
+Minestrone Soup Serves 10,1090.0,48.0,25.0,35.0,5950.0,132.0,38.0,0.0,51.0
+Veal Marsala,460.0,25.0,14.0,195.0,600.0,9.0,2.0,0.0,47.0
+Cafe Latte,90.0,3.5,2.0,10.0,65.0,10.0,0.0,9.0,5.0
+Sogno Di Cioccolata,1040.0,65.0,35.0,205.0,680.0,110.0,6.0,78.0,8.0
+Steak Sandwich,740.0,37.0,18.0,105.0,870.0,57.0,4.0,1.0,39.0
+Garlic Mashed Potatoes Family Bundle Serves 4,1340.0,85.0,46.0,75.0,2850.0,123.0,17.0,4.0,20.0
+Shrimp & Scallop Linguine Alla Vodka w/Gluten Free Pasta,1100.0,32.0,15.0,170.0,1640.0,136.0,14.0,8.0,45.0
+Chicken Parmesan Family Bundle Serves 4,520.0,26.0,11.0,146.0,1545.0,19.0,5.0,9.0,53.0
+Tiramisu,1010.0,78.0,43.0,230.0,105.0,62.0,4.0,40.0,13.0
+Sprite,80.0,0.0,0.0,0.0,20.0,23.0,0.0,23.0,0.0
+Hi-C Fruit Punch,90.0,0.0,0.0,0.0,5.0,23.0,0.0,23.0,0.0
+Rose Wine Glass 6 oz,150.0,0.0,0.0,0.0,5.0,5.0,0.0,2.0,0.0
+Whole Grain Spaghetti Pomodoro w/ Spinach Kids,330.0,6.0,1.0,0.0,1070.0,59.0,13.0,9.0,14.0
+Tomato Caprese w/ Fresh Burrata,500.0,43.0,18.0,80.0,1460.0,20.0,3.0,14.0,14.0
+Italian Salad w/ Shrimp,780.0,66.0,10.0,170.0,1900.0,25.0,10.0,12.0,22.0
+Linguine Positano w/ Whole Grain Spaghetti,900.0,31.0,5.0,70.0,2500.0,108.0,17.0,12.0,50.0
+House Side Salad,290.0,24.0,4.5,15.0,480.0,13.0,6.0,5.0,7.0
+House Salad Family Bundle Serves 4,1080.0,94.0,17.0,60.0,1680.0,39.0,17.0,16.0,23.0
+Proscuitto & Argugula Pizza,710.0,28.0,9.0,50.0,1740.0,79.0,5.0,3.0,30.0
+Red Wine Glass 6 oz,150.0,0.0,0.0,0.0,5.0,5.0,0.0,0.0,0.0
+Mama Mandolas Sicilian Chicken Soup Cup,100.0,2.5,0.5,10.0,1610.0,12.0,3.0,2.0,9.0
+Mushrooms for Create Your Own Wood Fired Pizza,45.0,3.0,0.0,0.0,170.0,2.0,2.0,0.0,2.0
+Salmon Cetriolini,850.0,69.0,24.0,210.0,630.0,3.0,0.0,1.0,52.0
+Linguine Positano w/ Chicken,950.0,30.0,4.5,70.0,2220.0,119.0,4.0,10.0,48.0
+Fettuccine Carrabba,1390.0,74.0,46.0,250.0,2030.0,100.0,10.0,6.0,65.0
+Carrabbas Italian Classics,730.0,40.0,19.0,170.0,2290.0,35.0,6.0,16.0,58.0
+Coffee Decaf,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Spaghetti w/ Sausage Family Bundle Serves 4,3070.0,125.0,44.0,335.0,8330.0,319.0,29.0,50.0,155.0
+Meatball Regional,640.0,29.0,14.0,110.0,1280.0,52.0,6.0,7.0,40.0
+Marsala Sauce Topping,190.0,19.0,11.0,45.0,230.0,2.0,1.0,0.0,1.0
+Kalamata Olives for Create Your Own Wood Fired Pizza,40.0,4.5,1.0,0.0,320.0,0.0,0.0,0.0,0.0
+Grilled Asparagus w/ Prosciutto,210.0,12.0,6.0,55.0,940.0,5.0,2.0,3.0,18.0
+Spaghetti Pomodoro Family Bundle Serves 4,1970.0,45.0,11.0,50.0,5700.0,313.0,29.0,47.0,72.0
+Spaghetti & Meatball Kids,450.0,12.0,3.5,35.0,1100.0,63.0,6.0,9.0,21.0
+Crumbled Gorgonzola,110.0,8.0,5.0,30.0,280.0,0.0,0.0,0.0,6.0
+Sirloin Marsala,770.0,44.0,23.0,130.0,970.0,44.0,3.0,1.0,43.0
+Shrimp & Scallop Linguine Alla Vodka,1120.0,39.0,17.0,175.0,1850.0,117.0,5.0,10.0,53.0
+Chicken Parmesan 1/2,310.0,9.0,3.5,50.0,660.0,33.0,3.0,3.0,22.0
+Chicken Bryan Flatbread,770.0,37.0,20.0,100.0,1220.0,72.0,3.0,4.0,39.0
+Pepperoni Pizza Kids,410.0,17.0,6.0,30.0,940.0,48.0,2.0,3.0,16.0
+Spaghetti w/ Sausage,1040.0,38.0,12.0,95.0,2600.0,122.0,10.0,16.0,49.0
+Tomato Cumber Salad,60.0,0.0,0.0,0.0,340.0,12.0,2.0,9.0,2.0
+Caprese Sandwich,480.0,20.0,8.0,30.0,650.0,55.0,3.0,2.0,18.0
+Minestrone Soup Bowl,240.0,9.0,4.5,0.0,1360.0,33.0,9.0,0.0,9.0
+Shrimp Scampi,720.0,43.0,18.0,80.0,2280.0,29.0,0.0,2.0,26.0
+Cavatappi Carrabba Family Bundle,1130.0,73.0,43.0,210.0,1550.0,73.0,5.0,5.0,46.0
+Mediterranean Chicken Piadina,630.0,34.0,12.0,65.0,1110.0,47.0,3.0,3.0,33.0
+Margherita Pizza,710.0,30.0,11.0,45.0,2020.0,83.0,7.0,5.0,26.0
+Fettuccine Carrabba w/ Whole Grain Spaghetti,1390.0,78.0,45.0,235.0,2300.0,103.0,20.0,7.0,65.0
+Bread Herbs & Oil Family Bundle,270.0,10.0,1.5,0.0,500.0,39.0,1.0,0.0,6.0
+Minute Maid Lemonade,120.0,0.0,0.0,0.0,0.0,30.0,0.0,29.0,0.0
+Fettuccine Alfredo Regional,650.0,45.0,29.0,115.0,800.0,38.0,2.0,3.0,18.0
+Sauteed Broccoli Family Bundle Serves 4,640.0,55.0,7.0,0.0,1220.0,38.0,13.0,9.0,14.0
+Spaghetti w/ Bolognese Meat Sauce,880.0,28.0,8.0,50.0,1790.0,119.0,10.0,14.0,33.0
+Hot Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Sauteed Broccoli Family Bundle,160.0,14.0,2.0,0.0,300.0,10.0,3.0,2.0,4.0
+Vegetable Frittata,570.0,45.0,12.0,730.0,1400.0,13.0,6.0,4.0,32.0
+Three Cheese & Sausage Stuffed Mushrooms,300.0,23.0,9.0,20.0,1290.0,10.0,2.0,5.0,16.0
+Sausage & Lentil Soup Kids,190.0,10.0,3.0,10.0,1070.0,15.0,6.0,3.0,11.0
+Spaghetti Pomodoro Family Bundle,490.0,11.0,3.0,10.0,1420.0,78.0,7.0,12.0,18.0
+6 oz Tuscan Grilled Sirloin Marsala,510.0,38.0,19.0,110.0,630.0,3.0,1.0,0.0,35.0
+Italian Sausage for Create Your Own Wood Fired Pizza,150.0,12.0,4.5,0.0,490.0,1.0,0.0,0.0,11.0
+Classic Red Sangria 9 oz,290.0,0.0,0.0,0.0,5.0,34.0,1.0,28.0,1.0
+Minestrone Soup Cup,120.0,4.5,2.5,0.0,680.0,16.0,5.0,0.0,5.0
+9 oz Tuscan Grilled Filet,640.0,47.0,19.0,165.0,670.0,1.0,0.0,0.0,50.0
+Sauteed Broccoli,160.0,14.0,2.0,0.0,300.0,10.0,3.0,2.0,4.0
+Mamma Mandolas Sicilian Chicken Soup Serves 10,860.0,20.0,6.0,100.0,12860.0,98.0,23.0,16.0,73.0
+Fettuccine Weesie w/ Whole Grain Spaghetti,1460.0,93.0,56.0,355.0,3610.0,99.0,18.0,6.0,58.0
+Regular Beer 19 oz Regional,220.0,0.0,0.0,0.0,15.0,16.0,0.0,0.0,2.0
+Rose Wine Glass 9 oz,230.0,0.0,0.0,0.0,10.0,7.0,0.0,3.0,0.0
+Rigatoni Campagnolo w/ Gluten Free Pasta,1220.0,46.0,19.0,60.0,2950.0,149.0,20.0,17.0,51.0
+Cheese Pizza,360.0,12.0,4.5,15.0,750.0,48.0,2.0,3.0,13.0
+Bacon & Egg Italian Sandwich,700.0,35.0,11.0,395.0,1540.0,59.0,3.0,5.0,31.0
+Coffee Regular,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Stella Artois Draft,170.0,0.0,0.0,0.0,0.0,14.0,0.0,0.0,1.0
+Chicken Bryan 1/2,320.0,15.0,5.0,40.0,380.0,29.0,1.0,1.0,15.0
+Spaghetti w/ Meatballs,1040.0,33.0,10.0,105.0,2590.0,131.0,14.0,20.0,52.0
+Rigatoni Campagnolo w/ Whole Grain Spaghetti,1120.0,48.0,19.0,60.0,3190.0,115.0,24.0,18.0,59.0
+Caesar Salad Family Bundle Serves 4,1280.0,114.0,24.0,105.0,2110.0,23.0,11.0,7.0,37.0
+Grilled Asparagus,70.0,4.5,0.5,0.0,200.0,4.0,2.0,2.0,2.0
+Italian Salad w/ Chicken,850.0,68.0,11.0,90.0,1530.0,26.0,10.0,12.0,34.0
+Blue Moon Draft,180.0,0.0,0.0,0.0,20.0,15.0,0.0,0.0,2.0
+Lasagne Regional,390.0,23.0,12.0,70.0,1260.0,23.0,3.0,11.0,23.0
+House Salad Family Bundle,270.0,23.0,4.5,15.0,420.0,10.0,4.0,4.0,6.0
+Light Balsamic Dressing,80.0,5.0,0.5,0.0,330.0,8.0,0.0,7.0,0.0
+Craft Higher Alcohol 19 oz Regional,310.0,0.0,0.0,0.0,20.0,1.0,1.0,1.0,5.0
+Red Wine Glass 9 oz,230.0,0.0,0.0,0.0,10.0,7.0,0.0,2.0,0.0
+Lasagne,770.0,46.0,24.0,140.0,2510.0,46.0,6.0,21.0,46.0
+Pollo Rosa Maria,620.0,37.0,19.0,215.0,1440.0,4.0,1.0,0.0,65.0
+Chicken Trio,940.0,58.0,33.0,320.0,1780.0,9.0,2.0,1.0,89.0
+Chicken Marsala Family Bundle,360.0,19.0,10.0,135.0,760.0,3.0,1.0,0.0,40.0
+Rigatoni Campagnolo,1190.0,47.0,18.0,60.0,2840.0,136.0,11.0,17.0,58.0
+Spaghetti w/ Meat Sauce Family Bundle,670.0,25.0,8.0,50.0,1620.0,79.0,8.0,12.0,27.0
+Spaghetti w/ Sausage & Whole Gluten Free Pasta,1090.0,37.0,13.0,100.0,2650.0,147.0,19.0,17.0,42.0
+Fettuccine Alfredo,650.0,45.0,29.0,115.0,800.0,38.0,2.0,3.0,18.0
+Calamari Regular,900.0,60.0,10.0,320.0,1670.0,50.0,5.0,10.0,30.0
+Fresh Fruit Bowl,110.0,0.5,0.0,0.0,20.0,28.0,5.0,22.0,2.0
+Italian Side Salad,350.0,32.0,5.0,10.0,570.0,13.0,5.0,6.0,4.0
+Onions for Create Your Own Wood Fired Pizza,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Italian Salad Family Bundle Serves 4,1340.0,128.0,20.0,45.0,2140.0,38.0,15.0,18.0,13.0
+Spaghetti w/ Bolognese Meat Sauce & Whole Grain Spaghetti,840.0,29.0,9.0,50.0,2070.0,109.0,22.0,15.0,34.0
+Caesar Salad Side,350.0,30.0,7.0,30.0,590.0,8.0,3.0,2.0,11.0
+Caprese 1/2,240.0,10.0,4.0,15.0,330.0,28.0,2.0,1.0,9.0
+Yogurt Bowl,140.0,2.0,1.5,10.0,105.0,22.0,0.0,22.0,8.0
+Banbini Sundae,430.0,26.0,16.0,85.0,95.0,44.0,1.0,35.0,6.0
+Grilled Chicken w/ Steamed Spinach Kids,250.0,3.0,1.0,75.0,200.0,24.0,3.0,19.0,35.0
+Sausage & Peppers Flatbread,630.0,29.0,10.0,25.0,1280.0,69.0,4.0,6.0,27.0
+Mussels in White Wine Lemon Butter,650.0,58.0,33.0,170.0,600.0,16.0,2.0,4.0,20.0
+Mamma Mandolas Sicilian Chicken Soup Kids,90.0,2.0,0.5,10.0,1290.0,10.0,2.0,2.0,7.0
+Peroni,150.0,0.0,0.0,0.0,10.0,11.0,0.0,0.0,1.0
+Fresh Brewed Iced Tea Unsweetened,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Bread Herbs & Oil Serves 10,3190.0,119.0,17.0,0.0,5690.0,466.0,17.0,6.0,78.0
+Linguine Positano w/Shrimp,880.0,29.0,3.5,150.0,2600.0,118.0,4.0,10.0,36.0
+Caesar Salad w/ Chicken,780.0,59.0,12.0,110.0,1400.0,16.0,7.0,4.0,43.0
+Coke,90.0,0.0,0.0,0.0,0.0,24.0,0.0,24.0,0.0
+Chicken Parmesan,690.0,34.0,15.0,195.0,2060.0,25.0,7.0,11.0,70.0
+Cavatappi Alfredo Family Bundle,970.0,68.0,42.0,160.0,1060.0,66.0,2.0,3.0,24.0
+Fresh Brewed Iced Tea Sweet,50.0,0.0,0.0,0.0,0.0,13.0,0.0,13.0,0.0
+Caesar Salad Family Bundle,320.0,29.0,6.0,25.0,530.0,6.0,3.0,2.0,9.0
+White Wine Glass 9 oz,230.0,0.0,0.0,0.0,10.0,7.0,0.0,3.0,0.0
+Mezzaluna,630.0,29.0,14.0,110.0,1240.0,61.0,2.0,6.0,29.0
+Italian Salad Serves 10,2680.0,255.0,40.0,85.0,4280.0,77.0,29.0,35.0,26.0
+Bloody Mary Regional,150.0,1.0,0.0,0.0,1190.0,16.0,2.0,5.0,2.0
+Sundried Tomatoes for Create Your Own Wood Fired Pizza,90.0,6.0,6.0,0.0,10.0,6.0,0.0,0.0,2.0
+Zucchini Fritte,920.0,75.0,14.0,15.0,1120.0,51.0,6.0,7.0,11.0
+Sausage & Lentil Soup Bowl,430.0,21.0,6.0,10.0,2560.0,38.0,16.0,7.0,24.0
+Cappuccino,70.0,2.5,1.5,10.0,50.0,8.0,0.0,7.0,4.0
+Garlic Mashed Potatoes Family Bundle,330.0,21.0,11.0,20.0,710.0,31.0,4.0,1.0,5.0
+Cafe Carrabba,230.0,4.0,3.0,15.0,80.0,24.0,0.0,20.0,6.0
+Sausage & Lentil Soup Serves 10,1880.0,95.0,30.0,75.0,10740.0,152.0,63.0,27.0,108.0
+Johnny Rocco Salad,540.0,42.0,8.0,160.0,1790.0,13.0,6.0,4.0,29.0
+Spaghetti w/ Sausage & Whole Grain Spaghetti,1000.0,38.0,13.0,95.0,2880.0,113.0,23.0,18.0,50.0
+Spaghetti & Meatballs w/ Whole Grain Spaghetti,430.0,13.0,4.0,35.0,1240.0,58.0,13.0,9.0,21.0
+Create Your Own Wood Fired Pizza,580.0,17.0,6.0,25.0,1410.0,82.0,5.0,4.0,21.0
+Regular Beer 13 oz,150.0,0.0,0.0,0.0,10.0,11.0,0.0,0.0,1.0
+Lobster Ravioli,710.0,38.0,22.0,165.0,960.0,64.0,1.0,3.0,20.0
+Meatball Sandwich 1/2,370.0,16.0,8.0,60.0,700.0,33.0,3.0,4.0,22.0
+Light Beer 19 oz Regional,160.0,0.0,0.0,0.0,15.0,7.0,0.0,0.0,1.0
+Sausage Spinach & Mozzarella Frittata,690.0,54.0,15.0,760.0,1670.0,14.0,6.0,5.0,41.0
+Sicilian Orzo,210.0,6.0,1.0,0.0,530.0,33.0,2.0,2.0,5.0
+Caprese Sandwich w/ Chicken,580.0,22.0,8.0,80.0,930.0,56.0,3.0,2.0,36.0
+Sparkling Wine Glass 6 oz,140.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0
+Breakfast Plate,260.0,22.0,6.0,370.0,590.0,0.0,0.0,0.0,14.0
+Caprese Regional,410.0,20.0,8.0,30.0,580.0,42.0,2.0,2.0,16.0
+Zucchini Fritte Side,340.0,37.0,5.0,0.0,440.0,23.0,2.0,2.0,5.0
+Grilled Chicken Breast w/ Steamed Broccoli Kids,240.0,3.0,1.0,75.0,120.0,23.0,2.0,19.0,33.0
+Linguine Positano w/ Gluten Free Pasta,990.0,29.0,5.0,70.0,2260.0,142.0,13.0,11.0,42.0
+Chicken Parmesan Family Bundle,520.0,26.0,11.0,145.0,1550.0,18.0,5.0,9.0,53.0
+Dr Pepper,80.0,0.0,0.0,0.0,20.0,22.0,0.0,22.0,0.0
+Chicken Marsala,480.0,26.0,13.0,180.0,1020.0,4.0,1.0,0.0,54.0
+Bryan Topping,320.0,32.0,21.0,80.0,240.0,5.0,0.0,1.0,4.0
+Spaghetti w/ Meatballs Family Bundle Serves 4,3070.0,111.0,39.0,370.0,8300.0,346.0,42.0,61.0,165.0
+Chicken Parmesan Regional,550.0,18.0,7.0,100.0,1240.0,52.0,5.0,7.0,42.0
+Caesar Salad w/ Salmon,930.0,77.0,15.0,115.0,1230.0,15.0,7.0,4.0,43.0
+Birra Moretti,150.0,0.0,0.0,0.0,10.0,11.0,0.0,0.0,1.0
+Plain Freshly Steamed Broccoli,40.0,0.0,0.0,0.0,35.0,8.0,3.0,2.0,3.0
+Meatball Sandwich,740.0,32.0,15.0,120.0,1410.0,65.0,6.0,8.0,44.0
+Caprese w/ Chicken 1/2,290.0,11.0,4.0,40.0,460.0,28.0,2.0,1.0,18.0
+Spaghetti w /Pomodoro Sauce & Whole Grain Spaghetti,630.0,11.0,2.0,0.0,2010.0,111.0,23.0,17.0,22.0
+Mozzarella Rustica,300.0,17.0,6.0,25.0,840.0,24.0,2.0,6.0,13.0

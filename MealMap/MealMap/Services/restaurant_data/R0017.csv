@@ -1,0 +1,195 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Chick Fil A Chicken Sandwich,440.0,19.0,4.0,60.0,1350.0,40.0,2.0,5.0,28.0
+Grilled Chicken Sandwich,310.0,6.0,2.0,55.0,820.0,36.0,3.0,7.0,29.0
+Grilled Chicken Club Sandwich,350.0,8.0,3.0,65.0,960.0,36.0,3.0,7.0,32.0
+Chicken Salad Sandwich,500.0,21.0,3.5,85.0,1090.0,55.0,4.0,11.0,27.0
+Chick Fil A Chicken Biscuit,450.0,21.0,8.0,35.0,1310.0,50.0,4.0,5.0,17.0
+Bacon Egg & Cheese Biscuit,420.0,21.0,11.0,170.0,1240.0,41.0,2.0,1.0,15.0
+12 Chick Fil A Nuggets,390.0,18.0,2.5,115.0,1460.0,14.0,2.0,1.0,41.0
+4 Chick n Strips,470.0,23.0,3.0,90.0,1250.0,29.0,1.0,4.0,37.0
+Chicken Noodle Soup Large,270.0,4.5,1.0,55.0,2000.0,35.0,4.0,5.0,22.0
+Hash Browns,240.0,16.0,2.5,0.0,390.0,23.0,3.0,0.0,2.0
+Biscuit,300.0,13.0,7.0,0.0,710.0,41.0,4.0,4.0,4.0
+Chicken Tortilla Soup,540.0,13.0,5.0,95.0,2040.0,61.0,33.0,7.0,46.0
+Chicken Noodle Soup Small,140.0,2.5,1.0,30.0,1040.0,18.0,2.0,2.0,12.0
+Side Salad,80.0,4.5,3.0,15.0,110.0,6.0,3.0,3.0,5.0
+3 Chick n Minis,270.0,11.0,3.0,40.0,660.0,29.0,1.0,4.0,15.0
+4 Chick n Minis,360.0,14.0,3.0,55.0,880.0,39.0,2.0,6.0,19.0
+Chick Fil A Deluxe Sandwich,500.0,23.0,7.0,75.0,1590.0,42.0,3.0,6.0,31.0
+Sausage Egg & Cheese Biscuit,600.0,40.0,18.0,200.0,1520.0,41.0,3.0,1.0,20.0
+Spicy Sandwich,450.0,19.0,4.0,60.0,1620.0,41.0,1.0,5.0,29.0
+Spicy Deluxe Sandwich w/ Pepper Jack,540.0,25.0,8.0,80.0,1760.0,43.0,2.0,6.0,34.0
+3 Chick n Strips,350.0,17.0,3.0,70.0,940.0,22.0,1.0,3.0,28.0
+8 Chick Fil A Nuggets,260.0,12.0,2.5,75.0,980.0,9.0,1.0,0.0,28.0
+Waffle Potato Fries Large,520.0,31.0,3.5,0.0,230.0,55.0,7.0,0.0,6.0
+Waffle Potato Fries Medium,400.0,24.0,3.5,0.0,170.0,43.0,5.0,0.0,5.0
+Waffle Potato Fries Small,310.0,18.0,3.5,0.0,135.0,33.0,4.0,0.0,3.0
+Fruit Cup Large,80.0,0.0,0.0,0.0,0.0,20.0,4.0,15.0,1.0
+Fruit Cup Medium,45.0,0.0,0.0,0.0,0.0,12.0,2.0,9.0,0.0
+Icedream Cone,260.0,6.0,3.5,20.0,170.0,45.0,0.0,38.0,7.0
+Chocolate Milkshake Small,560.0,22.0,13.0,70.0,380.0,82.0,1.0,79.0,12.0
+Chocolate Milkshake Large,720.0,26.0,13.0,85.0,480.0,108.0,1.0,105.0,15.0
+Cookies & Cream Milkshake Small,590.0,25.0,14.0,70.0,440.0,81.0,1.0,74.0,12.0
+Cookies & Cream Milkshake Large,750.0,31.0,14.0,85.0,580.0,107.0,1.0,97.0,16.0
+Strawberry Milkshake Small,570.0,21.0,13.0,70.0,380.0,85.0,1.0,77.0,12.0
+Strawberry Milkshake Large,720.0,25.0,13.0,85.0,480.0,113.0,1.0,101.0,15.0
+Vanilla Milkshake Small,500.0,21.0,13.0,70.0,370.0,67.0,0.0,66.0,11.0
+Vanilla Milkshake Large,620.0,25.0,13.0,85.0,470.0,86.0,0.0,85.0,15.0
+Freshly Brewed Iced Tea Sweetened Small,70.0,0.0,0.0,0.0,5.0,19.0,0.0,19.0,0.0
+Freshly Brewed Iced Tea Sweetened Medium,120.0,0.0,0.0,0.0,10.0,31.0,0.0,30.0,0.0
+Freshly Brewed Iced Tea Sweetened Large,170.0,0.0,0.0,0.0,10.0,43.0,0.0,43.0,0.0
+Coca Cola Small,130.0,0.0,0.0,0.0,40.0,35.0,0.0,35.0,0.0
+Coca Cola Medium,190.0,0.0,0.0,0.0,60.0,50.0,0.0,50.0,0.0
+Coca Cola Large,310.0,0.0,0.0,0.0,100.0,83.0,0.0,83.0,0.0
+Dr Pepper Small,130.0,0.0,0.0,0.0,45.0,35.0,0.0,35.0,0.0
+Dr Pepper Large,260.0,0.0,0.0,0.0,90.0,70.0,0.0,70.0,0.0
+Simply Orange Juice,160.0,0.0,0.0,0.0,0.0,38.0,2.0,35.0,3.0
+Chocolate Chunk Cookie,350.0,16.0,9.0,20.0,240.0,50.0,2.0,30.0,4.0
+2 Chick n Strips,230.0,11.0,2.0,45.0,620.0,14.0,1.0,2.0,19.0
+1 Chick n Strips,120.0,6.0,2.0,25.0,310.0,7.0,0.0,1.0,9.0
+6 Nuggets Kids,190.0,9.0,1.5,55.0,730.0,7.0,1.0,0.0,21.0
+4 Nuggets Kids,130.0,6.0,1.5,40.0,490.0,5.0,1.0,0.0,14.0
+4 Grilled Nuggets,70.0,2.0,1.0,35.0,220.0,1.0,0.0,0.0,13.0
+6 Grilled Nuggets,110.0,2.5,1.0,50.0,330.0,2.0,0.0,0.0,19.0
+1% Chocolate Milk,150.0,2.5,2.0,10.0,170.0,25.0,1.0,23.0,7.0
+Grilled Market Salad,200.0,6.0,2.5,60.0,650.0,15.0,4.0,8.0,25.0
+Cobb Salad w/ Chick Fil A Nuggets,430.0,22.0,7.0,145.0,1370.0,22.0,5.0,6.0,39.0
+Grilled Chicken Cool Wrap,350.0,14.0,5.0,60.0,960.0,29.0,15.0,3.0,37.0
+Cold Brew Iced Coffee Small,150.0,2.5,1.5,10.0,70.0,26.0,0.0,25.0,5.0
+Cold Brew Iced Coffee Large,180.0,3.0,1.5,10.0,85.0,33.0,0.0,31.0,6.0
+1 Chick n Strips,120.0,6.0,3.0,25.0,320.0,6.0,0.0,1.0,11.0
+Cold Brew Iced Coffee Vanilla Small,160.0,2.5,1.5,10.0,70.0,30.0,0.0,28.0,5.0
+Cold Brew Iced Coffee Vanilla Large,200.0,3.0,1.5,10.0,85.0,38.0,0.0,35.0,6.0
+8 Grilled Nuggets,140.0,3.5,1.0,70.0,440.0,2.0,0.0,0.0,25.0
+12 Grilled Nuggets,210.0,5.0,1.0,100.0,670.0,3.0,0.0,1.0,38.0
+Superfood Side Large,190.0,9.0,1.0,0.0,250.0,25.0,3.0,18.0,4.0
+Superfood Side Small,150.0,9.0,1.0,0.0,180.0,18.0,2.0,12.0,3.0
+Greek Yogurt Parfait w/ Harvest Nut Granola,230.0,9.0,3.5,25.0,85.0,28.0,2.0,21.0,12.0
+Greek Yogurt Parfait w/ Chocolate Cookie Crumbs,210.0,8.0,3.5,25.0,95.0,26.0,1.0,21.0,11.0
+Greek Yogurt Parfait,230.0,9.0,3.5,25.0,85.0,28.0,2.0,21.0,12.0
+Fruit Cup Small,35.0,0.0,0.0,0.0,0.0,8.0,1.0,6.0,0.0
+Fresh Squeezed Lemonade Large,300.0,0.0,0.0,0.0,15.0,78.0,0.0,73.0,0.0
+Fresh Squeezed Lemonade Medium,220.0,0.0,0.0,0.0,10.0,58.0,0.0,55.0,0.0
+Fresh Squeezed Lemonade Small,130.0,0.0,0.0,0.0,5.0,33.0,0.0,31.0,0.0
+Hot Coffee,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Frosted Lemonade Diet Large,310.0,7.0,3.5,25.0,200.0,56.0,0.0,53.0,8.0
+Frosted Lemonade Regular Large,410.0,7.0,3.5,25.0,200.0,80.0,0.0,78.0,8.0
+Frosted Lemonade Diet Small,250.0,6.0,3.5,20.0,160.0,45.0,0.0,43.0,6.0
+Frosted Lemonade Regular Small,330.0,6.0,3.5,20.0,160.0,65.0,0.0,63.0,6.0
+Frosted Coffee Large,300.0,7.0,3.5,25.0,200.0,51.0,0.0,48.0,8.0
+Frosted Coffee Small,240.0,6.0,3.5,20.0,160.0,41.0,0.0,38.0,7.0
+4 Chick Fil A Nuggets,130.0,6.0,2.5,40.0,490.0,5.0,1.0,0.0,14.0
+6 Chick Fil A Nuggets,190.0,9.0,2.5,55.0,730.0,7.0,1.0,0.0,21.0
+2 Chick n Strips,250.0,12.0,3.0,55.0,630.0,13.0,1.0,1.0,22.0
+Grilled Market Salad w/ Chick n Strips,450.0,21.0,2.5,85.0,1070.0,32.0,5.0,9.0,36.0
+Grilled Market Salad w/ Grilled Nuggets,220.0,6.0,2.5,75.0,560.0,15.0,4.0,8.0,29.0
+Grilled Market Salad No Meat,80.0,2.5,2.5,5.0,115.0,13.0,4.0,7.0,4.0
+Cobb Salad w/ Grilled Filet,290.0,12.0,7.0,135.0,860.0,14.0,4.0,5.0,33.0
+Cobb Salad w/ Grilled Nuggets,310.0,13.0,7.0,145.0,760.0,14.0,4.0,5.0,37.0
+Cobb Salad,170.0,9.0,7.0,75.0,310.0,12.0,4.0,5.0,12.0
+Spicy Southwest Salad w/ Chick n Strips,540.0,23.0,4.0,80.0,1060.0,47.0,8.0,9.0,37.0
+Spicy Southwest Salad w/ Grilled Filet,310.0,9.0,4.0,70.0,650.0,27.0,7.0,7.0,30.0
+Spicy Southwest Salad w/ Grilled Nuggets,330.0,10.0,4.0,80.0,560.0,27.0,7.0,7.0,34.0
+Spicy Southwest Salad,190.0,6.0,4.0,15.0,120.0,25.0,7.0,7.0,9.0
+Spicy Southwest Salad w/ Nuggets,450.0,19.0,4.0,90.0,1100.0,35.0,8.0,7.0,37.0
+Spicy Southwest Salad w/ Spicy Grilled Filet,290.0,8.0,4.0,75.0,970.0,27.0,8.0,7.0,29.0
+Egg White Grill,300.0,7.0,3.0,55.0,970.0,31.0,1.0,1.0,25.0
+Spicy Deluxe Sandwich,460.0,19.0,8.0,60.0,1620.0,43.0,2.0,6.0,30.0
+Spicy Deluxe Sandwich w/ Colby Jack,540.0,26.0,8.0,80.0,1760.0,43.0,2.0,6.0,34.0
+Grilled Market Salad w/ Chick n Strips,580.0,30.0,2.5,85.0,1090.0,43.0,7.0,14.0,39.0
+Hash Brown Scramble Bowl,450.0,28.0,9.0,370.0,1120.0,19.0,3.0,1.0,30.0
+Grilled Market Salad w/ Grilled Nuggets,350.0,15.0,2.5,75.0,590.0,26.0,6.0,12.0,31.0
+Buttered Biscuit,300.0,13.0,7.0,0.0,710.0,41.0,4.0,4.0,4.0
+1% Chocolate Milk,150.0,2.5,2.0,10.0,170.0,25.0,1.0,23.0,7.0
+Chocolate Chunk Cookie,350.0,16.0,9.0,20.0,240.0,50.0,2.0,30.0,4.0
+Waffle Potato Fries Medium,360.0,18.0,3.5,0.0,280.0,43.0,5.0,0.0,5.0
+Cold Brew Iced Coffee Vanilla Large,200.0,3.0,1.5,10.0,85.0,38.0,0.0,35.0,6.0
+Waffle Potato Fries Large,460.0,24.0,3.5,0.0,370.0,56.0,7.0,0.0,6.0
+4 Chick Fil a Nuggets,130.0,6.0,1.5,40.0,490.0,5.0,1.0,0.0,14.0
+Spicy Southwest Salad w/ Nuggets,600.0,29.0,4.0,90.0,1200.0,44.0,10.0,8.0,41.0
+Spicy Southwest Salad w/ Grilled Nuggets,480.0,21.0,4.0,80.0,660.0,37.0,9.0,8.0,39.0
+Cold Brew Iced Coffee Large,180.0,3.0,1.5,10.0,85.0,33.0,0.0,31.0,6.0
+Bacon Egg & Cheese Biscuit,420.0,21.0,11.0,170.0,1240.0,41.0,2.0,1.0,15.0
+Grilled Chicken Cool Wrap,350.0,14.0,5.0,60.0,960.0,29.0,15.0,3.0,37.0
+Frosted Lemonade Regular Large,410.0,7.0,4.0,25.0,200.0,80.0,0.0,78.0,8.0
+Fresh Squeezed Lemonade Large,300.0,0.0,0.0,0.0,15.0,78.0,0.0,73.0,0.0
+Sausage Egg & Cheese Biscuit,600.0,40.0,18.0,200.0,1520.0,41.0,3.0,1.0,20.0
+Spicy Southwest Salad w/ Chick n Strips,700.0,34.0,4.0,80.0,1150.0,57.0,10.0,10.0,42.0
+Dr Pepper Large,260.0,0.0,0.0,0.0,90.0,70.0,0.0,70.0,0.0
+Fresh Squeezed Lemonade Medium,220.0,0.0,0.0,0.0,10.0,58.0,0.0,55.0,0.0
+Spicy Deluxe Sandwich w/ Colby Jack Cheese,540.0,26.0,8.0,80.0,1760.0,43.0,2.0,6.0,34.0
+Chicken Tortilla Soup,260.0,6.0,2.5,45.0,990.0,30.0,16.0,3.0,22.0
+Superfood Side Large,190.0,9.0,1.0,0.0,250.0,25.0,3.0,18.0,4.0
+Sunflower Multigrain Bagel,220.0,3.0,0.0,0.0,340.0,42.0,3.0,6.0,6.0
+Cold Brew Iced Coffee Small,150.0,2.5,1.5,10.0,70.0,26.0,0.0,25.0,5.0
+Spicy Southwest Salad,340.0,17.0,4.0,15.0,220.0,35.0,9.0,7.0,14.0
+6 Nuggets Kids,190.0,9.0,1.5,55.0,730.0,7.0,1.0,0.0,21.0
+Dr Pepper Small,130.0,0.0,0.0,0.0,45.0,35.0,0.0,35.0,0.0
+Grilled Market Salad,210.0,2.5,2.5,5.0,140.0,24.0,6.0,12.0,6.0
+4 Grilled Nuggets Kids Meal,70.0,2.0,0.5,35.0,0.0,1.0,0.0,0.0,13.0
+Frosted Lemonade Regular Small,330.0,6.0,3.5,20.0,160.0,65.0,0.0,63.0,6.0
+Cobb Salad w/ Grilled Filet,380.0,18.0,7.0,135.0,930.0,20.0,4.0,6.0,34.0
+Egg White Grill,300.0,7.0,3.0,55.0,970.0,31.0,1.0,1.0,25.0
+Vanilla Milkshake Large,620.0,25.0,13.0,85.0,470.0,86.0,0.0,85.0,15.0
+4 Chick n Strips,470.0,23.0,3.0,90.0,1250.0,29.0,1.0,4.0,37.0
+Greek Yogurt Parfait w/ Chocolate Cookie Crumbles,210.0,8.0,3.5,25.0,95.0,26.0,1.0,21.0,11.0
+Cobb Salad,250.0,15.0,7.0,75.0,390.0,18.0,4.0,5.0,12.0
+Coca Cola Medium,190.0,0.0,0.0,0.0,60.0,50.0,0.0,50.0,0.0
+Chicken Noodle Soup,240.0,4.5,1.5,55.0,2000.0,35.0,4.0,5.0,22.0
+Greek Yogurt Parfait,230.0,9.0,3.5,25.0,85.0,28.0,2.0,21.0,12.0
+Freshly Brewed Iced Tea Sweetened Small,70.0,0.0,0.0,0.0,5.0,19.0,0.0,19.0,0.0
+Strawberry Milkshake Large,720.0,25.0,13.0,85.0,480.0,113.0,1.0,101.0,15.0
+Hot Coffee,5.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,1.0
+Cobb Salad w/ Grilled Nuggets,390.0,19.0,7.0,145.0,830.0,20.0,4.0,6.0,38.0
+Grilled Chicken Sandwich,310.0,6.0,2.0,55.0,820.0,36.0,3.0,7.0,29.0
+Vanilla Milkshake Small,500.0,21.0,13.0,70.0,370.0,67.0,0.0,66.0,11.0
+Superfood Side Small,150.0,9.0,1.0,0.0,180.0,18.0,2.0,12.0,3.0
+Chocolate Milkshake Small,560.0,22.0,13.0,70.0,380.0,82.0,1.0,79.0,12.0
+Hash Browns,240.0,16.0,2.5,0.0,390.0,23.0,3.0,0.0,2.0
+Fresh Squeezed Lemonade Small,130.0,0.0,0.0,0.0,5.0,33.0,0.0,31.0,0.0
+Spicy Sandwich,450.0,19.0,4.0,60.0,1620.0,41.0,1.0,5.0,29.0
+Spicy Southwest Salad w/ Spicy Grilled Filet,290.0,8.0,4.0,75.0,970.0,27.0,8.0,7.0,29.0
+Freshly Brewed Iced Tea Sweetened Large,170.0,0.0,0.0,0.0,10.0,43.0,0.0,43.0,0.0
+Waffle Potato Fries Small,280.0,14.0,3.5,0.0,220.0,33.0,4.0,0.0,4.0
+Side Salad,160.0,11.0,3.0,15.0,180.0,12.0,3.0,3.0,6.0
+8 Grilled Nuggets,140.0,3.5,1.0,70.0,440.0,2.0,0.0,0.0,25.0
+Coca Cola Small,130.0,0.0,0.0,0.0,40.0,35.0,0.0,35.0,0.0
+Spicy Deluxe Sandwich,540.0,25.0,8.0,80.0,1760.0,43.0,2.0,6.0,34.0
+Cookies & Cream Milkshake Large,750.0,31.0,14.0,85.0,580.0,107.0,1.0,97.0,16.0
+Frosted Coffee Large,300.0,7.0,3.5,25.0,200.0,51.0,0.0,48.0,8.0
+Fruit Cup Large,80.0,0.0,0.0,0.0,0.0,20.0,4.0,15.0,1.0
+Chick n Minis,350.0,14.0,4.0,55.0,900.0,40.0,2.0,8.0,19.0
+Fruit Cup Medium,45.0,0.0,0.0,0.0,0.0,12.0,2.0,9.0,0.0
+Freshly Brewed Iced Tea Medium Sweetened,120.0,0.0,0.0,0.0,10.0,31.0,0.0,30.0,0.0
+1 Chick n Strips,120.0,6.0,2.0,25.0,310.0,7.0,0.0,1.0,9.0
+4 Grilled Nuggets,70.0,2.0,1.0,35.0,220.0,1.0,0.0,0.0,13.0
+Chicken Egg & Cheese Bagel,480.0,18.0,5.0,195.0,1310.0,51.0,3.0,8.0,27.0
+Spicy Southwest Salad w/ Grilled Filet,460.0,20.0,4.0,70.0,750.0,37.0,9.0,8.0,35.0
+2 Chick n Strips Kids Meal,230.0,11.0,2.0,45.0,620.0,14.0,1.0,2.0,19.0
+Chick Fil a Deluxe Sandwich,500.0,23.0,7.0,75.0,1590.0,42.0,3.0,6.0,31.0
+Grilled Chicken Club Sandwich,350.0,8.0,3.0,65.0,960.0,36.0,3.0,7.0,32.0
+Coca Cola Large,310.0,0.0,0.0,0.0,100.0,83.0,0.0,83.0,0.0
+Chick Fil a Chicken Biscuit,450.0,21.0,8.0,35.0,1310.0,50.0,4.0,5.0,17.0
+Frosted Coffee Small,240.0,6.0,3.5,20.0,160.0,41.0,0.0,38.0,7.0
+Frosted Lemonade Diet Small,250.0,6.0,3.5,20.0,160.0,45.0,0.0,43.0,6.0
+Simply Orange Juice,160.0,0.0,0.0,0.0,0.0,38.0,2.0,35.0,3.0
+2 Chick n Strips,230.0,12.0,3.0,55.0,630.0,13.0,1.0,1.0,22.0
+Cookies & Cream Milkshake Small,590.0,25.0,14.0,70.0,440.0,81.0,1.0,74.0,12.0
+3 Chick n Strips,350.0,17.0,3.0,70.0,940.0,22.0,1.0,3.0,28.0
+Grilled Market Salad w/ Chicken Nuggets,470.0,24.0,2.5,85.0,1120.0,33.0,7.0,12.0,34.0
+Strawberry Milkshake Small,570.0,21.0,13.0,70.0,380.0,85.0,1.0,77.0,12.0
+Chick Fil a Nuggets,260.0,12.0,2.5,75.0,980.0,9.0,1.0,0.0,28.0
+Cobb Salad w/ Chick Fil a Nuggets,510.0,27.0,7.0,155.0,1360.0,28.0,6.0,5.0,40.0
+12 Grilled Nuggets,210.0,5.0,1.0,100.0,670.0,3.0,0.0,1.0,38.0
+Spicy Deluxe Sandwich,460.0,19.0,8.0,60.0,1620.0,43.0,2.0,6.0,30.0
+6 Grilled Nuggets,110.0,2.5,1.0,50.0,330.0,2.0,0.0,0.0,19.0
+6 Grilled Nuggets Kids Meal,110.0,2.5,0.5,50.0,330.0,0.0,0.0,0.0,13.0
+Cold Brew Iced Coffee Vanilla Small,160.0,2.5,1.5,10.0,70.0,30.0,0.0,28.0,5.0
+Chocolate Milkshake Large,720.0,26.0,13.0,85.0,480.0,108.0,1.0,105.0,15.0
+12 Chick Fil a Nuggets,390.0,18.0,2.5,115.0,1460.0,14.0,2.0,1.0,41.0
+Chick Fil a Chicken Sandwich,440.0,19.0,4.0,60.0,1350.0,40.0,2.0,5.0,28.0
+Grilled Market Salad w/ Grilled Filet,330.0,14.0,2.5,60.0,670.0,26.0,6.0,12.0,27.0
+6 Chick Fil a Nuggets,190.0,9.0,2.5,55.0,730.0,7.0,1.0,0.0,21.0
+Icedream Cone Small,170.0,4.0,2.0,15.0,115.0,31.0,0.0,25.0,5.0
+Peppermint Chocolate Chip Milkshake,660.0,23.0,14.0,70.0,380.0,104.0,1.0,83.0,12.0
+Frosted Lemonade Diet Large,310.0,7.0,3.5,25.0,200.0,56.0,0.0,53.0,8.0

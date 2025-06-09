@@ -1,0 +1,344 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Famous Star w/ Cheese,670.0,37.0,13.0,75.0,1210.0,57.0,3.0,13.0,28.0
+Super Star w/ Cheese,930.0,56.0,23.0,140.0,1540.0,59.0,3.0,14.0,48.0
+Western Bacon Cheeseburger,750.0,35.0,14.0,80.0,1650.0,75.0,4.0,16.0,36.0
+Double Western Bacon Cheeseburger,1010.0,55.0,24.0,150.0,1980.0,76.0,4.0,16.0,55.0
+Big Hamburger,480.0,18.0,8.0,50.0,870.0,56.0,3.0,13.0,25.0
+Hamburger Kids,270.0,10.0,3.5,25.0,540.0,33.0,1.0,7.0,11.0
+Charbroiled Chicken Club Sandwich,600.0,29.0,8.0,100.0,1450.0,47.0,2.0,11.0,38.0
+Charbroiled Santa Fe Chicken Sandwich,560.0,27.0,7.0,85.0,1290.0,46.0,3.0,10.0,33.0
+Barqs Rootbeer Large,370.0,0.0,0.0,0.0,90.0,100.0,0.0,100.0,0.0
+Charbroiled BBQ Chicken Sandwich,390.0,7.0,1.5,60.0,990.0,50.0,3.0,13.0,30.0
+Spicy Chicken Sandwich,490.0,29.0,6.0,40.0,1330.0,43.0,3.0,6.0,14.0
+Loaded Breakfast Burrito,790.0,50.0,22.0,395.0,1520.0,53.0,3.0,2.0,32.0
+Bacon & Egg Burrito,570.0,34.0,18.0,375.0,1000.0,38.0,1.0,1.0,26.0
+4 Chicken Stars,170.0,10.0,2.0,20.0,360.0,12.0,1.0,0.0,8.0
+6 Chicken Stars,260.0,16.0,3.5,30.0,540.0,18.0,2.0,0.0,12.0
+9 Chicken Stars,390.0,23.0,5.0,45.0,810.0,26.0,3.0,0.0,18.0
+Natural Cut French Fries Kids,240.0,12.0,2.0,0.0,480.0,31.0,3.0,0.0,3.0
+Natural Cut French Fries Small,300.0,15.0,2.5,0.0,600.0,39.0,4.0,0.0,3.0
+Natural Cut French Fries Medium,430.0,21.0,4.0,0.0,860.0,55.0,5.0,0.0,5.0
+Natural Cut French Fries Large,460.0,22.0,4.0,0.0,920.0,59.0,6.0,0.0,5.0
+Crisscut Fries,450.0,29.0,5.0,0.0,900.0,42.0,4.0,0.0,5.0
+Hash Brown Nuggets Small,350.0,23.0,4.0,0.0,440.0,32.0,3.0,0.0,3.0
+Fried Zucchini,330.0,18.0,3.0,0.0,610.0,36.0,2.0,7.0,6.0
+Onion Rings,530.0,28.0,4.5,0.0,590.0,61.0,3.0,6.0,8.0
+House Dressing,220.0,22.0,3.5,20.0,440.0,3.0,0.0,2.0,1.0
+Blue Cheese Dressing,310.0,34.0,6.0,20.0,370.0,2.0,0.0,1.0,2.0
+Low Fat Balsamic Dressing,35.0,1.5,0.0,0.0,480.0,5.0,0.0,3.0,0.0
+Chocolate Chip Cookies,370.0,19.0,10.0,30.0,350.0,48.0,2.0,27.0,3.0
+Chocolate Cake,300.0,12.0,3.0,30.0,350.0,48.0,1.0,36.0,3.0
+Strawberry Swirl Cheesecake,290.0,16.0,9.0,55.0,230.0,32.0,0.0,21.0,6.0
+Made From Scratch Biscuit,300.0,15.0,4.0,0.0,780.0,36.0,3.0,2.0,5.0
+Bacon Egg & Cheese Biscuit,500.0,31.0,12.0,195.0,1300.0,38.0,3.0,3.0,17.0
+Big Country Breakfast Burrito,680.0,41.0,17.0,370.0,1310.0,52.0,3.0,2.0,25.0
+The Breakfast Burger,830.0,44.0,19.0,255.0,1540.0,68.0,4.0,13.0,39.0
+Barqs Rootbeer Small,190.0,0.0,0.0,0.0,45.0,50.0,0.0,50.0,0.0
+Original All Natural Turkey Burger,490.0,22.0,4.5,80.0,1260.0,45.0,3.0,10.0,29.0
+Famous Star Trim It,430.0,18.0,8.0,50.0,610.0,46.0,3.0,10.0,24.0
+Famous Star w/ Cheese Gluten Sensitive,430.0,34.0,13.0,75.0,720.0,10.0,1.0,5.0,21.0
+Cheeseburger Kids,330.0,15.0,7.0,40.0,810.0,34.0,1.0,7.0,14.0
+Low Carb Charbroiled Chicken Club,400.0,27.0,8.0,100.0,1130.0,9.0,1.0,5.0,32.0
+Sausage Egg & Cheese Biscuit,620.0,44.0,17.0,215.0,1430.0,38.0,3.0,3.0,19.0
+Teriyaki Burger,630.0,29.0,1.0,70.0,1070.0,65.0,3.0,20.0,28.0
+Teriyaki All Natural Turkey Burger,480.0,14.0,5.0,85.0,1440.0,56.0,3.0,20.0,32.0
+The Big Carl,920.0,58.0,23.0,140.0,1380.0,56.0,3.0,12.0,47.0
+Charbroiled BBQ Chicken Sandwich Trim It,390.0,8.0,1.5,60.0,990.0,51.0,3.0,13.0,30.0
+Guacamole Thickburger Veg It,670.0,46.0,10.0,45.0,1330.0,56.0,4.0,13.0,14.0
+Bean & Cheese Burrito,440.0,15.0,8.0,30.0,1200.0,56.0,8.0,1.0,19.0
+Beef Bean & Cheese Burrito,470.0,18.0,9.0,50.0,1280.0,52.0,7.0,1.0,24.0
+Biscuit N Gravy,460.0,26.0,7.0,10.0,1390.0,49.0,3.0,2.0,9.0
+3 Hand Breaded Chicken Tenders,260.0,13.0,2.5,70.0,770.0,13.0,2.0,0.0,25.0
+5 Hand Breaded Chicken Tenders,440.0,21.0,4.5,115.0,1290.0,21.0,3.0,0.0,41.0
+10 Hand Breaded Chicken Tenders,440.0,21.0,4.5,115.0,1290.0,21.0,3.0,0.0,41.0
+15 Hand Breaded Chicken Tenders,440.0,21.0,4.5,115.0,1290.0,21.0,3.0,0.0,41.0
+20 Hand Breaded Chicken Tenders,440.0,21.0,4.5,115.0,1290.0,21.0,3.0,0.0,41.0
+Hard Taco Ground Beef,210.0,12.0,4.5,35.0,330.0,16.0,3.0,1.0,12.0
+2 Hand Breaded Chicken Tenders Kids,180.0,9.0,2.0,45.0,520.0,9.0,1.0,0.0,16.0
+Southwest Chicken Soft Taco,300.0,19.0,6.0,50.0,680.0,17.0,1.0,1.0,15.0
+Chips,300.0,17.0,3.0,0.0,35.0,35.0,3.0,0.0,4.0
+Buttermilk Ranch Dipping Sauce,100.0,10.0,1.5,10.0,220.0,2.0,0.0,2.0,0.0
+Guacamole,60.0,5.0,1.0,0.0,150.0,3.0,1.0,1.0,1.0
+Honey Mustard Dipping Sauce,120.0,12.0,2.0,10.0,130.0,4.0,0.0,3.0,0.0
+Coca Cola Small,170.0,0.0,0.0,0.0,10.0,45.0,0.0,45.0,0.0
+Coca Cola Medium,250.0,0.0,0.0,0.0,15.0,68.0,0.0,68.0,0.0
+Coca Cola Large,330.0,0.0,0.0,0.0,20.0,90.0,0.0,90.0,0.0
+Diet Coke Kids,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Diet Coke Small,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Diet Coke Medium,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Diet Coke Large,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Sprite Kids,100.0,0.0,0.0,0.0,25.0,26.0,0.0,26.0,0.0
+Sprite Small,160.0,0.0,0.0,0.0,40.0,43.0,0.0,43.0,0.0
+Sprite Medium,240.0,0.0,0.0,0.0,60.0,65.0,0.0,65.0,0.0
+Sprite Large,320.0,0.0,0.0,0.0,80.0,87.0,0.0,87.0,0.0
+Barqs Rootbeer Kids,110.0,0.0,0.0,0.0,30.0,30.0,0.0,30.0,0.0
+Barqs Rootbeer Medium,280.0,0.0,0.0,0.0,70.0,75.0,0.0,75.0,0.0
+Minute Maid Light Lemonade Kids,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Minute Maid Light Lemonade Small,5.0,0.0,0.0,0.0,10.0,1.0,0.0,0.0,0.0
+Minute Maid Light Lemonade Medium,10.0,0.0,0.0,0.0,15.0,1.0,0.0,0.0,0.0
+Minute Maid Light Lemonade Large,15.0,0.0,0.0,0.0,20.0,2.0,0.0,0.0,0.0
+Fanta Orange Kids,110.0,0.0,0.0,0.0,20.0,30.0,0.0,30.0,0.0
+Fanta Orange Small,190.0,0.0,0.0,0.0,30.0,50.0,0.0,50.0,0.0
+Fanta Orange Medium,280.0,0.0,0.0,0.0,45.0,75.0,0.0,75.0,0.0
+Fanta Orange Large,370.0,0.0,0.0,0.0,60.0,100.0,0.0,100.0,0.0
+Fanta Strawberry Kids,110.0,0.0,0.0,0.0,15.0,31.0,0.0,31.0,0.0
+Coca Cola Zero Small,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Coca Cola Zero Medium,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Coca Cola Zero Large,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Powerade Mountain Blast Kids,60.0,0.0,0.0,0.0,55.0,15.0,0.0,15.0,0.0
+Powerade Mountain Blast Small,90.0,0.0,0.0,0.0,95.0,25.0,0.0,25.0,0.0
+Hi C Flashin Fruit Punch Kids,100.0,0.0,0.0,0.0,15.0,28.0,0.0,28.0,0.0
+Hi C Flashin Fruit Punch Small,170.0,0.0,0.0,0.0,20.0,47.0,0.0,47.0,0.0
+Hi C Flashin Fruit Punch Medium,260.0,0.0,0.0,0.0,30.0,70.0,0.0,70.0,0.0
+Hi C Flashin Fruit Punch Large,350.0,0.0,0.0,0.0,40.0,93.0,0.0,93.0,0.0
+Cherry Coke Kids,100.0,0.0,0.0,0.0,10.0,28.0,0.0,28.0,0.0
+Cherry Coke Small,170.0,0.0,0.0,0.0,15.0,47.0,0.0,47.0,0.0
+Cherry Coke Medium,260.0,0.0,0.0,0.0,20.0,70.0,0.0,70.0,0.0
+Cherry Coke Large,350.0,0.0,0.0,0.0,25.0,93.0,0.0,93.0,0.0
+Dr Pepper Kids,90.0,0.0,0.0,0.0,35.0,26.0,0.0,26.0,0.0
+Dr Pepper Small,150.0,0.0,0.0,0.0,55.0,43.0,0.0,43.0,0.0
+Dr Pepper Medium,230.0,0.0,0.0,0.0,85.0,65.0,0.0,65.0,0.0
+Powerade Mountain Blast Medium,140.0,0.0,0.0,0.0,140.0,38.0,0.0,38.0,0.0
+Powerade Mountain Blast Large,190.0,0.0,0.0,0.0,190.0,50.0,0.0,50.0,0.0
+Dr Pepper Large,300.0,0.0,0.0,0.0,110.0,87.0,0.0,87.0,0.0
+Diet Dr Pepper Kids,0.0,0.0,0.0,0.0,55.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper Small,0.0,0.0,0.0,0.0,90.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper Medium,0.0,0.0,0.0,0.0,135.0,0.0,0.0,0.0,0.0
+Diet Dr Pepper Large,0.0,0.0,0.0,0.0,180.0,0.0,0.0,0.0,0.0
+Coffee Decaffeinated,10.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0
+Vanilla Hand Scooped Ice Cream Shake,710.0,36.0,24.0,105.0,240.0,86.0,0.0,65.0,12.0
+Chocolate Hand Scooped Ice Cream Shake,700.0,36.0,25.0,105.0,300.0,84.0,1.0,59.0,12.0
+Strawberry Hand Scooped Ice Cream Shake,700.0,36.0,24.0,100.0,250.0,83.0,0.0,63.0,12.0
+Oreo Cookie Hand Scooped Ice Cream Shake,720.0,40.0,26.0,105.0,340.0,79.0,1.0,53.0,13.0
+Vanilla Hand Scooped Ice Cream Malt,780.0,37.0,25.0,105.0,290.0,100.0,0.0,76.0,13.0
+Chocolate Hand Scooped Ice Cream Malt,770.0,37.0,25.0,105.0,350.0,99.0,1.0,70.0,14.0
+Strawberry Hand Scooped Ice Cream Malt,770.0,37.0,25.0,105.0,290.0,98.0,0.0,75.0,13.0
+Iced Coffee,70.0,0.0,0.0,0.0,25.0,17.0,0.0,16.0,0.0
+Oreo Cookie Hand Scooped Ice Cream Malt,790.0,41.0,26.0,110.0,390.0,94.0,1.0,64.0,15.0
+Coca Cola Kids,100.0,0.0,0.0,0.0,5.0,27.0,0.0,27.0,0.0
+Fanta Strawberry Small,190.0,0.0,0.0,0.0,20.0,52.0,0.0,52.0,0.0
+Fanta Strawberry Medium,280.0,0.0,0.0,0.0,30.0,78.0,0.0,78.0,0.0
+Fanta Strawberry Large,380.0,0.0,0.0,0.0,40.0,103.0,0.0,103.0,0.0
+Coca Cola Zero Kids,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Monster Energy,200.0,0.0,0.0,0.0,360.0,54.0,0.0,54.0,0.0
+Channel Islands Roasting Company Coffee,10.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,1.0
+Minute Maid Orange Juice,150.0,0.0,0.0,0.0,0.0,37.0,0.0,35.0,1.0
+Dasani Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+1% Fat Milk,150.0,3.0,2.0,15.0,180.0,18.0,0.0,18.0,14.0
+Sweet & Bold BBQ Dipping Sauce,50.0,0.0,0.0,0.0,190.0,13.0,0.0,5.0,0.0
+Hash Brown Nuggets Medium,390.0,26.0,4.5,0.0,490.0,36.0,4.0,0.0,3.0
+Hash Brown Nuggets Large,560.0,37.0,7.0,0.0,710.0,52.0,5.0,0.0,5.0
+Jalapeno All Natural Turkey Burger,500.0,22.0,6.0,90.0,1450.0,43.0,3.0,9.0,31.0
+Fuze Raspberry Tea Kids,60.0,0.0,0.0,0.0,10.0,16.0,0.0,16.0,0.0
+Fuze Raspberry Tea Small,100.0,0.0,0.0,0.0,15.0,27.0,0.0,27.0,0.0
+Fuze Raspberry Tea Medium,150.0,0.0,0.0,0.0,25.0,40.0,0.0,40.0,0.0
+Fuze Raspberry Tea Large,200.0,0.0,0.0,0.0,35.0,53.0,0.0,53.0,0.0
+Gold Peak Iced Tea Kids,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Gold Peak Iced Tea Small,10.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Gold Peak Iced Tea Medium,10.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Gold Peak Iced Tea Large,15.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Burrito California Steak,480.0,21.0,10.0,80.0,1780.0,44.0,2.0,3.0,28.0
+Burrito Mexicano Steak,540.0,19.0,9.0,80.0,2050.0,56.0,6.0,3.0,32.0
+Burrito Especial Steak,560.0,22.0,10.0,80.0,2120.0,58.0,7.0,4.0,33.0
+Street Taco Chicken,150.0,6.0,3.5,30.0,270.0,13.0,1.0,1.0,10.0
+Street Taco Steak,160.0,7.0,4.0,25.0,480.0,14.0,1.0,1.0,9.0
+Sausage Egg & Cheese Biscuit California,620.0,42.0,20.0,210.0,1380.0,39.0,2.0,3.0,20.0
+Bacon Egg & Cheese Biscuit California,470.0,28.0,15.0,190.0,1130.0,38.0,2.0,3.0,15.0
+Spicy Buffalo Dipping Sauce,5.0,0.0,0.0,0.0,470.0,1.0,0.0,0.0,0.0
+Monster Biscuit California,800.0,58.0,29.0,400.0,1800.0,41.0,2.0,4.0,30.0
+Biscuit N Gravy California,450.0,24.0,12.0,10.0,1320.0,50.0,3.0,3.0,9.0
+Made From Scratch Biscuit California,290.0,13.0,7.0,0.0,730.0,37.0,2.0,2.0,6.0
+Big Country Breakfast Burrito California,680.0,41.0,17.0,370.0,1300.0,52.0,3.0,1.0,25.0
+Original Grilled Chicken Salad,280.0,12.0,4.5,40.0,880.0,26.0,4.0,8.0,18.0
+The 1/2 lb Original Six Dollar Thickburger,1050.0,72.0,27.0,150.0,1820.0,62.0,3.0,20.0,40.0
+The 1/3 lb Original Six Dollar Thickburger,830.0,51.0,16.0,95.0,1560.0,62.0,3.0,19.0,29.0
+The 1/2 lb Guacamole Bacon Thickburger,1230.0,90.0,31.0,170.0,2020.0,58.0,4.0,14.0,45.0
+The 1/3 lb Guacamole Bacon Thickburger,1010.0,69.0,20.0,120.0,1830.0,57.0,4.0,14.0,35.0
+1/2 lb Low Carb Thickburger,670.0,56.0,24.0,140.0,1310.0,9.0,1.0,5.0,33.0
+1/3 lb Low Carb Thickburger,450.0,34.0,13.0,85.0,1060.0,9.0,1.0,5.0,22.0
+The Big Chicken Fillet Sandwich,680.0,35.0,6.0,75.0,1360.0,62.0,4.0,11.0,32.0
+The Bacon Swiss Crispy Chicken Fillet Sandwich,800.0,43.0,11.0,105.0,2010.0,64.0,4.0,13.0,41.0
+Monster Biscuit,830.0,60.0,25.0,410.0,1970.0,41.0,3.0,5.0,31.0
+Sausage Grilled Cheese Breakfast Sandwich,640.0,43.0,19.0,235.0,1500.0,40.0,2.0,4.0,30.0
+Bacon Grilled Cheese Breakfast Sandwich,510.0,30.0,15.0,215.0,1290.0,39.0,1.0,4.0,26.0
+Ham Grilled Cheese Breakfast Sandwich,490.0,25.0,13.0,220.0,1650.0,40.0,1.0,4.0,29.0
+Steak & Egg Burrito,650.0,36.0,20.0,415.0,1730.0,44.0,2.0,3.0,35.0
+Jalapeno Poppers,370.0,19.0,7.0,25.0,1110.0,40.0,3.0,4.0,9.0
+Side Salad Veg It,110.0,4.5,1.5,5.0,230.0,14.0,2.0,3.0,4.0
+The Low Carb Thickburger Gluten Sensitive,560.0,42.0,18.0,120.0,1390.0,9.0,1.0,5.0,38.0
+The 1/2 lb Guacamole Thickburger Gluten Sensitive,940.0,81.0,29.0,165.0,1640.0,11.0,2.0,6.0,39.0
+The 1/3 lb Guacamole Thickburger Gluten Sensitive,720.0,60.0,18.0,115.0,1450.0,10.0,2.0,5.0,28.0
+Crispy Chicken El Diablo,1080.0,59.0,16.0,115.0,3440.0,93.0,6.0,14.0,46.0
+The 1/2 lb Thickburger El Diablo,1290.0,85.0,32.0,165.0,2790.0,80.0,4.0,14.0,50.0
+1/3 lb Thickburger El Diablo,1070.0,64.0,21.0,115.0,2600.0,79.0,4.0,13.0,39.0
+The Single All Natural Burger,760.0,44.0,13.0,90.0,1040.0,61.0,3.0,19.0,31.0
+The Double All Natural Burger,1030.0,64.0,23.0,170.0,1310.0,62.0,3.0,19.0,53.0
+Double Super Bacon Cheese Burger,1100.0,71.0,29.0,180.0,1780.0,54.0,3.0,10.0,58.0
+Single Super Bacon Cheese Burger,840.0,52.0,19.0,115.0,1440.0,52.0,3.0,9.0,39.0
+The 1/2 lb Super Bacon Thickburger,1180.0,84.0,32.0,180.0,2190.0,55.0,3.0,13.0,51.0
+The 1/3 lb Super Bacon Thickburger,960.0,63.0,20.0,130.0,1930.0,55.0,3.0,13.0,40.0
+Cilantro Lime Rice Side,90.0,5.0,0.0,0.0,330.0,21.0,0.0,4.0,2.0
+Pinto Beans Side,90.0,1.5,1.0,5.0,440.0,13.0,3.0,1.0,6.0
+Guacamole Side,100.0,8.0,1.0,0.0,270.0,5.0,2.0,3.0,1.0
+Super Nacho Chicken,730.0,44.0,17.0,100.0,1310.0,52.0,7.0,3.0,32.0
+Super Nacho Ground Beef,740.0,45.0,18.0,55.0,1260.0,53.0,8.0,3.0,29.0
+Super Nacho Steak,740.0,43.0,17.0,90.0,1440.0,53.0,7.0,3.0,34.0
+Coke De Mexico,150.0,0.0,0.0,0.0,85.0,39.0,0.0,39.0,0.0
+The California Classic Double Cheeseburger,620.0,39.0,15.0,100.0,1130.0,41.0,3.0,12.0,29.0
+The 1/2 lb Bacon 3 Way Burger,1080.0,66.0,26.0,195.0,2810.0,66.0,5.0,23.0,57.0
+The 1/3 lb Bacon 3 Way Burger,870.0,50.0,18.0,140.0,2230.0,65.0,10.0,22.0,44.0
+The Double Bacon 3 Way Burger,1060.0,63.0,27.0,170.0,2090.0,66.0,3.0,22.0,59.0
+The Bacon 3 Way Burger,800.0,44.0,17.0,105.0,1760.0,65.0,3.0,21.0,39.0
+1/3 lb Budweiser Beer Cheese Bacon Thickburger,790.0,46.0,20.0,115.0,1820.0,51.0,2.0,12.0,43.0
+All Natural Budweiser Beer Cheese Bacon Burger Double,940.0,55.0,24.0,155.0,1800.0,52.0,3.0,12.0,60.0
+All Natural Budweiser Beer Cheese Bacon Burger Single,710.0,38.0,16.0,85.0,1430.0,51.0,3.0,11.0,40.0
+1/2 lb Budweiser Beer Cheese Bacon Thickburger,990.0,62.0,27.0,170.0,2360.0,52.0,5.0,13.0,56.0
+Rice Beans & Chips Platter,340.0,10.0,2.5,5.0,780.0,51.0,5.0,4.0,10.0
+Steak Side,160.0,5.0,2.0,55.0,1000.0,3.0,0.0,0.0,24.0
+Chicken Side,140.0,6.0,1.5,80.0,720.0,3.0,0.0,0.0,19.0
+Ground Beef Side,160.0,9.0,3.5,45.0,660.0,5.0,3.0,1.0,15.0
+Quesadilla Cheese,640.0,34.0,17.0,75.0,590.0,53.0,2.0,2.0,26.0
+Quesadilla Chicken,630.0,39.0,14.0,80.0,1560.0,42.0,1.0,2.0,26.0
+Quesadilla Steak,790.0,39.0,19.0,130.0,1560.0,56.0,2.0,2.0,50.0
+3 Chicken Taquitos,410.0,28.0,7.0,50.0,720.0,34.0,3.0,1.0,21.0
+5 Chicken Taquitos,640.0,43.0,9.0,80.0,1130.0,56.0,6.0,2.0,33.0
+Budweiser Beer Cheese Bacon Fries,1160.0,88.0,20.0,15.0,2180.0,75.0,7.0,0.0,20.0
+Charbroiled Chicken Salad,280.0,9.0,3.0,120.0,950.0,20.0,2.0,6.0,32.0
+Side Salad,140.0,7.0,2.5,10.0,240.0,16.0,2.0,2.0,6.0
+Taco Salad Ground Beef,850.0,47.0,15.0,85.0,1760.0,70.0,14.0,8.0,38.0
+Taco Salad Chicken,870.0,53.0,17.0,120.0,1950.0,60.0,9.0,9.0,40.0
+Taco Salad Steak,870.0,53.0,17.0,120.0,1950.0,60.0,9.0,9.0,40.0
+Steak Egg & Cheese Biscuit,520.0,28.0,15.0,215.0,1590.0,40.0,2.0,3.0,27.0
+The Green Burrito Chicken,930.0,38.0,17.0,145.0,2520.0,96.0,7.0,10.0,49.0
+The Green Burrito Steak,940.0,38.0,17.0,120.0,2770.0,96.0,7.0,10.0,53.0
+The Grilled Burrito Chicken,830.0,31.0,14.0,130.0,1780.0,88.0,6.0,6.0,46.0
+The Grilled Burrito Steak,840.0,31.0,14.0,105.0,2030.0,88.0,6.0,6.0,50.0
+The Grilled Burrito Beef,850.0,35.0,15.0,95.0,1720.0,90.0,8.0,7.0,41.0
+Bean Rice & Cheese Burrito,730.0,26.0,12.0,50.0,1190.0,93.0,6.0,8.0,27.0
+Chicken Soft Taco,250.0,12.0,6.0,60.0,740.0,18.0,1.0,1.0,16.0
+Burrito California Chicken,450.0,18.0,8.0,85.0,1360.0,41.0,2.0,2.0,31.0
+Burrito Mexicano Chicken,500.0,16.0,8.0,85.0,1630.0,54.0,6.0,2.0,35.0
+Burrito Especial Chicken,530.0,19.0,8.0,85.0,1710.0,55.0,7.0,3.0,35.0
+Green Sauce Side,35.0,2.0,0.0,0.0,540.0,6.0,1.0,3.0,1.0
+Crema Side,90.0,9.0,6.0,35.0,15.0,1.0,0.0,0.0,1.0
+Shredded Cheese Side,80.0,7.0,4.0,20.0,135.0,0.0,0.0,0.0,5.0
+10 Hand-Breaded Chicken Tenders,440.0,21.0,4.5,115.0,1290.0,21.0,3.0,0.0,41.0
+20 Hand-Breaded Chicken Tenders,440.0,21.0,4.5,115.0,1290.0,21.0,3.0,0.0,41.0
+All Natural Charbroiled Chicken Salad,280.0,9.0,2.0,120.0,950.0,19.0,2.0,6.0,32.0
+Guacamole Thickburger Veg It,670.0,46.0,10.0,45.0,1330.0,56.0,4.0,13.0,14.0
+The 1/2 lb Lettuce Wrapped Thickburger,630.0,55.0,21.0,160.0,1630.0,9.0,1.0,4.0,39.0
+Jalapeno Poppers,370.0,19.0,7.0,25.0,1110.0,40.0,3.0,4.0,9.0
+Biscuit N Gravy,450.0,24.0,12.0,10.0,1320.0,50.0,3.0,3.0,9.0
+Low Carb Charbroiled Chicken Club,370.0,24.0,7.0,90.0,950.0,8.0,1.0,4.0,30.0
+Sweet & Bold BBQ Dipping Sauce,50.0,0.0,0.0,0.0,190.0,12.0,0.0,11.0,0.0
+Chicken Side,140.0,6.0,1.5,80.0,720.0,3.0,0.0,0.0,19.0
+Super Nachos Chicken,730.0,44.0,17.0,100.0,1310.0,52.0,7.0,3.0,32.0
+2 Hand-Breaded Chicken Tenders Kids,180.0,9.0,2.0,45.0,520.0,9.0,1.0,0.0,16.0
+Green Sauce Side,35.0,2.0,0.0,0.0,540.0,6.0,1.0,3.0,1.0
+Onion Rings,530.0,28.0,4.5,0.0,590.0,61.0,3.0,6.0,8.0
+Sausage Egg & Cheese Biscuit,610.0,42.0,18.0,200.0,1380.0,38.0,2.0,3.0,20.0
+Low Fat Balsamic Vinaigrette Dressing,20.0,1.0,0.0,0.0,240.0,3.0,0.0,2.0,0.0
+Famous Star w/ Cheese,670.0,37.0,13.0,75.0,1210.0,57.0,3.0,12.0,28.0
+Famous Star w/ Cheese Gluten Sensitive,430.0,34.0,13.0,75.0,720.0,10.0,1.0,5.0,21.0
+Oreo Cookie Malt,780.0,40.0,26.0,105.0,390.0,94.0,1.0,64.0,15.0
+The Breakfast Burger,730.0,43.0,16.0,240.0,1290.0,47.0,3.0,10.0,37.0
+Bean & Cheese Burrito,660.0,25.0,12.0,50.0,1040.0,75.0,8.0,3.0,30.0
+5 Chicken Taquitos,640.0,43.0,9.0,80.0,1130.0,56.0,6.0,2.0,33.0
+The Big Carl,920.0,58.0,23.0,140.0,1380.0,56.0,3.0,12.0,47.0
+Crisscut Fries,450.0,29.0,5.0,0.0,900.0,42.0,4.0,0.0,5.0
+Coke de Mexico,150.0,0.0,0.0,0.0,85.0,39.0,0.0,39.0,0.0
+Taco Salad Steak,880.0,52.0,17.0,95.0,2200.0,60.0,9.0,9.0,44.0
+Natural Cut French Fries Medium,430.0,21.0,4.0,0.0,860.0,55.0,5.0,0.0,5.0
+Double Western Bacon Cheeseburger,1010.0,55.0,24.0,150.0,1980.0,76.0,4.0,16.0,55.0
+Charbroiled Santa Fe Chicken Sandwich,550.0,25.0,6.0,135.0,1540.0,45.0,3.0,10.0,36.0
+The 1/3 lb Jalapeno Thickburger,820.0,56.0,16.0,115.0,1550.0,48.0,3.0,11.0,32.0
+Chocolate Malt,760.0,36.0,25.0,105.0,350.0,99.0,1.0,70.0,14.0
+Big Hamburger,480.0,18.0,8.0,50.0,870.0,56.0,3.0,13.0,25.0
+5 Hand-Breaded Chicken Tenders,440.0,21.0,4.5,115.0,1290.0,21.0,3.0,0.0,41.0
+Made From Scratch Biscuit,290.0,13.0,7.0,0.0,730.0,37.0,2.0,2.0,6.0
+Strawberry Malt,760.0,36.0,25.0,105.0,290.0,98.0,0.0,75.0,13.0
+6 Chicken Stars,270.0,15.0,3.0,50.0,480.0,19.0,3.0,0.0,14.0
+The Big Chicken Fillet Sandwich,650.0,33.0,6.0,70.0,1330.0,55.0,3.0,9.0,33.0
+Taco Salad Chicken,870.0,53.0,17.0,120.0,1950.0,60.0,9.0,9.0,40.0
+Hash Brown Nuggets Small,350.0,23.0,4.0,0.0,440.0,32.0,3.0,0.0,3.0
+The 1/3 lb Original Six Dollar Thickburger,780.0,48.0,15.0,110.0,1490.0,55.0,3.0,18.0,33.0
+Big Country Breakfast Burrito,660.0,40.0,12.0,345.0,1140.0,45.0,2.0,1.0,26.0
+The 1/2 lb Original Six Dollar Thickburger,980.0,69.0,27.0,165.0,2070.0,59.0,5.0,18.0,46.0
+Bacon Swiss Crispy Chicken Fillet Sandwich,770.0,41.0,11.0,100.0,1980.0,58.0,3.0,11.0,42.0
+Loaded Breakfast Burrito,760.0,48.0,16.0,370.0,1330.0,46.0,3.0,2.0,33.0
+The Low Carb Thickburger Gluten Sensitive,560.0,42.0,18.0,120.0,1390.0,9.0,1.0,5.0,38.0
+The Green Burrito Chicken,930.0,38.0,17.0,145.0,2520.0,96.0,7.0,10.0,49.0
+The 1/2 lb Guacamole Bacon Thickburger,1200.0,89.0,30.0,165.0,1990.0,51.0,4.0,12.0,46.0
+3 Chicken Taquitos,410.0,28.0,7.0,50.0,720.0,34.0,3.0,1.0,21.0
+Cheeseburger Kids,310.0,13.0,6.0,40.0,810.0,34.0,1.0,7.0,14.0
+Hash Brown Nuggets Medium,390.0,26.0,4.5,0.0,490.0,36.0,4.0,0.0,3.0
+Quesadilla Chicken,780.0,40.0,19.0,155.0,1310.0,56.0,2.0,2.0,46.0
+Hamburger Kids,250.0,8.0,3.0,25.0,540.0,33.0,1.0,7.0,11.0
+Natural Cut French Fries Small,300.0,15.0,2.5,0.0,600.0,39.0,4.0,0.0,3.0
+The Breakfast Burger Double,1080.0,64.0,26.0,305.0,1870.0,68.0,4.0,13.0,59.0
+Blue Cheese Dressing,310.0,34.0,6.0,20.0,370.0,2.0,0.0,1.0,2.0
+The 1/2 lb Guacamole Thickburger Gluten Sensitive,780.0,66.0,22.0,135.0,1630.0,9.0,2.0,5.0,41.0
+Strawberry Swirl Cheesecake,320.0,17.0,10.0,60.0,250.0,35.0,1.0,23.0,7.0
+Quesadilla Cheese,640.0,34.0,17.0,75.0,590.0,53.0,2.0,2.0,26.0
+French Toast Dips,540.0,19.0,3.5,0.0,620.0,84.0,3.0,20.0,9.0
+Pinto Beans Side,90.0,1.5,1.0,5.0,440.0,13.0,3.0,1.0,6.0
+Chocolate Chip Cookies,330.0,17.0,9.0,20.0,280.0,43.0,2.0,24.0,3.0
+Ground Beef Side,160.0,9.0,3.5,45.0,660.0,5.0,3.0,1.0,15.0
+Super Star w/ Cheese,920.0,56.0,23.0,140.0,1540.0,59.0,4.0,13.0,48.0
+The 1/3 lb Lettuce Wrapped Thickburger,420.0,33.0,13.0,105.0,1060.0,8.0,2.0,5.0,25.0
+Charbroiled BBQ Chicken Sandwich Trim It,390.0,8.0,1.5,60.0,990.0,51.0,3.0,13.0,30.0
+Super Nachos Steak,740.0,43.0,17.0,90.0,1440.0,53.0,7.0,3.0,34.0
+Grilled Cheese Breakfast Sandwich Sausage,660.0,43.0,17.0,225.0,1460.0,43.0,2.0,3.0,34.0
+Charbroiled Chicken Club Sandwich,590.0,27.0,8.0,145.0,1670.0,46.0,2.0,12.0,42.0
+Honey Mustard Dipping Sauce,130.0,12.0,2.0,10.0,150.0,4.0,0.0,3.0,0.0
+Grass Fed All Natural Burger Single,700.0,39.0,12.0,80.0,1100.0,55.0,3.0,17.0,30.0
+Teriyaki Burger,660.0,29.0,11.0,70.0,1270.0,71.0,4.0,23.0,28.0
+Oreo Cookie Shake,710.0,39.0,25.0,105.0,340.0,79.0,1.0,53.0,13.0
+Crema Side,90.0,9.0,6.0,35.0,15.0,1.0,0.0,0.0,1.0
+Vanilla Shake,700.0,35.0,24.0,105.0,240.0,86.0,0.0,65.0,12.0
+The Grilled Burrito Beef,850.0,35.0,15.0,95.0,1720.0,90.0,8.0,7.0,41.0
+Quesadilla Steak,790.0,39.0,19.0,130.0,1560.0,56.0,2.0,2.0,50.0
+3 Hand-Breaded Chicken Tenders,260.0,13.0,2.5,70.0,770.0,13.0,2.0,0.0,25.0
+Garden Side Salad,140.0,7.0,2.5,10.0,240.0,15.0,2.0,2.0,6.0
+Grilled Cheese Breakfast Sandwich Ham,500.0,26.0,10.0,210.0,1610.0,43.0,2.0,4.0,34.0
+Cilantro Lime Rice Side,90.0,5.0,0.0,0.0,330.0,21.0,0.0,4.0,2.0
+Double Cheeseburger,390.0,19.0,8.0,60.0,860.0,37.0,2.0,10.0,19.0
+Charbroiled BBQ Chicken Sandwich,370.0,5.0,1.0,110.0,1210.0,49.0,3.0,14.0,33.0
+Rice Beans & Chips Platter,340.0,10.0,2.5,5.0,780.0,51.0,5.0,4.0,10.0
+The 1/2lb Jalapeno Thickburger,1020.0,72.0,24.0,170.0,2060.0,49.0,5.0,11.0,45.0
+Famous Star Trim It,430.0,18.0,8.0,50.0,610.0,46.0,3.0,10.0,24.0
+Guacamole Side,100.0,8.0,1.0,0.0,270.0,5.0,2.0,3.0,1.0
+The Grilled Burrito Chicken,830.0,31.0,14.0,130.0,1780.0,88.0,6.0,6.0,46.0
+Spicy Chicken Sandwich,490.0,29.0,6.0,40.0,1320.0,43.0,2.0,5.0,14.0
+15 Hand-Breaded Chicken Tenders,440.0,21.0,4.5,115.0,1290.0,21.0,3.0,0.0,41.0
+Steak Side,160.0,5.0,2.0,55.0,1000.0,3.0,0.0,0.0,24.0
+Super Nachos Ground Beef,740.0,45.0,18.0,85.0,1260.0,53.0,8.0,3.0,29.0
+Taco Salad Ground Beef,890.0,56.0,18.0,90.0,1890.0,62.0,11.0,9.0,35.0
+Vanilla Malt,770.0,36.0,25.0,105.0,290.0,100.0,0.0,76.0,13.0
+Chocolate Cake,290.0,11.0,3.5,30.0,240.0,46.0,1.0,35.0,3.0
+Hash Brown Nuggets Large,560.0,37.0,7.0,0.0,710.0,52.0,5.0,0.0,5.0
+Buttermilk Ranch Dipping Sauce,110.0,11.0,1.5,5.0,250.0,2.0,0.0,1.0,0.0
+The Grilled Burrito Steak,840.0,31.0,14.0,105.0,2030.0,88.0,6.0,6.0,50.0
+Spicy Buffalo Dipping Sauce,5.0,0.0,0.0,0.0,470.0,1.0,0.0,0.0,0.0
+Bacon Egg & Cheese Biscuit,480.0,29.0,13.0,185.0,1250.0,38.0,2.0,3.0,18.0
+California Classic Double Cheeseburger,600.0,39.0,14.0,85.0,1100.0,41.0,2.0,11.0,23.0
+The 1/3 lb Guacamole Bacon Thickburger,950.0,67.0,19.0,135.0,1810.0,50.0,3.0,12.0,39.0
+Steak & Egg Burrito,630.0,36.0,14.0,390.0,1570.0,37.0,2.0,3.0,35.0
+Natural Cut French Fries Large,460.0,22.0,4.0,0.0,920.0,59.0,6.0,0.0,5.0
+Western Bacon Cheeseburger,750.0,35.0,14.0,80.0,1650.0,75.0,4.0,16.0,36.0
+Chocolate Shake,690.0,36.0,24.0,105.0,300.0,84.0,1.0,59.0,12.0
+Crunchy Beef Taco,210.0,12.0,4.5,35.0,380.0,16.0,3.0,1.0,11.0
+Natural Cut French Fries Kids,240.0,12.0,2.0,0.0,480.0,31.0,3.0,0.0,3.0
+Monster Biscuit,820.0,59.0,24.0,385.0,1930.0,39.0,2.0,4.0,32.0
+Fried Zucchini,380.0,23.0,4.0,0.0,820.0,39.0,0.0,2.0,5.0
+Shredded Cheese Side,80.0,7.0,4.0,20.0,135.0,0.0,0.0,0.0,5.0
+Bacon & Egg Burrito,570.0,35.0,12.0,360.0,1000.0,32.0,1.0,1.0,29.0
+9 Chicken Stars,410.0,23.0,5.0,75.0,710.0,29.0,5.0,0.0,21.0
+Bean Rice & Cheese Burrito,730.0,26.0,12.0,50.0,1190.0,93.0,6.0,8.0,27.0
+4 Chicken Stars,180.0,10.0,2.0,35.0,320.0,13.0,2.0,0.0,9.0
+The Green Burrito Steak,940.0,38.0,17.0,120.0,2770.0,96.0,7.0,10.0,53.0
+Chips Side,300.0,17.0,3.0,0.0,35.0,35.0,3.0,0.0,4.0
+Grilled Cheese Breakfast Sandwich Bacon,550.0,32.0,13.0,210.0,1410.0,43.0,2.0,3.0,34.0
+Strawberry Shake,690.0,35.0,24.0,105.0,250.0,83.0,0.0,64.0,12.0
+Chicken Soft Taco,250.0,12.0,6.0,60.0,740.0,18.0,1.0,1.0,16.0
+House Dressing,210.0,23.0,3.5,25.0,430.0,5.0,0.0,2.0,0.0

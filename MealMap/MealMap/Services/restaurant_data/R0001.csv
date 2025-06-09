@@ -1,0 +1,534 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Tomato Basil Soup,190.0,12.0,6.0,20.0,840.0,16.0,3.0,9.0,5.0
+Chili,320.0,18.0,9.0,75.0,1010.0,14.0,3.0,7.0,27.0
+Chicken Tortilla Soup,200.0,9.0,2.5,20.0,900.0,22.0,3.0,3.0,8.0
+Strawberry Shake Kids,730.0,33.0,19.0,140.0,340.0,90.0,0.0,73.0,19.0
+House Salad,190.0,12.0,4.5,25.0,350.0,11.0,2.0,3.0,10.0
+Oriental Chicken Salad Lunch,460.0,31.0,5.0,25.0,630.0,30.0,3.0,11.0,16.0
+Caesar Salad,230.0,19.0,4.0,15.0,360.0,11.0,2.0,2.0,5.0
+Grilled Chicken Caesar Salad,800.0,57.0,12.0,170.0,2110.0,26.0,7.0,7.0,48.0
+Oriental Chicken Salad,1420.0,99.0,15.0,55.0,1530.0,96.0,11.0,42.0,39.0
+Oriental Grilled Chicken Salad,1290.0,85.0,13.0,125.0,2300.0,84.0,10.0,52.0,51.0
+Pecan Crusted Chicken Salad,1280.0,74.0,15.0,135.0,2020.0,108.0,11.0,65.0,49.0
+Battered Fish Sandwich,770.0,51.0,9.0,80.0,1040.0,56.0,3.0,8.0,21.0
+Clubhouse Grille,1100.0,63.0,18.0,140.0,2280.0,83.0,4.0,28.0,52.0
+Chicken Fajita Rollup Lunch,690.0,43.0,15.0,115.0,2240.0,41.0,3.0,5.0,34.0
+Mini Cheeseburger,360.0,23.0,8.0,60.0,800.0,22.0,1.0,4.0,16.0
+2 Mini Cheeseburgers,650.0,39.0,14.0,115.0,1540.0,44.0,2.0,9.0,31.0
+Mini Hamburger,320.0,20.0,6.0,50.0,680.0,22.0,1.0,4.0,14.0
+2 Mini Hamburgers,580.0,33.0,11.0,100.0,1300.0,44.0,2.0,9.0,27.0
+Corn Dog,200.0,11.0,2.5,35.0,600.0,20.0,1.0,5.0,7.0
+Quesadilla Burger,1400.0,103.0,41.0,250.0,3200.0,47.0,7.0,6.0,72.0
+Classic Burger,760.0,47.0,15.0,150.0,1140.0,44.0,2.0,7.0,41.0
+Chicken Fajita Rollup,1090.0,64.0,27.0,215.0,3710.0,65.0,5.0,10.0,65.0
+Chicken Tenders,310.0,17.0,3.0,40.0,740.0,18.0,1.0,0.0,20.0
+Kraft Macaroni & Cheese,300.0,9.0,2.5,10.0,650.0,44.0,2.0,8.0,10.0
+Fried Shrimp,230.0,12.0,2.5,65.0,590.0,22.0,1.0,1.0,9.0
+4 oz Sirloin,140.0,6.0,2.5,60.0,180.0,0.0,0.0,0.0,23.0
+Chicken Quesadilla Appetizers,970.0,59.0,27.0,155.0,2870.0,61.0,5.0,4.0,50.0
+Grilled Chicken Wonton Tacos,480.0,16.0,3.0,105.0,1570.0,46.0,2.0,23.0,37.0
+Mozzarella Sticks,920.0,51.0,20.0,80.0,2140.0,79.0,5.0,9.0,39.0
+Spinach & Artichoke Dip,960.0,58.0,14.0,25.0,3980.0,91.0,8.0,14.0,20.0
+Mozzarella Sticks for Build Your Sampler,460.0,25.0,10.0,40.0,1070.0,39.0,3.0,5.0,19.0
+Grilled Chicken Wonton Tacos for Build Your Sampler,360.0,13.0,2.5,80.0,1230.0,35.0,1.0,18.0,27.0
+Shrimp N Parmesan Sirloin,580.0,37.0,20.0,270.0,2660.0,6.0,1.0,2.0,58.0
+Bourbon Street Chicken & Shrimp,640.0,31.0,9.0,210.0,2040.0,40.0,4.0,7.0,52.0
+Fiesta Lime Chicken,1140.0,62.0,14.0,180.0,3730.0,91.0,7.0,7.0,55.0
+Pepsi,100.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+Chicken Tenders Platter,1460.0,83.0,14.0,110.0,3380.0,124.0,9.0,23.0,54.0
+Chicken Tenders Basket,1150.0,66.0,11.0,80.0,2740.0,101.0,7.0,14.0,40.0
+Double Crunch Shrimp,1230.0,58.0,11.0,180.0,3430.0,145.0,10.0,25.0,32.0
+Hand Battered Fish & Chips,1520.0,102.0,17.0,125.0,2180.0,106.0,10.0,13.0,45.0
+New England Fish & Chips/Hand Battered Fish Fry,1990.0,137.0,24.0,160.0,4540.0,134.0,10.0,14.0,55.0
+Classic Fries,430.0,20.0,3.5,0.0,970.0,57.0,4.0,0.0,5.0
+Crunchy Onion Rings,530.0,29.0,5.0,0.0,1180.0,60.0,3.0,8.0,7.0
+Baked Potato,390.0,24.0,12.0,55.0,1200.0,41.0,3.0,2.0,6.0
+Baked Potato Loaded,460.0,29.0,15.0,70.0,1360.0,41.0,3.0,3.0,10.0
+Garlic Mashed Potatoes Loaded,490.0,34.0,13.0,60.0,1020.0,34.0,4.0,6.0,15.0
+Garlic Mashed Potatoes,260.0,14.0,2.5,0.0,640.0,30.0,3.0,5.0,5.0
+Bleu Cheese Dressing,240.0,25.0,4.5,25.0,250.0,1.0,0.0,1.0,1.0
+Dijon Honey Mustard Dressing,210.0,18.0,2.5,10.0,540.0,13.0,1.0,12.0,1.0
+Mexi Ranch Dressing,170.0,18.0,3.0,15.0,550.0,3.0,0.0,2.0,1.0
+Buttermilk Ranch Dressing,210.0,21.0,3.5,15.0,340.0,1.0,0.0,1.0,1.0
+Chocolate Chip Cookie Sundae,1490.0,64.0,41.0,205.0,700.0,211.0,4.0,143.0,25.0
+Triple Chocolate Meltdown,980.0,52.0,34.0,135.0,540.0,125.0,5.0,64.0,15.0
+Dessert Shooter Hot Fudge Sundae,470.0,23.0,15.0,75.0,190.0,58.0,0.0,45.0,8.0
+Blue Ribbon Brownie,1670.0,78.0,40.0,240.0,950.0,220.0,6.0,154.0,28.0
+Oreo Cookie Sundae,440.0,23.0,13.0,70.0,210.0,53.0,1.0,39.0,8.0
+Oreo Cookie Shake Kids,820.0,39.0,21.0,140.0,460.0,100.0,1.0,74.0,20.0
+Diet Pepsi,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Mountain Dew,110.0,0.0,0.0,0.0,40.0,31.0,0.0,31.0,0.0
+Sierra Mist,100.0,0.0,0.0,0.0,20.0,27.0,0.0,27.0,0.0
+Brewed Iced Tea,5.0,0.0,0.0,0.0,5.0,1.0,0.0,1.0,0.0
+Fresh Brewed Decaf Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Dr Pepper,100.0,0.0,0.0,0.0,30.0,27.0,0.0,26.0,0.0
+Wild Cherry Pepsi,100.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+Diet Mountain Dew,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Caffeine Free Diet Pepsi,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Mug Root Beer,100.0,0.0,0.0,0.0,15.0,26.0,0.0,26.0,0.0
+Apple Juice,90.0,0.0,0.0,0.0,15.0,23.0,0.0,21.0,0.0
+Grape Juice,80.0,0.0,0.0,0.0,15.0,23.0,0.0,21.0,0.0
+Orange Tangerine Juice,100.0,0.0,0.0,0.0,15.0,25.0,0.0,23.0,0.0
+Milk 1% Chocolate,150.0,2.5,1.5,10.0,200.0,25.0,0.0,23.0,8.0
+Milk 1%,110.0,2.5,1.5,10.0,130.0,13.0,0.0,12.0,8.0
+Blue Ribbon Brownie Bite,380.0,18.0,9.0,45.0,220.0,52.0,2.0,36.0,5.0
+Brew Pub Pretzels & Beer Cheese Dip,1050.0,44.0,15.0,50.0,3070.0,130.0,8.0,18.0,33.0
+Butter Pecan Blondie,1180.0,62.0,32.0,195.0,950.0,139.0,2.0,88.0,18.0
+Clubhouse Grille Lunch,550.0,31.0,9.0,70.0,1140.0,41.0,2.0,14.0,26.0
+Vanilla Yogurt w/ Strawberries,100.0,1.5,1.0,5.0,55.0,17.0,1.0,16.0,4.0
+Apple Dippers w/ Yogurt,90.0,1.0,0.0,0.0,25.0,20.0,3.0,16.0,2.0
+Garlic Mashed Potatoes Kids,130.0,7.0,1.0,0.0,320.0,15.0,2.0,2.0,3.0
+Mozzarella Sticks Kids,350.0,19.0,8.0,30.0,860.0,31.0,2.0,4.0,15.0
+Chocolate Shake Kids,800.0,33.0,19.0,140.0,350.0,109.0,2.0,88.0,19.0
+Vanilla Shake Kids,670.0,33.0,19.0,140.0,330.0,75.0,0.0,60.0,19.0
+Apple Chimi Cheesecake,950.0,39.0,20.0,120.0,900.0,138.0,5.0,92.0,15.0
+4 Cheese Mac & Cheese w/ Honey Pepper Chicken Tenders Lunch,640.0,28.0,12.0,80.0,1340.0,72.0,4.0,26.0,25.0
+4 Cheese Mac & Cheese w/ Honey Pepper Chicken Tenders,1580.0,78.0,34.0,230.0,3570.0,154.0,9.0,54.0,67.0
+Honey Pepper Chicken Tenders Lunch,940.0,37.0,7.0,40.0,1850.0,128.0,6.0,48.0,26.0
+Chicken Mac N Cheese,620.0,32.0,18.0,125.0,2080.0,43.0,2.0,5.0,42.0
+Chicken Grillers,190.0,4.0,1.0,125.0,760.0,1.0,1.0,1.0,38.0
+Green Goddess Wedge Salad,550.0,52.0,11.0,55.0,1210.0,12.0,3.0,7.0,9.0
+House Salad Kids,190.0,12.0,4.5,25.0,350.0,12.0,2.0,4.0,10.0
+Grilled Chicken Caesar Salad Lunch,320.0,21.0,4.5,80.0,930.0,11.0,3.0,3.0,24.0
+Grilled Cheese Sandwich,640.0,35.0,14.0,40.0,1340.0,60.0,2.0,8.0,21.0
+Honey Balsamic Dressing,170.0,13.0,2.0,0.0,230.0,13.0,0.0,11.0,0.0
+Green Goddess Dressing,190.0,20.0,3.5,20.0,470.0,2.0,0.0,1.0,1.0
+Oriental Dressing,250.0,22.0,3.0,0.0,85.0,13.0,0.0,13.0,0.0
+Fruit Punch,110.0,0.0,0.0,0.0,25.0,30.0,0.0,30.0,0.0
+Sobe Life Water Yumberry Pomegranate,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+Hot Tea,0.0,0.0,0.0,0.0,5.0,1.0,0.0,0.0,0.0
+The American Standard Burger,1010.0,68.0,24.0,190.0,1980.0,48.0,2.0,10.0,52.0
+Triple Bacon Burger,1170.0,81.0,29.0,235.0,2050.0,46.0,2.0,9.0,65.0
+Sundae w/ Chocolate Syrup,430.0,19.0,11.0,75.0,150.0,59.0,1.0,48.0,8.0
+Pepper Crusted Sirloin & Whole Grains,430.0,14.0,4.0,60.0,1860.0,48.0,9.0,13.0,32.0
+Cedar Grilled Lemon Chicken,580.0,26.0,4.0,125.0,2440.0,48.0,5.0,15.0,42.0
+Sweet Potato Fries & Dips,1160.0,77.0,15.0,45.0,2460.0,109.0,15.0,51.0,7.0
+Sweet Potato Fries,400.0,20.0,3.5,0.0,1020.0,51.0,9.0,20.0,3.0
+Thai Shrimp Salad Lunch,180.0,9.0,1.5,65.0,820.0,16.0,4.0,8.0,10.0
+Garlic Caesar Dressing,210.0,23.0,3.5,15.0,350.0,2.0,0.0,1.0,1.0
+Boneless Wings,680.0,35.0,7.0,95.0,1760.0,52.0,5.0,1.0,39.0
+Double Crunch Bone In Wings,650.0,40.0,9.0,295.0,1460.0,12.0,2.0,1.0,64.0
+Chili Lime Vinaigrette,120.0,7.0,1.0,0.0,500.0,13.0,0.0,10.0,0.0
+Honey French Dressing,210.0,17.0,2.5,0.0,330.0,15.0,0.0,14.0,0.0
+Italian Dressing Fat Free,20.0,0.0,0.0,0.0,370.0,5.0,0.0,3.0,0.0
+Lemon Olive Oil Vinaigrette,150.0,16.0,2.0,0.0,370.0,1.0,0.0,1.0,0.0
+Boneless Wings Build Your Sampler,340.0,17.0,3.5,45.0,900.0,27.0,3.0,1.0,20.0
+Sriracha Shrimp,690.0,46.0,8.0,140.0,1750.0,51.0,3.0,9.0,20.0
+Double Glazed Baby Back Ribs Full Rack,940.0,63.0,24.0,290.0,1420.0,16.0,1.0,17.0,75.0
+Double Glazed Baby Back Ribs Half Rack,470.0,32.0,12.0,145.0,710.0,8.0,1.0,8.0,38.0
+Crispy Brewhouse Chicken,1080.0,62.0,15.0,115.0,2720.0,81.0,7.0,8.0,50.0
+Baked Haddock,1000.0,46.0,23.0,190.0,1420.0,102.0,6.0,4.0,49.0
+Hand-Breaded Fish & Chips,1570.0,98.0,18.0,240.0,3350.0,121.0,10.0,13.0,52.0
+Shrimp Wonton Stir Fry,580.0,12.0,2.0,155.0,2550.0,96.0,5.0,24.0,24.0
+Triple Hog Dare Ya,990.0,60.0,19.0,125.0,2400.0,68.0,4.0,10.0,46.0
+Cheddar Cheese,90.0,7.0,4.0,20.0,135.0,0.0,0.0,0.0,5.0
+Swiss Cheese,160.0,12.0,7.0,40.0,80.0,0.0,0.0,0.0,11.0
+Monterey Jack Cheese,80.0,6.0,4.0,20.0,115.0,0.0,0.0,0.0,5.0
+Blackberry Quencher Lemonade,160.0,0.0,0.0,0.0,0.0,42.0,1.0,39.0,0.0
+Strawberry Quencher Lemonade,170.0,0.0,0.0,0.0,0.0,43.0,1.0,39.0,0.0
+Blackberry Honey Quencher Lemonade,100.0,0.0,0.0,0.0,35.0,24.0,1.0,23.0,0.0
+Kiwi Iced Tea,40.0,0.0,0.0,0.0,30.0,10.0,0.0,9.0,0.0
+Mango Iced Tea,35.0,0.0,0.0,0.0,30.0,9.0,0.0,8.0,0.0
+Pomegranate Iced Tea,35.0,0.0,0.0,0.0,30.0,9.0,0.0,8.0,0.0
+Raspberry Iced Tea,35.0,0.0,0.0,0.0,30.0,9.0,0.0,8.0,0.0
+Kiwi Lemonade,170.0,0.0,0.0,0.0,0.0,46.0,0.0,42.0,0.0
+Mango Lemonade,170.0,0.0,0.0,0.0,0.0,44.0,0.0,41.0,0.0
+Pomegranate Lemonade,170.0,0.0,0.0,0.0,0.0,45.0,0.0,41.0,0.0
+Raspberry Lemonade,170.0,0.0,0.0,0.0,0.0,45.0,0.0,41.0,0.0
+Mango Frozen Lemonade,250.0,0.0,0.0,0.0,10.0,62.0,5.0,50.0,1.0
+Frozen Strawberry Lemonade,240.0,0.0,0.0,0.0,10.0,60.0,5.0,48.0,1.0
+Wildberry Frozen Lemonade,250.0,0.0,0.0,0.0,10.0,63.0,5.0,50.0,1.0
+Cherry Limeade,200.0,0.0,0.0,0.0,15.0,52.0,0.0,48.0,0.0
+Strawberry Limeade,160.0,0.0,0.0,0.0,15.0,41.0,0.0,37.0,0.0
+Brisk Raspberry Iced Tea,80.0,0.0,0.0,0.0,25.0,21.0,0.0,21.0,0.0
+Ginger Ale,90.0,0.0,0.0,0.0,20.0,23.0,0.0,23.0,0.0
+Lipton Green Tea w/ Citrus,70.0,0.0,0.0,0.0,65.0,19.0,0.0,19.0,0.0
+Lipton Peach Iced Tea,80.0,0.0,0.0,0.0,25.0,21.0,0.0,21.0,0.0
+Lipton Unsweetened Iced Tea,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Orange Twister,110.0,0.0,0.0,0.0,25.0,31.0,0.0,30.0,0.0
+IBC Diet Root Beer,0.0,0.0,0.0,0.0,80.0,0.0,0.0,0.0,0.0
+IBC Root Beer,110.0,0.0,0.0,0.0,40.0,30.0,0.0,29.0,0.0
+Sun Orchard Lemonade,140.0,0.0,0.0,0.0,0.0,37.0,0.0,33.0,0.0
+Half & Half Iced Tea & Lemonade,40.0,0.0,0.0,0.0,25.0,11.0,0.0,11.0,0.0
+Sugar Free Lemonade,5.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Tropicana Lemonade,100.0,0.0,0.0,0.0,105.0,27.0,0.0,27.0,0.0
+Tropicana Pink Lemonade,100.0,0.0,0.0,0.0,105.0,27.0,0.0,27.0,0.0
+Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Perrier Sparkling Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+The Blazin Texan Burger,1040.0,63.0,23.0,205.0,1880.0,61.0,3.0,21.0,58.0
+All Day Brunch Burger,1170.0,77.0,27.0,345.0,2350.0,61.0,4.0,12.0,59.0
+Honey BBQ Sauce for Double Glazed Baby Back Ribs Full Rack,150.0,0.0,0.0,0.0,670.0,37.0,1.0,33.0,1.0
+Smoky Chipotle Sauce for Double Glazed Baby Back Ribs Full Rack,130.0,2.5,1.5,5.0,410.0,25.0,1.0,24.0,1.0
+Sweet Asian Chile Sauce for Double Glazed Baby Back Ribs Full Rack,170.0,1.5,0.0,0.0,1020.0,38.0,1.0,31.0,2.0
+Honey BBQ Sauce for Double Glazed Baby Back Ribs Half Rack,80.0,0.0,0.0,0.0,340.0,18.0,1.0,16.0,0.0
+Smoky Chipotle Sauce for Double Glazed Baby Back Ribs Half Rack,60.0,1.5,1.0,5.0,200.0,12.0,0.0,12.0,0.0
+Sweet Asian Chile Sauce for Double Glazed Baby Back Ribs Half Rack,80.0,0.5,0.0,0.0,510.0,19.0,0.0,16.0,1.0
+Honey BBQ Sauce for Classic Combo & Build Your Own Boneless Wings,110.0,0.0,0.0,0.0,510.0,28.0,1.0,25.0,1.0
+Sweet Asian Chile Sauce for Classic Combo & Build Your Own Boneless Wings,120.0,1.0,0.0,0.0,760.0,28.0,1.0,23.0,1.0
+Classic Buffalo Sauce for Classic Combo & Build Your Own Boneless Wings,100.0,11.0,4.0,0.0,1300.0,1.0,0.0,1.0,0.0
+Hot Buffalo Sauce for Classic Combo & Build Your Own Boneless Wings,110.0,11.0,4.0,0.0,1370.0,2.0,0.0,1.0,0.0
+Classic Buffalo Sauce for Boneless Wings Double Crunch Bone In Wings & Classic Combos,200.0,21.0,8.0,0.0,2600.0,2.0,1.0,1.0,0.0
+Hot Buffalo Sauce for Double Crunch Bone In Wings & Boneless Wings,210.0,22.0,8.0,0.0,2720.0,4.0,1.0,1.0,1.0
+Honey BBQ Sauce for Double Crunch Bone In Wings & Boneless Wings,230.0,0.0,0.0,0.0,1010.0,55.0,2.0,49.0,1.0
+Sweet Asian Chile Sauce for Double Crunch Bone In Wings & Boneless Wings,250.0,2.0,0.0,0.0,1530.0,56.0,1.0,47.0,3.0
+Ranch Dressing,210.0,22.0,3.5,15.0,330.0,1.0,0.0,1.0,1.0
+Fresh Brewed Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chips & Salsa,500.0,22.0,3.5,0.0,2970.0,69.0,6.0,5.0,7.0
+Double Crunch Bone In Wings Thai,1050.0,70.0,14.0,295.0,2470.0,41.0,4.0,22.0,69.0
+Sriracha Shrimp for Build Your Sampler,430.0,28.0,5.0,70.0,1140.0,35.0,2.0,5.0,10.0
+Chocolate Shake,1000.0,42.0,25.0,170.0,460.0,133.0,2.0,107.0,25.0
+Oreo Cookie Shake,1080.0,51.0,27.0,170.0,610.0,132.0,1.0,97.0,26.0
+Strawberry Shake,930.0,42.0,24.0,170.0,440.0,114.0,0.0,92.0,25.0
+Sundae w/ Strawberry Sauce,360.0,18.0,11.0,75.0,135.0,41.0,0.0,33.0,7.0
+American Cheese,150.0,12.0,7.0,25.0,480.0,2.0,0.0,1.0,8.0
+Chili & Cheese,630.0,33.0,10.0,45.0,1640.0,64.0,6.0,4.0,19.0
+Cheeseburger Egg Rolls,990.0,61.0,20.0,105.0,2300.0,77.0,6.0,19.0,32.0
+Salsa Verde Beef Nachos,1810.0,122.0,53.0,290.0,6110.0,109.0,9.0,15.0,71.0
+The Classic Combo,2350.0,137.0,43.0,190.0,7270.0,193.0,16.0,20.0,85.0
+Garlicky Green Beans,180.0,15.0,7.0,20.0,240.0,11.0,4.0,2.0,2.0
+Maple Pecan Mashed Sweet Potatoes,400.0,20.0,10.0,50.0,860.0,54.0,6.0,31.0,4.0
+Wood Fired Grilled Veggies,160.0,13.0,5.0,10.0,570.0,11.0,3.0,6.0,3.0
+Applesauce,40.0,0.0,0.0,0.0,5.0,10.0,1.0,8.0,0.0
+Brew Pub Pretzels & Beer Cheese Dip for Build Your Sampler,510.0,19.0,10.0,40.0,1700.0,61.0,4.0,4.0,21.0
+Cheeseburger Egg Rolls for Build Your Sampler,610.0,37.0,13.0,65.0,1410.0,49.0,4.0,10.0,21.0
+Steamed Broccoli,90.0,8.0,4.5,20.0,260.0,6.0,3.0,0.0,3.0
+Salted Caramel Shorty Shake,530.0,21.0,12.0,85.0,350.0,73.0,0.0,59.0,12.0
+Baked Cod,970.0,43.0,22.0,200.0,1200.0,102.0,7.0,3.0,48.0
+Chocolate Nut Brownie Shorty Shake,690.0,32.0,17.0,115.0,370.0,89.0,2.0,66.0,15.0
+Dew Berry Burst,170.0,0.0,0.0,0.0,40.0,46.0,0.0,45.0,0.0
+Strawberry Sparkler,160.0,0.0,0.0,0.0,20.0,42.0,0.0,41.0,0.0
+Blackberry Honey Quencher Iced Tea,90.0,0.0,0.0,0.0,35.0,24.0,1.0,23.0,0.0
+Peach Quencher Iced Tea,160.0,0.0,0.0,0.0,40.0,39.0,1.0,36.0,0.0
+Three Cheese Chicken Cavatappi,1170.0,73.0,42.0,260.0,2780.0,82.0,6.0,4.0,52.0
+Sirloin Stir Fry,750.0,22.0,6.0,80.0,2300.0,95.0,5.0,24.0,44.0
+Butcher's Meat & Potatoes,720.0,38.0,8.0,80.0,1960.0,52.0,6.0,10.0,43.0
+Steak Quesadilla,1000.0,61.0,28.0,150.0,2490.0,61.0,6.0,4.0,52.0
+Butcher's Reserve 12 oz Top Sirloin,380.0,11.0,4.5,165.0,2120.0,1.0,2.0,1.0,69.0
+8 oz USDA Choice Top Sirloin,280.0,10.0,4.0,115.0,1570.0,2.0,0.0,1.0,45.0
+6 oz USDA Choice Top Sirloin,230.0,9.0,4.0,90.0,1450.0,2.0,1.0,0.0,34.0
+Hand Cut Bone In Pork Chop,370.0,18.0,7.0,120.0,1250.0,3.0,2.0,1.0,50.0
+Grilled Chicken Breast,190.0,4.0,1.0,125.0,1150.0,2.0,1.0,1.0,38.0
+Cedar Grilled Salmon,340.0,22.0,4.5,100.0,1110.0,2.0,1.0,0.0,35.0
+Bone In Pork Chop w/ Honey Apple Chutney,560.0,24.0,11.0,135.0,1590.0,37.0,2.0,27.0,51.0
+Cedar Salmon w/ Maple Mustard Glaze,540.0,32.0,9.0,110.0,1730.0,28.0,3.0,20.0,38.0
+Smokin Double Steak & Egg,470.0,21.0,7.0,285.0,2660.0,15.0,2.0,10.0,55.0
+Bourbon Street Steak,700.0,38.0,12.0,130.0,1220.0,39.0,5.0,7.0,51.0
+4 Cheese Mac & Cheese,460.0,24.0,12.0,75.0,1080.0,40.0,3.0,2.0,20.0
+Loaded Beef Enchiladas,1010.0,46.0,18.0,115.0,3690.0,107.0,8.0,11.0,43.0
+Three Cheese Chicken Cavatappi Lunch,550.0,28.0,16.0,135.0,1500.0,40.0,3.0,2.0,34.0
+Steak Quesadilla for Build Your Sampler,630.0,39.0,16.0,75.0,1680.0,41.0,4.0,3.0,28.0
+Chicken Quesadilla for Build Your Sampler,610.0,38.0,16.0,85.0,1830.0,41.0,4.0,4.0,27.0
+Crispy Cheddar Bacon Potatoes,380.0,23.0,9.0,45.0,520.0,34.0,2.0,5.0,11.0
+Fries,430.0,20.0,3.5,0.0,970.0,57.0,4.0,0.0,5.0
+Crispy Chicken & Cornbread Salad,1440.0,96.0,28.0,205.0,2680.0,84.0,7.0,18.0,63.0
+Southwest Chicken Salad,1070.0,66.0,15.0,170.0,3620.0,66.0,11.0,8.0,55.0
+Grilled Chicken & Cornbread Salad,1130.0,71.0,24.0,245.0,2630.0,59.0,7.0,18.0,66.0
+Southwest Steak Salad,1020.0,68.0,16.0,100.0,3040.0,65.0,11.0,8.0,40.0
+Southwest Chicken Salad Lunch,530.0,33.0,7.0,85.0,1810.0,33.0,5.0,4.0,27.0
+Thai Shrimp Salad,370.0,19.0,3.0,150.0,1720.0,32.0,7.0,15.0,23.0
+Grilled Chicken Bacon Wrap,1010.0,49.0,15.0,190.0,3360.0,81.0,4.0,22.0,64.0
+Southwest Steak & Black Bean Soup,180.0,6.0,2.0,25.0,1230.0,18.0,5.0,2.0,15.0
+New England Clam Chowder,270.0,18.0,11.0,65.0,710.0,18.0,1.0,1.0,9.0
+Portsmouth Clam Chowder,230.0,13.0,7.0,50.0,570.0,21.0,1.0,1.0,9.0
+Triple Bacon Burger,1170.0,81.0,29.0,235.0,2050.0,46.0,2.0,9.0,65.0
+BBQ Brisket Tacos,1220.0,70.0,20.0,120.0,2930.0,101.0,6.0,33.0,45.0
+Summer Squeeze,340.0,0.0,0.0,0.0,10.0,51.0,0.0,47.0,0.0
+Garlic Mashed Potatoes,260.0,14.0,2.5,0.0,640.0,30.0,3.0,5.0,5.0
+Caesar Salad,220.0,18.0,3.5,15.0,320.0,10.0,2.0,2.0,4.0
+Classic Burger,630.0,33.0,12.0,150.0,1030.0,44.0,2.0,7.0,41.0
+Wild Cherry Pepsi 30 oz,150.0,0.0,0.0,0.0,30.0,42.0,0.0,42.0,0.0
+Butchers Meat & Potatoes,720.0,38.0,8.0,80.0,1960.0,52.0,6.0,10.0,43.0
+Lipton Peach Iced Tea,80.0,0.0,0.0,0.0,25.0,21.0,0.0,21.0,0.0
+Diet Mountain Dew,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+FUZE Raspberry Iced Tea 30 oz,90.0,0.0,0.0,0.0,10.0,23.0,0.0,23.0,0.0
+Raspberry Cosmo,220.0,0.0,0.0,0.0,10.0,28.0,1.0,27.0,0.0
+Summer Squeeze Wildberry,370.0,0.0,0.0,0.0,10.0,61.0,1.0,55.0,0.0
+Mango Lemonade,170.0,0.0,0.0,0.0,0.0,45.0,0.0,41.0,0.0
+Riblets Initial Order,1150.0,68.0,20.0,220.0,1630.0,74.0,7.0,14.0,62.0
+Sun Orchard Lemonade,140.0,0.0,0.0,0.0,0.0,37.0,0.0,33.0,0.0
+Mug Root Beer,110.0,0.0,0.0,0.0,40.0,27.0,0.0,26.0,0.0
+Sobe Life Water Yumberry Pomegranate 30 oz,0.0,0.0,0.0,0.0,110.0,0.0,0.0,0.0,0.0
+Kiwi Lemonade,180.0,0.0,0.0,0.0,0.0,46.0,0.0,42.0,0.0
+Brisk Raspberry Iced Tea 30 oz,120.0,0.0,0.0,0.0,40.0,32.0,0.0,32.0,0.0
+Green Goddess Dressing,190.0,20.0,3.5,20.0,470.0,2.0,0.0,1.0,1.0
+Bourbon Street Chicken & Shrimp,620.0,29.0,8.0,210.0,2010.0,42.0,7.0,5.0,51.0
+Fried Shrimp,170.0,9.0,1.5,60.0,530.0,15.0,1.0,1.0,9.0
+Irish Peach Sour,220.0,0.0,0.0,0.0,0.0,22.0,0.0,20.0,0.0
+Margaritas Blue Agave Rita,390.0,0.0,0.0,0.0,310.0,67.0,1.0,58.0,0.0
+Lipton Unsweetened Iced Tea,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Mountain Dew 30 oz,160.0,0.0,0.0,0.0,60.0,47.0,0.0,47.0,0.0
+Grilled Chicken Wonton Tacos for Build Your Sampler,380.0,15.0,3.5,90.0,1200.0,38.0,1.0,18.0,24.0
+Honey BBQ Sauce for Double Crunch Bone In Wings Boneless Wings & Riblets Basket,230.0,0.0,0.0,0.0,1010.0,55.0,2.0,49.0,1.0
+Grilled Chicken Caesar Salad Lunch,320.0,20.0,4.0,80.0,900.0,11.0,3.0,3.0,23.0
+Grape Juice Kids,100.0,0.0,0.0,0.0,15.0,25.0,0.0,23.0,0.0
+Diet Mountain Dew 30 oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Watermelon Sangria,210.0,0.0,0.0,0.0,25.0,24.0,1.0,19.0,1.0
+Whisky Bacon Burger,1240.0,80.0,26.0,205.0,1990.0,72.0,4.0,19.0,57.0
+Tropicana Lemonade,100.0,0.0,0.0,0.0,105.0,27.0,0.0,27.0,0.0
+Quesadilla Burger,1180.0,85.0,33.0,215.0,2670.0,43.0,4.0,5.0,63.0
+Blackberry Honey Quencher Iced Tea,90.0,0.0,0.0,0.0,35.0,24.0,1.0,23.0,0.0
+Bacon Cheddar Grilled Chicken Sandwich,890.0,48.0,16.0,225.0,2590.0,49.0,3.0,10.0,64.0
+Summer Squeeze Mango,370.0,0.0,0.0,0.0,10.0,60.0,1.0,55.0,0.0
+Sugar Free Lemonade,5.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Vanilla Shake Kids,630.0,31.0,18.0,130.0,310.0,71.0,0.0,56.0,18.0
+Boneless Wings,680.0,35.0,7.0,95.0,1760.0,52.0,5.0,1.0,39.0
+All Day Brunch Burger,1160.0,77.0,27.0,355.0,2550.0,60.0,4.0,12.0,58.0
+Chicken Mac N Cheese,670.0,31.0,18.0,135.0,2040.0,56.0,2.0,4.0,41.0
+8 oz USDA Choice Top Sirloin,280.0,10.0,4.0,115.0,1570.0,2.0,0.0,1.0,45.0
+Mexi Ranch Dressing,170.0,18.0,3.0,15.0,550.0,3.0,0.0,2.0,1.0
+Buttermilk Ranch Dressing,210.0,22.0,3.5,15.0,330.0,1.0,0.0,1.0,1.0
+Portsmouth Clam Chowder,230.0,13.0,7.0,50.0,570.0,21.0,1.0,1.0,9.0
+Classic Buffalo Sauce for Boneless Wings Double Crunch Bone In Wings,210.0,21.0,7.0,0.0,2300.0,5.0,1.0,1.0,1.0
+Double Glazed Baby Back Ribs Full Rack,860.0,65.0,26.0,290.0,920.0,1.0,1.0,1.0,69.0
+Raspberry Iced Tea,35.0,0.0,0.0,0.0,30.0,9.0,0.0,8.0,0.0
+Pecan Crusted Chicken Salad,1280.0,74.0,15.0,135.0,2020.0,108.0,11.0,65.0,49.0
+Bourbon Street Steak,680.0,36.0,12.0,130.0,1210.0,41.0,6.0,5.0,51.0
+Diet Coke 16 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Firecracker Shrimp Cavatappi,1870.0,119.0,46.0,290.0,3350.0,150.0,9.0,23.0,50.0
+Brew Pub Pretzels & Beer Cheese Dip,1070.0,46.0,9.0,55.0,3330.0,132.0,8.0,18.0,34.0
+Diet Pepsi,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Green Goddess Wedge Salad,550.0,52.0,11.0,60.0,1230.0,12.0,3.0,7.0,9.0
+Brownie Bite,360.0,17.0,9.0,40.0,210.0,50.0,2.0,34.0,5.0
+12 oz Butchers Reserve Top Sirloin,380.0,11.0,4.5,165.0,2120.0,1.0,2.0,1.0,69.0
+Spinach & Artichoke Chicken Cavatappi,1020.0,44.0,12.0,85.0,1810.0,108.0,8.0,6.0,50.0
+Extra Bacon,100.0,8.0,2.5,20.0,350.0,1.0,0.0,1.0,7.0
+Southwest Steak & Black Bean Soup,180.0,6.0,2.0,25.0,1240.0,17.0,5.0,2.0,15.0
+Caffeine Free Coca Cola 16 oz,100.0,0.0,0.0,0.0,0.0,27.0,0.0,27.0,0.0
+Garlic Caesar Dressing,210.0,23.0,3.5,15.0,350.0,2.0,0.0,1.0,1.0
+Chips & Salsa,630.0,27.0,4.5,0.0,3820.0,88.0,8.0,7.0,10.0
+Cedar Grilled Lemon Chicken,580.0,26.0,4.0,125.0,2440.0,48.0,5.0,15.0,42.0
+Chicken Tenders Platter,1460.0,83.0,14.0,110.0,3380.0,124.0,9.0,23.0,54.0
+Dew Berry Burst,180.0,0.0,0.0,0.0,40.0,49.0,0.0,47.0,0.0
+Double Crunch Shrimp,1310.0,73.0,13.0,200.0,3670.0,128.0,9.0,24.0,34.0
+Lemon Olive Oil Vinaigrette,150.0,16.0,2.0,0.0,370.0,1.0,0.0,1.0,0.0
+Kraft Macaroni & Cheese,300.0,9.0,2.5,10.0,650.0,44.0,2.0,8.0,10.0
+Crispy Chicken Tender Salad Grilled,960.0,63.0,18.0,390.0,2660.0,40.0,6.0,30.0,62.0
+The American Standard Burger,1000.0,67.0,24.0,195.0,2190.0,47.0,2.0,10.0,51.0
+Steak Quesadilla,870.0,52.0,22.0,110.0,2210.0,59.0,4.0,4.0,41.0
+Shrimp N Parmesan Sirloin,630.0,41.0,23.0,275.0,2660.0,7.0,1.0,3.0,59.0
+Grilled Shrimp Skewer,110.0,10.0,4.0,105.0,490.0,1.0,0.0,0.0,8.0
+Dijon Honey Mustard Dressing,210.0,18.0,2.5,10.0,540.0,13.0,1.0,12.0,1.0
+Mountain Dew,110.0,0.0,0.0,0.0,40.0,31.0,0.0,31.0,0.0
+Apple Chimi Cheesecake,1000.0,38.0,19.0,120.0,860.0,152.0,5.0,106.0,14.0
+Ginger Ale,90.0,0.0,0.0,0.0,20.0,23.0,0.0,23.0,0.0
+Texas Style BBQ Sauce for Riblets Initial Order,220.0,2.5,1.5,5.0,710.0,51.0,0.0,47.0,1.0
+Mango Iced Tea,35.0,0.0,0.0,0.0,30.0,9.0,0.0,8.0,0.0
+Applesauce,40.0,0.0,0.0,0.0,5.0,10.0,1.0,8.0,0.0
+Mango Frozen Lemonade,300.0,0.0,0.0,0.0,10.0,74.0,6.0,59.0,1.0
+IBC Root Beer,110.0,0.0,0.0,0.0,40.0,27.0,0.0,26.0,0.0
+Applebees Riblets Basket,830.0,46.0,14.0,145.0,1350.0,59.0,4.0,2.0,46.0
+New England Fish & Chips,1990.0,137.0,24.0,160.0,4540.0,134.0,10.0,14.0,55.0
+2 Mini Hamburgers,580.0,33.0,11.0,100.0,1300.0,44.0,2.0,9.0,27.0
+Orange Tangerine Juice Kids,110.0,0.0,0.0,0.0,15.0,27.0,0.0,25.0,0.0
+Chicken Quesadilla for Build Your Sampler,560.0,32.0,14.0,80.0,1820.0,43.0,3.0,4.0,26.0
+Caffeine Free Diet Coke 30 oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Honey BBQ Sauce for Double Glazed Baby Back Ribs Half Rack,80.0,0.0,0.0,0.0,340.0,18.0,1.0,16.0,0.0
+Riblets Refill Order,740.0,41.0,11.0,110.0,1220.0,60.0,5.0,3.0,33.0
+Four Cheese Mac & Cheese,460.0,24.0,12.0,75.0,1080.0,40.0,3.0,2.0,20.0
+Extra Patty,390.0,29.0,12.0,120.0,440.0,0.0,1.0,0.0,33.0
+Butter Pecan Blondie,1230.0,69.0,35.0,190.0,1050.0,136.0,2.0,86.0,18.0
+Three Cheese Chicken Cavatappi Lunch,550.0,28.0,16.0,135.0,1500.0,40.0,3.0,2.0,34.0
+Apple Dippers w/ Yogurt,90.0,1.0,0.0,0.0,25.0,20.0,3.0,16.0,2.0
+1 Mini Cheeseburger,360.0,23.0,8.0,60.0,850.0,22.0,1.0,4.0,15.0
+Chili & Cheese,230.0,15.0,7.0,60.0,700.0,8.0,2.0,3.0,15.0
+Barqs Root Beer 30 oz,160.0,0.0,0.0,0.0,35.0,45.0,0.0,45.0,0.0
+Honey BBQ Sauce for Combo Sauces & Build Your Sampler,110.0,0.0,0.0,0.0,510.0,28.0,1.0,25.0,1.0
+Raspberry Lemonade,170.0,0.0,0.0,0.0,0.0,45.0,0.0,41.0,0.0
+Fiesta Lime Chicken,1150.0,62.0,14.0,180.0,3730.0,92.0,7.0,7.0,55.0
+The Classic Combo,2270.0,132.0,41.0,185.0,7240.0,192.0,16.0,13.0,83.0
+Mellow Yellow 16 oz,100.0,0.0,0.0,0.0,5.0,27.0,0.0,27.0,0.0
+Chili Lime Vinaigrette,120.0,7.0,1.0,0.0,500.0,13.0,0.0,10.0,0.0
+Diet Sierra Mist,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Honey Pepper Chicken Tenders Lunch,940.0,37.0,7.0,40.0,1850.0,128.0,6.0,48.0,26.0
+Spinach & Artichoke Dip,950.0,59.0,14.0,25.0,3990.0,90.0,8.0,6.0,19.0
+Caprese Mozzarella Burger,1090.0,73.0,24.0,195.0,1720.0,54.0,4.0,11.0,50.0
+Chocolate Milk Kids,160.0,2.5,1.5,10.0,220.0,27.0,0.0,25.0,8.0
+House Salad,190.0,12.0,4.5,25.0,340.0,11.0,2.0,3.0,10.0
+Oriental Dressing,250.0,22.0,3.0,0.0,85.0,13.0,0.0,13.0,0.0
+Fruit Punch Hi C 16 oz,100.0,0.0,0.0,0.0,10.0,27.0,0.0,27.0,0.0
+Caffeine Free Coca Cola 30 oz,150.0,0.0,0.0,0.0,0.0,41.0,0.0,41.0,0.0
+Texas Style BBQ Sauce for Riblets Refill Order & Double Glazed Baby Back Ribs Full Rack,110.0,1.0,0.5,5.0,360.0,25.0,0.0,24.0,1.0
+Texas Style BBQ Sauce for Applebees Riblets Platter,280.0,3.0,1.5,5.0,890.0,64.0,0.0,59.0,1.0
+Fireball Whiskey Lemonade,260.0,0.0,0.0,0.0,1.0,37.0,0.0,34.0,0.0
+Fruit Punch 30 oz,160.0,0.0,0.0,0.0,40.0,45.0,0.0,45.0,0.0
+Hand Breaded Fish & Chips,1570.0,98.0,18.0,240.0,3350.0,121.0,10.0,13.0,52.0
+Garlic Mashed Potatoes Loaded,410.0,27.0,9.0,35.0,880.0,33.0,3.0,6.0,11.0
+Oriental Chicken Salad,1420.0,99.0,15.0,55.0,1530.0,96.0,11.0,42.0,39.0
+Tomato Basil Soup,180.0,12.0,5.0,20.0,810.0,16.0,3.0,9.0,5.0
+Pepsi 30 oz,150.0,0.0,0.0,0.0,30.0,42.0,0.0,42.0,0.0
+Pibb Extra 16 oz,100.0,0.0,0.0,0.0,15.0,27.0,0.0,27.0,0.0
+Mellow Yellow 30 oz,160.0,0.0,0.0,0.0,10.0,41.0,0.0,41.0,0.0
+Sweet Asian Chile Sauce for Combo Sauces & Build Your Sampler,120.0,1.0,0.0,0.0,760.0,28.0,1.0,23.0,1.0
+Sierra Mist,100.0,0.0,0.0,0.0,20.0,27.0,0.0,27.0,0.0
+Swiss Cheese,160.0,12.0,7.0,40.0,80.0,0.0,0.0,0.0,11.0
+Mozzarella Sticks Kids,350.0,19.0,7.0,30.0,860.0,31.0,2.0,5.0,15.0
+Chocolate Chip Cookie Sundae,1370.0,58.0,38.0,180.0,640.0,197.0,4.0,132.0,22.0
+Barqs Root Beer 16 oz,110.0,0.0,0.0,0.0,20.0,30.0,0.0,30.0,0.0
+Chicken Tenders,310.0,17.0,3.0,40.0,740.0,18.0,1.0,0.0,20.0
+Cheeseburger Egg Rolls for Build Your Sampler,610.0,36.0,13.0,60.0,1440.0,48.0,4.0,10.0,21.0
+Oreo Cookie Shake Kids,790.0,38.0,20.0,130.0,450.0,95.0,1.0,70.0,19.0
+Pomegranate Lemonade,180.0,0.0,0.0,0.0,0.0,48.0,0.0,43.0,0.0
+Steamed Broccoli,90.0,8.0,4.5,20.0,260.0,6.0,3.0,2.0,3.0
+Honey Balsamic Dressing,170.0,13.0,2.0,0.0,230.0,13.0,0.0,11.0,0.0
+Grilled Chicken Bacon Wrap,1010.0,49.0,15.0,190.0,3360.0,81.0,4.0,22.0,64.0
+Bleu Cheese Dressing,240.0,25.0,4.5,25.0,250.0,1.0,0.0,1.0,1.0
+Fruit Punch,110.0,0.0,0.0,0.0,25.0,30.0,0.0,30.0,0.0
+Clubhouse Grille Lunch,540.0,31.0,9.0,65.0,1150.0,41.0,2.0,13.0,26.0
+Orange Twister 30 oz,160.0,0.0,0.0,0.0,40.0,47.0,0.0,45.0,0.0
+Southwestern Steak Salad,990.0,66.0,16.0,100.0,2050.0,63.0,10.0,9.0,39.0
+Caffeine Free Diet Coke 16 oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Boneless Wings Build Your Sampler,340.0,17.0,3.5,45.0,900.0,27.0,3.0,1.0,20.0
+Kiwi Iced Tea,40.0,0.0,0.0,0.0,30.0,10.0,0.0,9.0,0.0
+Coke Zero 30 oz,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Garlic Mashed Potatoes Kids,130.0,7.0,1.0,0.0,320.0,15.0,2.0,2.0,3.0
+Top Shelf Long Island Iced Tea,220.0,0.0,0.0,0.0,15.0,23.0,0.0,19.0,0.0
+Caffeine Free Diet Pepsi 30 oz,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Apple Sangria,220.0,0.0,0.0,0.0,10.0,37.0,1.0,25.0,0.0
+Pibb Extra 30 oz,140.0,0.0,0.0,0.0,20.0,41.0,0.0,41.0,0.0
+Pomegranate Sparkler,180.0,0.0,0.0,0.0,45.0,48.0,0.0,46.0,0.0
+Corn Dog,200.0,11.0,2.5,35.0,600.0,20.0,1.0,5.0,7.0
+Winter Dew,170.0,0.0,0.0,0.0,25.0,44.0,0.0,42.0,0.0
+Strawberry Fanta 30 oz,170.0,0.0,0.0,0.0,15.0,47.0,0.0,47.0,0.0
+Hot Tea,0.0,0.0,0.0,0.0,5.0,1.0,0.0,0.0,0.0
+Thai Shrimp Salad Salads,400.0,21.0,3.5,140.0,1570.0,31.0,8.0,14.0,25.0
+Classic Fries,430.0,20.0,3.5,0.0,970.0,57.0,4.0,0.0,5.0
+Crunchy Onion Rings Sides,530.0,29.0,5.0,0.0,1180.0,60.0,3.0,8.0,7.0
+Mist Twist 16 oz,100.0,0.0,0.0,0.0,20.0,27.0,0.0,26.0,0.0
+Pomegranate Iced Tea,45.0,0.0,0.0,0.0,30.0,12.0,0.0,10.0,0.0
+Lipton Peach Iced Tea 30 oz,120.0,0.0,0.0,0.0,40.0,32.0,0.0,32.0,0.0
+Milk Kids,110.0,2.5,1.5,10.0,130.0,13.0,0.0,12.0,8.0
+Coke Zero 16 oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Caprese Mozzarella Chicken,700.0,32.0,11.0,165.0,2370.0,47.0,5.0,15.0,52.0
+Lipton Unsweetened Iced Tea 30 oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Summer Squeeze Strawberry,400.0,0.0,0.0,0.0,10.0,68.0,0.0,63.0,0.0
+Texas Style BBQ Sauce for Double-Glazed Baby Back Ribs Half Rack,60.0,0.5,0.0,0.0,180.0,13.0,0.0,12.0,0.0
+Orange Fanta 16 oz,100.0,0.0,0.0,0.0,0.0,30.0,0.0,27.0,0.0
+Four Cheese Mac & Cheese w/ Honey Pepper Chicken Tenders Lunch,640.0,28.0,12.0,80.0,1340.0,72.0,4.0,26.0,25.0
+Cheeseburger Egg Rolls,980.0,60.0,20.0,95.0,2350.0,77.0,6.0,18.0,32.0
+Sirloin Wonton Tacos,580.0,41.0,9.0,45.0,1580.0,31.0,3.0,10.0,22.0
+Sriracha Shrimp,680.0,47.0,8.0,130.0,1770.0,46.0,2.0,9.0,19.0
+Fries,430.0,20.0,3.5,0.0,970.0,57.0,4.0,0.0,5.0
+Sprite 16 oz,100.0,0.0,0.0,0.0,20.0,25.0,0.0,25.0,0.0
+Pair of Jacks,220.0,0.0,0.0,0.0,10.0,26.0,0.0,24.0,0.0
+Strawberry Sparkler,190.0,0.0,0.0,0.0,20.0,48.0,0.0,47.0,0.0
+Chocolate Shake,1000.0,40.0,23.0,165.0,440.0,140.0,2.0,113.0,25.0
+Sangrias Blackberry Sangria,270.0,0.0,0.0,0.0,10.0,35.0,2.0,29.0,0.0
+Wood Fired Grilled Veggies,150.0,12.0,5.0,15.0,640.0,9.0,3.0,6.0,2.0
+Caffeine Free Diet Pepsi,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Lipton Green Tea w/ Citrus,70.0,0.0,0.0,0.0,65.0,19.0,0.0,19.0,0.0
+Half & Half Iced Tea & Lemonade,40.0,0.0,0.0,0.0,25.0,11.0,0.0,11.0,0.0
+Blue Hawaiian Long Island Iced Tea,250.0,0.0,0.0,0.0,5.0,37.0,0.0,32.0,0.0
+Crispy Chicken Tender Salad Lunch,630.0,44.0,11.0,250.0,1280.0,32.0,4.0,16.0,29.0
+Lipton Green Tea w/ Citrus 30 oz,110.0,0.0,0.0,0.0,100.0,29.0,0.0,29.0,0.0
+Diet Coke 30 oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Mozzarella Sticks,910.0,50.0,20.0,80.0,2140.0,79.0,5.0,10.0,39.0
+Margaritas Perfect Margarita,310.0,0.0,0.0,0.0,610.0,41.0,1.0,32.0,0.0
+Frozen Strawberry Lemonade,340.0,0.0,0.0,0.0,15.0,84.0,6.0,70.0,1.0
+Orange Fanta 30 oz,160.0,0.0,0.0,0.0,5.0,45.0,0.0,41.0,0.0
+Crispy Chicken Tender Salad Grilled Lunch,520.0,34.0,10.0,285.0,1360.0,21.0,3.0,16.0,34.0
+Monterey Jack Cheese,80.0,6.0,3.5,20.0,130.0,0.0,0.0,0.0,5.0
+Chicken Grillers,190.0,4.0,1.0,125.0,760.0,1.0,1.0,1.0,38.0
+2 Mini Cheeseburgers,650.0,39.0,14.0,120.0,1640.0,44.0,2.0,9.0,31.0
+Double Glazed Baby Back Ribs Half Rack,430.0,32.0,13.0,145.0,460.0,0.0,1.0,0.0,35.0
+Oreo Cookie Sundae Shooter,400.0,21.0,12.0,65.0,190.0,49.0,1.0,35.0,7.0
+Oriental Chicken Salad Lunch,460.0,31.0,5.0,25.0,630.0,30.0,3.0,11.0,16.0
+Pepsi,100.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+Sprite 30 oz,140.0,0.0,0.0,0.0,35.0,37.0,0.0,37.0,0.0
+Sobe Life Water Yumberry Pomegranate,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+Cherry Coke 30 oz,160.0,0.0,0.0,0.0,5.0,41.0,0.0,41.0,0.0
+Crispy Chicken Tender Salad,1180.0,82.0,21.0,315.0,2500.0,62.0,7.0,30.0,51.0
+Wildberry Frozen Lemonade,300.0,0.0,0.0,0.0,10.0,75.0,6.0,59.0,1.0
+Mist Twist 30 oz,150.0,0.0,0.0,0.0,30.0,41.0,0.0,41.0,0.0
+Maple Pecan Mashed Sweet Potatoes,400.0,20.0,10.0,50.0,860.0,54.0,6.0,31.0,4.0
+Honey BBQ Sauce for Riblets Initial Order,310.0,0.0,0.0,0.0,1350.0,74.0,2.0,66.0,2.0
+Fruit Punch Hi C 30 oz,160.0,0.0,0.0,0.0,20.0,41.0,0.0,41.0,0.0
+Peach Quencher Iced Tea,170.0,0.0,0.0,0.0,40.0,41.0,1.0,38.0,0.0
+6 oz USDA Choice Top Sirloin,230.0,9.0,4.0,90.0,1450.0,2.0,1.0,0.0,34.0
+Chocolate Shake Kids,820.0,32.0,18.0,130.0,340.0,118.0,2.0,95.0,19.0
+Garlicky Green Beans,180.0,15.0,7.0,20.0,590.0,11.0,4.0,2.0,3.0
+Three Cheese Chicken Cavatappi,1150.0,56.0,33.0,230.0,1910.0,107.0,6.0,6.0,54.0
+Steamed Broccoli Kids,30.0,0.0,0.0,0.0,30.0,6.0,3.0,2.0,3.0
+Brewed Iced Tea,5.0,0.0,0.0,0.0,5.0,1.0,0.0,1.0,0.0
+FUZE Raspberry Iced Tea 16 oz,60.0,0.0,0.0,0.0,5.0,15.0,0.0,15.0,0.0
+American Cheese,140.0,12.0,7.0,35.0,680.0,1.0,0.0,1.0,7.0
+Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Shrimp Wonton Stir Fry,630.0,16.0,3.0,140.0,2460.0,98.0,5.0,22.0,26.0
+Southwestern Chicken Salad Lunch,520.0,32.0,8.0,85.0,1310.0,32.0,5.0,5.0,27.0
+Grilled Chicken Breast,190.0,4.0,1.0,125.0,1150.0,2.0,1.0,1.0,38.0
+Strawberry Quencher Lemonade,190.0,0.0,0.0,0.0,0.0,43.0,1.0,45.0,0.0
+Chicken Quesadilla Appetizers,860.0,51.0,22.0,115.0,2490.0,61.0,4.0,4.0,38.0
+Hand Battered Fish & Chips,1410.0,94.0,16.0,120.0,3490.0,104.0,9.0,14.0,38.0
+Honey BBQ Sauce for Applebees Riblets Platter,380.0,0.0,0.0,0.0,1690.0,92.0,3.0,82.0,2.0
+Bourbon & Berries,150.0,0.0,0.0,0.0,5.0,14.0,0.0,13.0,0.0
+Pepper Crusted Sirloin & Whole Grains,380.0,13.0,4.0,60.0,1850.0,38.0,6.0,7.0,30.0
+New England Clam Chowder,270.0,18.0,11.0,65.0,710.0,18.0,1.0,1.0,9.0
+Steak Quesadilla for Build Your Sampler,570.0,33.0,15.0,75.0,1640.0,42.0,3.0,4.0,28.0
+Hot Fudge Sundae Dessert Shooter,410.0,20.0,14.0,65.0,160.0,50.0,0.0,39.0,6.0
+Chili,410.0,25.0,12.0,130.0,1110.0,16.0,4.0,7.0,32.0
+Brisk Raspberry Iced Tea,80.0,0.0,0.0,0.0,25.0,21.0,0.0,21.0,0.0
+Brew Pub Pretzels & Beer Cheese Dip for Build Your Sampler,530.0,21.0,4.5,45.0,1970.0,62.0,4.0,4.0,22.0
+Thai Shrimp Salad,400.0,21.0,3.5,140.0,1570.0,31.0,8.0,14.0,25.0
+Sriracha Shrimp for Build Your Sampler,390.0,28.0,4.5,65.0,980.0,25.0,1.0,5.0,10.0
+Baked Potato Loaded,460.0,29.0,15.0,70.0,1360.0,41.0,3.0,3.0,10.0
+Grilled Chicken Wonton Tacos,500.0,20.0,4.5,115.0,1540.0,49.0,2.0,23.0,32.0
+Captain Morgan Bahama Mama,280.0,0.0,0.0,0.0,10.0,41.0,0.0,40.0,0.0
+Oriental Grilled Chicken Salad,1290.0,85.0,13.0,125.0,2300.0,84.0,10.0,51.0,50.0
+Triple Chocolate Meltdown,960.0,49.0,26.0,130.0,510.0,120.0,5.0,62.0,15.0
+1 Mini Hamburger,320.0,20.0,6.0,50.0,680.0,22.0,1.0,4.0,14.0
+Blackberry Quencher Lemonade,180.0,0.0,0.0,0.0,0.0,48.0,1.0,44.0,0.0
+Fresh Brewed Decaf Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Sirloin Stir Fry,770.0,23.0,6.0,80.0,2310.0,97.0,5.0,22.0,44.0
+Perfect Pomegranate Margarita,360.0,0.0,0.0,0.0,15.0,54.0,1.0,44.0,0.0
+Clubhouse Grille,1080.0,62.0,17.0,130.0,2310.0,81.0,4.0,27.0,52.0
+Southwestern Chicken Salad,1040.0,64.0,15.0,170.0,2630.0,64.0,11.0,9.0,54.0
+Sweet Asian Chile Sauce for Double Crunch Bone In Wings & Boneless Wings,250.0,2.0,0.0,0.0,1530.0,56.0,1.0,47.0,3.0
+Strawberry Shake,990.0,39.0,23.0,165.0,420.0,136.0,0.0,118.0,23.0
+Blue Ribbon Brownie,1560.0,73.0,37.0,215.0,890.0,206.0,6.0,143.0,25.0
+Mug Root Beer 30 oz,150.0,0.0,0.0,0.0,25.0,39.0,0.0,39.0,0.0
+Hot Buffalo Sauce for Combo Sauces & Build Your Sampler,110.0,10.0,4.0,0.0,1220.0,3.0,1.0,1.0,0.0
+Italian Dressing Fat Free,20.0,0.0,0.0,0.0,370.0,5.0,0.0,3.0,0.0
+IBC Diet Root Beer,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Fire Roasted Chicken Salad Wrap,820.0,47.0,8.0,115.0,1790.0,66.0,5.0,8.0,36.0
+Strawberry Shake Kids,810.0,31.0,18.0,130.0,310.0,116.0,0.0,98.0,18.0
+Chicken Fajita Rollup,1090.0,67.0,27.0,215.0,3340.0,63.0,4.0,6.0,59.0
+Tropicana Pink Lemonade,100.0,0.0,0.0,0.0,105.0,27.0,0.0,27.0,0.0
+Riblet Platter,1180.0,68.0,21.0,235.0,1730.0,72.0,6.0,13.0,71.0
+Oreo Cookie Shake,1030.0,48.0,25.0,165.0,590.0,126.0,1.0,93.0,25.0
+Baked Potato,390.0,24.0,12.0,55.0,1200.0,41.0,3.0,2.0,6.0
+Crunchy Onion Rings,1300.0,59.0,10.0,5.0,3360.0,176.0,8.0,65.0,15.0
+Honey BBQ Sauce,150.0,0.0,0.0,0.0,670.0,37.0,1.0,33.0,1.0
+Pepperjack Cheese,80.0,6.0,0.0,20.0,135.0,0.0,0.0,0.0,5.0
+Salsa Verde Beef Nachos,1750.0,117.0,50.0,270.0,6020.0,107.0,8.0,13.0,70.0
+Diet Pepsi 30 oz,0.0,0.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+4 oz Sirloin,140.0,6.0,2.5,60.0,180.0,0.0,0.0,0.0,23.0
+Four Cheese Mac & Cheese w/ Honey Pepper Chicken Tenders,1460.0,64.0,28.0,175.0,3490.0,155.0,6.0,53.0,67.0
+Texas Style BBQ Sauce for Applebees Riblets Basket,170.0,2.0,1.0,5.0,530.0,38.0,0.0,35.0,1.0
+Coca Cola 30 oz,160.0,0.0,0.0,0.0,0.0,41.0,0.0,41.0,0.0
+Coca Cola 16 oz,100.0,0.0,0.0,0.0,0.0,27.0,0.0,27.0,0.0
+Wild Cherry Pepsi,100.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+Apple Juice Kids,100.0,0.0,0.0,0.0,15.0,25.0,0.0,23.0,0.0
+Cedar Salmon w/ Maple Mustard Glaze,540.0,32.0,9.0,110.0,1730.0,28.0,3.0,20.0,38.0
+Chicken Fajita Rollup Lunch,780.0,47.0,16.0,115.0,2410.0,57.0,3.0,5.0,34.0
+Perfect Patron Margarita,290.0,0.0,0.0,0.0,610.0,42.0,1.0,36.0,0.0
+Strawberry Fanta 16 oz,110.0,0.0,0.0,0.0,10.0,31.0,0.0,31.0,0.0
+Double Crunch Bone In Wings,650.0,40.0,9.0,295.0,1460.0,12.0,2.0,1.0,64.0
+Diet Sierra Mist 30 oz,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Fresh Brewed Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Hot Buffalo Sauce for Double Crunch Bone In Wings & Boneless Wings,210.0,21.0,7.0,0.0,2420.0,6.0,2.0,1.0,1.0
+Cheddar Cheese,90.0,7.0,4.0,20.0,135.0,0.0,0.0,0.0,5.0
+Honey French Dressing,210.0,17.0,2.5,0.0,330.0,15.0,0.0,14.0,0.0
+Ginger Ale 30 oz,140.0,0.0,0.0,0.0,30.0,35.0,0.0,35.0,0.0
+Sweet Potato Fries,400.0,20.0,3.5,0.0,1020.0,51.0,9.0,20.0,3.0
+Classic Buffalo Sauce for Combo Sauces & Build Your Sampler,100.0,10.0,3.5,0.0,1150.0,2.0,1.0,1.0,0.0
+Orange Twister,110.0,0.0,0.0,0.0,25.0,31.0,0.0,30.0,0.0
+Cherry Coke 16 oz,100.0,0.0,0.0,0.0,0.0,27.0,0.0,27.0,0.0
+Margaritas Strawberry Lime Margarita,420.0,0.0,0.0,0.0,10.0,71.0,1.0,63.0,0.0
+French Onion Soup,380.0,22.0,13.0,60.0,1390.0,27.0,2.0,7.0,17.0
+Vanilla Yogurt w/ Strawberries,100.0,1.5,1.0,5.0,55.0,17.0,1.0,16.0,4.0
+Dr Pepper,100.0,0.0,0.0,0.0,30.0,27.0,0.0,26.0,0.0
+Chicken Tenders Basket,1150.0,66.0,11.0,80.0,2740.0,101.0,7.0,14.0,40.0
+Chicken Tortilla Soup,180.0,8.0,2.0,20.0,760.0,20.0,2.0,2.0,8.0
+Thai Shrimp Salad Lunch,190.0,9.0,1.5,70.0,81.0,16.0,4.0,7.0,12.0
+Strawberry Sundae Shooter,290.0,15.0,9.0,65.0,105.0,33.0,0.0,27.0,6.0
+Grilled Cheese Sandwich,620.0,34.0,14.0,50.0,1640.0,59.0,2.0,8.0,20.0
+Mozzarella Sticks for Build Your Sampler,460.0,25.0,10.0,40.0,1070.0,39.0,3.0,5.0,19.0

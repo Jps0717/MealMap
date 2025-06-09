@@ -1,0 +1,417 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+8 Wings BBQ,80.0,4.5,1.0,15.0,160.0,5.0,0.0,2.0,5.0
+Chicken Dippers BBQ,80.0,2.5,0.0,15.0,250.0,9.0,0.0,2.0,6.0
+Chicken Dippers Buffalo,60.0,2.5,0.0,15.0,220.0,4.0,0.0,0.0,6.0
+Chicken Dippers Plain,60.0,2.5,0.0,15.0,190.0,4.0,0.0,0.0,6.0
+Wings Tangy BBQ,80.0,4.5,1.0,15.0,160.0,5.0,0.0,2.0,5.0
+CinnaSquares,60.0,1.0,0.0,0.0,50.0,11.0,0.0,3.0,1.0
+Mountain Dew 8 fl oz,110.0,0.0,0.0,0.0,40.0,31.0,0.0,31.0,0.0
+Mountain Dew Diet 8 fl oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Mug Root Beer 8 fl oz,100.0,0.0,0.0,0.0,40.0,29.0,0.0,29.0,0.0
+Pepsi 8 fl oz,100.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+Pepsi Cola Wild Cherry 8 fl oz,100.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+Pepsi Diet 8 fl oz,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Sierra Mist 8 fl oz,100.0,0.0,0.0,0.0,25.0,26.0,0.0,26.0,0.0
+BBQ Chicken Pizza Large,350.0,13.0,6.0,40.0,840.0,41.0,1.0,6.0,19.0
+BBQ Chicken Pizza X Large,300.0,11.0,5.0,35.0,720.0,36.0,1.0,5.0,17.0
+Big Square Deal Chicken Fresco Pizza,290.0,14.0,6.0,40.0,610.0,26.0,1.0,3.0,16.0
+Big Square Deal Deluxe Uno Pizza,270.0,13.0,6.0,30.0,610.0,26.0,1.0,3.0,1.0
+Big Square Deal Garden Pizza,220.0,9.0,4.0,15.0,510.0,26.0,2.0,3.0,11.0
+Build Your Own Pizza Slice Large,270.0,10.0,4.5,20.0,490.0,33.0,1.0,3.0,13.0
+Build Your Own Pizza Slice X Large,230.0,8.0,4.0,20.0,430.0,29.0,1.0,3.0,11.0
+Deep Pan BBQ Chicken Pizza Slice,710.0,13.0,6.0,35.0,630.0,116.0,4.0,8.0,34.0
+Deep Pan Cheese Pizza Slice,430.0,8.0,3.5,15.0,240.0,72.0,2.0,3.0,20.0
+Deep Pan Chicken Fresco Pizza Slice,720.0,16.0,7.0,45.0,590.0,109.0,4.0,5.0,36.0
+Deep Pan Deluxe Uno Pizza Slice,750.0,20.0,9.0,45.0,690.0,110.0,4.0,4.0,35.0
+Deep Pan Garden Pizza Slice,680.0,14.0,6.0,30.0,540.0,110.0,5.0,5.0,31.0
+Deep Pan Hawaiian Chicken Pizza Slice,720.0,16.0,7.0,45.0,700.0,110.0,4.0,5.0,37.0
+Deep Pan Meat Supremo Pizza Slice,690.0,15.0,6.0,35.0,700.0,108.0,4.0,4.0,31.0
+Deep Pan Pepperoni Magnifico Pizza Slice,730.0,20.0,9.0,45.0,630.0,107.0,4.0,4.0,32.0
+Deep Pan Pepperoni Pizza Slice,450.0,10.0,4.5,20.0,310.0,72.0,2.0,3.0,20.0
+Deep Pan White Cheezy Pizza Slice,700.0,17.0,8.0,35.0,510.0,108.0,4.0,4.0,33.0
+Garden Pizza Slice Large,310.0,13.0,6.0,25.0,770.0,36.0,2.0,4.0,15.0
+Garden Pizza Slice Medium,230.0,10.0,4.5,20.0,550.0,26.0,2.0,3.0,11.0
+Garden Pizza Slice Small,210.0,9.0,4.0,15.0,490.0,25.0,1.0,2.0,10.0
+Garden Pizza Slice X Large,270.0,11.0,5.0,25.0,650.0,31.0,2.0,3.0,13.0
+Hawaiian Chicken Pizza Slice Large,360.0,16.0,7.0,45.0,920.0,36.0,1.0,5.0,22.0
+Hawaiian Chicken Pizza Slice X Large,310.0,13.0,6.0,40.0,790.0,31.0,1.0,4.0,19.0
+Cheese Pizza Large,280.0,11.0,5.0,25.0,510.0,34.0,1.0,3.0,14.0
+Chicken Fresco Pizza Slice Large,360.0,16.0,7.0,45.0,810.0,36.0,1.0,4.0,20.0
+Deluxe Uno Slice Large,390.0,20.0,9.0,45.0,890.0,36.0,2.0,4.0,19.0
+Meat Supremo Slice Large,430.0,23.0,10.0,60.0,1110.0,34.0,1.0,3.0,23.0
+Chicken Fresco Slice Medium,260.0,12.0,5.0,35.0,600.0,26.0,1.0,3.0,15.0
+Deluxe Uno Slice Medium,290.0,15.0,7.0,35.0,670.0,26.0,1.0,3.0,14.0
+Pepperoni Magnifico Pizza Slice Large,340.0,16.0,7.0,35.0,730.0,33.0,1.0,3.0,15.0
+Pepperoni Magnifico Pizza Slice X Large,300.0,14.0,6.0,35.0,650.0,29.0,1.0,3.0,14.0
+Bacon Small,25.0,2.0,0.5,5.0,105.0,0.0,0.0,0.0,2.0
+Deluxe Uno Slice Small,280.0,14.0,6.0,30.0,640.0,25.0,1.0,3.0,14.0
+White Cheezy Pizza Slice Large,330.0,17.0,7.0,35.0,710.0,34.0,1.0,2.0,17.0
+White Cheezy Pizza Slice X Large,290.0,15.0,6.0,30.0,610.0,29.0,1.0,2.0,15.0
+Cheese Pizza Slice X Large,240.0,9.0,4.0,20.0,450.0,29.0,1.0,3.0,12.0
+Chicken Fresco Pizza Slice X Large,310.0,13.0,6.0,40.0,690.0,31.0,1.0,3.0,18.0
+Deluxe Uno Pizza Slice X Large,330.0,17.0,7.0,40.0,760.0,31.0,2.0,3.0,17.0
+Meat Supremo Pizza Slice X Large,370.0,19.0,8.0,50.0,950.0,30.0,1.0,3.0,20.0
+Antipasto Salad Large,120.0,8.0,3.5,25.0,450.0,5.0,2.0,2.0,9.0
+Chef Salad Large,130.0,10.0,4.0,20.0,530.0,9.0,2.0,2.0,10.0
+Chicken Caesar Salad Large,100.0,8.0,2.5,20.0,460.0,8.0,1.0,3.0,9.0
+Garden Salad Large,130.0,11.0,4.0,20.0,350.0,10.0,2.0,2.0,6.0
+Greek Salad Large,80.0,5.0,2.5,10.0,430.0,5.0,2.0,2.0,4.0
+Antipasto Salad Small,140.0,10.0,4.5,30.0,540.0,5.0,2.0,2.0,10.0
+Chef Salad Small,150.0,11.0,4.5,25.0,630.0,10.0,2.0,3.0,12.0
+Chicken Caesar Salad Small,120.0,8.0,2.5,30.0,570.0,8.0,1.0,3.0,12.0
+Garden Salad Small,150.0,13.0,5.0,25.0,410.0,11.0,2.0,3.0,7.0
+Greek Salad Small,90.0,6.0,3.5,10.0,540.0,7.0,2.0,2.0,4.0
+"12"" Chicken Club Tuscano Sub",680.0,32.0,10.0,100.0,1880.0,55.0,2.0,6.0,42.0
+"12"" Ham & Cheese Leonardo Sub",630.0,29.0,10.0,80.0,1840.0,56.0,3.0,7.0,35.0
+"12"" Italian Sausage Ultimo Sub",740.0,40.0,16.0,90.0,2210.0,62.0,3.0,10.0,36.0
+"12"" Italiano Sub",730.0,40.0,14.0,85.0,2210.0,58.0,3.0,8.0,36.0
+"12"" Meatball Fabio Sub",640.0,27.0,13.0,115.0,1950.0,60.0,2.0,9.0,37.0
+"12"" Steak & Cheese Bruno Sub",620.0,29.0,10.0,95.0,1810.0,54.0,3.0,5.0,37.0
+"12"" Turkey & Ham Maximo Sub",620.0,27.0,10.0,75.0,1840.0,56.0,3.0,7.0,35.0
+"12"" Turkey Club Bravo Sub",670.0,31.0,11.0,85.0,2160.0,55.0,2.0,6.0,41.0
+"12"" Veggie Fresco Sub",590.0,29.0,9.0,45.0,1170.0,60.0,6.0,7.0,23.0
+"6"" Chicken Club Tuscano Sub",680.0,32.0,10.0,100.0,1880.0,55.0,2.0,6.0,42.0
+"6"" Ham & Cheese Leonardo Sub",630.0,29.0,10.0,80.0,1840.0,56.0,3.0,7.0,35.0
+"6"" Italian Sausage Ultimo Sub",740.0,40.0,16.0,90.0,2210.0,62.0,3.0,10.0,36.0
+"6"" Italiano Sub",730.0,40.0,14.0,85.0,2210.0,58.0,3.0,8.0,36.0
+"6"" Meatball Fabio Sub",640.0,27.0,13.0,115.0,1950.0,60.0,2.0,9.0,37.0
+"6"" Steak & Cheese Bruno Sub",620.0,29.0,10.0,95.0,1810.0,54.0,3.0,5.0,37.0
+"6"" Turkey & Ham Maximo Sub",620.0,27.0,10.0,75.0,1840.0,56.0,3.0,7.0,35.0
+"6"" Turkey Club Bravo Sub",670.0,31.0,11.0,85.0,2160.0,55.0,2.0,6.0,41.0
+"6"" Veggie Fresco Sub",590.0,29.0,9.0,45.0,1170.0,60.0,6.0,7.0,23.0
+Anchovies Large,20.0,1.5,0.0,10.0,180.0,0.0,0.0,0.0,2.0
+Bacon Large for Large White Cheesy Pizza Slice,35.0,2.5,1.0,10.0,160.0,0.0,0.0,0.0,3.0
+Bacon Medium,25.0,2.0,0.5,5.0,115.0,0.0,0.0,0.0,2.0
+"Bacon for 12"" Subs",140.0,11.0,3.5,30.0,620.0,0.0,0.0,0.0,10.0
+"Bacon for 6"" Subs",70.0,5.0,2.0,15.0,310.0,0.0,0.0,0.0,5.0
+Bacon X Large for X Large Hawaiian Chicken Pizza Slice,30.0,2.5,1.0,5.0,130.0,0.0,0.0,0.0,2.0
+Banana Peppers Large,0.0,0.0,0.0,0.0,125.0,0.0,0.0,0.0,0.0
+Banana Peppers Medium,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Banana Peppers Small,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+"Banana Peppers for 12"" Subs",5.0,0.0,0.0,0.0,280.0,1.0,0.0,0.0,0.0
+Banana Peppers X Large,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Banana Pepper Rings for Large Salads,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Banana Pepper Rings for Small Salads,0.0,0.0,0.0,0.0,140.0,0.0,0.0,0.0,0.0
+Barbeque Sauce Large,30.0,0.0,0.0,0.0,100.0,8.0,0.0,4.0,0.0
+Barbeque Sauce Medium,25.0,0.0,0.0,0.0,75.0,6.0,0.0,3.0,0.0
+Barbeque Sauce Small,20.0,0.0,0.0,0.0,65.0,5.0,0.0,3.0,0.0
+Barbeque Sauce X Large,25.0,0.0,0.0,0.0,85.0,6.0,0.0,3.0,0.0
+Black Olives Medium for Medium BBQ Chicken Pizza,10.0,1.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Black Olives Small for Small White Cheezy Pizza Slice,10.0,1.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+"Black Olives for 12"" Subs",30.0,3.0,0.0,0.0,250.0,2.0,1.0,0.0,0.0
+Blue Cheese Dipping Cup,210.0,21.0,4.0,25.0,430.0,2.0,0.0,2.0,2.0
+Buttermilk Ranch Dressing,210.0,22.0,3.5,10.0,310.0,2.0,0.0,1.0,0.0
+Caesar Dressing,230.0,25.0,4.0,45.0,290.0,1.0,0.0,0.0,1.0
+Cheese Large,90.0,7.0,4.0,20.0,190.0,1.0,0.0,0.0,7.0
+Garlic Butter Crust Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"Cheese for 12"" Subs",270.0,21.0,12.0,60.0,580.0,3.0,0.0,0.0,21.0
+"Cheese for 6"" Subs",140.0,11.0,6.0,30.0,290.0,2.0,0.0,0.0,11.0
+Cheese Double Large,150.0,12.0,7.0,35.0,320.0,2.0,0.0,0.0,12.0
+Cheese Double Medium,110.0,9.0,5.0,25.0,240.0,1.0,0.0,0.0,9.0
+Cheese Double Small,100.0,8.0,4.5,20.0,210.0,1.0,0.0,0.0,8.0
+Cheese Double X Large,130.0,10.0,6.0,30.0,280.0,1.0,0.0,0.0,10.0
+Cheese Lite Small,40.0,3.0,1.5,10.0,80.0,0.0,0.0,0.0,3.0
+Crispy Thin Crust Medium,80.0,3.0,0.0,0.0,60.0,12.0,0.0,0.0,2.0
+Crumbled Feta Cheese for Large BBQ Chicken Pizza Slice,35.0,3.0,2.0,10.0,180.0,0.0,0.0,0.0,2.0
+Crumbled Feta Cheese for Medium Pepperoni Magnifico Slice,25.0,2.5,1.5,5.0,135.0,0.0,0.0,0.0,2.0
+Crumbled Feta Cheese for Small BBQ Chicken Pizza Slice,25.0,2.0,1.5,5.0,120.0,0.0,0.0,0.0,1.0
+Crumbled Feta Cheese for X Large BBQ Chicken Pizza Slice,30.0,2.5,1.5,5.0,150.0,0.0,0.0,0.0,2.0
+Fat Free Italian Dressing,25.0,0.0,0.0,0.0,370.0,5.0,0.0,3.0,0.0
+"Fresh Romaine Lettuce for 6"" Subs",0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Fresh Sliced Tomatoes Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"Fresh Sliced Tomatoes for 12"" Subs",35.0,0.5,0.0,0.0,5.0,7.0,1.0,4.0,1.0
+Garlic Butter Crust Large,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Garlic Butter Crust Medium,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Garlic Butter Crust X Large,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Garlic Sauce Large,0.0,0.5,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Garlic Sauce Medium,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Garlic Sauce Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Garlic Sauce X Large,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Gluten Free Crust Medium,30.0,1.0,0.0,0.0,25.0,5.0,0.0,0.0,0.0
+Green Olives Large,25.0,2.0,0.5,0.0,160.0,0.0,1.0,0.0,0.0
+Green Olives X Large,20.0,2.0,0.5,0.0,140.0,0.0,1.0,0.0,0.0
+Green Peppers for Large Salad,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Green Peppers Medium,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Green Peppers Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Ground Beef Small,10.0,2.0,1.0,5.0,60.0,0.0,0.0,0.0,2.0
+Ground Beef X Large,10.0,2.5,1.0,10.0,75.0,0.0,0.0,0.0,3.0
+Green Peppers X Large,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Grilled Chicken for Large Build Your Own Pizza Slice,20.0,0.5,0.0,10.0,130.0,0.0,0.0,0.0,3.0
+Grilled Chicken for Large Salads,35.0,1.0,0.0,15.0,230.0,0.0,0.0,0.0,6.0
+Grilled Chicken for Medium Build Your Own Pizza Slice,15.0,0.0,0.0,5.0,100.0,0.0,0.0,0.0,2.0
+Grilled Chicken for Small Build Your Own Pizza Slice,15.0,0.0,0.0,5.0,95.0,0.0,0.0,0.0,2.0
+"Grilled Chicken for 12"" Subs",200.0,6.0,2.0,90.0,1400.0,2.0,0.0,0.0,34.0
+"Grilled Chicken for 6"" Subs",100.0,3.0,1.0,45.0,700.0,1.0,0.0,0.0,17.0
+Grilled Chicken for X Large Build Your Own Pizza Slice,15.0,0.5,0.0,10.0,115.0,0.0,0.0,0.0,3.0
+Ground Beef Large,15.0,3.0,1.0,10.0,90.0,0.0,0.0,0.0,2.0
+Ground Beef Medium,10.0,2.5,1.0,5.0,65.0,0.0,0.0,0.0,2.0
+Ham for Large Salad,15.0,0.5,0.0,5.0,110.0,0.0,0.0,0.0,2.0
+Ham for Small Salads,15.0,0.5,0.0,5.0,150.0,0.0,0.0,0.0,2.0
+Italian Meatballs Large,50.0,3.5,1.0,20.0,180.0,1.0,0.0,0.0,4.0
+"Italian Meatballs for 12"" Subs",420.0,28.0,11.0,175.0,1520.0,9.0,0.0,0.0,33.0
+"Italian Meatballs for 6"" Subs & 12"" Subs",210.0,14.0,5.0,90.0,760.0,5.0,0.0,0.0,16.0
+"Italian Sausage for 12"" Subs",640.0,54.0,19.0,120.0,2210.0,7.0,1.0,2.0,29.0
+Jalapeno Peppers Large,0.0,0.0,0.0,0.0,125.0,0.0,0.0,0.0,0.0
+Jalapeno Peppers Medium,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Jalapeno Peppers Small,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Jalapeno Peppers X Large,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+"Mayonnaise for 12"" Subs",200.0,22.0,3.0,20.0,170.0,0.0,0.0,0.0,0.0
+"Mayonnaise for 6"" Subs",100.0,11.0,1.5,10.0,85.0,0.0,0.0,0.0,0.0
+Mild Cheddar Cheese for Small BBQ Chicken Pizza Slice,45.0,4.0,2.0,15.0,75.0,0.0,0.0,0.0,3.0
+"Mild Cheddar Cheese for 12"" Subs",330.0,27.0,15.0,90.0,550.0,3.0,0.0,0.0,21.0
+"Mild Cheddar Cheese for 6"" Subs",170.0,14.0,8.0,45.0,270.0,2.0,0.0,0.0,11.0
+Mushrooms for Medium BBQ Chicken Pizza Slice,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Mushrooms for Small BBQ Chicken Pizza Slice,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+"Mushrooms for 12"" Subs",10.0,0.5,0.0,0.0,220.0,0.0,2.0,0.0,2.0
+"Mushrooms for 6"" Ham & Cheese Leonardo Sub",5.0,0.0,0.0,0.0,110.0,0.0,1.0,0.0,1.0
+Mushrooms for X Large BBQ Chicken Pizza Slice,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Old World Pepperoni for Large BBQ Chicken Pizza Slice,60.0,5.0,2.0,10.0,200.0,0.0,0.0,0.0,2.0
+Old World Pepperoni for Medium BBQ Chicken Pizza Slice,40.0,4.0,1.5,10.0,150.0,0.0,0.0,0.0,1.0
+Old World Pepperoni for Small BBQ Chicken Pizza Slice,35.0,3.5,1.5,10.0,125.0,0.0,0.0,0.0,1.0
+Old World Pepperoni for X Large Chicken Fresco Slice,50.0,4.5,2.0,10.0,180.0,0.0,0.0,0.0,2.0
+Parmesan Cheese Crust Topper X Large,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Onions for Small BBQ Chicken Pizza Slice,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Original Crust Large,170.0,2.5,0.0,0.0,190.0,31.0,1.0,1.0,6.0
+Parmesan Cheese for Large BBQ Chicken Pizza Slice,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Parmesan Cheese for Medium BBQ Chicken Pizza Slice,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Parmesan Cheese Shaved for Large Salads,30.0,2.0,1.5,5.0,80.0,1.0,0.0,1.0,1.0
+Parmesan Cheese Shaved for Small Salads,30.0,2.0,1.5,5.0,80.0,1.0,0.0,1.0,1.0
+Parmesan Cheese for Small Pepperoni Magnifico Slice,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Parmesan Cheese for X Large Deluxe Uno Slice,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Parmesan Cheese Crust Topper Large,5.0,0.5,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Parmesan Cheese Crust Topper Medium,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Parmesan Cheese Crust Topper Small,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Pepperoni Slice for Large White Cheezy Pizza Slice,50.0,4.5,2.0,15.0,170.0,0.0,0.0,0.0,2.0
+Pepperoni Slice for Medium BBQ Chicken Pizza Slice,40.0,3.5,1.5,10.0,125.0,0.0,0.0,0.0,1.0
+Pepperoni Slice for Small BBQ Chicken Pizza Slice,35.0,3.0,1.5,10.0,110.0,0.0,0.0,0.0,1.0
+Roma Crust Topper Medium,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Pepperoni Slice for X Large BBQ Chicken Pizza Slice,40.0,4.0,2.0,10.0,140.0,0.0,0.0,0.0,2.0
+Pineapple for Large BBQ Chicken Pizza Slice,10.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Pineapple for Medium BBQ Chicken Pizza Slice,5.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Pineapple for Small BBQ Chicken Pizza Slice,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Pineapple for X Large BBQ Chicken Pizza Slice,10.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Pizza Sauce for Large Build Your Own Pizza Slice,10.0,0.0,0.0,0.0,115.0,2.0,0.0,2.0,0.0
+"Red Onion for 12"" Subs",10.0,0.0,0.0,0.0,0.0,3.0,0.0,1.0,0.0
+Pizza Sauce for Medium Build Your Own Pizza Slice,5.0,0.0,0.0,0.0,80.0,1.0,0.0,1.0,0.0
+Pizza Sauce for Small Build Your Own Pizza Slice,0.0,0.0,0.0,0.0,70.0,1.0,0.0,1.0,0.0
+Pizza Sauce for X Large Pepperoni Magnifico Slice,5.0,0.0,0.0,0.0,95.0,2.0,0.0,1.0,0.0
+Pizza Sauce EXTRA Large,10.0,0.0,0.0,0.0,170.0,3.0,0.0,3.0,0.0
+Pizza Sauce EXTRA Medium,10.0,0.0,0.0,0.0,125.0,2.0,0.0,2.0,0.0
+Pizza Sauce EXTRA Small,5.0,0.0,0.0,0.0,100.0,2.0,0.0,2.0,0.0
+Pizza Sauce EXTRA X Large,10.0,0.0,0.0,0.0,150.0,3.0,0.0,2.0,0.0
+Provolone Sliced for Large Salads,60.0,4.5,3.0,10.0,160.0,0.0,0.0,0.0,5.0
+Provolone Sliced for Small Salads,70.0,6.0,3.5,15.0,190.0,0.0,0.0,0.0,5.0
+Roma Crust Topper Large,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Roma Crust Topper Small,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Roma Crust Topper X Large,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Sliced Genoa Salami for Large Salads,25.0,2.0,1.0,5.0,115.0,0.0,0.0,0.0,1.0
+Sliced Genoa Salami for Small Salads,25.0,2.0,1.0,5.0,115.0,0.0,0.0,0.0,1.0
+"Sliced Genoa Salami for 12"" Subs",300.0,26.0,9.0,70.0,1400.0,3.0,0.0,2.0,17.0
+Sliced Ham for Large BBQ Chicken Pizza Slice,15.0,0.5,0.0,5.0,150.0,0.0,0.0,0.0,2.0
+Sliced Ham for Medium Chicken Fresco Slice,15.0,0.5,0.0,5.0,110.0,0.0,0.0,0.0,2.0
+Sliced Ham for X Large BBQ Chicken Pizza Slice,15.0,0.5,0.0,5.0,125.0,0.0,0.0,0.0,2.0
+"Sliced Provolone Cheese for 12"" Subs",300.0,23.0,15.0,60.0,750.0,2.0,0.0,0.0,22.0
+"Steak for 12"" Subs",240.0,11.0,4.5,105.0,1670.0,6.0,0.0,3.0,33.0
+"Steak for 6"" Subs",120.0,5.0,2.5,55.0,840.0,3.0,0.0,2.0,17.0
+"Sub Bun Wheat for 12"" Subs",470.0,5.0,0.0,0.0,1090.0,91.0,7.0,4.0,18.0
+"Sub Bun Wheat for 6"" Subs",240.0,2.5,0.0,0.0,540.0,45.0,4.0,2.0,9.0
+"Sub Bun White for 12"" Subs",250.0,2.0,0.0,0.0,490.0,49.0,2.0,4.0,9.0
+"Sub Bun White for 6"" Subs",250.0,2.0,0.0,0.0,490.0,49.0,2.0,4.0,9.0
+"Sub Sauce for 12"" Subs",200.0,22.0,3.0,0.0,120.0,2.0,0.0,0.0,0.0
+"Sub Sauce for 6"" Subs",100.0,11.0,1.5,0.0,60.0,1.0,0.0,0.0,0.0
+"Turkey for 12"" Subs",80.0,1.0,0.0,30.0,900.0,2.0,0.0,0.0,15.0
+White Sauce Large,0.0,2.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+White Sauce Medium,0.0,1.5,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+White Sauce for Small BBQ Chicken Pizza Slice,0.0,1.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+White Sauce X Large,0.0,1.5,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Bacon for Large Build Your Own Pizza Slice,45.0,3.5,1.0,10.0,190.0,0.0,0.0,0.0,3.0
+Bacon for X Large Build Your Own Pizza Slice,40.0,3.0,1.0,10.0,180.0,0.0,0.0,0.0,3.0
+Black Olives for Medium Garden Pizza Slice,5.0,0.5,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Black Olives for Small Garden Pizza Slice,5.0,0.5,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Black Olives for X Large Garden Pizza Slice,10.0,1.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Cheese for Large Deluxe Uno Slice,120.0,9.0,5.0,25.0,250.0,1.0,0.0,0.0,9.0
+Cheese for X Large Hawaiian Chicken Pizza Slice,100.0,8.0,4.5,25.0,220.0,1.0,0.0,0.0,8.0
+Grilled Chicken for Large BBQ Chicken Pizza Slice,20.0,0.5,0.0,10.0,150.0,0.0,0.0,0.0,4.0
+Grilled Chicken for Large Hawaiian Chicken Pizza Slice,15.0,0.0,0.0,5.0,105.0,0.0,0.0,0.0,3.0
+Grilled Chicken for Medium BBQ Chicken Pizza Slice,20.0,0.5,0.0,10.0,130.0,0.0,0.0,0.0,3.0
+Grilled Chicken for Small BBQ Chicken Pizza Slice,15.0,0.0,0.0,5.0,115.0,0.0,0.0,0.0,3.0
+Grilled Chicken for X Large BBQ Chicken Pizza Slice,20.0,0.5,0.0,10.0,130.0,0.0,0.0,0.0,3.0
+Grilled Chicken for X Large Chicken Fresco Slice,15.0,0.0,0.0,5.0,90.0,0.0,0.0,0.0,2.0
+Italian Sausage for Medium Meat Supremo Slice,35.0,3.0,1.0,5.0,120.0,0.0,0.0,0.0,2.0
+Italian Sausage for Small Meat Supremo Slice & X Large Meat Supremo Slice,40.0,3.0,1.0,5.0,135.0,0.0,0.0,0.0,2.0
+Mild Cheddar Cheese for Large Chicken Fresco Slice,35.0,3.0,1.5,10.0,55.0,0.0,0.0,0.0,2.0
+Mild Cheddar Cheese for Small Chicken Fresco Slice Medium Chicken Fresco Slice & X Large Chicken Fresco Slice,30.0,2.5,1.5,10.0,45.0,0.0,0.0,0.0,2.0
+Mushrooms for Small Garden Pizza Slice,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Parmesan Cheese for Medium White Cheezy Pizza Slice & X Large White Cheezy Pizza Slice,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Parmesan Cheese for Large White Cheezy Pizza Slice,5.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Parmesan Cheese for Small White Cheezy Pizza Slice,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Pepperoni Slice for Large Pepperoni Magnifico Slice,35.0,3.5,1.5,10.0,115.0,0.0,0.0,0.0,1.0
+Pepperoni Slice for Large Meat Supremo Slice,40.0,3.5,1.5,10.0,135.0,0.0,0.0,0.0,1.0
+Pepperoni Slice for Medium Meat Supremo Slice,30.0,3.0,1.5,10.0,100.0,0.0,0.0,0.0,1.0
+Pepperoni Slice for X Large Pepperoni Magnifico Slice,30.0,2.5,1.5,5.0,100.0,0.0,0.0,0.0,1.0
+Pepperoni Slice for X Large Meat Supremo Slice,35.0,3.0,1.5,10.0,110.0,0.0,0.0,0.0,1.0
+Pineapple for Large Hawaiian Chicken Pizza Slice,5.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Pineapple for X Large Hawaiian Chicken Pizza Slice,5.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Pizza Sauce for X Large Build Your Own Pizza Slice,5.0,0.0,0.0,0.0,100.0,2.0,0.0,0.0,0.0
+White Sauce for Small White Cheezy Pizza Slice,0.0,0.5,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Old World Pepperoni X Large,50.0,4.5,2.0,10.0,180.0,0.0,0.0,0.0,2.0
+"6"" Chicken Club Tuscano Sub",680.0,32.0,10.0,100.0,1880.0,55.0,2.0,6.0,42.0
+Cheese Double Small,100.0,8.0,4.5,20.0,210.0,1.0,0.0,0.0,8.0
+Parmesan Cheese Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Garlic Butter Crust for Medium Pizzas,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Cheese Pizza Large,280.0,11.0,5.0,25.0,510.0,34.0,1.0,3.0,14.0
+Meat Supremo Pizza Slice X Large,370.0,19.0,8.0,50.0,950.0,30.0,1.0,3.0,20.0
+Gluten Free Crust for Medium Pizzas,30.0,1.0,0.0,0.0,25.0,5.0,0.0,0.0,0.0
+BBQ Chicken Pizza Large,350.0,13.0,6.0,40.0,840.0,41.0,1.0,6.0,19.0
+Jalapeno Peppers X Large,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Barbeque Sauce Large,30.0,0.0,0.0,0.0,100.0,8.0,0.0,4.0,0.0
+Chicken Dippers w/ Buffalo Dipping Sauce,60.0,2.5,0.0,15.0,220.0,4.0,0.0,0.0,6.0
+Chef Salad Small,150.0,11.0,4.5,25.0,630.0,10.0,2.0,3.0,12.0
+White Cheezy Pizza Slice X Large,290.0,15.0,6.0,30.0,610.0,29.0,1.0,2.0,15.0
+Hawaiian Chicken Pizza Slice X Large,310.0,13.0,6.0,40.0,790.0,31.0,1.0,4.0,19.0
+Garlic Butter Crust for X Large Pizzas,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+White Sauce Large,0.0,2.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+"6"" Steak & Cheese Bruno Sub",620.0,29.0,10.0,95.0,1810.0,54.0,3.0,5.0,37.0
+"12"" Meatball Fabio Sub",640.0,27.0,13.0,115.0,1950.0,60.0,2.0,9.0,37.0
+Cheese for Large Pizza Slice,90.0,7.0,4.0,20.0,190.0,1.0,0.0,0.0,7.0
+Chicken Fresco Pizza Slice X Large,310.0,13.0,6.0,40.0,690.0,31.0,1.0,3.0,18.0
+Roma Crust Topper Large,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Deluxe Uno Slice Large,390.0,20.0,9.0,45.0,890.0,36.0,2.0,4.0,19.0
+Pizza Sauce Extra Medium,10.0,0.0,0.0,0.0,125.0,2.0,0.0,2.0,0.0
+Ground Beef Large,15.0,3.0,1.0,10.0,90.0,0.0,0.0,0.0,2.0
+Pepperoni Slice Large,50.0,4.5,2.0,15.0,170.0,0.0,0.0,0.0,2.0
+White Sauce Small,0.0,1.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Barbeque Sauce Small,20.0,0.0,0.0,0.0,65.0,5.0,0.0,3.0,0.0
+Mushrooms Small,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Garlic Sauce for Small Pizzas,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicken Dippers Plain,60.0,2.5,0.0,15.0,190.0,4.0,0.0,0.0,6.0
+Banana Peppers Large,0.0,0.0,0.0,0.0,125.0,0.0,0.0,0.0,0.0
+Ground Beef X Large,10.0,2.5,1.0,10.0,75.0,0.0,0.0,0.0,3.0
+Green Peppers Small,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Garden Pizza Slice Large,310.0,13.0,6.0,25.0,770.0,36.0,2.0,4.0,15.0
+"6"" Ham & Cheese Leonardo Sub",630.0,29.0,10.0,80.0,1840.0,56.0,3.0,7.0,35.0
+Chef Salad Large,130.0,10.0,4.0,20.0,530.0,9.0,2.0,2.0,10.0
+Ground Beef Medium,10.0,2.5,1.0,5.0,65.0,0.0,0.0,0.0,2.0
+"6"" Turkey Club Bravo Sub",670.0,31.0,11.0,85.0,2160.0,55.0,2.0,6.0,41.0
+Roma Crust Topper Small,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Jalapeno Peppers Medium,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Crumbled Feta Cheese Small,25.0,2.0,1.5,5.0,120.0,0.0,0.0,0.0,1.0
+Roma Crust Topper Medium,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Bacon Medium,25.0,2.0,0.5,5.0,115.0,0.0,0.0,0.0,2.0
+Parmesan Cheese Crust Topper X Large,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Banana Peppers X Large,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Mushrooms Medium,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Pepperoni Magnifico Pizza Slice Large,340.0,16.0,7.0,35.0,730.0,33.0,1.0,3.0,15.0
+Cheese Double Medium,110.0,9.0,5.0,25.0,240.0,1.0,0.0,0.0,9.0
+Pizza Sauce Small,0.0,0.0,0.0,0.0,70.0,1.0,0.0,1.0,0.0
+Parmesan Cheese X Large,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+"12"" Ham & Cheese Leonardo Sub",630.0,29.0,10.0,80.0,1840.0,56.0,3.0,7.0,35.0
+Pepperoni Slice X Large,40.0,4.0,2.0,10.0,140.0,0.0,0.0,0.0,2.0
+Cheese Lite Small,40.0,3.0,1.5,10.0,80.0,0.0,0.0,0.0,3.0
+Pepsi 8 fl oz,100.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0
+Garden Pizza Slice Small,210.0,9.0,4.0,15.0,490.0,25.0,1.0,2.0,10.0
+Greek Salad Large,80.0,5.0,2.5,10.0,430.0,5.0,2.0,2.0,4.0
+Parmesan Cheese Crust Topper Small,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Parmesan Cheese Large,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Hawaiian Chicken Pizza Slice Large,360.0,16.0,7.0,45.0,920.0,36.0,1.0,5.0,22.0
+Pizza Sauce X Large,5.0,0.0,0.0,0.0,100.0,2.0,0.0,2.0,0.0
+"12"" Steak & Cheese Bruno Sub",620.0,29.0,10.0,95.0,1810.0,54.0,3.0,5.0,37.0
+Chicken Fresco Pizza Slice Large,360.0,16.0,7.0,45.0,810.0,36.0,1.0,4.0,20.0
+Pineapple Small,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Crumbled Feta Cheese Large,35.0,3.0,2.0,10.0,180.0,0.0,0.0,0.0,2.0
+Cheese Double X Large,130.0,10.0,6.0,30.0,280.0,1.0,0.0,0.0,10.0
+Green Peppers Medium,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Wings Tangy BBQ,80.0,4.5,1.0,15.0,160.0,5.0,0.0,2.0,5.0
+Garlic Sauce for Large Pizzas,0.0,0.5,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Bacon Small,25.0,2.0,0.5,5.0,105.0,0.0,0.0,0.0,2.0
+"12"" Veggie Fresco Sub",590.0,29.0,9.0,45.0,1170.0,60.0,6.0,7.0,23.0
+Garden Salad Small,150.0,13.0,5.0,25.0,410.0,11.0,2.0,3.0,7.0
+Pepperoni Magnifico Pizza Slice X Large,300.0,14.0,6.0,35.0,650.0,29.0,1.0,3.0,14.0
+Sierra Mist 8 fl oz,100.0,0.0,0.0,0.0,25.0,26.0,0.0,26.0,0.0
+Banana Peppers Medium,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+Old World Pepperoni Small,35.0,3.5,1.5,10.0,125.0,0.0,0.0,0.0,1.0
+"6"" Italiano Sub",730.0,40.0,14.0,85.0,2210.0,58.0,3.0,8.0,36.0
+Garlic Sauce for Medium Pizzas,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+"6"" Italian Sausage Ultimo Sub",740.0,40.0,16.0,90.0,2210.0,62.0,3.0,10.0,36.0
+Pizza Sauce Medium,5.0,0.0,0.0,0.0,80.0,1.0,0.0,1.0,0.0
+Green Olives Large,25.0,2.0,0.5,0.0,160.0,0.0,1.0,0.0,0.0
+Mug Root Beer 8 fl oz,100.0,0.0,0.0,0.0,40.0,29.0,0.0,29.0,0.0
+Parmesan Cheese Crust Topper Medium,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Black Olives for Medium Pizzas,10.0,1.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Original Crust Large,170.0,2.5,0.0,0.0,190.0,31.0,1.0,1.0,6.0
+Garden Salad Large,130.0,11.0,4.0,20.0,350.0,10.0,2.0,2.0,6.0
+Pizza Sauce Extra X Large,10.0,0.0,0.0,0.0,150.0,3.0,0.0,2.0,0.0
+Bacon X Large,40.0,3.0,1.0,10.0,180.0,0.0,0.0,0.0,3.0
+Ground Beef Small,10.0,2.0,1.0,5.0,60.0,0.0,0.0,0.0,2.0
+Mild Cheddar Cheese Small,45.0,4.0,2.0,15.0,75.0,0.0,0.0,0.0,3.0
+White Cheezy Pizza Slice Large,330.0,17.0,7.0,35.0,710.0,34.0,1.0,2.0,17.0
+Antipasto Salad Large,120.0,8.0,3.5,25.0,450.0,5.0,2.0,2.0,9.0
+Deluxe Uno Pizza Slice X Large,330.0,17.0,7.0,40.0,760.0,31.0,2.0,3.0,17.0
+"12"" Italiano Sub",730.0,40.0,14.0,85.0,2210.0,58.0,3.0,8.0,36.0
+Pepsi Diet 8 fl oz,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+"12"" Chicken Club Tuscano Sub",680.0,32.0,10.0,100.0,1880.0,55.0,2.0,6.0,42.0
+"12"" Turkey & Ham Maximo Sub",620.0,27.0,10.0,75.0,1840.0,56.0,3.0,7.0,35.0
+Garlic Butter Crust for Small Pizzas,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mushrooms X Large,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+"6"" Turkey & Ham Maximo Sub",620.0,27.0,10.0,75.0,1840.0,56.0,3.0,7.0,35.0
+Cheese Double Large,150.0,12.0,7.0,35.0,320.0,2.0,0.0,0.0,12.0
+Grilled Chicken Large,20.0,0.5,0.0,10.0,130.0,0.0,0.0,0.0,3.0
+Chicken Caesar Salad Large,100.0,8.0,2.5,20.0,460.0,8.0,1.0,3.0,9.0
+Crumbled Feta Cheese Medium,25.0,2.5,1.5,5.0,135.0,0.0,0.0,0.0,2.0
+Old World Pepperoni Medium,40.0,4.0,1.5,10.0,150.0,0.0,0.0,0.0,1.0
+BBQ Chicken Pizza X Large,300.0,11.0,5.0,35.0,720.0,36.0,1.0,5.0,17.0
+Italian Meatballs Large,50.0,3.5,1.0,20.0,180.0,1.0,0.0,0.0,4.0
+"12"" Turkey Club Bravo Sub",670.0,31.0,11.0,85.0,2160.0,55.0,2.0,6.0,41.0
+Grilled Chicken Small,15.0,0.0,0.0,5.0,95.0,0.0,0.0,0.0,2.0
+Pizza Sauce Extra Large,10.0,0.0,0.0,0.0,170.0,3.0,0.0,3.0,0.0
+Antipasto Salad Small,140.0,10.0,4.5,30.0,540.0,5.0,2.0,2.0,10.0
+Mountain Dew Diet 8 fl oz,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Pineapple Large,10.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Barbeque Sauce X Large,25.0,0.0,0.0,0.0,85.0,6.0,0.0,3.0,0.0
+Pepperoni Slice Medium,40.0,3.5,1.5,10.0,125.0,0.0,0.0,0.0,1.0
+Parmesan Cheese Medium,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Greek Salad Small,90.0,6.0,3.5,10.0,540.0,7.0,2.0,2.0,4.0
+Crumbled Feta Cheese for X Large Pizzas,30.0,2.5,1.5,5.0,150.0,0.0,0.0,0.0,2.0
+Black Olives for Small Pizza Slice,10.0,1.0,0.0,0.0,60.0,0.0,0.0,0.0,0.0
+Grilled Chicken X Large,15.0,0.5,0.0,10.0,115.0,0.0,0.0,0.0,3.0
+Barbeque Sauce Medium,25.0,0.0,0.0,0.0,75.0,6.0,0.0,3.0,0.0
+Jalapeno Peppers Large,0.0,0.0,0.0,0.0,125.0,0.0,0.0,0.0,0.0
+Pineapple Medium,5.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Grilled Chicken Medium,15.0,0.0,0.0,5.0,100.0,0.0,0.0,0.0,2.0
+Crispy Thin Crust Medium,80.0,3.0,0.0,0.0,60.0,12.0,0.0,0.0,2.0
+Jalapeno Peppers Small,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Old World Pepperoni Large,60.0,5.0,2.0,10.0,200.0,0.0,0.0,0.0,2.0
+Banana Peppers Small,0.0,0.0,0.0,0.0,105.0,0.0,0.0,0.0,0.0
+Green Olives X Large,20.0,2.0,0.5,0.0,140.0,0.0,1.0,0.0,0.0
+Anchovies Large,20.0,1.5,0.0,10.0,180.0,0.0,0.0,0.0,2.0
+Chicken Dippers w/ BBQ Dipping Sauce,80.0,2.5,0.0,15.0,250.0,9.0,0.0,2.0,6.0
+"6"" Meatball Fabio Sub",640.0,27.0,13.0,115.0,1950.0,60.0,2.0,9.0,37.0
+Garlic Butter Crust for Large Pizzas,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Garden Pizza Slice X Large,270.0,11.0,5.0,25.0,650.0,31.0,2.0,3.0,13.0
+Pineapple X Large,10.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Parmesan Cheese Crust Topper Large,5.0,0.5,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+CinnaSquares,60.0,1.0,0.0,0.0,50.0,11.0,0.0,3.0,1.0
+Pizza Sauce Large,10.0,0.0,0.0,0.0,115.0,2.0,0.0,2.0,0.0
+"6"" Veggie Fresco Sub",590.0,29.0,9.0,45.0,1170.0,60.0,6.0,7.0,23.0
+Garden Pizza Slice Medium,230.0,10.0,4.5,20.0,550.0,26.0,2.0,3.0,11.0
+Deluxe Uno Slice Small,280.0,14.0,6.0,30.0,640.0,25.0,1.0,3.0,14.0
+Sliced Ham X Large,15.0,0.5,0.0,5.0,125.0,0.0,0.0,0.0,2.0
+Meat Supremo Slice Large,430.0,23.0,10.0,60.0,1110.0,34.0,1.0,3.0,23.0
+Mountain Dew 8 fl oz,110.0,0.0,0.0,0.0,40.0,31.0,0.0,31.0,0.0
+Garlic Sauce for X Large Pizzas,0.0,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0
+Fresh Sliced Tomatoes for Small Pizzas,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+White Sauce Medium,0.0,1.5,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Chicken Caesar Salad Small,120.0,8.0,2.5,30.0,570.0,8.0,1.0,3.0,12.0
+Roma Crust Topper X Large,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Bacon Large,45.0,3.5,1.0,10.0,190.0,0.0,0.0,0.0,3.0
+White Sauce X Large,0.0,1.5,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Pizza Sauce Extra Small,5.0,0.0,0.0,0.0,100.0,2.0,0.0,2.0,0.0
+Sliced Ham Large,15.0,0.5,0.0,5.0,150.0,0.0,0.0,0.0,2.0
+Sliced Ham Medium,15.0,0.5,0.0,5.0,110.0,0.0,0.0,0.0,2.0
+Pepperoni Slice Small,35.0,3.0,1.5,10.0,110.0,0.0,0.0,0.0,1.0
+Green Peppers X Large,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicken Fresco Slice Medium,260.0,12.0,5.0,35.0,600.0,26.0,1.0,3.0,15.0
+Deluxe Uno Slice Medium,290.0,15.0,7.0,35.0,670.0,26.0,1.0,3.0,14.0
+Cheese Pizza Slice X Large,240.0,9.0,4.0,20.0,450.0,29.0,1.0,3.0,12.0
+"12"" Italian Sausage Ultimo Sub",740.0,40.0,16.0,90.0,2210.0,62.0,3.0,10.0,36.0
+Pepsi Cola Wild Cherry 8 fl oz,100.0,0.0,0.0,0.0,20.0,28.0,0.0,28.0,0.0

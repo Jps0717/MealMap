@@ -1,0 +1,719 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Gravy Black Pepper,25.0,1.0,0.0,0.0,240.0,3.0,0.0,0.0,1.0
+Fresh Guacamole Small Side,130.0,11.0,1.5,0.0,320.0,7.0,5.0,1.0,2.0
+Chicken Enchilada Soup Bowl,440.0,28.0,10.0,76.0,1660.0,25.0,3.0,3.0,22.0
+Chicken Enchilada Soup Cup,220.0,14.0,5.0,35.0,830.0,13.0,1.0,2.0,11.0
+Terlingua Chili Bowl,460.0,31.0,15.0,95.0,1300.0,16.0,2.0,5.0,28.0
+Terlingua Chili Cup,230.0,16.0,7.0,50.0,650.0,8.0,1.0,3.0,14.0
+Loaded Baked Potato Soup Bowl,520.0,36.0,22.0,115.0,1880.0,26.0,2.0,4.0,19.0
+Loaded Baked Potato Soup Cup,260.0,18.0,11.0,60.0,940.0,13.0,1.0,2.0,10.0
+Caribbean Salad w/ Grilled Chicken,720.0,28.0,4.5,110.0,1160.0,86.0,8.0,70.0,36.0
+Caribbean Salad w/ Seared Shrimp,620.0,27.0,4.5,135.0,1130.0,82.0,8.0,67.0,17.0
+House Salad,150.0,7.0,3.0,15.0,300.0,17.0,3.0,5.0,7.0
+House Salad for Fresh Mex Pairings & Lunch Combo,80.0,3.5,1.5,5.0,150.0,8.0,1.0,2.0,3.0
+Quesadilla Explosion Salad,1480.0,100.0,30.0,185.0,2480.0,83.0,9.0,17.0,65.0
+Grilled Chicken Salad,440.0,24.0,6.0,105.0,1110.0,23.0,4.0,11.0,39.0
+Boneless Buffalo Chicken Salad,1030.0,72.0,15.0,140.0,3500.0,47.0,5.0,8.0,50.0
+Corn Dog,230.0,11.0,3.0,20.0,400.0,25.0,1.0,8.0,6.0
+Grilled Cheese Sandwich,430.0,26.0,11.0,35.0,1100.0,36.0,2.0,6.0,13.0
+TD Big Mouth Bites Triple Dipper,800.0,55.0,16.0,110.0,1730.0,47.0,2.0,10.0,33.0
+Bottomless Tostada Chips,910.0,45.0,7.0,0.0,1920.0,113.0,8.0,5.0,13.0
+TD Southwestern Eggrolls Triple Dipper,580.0,32.0,8.0,35.0,1540.0,55.0,6.0,6.0,19.0
+Classic Sirloin 10 oz,830.0,45.0,16.0,170.0,2100.0,42.0,8.0,4.0,68.0
+Country Fried Steak,1290.0,67.0,14.0,75.0,3060.0,121.0,11.0,19.0,52.0
+Cajun Pasta w/ Grilled Chicken,1270.0,60.0,28.0,195.0,4130.0,111.0,6.0,7.0,72.0
+Cajun Pasta w/ Seared Shrimp,1190.0,59.0,28.0,220.0,4000.0,110.0,6.0,7.0,53.0
+Honey Chipotle Sauce,100.0,0.0,0.0,0.0,410.0,26.0,0.0,19.0,0.0
+Original Crispers,1230.0,56.0,10.0,115.0,3980.0,125.0,9.0,14.0,57.0
+Crispy Crispers,1170.0,51.0,9.0,105.0,3850.0,125.0,10.0,14.0,55.0
+Crispy Honey Chipotle Crispers,1380.0,51.0,9.0,105.0,4400.0,178.0,10.0,52.0,55.0
+Cheese Quesadilla,470.0,32.0,15.0,60.0,750.0,29.0,1.0,1.0,18.0
+Crispy Chicken Dippers,430.0,30.0,5.0,65.0,1130.0,18.0,2.0,2.0,22.0
+Original BBQ Ribs Full Rack,950.0,56.0,23.0,310.0,1820.0,34.0,3.0,27.0,76.0
+Original BBQ Ribs Half Rack,470.0,28.0,11.0,155.0,910.0,17.0,2.0,14.0,38.0
+California Turkey Club Toasted Sandwich,1110.0,66.0,17.0,105.0,2220.0,87.0,9.0,15.0,48.0
+Classic Turkey Toasted Sandwich,910.0,50.0,14.0,85.0,1900.0,79.0,5.0,13.0,41.0
+Margarita Grilled Chicken,590.0,17.0,3.5,130.0,2450.0,64.0,7.0,7.0,51.0
+Kraft Macaroni & Cheese,430.0,12.0,4.0,15.0,940.0,64.0,3.0,11.0,15.0
+TD Boneless Wings Buffalo,640.0,49.0,8.0,65.0,1950.0,28.0,2.0,2.0,23.0
+TD Original Chicken Crispers,570.0,37.0,6.0,85.0,1670.0,31.0,2.0,9.0,29.0
+Big Mouth Bites Lunch Combos,630.0,37.0,13.0,95.0,1430.0,45.0,2.0,9.0,32.0
+California Turkey Club Toasted Sandwich Lunch Combos Half,550.0,33.0,9.0,55.0,1110.0,43.0,4.0,7.0,24.0
+Classic Ribeye,1070.0,55.0,26.0,210.0,2590.0,40.0,8.0,3.0,81.0
+Pizza Cheese 6 in,610.0,26.0,11.0,40.0,1080.0,72.0,2.0,7.0,23.0
+Homestyle Fries,390.0,17.0,3.0,0.0,1420.0,53.0,3.0,0.0,5.0
+Homestyle Fries Lunch Combos Kids,190.0,8.0,1.5,0.0,710.0,27.0,2.0,0.0,3.0
+Fresh Pineapple,60.0,0.0,0.0,0.0,0.0,16.0,2.0,12.0,1.0
+Steamed Broccoli Kids,40.0,0.0,0.0,0.0,45.0,8.0,4.0,2.0,3.0
+Rice & Black Beans,250.0,2.5,0.0,0.0,1260.0,47.0,6.0,2.0,9.0
+Loaded Mashed Potatoes,380.0,23.0,7.0,30.0,1020.0,32.0,4.0,2.0,11.0
+Steamed Broccoli,40.0,0.0,0.0,0.0,250.0,8.0,4.0,2.0,3.0
+Sweet Corn on the Cob,220.0,7.0,1.0,0.0,360.0,36.0,3.0,14.0,5.0
+Corn on the Cob Kids,170.0,1.5,0.0,0.0,0.0,36.0,3.0,14.0,5.0
+Mandarin Oranges,80.0,0.0,0.0,0.0,10.0,20.0,1.0,17.0,2.0
+Mashed Potatoes,140.0,8.0,1.5,0.0,370.0,16.0,2.0,1.0,2.0
+Avocado Slices,80.0,7.0,1.0,0.0,0.0,4.0,3.0,0.0,1.0
+BBQ Sauce Original,70.0,0.0,0.0,0.0,590.0,16.0,0.0,14.0,1.0
+Black Beans,120.0,1.0,0.0,0.0,710.0,20.0,6.0,2.0,7.0
+Black Bean Patty,190.0,7.0,1.0,0.0,540.0,22.0,8.0,2.0,17.0
+Cheese American,70.0,6.0,3.5,15.0,340.0,1.0,0.0,0.0,4.0
+Cheese Cheddar,80.0,7.0,4.5,20.0,130.0,0.0,0.0,0.0,5.0
+Cheese Provolone,80.0,6.0,4.0,15.0,200.0,0.0,0.0,0.0,6.0
+Ancho Chile Ranch 1.5 fl oz,170.0,17.0,3.0,15.0,350.0,3.0,0.0,2.0,1.0
+Avocado Ranch Dressing 1.5 fl oz,140.0,14.0,2.5,10.0,260.0,3.0,1.0,1.0,1.0
+Citrus Balsamic Vinaigrette Dressing 1.5 fl oz,250.0,25.0,3.5,0.0,240.0,5.0,0.0,5.0,0.0
+Honey Lime Dressing 1.5 fl oz,200.0,17.0,2.5,10.0,220.0,12.0,0.0,11.0,1.0
+Honey Mustard 1.5 fl oz,200.0,18.0,2.5,20.0,360.0,10.0,0.0,9.0,1.0
+Ranch Dressing 1.5 fl oz,170.0,18.0,3.0,15.0,300.0,2.0,0.0,2.0,1.0
+Sour Cream,60.0,6.0,3.5,20.0,70.0,2.0,0.0,1.0,1.0
+Cheesecake,730.0,43.0,23.0,210.0,430.0,76.0,2.0,63.0,11.0
+Molten Chocolate Cake,1200.0,62.0,32.0,140.0,1070.0,158.0,5.0,110.0,12.0
+Diet Coke,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Coca Cola Zero,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Sprite,120.0,0.0,0.0,0.0,55.0,32.0,0.0,32.0,0.0
+Dr Pepper,130.0,0.0,0.0,0.0,45.0,34.0,0.0,34.0,0.0
+Chili's Premium Blend Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Lemonade,120.0,0.0,0.0,0.0,40.0,34.0,0.0,33.0,0.0
+Coca Cola,120.0,0.0,0.0,0.0,40.0,33.0,0.0,33.0,0.0
+Iced Tea Mango,80.0,0.0,0.0,0.0,10.0,20.0,0.0,18.0,0.0
+Lemonade Strawberry,190.0,0.0,0.0,0.0,40.0,51.0,2.0,48.0,0.0
+Patron Margarita,290.0,0.0,0.0,0.0,2040.0,41.0,0.0,36.0,0.0
+El Nino Margarita,330.0,0.0,0.0,0.0,2330.0,34.0,0.0,29.0,0.0
+Tropical Sunrise Margarita,250.0,0.0,0.0,0.0,10.0,36.0,0.0,34.0,0.0
+IBC Root Beer Bottle,170.0,0.0,0.0,0.0,60.0,44.0,0.0,44.0,0.0
+2% Milk Kids,180.0,7.0,4.5,30.0,170.0,18.0,0.0,18.0,12.0
+TD Boneless Wings Honey Chipotle,630.0,36.0,6.0,65.0,1500.0,54.0,2.0,21.0,23.0
+Santa Fe Chicken Salad,690.0,47.0,8.0,120.0,1790.0,28.0,7.0,8.0,38.0
+Mango Chile Chicken,510.0,17.0,3.5,95.0,2190.0,56.0,8.0,17.0,38.0
+Classic Sirloin 6 oz,700.0,39.0,14.0,115.0,1790.0,41.0,8.0,3.0,48.0
+Buffalo Chicken Ranch Sandwich,860.0,48.0,9.0,95.0,2790.0,66.0,3.0,10.0,41.0
+Grilled Chicken Sandwich,710.0,36.0,11.0,135.0,1750.0,50.0,2.0,15.0,48.0
+Classic Bacon Burger,900.0,57.0,22.0,150.0,1790.0,46.0,3.0,10.0,49.0
+Guacamole Burger,860.0,54.0,21.0,130.0,1740.0,51.0,6.0,10.0,46.0
+Oldtimer w/ Cheese,770.0,45.0,19.0,130.0,1570.0,45.0,3.0,9.0,45.0
+Southern Smokehouse Burger,1150.0,70.0,25.0,160.0,2850.0,75.0,3.0,25.0,56.0
+Pepperoni Pizza 6 in,700.0,34.0,14.0,65.0,1250.0,72.0,2.0,8.0,26.0
+3 Spicy Shrimp Tacos,820.0,49.0,14.0,205.0,2760.0,66.0,6.0,18.0,31.0
+Bleu Cheese Dressing 1.5 fl oz,270.0,29.0,5.0,15.0,280.0,1.0,0.0,1.0,1.0
+Honey Lime Vinaigrette Dressing 1.5 fl oz,130.0,12.0,2.0,0.0,230.0,6.0,0.0,4.0,0.0
+Santa Fe Dressing 1.5 fl oz,200.0,21.0,3.5,15.0,530.0,3.0,0.0,2.0,1.0
+Thousand Island Dressing 1.5 fl oz,200.0,20.0,3.0,20.0,390.0,7.0,0.0,5.0,0.0
+Southwestern Mac N Cheese,480.0,30.0,14.0,55.0,1400.0,36.0,1.0,9.0,19.0
+Skillet Chocolate Chip Cookie,1420.0,71.0,38.0,110.0,900.0,189.0,6.0,115.0,14.0
+Skinny Patron Margarita,110.0,0.0,0.0,0.0,520.0,7.0,0.0,0.0,0.0
+Classic Nachos w/ Fajita Beef,1640.0,108.0,57.0,395.0,4090.0,57.0,6.0,9.0,112.0
+Classic Nachos,1250.0,88.0,50.0,245.0,2640.0,57.0,6.0,8.0,60.0
+Blueberry & Pineapple Margarita,320.0,0.0,0.0,0.0,0.0,47.0,1.0,43.0,0.0
+Cranberry Juice Kids,80.0,0.0,0.0,0.0,0.0,20.0,0.0,20.0,0.0
+2% Chocolate Milk Kids,290.0,7.0,4.5,30.0,250.0,45.0,3.0,36.0,11.0
+Orange Juice Kids,130.0,0.0,0.0,0.0,20.0,32.0,0.0,28.0,2.0
+Apple Juice Kids,120.0,0.0,0.0,0.0,10.0,29.0,0.0,28.0,0.0
+CoronaRita Margarita,290.0,0.0,0.0,0.0,10.0,33.0,0.0,24.0,1.0
+Iced Tea Blackberry,80.0,0.0,0.0,0.0,10.0,19.0,0.0,18.0,0.0
+Bacon Ranch Chicken Quesadilla Lunch Combos,920.0,70.0,22.0,135.0,1930.0,34.0,2.0,5.0,38.0
+California Grilled Chicken Flatbread,1460.0,97.0,41.0,220.0,2610.0,76.0,8.0,7.0,77.0
+Chipotle Chicken Flatbread,1330.0,81.0,41.0,220.0,2980.0,74.0,5.0,7.0,80.0
+Margherita Flatbread,1410.0,103.0,41.0,165.0,2550.0,73.0,5.0,8.0,53.0
+California Grilled Chicken Flatbread Half,730.0,48.0,21.0,110.0,1310.0,38.0,4.0,4.0,39.0
+Chipotle Chicken Flatbread Half,670.0,41.0,21.0,110.0,1490.0,37.0,3.0,4.0,40.0
+Margherita Flatbread Half,710.0,52.0,21.0,80.0,1280.0,36.0,3.0,4.0,26.0
+Bacon Avocado Chicken Sandwich,1170.0,64.0,16.0,175.0,2480.0,85.0,7.0,10.0,66.0
+Southwestern BLT Toasted Sandwich Half,430.0,25.0,6.0,25.0,680.0,40.0,2.0,5.0,12.0
+Fresh Guacamole Large Side,250.0,23.0,3.5,0.0,630.0,15.0,11.0,2.0,3.0
+Boneless Wings Buffalo,1090.0,73.0,13.0,120.0,3770.0,59.0,5.0,2.0,49.0
+Skillet Queso,1590.0,97.0,36.0,135.0,4250.0,137.0,10.0,16.0,45.0
+Southwestern Eggrolls,800.0,41.0,10.0,50.0,2190.0,82.0,9.0,9.0,28.0
+Classic Nachos w/ Fajita Chicken,1470.0,93.0,51.0,370.0,3560.0,58.0,6.0,8.0,102.0
+Fried Pickles,670.0,50.0,8.0,15.0,3500.0,46.0,6.0,6.0,8.0
+Tableside Guacamole,1490.0,97.0,15.0,0.0,3130.0,147.0,33.0,9.0,20.0
+Citrus Chile Rice,130.0,1.5,0.0,0.0,540.0,27.0,0.0,1.0,3.0
+Spiced Panko Onion Rings,400.0,19.0,3.0,0.0,740.0,48.0,3.0,6.0,7.0
+Celery Sticks,5.0,0.0,0.0,0.0,35.0,1.0,1.0,1.0,0.0
+Arnold Palmer,60.0,0.0,0.0,0.0,25.0,18.0,0.0,16.0,0.0
+Arnold Palmer Mango,90.0,0.0,0.0,0.0,25.0,25.0,0.0,24.0,0.0
+Arnold Palmer Strawberry,90.0,0.0,0.0,0.0,20.0,23.0,1.0,21.0,0.0
+Double Burger Lunch Combos,790.0,49.0,22.0,145.0,2180.0,43.0,2.0,8.0,44.0
+Burger Bites,430.0,20.0,8.0,60.0,670.0,42.0,1.0,7.0,22.0
+Cheeseburger Bites,460.0,24.0,10.0,65.0,840.0,42.0,1.0,7.0,24.0
+Skillet Toffee Fudge Brownie,1260.0,60.0,33.0,145.0,980.0,171.0,8.0,125.0,18.0
+Mango Chile Tilapia,520.0,19.0,4.0,70.0,1580.0,55.0,8.0,17.0,38.0
+Grilled Chicken for Fajitas,110.0,3.0,1.0,65.0,480.0,1.0,0.0,0.0,20.0
+Classic Sirloin w/ Grilled Avocado 6 oz,420.0,20.0,5.0,90.0,1610.0,23.0,6.0,7.0,39.0
+Ancho Salmon,590.0,27.0,5.0,100.0,1910.0,41.0,5.0,4.0,48.0
+Seared Shrimp Full Order,90.0,3.0,1.0,115.0,790.0,2.0,0.0,1.0,13.0
+3 Sour Cream Chicken Enchiladas,910.0,51.0,22.0,210.0,2960.0,60.0,6.0,11.0,54.0
+3 Beef Enchiladas,910.0,53.0,20.0,125.0,2460.0,61.0,10.0,8.0,49.0
+Chicken Quesadilla,710.0,51.0,21.0,125.0,1500.0,34.0,2.0,4.0,33.0
+Enchilada Beef,300.0,17.0,7.0,40.0,810.0,20.0,3.0,3.0,16.0
+Enchilada Chicken Sour Cream,300.0,17.0,7.0,70.0,980.0,20.0,2.0,3.0,18.0
+Tostada Beef,360.0,20.0,8.0,50.0,1320.0,27.0,6.0,5.0,20.0
+Tostada Chicken,330.0,17.0,6.0,70.0,1520.0,26.0,5.0,5.0,22.0
+Fajitas Grilled Chicken,800.0,43.0,18.0,145.0,2440.0,58.0,4.0,9.0,48.0
+Fajitas Pork Carnitas,930.0,54.0,22.0,165.0,2500.0,60.0,4.0,11.0,53.0
+Seared Shrimp Half Order,45.0,1.5,0.5,60.0,390.0,1.0,0.0,0.0,6.0
+Chipotle Chicken Fresh Mex Bowl,880.0,39.0,12.0,175.0,2690.0,78.0,6.0,7.0,59.0
+Texas Cheese Fries Half,1310.0,95.0,43.0,210.0,3360.0,58.0,3.0,3.0,55.0
+Texas Cheese Fries Full,1800.0,127.0,58.0,290.0,5000.0,86.0,5.0,4.0,79.0
+Salad Kids,70.0,3.5,1.5,5.0,140.0,6.0,1.0,1.0,3.0
+Taco Beef,300.0,15.0,7.0,45.0,1230.0,22.0,4.0,4.0,19.0
+Taco Chicken,270.0,12.0,5.0,60.0,1430.0,20.0,3.0,4.0,20.0
+Southwest Chicken Soup Bowl,230.0,10.0,2.0,20.0,1320.0,25.0,2.0,3.0,9.0
+Southwest Chicken Soup Cup,110.0,5.0,1.0,10.0,660.0,13.0,1.0,1.0,4.0
+Fajita Peppers & Onions,300.0,23.0,5.0,0.0,1170.0,22.0,4.0,9.0,3.0
+Grilled Steak for Fajitas,190.0,12.0,5.0,55.0,460.0,2.0,0.0,1.0,18.0
+Pork Carnitas for Fajitas,190.0,10.0,3.5,75.0,500.0,2.0,0.0,2.0,24.0
+Fajita Toppings,370.0,31.0,16.0,80.0,1060.0,10.0,4.0,4.0,16.0
+Classic Beef Patty,400.0,30.0,13.0,105.0,570.0,1.0,0.0,0.0,32.0
+Turkey Burger Patty,200.0,8.0,2.0,85.0,730.0,0.0,0.0,0.0,32.0
+2 Thin Beef Patties,390.0,29.0,13.0,110.0,950.0,1.0,0.0,0.0,30.0
+Margarita Chicken Fresh Mex Bowl,860.0,25.0,4.5,130.0,3830.0,105.0,12.0,16.0,57.0
+Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Kids Float Coca Cola,330.0,10.0,6.0,35.0,110.0,61.0,0.0,54.0,4.0
+Kids Float Dr Pepper,330.0,10.0,6.0,35.0,115.0,63.0,0.0,55.0,3.0
+Coca Cola Kids,70.0,0.0,0.0,0.0,25.0,20.0,0.0,20.0,0.0
+Dr Pepper Kids,80.0,0.0,0.0,0.0,25.0,20.0,0.0,20.0,0.0
+Coca Cola Zero Kids,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Diet Coke Kids,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Sprite Kids,70.0,0.0,0.0,0.0,35.0,19.0,0.0,19.0,0.0
+Deep Eddy Texas Lemonade,170.0,0.0,0.0,0.0,0.0,11.0,0.0,11.0,0.0
+Tito's Punch,370.0,0.0,0.0,0.0,5.0,64.0,1.0,60.0,0.0
+Patron Margarita Mango,340.0,0.0,0.0,0.0,0.0,53.0,1.0,47.0,0.0
+Patron Margarita Strawberry,370.0,0.0,0.0,0.0,0.0,63.0,2.0,55.0,0.0
+Platinum Presidente Margarita,300.0,0.0,0.0,0.0,2040.0,41.0,0.0,38.0,0.0
+Presidente Margarita,240.0,0.0,0.0,0.0,2040.0,23.0,0.0,19.0,0.0
+Presidente Margarita Mango,290.0,0.0,0.0,0.0,0.0,36.0,0.0,32.0,0.0
+Presidente Margarita Strawberry,290.0,0.0,0.0,0.0,0.0,37.0,0.0,32.0,0.0
+Triple Berry Margarita,280.0,0.0,0.0,0.0,0.0,34.0,2.0,28.0,0.0
+Ultimate Fresh Margarita,270.0,0.0,0.0,0.0,1160.0,37.0,0.0,33.0,0.0
+Red Wine 6 fl oz,150.0,0.0,0.0,0.0,5.0,5.0,0.0,1.0,0.0
+White Wine 6 fl oz,140.0,0.0,0.0,0.0,10.0,5.0,0.0,2.0,0.0
+Craft Beer BBQ Full Rack,950.0,56.0,23.0,310.0,1240.0,31.0,4.0,20.0,76.0
+Dr Pepper BBQ Full Rack,930.0,56.0,23.0,310.0,1040.0,34.0,3.0,28.0,75.0
+Craft Beer BBQ Half Rack,470.0,28.0,11.0,155.0,620.0,16.0,2.0,10.0,38.0
+Dr Pepper BBQ Half Rack,460.0,28.0,11.0,155.0,520.0,17.0,2.0,14.0,38.0
+Cheese Enchiladas,1020.0,72.0,34.0,150.0,2320.0,51.0,5.0,6.0,40.0
+Prime Rib for Fajitas,400.0,26.0,7.0,105.0,1470.0,2.0,0.0,0.0,39.0
+Boneless Wings Creamy Jalapeno,1350.0,101.0,17.0,155.0,3060.0,61.0,5.0,6.0,49.0
+Boneless Wings Honey Chipotle,1140.0,57.0,10.0,120.0,2800.0,108.0,4.0,40.0,48.0
+Bone In Wings Buffalo,850.0,65.0,14.0,290.0,2610.0,6.0,1.0,2.0,62.0
+Bone In Wings Creamy Jalapeno,1150.0,95.0,19.0,325.0,2390.0,11.0,1.0,6.0,63.0
+Bone In Wings Honey Chipotle,940.0,51.0,12.0,295.0,2120.0,58.0,1.0,40.0,62.0
+Bone In Wings Smoked,550.0,31.0,9.0,290.0,2030.0,17.0,1.0,14.0,55.0
+Crispy Cheddar Bites,990.0,77.0,32.0,155.0,2530.0,33.0,3.0,5.0,42.0
+Crispy Asparagus,840.0,74.0,11.0,30.0,1260.0,34.0,5.0,6.0,9.0
+Loaded Boneless Wings,1440.0,97.0,28.0,220.0,3710.0,68.0,4.0,8.0,73.0
+Spicy Loaded Boneless Wings,1450.0,97.0,28.0,220.0,3710.0,68.0,4.0,9.0,74.0
+White Spinach Queso,1510.0,93.0,30.0,105.0,3630.0,130.0,12.0,12.0,40.0
+TD Boneless Wings Creamy Jalapeno,750.0,59.0,10.0,85.0,1650.0,30.0,2.0,4.0,24.0
+TD Fried Pickles,420.0,34.0,6.0,15.0,1900.0,24.0,3.0,4.0,5.0
+TD Crispy Cheddar Bites,580.0,47.0,17.0,85.0,1440.0,18.0,2.0,3.0,22.0
+Prime Rib Fresh Mex Bowl,860.0,41.0,10.0,90.0,2420.0,86.0,8.0,11.0,40.0
+Enchilada Cheese,340.0,24.0,11.0,50.0,770.0,17.0,2.0,2.0,13.0
+Bacon Avocado Chicken Sandwich Lunch Combos Half,580.0,31.0,8.0,85.0,1240.0,42.0,3.0,5.0,33.0
+Classic Turkey Toasted Sandwich Lunch Combos Half,470.0,26.0,8.0,50.0,1000.0,40.0,2.0,6.0,22.0
+Chipotle Chicken Fresh Mex Bowl Lunch Combos,760.0,34.0,11.0,110.0,2210.0,77.0,6.0,7.0,38.0
+Blue Moon 16 fl oz,220.0,0.0,0.0,0.0,20.0,19.0,0.0,0.0,3.0
+Margarita Chicken Fresh Mex Bowl Lunch Combos,750.0,21.0,3.5,65.0,3350.0,104.0,11.0,16.0,36.0
+Clam Chowder Cup,190.0,13.0,7.0,50.0,390.0,12.0,1.0,3.0,6.0
+Smoked Chicken Quesadilla Lunch Combos,970.0,78.0,22.0,130.0,1660.0,34.0,2.0,3.0,31.0
+2 Top Shelf Tacos w/ Pork Carnitas,660.0,38.0,13.0,135.0,1390.0,33.0,3.0,4.0,46.0
+2 Top Shelf Tacos w/ Ranchero Chicken,550.0,28.0,10.0,115.0,2000.0,36.0,4.0,4.0,38.0
+Bacon Ranch Chicken Quesadilla,1740.0,130.0,44.0,275.0,3640.0,70.0,4.0,10.0,76.0
+Bacon Ranch Beef Quesadilla,1850.0,140.0,48.0,295.0,3990.0,69.0,4.0,10.0,85.0
+Smoked Chicken Quesadilla,1730.0,130.0,40.0,240.0,3050.0,71.0,5.0,7.0,64.0
+Fresco Salad,140.0,10.0,2.5,5.0,260.0,8.0,1.0,3.0,4.0
+Fresco Salad Lunch Combo,70.0,5.0,1.0,0.0,130.0,4.0,1.0,1.0,2.0
+Ancho Chile Ranch 2 fl oz,220.0,22.0,4.0,20.0,470.0,4.0,0.0,2.0,2.0
+Avocado Ranch Dressing 2 fl oz,180.0,19.0,3.0,15.0,350.0,4.0,1.0,2.0,1.0
+Bleu Cheese Dressing 2 fl oz,360.0,38.0,7.0,20.0,370.0,2.0,0.0,1.0,2.0
+Citrus Balsamic Vinaigrette Dressing 2 fl oz,330.0,34.0,5.0,0.0,320.0,7.0,0.0,6.0,0.0
+Honey Lime 2 fl oz,270.0,23.0,3.5,15.0,290.0,16.0,0.0,14.0,1.0
+Honey Lime Vinaigrette 2 fl oz,180.0,17.0,2.5,0.0,310.0,8.0,0.0,6.0,0.0
+Ranch 2 fl oz,270.0,24.0,4.0,20.0,400.0,3.0,0.0,2.0,2.0
+Santa Fe Dressing 2 fl oz,270.0,28.0,4.5,20.0,700.0,4.0,1.0,2.0,1.0
+Thousand Island Dressing 2 fl oz,270.0,26.0,4.0,25.0,520.0,9.0,0.0,6.0,1.0
+Asparagus & Garlic Roasted Tomatoes,70.0,1.5,0.0,0.0,410.0,12.0,4.0,4.0,4.0
+Quinoa & Wheatberry Blend,120.0,3.5,0.5,0.0,430.0,20.0,2.0,3.0,3.0
+Triple Berry Crumble Cake,1050.0,47.0,18.0,95.0,650.0,148.0,8.0,99.0,11.0
+3 Pork Carnitas Tacos,990.0,57.0,20.0,200.0,2090.0,49.0,4.0,6.0,70.0
+1 Pork Carnitas Taco,330.0,19.0,7.0,65.0,700.0,16.0,1.0,2.0,23.0
+3 Prime Rib Tacos,770.0,44.0,15.0,105.0,1670.0,48.0,5.0,3.0,44.0
+1 Prime Rib Taco,260.0,15.0,5.0,35.0,560.0,16.0,2.0,1.0,15.0
+3 Ranchero Chicken Tacos,820.0,43.0,15.0,175.0,3000.0,54.0,6.0,6.0,57.0
+1 Ranchero Chicken Taco,270.0,14.0,5.0,60.0,1000.0,18.0,2.0,2.0,19.0
+1 Spicy Shrimp Taco,270.0,16.0,4.5,70.0,920.0,22.0,2.0,6.0,10.0
+Burger Bun,250.0,8.0,2.0,0.0,380.0,39.0,1.0,7.0,6.0
+Garlic Dill Pickles,5.0,0.0,0.0,0.0,170.0,1.0,0.0,0.0,0.0
+Bacon & Queso Fresco,110.0,9.0,4.0,20.0,270.0,1.0,0.0,1.0,7.0
+Skillet Mashed Potatoes,400.0,26.0,9.0,30.0,900.0,31.0,4.0,1.0,11.0
+Caribbean Salad,540.0,23.0,3.5,15.0,340.0,80.0,8.0,66.0,5.0
+Big Mouth Bites,1250.0,74.0,26.0,185.0,3020.0,91.0,4.0,17.0,64.0
+Honey Mustard 2 fl oz,270.0,24.0,3.5,25.0,480.0,13.0,0.0,12.0,1.0
+Loaded White Queso,1630.0,99.0,33.0,135.0,4100.0,133.0,13.0,14.0,51.0
+Roasted Street Corn,430.0,28.0,5.0,25.0,320.0,38.0,3.0,15.0,7.0
+Chile Garlic Toast,140.0,7.0,1.5,0.0,320.0,17.0,1.0,1.0,3.0
+Angry Orchard 10 fl oz,160.0,0.0,0.0,0.0,10.0,20.0,0.0,17.0,0.0
+Angry Orchard 12 fl oz,190.0,0.0,0.0,0.0,15.0,24.0,0.0,20.0,0.0
+Angry Orchard 16 fl oz,250.0,0.0,0.0,0.0,20.0,32.0,0.0,27.0,0.0
+Bacardi Blood Orange Punch,310.0,0.0,0.0,0.0,15.0,31.0,1.0,29.0,0.0
+Blue Moon 10 fl oz,140.0,0.0,0.0,0.0,15.0,12.0,0.0,0.0,2.0
+Blue Moon 12 fl oz,170.0,0.0,0.0,0.0,15.0,14.0,0.0,0.0,2.0
+Blue Moon 22 fl oz,310.0,0.0,0.0,0.0,30.0,26.0,0.0,0.0,3.0
+Bud Light 10 fl oz,90.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,1.0
+Bud Light 12 fl oz,110.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,1.0
+Bud Light 16 fl oz,150.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,1.0
+Bud Light 22 fl oz,200.0,0.0,0.0,0.0,0.0,12.0,0.0,0.0,2.0
+Budweiser 10 fl oz,120.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,1.0
+Budweiser 12 fl oz,150.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,1.0
+Budweiser 16 fl oz,190.0,0.0,0.0,0.0,0.0,14.0,0.0,0.0,2.0
+Budweiser 22 fl oz,270.0,0.0,0.0,0.0,0.0,19.0,0.0,0.0,2.0
+Coors Light 10 fl oz,80.0,0.0,0.0,0.0,10.0,4.0,0.0,0.0,0.0
+Coors Light 12 fl oz,100.0,0.0,0.0,0.0,10.0,5.0,0.0,0.0,0.0
+Coors Light 16 fl oz,140.0,0.0,0.0,0.0,15.0,7.0,0.0,0.0,0.0
+Coors Light 22 fl oz,190.0,0.0,0.0,0.0,20.0,9.0,0.0,0.0,0.0
+Corona Extra 10 fl oz,130.0,0.0,0.0,0.0,10.0,12.0,0.0,4.0,1.0
+Corona Extra 12 fl oz,160.0,0.0,0.0,0.0,15.0,15.0,0.0,4.0,1.0
+Corona Extra 16 fl oz,210.0,0.0,0.0,0.0,20.0,20.0,0.0,6.0,2.0
+Corona Extra 22 fl oz,290.0,0.0,0.0,25.0,27.0,8.0,2.0,0.0,0.0
+Corona Light 10 fl oz,90.0,0.0,0.0,0.0,15.0,4.0,0.0,3.0,1.0
+Corona Light 12 fl oz,110.0,0.0,0.0,0.0,20.0,5.0,0.0,3.0,1.0
+Corona Light 16 fl oz,140.0,0.0,0.0,0.0,25.0,7.0,0.0,4.0,1.0
+Corona Light 22 fl oz,200.0,0.0,0.0,0.0,35.0,10.0,0.0,6.0,2.0
+Craft Beer 3-4% ABV 16 fl oz,200.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0
+Craft Beer 3-4% ABV 22 fl oz,280.0,0.0,0.0,0.0,0.0,28.0,0.0,0.0,0.0
+Craft Beer 5-7% ABV 10 fl oz,160.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0
+Craft Beer 5-7% ABV 16 fl oz,260.0,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0
+Craft Beer 5-7% ABV 22 fl oz,360.0,0.0,0.0,0.0,0.0,34.0,0.0,0.0,0.0
+Craft Beer 8-10% ABV 10 fl oz,240.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0
+Craft Beer 8-10% ABV 16 fl oz,390.0,0.0,0.0,0.0,0.0,34.0,0.0,0.0,0.0
+Craft Beer 8-10% ABV 22 fl oz,530.0,0.0,0.0,0.0,0.0,47.0,0.0,0.0,0.0
+Dos Equis 10 fl oz,100.0,0.0,0.0,0.0,0.0,9.0,0.0,2.0,1.0
+Dos Equis 12 fl oz,130.0,0.0,0.0,0.0,0.0,11.0,0.0,3.0,1.0
+Dos Equis 16 fl oz,170.0,0.0,0.0,0.0,0.0,15.0,0.0,4.0,1.0
+Dos Equis 22 fl oz,230.0,0.0,0.0,0.0,0.0,20.0,0.0,5.0,1.0
+El Jimador Blood Orange Margarita,170.0,0.0,0.0,0.0,15.0,11.0,0.0,11.0,0.0
+Fresh for $5 Mango Margarita,200.0,0.0,0.0,0.0,0.0,30.0,0.0,28.0,0.0
+Fresh for $5 Raspberry Margarita,180.0,0.0,0.0,0.0,0.0,26.0,0.0,16.0,0.0
+Fresh for $5 Traditional Margarita,170.0,0.0,0.0,0.0,1040.0,23.0,0.0,21.0,0.0
+Heineken 10 fl oz,110.0,0.0,0.0,0.0,5.0,10.0,0.0,0.0,1.0
+Heineken 12 fl oz,140.0,0.0,0.0,0.0,10.0,12.0,0.0,0.0,2.0
+Heineken 16 fl oz,180.0,0.0,0.0,0.0,10.0,16.0,0.0,0.0,2.0
+Heineken 22 fl oz,250.0,0.0,0.0,0.0,15.0,22.0,0.0,0.0,3.0
+Michelob Ultra 10 fl oz,80.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0
+Michelob Ultra 12 fl oz,90.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,1.0
+Michelob Ultra 16 fl oz,130.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,1.0
+Michelob Ultra 22 fl oz,170.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,1.0
+Miller Lite 10 fl oz,80.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Miller Lite 12 fl oz,100.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Miller Lite 16 fl oz,130.0,0.0,0.0,0.0,5.0,4.0,0.0,0.0,0.0
+Miller Lite 22 fl oz,180.0,0.0,0.0,0.0,10.0,6.0,0.0,0.0,0.0
+Modelo Especial 10 fl oz,130.0,0.0,0.0,0.0,10.0,12.0,0.0,4.0,1.0
+Modelo Especial 12 fl oz,150.0,0.0,0.0,0.0,15.0,14.0,0.0,4.0,1.0
+Modelo Especial 16 fl oz,200.0,0.0,0.0,0.0,20.0,19.0,0.0,6.0,2.0
+Modelo Especial 22 fl oz,280.0,0.0,0.0,0.0,25.0,26.0,0.0,8.0,2.0
+O'Douls 12 fl oz,60.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,1.0
+Red Wine 9 fl oz,220.0,0.0,0.0,0.0,10.0,7.0,0.0,2.0,0.0
+Sam Adams Boston Lager 10 fl oz,150.0,0.0,0.0,0.0,15.0,16.0,0.0,2.0,2.0
+Sam Adams Boston Lager 12 fl oz,180.0,0.0,0.0,0.0,20.0,19.0,0.0,2.0,2.0
+Sam Adams Boston Lager 16 fl oz,240.0,0.0,0.0,0.0,25.0,25.0,0.0,3.0,3.0
+Sam Adams Boston Lager 22 fl oz,330.0,0.0,0.0,0.0,35.0,35.0,0.0,4.0,4.0
+Sierra Nevada IPA 10 fl oz,200.0,0.0,0.0,0.0,10.0,17.0,0.0,0.0,2.0
+Sierra Nevada IPA 12 fl oz,240.0,0.0,0.0,0.0,10.0,21.0,0.0,0.0,2.0
+Sierra Nevada IPA 16 fl oz,320.0,0.0,0.0,0.0,15.0,27.0,0.0,0.0,3.0
+Sierra Nevada IPA 22 fl oz,440.0,0.0,0.0,0.0,20.0,38.0,0.0,0.0,5.0
+Sierra Nevada Pale Ale 12 fl oz,180.0,0.0,0.0,0.0,10.0,15.0,0.0,0.0,2.0
+Sierra Nevada Side Car 10 fl oz,150.0,0.0,0.0,0.0,5.0,13.0,0.0,1.0,2.0
+Sierra Nevada Side Car 16 fl oz,240.0,0.0,0.0,0.0,10.0,21.0,0.0,1.0,3.0
+Sierra Nevada Side Car 22 fl oz,330.0,0.0,0.0,0.0,15.0,29.0,0.0,1.0,4.0
+Spicy Sauza Jalapeno Margarita,290.0,0.0,0.0,0.0,2320.0,42.0,0.0,36.0,0.0
+Stella Artois 10 fl oz,130.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,1.0
+Stella Artois 12 fl oz,150.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,1.0
+Stella Artois 16 fl oz,200.0,0.0,0.0,0.0,0.0,17.0,0.0,0.0,2.0
+Stella Artois 22 fl oz,280.0,0.0,0.0,0.0,0.0,23.0,0.0,0.0,2.0
+Sweet Wine 6 fl oz,170.0,0.0,0.0,0.0,25.0,10.0,0.0,10.0,0.0
+Sweet Wine 9 fl oz,250.0,0.0,0.0,0.0,35.0,16.0,0.0,16.0,1.0
+White Wine 9 fl oz,220.0,0.0,0.0,0.0,15.0,7.0,0.0,3.0,0.0
+Sunrise Burger w/ Grass Fed Patty,1130.0,74.0,31.0,365.0,1990.0,51.0,3.0,11.0,64.0
+Ultimate Bacon Beef Burger,1040.0,67.0,25.0,165.0,2310.0,55.0,3.0,16.0,53.0
+Mini Molten Chocolate Cake,590.0,28.0,14.0,60.0,340.0,80.0,1.0,57.0,6.0
+Salted Caramel Molten,1040.0,42.0,15.0,85.0,1220.0,154.0,1.0,107.0,12.0
+Ancho Crusted Sirloin 10 oz,960.0,350.0,9.0,165.0,3140.0,82.0,11.0,14.0,74.0
+Ancho Crusted Sirloin 6 oz,800.0,300.0,7.0,100.0,2840.0,80.0,10.0,13.0,49.0
+Chipotle Chicken Bowl w/ Quinoa Blend,870.0,43.0,13.0,175.0,2450.0,64.0,10.0,11.0,60.0
+Chipotle Chicken Bowl w/ Quinoa Lunch Combos,740.0,38.0,12.0,110.0,1970.0,63.0,9.0,11.0,39.0
+Crispy Crispers for Smokehouse Combos,340.0,16.0,3.0,65.0,1080.0,21.0,2.0,0.0,27.0
+Crispy Honey Chipotle Crispers for Smokehouse Combos,440.0,17.0,3.0,65.0,1480.0,48.0,2.0,19.0,27.0
+Grilled Chicken Dippers,290.0,21.0,3.5,85.0,800.0,3.0,0.0,2.0,24.0
+Grilled Smoked Chicken Burrito w/ Quinoa Blend,860.0,32.0,14.0,170.0,2690.0,87.0,7.0,16.0,56.0
+Grilled Smoked Chicken Burrito w/ Rice,870.0,30.0,14.0,170.0,2810.0,94.0,5.0,14.0,56.0
+Honey Chipotle BBQ Ribs Full Rack,960.0,56.0,23.0,310.0,1190.0,38.0,3.0,25.0,75.0
+Honey Chipotle BBQ Ribs Half Rack,480.0,28.0,11.0,155.0,590.0,19.0,2.0,13.0,37.0
+Honey Chipotle Shrimp & Sirloin 10 oz,940.0,310.0,8.0,225.0,3030.0,82.0,8.0,15.0,79.0
+Honey Chipotle Shrimp & Sirloin 6 oz,800.0,260.0,6.0,160.0,2980.0,82.0,8.0,15.0,54.0
+House BBQ Ribs Full Rack,960.0,58.0,23.0,310.0,2140.0,33.0,5.0,27.0,77.0
+House BBQ Ribs Half Rack,480.0,29.0,11.0,155.0,1070.0,16.0,2.0,13.0,38.0
+Jalapeno Cheddar Smoked Sausage,380.0,31.0,13.0,95.0,1340.0,4.0,1.0,0.0,21.0
+Margarita Chicken Bowl w/ Quinoa,730.0,25.0,4.0,65.0,3110.0,90.0,15.0,20.0,37.0
+Margarita Chicken Bowl w/ Quinoa Blend,860.0,30.0,5.0,130.0,3590.0,91.0,16.0,20.0,58.0
+Original Crispers for Smokehouse Combos,370.0,19.0,3.5,70.0,1320.0,21.0,2.0,0.0,28.0
+Prime Rib Bowl w/ Quinoa Blend,850.0,45.0,10.0,90.0,2190.0,72.0,12.0,15.0,42.0
+Smoked Bone In BBQ Chicken Breast,360.0,12.0,3.0,160.0,1870.0,20.0,1.0,18.0,43.0
+Smothered Prime Rib Burrito w/ Quinoa Blend,1080.0,54.0,25.0,150.0,3020.0,88.0,7.0,10.0,57.0
+Smothered Prime Rib Burrito w/ Rice,1080.0,52.0,25.0,150.0,3140.0,96.0,5.0,8.0,57.0
+Smothered Smoked Chicken Burrito w/ Quinoa Blend,1080.0,51.0,25.0,230.0,3310.0,90.0,7.0,16.0,64.0
+Smothered Smoked Chicken Burrito w/ Rice,1080.0,49.0,25.0,230.0,3430.0,97.0,5.0,14.0,64.0
+Spicy Chile Chicken,420.0,11.0,2.0,95.0,1750.0,43.0,9.0,11.0,39.0
+Texas Dry Rub Ribs Full Rack,1080.0,72.0,25.0,310.0,4580.0,32.0,5.0,23.0,77.0
+Texas Dry Rub Ribs Half Rack,580.0,36.0,13.0,155.0,2660.0,23.0,3.0,18.0,39.0
+Margherita Flatbread Salad,930.0,69.0,25.0,90.0,1540.0,49.0,7.0,8.0,31.0
+Margherita Flatbread Salad w/ Chicken,1110.0,74.0,26.0,180.0,2360.0,55.0,7.0,12.0,62.0
+Margherita Flatbread Salad w/ Shrimp,1020.0,73.0,26.0,205.0,2330.0,51.0,7.0,9.0,44.0
+Clam Chowder Bowl,370.0,26.0,14.0,100.0,780.0,23.0,1.0,6.0,12.0
+3 All Natural Corn Tortillas,150.0,1.5,0.0,0.0,90.0,30.0,3.0,0.0,3.0
+3 Flour Tortillas,260.0,9.0,4.0,0.0,640.0,39.0,2.0,1.0,6.0
+Applewood Smoked Bacon,70.0,6.0,2.0,15.0,210.0,0.0,0.0,0.0,5.0
+Fried Egg,90.0,7.0,2.0,185.0,240.0,1.0,0.0,1.0,6.0
+Grass Fed Patty,420.0,29.0,14.0,110.0,520.0,5.0,0.0,0.0,33.0
+Side House BBQ Sauce,70.0,1.0,0.0,0.0,750.0,15.0,1.0,13.0,1.0
+White Queso & Pico de Gallo for Fajitas,140.0,11.0,4.5,25.0,580.0,6.0,0.0,3.0,5.0
+White Queso & Pico de Gallo Lunch Combos,70.0,5.0,2.5,10.0,330.0,3.0,0.0,2.0,3.0
+Classic Nachos,1250.0,88.0,50.0,245.0,2640.0,57.0,6.0,8.0,60.0
+Mandarin Oranges,80.0,0.0,0.0,0.0,10.0,20.0,1.0,17.0,2.0
+Buffalo Chicken Ranch Sandwich,880.0,48.0,9.0,95.0,2780.0,69.0,3.0,13.0,42.0
+Mashed Potatoes,140.0,8.0,1.5,0.0,370.0,16.0,2.0,1.0,2.0
+Terlingua Chili Bowl,420.0,28.0,14.0,90.0,1270.0,14.0,2.0,5.0,29.0
+Sam Adams Boston Lager 12 fl oz,180.0,0.0,0.0,0.0,20.0,19.0,1.0,2.0,2.0
+California Turkey Club,1090.0,64.0,17.0,110.0,2220.0,86.0,8.0,14.0,49.0
+Honey Lime Vinaigrette Dressing 1.5 fl oz,130.0,12.0,2.0,0.0,230.0,6.0,0.0,4.0,0.0
+Steamed Broccoli,40.0,0.0,0.0,0.0,250.0,8.0,4.0,2.0,3.0
+Chicken Enchilada Soup Cup,220.0,14.0,5.0,35.0,830.0,13.0,1.0,2.0,11.0
+Minute Maid Lemonade Kids Cup,90.0,0.0,0.0,0.0,65.0,24.0,0.0,23.0,0.0
+Coors Light 10 fl oz,80.0,0.0,0.0,0.0,10.0,4.0,0.0,0.0,0.0
+Sprite Kid Cup,90.0,0.0,0.0,0.0,45.0,24.0,0.0,24.0,0.0
+Honey Chipotle Crispers & Waffles,1000.0,54.0,19.0,90.0,1700.0,98.0,4.0,43.0,29.0
+Michelob Ultra 12 fl oz,90.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,1.0
+Chipotle Shrimp Fresh Mex Bowl,850.0,42.0,11.0,220.0,2980.0,84.0,37.0,9.0,7.0
+Grilled Chicken Fajitas Mix & Match,140.0,3.5,1.0,95.0,710.0,0.0,0.0,0.0,28.0
+Craft Beer 3-4% ABV 16 fl oz,200.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0
+Black Barrel Cherry Margarita,320.0,0.0,0.0,0.0,0.0,50.0,0.0,48.0,0.0
+Cajun Pasta w/ Seared Shrimp,1120.0,53.0,22.0,190.0,3480.0,112.0,8.0,6.0,50.0
+Honey Lime 2 fl oz,270.0,23.0,3.5,15.0,290.0,16.0,0.0,14.0,1.0
+Texas Original BBQ Ribs Full Rack,1420.0,89.0,36.0,490.0,2200.0,36.0,5.0,27.0,120.0
+Sweet Corn on the Cob,220.0,7.0,1.0,0.0,360.0,36.0,3.0,14.0,5.0
+Texas House BBQ Ribs Half Rack,720.0,45.0,18.0,245.0,1300.0,19.0,3.0,14.0,60.0
+Roasted Street Corn,430.0,28.0,5.0,25.0,320.0,38.0,3.0,15.0,7.0
+1/2 California Turkey Club Lunch Combos,550.0,32.0,8.0,55.0,1110.0,43.0,4.0,7.0,24.0
+Fajita Toppings,370.0,31.0,16.0,80.0,1060.0,10.0,4.0,4.0,16.0
+Craft Beer 5-7% ABV 22 fl oz,360.0,0.0,0.0,0.0,0.0,34.0,0.0,0.0,0.0
+Dos Equis 16 fl oz,170.0,0.0,0.0,0.0,0.0,15.0,0.0,4.0,1.0
+Fresh Guacamole Large Side,250.0,23.0,3.5,0.0,630.0,15.0,11.0,2.0,3.0
+Fresh for $5 Raspberry Margarita,190.0,0.0,0.0,0.0,0.0,28.0,0.0,17.0,0.0
+Presidente Margarita Strawberry,270.0,0.0,0.0,0.0,10.0,32.0,0.0,28.0,0.0
+Miller Lite 16 fl oz,130.0,0.0,0.0,0.0,5.0,4.0,0.0,0.0,0.0
+Fresco Salad,130.0,10.0,2.5,5.0,240.0,7.0,1.0,3.0,3.0
+Texas Original BBQ Ribs Half Rack,710.0,45.0,18.0,245.0,1100.0,18.0,2.0,14.0,60.0
+Bacon Avocado Chicken Sandwich,1130.0,59.0,15.0,240.0,2830.0,74.0,9.0,16.0,79.0
+Cheesecake,720.0,43.0,23.0,210.0,440.0,73.0,1.0,61.0,11.0
+Blue Moon 10 fl oz,140.0,0.0,0.0,0.0,15.0,12.0,0.0,0.0,2.0
+Ultimate Bacon Beef Burger,1130.0,76.0,29.0,185.0,2450.0,57.0,2.0,20.0,56.0
+Lemonade,120.0,0.0,0.0,0.0,40.0,34.0,0.0,33.0,0.0
+ODouls 12 fl oz,60.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,1.0
+Clam Chowder Bowl,370.0,26.0,14.0,100.0,780.0,23.0,1.0,6.0,12.0
+Salsa 1.5 oz,10.0,0.0,0.0,0.0,420.0,3.0,1.0,1.0,0.0
+Bacon Ranch Beef Quesadilla,1850.0,140.0,48.0,295.0,3990.0,69.0,4.0,10.0,82.0
+Chicken Fajitas Grilled,480.0,17.0,5.0,195.0,2880.0,25.0,3.0,12.0,60.0
+Spicy Sauza Jalapeno Margarita,310.0,0.0,0.0,0.0,2320.0,45.0,0.0,40.0,0.0
+Avocado Slices,80.0,7.0,1.0,0.0,0.0,4.0,3.0,0.0,1.0
+Patron Margarita Mango,360.0,0.0,0.0,0.0,0.0,59.0,1.0,52.0,0.0
+Applewood Smoked Bacon,70.0,6.0,2.0,15.0,210.0,0.0,0.0,0.0,5.0
+3 Chicken Enchiladas,960.0,51.0,22.0,295.0,2820.0,56.0,5.0,8.0,70.0
+Sierra Nevada IPA 16 fl oz,320.0,0.0,0.0,0.0,15.0,27.0,0.0,0.0,3.0
+Terlingua Chili for Burgers,80.0,5.0,2.5,15.0,260.0,3.0,0.0,1.0,6.0
+Grilled Chicken Salad,430.0,23.0,6.0,110.0,1140.0,22.0,4.0,11.0,36.0
+Black Bean & Veggie Fajitas,600.0,27.0,4.5,5.0,2510.0,75.0,19.0,25.0,28.0
+Budweiser 12 fl oz,150.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,1.0
+IBC Rootbeer Bottle,170.0,0.0,0.0,0.0,60.0,44.0,0.0,44.0,0.0
+Steamed Broccoli Kids,40.0,0.0,0.0,0.0,45.0,8.0,4.0,2.0,3.0
+Dos Equis 10 fl oz,100.0,0.0,0.0,0.0,0.0,9.0,0.0,2.0,1.0
+Bud Light 16 fl oz,150.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,1.0
+Grass Fed Patty,420.0,29.0,14.0,110.0,520.0,5.0,0.0,0.0,33.0
+TD Spiced Panko Onion Rings,950.0,56.0,9.0,15.0,1530.0,98.0,5.0,12.0,15.0
+Dos Equis 12 fl oz,130.0,0.0,0.0,0.0,0.0,11.0,0.0,3.0,1.0
+House BBQ Ribs Full Rack,970.0,58.0,23.0,310.0,2220.0,35.0,5.0,28.0,76.0
+Thousand Island Dressing 1.5 fl oz,200.0,20.0,3.0,20.0,390.0,7.0,0.0,5.0,0.0
+Classic Ribeye,1050.0,64.0,24.0,210.0,2720.0,40.0,8.0,3.0,81.0
+Ancho Chile Ranch 2 fl oz,220.0,22.0,4.0,20.0,470.0,4.0,0.0,2.0,2.0
+House Salad Lunch Combo,80.0,3.5,1.5,5.0,140.0,8.0,1.0,2.0,3.0
+10 oz Classic Sirloin,820.0,43.0,14.0,170.0,2230.0,42.0,8.0,4.0,68.0
+Fresco Salad Lunch Combo,70.0,5.0,1.0,0.0,130.0,4.0,1.0,1.0,2.0
+Molten Chocolate Cake,1150.0,61.0,30.0,125.0,580.0,142.0,2.0,102.0,11.0
+Presidente Margarita,240.0,0.0,0.0,0.0,2040.0,23.0,0.0,19.0,0.0
+Budweiser 22 fl oz,270.0,0.0,0.0,0.0,0.0,19.0,0.0,0.0,2.0
+Crispy Fiery Pepper Crispers,1750.0,91.0,15.0,145.0,5790.0,179.0,13.0,55.0,58.0
+Oldtimer Burger,860.0,54.0,24.0,150.0,1710.0,47.0,2.0,12.0,47.0
+Lagunitas IPA 12 fl oz,190.0,0.0,0.0,0.0,15.0,14.0,0.0,2.0,3.0
+Corn on the Cob Kids,170.0,1.5,0.0,0.0,0.0,36.0,3.0,14.0,5.0
+Santa Fe Chicken Salad w/ Crispers,940.0,69.0,11.0,100.0,2000.0,50.0,10.0,8.0,33.0
+Budweiser 16 fl oz,190.0,0.0,0.0,0.0,0.0,14.0,0.0,0.0,2.0
+Terlingua Chili Cup,210.0,14.0,7.0,45.0,630.0,7.0,1.0,2.0,14.0
+White Wine 9 fl oz,220.0,0.0,0.0,0.0,15.0,7.0,0.0,3.0,0.0
+Turkey Patty,200.0,8.0,2.0,85.0,730.0,0.0,0.0,0.0,32.0
+Grilled Steak for Mix & Match,240.0,15.0,7.0,90.0,710.0,0.0,0.0,0.0,26.0
+Skillet Chocolate Chip Cookie,1420.0,71.0,38.0,110.0,900.0,189.0,6.0,115.0,14.0
+Fresh Pineapple,60.0,0.0,0.0,0.0,0.0,16.0,2.0,12.0,1.0
+Kraft Macaroni & Cheese,430.0,12.0,4.0,15.0,940.0,64.0,3.0,11.0,15.0
+Ultimate Fresh Margarita,300.0,0.0,0.0,0.0,1160.0,45.0,0.0,40.0,0.0
+Bleu Cheese Dressing 2 fl oz,360.0,38.0,7.0,20.0,370.0,2.0,0.0,1.0,2.0
+Bone In Wings Fiery Pepper,920.0,52.0,12.0,295.0,2970.0,51.0,2.0,40.0,64.0
+Lagunitas IPA 22 fl oz,350.0,0.0,0.0,0.0,25.0,26.0,0.0,4.0,5.0
+Honey Mustard 1.5 fl oz,200.0,18.0,2.5,20.0,360.0,10.0,0.0,9.0,1.0
+Coors Light 12 fl oz,100.0,0.0,0.0,0.0,10.0,5.0,0.0,0.0,0.0
+California Grilled Chicken Flatbread,1710.0,131.0,1.5,240.0,2640.0,67.0,7.0,6.0,69.0
+Classic Nachos Fajita Chicken,1480.0,95.0,52.0,400.0,3370.0,57.0,6.0,8.0,99.0
+Deep Eddy Texas Lemonade,270.0,0.0,0.0,0.0,0.0,33.0,0.0,31.0,0.0
+Boneless Wings Buffalo,1090.0,73.0,13.0,120.0,3770.0,59.0,5.0,2.0,49.0
+Titos Punch,320.0,0.0,0.0,0.0,5.0,53.0,1.0,49.0,0.0
+Bud Light 22 fl oz,200.0,0.0,0.0,0.0,0.0,12.0,0.0,0.0,2.0
+Corona Light 10 fl oz,90.0,0.0,0.0,0.0,15.0,4.0,0.0,3.0,1.0
+Coors Light 16 fl oz,140.0,0.0,0.0,0.0,15.0,7.0,0.0,0.0,0.0
+Sprite Regular,150.0,0.0,0.0,0.0,70.0,41.0,0.0,40.0,0.0
+Cheese Cheddar,80.0,7.0,4.5,20.0,130.0,0.0,0.0,0.0,5.0
+Coca Cola Zero Kid Cup,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Citrus Balsamic Vinaigrette Dressing 2 fl oz,330.0,34.0,5.0,0.0,320.0,7.0,0.0,6.0,0.0
+Corona Extra 12 fl oz,160.0,0.0,0.0,0.0,15.0,15.0,0.0,4.0,1.0
+Budweiser 10 fl oz,120.0,0.0,0.0,0.0,0.0,9.0,0.0,0.0,1.0
+Texas House BBQ Ribs Full Rack,1450.0,91.0,36.0,490.0,2600.0,37.0,6.0,28.0,120.0
+White Wine 6 fl oz,140.0,0.0,0.0,0.0,10.0,5.0,0.0,2.0,0.0
+Angry Orchard 16 fl oz,250.0,0.0,0.0,0.0,20.0,32.0,0.0,27.0,0.0
+6 oz Classic Sirloin,680.0,37.0,11.0,115.0,1910.0,41.0,8.0,3.0,48.0
+Tropical Sunrise Margarita,250.0,0.0,0.0,0.0,10.0,36.0,0.0,34.0,0.0
+Stella Artois 16 fl oz,200.0,0.0,0.0,0.0,0.0,17.0,0.0,0.0,2.0
+Crispy Cheddar Bites,990.0,77.0,32.0,155.0,2530.0,33.0,3.0,5.0,42.0
+Margarita Grilled Chicken,600.0,12.0,2.0,145.0,2600.0,68.0,7.0,9.0,53.0
+Avocado Ranch Dressing 1.5 fl oz,140.0,14.0,2.5,10.0,260.0,3.0,1.0,1.0,1.0
+Bud Light 12 fl oz,110.0,0.0,0.0,0.0,0.0,7.0,0.0,0.0,1.0
+3 Ranchero Chicken Tacos,940.0,49.0,17.0,290.0,3040.0,48.0,5.0,4.0,77.0
+Santa Fe Dressing 1.5 fl oz,200.0,21.0,3.5,15.0,530.0,3.0,0.0,2.0,1.0
+Spiced Panko Onion Rings,390.0,19.0,3.0,0.0,620.0,48.0,2.0,5.0,7.0
+Corona Extra 10 fl oz,130.0,0.0,0.0,0.0,10.0,12.0,0.0,4.0,1.0
+Burger Bun,270.0,8.0,2.0,0.0,360.0,42.0,1.0,10.0,7.0
+Modelo Especial 16 fl oz,200.0,0.0,0.0,0.0,20.0,19.0,0.0,6.0,2.0
+Coca Cola Zero To Go Cup,0.0,0.0,0.0,0.0,65.0,0.0,0.0,0.0,0.0
+Stella Artois 22 fl oz,280.0,0.0,0.0,0.0,0.0,23.0,0.0,0.0,2.0
+Fajita Peppers & Onions,200.0,10.0,3.0,0.0,1460.0,24.0,3.0,11.0,4.0
+Blueberry & Pineapple Margarita,340.0,0.0,0.0,0.0,0.0,51.0,1.0,46.0,0.0
+Orange Juice Kids,130.0,0.0,0.0,0.0,20.0,32.0,0.0,28.0,2.0
+Homestyle Fries Lunch Combos Kids,190.0,8.0,1.5,0.0,710.0,27.0,2.0,0.0,3.0
+Dr Pepper Regular,130.0,0.0,0.0,0.0,45.0,34.0,0.0,34.0,0.0
+Sierra Nevada Side Car 16 fl oz,240.0,0.0,0.0,0.0,10.0,21.0,0.0,1.0,3.0
+Corona Extra 16 fl oz,210.0,0.0,0.0,0.0,20.0,20.0,0.0,6.0,2.0
+Gravy Black Pepper,25.0,1.0,0.0,0.0,240.0,3.0,0.0,0.0,1.0
+Loaded Mashed Potatoes,380.0,23.0,7.0,30.0,1020.0,32.0,4.0,2.0,11.0
+Sierra Nevada IPA 12 fl oz,240.0,0.0,0.0,0.0,10.0,21.0,0.0,0.0,2.0
+Coca Cola Zero Regular,0.0,0.0,0.0,0.0,40.0,0.0,0.0,0.0,0.0
+Craft Beer 3-4% ABV 10 fl oz,130.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Caribbean Salad,540.0,23.0,3.5,15.0,340.0,80.0,8.0,66.0,5.0
+Mango Chile Chicken,460.0,15.0,2.5,95.0,1750.0,50.0,7.0,12.0,35.0
+Asparagus & Garlic Roasted Tomatoes,70.0,1.5,0.0,0.0,340.0,12.0,4.0,4.0,4.0
+Sour Cream,60.0,6.0,3.5,20.0,70.0,2.0,0.0,1.0,1.0
+Fresh for $5 Mango Margarita,200.0,0.0,0.0,0.0,0.0,32.0,0.0,30.0,0.0
+Big Mouth Bites,1220.0,72.0,26.0,185.0,2850.0,77.0,5.0,19.0,65.0
+Boneless Buffalo Chicken Salad,970.0,66.0,14.0,135.0,3360.0,44.0,4.0,6.0,49.0
+Arnold Palmer Mango,90.0,0.0,0.0,0.0,25.0,25.0,0.0,24.0,0.0
+Minute Maid Lemonade Regular Cup,160.0,0.0,0.0,0.0,105.0,41.0,0.0,39.0,0.0
+Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Titos Vodkarita Strawberry,330.0,0.0,0.0,0.0,5.0,49.0,0.0,45.0,0.0
+Sam Adams Boston Lager 10 fl oz,150.0,0.0,0.0,0.0,15.0,16.0,1.0,2.0,2.0
+Chipotle Chicken Fresh Mex Bowl Lunch Combos,850.0,39.0,11.0,140.0,2500.0,80.0,6.0,7.0,46.0
+Pizza Cheese 6 in,610.0,26.0,11.0,40.0,1080.0,72.0,2.0,7.0,23.0
+Corona Extra 22 fl oz,290.0,0.0,0.0,0.0,25.0,27.0,0.0,8.0,2.0
+White Spinach Queso,1510.0,93.0,30.0,105.0,3630.0,130.0,12.0,12.0,40.0
+Sierra Nevada IPA 22 fl oz,440.0,0.0,0.0,0.0,20.0,38.0,0.0,0.0,5.0
+Minute Maid Lemonade To Go Cup,250.0,0.0,0.0,0.0,170.0,65.0,0.0,62.0,0.0
+Arnold Palmer,60.0,0.0,0.0,0.0,25.0,18.0,0.0,16.0,0.0
+Texas Dry Rub Ribs Full Rack,1560.0,105.0,38.0,490.0,5000.0,35.0,7.0,24.0,121.0
+Pepper Pals Grilled Chicken Bites,290.0,7.0,2.0,55.0,550.0,34.0,2.0,8.0,24.0
+Crispy Crispers for Smokehouse Combos,470.0,29.0,5.0,75.0,1230.0,25.0,3.0,1.0,27.0
+15 Original Crispers,1550.0,77.0,14.0,430.0,5110.0,63.0,13.0,5.0,152.0
+Margherita Flatbread,1420.0,107.0,42.0,165.0,2210.0,62.0,4.0,5.0,52.0
+Iced Tea Blackberry,80.0,0.0,0.0,0.0,10.0,19.0,0.0,18.0,0.0
+Ranch Dressing 1.5 fl oz,170.0,18.0,3.0,15.0,300.0,2.0,0.0,2.0,1.0
+Blue Lagoon Kids,150.0,0.0,0.0,0.0,40.0,38.0,0.0,36.0,0.0
+Santa Fe Chicken Salad,620.0,43.0,7.0,120.0,1600.0,26.0,7.0,8.0,34.0
+Southern Smokehouse Burger,1240.0,79.0,30.0,180.0,2990.0,77.0,3.0,28.0,59.0
+Chile Garlic Toast,140.0,7.0,1.5,0.0,320.0,17.0,1.0,1.0,3.0
+Wing Sauce 1.5 oz,35.0,3.0,0.0,0.0,1320.0,2.0,1.0,1.0,0.0
+4 All Natural Corn Tortillas,210.0,0.0,0.0,0.0,20.0,42.0,5.0,0.0,4.0
+Sprite To Go Cup,240.0,0.0,0.0,0.0,115.0,65.0,0.0,64.0,0.0
+Classic Sirloin w/ Grilled Avocado 6 oz,420.0,21.0,5.0,90.0,1530.0,23.0,6.0,7.0,39.0
+Heineken 12 fl oz,140.0,0.0,0.0,0.0,10.0,12.0,0.0,0.0,2.0
+Ancho Salmon,590.0,26.0,5.0,100.0,1900.0,44.0,5.0,5.0,48.0
+Lagunitas IPA 10 fl oz,160.0,0.0,0.0,0.0,10.0,12.0,0.0,2.0,2.0
+Heineken 22 fl oz,250.0,0.0,0.0,0.0,15.0,22.0,0.0,0.0,3.0
+Caribbean Salad w/ Seared Shrimp,620.0,27.0,4.5,135.0,1130.0,82.0,8.0,67.0,17.0
+Apple Juice Kids,120.0,0.0,0.0,0.0,10.0,29.0,0.0,28.0,0.0
+1/2 Seared Shrimp,45.0,1.5,0.5,60.0,390.0,1.0,0.0,0.0,6.0
+Red Wine 9 fl oz,220.0,0.0,0.0,0.0,10.0,7.0,0.0,2.0,0.0
+Michelob Ultra 16 fl oz,130.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,1.0
+Jalapeno Cheddar Smoked Sausage,380.0,31.0,13.0,95.0,1340.0,4.0,1.0,0.0,21.0
+Bone In Wings Buffalo,850.0,65.0,14.0,290.0,2610.0,6.0,1.0,2.0,62.0
+Sweet Wine 9 fl oz,250.0,0.0,0.0,0.0,35.0,16.0,0.0,16.0,1.0
+Rice & Black Beans,250.0,1.5,0.0,0.0,1240.0,49.0,6.0,2.0,10.0
+Blue Moon 16 fl oz,220.0,0.0,0.0,0.0,20.0,19.0,0.0,0.0,3.0
+Coca Cola Regular,150.0,0.0,0.0,0.0,35.0,42.0,0.0,42.0,0.0
+Boneless Wings Honey Chipotle,1140.0,57.0,10.0,120.0,2800.0,108.0,4.0,40.0,48.0
+Honey Chipotle Sauce,100.0,0.0,0.0,0.0,410.0,26.0,0.0,19.0,0.0
+Patron Margarita Strawberry,360.0,0.0,0.0,0.0,0.0,58.0,1.0,51.0,0.0
+Loaded Baked Potato Bowl,520.0,36.0,22.0,115.0,1880.0,26.0,2.0,4.0,19.0
+Fried Egg,90.0,7.0,2.0,185.0,120.0,1.0,0.0,1.0,6.0
+Honey Chipotle BBQ Ribs Half Rack,480.0,28.0,11.0,155.0,590.0,19.0,2.0,13.0,37.0
+Country Fried Steak,1290.0,67.0,14.0,75.0,3060.0,121.0,11.0,19.0,52.0
+Classic Nachos w/ Fajita Beef,1640.0,108.0,57.0,395.0,4090.0,57.0,6.0,9.0,112.0
+Mini Molten Chocolate Cake,580.0,28.0,14.0,60.0,340.0,80.0,1.0,57.0,6.0
+El Jimador Fresca Margarita,270.0,0.0,0.0,0.0,0.0,30.0,0.0,27.0,0.0
+Dry Rub Ribs Full Rack,1080.0,72.0,25.0,310.0,4620.0,33.0,5.0,24.0,77.0
+Texas Dry Rub Half Rack,820.0,53.0,19.0,245.0,2890.0,26.0,4.0,19.0,61.0
+Pepperoni Pizza 6 in,700.0,34.0,14.0,65.0,1250.0,72.0,2.0,8.0,26.0
+Honey Lime Vinaigrette 2 fl oz,180.0,17.0,2.5,0.0,310.0,8.0,0.0,6.0,0.0
+Cheese Provolone,80.0,6.0,4.0,15.0,200.0,0.0,0.0,0.0,6.0
+Original BBQ Ribs Full Rack,950.0,56.0,23.0,310.0,1820.0,34.0,3.0,27.0,76.0
+Grilled Cheese Sandwich,430.0,26.0,11.0,35.0,1100.0,36.0,2.0,6.0,13.0
+Miller Lite 22 fl oz,180.0,0.0,0.0,0.0,10.0,6.0,0.0,0.0,0.0
+Original Crispers for Smokehouse Combos,310.0,15.0,3.0,85.0,1020.0,13.0,3.0,1.0,30.0
+Dry Rub Ribs Half Rack,580.0,36.0,13.0,155.0,2700.0,25.0,3.0,19.0,39.0
+Salted Caramel Molten,1040.0,42.0,15.0,90.0,1210.0,154.0,1.0,108.0,12.0
+Lagunitas IPA 16 fl oz,250.0,0.0,0.0,0.0,20.0,19.0,0.0,3.0,4.0
+Big Mouth Bites Lunch Combos,610.0,36.0,13.0,95.0,1340.0,38.0,3.0,10.0,33.0
+Garlic Dill Pickles,5.0,0.0,0.0,0.0,170.0,1.0,0.0,0.0,0.0
+Coors Light 22 fl oz,190.0,0.0,0.0,0.0,20.0,9.0,0.0,0.0,0.0
+Caribbean Salad w/ Grilled Chicken,700.0,27.0,4.5,110.0,1180.0,85.0,8.0,70.0,33.0
+Blue Moon 22 fl oz,310.0,0.0,0.0,0.0,30.0,26.0,0.0,0.0,3.0
+Sam Adams Boston Lager 16 fl oz,240.0,0.0,0.0,0.0,25.0,25.0,1.0,3.0,3.0
+Diet Coke Kid Cup,0.0,0.0,0.0,0.0,30.0,0.0,0.0,0.0,0.0
+Texas Cheese Fries Half,1310.0,95.0,43.0,210.0,3360.0,58.0,3.0,3.0,55.0
+Honey Mustard 2 fl oz,270.0,24.0,3.5,25.0,480.0,13.0,0.0,12.0,1.0
+Black Beans,120.0,1.0,0.0,0.0,710.0,20.0,6.0,2.0,7.0
+Honey Chipotle Crispers,570.0,29.0,5.0,75.0,1630.0,51.0,3.0,20.0,27.0
+Angry Orchard 12 fl oz,190.0,0.0,0.0,0.0,15.0,24.0,0.0,20.0,0.0
+Cranberry Juice Kids,80.0,0.0,0.0,0.0,0.0,20.0,0.0,20.0,0.0
+Fresh Guacamole Small Side,130.0,11.0,1.5,0.0,320.0,7.0,5.0,1.0,2.0
+Loaded Baked Potato Soup Cup,260.0,18.0,11.0,60.0,940.0,13.0,1.0,2.0,10.0
+Iced Tea Mango,80.0,0.0,0.0,0.0,10.0,20.0,0.0,18.0,0.0
+White Queso & Pico Lunch Combos,70.0,5.0,2.5,10.0,330.0,3.0,0.0,2.0,3.0
+Craft Beer 3-4% ABV 22 fl oz,280.0,0.0,0.0,0.0,0.0,28.0,0.0,0.0,0.0
+Dos Equis 22 fl oz,230.0,0.0,0.0,0.0,0.0,20.0,0.0,5.0,1.0
+Crispy Buffalo Bleu Crispers,1940.0,129.0,23.0,170.0,5540.0,136.0,12.0,19.0,60.0
+2% Chocolate Milk Kids,290.0,7.0,4.5,30.0,250.0,45.0,3.0,36.0,11.0
+1/2 Southwestern BLT,370.0,22.0,5.0,20.0,630.0,33.0,2.0,7.0,10.0
+Guacamole Burger,1020.0,69.0,26.0,150.0,1950.0,52.0,5.0,14.0,48.0
+Heineken 16 fl oz,180.0,0.0,0.0,0.0,10.0,16.0,0.0,0.0,2.0
+Sam Adams Boston Lager 22 fl oz,330.0,0.0,0.0,0.0,35.0,35.0,2.0,4.0,4.0
+Fresh for $5 Traditional Margarita,180.0,0.0,0.0,0.0,1040.0,25.0,0.0,23.0,0.0
+Clam Chowder Cup,190.0,13.0,7.0,50.0,390.0,12.0,1.0,3.0,6.0
+Angry Orchard 10 fl oz,160.0,0.0,0.0,0.0,10.0,20.0,0.0,17.0,0.0
+Side Salad w/ Ranch,240.0,21.0,4.5,25.0,440.0,8.0,1.0,3.0,4.0
+Chips w/ Guacamole & Salsa,1190.0,71.0,11.0,0.0,2630.0,130.0,20.0,7.0,17.0
+Chilis Premium Blend Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Miller Lite 10 fl oz,80.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Sierra Nevada Side Car 22 fl oz,330.0,0.0,0.0,0.0,15.0,29.0,0.0,1.0,4.0
+Avocado Ranch Dressing 2 fl oz,180.0,19.0,3.0,15.0,350.0,4.0,1.0,2.0,1.0
+Corona Light 22 fl oz,200.0,0.0,0.0,0.0,35.0,10.0,0.0,6.0,2.0
+Burger Bites,410.0,20.0,8.0,55.0,580.0,35.0,2.0,8.0,23.0
+Mexican Rice,130.0,0.0,0.0,0.0,530.0,29.0,1.0,1.0,3.0
+Dr Pepper To Go Cup,190.0,0.0,0.0,0.0,65.0,51.0,0.0,51.0,0.0
+Modelo Especial 10 fl oz,130.0,0.0,0.0,0.0,10.0,12.0,0.0,4.0,1.0
+Cheese American,70.0,6.0,3.5,15.0,340.0,1.0,0.0,0.0,4.0
+Loaded Boneless Wings,1440.0,97.0,28.0,220.0,3710.0,68.0,4.0,8.0,73.0
+Sunrise Burger,1080.0,73.0,28.0,350.0,1950.0,48.0,2.0,14.0,58.0
+House BBQ Ribs Half Rack,480.0,29.0,11.0,155.0,1110.0,18.0,2.0,14.0,38.0
+Tableside Guacamole,1490.0,97.0,15.0,0.0,3130.0,147.0,33.0,9.0,20.0
+2 Top Shelf Tacos w/ Ranchero Chicken,630.0,33.0,12.0,195.0,2020.0,32.0,3.0,2.0,52.0
+Bleu Cheese Dressing 1.5 fl oz,270.0,29.0,5.0,15.0,280.0,1.0,0.0,1.0,1.0
+Stella Artois 12 fl oz,150.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,1.0
+Corona Light 16 fl oz,140.0,0.0,0.0,0.0,25.0,7.0,0.0,4.0,1.0
+Sweet Wine 6 fl oz,170.0,0.0,0.0,0.0,25.0,10.0,0.0,10.0,0.0
+Honey Chipotle BBQ Ribs Full Rack,960.0,56.0,23.0,310.0,1190.0,38.0,3.0,25.0,75.0
+Sierra Nevada IPA 10 fl oz,200.0,0.0,0.0,0.0,10.0,17.0,0.0,0.0,2.0
+Stella Artois 10 fl oz,130.0,0.0,0.0,0.0,0.0,11.0,0.0,0.0,1.0
+White Queso & Pico de Gallo for Fajitas,140.0,11.0,4.5,25.0,580.0,6.0,0.0,3.0,5.0
+Crispy Crispers,1390.0,72.0,12.0,130.0,3830.0,131.0,11.0,15.0,55.0
+Premium Long Island Iced Tea,290.0,0.0,0.0,0.0,0.0,32.0,0.0,28.0,0.0
+Dr Pepper Kid Cup,80.0,0.0,0.0,0.0,25.0,20.0,0.0,20.0,0.0
+Quesadilla Explosion Salad,1400.0,93.0,28.0,185.0,2380.0,81.0,9.0,17.0,61.0
+Fried Pickles,670.0,50.0,8.0,15.0,3500.0,46.0,6.0,6.0,8.0
+BBQ Sauce for Crispers,70.0,0.0,0.0,0.0,590.0,16.0,0.0,14.0,1.0
+Texas Cheese Fries Full,1800.0,127.0,58.0,290.0,5000.0,86.0,5.0,4.0,79.0
+Michelob Ultra 22 fl oz,170.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,1.0
+Margherita Flatbread Lunch Combo,710.0,53.0,21.0,80.0,1110.0,31.0,2.0,3.0,26.0
+Ancho Chile Ranch 1.5 fl oz,170.0,17.0,3.0,15.0,350.0,3.0,0.0,2.0,1.0
+Craft Beer 8-10% ABV 10 fl oz,240.0,0.0,0.0,0.0,0.0,21.0,0.0,0.0,0.0
+Bacon Ranch Chicken Quesadilla Lunch Combos,920.0,71.0,22.0,145.0,1860.0,34.0,2.0,4.0,37.0
+Michelob Ultra 10 fl oz,80.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0
+Classic Bacon Burger,990.0,67.0,27.0,170.0,1930.0,48.0,2.0,13.0,52.0
+Lemonade Black Cherry,120.0,0.0,0.0,0.0,40.0,34.0,0.0,33.0,0.0
+Smoked Bone In BBQ Chicken Breast,360.0,12.0,3.0,160.0,1920.0,21.0,1.0,19.0,43.0
+Seared Shrimp Full Order,90.0,3.0,1.0,115.0,790.0,2.0,0.0,1.0,13.0
+Craft Beer 8-10% ABV 22 fl oz,530.0,0.0,0.0,0.0,0.0,47.0,0.0,0.0,0.0
+Texas Honey Chipotle BBQ Ribs Full Rack,1430.0,89.0,36.0,490.0,1570.0,40.0,5.0,25.0,119.0
+BBQ Sauce Original,70.0,0.0,0.0,0.0,590.0,16.0,0.0,14.0,1.0
+Tostada Chips & Salsa,910.0,45.0,7.0,0.0,1920.0,113.0,8.0,5.0,13.0
+Heineken 10 fl oz,110.0,0.0,0.0,0.0,5.0,10.0,0.0,0.0,1.0
+Double Burger Lunch Combos,800.0,49.0,22.0,145.0,2170.0,45.0,2.0,12.0,45.0
+Thousand Island 2 fl oz,270.0,26.0,4.0,25.0,520.0,9.0,0.0,6.0,1.0
+Crispy Honey Chipotle Crispers,1770.0,90.0,15.0,145.0,4950.0,186.0,12.0,55.0,56.0
+Miller Lite 12 fl oz,100.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0
+Curevo Blue Margarita,250.0,0.0,0.0,0.0,1160.0,36.0,0.0,33.0,0.0
+Craft Beer 8-10% ABV 16 fl oz,390.0,0.0,0.0,0.0,0.0,34.0,0.0,0.0,0.0
+Citrus Balsamic Vinaigrette Dressing 1.5 fl oz,250.0,25.0,3.5,0.0,240.0,5.0,0.0,5.0,0.0
+4 Flour Tortillas,350.0,12.0,6.0,0.0,860.0,52.0,2.0,1.0,8.0
+Chicken Enchilada Soup Bowl,440.0,28.0,10.0,75.0,1660.0,25.0,3.0,3.0,22.0
+Modelo Especial 22 fl oz,280.0,0.0,0.0,0.0,25.0,26.0,0.0,8.0,2.0
+Shrimp Fajitas Seared,370.0,17.0,5.0,235.0,3040.0,28.0,3.0,13.0,30.0
+Bacon Ranch Chicken Quesadilla,1740.0,131.0,45.0,300.0,3500.0,69.0,4.0,9.0,74.0
+Bacon Avocado Chicken Sandwich Lunch Combos,560.0,29.0,8.0,120.0,1410.0,37.0,4.0,8.0,39.0
+Cheeseburger Bites,440.0,23.0,10.0,65.0,750.0,35.0,2.0,8.0,25.0
+Crispy Chicken Dippers,500.0,38.0,6.0,70.0,1160.0,19.0,2.0,2.0,20.0
+10 Original Crispers,1320.0,67.0,11.0,160.0,3850.0,121.0,11.0,25.0,61.0
+Southwestern Eggrolls,800.0,41.0,10.0,50.0,2190.0,82.0,9.0,9.0,28.0
+Boneless Wings Fiery Pepper,1120.0,58.0,10.0,120.0,3640.0,102.0,5.0,40.0,50.0
+Modelo Especial 12 fl oz,150.0,0.0,0.0,0.0,15.0,14.0,0.0,4.0,1.0
+Coca Cola Kid Cup,90.0,0.0,0.0,0.0,20.0,25.0,0.0,25.0,0.0
+Lemonade Strawberry,190.0,0.0,0.0,0.0,40.0,51.0,2.0,48.0,0.0
+Sierra Nevada Side Car 10 fl oz,150.0,0.0,0.0,0.0,5.0,13.0,0.0,1.0,2.0
+Cheese Quesadilla,470.0,32.0,15.0,60.0,750.0,29.0,1.0,1.0,18.0
+Crispy Honey Chipotle & Waffles Crispers,2480.0,125.0,40.0,185.0,5240.0,276.0,11.0,105.0,63.0
+Skillet Queso,1590.0,97.0,36.0,135.0,4250.0,137.0,10.0,16.0,45.0
+Blue Moon 12 fl oz,170.0,0.0,0.0,0.0,15.0,14.0,0.0,0.0,2.0
+Corona Light 12 fl oz,110.0,0.0,0.0,0.0,20.0,5.0,0.0,3.0,1.0
+Side House BBQ Sauce,80.0,1.0,0.0,0.0,790.0,16.0,1.0,14.0,1.0
+Cajun Pasta w/ Grilled Chicken,1180.0,53.0,22.0,170.0,3520.0,111.0,8.0,6.0,65.0
+Santa Fe 2 fl oz,270.0,28.0,4.5,20.0,700.0,4.0,1.0,2.0,1.0
+Titos Vodkarita Mango,330.0,0.0,0.0,0.0,0.0,49.0,0.0,46.0,0.0
+Texas Honey Chipotle BBQ Ribs Half Rack,720.0,44.0,18.0,245.0,780.0,20.0,2.0,13.0,59.0
+Red Wine 6 fl oz,150.0,0.0,0.0,0.0,5.0,5.0,0.0,1.0,0.0
+Coca Cola To Go Cup,250.0,0.0,0.0,0.0,60.0,67.0,0.0,67.0,0.0
+Bud Light 10 fl oz,90.0,0.0,0.0,0.0,0.0,5.0,0.0,0.0,1.0
+Steak Fajitas Grilled,680.0,41.0,18.0,180.0,2890.0,25.0,3.0,11.0,56.0
+Chipotle Chicken Fresh Mex Bowl,940.0,42.0,11.0,185.0,2860.0,82.0,7.0,8.0,60.0
+Original BBQ Ribs Half Rack,470.0,28.0,11.0,155.0,910.0,17.0,2.0,14.0,38.0
+Bone In Wings Honey Chipotle,940.0,51.0,12.0,295.0,2120.0,58.0,1.0,40.0,62.0
+Diet Coke Regular,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Patron Margarita,310.0,0.0,0.0,0.0,2040.0,45.0,0.0,39.0,0.0
+Honey Lime Dressing 1.5 fl oz,200.0,17.0,2.5,10.0,220.0,12.0,0.0,11.0,1.0
+Presidente Margarita Mango,290.0,0.0,0.0,0.0,0.0,36.0,0.0,32.0,0.0
+Black Bean Patty,190.0,7.0,1.0,0.0,540.0,22.0,8.0,2.0,17.0
+Craft Beer 5-7% ABV 16 fl oz,260.0,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0
+El Nino Margarita,330.0,0.0,0.0,0.0,2320.0,34.0,0.0,29.0,0.0
+Pepper Pals Cheesy Chicken Pasta,660.0,30.0,13.0,140.0,1780.0,48.0,3.0,6.0,48.0
+Arnold Palmer Strawberry,90.0,0.0,0.0,0.0,20.0,23.0,1.0,21.0,0.0
+Ranch 2 fl oz,230.0,24.0,4.0,20.0,400.0,3.0,0.0,2.0,2.0
+Classic Beef Patty,480.0,39.0,17.0,130.0,720.0,0.0,0.0,0.0,34.0
+Coconut State of Mind,200.0,0.0,0.0,0.0,0.0,40.0,0.0,38.0,0.0
+House Salad,150.0,7.0,3.0,15.0,290.0,15.0,2.0,4.0,7.0
+Craft Beer 5-7% ABV 10 fl oz,160.0,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0
+2% Milk Kids,180.0,7.0,4.5,30.0,170.0,18.0,0.0,18.0,12.0
+California Grilled Chicken Flatbread Lunch Combo,860.0,65.0,23.0,120.0,1320.0,33.0,3.0,3.0,35.0
+Homestyle Fries,390.0,17.0,3.0,0.0,1420.0,53.0,3.0,0.0,5.0
+Fajitas Grilled Chicken,610.0,30.0,15.0,145.0,2330.0,45.0,4.0,10.0,43.0
+Bone In Wings Smoked,560.0,31.0,9.0,290.0,1900.0,17.0,1.0,14.0,55.0
+Titos Vodkarita,310.0,0.0,0.0,0.0,0.0,43.0,0.0,39.0,0.0

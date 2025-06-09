@@ -1,0 +1,716 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Yuengling,140.0,0.0,0.0,0.0,15.0,12.0,0.0,0.0,1.0
+Diet Coke,2.0,0.0,0.0,0.0,6.0,0.0,0.0,0.0,0.0
+Apple Slices,35.0,0.0,0.0,0.0,0.0,9.0,1.0,7.0,0.0
+Dr Pepper,150.0,0.0,0.0,0.0,53.0,41.0,0.0,41.0,0.0
+Mandarin Oranges Kids,20.0,0.0,0.0,0.0,0.0,5.0,1.0,5.0,0.0
+Steamed Broccoli Kids,15.0,0.0,0.0,0.0,15.0,3.0,2.0,0.0,2.0
+Jump Starter Cheese Sticks,600.0,32.0,12.0,65.0,1590.0,53.0,6.0,7.0,25.0
+Jump Starter Jalapeno Coins,750.0,57.0,10.0,20.0,2390.0,46.0,11.0,4.0,6.0
+Jump Starter Fresh Fried Mushrooms,410.0,23.0,4.0,0.0,870.0,48.0,2.0,27.0,5.0
+Guac Salsa & Chips,560.0,26.0,6.0,0.0,1700.0,59.0,17.0,4.0,5.0
+Towering Onion Rings,1890.0,121.0,21.0,35.0,3340.0,171.0,36.0,22.0,19.0
+Freckled Fruit Salad,130.0,0.0,0.0,0.0,0.0,31.0,2.0,27.0,1.0
+Southwest Black Beans,70.0,0.0,0.0,0.0,390.0,15.0,5.0,1.0,4.0
+Coleslaw,80.0,5.0,1.0,5.0,230.0,8.0,1.0,4.0,1.0
+Steamed Broccoli,30.0,0.0,0.0,0.0,30.0,6.0,3.0,0.0,3.0
+Apple Juice Kids,50.0,0.0,0.0,0.0,10.0,12.0,0.0,12.0,0.0
+Root Beer Kids,90.0,0.0,0.0,0.0,20.0,25.0,0.0,25.0,0.0
+Chocolate Milk Kids,270.0,2.5,1.5,15.0,140.0,50.0,1.0,44.0,11.0
+Coca Cola Classic Kids,80.0,0.0,0.0,0.0,10.0,24.0,0.0,24.0,0.0
+Cranberry Juice Kids,70.0,0.0,0.0,0.0,0.0,17.0,0.0,15.0,0.0
+Diet Coke Kids,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Dr Pepper Kids,90.0,0.0,0.0,0.0,30.0,24.0,0.0,24.0,0.0
+Freckled Lemonade Kids,90.0,0.0,0.0,0.0,20.0,22.0,0.0,22.0,0.0
+Freckled Lemonade Light Kids,40.0,0.0,0.0,0.0,0.0,10.0,0.0,10.0,0.0
+Milk Kids,140.0,3.5,2.0,15.0,150.0,17.0,0.0,17.0,11.0
+Minute Maid Lemonade Kids,80.0,0.0,0.0,0.0,35.0,23.0,0.0,23.0,0.0
+Minute Maid Lemonade Light Kids,5.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Orange Juice Kids,60.0,0.0,0.0,0.0,10.0,14.0,0.0,12.0,1.0
+Root Beer Float Kids,190.0,5.0,3.0,20.0,60.0,35.0,0.0,33.0,2.0
+Sprite Kids,90.0,0.0,0.0,0.0,20.0,22.0,0.0,19.0,0.0
+Strawberry Smoothie Kids,230.0,0.0,0.0,0.0,5.0,59.0,0.0,54.0,0.0
+Coca Cola Classic,146.0,0.0,0.0,0.0,47.0,39.0,0.0,39.0,0.0
+Root Beer,160.0,0.0,0.0,0.0,35.0,43.0,0.0,43.0,0.0
+Freckled Lemonade,139.0,0.0,0.0,0.0,26.0,36.0,1.0,35.0,0.0
+Freckled Lemonade Light,80.0,0.0,0.0,0.0,3.0,19.0,1.0,19.0,1.0
+Minute Maid Lemonade,146.0,0.0,0.0,0.0,62.0,39.0,0.0,39.0,0.0
+Minute Maid Lemonade Light,8.0,0.0,0.0,0.0,8.0,2.0,0.0,2.0,0.0
+Peach Iced Tea,0.0,0.0,0.0,0.0,10.0,8.0,0.0,0.0,0.0
+Raspberry Iced Tea,0.0,0.0,0.0,0.0,10.0,8.0,0.0,0.0,0.0
+Root Beer Float,480.0,6.0,6.0,39.0,149.0,99.0,0.0,95.0,5.0
+Sprite,159.0,0.0,0.0,0.0,36.0,40.0,0.0,36.0,0.0
+Peach Lemonade,5.0,0.0,0.0,0.0,0.0,6.0,0.0,1.0,0.0
+Raspberry Lemonade,4.0,0.0,0.0,0.0,4.0,6.0,0.0,1.0,0.0
+Very Berry Raspberry Limeade,176.0,0.0,0.0,0.0,17.0,45.0,0.0,42.0,0.0
+Hawaiian Heart Throb Smoothie,327.0,2.0,2.0,0.0,30.0,79.0,0.0,72.0,0.0
+Classic Banana Milkshake,540.0,21.0,13.0,85.0,180.0,78.0,0.0,70.0,9.0
+Classic Chocolate Milkshake,545.0,21.0,13.0,84.0,189.0,78.0,1.0,67.0,10.0
+Classic Cookie Magic Milkshake,655.0,28.0,14.0,83.0,369.0,90.0,1.0,36.0,11.0
+Classic Mint Brownie Milkshake,633.0,29.0,16.0,99.0,339.0,84.0,2.0,68.0,11.0
+Classic Peach Milkshake,540.0,21.0,13.0,85.0,180.0,78.0,0.0,71.0,9.0
+Classic Raspberry Milkshake,540.0,21.0,13.0,85.0,180.0,78.0,0.0,70.0,9.0
+Classic Salted Caramel Milkshake,755.0,23.0,14.0,91.0,1861.0,127.0,1.0,102.0,10.0
+Classic Strawberry Milkshake,520.0,21.0,13.0,85.0,170.0,73.0,1.0,66.0,10.0
+Classic Vanilla Milkshake,508.0,21.0,13.0,84.0,174.0,69.0,0.0,63.0,9.0
+Classic Banana Malt,580.0,22.0,13.0,90.0,220.0,86.0,1.0,76.0,11.0
+Classic Chocolate Malt,691.0,22.0,13.0,89.0,247.0,110.0,3.0,93.0,13.0
+Classic Peach Malt,580.0,22.0,13.0,90.0,220.0,86.0,1.0,76.0,11.0
+Classic Raspberry Malt,580.0,22.0,13.0,90.0,220.0,87.0,1.0,76.0,11.0
+Classic Strawberry Malt,570.0,22.0,13.0,90.0,220.0,81.0,1.0,71.0,11.0
+Sweet Potato Fries,570.0,29.0,5.0,0.0,810.0,70.0,9.0,24.0,6.0
+Classic Vanilla Malt,553.0,22.0,13.0,89.0,217.0,78.0,1.0,68.0,11.0
+Monster Banana Milkshake,960.0,39.0,24.0,150.0,350.0,139.0,1.0,124.0,18.0
+Monster Chocolate Milkshake,1027.0,39.0,24.0,152.0,376.0,151.0,3.0,129.0,20.0
+Monster Cookie Magic Milkshake,1194.0,50.0,25.0,151.0,663.0,167.0,2.0,69.0,21.0
+Monster Mint Brownie Milkshake,1185.0,56.0,32.0,182.0,681.0,155.0,5.0,124.0,22.0
+Monster Peach Milkshake,970.0,39.0,24.0,150.0,350.0,139.0,1.0,124.0,18.0
+Monster Raspberry Milkshake,970.0,39.0,24.0,150.0,350.0,139.0,1.0,124.0,18.0
+Monster Strawberry Milkshake,942.0,39.0,24.0,152.0,346.0,131.0,2.0,117.0,19.0
+Monster Vanilla Milkshake,950.0,39.0,24.0,150.0,350.0,134.0,1.0,120.0,18.0
+Monster Banana Malt,1010.0,39.0,24.0,155.0,390.0,147.0,1.0,129.0,20.0
+Monster Chocolate Malt,1060.0,39.0,24.0,155.0,405.0,157.0,3.0,133.0,21.0
+Monster Peach Malt,1010.0,39.0,24.0,155.0,400.0,147.0,1.0,130.0,20.0
+Monster Raspberry Malt,1010.0,39.0,24.0,155.0,390.0,148.0,1.0,129.0,20.0
+Monster Strawberry Malt,987.0,39.0,24.0,157.0,389.0,139.0,2.0,123.0,21.0
+Monster Vanilla Malt,1000.0,39.0,24.0,155.0,390.0,142.0,1.0,126.0,20.0
+Monster Salted Caramel Milkshake,1199.0,40.0,25.0,159.0,3516.0,191.0,1.0,159.0,19.0
+Bailey's Irish Cream Shake,720.0,30.0,14.0,94.0,215.0,83.0,1.0,71.0,12.0
+Absolutely Absolut Freckled Lemonade,287.0,0.0,0.0,0.0,31.0,39.0,1.0,39.0,1.0
+Sand In Your Shorts,313.0,0.0,0.0,0.0,3.0,52.0,0.0,35.0,1.0
+Screaming Red Zombie,366.0,0.0,0.0,0.0,15.0,53.0,0.0,38.0,1.0
+Tropical Mai Tai,299.0,0.0,0.0,0.0,13.0,44.0,0.0,35.0,1.0
+Fresh Lime Skinny Margarita On the Rocks,122.0,0.0,0.0,0.0,873.0,11.0,0.0,8.0,0.0
+Red's Chicken Burger Kids,340.0,11.0,2.5,110.0,840.0,30.0,0.0,3.0,31.0
+Red's Veggie Burger Kids,340.0,13.0,3.5,10.0,910.0,47.0,3.0,4.0,12.0
+Red's Beef Burger Kids,330.0,18.0,5.0,40.0,420.0,26.0,0.0,3.0,16.0
+Red's Turkey Burger Kids,460.0,27.0,7.0,100.0,860.0,29.0,0.0,3.0,28.0
+Red's Boca Burger Kids,330.0,10.0,1.5,0.0,1120.0,37.0,8.0,4.0,31.0
+A.1. Peppercorn Burger,1110.0,69.0,22.0,135.0,2000.0,71.0,5.0,9.0,50.0
+All American Patty Melt,1110.0,73.0,17.0,100.0,1210.0,70.0,11.0,12.0,39.0
+Burnin Love,910.0,54.0,18.0,130.0,1750.0,58.0,5.0,8.0,46.0
+Bleu Ribbon,1130.0,70.0,22.0,140.0,1930.0,73.0,5.0,12.0,47.0
+Red Robin Gourmet Cheeseburger w/ American Cheese,820.0,47.0,15.0,110.0,1450.0,55.0,0.0,15.0,39.0
+Guacamole Bacon,950.0,59.0,19.0,140.0,1430.0,50.0,2.0,9.0,49.0
+Red's Big Tavern,870.0,54.0,20.0,125.0,1650.0,50.0,1.0,9.0,42.0
+Keep It Simple Burger w/ Beef,620.0,32.0,11.0,90.0,1040.0,47.0,1.0,8.0,35.0
+Prime Chophouse,1110.0,66.0,19.0,110.0,1420.0,81.0,8.0,8.0,44.0
+Bacon Cheeseburger,950.0,62.0,18.0,130.0,1370.0,45.0,1.0,8.0,43.0
+Royal Red Robin,1160.0,81.0,26.0,330.0,2040.0,48.0,1.0,8.0,54.0
+Sauteed Shroom,840.0,48.0,19.0,125.0,1280.0,52.0,4.0,10.0,47.0
+Banzai,1040.0,62.0,19.0,130.0,2000.0,70.0,1.0,29.0,43.0
+Whiskey River BBQ,1180.0,76.0,22.0,130.0,1610.0,71.0,3.0,17.0,44.0
+The Garden Burger,550.0,23.0,5.0,15.0,1620.0,72.0,6.0,8.0,18.0
+Grilled Turkey,680.0,39.0,9.0,110.0,1210.0,53.0,3.0,6.0,33.0
+Chili Chili Cheeseburger,870.0,48.0,16.0,140.0,1630.0,57.0,3.0,9.0,50.0
+Gooey Chocolate Brownie Cake,806.0,28.0,16.0,34.0,421.0,134.0,3.0,98.0,9.0
+Mountain High Mudd Pie,1374.0,58.0,39.0,124.0,616.0,194.0,6.0,135.0,17.0
+Arctic Cod Fish & Chips,1560.0,92.0,16.0,150.0,2840.0,136.0,19.0,11.0,45.0
+Clucks & Fries Buffalo Style,1630.0,114.0,28.0,115.0,4070.0,103.0,18.0,3.0,48.0
+Clucks & Shrimp,1360.0,77.0,14.0,150.0,2980.0,121.0,18.0,19.0,42.0
+Ensenada Chicken Platter,510.0,18.0,5.0,235.0,2390.0,27.0,4.0,7.0,61.0
+Prime Rib Dip,1080.0,45.0,16.0,115.0,2520.0,117.0,22.0,15.0,55.0
+Red's Nantucket Seafood Scatter,1520.0,90.0,15.0,200.0,3860.0,130.0,7.0,24.0,47.0
+Shrimp & Slaw Platter,1060.0,47.0,9.0,195.0,3480.0,124.0,19.0,22.0,35.0
+Mac n Cheese,320.0,22.0,14.0,65.0,600.0,21.0,2.0,1.0,10.0
+Steak Fries Kids Side,220.0,10.0,2.0,0.0,115.0,29.0,8.0,0.0,3.0
+Jump Starter Sweet Potato Fries,380.0,15.0,3.0,0.0,1040.0,62.0,5.0,35.0,3.0
+Steak Fries,370.0,18.0,4.0,1.0,220.0,49.0,13.0,1.0,5.0
+MVPizza w/ Cheese,460.0,18.0,11.0,50.0,1060.0,52.0,3.0,11.0,22.0
+Side Salad Kids,5.0,0.0,0.0,0.0,5.0,1.0,0.0,1.0,0.0
+Avo Cobb O Salad,560.0,29.0,11.0,325.0,1440.0,27.0,7.0,7.0,50.0
+Crispy Chicken Tender Salad,880.0,49.0,14.0,275.0,1510.0,58.0,7.0,7.0,53.0
+Simply Grilled Chicken Salad,300.0,8.0,4.0,125.0,780.0,23.0,4.0,7.0,36.0
+Southwest Sombrero Salad,780.0,48.0,13.0,155.0,1900.0,44.0,12.0,9.0,40.0
+House Salad,110.0,5.0,3.0,15.0,150.0,10.0,2.0,3.0,6.0
+Side Grilled Caesar Salad,140.0,11.0,2.5,10.0,310.0,8.0,1.0,3.0,4.0
+Grilled Cheesy Kids,550.0,31.0,14.0,45.0,1590.0,47.0,2.0,2.0,20.0
+Simply Grilled Chicken,490.0,15.0,4.0,110.0,1320.0,53.0,1.0,9.0,36.0
+Teriyaki Chicken,890.0,43.0,12.0,150.0,2160.0,75.0,1.0,29.0,46.0
+Whiskey River BBQ Chicken,1030.0,58.0,15.0,150.0,1890.0,75.0,3.0,17.0,44.0
+Crispy Arctic Cod Sandwich,920.0,50.0,9.0,75.0,1640.0,89.0,3.0,11.0,28.0
+BLTA Croissant,670.0,38.0,14.0,90.0,2090.0,52.0,6.0,9.0,29.0
+Caesar's Chicken Wrap,760.0,43.0,8.0,90.0,1830.0,55.0,3.0,3.0,38.0
+Bruschetta Chicken,630.0,29.0,8.0,125.0,1480.0,47.0,3.0,5.0,42.0
+California Chicken,750.0,39.0,11.0,140.0,2010.0,53.0,2.0,8.0,45.0
+Chili Chili Con Queso,820.0,44.0,23.0,100.0,2570.0,66.0,14.0,11.0,24.0
+Chicken Tortilla Soup Bowl,380.0,19.0,8.0,55.0,1520.0,31.0,4.0,4.0,22.0
+Chicken Tortilla Soup Cup,210.0,10.0,4.0,30.0,890.0,18.0,2.0,2.0,12.0
+Clamdigger's Clam Chowder Bowl,390.0,25.0,15.0,95.0,1260.0,28.0,1.0,8.0,14.0
+Clamdigger's Clam Chowder Cup,240.0,15.0,9.0,60.0,780.0,19.0,1.0,5.0,9.0
+French Onion Soup Bowl,410.0,23.0,10.0,35.0,620.0,41.0,14.0,15.0,15.0
+French Onion Soup Cup,180.0,12.0,5.0,15.0,320.0,14.0,1.0,4.0,8.0
+Chili Chili Cheese Fries,1540.0,95.0,30.0,135.0,2740.0,116.0,30.0,5.0,50.0
+Bar Wings n Yukon Chips w/ Buzz Sauce 1/2 Order,740.0,51.0,12.0,240.0,1700.0,24.0,4.0,2.0,49.0
+O Ring Shorty,1120.0,78.0,13.0,30.0,1990.0,84.0,17.0,14.0,10.0
+Carrots Kids,20.0,0.0,0.0,0.0,45.0,5.0,2.0,3.0,0.0
+Jump Starter Fresh Fried Zucchini Sticks,480.0,40.0,7.0,15.0,610.0,19.0,2.0,4.0,4.0
+Bar Wings n Yukon Chips w/ Buzz Sauce Large,1220.0,84.0,20.0,475.0,2860.0,25.0,4.0,2.0,93.0
+Pretzel Bites w/ Beer Cheese Dip,650.0,20.0,9.0,40.0,1600.0,97.0,5.0,5.0,22.0
+Silver Patron Margarita Frozen,261.0,0.0,0.0,0.0,892.0,39.0,0.0,31.0,0.0
+Silver Patron Margarita On The Rocks,261.0,0.0,0.0,0.0,892.0,39.0,0.0,31.0,0.0
+Skinny Absolutely Absolut Freckled Lemonade,126.0,0.0,0.0,0.0,3.0,10.0,0.0,10.0,0.0
+Blue Moon Beer Shake,667.0,30.0,17.0,136.0,125.0,72.0,1.0,55.0,7.0
+Fresh Brewed Gold Peak Tea Pomegranate,168.0,0.0,0.0,0.0,10.0,40.0,0.0,40.0,0.0
+Fresh Brewed Gold Peak Tea Regular,0.0,0.0,0.0,0.0,11.0,0.0,0.0,0.0,0.0
+Burnin Love Chicken,730.0,33.0,10.0,140.0,2560.0,64.0,5.0,10.0,45.0
+Double Berry Cheesecake,710.0,41.0,22.0,152.0,436.0,65.0,2.0,56.0,11.0
+Ensenada Chicken Platter 1 Piece,310.0,11.0,4.0,120.0,1360.0,19.0,3.0,5.0,32.0
+Cod Crunchers Kids,730.0,52.0,9.0,85.0,1080.0,44.0,2.0,5.0,20.0
+Clucks & Fries,1350.0,82.0,15.0,95.0,2200.0,102.0,17.0,4.0,47.0
+Classic Mini Wedge Salad,410.0,34.0,7.0,30.0,700.0,11.0,2.0,5.0,7.0
+Red's Chili Chili Bowl,450.0,21.0,7.0,85.0,1540.0,34.0,7.0,6.0,32.0
+Red's Chili Chili Cup,230.0,10.0,4.0,40.0,780.0,17.0,3.0,3.0,16.0
+Creamy Artichoke & Spinach Dip,780.0,43.0,13.0,35.0,1910.0,66.0,15.0,7.0,16.0
+Red's Bold Boneless Wings w/ Banzai Sauce 1/2 Order,750.0,35.0,7.0,65.0,2330.0,81.0,11.0,24.0,29.0
+Red's Bold Boneless Wings w/ Banzai Large,1270.0,55.0,11.0,130.0,4270.0,137.0,19.0,44.0,56.0
+Red's Bold Boneless Wings w/ Whiskey River BBQ Sauce 1/2 Order,760.0,40.0,8.0,65.0,1710.0,71.0,12.0,10.0,29.0
+Red's Bold Boneless Wings w/ Whiskey River BBQ Sauce Large,1220.0,60.0,11.0,130.0,3000.0,115.0,21.0,20.0,54.0
+Onion Rings,550.0,31.0,6.0,5.0,970.0,62.0,14.0,6.0,7.0
+Hi C Fruit Punch,90.0,0.0,0.0,0.0,10.0,25.0,0.0,25.0,0.0
+Poppin Purple Lemonade,170.0,0.0,0.0,0.0,25.0,43.0,0.0,42.0,0.0
+Raspberry Cream Soda,196.0,2.0,2.0,15.0,18.0,40.0,0.0,38.0,0.0
+Orange Cream Soda,206.0,2.0,2.0,15.0,18.0,43.0,0.0,41.0,0.0
+Monster Nana Nana Moo Moo Milkshake,1058.0,38.0,23.0,151.0,371.0,162.0,2.0,141.0,20.0
+Irish Beer Milkshake,577.0,21.0,13.0,83.0,218.0,73.0,1.0,59.0,10.0
+Blue Moon Can Crafted Cocktail,218.0,0.0,0.0,0.0,3.0,33.0,0.0,20.0,1.0
+Fresh Lime Skinny Margarita Frozen,122.0,0.0,0.0,0.0,873.0,11.0,0.0,8.0,0.0
+Black & Bleu Burger,1120.0,68.0,25.0,180.0,4500.0,65.0,11.0,14.0,57.0
+DGB Burger,1140.0,69.0,16.0,140.0,1650.0,49.0,4.0,7.0,48.0
+Smoke & Pepper,950.0,50.0,19.0,170.0,3380.0,64.0,3.0,23.0,61.0
+Red's Tavern Fries,1320.0,84.0,21.0,70.0,1970.0,108.0,27.0,10.0,27.0
+Chili Cheese Fries,830.0,53.0,14.0,65.0,1500.0,59.0,15.0,4.0,24.0
+Garlic Herbed Fries,450.0,25.0,8.0,25.0,150.0,51.0,13.0,1.0,8.0
+Side Salad,20.0,0.0,0.0,0.0,15.0,4.0,2.0,2.0,1.0
+Crispy Chicken,960.0,59.0,11.0,75.0,1950.0,68.0,2.0,8.0,35.0
+Chipotle,160.0,16.0,2.0,20.0,450.0,4.0,0.0,1.0,0.0
+Roasted Garlic Aioli,330.0,30.0,5.0,15.0,330.0,3.0,0.0,0.0,0.0
+Smoke & Pepper Ketchup,100.0,0.0,0.0,0.0,930.0,25.0,1.0,20.0,2.0
+Smoked Bacon,340.0,29.0,6.0,35.0,670.0,5.0,0.0,4.0,9.0
+Sweet Pepper Thai,100.0,0.0,0.0,0.0,630.0,28.0,0.0,24.0,0.0
+Buzzard,140.0,16.0,7.0,0.0,1430.0,0.0,0.0,0.0,0.0
+Campfire,280.0,23.0,4.0,10.0,590.0,11.0,1.0,8.0,1.0
+Sweet & Spicy Ketchup,100.0,0.0,0.0,0.0,620.0,27.0,0.0,23.0,0.0
+Red's Secret Tavern Sauce,220.0,20.0,3.0,10.0,290.0,6.0,0.0,5.0,0.0
+House Made Ranch,260.0,25.0,4.0,15.0,410.0,2.0,0.0,2.0,1.0
+Baja Dip n Chips,680.0,41.0,11.0,30.0,1160.0,52.0,12.0,3.0,5.0
+Banzai Salad,560.0,17.0,4.0,125.0,2150.0,68.0,5.0,44.0,35.0
+Bar Wings n Yukon Chips w/ Banzai Sauce Large,1270.0,67.0,16.0,465.0,3640.0,73.0,4.0,45.0,95.0
+Bar Wings n Yukon Chips w/ Banzai Sauce 1/2 Order,760.0,41.0,9.0,235.0,2020.0,49.0,3.0,24.0,49.0
+Bar Wings n Yukon Chips w/ Whiskey River BBQ Sauce Large,1230.0,72.0,17.0,465.0,2380.0,51.0,5.0,21.0,94.0
+Bar Wings n Yukon Chips w/ Whiskey River BBQ Sauce 1/2 Order,760.0,46.0,10.0,235.0,1400.0,39.0,4.0,11.0,49.0
+Lil Appetites Corn Doggies,350.0,22.0,5.0,70.0,830.0,29.0,1.0,5.0,10.0
+9 Corn Doggies,530.0,33.0,8.0,105.0,1250.0,43.0,2.0,7.0,16.0
+Buzz Clucks & Mac n Cheese,1980.0,151.0,48.0,245.0,5170.0,98.0,8.0,4.0,63.0
+Grilled Chicken Stickens,150.0,2.0,0.5,110.0,570.0,4.0,0.0,0.0,28.0
+Chocolate Fruffles,815.0,40.0,31.0,70.0,306.0,119.0,8.0,94.0,11.0
+Classic Nana Nana Moo Moo Milkshake,588.0,20.0,12.0,83.0,190.0,92.0,1.0,80.0,10.0
+3 Cluck A Doodles Kids,540.0,29.0,5.0,60.0,1060.0,38.0,3.0,1.0,30.0
+Lil Appetites Cluck A Doodles,360.0,20.0,3.5,40.0,780.0,26.0,2.0,1.0,20.0
+Doh! Ring Shorty,669.0,24.0,14.0,0.0,481.0,108.0,2.0,55.0,9.0
+The Big Ghost,820.0,46.0,17.0,120.0,1700.0,58.0,4.0,11.0,42.0
+Fiery Ghost Style Tavern Double,630.0,38.0,14.0,110.0,1130.0,35.0,2.0,6.0,36.0
+Freckled Fruit Salad Kids,130.0,0.0,0.0,0.0,0.0,31.0,2.0,27.0,1.0
+Freckled Lemonade Cake,529.0,21.0,8.0,229.0,100.0,89.0,2.0,12.0,8.0
+Strawberry Skinny Margarita Frozen,166.0,0.0,0.0,0.0,1.0,40.0,1.0,19.0,0.0
+Strawberry Skinny Margarita On the Rocks,166.0,0.0,0.0,0.0,1.0,40.0,1.0,19.0,0.0
+Fresh Brewed Gold Peak Tea Peach,180.0,0.0,0.0,0.0,0.0,47.0,0.0,43.0,0.0
+Fresh Brewed Gold Peak Tea Raspberry,180.0,0.0,0.0,0.0,10.0,45.0,0.0,45.0,0.0
+Insane Romaine Salad,440.0,24.0,5.0,130.0,1210.0,24.0,4.0,7.0,34.0
+MVPizza w/ Pepperoni,490.0,21.0,12.0,55.0,1180.0,52.0,3.0,11.0,24.0
+Mac It Yours w/ Broccoli,390.0,20.0,5.0,15.0,860.0,40.0,1.0,11.0,13.0
+Mac It Yours w/ Tomatoes,390.0,20.0,4.5,15.0,860.0,40.0,1.0,12.0,13.0
+Mac It Yours,380.0,19.0,5.0,15.0,860.0,39.0,1.0,11.0,13.0
+Lil Appetites Meatballs on a Stick,330.0,22.0,7.0,45.0,620.0,18.0,2.0,2.0,16.0
+Meatballs on a Stick,490.0,32.0,11.0,70.0,930.0,26.0,3.0,4.0,23.0
+The Big Pig Out,990.0,63.0,23.0,150.0,2050.0,50.0,1.0,10.0,51.0
+Pig Out Tavern Double,740.0,50.0,19.0,135.0,1600.0,31.0,1.0,5.0,43.0
+Pineapple Juice Kids,70.0,0.0,0.0,0.0,0.0,16.0,0.0,12.0,0.0
+Red Spanish Sangria,105.0,0.0,0.0,0.0,0.0,9.0,0.0,9.0,0.0
+Red's Bold Boneless Wings w/ Buzz Sauce 1/2 Order,740.0,45.0,11.0,75.0,2030.0,55.0,11.0,1.0,29.0
+Red's Bold Boneless Wings w/ Buzz Sauce Large,1220.0,73.0,19.0,140.0,3530.0,88.0,20.0,1.0,54.0
+Red's Tavern Double,660.0,44.0,17.0,115.0,1320.0,31.0,1.0,5.0,37.0
+Root Brewski Float,525.0,11.0,6.0,38.0,83.0,77.0,0.0,17.0,3.0
+Southern Charm Burger,1150.0,59.0,20.0,170.0,2910.0,94.0,6.0,39.0,59.0
+Swirly Twirly Pasta Kids,370.0,2.5,1.0,0.0,550.0,71.0,7.0,12.0,15.0
+BBQ Sauce Kids,110.0,0.0,0.0,0.0,970.0,24.0,2.0,19.0,2.0
+Towering Doh! Rings,1339.0,47.0,28.0,0.0,962.0,216.0,4.0,109.0,18.0
+Fried Pickle Nickles,790.0,51.0,9.0,125.0,440.0,70.0,6.0,7.0,8.0
+NachOMG,1480.0,83.0,41.0,175.0,2630.0,103.0,26.0,8.0,53.0
+House Pickled Jalapenos,10.0,0.0,0.0,0.0,160.0,2.0,0.0,2.0,0.0
+Wisconsin Cheese Curds,710.0,57.0,21.0,100.0,1380.0,23.0,2.0,4.0,23.0
+Coconut Pineapple Smoothie,504.0,14.0,12.0,14.0,138.0,93.0,2.0,87.0,3.0
+Red's Signature Margarita On The Rocks,259.0,0.0,0.0,0.0,892.0,37.0,0.0,31.0,0.0
+Red's Signature Margarita Frozen,259.0,0.0,0.0,0.0,892.0,37.0,0.0,31.0,0.0
+House Margarita Frozen,222.0,0.0,0.0,0.0,864.0,31.0,0.0,29.0,0.0
+House Margarita On The Rocks,222.0,0.0,0.0,0.0,864.0,31.0,0.0,29.0,0.0
+Sangria Rita,249.0,0.0,0.0,0.0,0.0,26.0,0.0,19.0,0.0
+Pina Colada On The Rocks,229.0,4.0,3.0,0.0,45.0,41.0,1.0,31.0,1.0
+Pina Colada Frozen,229.0,4.0,3.0,0.0,45.0,41.0,1.0,31.0,1.0
+Mojito,146.0,0.0,0.0,0.0,13.0,14.0,0.0,12.0,0.0
+Long Island Iced Tea,314.0,0.0,0.0,0.0,11.0,49.0,0.0,44.0,0.0
+Red's Citron Freckled Mojito,174.0,0.0,0.0,0.0,7.0,23.0,0.0,21.0,0.0
+Red's Signature Candied Orange Margarita Frozen,441.0,0.0,0.0,0.0,0.0,82.0,0.0,76.0,0.0
+Red's Signature Candied Orange Margarita On The Rocks,433.0,0.0,0.0,0.0,892.0,80.0,0.0,73.0,0.0
+Red's Signature Mango Margarita Frozen,352.0,0.0,0.0,0.0,3.0,62.0,0.0,54.0,0.0
+Red's Signature Mango Margarita On The Rocks,343.0,0.0,0.0,0.0,895.0,60.0,0.0,52.0,0.0
+Red's Signature Raspberry Margarita Frozen,350.0,0.0,0.0,0.0,2.0,61.0,0.0,54.0,0.0
+Red's Signature Raspberry Margarita On The Rocks,342.0,0.0,0.0,0.0,894.0,59.0,0.0,51.0,0.0
+Red's Signature Strawberry Margarita Frozen,333.0,0.0,0.0,0.0,0.0,56.0,1.0,49.0,1.0
+Red's Signature Strawberry Margarita On The Rocks,325.0,0.0,0.0,0.0,892.0,53.0,1.0,47.0,1.0
+The Wedgie Burger,450.0,28.0,9.0,100.0,690.0,18.0,5.0,8.0,33.0
+Buzz Mac N Cheese Tavern Double,1120.0,67.0,24.0,145.0,1650.0,87.0,14.0,5.0,44.0
+Smoky Jack Tavern Double,660.0,39.0,15.0,115.0,1180.0,39.0,1.0,12.0,36.0
+Red Ramen Burger,1260.0,81.0,25.0,98.0,2272.0,94.0,5.0,23.0,38.0
+The Big Smoky Jack,860.0,49.0,17.0,125.0,1650.0,59.0,1.0,17.0,42.0
+The Big Buzz Mac N Cheese Tavern,1320.0,76.0,27.0,155.0,2120.0,105.0,15.0,8.0,49.0
+Pub Mac N Cheese,740.0,50.0,31.0,140.0,1360.0,51.0,5.0,5.0,25.0
+VooDoo Fries w/ Fiery Ghost Pepper Sauce,1257.0,68.0,22.0,94.0,3729.0,122.0,31.0,15.0,35.0
+VooDoo Fries w/ Ranch Dressing,1414.0,87.0,25.0,105.0,3457.0,116.0,29.0,12.0,36.0
+Great Northern Poutine Fries,1340.0,81.0,24.0,75.0,1400.0,121.0,29.0,5.0,28.0
+Whiskey Rio BBQ Salad,750.0,49.0,9.0,135.0,1550.0,37.0,8.0,14.0,35.0
+Traditional Caesar Salad Side,200.0,17.0,4.0,20.0,320.0,9.0,2.0,2.0,5.0
+The Marco Pollo,730.0,31.0,10.0,40.0,1790.0,52.0,3.0,6.0,49.0
+Four Cheese Melt,1070.0,58.0,23.0,90.0,1370.0,98.0,15.0,2.0,40.0
+American Cheese,140.0,12.0,8.0,30.0,680.0,2.0,0.0,0.0,8.0
+Bleu Cheese Crumbles,150.0,12.0,8.0,40.0,580.0,0.0,0.0,0.0,9.0
+Cheddar Cheese,110.0,9.0,5.0,30.0,180.0,1.0,0.0,0.0,7.0
+Pepper Jack Cheese,100.0,8.0,5.0,25.0,190.0,1.0,0.0,0.0,6.0
+Provolone Cheese,60.0,5.0,3.0,10.0,150.0,0.0,0.0,0.0,4.0
+Swiss Cheese,110.0,8.0,5.0,30.0,60.0,1.0,0.0,0.0,9.0
+Bacon Add On,60.0,5.0,2.0,15.0,250.0,0.0,0.0,0.0,5.0
+Turkey Add On,80.0,2.0,1.0,35.0,590.0,0.0,0.0,0.0,16.0
+Balsamic Vinegar Dressing 2 oz,130.0,11.0,1.0,0.0,660.0,6.0,0.0,4.0,0.0
+Bleu Cheese Dressing 2 oz,320.0,34.0,7.0,30.0,570.0,0.0,0.0,0.0,2.0
+Caesar Dressing 2 oz,280.0,39.0,5.0,30.0,420.0,2.0,0.0,0.0,2.0
+Dijon Vinaigrette Dressing 2 oz,235.0,17.0,3.0,16.0,725.0,15.0,0.0,13.0,0.0
+Italian Dressing 2 oz,180.0,18.0,3.0,0.0,480.0,6.0,0.0,4.0,0.0
+Lemony Oil Dressing 2 oz,326.0,36.0,5.0,0.0,635.0,2.0,0.0,1.0,0.0
+Lite Ranch Dressing 2 oz,107.0,10.0,1.0,12.0,416.0,3.0,0.0,1.0,1.0
+Ranch Dressing 2 oz,260.0,25.0,4.0,15.0,410.0,2.0,0.0,2.0,1.0
+Salsa Ranch Dressing 2 oz,155.0,15.0,4.0,14.0,263.0,2.0,0.0,1.0,1.0
+Thousand Island Dressing 2 oz,220.0,20.0,3.0,10.0,290.0,6.0,0.0,5.0,0.0
+Teriyaki Sauce Kids,210.0,0.0,0.0,0.0,180.0,52.0,0.0,44.0,4.0
+Marinara Sauce Kids,45.0,0.0,0.0,0.0,250.0,8.0,1.0,6.0,1.0
+Four Cheese Sauce Kids,180.0,15.0,9.0,30.0,660.0,5.0,0.0,1.0,5.0
+Balsamic Vinegar Dressing 3 oz,190.0,16.0,2.0,0.0,1000.0,10.0,0.0,6.0,0.0
+Bleu Cheese Dressing 3 oz,470.0,51.0,10.0,50.0,860.0,1.0,0.0,0.0,3.0
+Caesar Dressing 3 oz,420.0,45.0,8.0,45.0,630.0,3.0,0.0,0.0,3.0
+Dijon Vinaigrette Dressing 3 oz,352.0,26.0,5.0,24.0,1087.0,23.0,0.0,19.0,0.0
+Honey Mustard Poppyseed Dressing 3 oz,420.0,39.0,6.0,30.0,630.0,21.0,0.0,18.0,0.0
+Italian Dressing 3 oz,270.0,27.0,5.0,0.0,720.0,9.0,0.0,6.0,0.0
+Lemony Oil Dressing 3 oz,489.0,55.0,8.0,0.0,953.0,3.0,0.0,1.0,0.0
+Lite Ranch Dressing 3 oz,160.0,15.0,2.0,19.0,624.0,5.0,0.0,2.0,2.0
+Ranch Dressing 3 oz,340.0,32.0,5.0,20.0,530.0,2.0,0.0,2.0,2.0
+Salsa Ranch Dressing 3 oz,232.0,22.0,6.0,21.0,394.0,3.0,0.0,1.0,2.0
+Thousand Island Dressing 3 oz,330.0,30.0,5.0,15.0,440.0,8.0,0.0,7.0,0.0
+Canyon Road White Zinfandel 9 oz,200.0,0.0,0.0,0.0,0.0,14.0,0.0,11.0,0.0
+Dreamy Orange Smoothie,370.0,9.0,5.0,40.0,80.0,68.0,0.0,64.0,5.0
+Bar Wings n Yukon Chips w/ Whiskey River BBQ Sauce Large,1230.0,72.0,17.0,465.0,2380.0,51.0,5.0,21.0,94.0
+Ecco Domani Pinot Grigio 9 oz,230.0,0.0,0.0,0.0,25.0,5.0,0.0,1.0,1.0
+Caesars Chicken Wrap,760.0,43.0,8.0,90.0,1640.0,57.0,3.0,2.0,36.0
+Classic Strawberry Malt Kid,570.0,22.0,13.0,90.0,220.0,81.0,1.0,71.0,11.0
+Sir Acha Tavern Double,730.0,48.0,17.0,115.0,1440.0,36.0,1.0,7.0,36.0
+Diet Dr Pepper Adult,0.0,0.0,0.0,0.0,50.0,0.0,0.0,0.0,0.0
+Double Berry Cheesecake,710.0,41.0,22.0,150.0,440.0,65.0,2.0,56.0,11.0
+Kendall Jackson V R Chardonnay 6 oz,140.0,0.0,0.0,0.0,0.0,5.0,0.0,5.0,0.0
+Cranberry Juice,70.0,0.0,0.0,0.0,0.0,17.0,0.0,15.0,0.0
+Stella Artois,150.0,0.0,0.0,0.0,50.0,12.0,0.0,2.0,1.0
+Lil Appetites Meatballs on a Stick w/ Marinara,370.0,22.0,7.0,45.0,870.0,26.0,3.0,8.0,17.0
+Woodbridge White Zinfandel 6 oz,120.0,0.0,0.0,0.0,0.0,22.0,0.0,21.0,0.0
+Corn,40.0,0.0,0.0,0.0,0.0,8.0,1.0,1.0,1.0
+Burnin Love Chicken,760.0,40.0,11.0,135.0,2170.0,64.0,7.0,10.0,43.0
+Cookie Magic Milkshake Monster,1190.0,50.0,25.0,150.0,660.0,167.0,2.0,129.0,21.0
+Pineapple Juice,70.0,0.0,0.0,0.0,0.0,16.0,0.0,12.0,0.0
+Woodbridge Chardonnay 9 oz,190.0,0.0,0.0,0.0,0.0,5.0,0.0,4.0,0.0
+Guinness,120.0,0.0,0.0,0.0,0.0,9.0,0.0,1.0,1.0
+Reds Burger Veggie,350.0,14.0,3.0,0.0,600.0,42.0,4.0,8.0,10.0
+VooDoo Fries w/ Ranch Dressing,1390.0,85.0,23.0,100.0,2990.0,114.0,29.0,8.0,36.0
+Caesar Salad,200.0,17.0,4.0,20.0,320.0,9.0,2.0,2.0,5.0
+Blue Moon Belgian White,170.0,0.0,0.0,0.0,20.0,14.0,0.0,0.0,2.0
+Fresh Brewed Gold Peak Tea Raspberry,180.0,0.0,0.0,0.0,10.0,45.0,0.0,45.0,0.0
+Woodbridge Chardonnay 6 oz,130.0,0.0,0.0,0.0,0.0,3.0,0.0,3.0,0.0
+Fanta Orange Kid,90.0,0.0,0.0,0.0,35.0,26.0,0.0,26.0,0.0
+Woodbridge Cabernet Sauvignon 6 oz,120.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Minute Maid Light Lemonade Kid,15.0,0.0,0.0,0.0,15.0,3.0,0.0,2.0,0.0
+Grilled Chicken Stickens w/ BBQ Sauce Kids,240.0,2.0,1.0,100.0,1480.0,28.0,2.0,19.0,26.0
+Screaming Red Zombie,366.0,0.0,0.0,0.0,15.0,53.0,0.0,38.0,1.0
+Kendall Jackson Merlot 9 oz,230.0,0.0,0.0,0.0,0.0,7.0,0.0,7.0,0.0
+Copper Ridge White Zinfandel 6 oz,130.0,0.0,0.0,0.0,0.0,10.0,0.0,6.0,0.0
+Smoke & Pepper Ketchup,100.0,0.0,0.0,0.0,930.0,25.0,1.0,20.0,2.0
+Crispy Chicken,1350.0,78.0,15.0,75.0,2180.0,120.0,18.0,10.0,39.0
+Balsamic Vinegar Dressing 3 oz,190.0,16.0,2.0,0.0,1000.0,10.0,0.0,6.0,0.0
+Trinity Oaks Pinot Noir 6 oz,150.0,0.0,0.0,0.0,0.0,6.0,0.0,0.0,1.0
+Classic Mint Brownie Shake Kid,630.0,29.0,16.0,100.0,340.0,84.0,2.0,68.0,11.0
+Under 15 Calories Raspberry Iced Tea,0.0,0.0,0.0,0.0,10.0,8.0,0.0,0.0,0.0
+Canyon Road Cabernet Sauvignon 9 oz,250.0,0.0,0.0,0.0,0.0,11.0,0.0,3.0,0.0
+Canyon Road Merlot 6 oz,170.0,0.0,0.0,0.0,0.0,7.0,0.0,3.0,0.0
+Dijon Vinaigrette Dressing 3 oz,350.0,26.0,5.0,25.0,1090.0,19.0,0.0,19.0,0.0
+Clamdiggers Clam Chowder Bowl,390.0,25.0,15.0,95.0,1260.0,28.0,1.0,8.0,14.0
+Mojito,150.0,0.0,0.0,0.0,25.0,14.0,0.0,12.0,0.0
+Classic Peach Malt Kid,580.0,22.0,13.0,90.0,220.0,86.0,1.0,76.0,11.0
+Thousand Island Dressing 3 oz,330.0,30.0,5.0,15.0,440.0,8.0,0.0,7.0,0.0
+Root Beer Float Adult,480.0,10.0,6.0,40.0,210.0,102.0,0.0,98.0,5.0
+Spiked Freckled Lemonade,270.0,0.0,0.0,0.0,10.0,41.0,1.0,40.0,3.0
+Woodbridge White Zinfandel 9 oz,170.0,0.0,0.0,0.0,0.0,33.0,0.0,32.0,0.0
+Classic Raspberry Malt Kid,580.0,22.0,13.0,90.0,220.0,87.0,1.0,76.0,11.0
+9 Meatballs on a Stick,490.0,32.0,11.0,70.0,930.0,26.0,3.0,4.0,23.0
+Steamed Broccoli,30.0,0.0,0.0,0.0,30.0,6.0,3.0,2.0,3.0
+Carnivor Cabernet Sauvignon 6 oz,170.0,0.0,0.0,0.0,20.0,6.0,0.0,1.0,1.0
+Strawberry Malt Monster,990.0,39.0,24.0,155.0,390.0,139.0,2.0,123.0,21.0
+Fried Pickle Nickels Appetizer,790.0,51.0,9.0,125.0,3250.0,70.0,6.0,7.0,8.0
+MGD 64,60.0,0.0,0.0,0.0,5.0,2.0,0.0,0.0,1.0
+Lil Appetites Meatballs on a Stick,330.0,22.0,7.0,45.0,620.0,18.0,2.0,2.0,16.0
+Freckled Fruit Salad Kids,60.0,0.0,0.0,0.0,0.0,16.0,1.0,14.0,1.0
+Bleu Cheese Crumbles,150.0,12.0,8.0,35.0,570.0,1.0,0.0,0.0,9.0
+Raspberry Iced Tea,180.0,0.0,0.0,0.0,0.0,45.0,0.0,45.0,0.0
+Coleslaw,80.0,5.0,1.0,5.0,230.0,7.0,1.0,4.0,1.0
+Woodbridge Cabernet Sauvignon 9 oz,180.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0
+Mint Brownie Shake Monster,1180.0,56.0,32.0,180.0,680.0,155.0,5.0,124.0,22.0
+Reds Chili Chili Cup,230.0,10.0,4.0,40.0,820.0,17.0,3.0,3.0,16.0
+Nacho Chicken Bacon Wrap,1110.0,64.0,22.0,115.0,2860.0,79.0,5.0,4.0,49.0
+Hawaiian Heart Throb Smoothie,340.0,2.0,2.0,0.0,30.0,82.0,1.0,74.0,1.0
+Gooey Chocolate Brownie Cake,890.0,36.0,15.0,100.0,350.0,135.0,2.0,103.0,10.0
+Copper Ridge Cabernet Sauvignon 9 oz,220.0,0.0,0.0,0.0,0.0,9.0,0.0,3.0,1.0
+French Onion Soup Cup,250.0,13.0,6.0,25.0,910.0,23.0,7.0,8.0,10.0
+Sweet Tea Pomegranate,260.0,0.0,0.0,0.0,10.0,64.0,0.0,64.0,0.0
+Canyon Road Chardonnay 6 oz,160.0,0.0,0.0,0.0,0.0,6.0,0.0,3.0,0.0
+Gluten Free,200.0,5.0,0.0,0.0,470.0,39.0,3.0,6.0,4.0
+Sweet Tea Raspberry,270.0,0.0,0.0,0.0,10.0,69.0,0.0,69.0,0.0
+Simply Grilled Chicken Salad,300.0,8.0,4.0,115.0,730.0,25.0,6.0,8.0,33.0
+3 Cluck a Doodles,540.0,29.0,5.0,60.0,1060.0,38.0,3.0,1.0,30.0
+Classic Vanilla Malt Kid,550.0,22.0,13.0,90.0,220.0,78.0,1.0,68.0,11.0
+Fresh Fried Zucchini Sticks,480.0,40.0,7.0,15.0,610.0,19.0,2.0,4.0,4.0
+Samuel Adams Boston Lager,170.0,0.0,0.0,0.0,20.0,19.0,1.0,2.0,2.0
+Side Salad,20.0,0.0,0.0,0.0,15.0,4.0,2.0,2.0,1.0
+Honey Mustard Poppyseed Dressing 3 oz,420.0,39.0,6.0,30.0,630.0,21.0,0.0,18.0,0.0
+Cheddar Bacon Skins,1020.0,76.0,37.0,180.0,2250.0,36.0,4.0,2.0,49.0
+Ranch,260.0,25.0,4.0,15.0,410.0,2.0,0.0,2.0,1.0
+Classic Creamy Mac n Cheese,1290.0,81.0,47.0,195.0,2770.0,89.0,5.0,9.0,52.0
+Classic Sesame,260.0,5.0,1.0,0.0,480.0,46.0,2.0,7.0,7.0
+Coconut Pineapple Smoothie,550.0,17.0,14.0,30.0,140.0,97.0,2.0,91.0,3.0
+Chili Chili Cheeseburger,890.0,49.0,17.0,140.0,1660.0,61.0,5.0,10.0,50.0
+American Cheese,140.0,12.0,7.0,35.0,680.0,1.0,0.0,1.0,7.0
+Reds Secret Tavern Sauce,220.0,20.0,3.0,10.0,290.0,6.0,0.0,5.0,0.0
+Grilled Cheesy,510.0,28.0,11.0,45.0,1430.0,45.0,2.0,3.0,17.0
+Classic Chocolate Malt Kid,590.0,22.0,13.0,90.0,230.0,86.0,2.0,73.0,12.0
+Add Bacon,60.0,5.0,2.0,15.0,250.0,0.0,0.0,0.0,5.0
+Cupcake Merlot 6 oz,160.0,0.0,0.0,0.0,5.0,6.0,0.0,1.0,1.0
+One Great Margarita With Grand Marnier On The Rocks,250.0,0.0,0.0,0.0,890.0,36.0,0.0,31.0,0.0
+Diet Coke Kid,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Skinny Stoli Raspberry Lemonade,70.0,0.0,0.0,0.0,0.0,5.0,0.0,1.0,0.0
+Lone Star Burger,880.0,55.0,18.0,125.0,1650.0,50.0,2.0,8.0,42.0
+Wrappin California Club,920.0,58.0,14.0,100.0,2300.0,61.0,7.0,3.0,42.0
+Classic Strawberry Milkshake Kid,520.0,21.0,13.0,85.0,170.0,73.0,1.0,66.0,10.0
+Mountain High Mudd Pie,1380.0,59.0,39.0,125.0,610.0,195.0,7.0,133.0,16.0
+Root Beer Float Kid,190.0,5.0,3.0,20.0,80.0,36.0,0.0,34.0,2.0
+Rebel IPA,200.0,0.0,0.0,0.0,15.0,15.0,2.0,0.0,2.0
+Coca Cola Kid,80.0,0.0,0.0,0.0,25.0,23.0,0.0,23.0,0.0
+Hogue Pinot Grigio 6 oz,120.0,0.0,0.0,0.0,0.0,6.0,0.0,5.0,0.0
+Black & Bleu Burger,940.0,57.0,19.0,160.0,2110.0,51.0,10.0,12.0,51.0
+Fresh Brewed Gold Peak Tea Pomegranate,170.0,0.0,0.0,0.0,10.0,40.0,0.0,40.0,0.0
+Vanilla Milkshake Monster,950.0,39.0,24.0,150.0,350.0,134.0,1.0,120.0,18.0
+Chocolate Mint Dream,660.0,25.0,13.0,80.0,330.0,86.0,0.0,71.0,12.0
+The Naked Grape Chardonnay 9 oz,220.0,0.0,0.0,0.0,25.0,7.0,0.0,3.0,1.0
+The Big Sir Acha,1030.0,66.0,21.0,130.0,1920.0,62.0,4.0,11.0,42.0
+Fried Pickle Nickels,660.0,46.0,8.0,80.0,2300.0,49.0,4.0,10.0,5.0
+Classic Peach Milkshake Kid,540.0,21.0,13.0,85.0,180.0,78.0,0.0,71.0,9.0
+Just In Quesadilla,1160.0,65.0,32.0,175.0,3080.0,78.0,11.0,7.0,63.0
+Canyon Road Chardonnay 9 oz,230.0,0.0,0.0,0.0,0.0,9.0,0.0,4.0,0.0
+Raspberry Cream Soda,200.0,3.0,2.0,15.0,20.0,42.0,0.0,39.0,0.0
+Strawberry Smoothie,230.0,0.0,0.0,0.0,5.0,59.0,0.0,54.0,0.0
+Southwest Chicken Pasta,1360.0,67.0,34.0,185.0,2930.0,137.0,19.0,8.0,59.0
+Mandarin Oranges,20.0,0.0,0.0,0.0,0.0,5.0,1.0,5.0,0.0
+Baked Potato Soup Bowl,270.0,18.0,9.0,45.0,670.0,20.0,2.0,4.0,8.0
+Angry Orchard Hard Cider,200.0,0.0,0.0,0.0,10.0,25.0,0.0,20.0,0.0
+Skinny Spiked Freckled Lemonade,130.0,0.0,0.0,0.0,10.0,12.0,0.0,11.0,0.0
+Bud Light,100.0,0.0,0.0,0.0,10.0,5.0,0.0,0.0,1.0
+Reel Thing Fish Tacos,660.0,30.0,6.0,45.0,680.0,79.0,10.0,9.0,19.0
+Roasted Garlic,290.0,27.0,4.0,15.0,360.0,3.0,0.0,0.0,1.0
+Copper Ridge Cabernet Sauvignon 6 oz,140.0,0.0,0.0,0.0,0.0,6.0,0.0,2.0,0.0
+Taco Tavern Double,620.0,36.0,14.0,110.0,1030.0,35.0,2.0,5.0,37.0
+Bottomless Steak Fries,370.0,17.0,4.0,0.0,220.0,49.0,13.0,1.0,5.0
+Meatballs on a stick w/ Cheese Sauce,620.0,43.0,17.0,100.0,1310.0,30.0,3.0,6.0,28.0
+Prime Chophouse,1130.0,68.0,20.0,115.0,1460.0,82.0,8.0,8.0,46.0
+Pomegranate Iced Tea,170.0,0.0,0.0,0.0,0.0,40.0,0.0,40.0,0.0
+Burnin Love,920.0,58.0,18.0,130.0,1750.0,60.0,6.0,9.0,46.0
+Fresh Brewed Gold Peak Tea Peach,180.0,0.0,0.0,0.0,10.0,47.0,0.0,43.0,0.0
+Lil Appetites Meatballs on a Stick w/ Cheese Sauce,450.0,32.0,13.0,80.0,1000.0,22.0,2.0,4.0,20.0
+Coco Loco,780.0,15.0,10.0,60.0,210.0,132.0,1.0,102.0,7.0
+Copper Ridge Merlot 9 oz,220.0,0.0,0.0,0.0,0.0,11.0,0.0,3.0,1.0
+Clamdiggers Clam Chowder Cup,240.0,15.0,9.0,60.0,780.0,19.0,1.0,5.0,9.0
+Teriyaki Chicken,880.0,44.0,12.0,130.0,2030.0,78.0,4.0,31.0,41.0
+Belgium Fat Tire,140.0,0.0,0.0,0.0,5.0,9.0,2.0,0.0,2.0
+Pasta Alfredo,1200.0,61.0,36.0,165.0,1490.0,125.0,7.0,7.0,36.0
+Silver Patron Margarita On The Rocks,260.0,0.0,0.0,0.0,890.0,39.0,0.0,31.0,0.0
+Very Berried OJ Frostie,330.0,0.0,0.0,0.0,5.0,82.0,0.0,65.0,1.0
+Reds Chili Chili Bowl,460.0,21.0,7.0,85.0,1650.0,34.0,7.0,6.0,32.0
+Onion Rings,550.0,31.0,6.0,5.0,970.0,62.0,14.0,6.0,7.0
+Minute Maid Lemonade Adult,130.0,0.0,0.0,0.0,15.0,33.0,0.0,32.0,0.0
+Reds Burger Turkey,470.0,27.0,7.0,100.0,860.0,30.0,0.0,4.0,28.0
+Nana Nana Moo Moo Monster,1060.0,38.0,23.0,150.0,370.0,162.0,2.0,141.0,20.0
+M V Pizza w/ Pepperoni,490.0,21.0,12.0,55.0,1180.0,52.0,3.0,11.0,24.0
+Veggie Burger,1200.0,87.0,16.0,35.0,1010.0,71.0,8.0,12.0,26.0
+Smoke & Pepper,900.0,49.0,19.0,170.0,3300.0,55.0,3.0,22.0,59.0
+Chocolate Fruffles,820.0,40.0,31.0,70.0,310.0,119.0,8.0,94.0,11.0
+Chicken Tortilla Soup Bowl,380.0,20.0,8.0,55.0,1450.0,32.0,4.0,3.0,21.0
+Smoky Jack Tavern Double,670.0,40.0,15.0,115.0,1180.0,40.0,1.0,13.0,36.0
+Peach Milkshake Monster,970.0,39.0,24.0,150.0,350.0,139.0,1.0,124.0,18.0
+Jacobs Creek Chardonnay 6 oz,130.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Vanilla Malt Monster,1000.0,39.0,24.0,155.0,390.0,142.0,1.0,126.0,20.0
+Fresh Brewed Iced Tea,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Classic Cookie Magic Kid,650.0,28.0,14.0,85.0,370.0,90.0,1.0,69.0,11.0
+Ecco Domani Pinot Grigio 6 oz,150.0,0.0,0.0,0.0,20.0,4.0,0.0,1.0,0.0
+Copper Ridge Chardonnay 9 oz,220.0,0.0,0.0,0.0,0.0,9.0,0.0,1.0,1.0
+Jungle Shake,770.0,27.0,14.0,95.0,220.0,99.0,1.0,86.0,12.0
+Sweet Tea Peach,270.0,0.0,0.0,0.0,10.0,71.0,0.0,68.0,0.0
+Crispy Arctic Cod Sandwich,940.0,52.0,10.0,75.0,1640.0,92.0,5.0,12.0,28.0
+Reds Tavern Double,650.0,42.0,16.0,115.0,1210.0,31.0,1.0,6.0,35.0
+Very Berry Raspberry Limeade,170.0,0.0,0.0,0.0,35.0,45.0,0.0,44.0,0.0
+Fiery Ghost Style Tavern Double,640.0,39.0,15.0,110.0,1130.0,36.0,2.0,7.0,36.0
+Ranch Dressing 3 oz,340.0,32.0,5.0,20.0,530.0,2.0,0.0,2.0,2.0
+Heineken,140.0,0.0,0.0,0.0,10.0,11.0,0.0,2.0,1.0
+California Chicken,770.0,41.0,11.0,135.0,1990.0,56.0,5.0,9.0,44.0
+Reds Burger Beef,340.0,18.0,6.0,40.0,420.0,27.0,0.0,4.0,16.0
+Lil Appetites Cluck a Doodles,360.0,20.0,4.0,40.0,780.0,26.0,2.0,1.0,20.0
+Mello Yello Adult,140.0,0.0,0.0,0.0,40.0,39.0,0.0,39.0,0.0
+Mayan Mango Smoothie,590.0,12.0,10.0,20.0,120.0,121.0,1.0,113.0,3.0
+Campfire,280.0,23.0,4.0,10.0,590.0,11.0,1.0,8.0,1.0
+Jacobs Creek Chardonnay 9 oz,200.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Red Robin Gourmet Cheeseburger w/ American Cheese,880.0,55.0,20.0,135.0,1480.0,47.0,1.0,8.0,44.0
+Banzai,1060.0,63.0,20.0,130.0,2000.0,74.0,3.0,30.0,43.0
+The Big Pig Out,980.0,62.0,21.0,150.0,1940.0,53.0,3.0,11.0,49.0
+Prime Rib Dip,740.0,29.0,13.0,120.0,2890.0,68.0,9.0,15.0,52.0
+Add Turkey,80.0,2.0,1.0,35.0,590.0,0.0,0.0,0.0,16.0
+Alaskan Amber,180.0,0.0,0.0,0.0,0.0,16.0,0.0,0.0,3.0
+Mac It Yours,380.0,19.0,5.0,15.0,860.0,39.0,1.0,11.0,13.0
+Bleu Cheese Dressing 3 oz,470.0,51.0,10.0,50.0,860.0,1.0,0.0,0.0,3.0
+Sweet Tea,110.0,0.0,0.0,0.0,10.0,30.0,0.0,30.0,0.0
+Telera,230.0,4.0,2.0,0.0,480.0,42.0,2.0,4.0,8.0
+Orange Cream Soda,210.0,3.0,2.0,15.0,20.0,43.0,0.0,41.0,0.0
+Sand In Your Shorts,310.0,0.0,0.0,0.0,0.0,52.0,0.0,35.0,1.0
+Cheese Sticks,600.0,32.0,12.0,65.0,1590.0,53.0,6.0,7.0,25.0
+Coca Cola Classic Adult,120.0,0.0,0.0,0.0,40.0,33.0,0.0,33.0,0.0
+Keep It Simple w/ Beef,640.0,34.0,11.0,90.0,1040.0,50.0,3.0,9.0,35.0
+Under 15 Calories Raspberry Lemonade,15.0,0.0,0.0,0.0,15.0,10.0,0.0,2.0,0.0
+Budweiser,150.0,0.0,0.0,0.0,10.0,11.0,0.0,0.0,1.0
+Grilled Chicken Stickens,130.0,2.0,1.0,100.0,510.0,4.0,1.0,1.0,24.0
+Reds Citron Freckled Mojito,160.0,0.0,0.0,0.0,25.0,24.0,0.0,21.0,2.0
+Chipotle,160.0,16.0,2.0,20.0,450.0,4.0,0.0,1.0,0.0
+The Big Smoky Jack,880.0,50.0,18.0,125.0,1650.0,62.0,3.0,18.0,42.0
+Classic Chocolate Milkshake Kid,550.0,21.0,13.0,85.0,190.0,78.0,1.0,67.0,10.0
+Whiskey River BBQ Chicken,1030.0,60.0,15.0,135.0,1820.0,79.0,5.0,19.0,41.0
+Coors Light,100.0,0.0,0.0,0.0,10.0,5.0,0.0,0.0,1.0
+Sprite Adult,130.0,0.0,0.0,0.0,30.0,34.0,0.0,30.0,0.0
+Diet Coke Adult,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Shiner Bock,140.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Reds Bold Boneless Wings w/ Whiskey River BBQ Sauce Large,1220.0,60.0,11.0,130.0,3000.0,115.0,21.0,21.0,54.0
+Lil Appetites Corn Doggies,350.0,22.0,5.0,70.0,830.0,29.0,1.0,5.0,10.0
+The Madlove Burger,1020.0,57.0,23.0,200.0,2280.0,58.0,7.0,19.0,70.0
+Cupcake Merlot 9 oz,230.0,0.0,0.0,0.0,10.0,9.0,0.0,2.0,2.0
+Lite Ranch Dressing 3 oz,160.0,15.0,2.0,20.0,620.0,5.0,0.0,2.0,2.0
+The Naked Grape Chardonnay 6 oz,150.0,0.0,0.0,0.0,20.0,5.0,0.0,2.0,0.0
+Pretzel Bites,650.0,20.0,9.0,40.0,1600.0,97.0,6.0,6.0,22.0
+Barqs Root Beer Kid,90.0,0.0,0.0,0.0,40.0,26.0,0.0,26.0,0.0
+Arctic Cod Fish & Chips,1560.0,92.0,16.0,150.0,2850.0,136.0,19.0,11.0,45.0
+Whole Grain,270.0,4.0,1.0,0.0,420.0,52.0,2.0,5.0,8.0
+Dr Pepper Adult,130.0,0.0,0.0,0.0,50.0,33.0,0.0,32.0,0.0
+Blackened Chicken,640.0,32.0,9.0,105.0,2150.0,50.0,1.0,8.0,39.0
+Buzzard,140.0,16.0,7.0,0.0,1420.0,0.0,0.0,0.0,0.0
+Onion,270.0,6.0,1.0,0.0,410.0,45.0,3.0,2.0,9.0
+Pepper Jack Cheese,100.0,8.0,5.0,25.0,190.0,1.0,0.0,0.0,6.0
+Bacon Cheeseburger,1050.0,71.0,24.0,150.0,1780.0,50.0,3.0,9.0,48.0
+Make Any Burger a Monster Beef Patty,290.0,20.0,8.0,90.0,80.0,0.0,0.0,0.0,27.0
+Black Beans,90.0,0.0,0.0,0.0,130.0,17.0,4.0,1.0,6.0
+Pig Out Tavern Double,730.0,48.0,18.0,135.0,1490.0,31.0,1.0,7.0,41.0
+Canyon Road Cabernet Sauvignon 6 oz,170.0,0.0,0.0,0.0,0.0,7.0,0.0,2.0,0.0
+Cinnamon Sugar Doh Ring Shorty,770.0,25.0,15.0,5.0,610.0,129.0,3.0,61.0,10.0
+Classic Raspberry Milkshake Kid,540.0,21.0,13.0,85.0,180.0,78.0,0.0,70.0,9.0
+Chillin Mango Smoothie,220.0,0.0,0.0,0.0,10.0,57.0,0.0,41.0,1.0
+Classic Banana Malt Kid,580.0,22.0,13.0,90.0,220.0,86.0,1.0,76.0,11.0
+Grilled Turkey,720.0,40.0,10.0,110.0,1260.0,59.0,3.0,7.0,33.0
+Apples,35.0,0.0,0.0,0.0,0.0,9.0,1.0,7.0,0.0
+Irish Beer Shake,580.0,21.0,13.0,85.0,220.0,73.0,1.0,59.0,10.0
+Steak Fries Kids,220.0,10.0,2.0,0.0,115.0,29.0,8.0,0.0,3.0
+Clos du Bois Cabernet Sauvignon 6 oz,130.0,0.0,0.0,0.0,0.0,2.0,0.0,2.0,0.0
+Peach Iced Tea,180.0,0.0,0.0,0.0,0.0,47.0,0.0,43.0,0.0
+Blue Moon Beer Shake,650.0,30.0,17.0,135.0,125.0,70.0,1.0,54.0,7.0
+Clucks & Fries,1350.0,82.0,15.0,95.0,2200.0,102.0,17.0,4.0,47.0
+Clamstrips,1900.0,116.0,20.0,70.0,4060.0,175.0,18.0,10.0,38.0
+Sweet Potato Fries,570.0,29.0,5.0,0.0,810.0,70.0,9.0,24.0,6.0
+Mac n Cheese,250.0,14.0,8.0,45.0,530.0,21.0,2.0,3.0,10.0
+Cupcake Sauvignon Blanc 9 oz,200.0,0.0,0.0,0.0,10.0,5.0,0.0,1.0,2.0
+Orange Cinn-A-Rita,360.0,0.0,0.0,0.0,0.0,62.0,2.0,46.0,1.0
+Avo-Cobb-O Salad,550.0,29.0,11.0,315.0,1380.0,30.0,9.0,9.0,48.0
+Classic Nana Nana Moo Moo Kid,590.0,20.0,12.0,85.0,190.0,92.0,1.0,80.0,10.0
+Canyon Road Pinot Grigio 9 oz,220.0,0.0,0.0,0.0,0.0,7.0,0.0,3.0,0.0
+Classic Banana Milkshake Kid,540.0,21.0,13.0,85.0,180.0,78.0,0.0,70.0,9.0
+Fanta Orange Adult,180.0,0.0,0.0,0.0,65.0,49.0,0.0,48.0,0.0
+Swiss Cheese,100.0,7.0,5.0,25.0,0.0,1.0,0.0,0.0,8.0
+The Southern Charm Burger,1110.0,59.0,20.0,170.0,2820.0,86.0,6.0,38.0,57.0
+Ancient Grain Veggie Patty,140.0,5.0,1.0,0.0,320.0,15.0,4.0,4.0,6.0
+Philly Cheesesteak Sandwich,930.0,62.0,20.0,110.0,3040.0,54.0,3.0,7.0,43.0
+Miller Genuine Draft,140.0,0.0,0.0,0.0,5.0,13.0,0.0,0.0,1.0
+Sub a Salmon Fillet,410.0,33.0,6.0,0.0,660.0,2.0,4.0,0.0,33.0
+Sweet Potato Fries Appetizers,380.0,15.0,2.5,0.0,1040.0,62.0,5.0,35.0,3.0
+The Big Taco Tavern,850.0,47.0,16.0,120.0,1580.0,63.0,6.0,9.0,43.0
+9 Corn Doggies,530.0,33.0,8.0,105.0,1250.0,43.0,2.0,7.0,16.0
+Ensenada Chicken Platter 1 Piece,290.0,11.0,3.0,110.0,1300.0,19.0,4.0,6.0,29.0
+Grilled Chicken Stickens w/ Ranch Kids,400.0,27.0,5.0,125.0,970.0,6.0,1.0,2.0,29.0
+Sierra Nevada Pale Ale,180.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,0.0
+Sear-ious Salmon,450.0,36.0,6.0,0.0,760.0,7.0,1.0,3.0,34.0
+Hogue Pinot Grigio 9 oz,180.0,0.0,0.0,0.0,0.0,8.0,0.0,8.0,0.0
+Raspberry Milkshake Monster,970.0,39.0,24.0,150.0,350.0,139.0,1.0,124.0,18.0
+Sweet Pepper Thai,100.0,0.0,0.0,0.0,630.0,28.0,0.0,24.0,0.0
+Chocolate Malt Monster,1060.0,39.0,24.0,155.0,410.0,157.0,3.0,133.0,21.0
+Classic Vanilla Milkshake Kid,510.0,21.0,13.0,85.0,170.0,69.0,0.0,63.0,9.0
+Fresh Brewed Gold Peak Tea,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Flat on Your Beak,370.0,0.0,0.0,0.0,10.0,48.0,0.0,32.0,1.0
+Ooey Gooey Cheeseburger,780.0,53.0,20.0,125.0,1530.0,34.0,1.0,8.0,39.0
+Crispy Chicken Tender Salad,890.0,50.0,14.0,280.0,1520.0,60.0,7.0,9.0,54.0
+Corona Extra,150.0,0.0,0.0,0.0,0.0,14.0,0.0,0.0,1.0
+Banana Malt Monster,1010.0,39.0,24.0,155.0,390.0,147.0,1.0,129.0,20.0
+Electric Watermelon,380.0,0.0,0.0,0.0,20.0,51.0,0.0,31.0,1.0
+Lagunitas IPA,180.0,0.0,0.0,0.0,15.0,14.0,0.0,0.0,3.0
+Clos Du Bois Cabernet Sauvignon 9 oz,190.0,0.0,0.0,0.0,0.0,3.0,0.0,3.0,0.0
+Canyon Road Merlot 9 oz,250.0,0.0,0.0,0.0,0.0,11.0,0.0,4.0,0.0
+Mac It Yours w/ Tomatoes,390.0,20.0,5.0,15.0,860.0,40.0,1.0,12.0,13.0
+Reds Bold Boneless Wings w/ Banzai Sauce Large,1270.0,55.0,11.0,130.0,4270.0,137.0,19.0,46.0,56.0
+Red Robin Gourmet Cheeseburger w/ Relish,930.0,56.0,21.0,130.0,1870.0,59.0,3.0,16.0,44.0
+Great Northern Poutine Fries,1330.0,83.0,25.0,80.0,1310.0,112.0,29.0,3.0,31.0
+Salted Caramel Milkshake Monster,1040.0,39.0,25.0,155.0,1460.0,154.0,1.0,120.0,19.0
+Barefoot Refresh Moscato Spritzer 6 oz,110.0,0.0,0.0,0.0,20.0,13.0,0.0,10.0,0.0
+Michelob AmberBock,170.0,0.0,0.0,0.0,10.0,15.0,0.0,0.0,1.0
+Fresh Fried Mushrooms,410.0,23.0,4.0,0.0,870.0,48.0,2.0,27.0,5.0
+The Big Tavern,870.0,54.0,19.0,125.0,1550.0,53.0,3.0,11.0,41.0
+Trinity Oaks Pinot Noir 9 oz,230.0,0.0,0.0,0.0,0.0,9.0,0.0,1.0,2.0
+Bleu Ribbon,1130.0,71.0,23.0,135.0,1930.0,74.0,5.0,12.0,47.0
+Diet Dr Pepper Kid,0.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Guac Salsa & Chips,730.0,37.0,8.0,0.0,1560.0,74.0,22.0,5.0,7.0
+Not Your Fathers Root Beer,320.0,0.0,0.0,0.0,30.0,51.0,0.0,41.0,0.0
+MV Pizza w/ Cheese,460.0,18.0,11.0,50.0,1060.0,52.0,3.0,11.0,22.0
+Sprite Kid,90.0,0.0,0.0,0.0,20.0,23.0,0.0,21.0,0.0
+Baileys Irish Cream Shake,720.0,30.0,14.0,95.0,210.0,83.0,1.0,71.0,12.0
+Blue Moon Can Crafted Cocktail,220.0,0.0,0.0,0.0,10.0,34.0,1.0,22.0,1.0
+NachO M G,1380.0,71.0,33.0,145.0,3030.0,115.0,27.0,11.0,43.0
+Freckled Lemonade Kid,90.0,0.0,0.0,0.0,5.0,24.0,0.0,23.0,0.0
+Reds Bold Boneless Wings w/ Buzz Sauce Large,1220.0,73.0,19.0,140.0,3530.0,88.0,20.0,3.0,54.0
+The O Ring Shorty,1120.0,78.0,13.0,30.0,1990.0,84.0,17.0,14.0,10.0
+Simply Grilled Chicken w/ Freckled Fruit Salad,610.0,16.0,4.0,100.0,1260.0,85.0,5.0,37.0,34.0
+Orange Juice,50.0,0.0,0.0,0.0,10.0,13.0,0.0,12.0,1.0
+Freckled Lemonade Adult,150.0,0.0,0.0,0.0,10.0,38.0,1.0,37.0,0.0
+Towering Onion Rings,1890.0,121.0,21.0,35.0,3340.0,171.0,36.0,22.0,19.0
+Fried Jalapeno Coins,750.0,57.0,10.0,20.0,2390.0,46.0,11.0,4.0,6.0
+Steamed Broccoli Kids,15.0,0.0,0.0,0.0,15.0,3.0,1.0,1.0,2.0
+Citrus Harissa Salmon,880.0,58.0,11.0,10.0,1210.0,49.0,3.0,6.0,54.0
+Baked Potato Soup Cup,150.0,9.0,4.0,20.0,390.0,12.0,1.0,2.0,5.0
+Raspberry Malt Monster,1010.0,39.0,24.0,155.0,390.0,148.0,1.0,129.0,20.0
+Chicken Fajitas,950.0,39.0,11.0,150.0,2210.0,89.0,9.0,8.0,66.0
+Clucks & Shrimp,990.0,59.0,10.0,150.0,2750.0,72.0,5.0,18.0,37.0
+Kendall Jackson V R Chardonnay 9 oz,220.0,0.0,0.0,0.0,0.0,7.0,0.0,7.0,0.0
+Killians Irish Red,170.0,0.0,0.0,0.0,10.0,15.0,0.0,11.0,2.0
+Boulevard Wheat,130.0,0.0,0.0,0.0,20.0,10.0,21.0,0.0,2.0
+Mello Yello Kid,100.0,0.0,0.0,0.0,25.0,27.0,0.0,27.0,0.0
+House Margarita,220.0,0.0,0.0,0.0,860.0,31.0,0.0,29.0,0.0
+Chicken Caprese,850.0,46.0,16.0,170.0,1740.0,47.0,3.0,7.0,51.0
+Caesar Dressing 3 oz,420.0,45.0,8.0,45.0,630.0,3.0,0.0,0.0,3.0
+Canyon Road White Zinfandel 6 oz,130.0,0.0,0.0,0.0,0.0,10.0,0.0,7.0,0.0
+Sundae,300.0,10.0,6.0,40.0,85.0,49.0,1.0,42.0,5.0
+Cheddar Cheese,110.0,9.0,5.0,30.0,180.0,1.0,0.0,0.0,7.0
+VooDoo Fries w/ Fiery Ghost Pepper Sauce,1230.0,67.0,20.0,90.0,3260.0,120.0,30.0,11.0,35.0
+Carnivor Cabernet Sauvignon 9 oz,260.0,0.0,0.0,0.0,25.0,9.0,0.0,2.0,1.0
+Swirly Twirly Pasta,370.0,3.0,1.0,0.0,550.0,71.0,7.0,12.0,15.0
+Tropical Mai Tai,300.0,0.0,0.0,0.0,10.0,45.0,1.0,36.0,1.0
+Dr Pepper 7 oz Kid,90.0,0.0,0.0,0.0,35.0,23.0,0.0,22.0,0.0
+Mocha Smoothie,650.0,12.0,7.0,60.0,210.0,123.0,0.0,90.0,8.0
+Hi C Fruit Punch 7 oz,90.0,0.0,0.0,0.0,15.0,26.0,0.0,26.0,0.0
+The Naked Grape Harvest Blend 9 oz,230.0,0.0,0.0,0.0,25.0,11.0,0.0,3.0,1.0
+Side Salad Kids,5.0,0.0,0.0,0.0,5.0,1.0,0.0,1.0,0.0
+5 Alarm,820.0,49.0,17.0,130.0,1400.0,51.0,2.0,9.0,41.0
+Copper Ridge White Zinfandel 9 oz,190.0,0.0,0.0,0.0,0.0,14.0,0.0,9.0,1.0
+Poppin Purple Lemonade,170.0,0.0,0.0,0.0,10.0,43.0,0.0,41.0,0.0
+Southwest Sombrero,780.0,48.0,13.0,145.0,1840.0,47.0,13.0,11.0,37.0
+The Wedgie Burger,430.0,28.0,9.0,100.0,710.0,12.0,5.0,6.0,33.0
+ODouls,70.0,0.0,0.0,0.0,10.0,15.0,0.0,0.0,1.0
+French Onion Soup Bowl,470.0,25.0,11.0,45.0,1770.0,42.0,14.0,16.0,19.0
+Grilled Chicken Alla Caprese,840.0,59.0,18.0,190.0,2010.0,17.0,4.0,5.0,48.0
+Pub Mac N Cheese w/ Caesar Salad,970.0,60.0,29.0,150.0,1920.0,76.0,8.0,12.0,34.0
+Chocolate Milk,270.0,3.0,2.0,15.0,140.0,50.0,1.0,44.0,11.0
+Absolut Lemonade,200.0,0.0,0.0,0.0,25.0,29.0,0.0,19.0,0.0
+Milk,140.0,4.0,2.0,15.0,150.0,17.0,0.0,17.0,11.0
+Cinnamon Sugar Doh Rings,1540.0,51.0,31.0,10.0,1230.0,257.0,6.0,123.0,19.0
+Copper Ridge Merlot 6 oz,150.0,0.0,0.0,0.0,0.0,7.0,0.0,2.0,0.0
+Jacobs Creek Shiraz 9 oz,200.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0
+Lil Appetites Meatballs on a Stick w/ Teriyaki,530.0,22.0,7.0,45.0,2890.0,66.0,2.0,43.0,19.0
+Red Spanish Sangria,130.0,0.0,0.0,0.0,0.0,15.0,1.0,10.0,0.0
+Smoked Bacon,340.0,29.0,6.0,35.0,670.0,5.0,0.0,4.0,9.0
+Pyramid Breweries,170.0,0.0,0.0,0.0,0.0,13.0,0.0,0.0,3.0
+Cupcake Sauvignon Blanc 6 oz,130.0,0.0,0.0,0.0,5.0,4.0,0.0,1.0,1.0
+The Marco Pollo,760.0,34.0,11.0,170.0,1910.0,49.0,3.0,6.0,54.0
+Sweet & Spicy Ketchup,100.0,0.0,0.0,0.0,620.0,27.0,0.0,23.0,0.0
+Reds Burger Chicken,330.0,11.0,3.0,100.0,780.0,31.0,1.0,5.0,28.0
+Mighty Caesar Salad,660.0,50.0,10.0,150.0,1300.0,23.0,6.0,5.0,34.0
+Skinny Margarita Frozen,120.0,0.0,0.0,0.0,870.0,12.0,0.0,8.0,0.0
+Minute Maid Lemonade Kid,100.0,0.0,0.0,0.0,15.0,25.0,0.0,25.0,0.0
+Banana Milkshake Monster,960.0,39.0,24.0,150.0,350.0,139.0,1.0,124.0,18.0
+Meatballs on a stick w/ Marinara,530.0,33.0,11.0,70.0,1190.0,34.0,4.0,9.0,25.0
+Strawberry Milkshake Monster,940.0,39.0,24.0,150.0,350.0,131.0,2.0,117.0,19.0
+Chicken Tortilla Soup Cup,210.0,10.0,4.0,30.0,850.0,18.0,2.0,2.0,12.0
+Mac It Yours w/ Broccoli,390.0,20.0,5.0,15.0,860.0,40.0,1.0,11.0,13.0
+Bar Wings n Yukon Chips w/ Buzz Sauce Large,1230.0,85.0,25.0,475.0,2900.0,24.0,4.0,2.0,93.0
+Provolone Cheese,80.0,6.0,4.0,20.0,200.0,0.0,0.0,0.0,6.0
+Minute Maid Light Lemonade Adult,20.0,0.0,0.0,0.0,20.0,5.0,0.0,3.0,0.0
+The Naked Grape Harvest Blend 6 oz,160.0,0.0,0.0,0.0,20.0,7.0,0.0,2.0,0.0
+Italian Dressing 3 oz,270.0,27.0,5.0,0.0,720.0,9.0,0.0,6.0,0.0
+Grilled Chicken Stickens w/ Teriyaki Sauce Kids,340.0,2.0,1.0,100.0,2780.0,52.0,1.0,42.0,28.0
+Under 15 Calories Peach Lemonade,15.0,0.0,0.0,0.0,15.0,10.0,0.0,2.0,0.0
+Yukon Chips,450.0,29.0,5.0,1.0,770.0,42.0,4.0,0.0,5.0
+Chocolate Milkshake Monster,1030.0,39.0,24.0,150.0,380.0,151.0,3.0,129.0,20.0
+Wisconsin Cheese Curds,730.0,62.0,23.0,110.0,1240.0,11.0,1.0,2.0,27.0
+Woodbridge Merlot 9 oz,190.0,0.0,0.0,0.0,0.0,5.0,0.0,4.0,0.0
+Cod Crunchers,730.0,52.0,9.0,85.0,1080.0,44.0,2.0,5.0,20.0
+Michelob Ultra,100.0,0.0,0.0,0.0,15.0,3.0,0.0,0.0,1.0
+Bruschetta Chicken,920.0,69.0,12.0,120.0,1200.0,36.0,3.0,4.0,39.0
+Pub Mac N Cheese w/ House Salad,790.0,43.0,26.0,130.0,1620.0,71.0,8.0,12.0,30.0
+Long Island Iced Tea,400.0,0.0,0.0,0.0,10.0,56.0,0.0,53.0,0.0
+Copper Ridge Chardonnay 6 oz,140.0,0.0,0.0,0.0,0.0,6.0,0.0,0.0,0.0
+Clucks & Fries Buffalo Style,1620.0,114.0,28.0,115.0,4060.0,103.0,18.0,3.0,48.0
+Salsa Ranch Dressing 3 oz,230.0,22.0,6.0,20.0,400.0,3.0,0.0,1.0,2.0
+Freckled Fruit Salad,130.0,0.0,0.0,0.0,0.0,31.0,2.0,28.0,1.0
+Four Cheese Melt,710.0,41.0,20.0,85.0,1130.0,50.0,2.0,1.0,36.0
+Woodbridge Merlot 6 oz,130.0,0.0,0.0,0.0,0.0,3.0,0.0,2.0,0.0
+Ensenada Chicken Platter,480.0,17.0,5.0,210.0,2260.0,26.0,5.0,8.0,54.0
+Barqs Root Beer Adult,130.0,0.0,0.0,0.0,60.0,38.0,0.0,38.0,0.0
+Creamy Artichoke & Spinach Dip,850.0,47.0,14.0,35.0,1390.0,72.0,17.0,7.0,17.0
+Pina Colada,610.0,17.0,14.0,30.0,150.0,100.0,2.0,91.0,3.0
+Chili Chili Cheese Fries,1570.0,97.0,30.0,140.0,2640.0,116.0,30.0,6.0,50.0
+Wild West Buffalo,950.0,54.0,17.0,100.0,1740.0,73.0,7.0,11.0,46.0
+Ciabatta Bread,170.0,2.0,0.0,0.0,370.0,31.0,2.0,3.0,8.0
+Shrimp & Cod Duo,1110.0,67.0,11.0,180.0,2650.0,90.0,6.0,20.0,36.0
+Classic Wedge Salad,420.0,35.0,7.0,30.0,700.0,14.0,3.0,7.0,8.0
+One Great Margarita On the Rocks,260.0,0.0,0.0,0.0,890.0,38.0,0.0,31.0,0.0
+Deschutes Mirror Pond Pale Ale,170.0,0.0,0.0,0.0,20.0,16.0,0.0,0.0,0.0
+Meatballs on a stick w/ Teriyaki,700.0,32.0,11.0,70.0,3200.0,74.0,3.0,45.0,27.0
+House Pickled Jalapenos,15.0,0.0,0.0,0.0,480.0,4.0,1.0,2.0,0.0
+Reds Signature Margarita,260.0,0.0,0.0,0.0,890.0,39.0,0.0,31.0,0.0
+BLTA Croissant,670.0,38.0,14.0,90.0,2090.0,52.0,6.0,9.0,29.0
+Cherry Lime Flip,240.0,0.0,0.0,0.0,25.0,45.0,0.0,35.0,0.0
+Kendall Jackson Merlot 6 oz,160.0,0.0,0.0,0.0,0.0,5.0,0.0,5.0,0.0
+Canyon Road Pinot Grigio 6 oz,140.0,0.0,0.0,0.0,0.0,5.0,0.0,2.0,0.0
+Peach Malt Monster,1010.0,39.0,24.0,155.0,400.0,147.0,1.0,130.0,20.0
+Miller Lite,100.0,0.0,0.0,0.0,5.0,3.0,0.0,0.0,1.0
+Clamstrips,690.0,53.0,9.0,40.0,1500.0,44.0,2.0,4.0,11.0
+Apple Juice,50.0,0.0,0.0,0.0,10.0,12.0,0.0,12.0,0.0
+Chili Chili Cheese Fries Substitution,840.0,54.0,14.0,70.0,1450.0,60.0,15.0,4.0,24.0
+Bar Wings n Yukon Chips w/ Banzai Sauce Large,1270.0,67.0,16.0,465.0,3640.0,73.0,4.0,45.0,95.0
+Whiskey River BBQ,1200.0,78.0,22.0,130.0,1610.0,75.0,5.0,18.0,44.0
+Classic Salted Caramel Milkshake Kid,560.0,21.0,13.0,85.0,740.0,82.0,0.0,64.0,10.0
+Ragin Cajun Chicken,1150.0,75.0,22.0,110.0,3580.0,73.0,3.0,8.0,45.0
+Garlic Herbed Fries,450.0,25.0,8.0,25.0,150.0,51.0,13.0,1.0,8.0
+Silver Patron Margarita Frozen,260.0,0.0,0.0,0.0,890.0,39.0,0.0,31.0,0.0
+The Big Ghost,840.0,47.0,17.0,120.0,1700.0,62.0,6.0,12.0,42.0
+Under 15 Calories Peach Iced Tea,0.0,0.0,0.0,0.0,10.0,8.0,0.0,0.0,0.0
+Jalapeno Cornmeal Kaiser Roll,250.0,3.0,1.0,0.0,420.0,45.0,2.0,6.0,11.0
+Jacobs Creek Shiraz 6 oz Wine,130.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Simply Grilled Chicken w/ Steak Fries,850.0,34.0,8.0,100.0,1480.0,103.0,17.0,10.0,37.0
+Shrimp & Slaw Platter,690.0,30.0,5.0,195.0,2430.0,75.0,6.0,21.0,30.0

@@ -1,0 +1,772 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+55+ Rooty,280.0,17.0,7.0,45.0,770.0,21.0,1.0,6.0,11.0
+French Fries,920.0,44.0,8.0,0.0,1490.0,118.0,11.0,1.0,11.0
+Clam Chowder Soup,320.0,21.0,8.0,45.0,1070.0,27.0,1.0,3.0,7.0
+Garlic Bread,160.0,9.0,2.0,0.0,280.0,17.0,1.0,0.0,3.0
+Loaded Country Potato Soup,370.0,22.0,9.0,45.0,1170.0,33.0,2.0,4.0,10.0
+Roasted Chicken Noodle Soup,170.0,6.0,2.5,25.0,990.0,21.0,1.0,3.0,8.0
+Minestrone Soup,150.0,2.5,0.0,0.0,1130.0,27.0,2.0,3.0,5.0
+Grilled Chicken Caesar Salad,780.0,55.0,13.0,150.0,1680.0,27.0,6.0,7.0,49.0
+Side Caesar Salad,380.0,33.0,7.0,35.0,850.0,15.0,3.0,4.0,9.0
+Chicken & Spinach Salad w/ Grilled Chicken,1080.0,71.0,24.0,390.0,2170.0,41.0,4.0,31.0,69.0
+Side House Salad,25.0,0.0,0.0,0.0,20.0,5.0,2.0,2.0,1.0
+Philly Cheese Steak Stacker,820.0,42.0,17.0,110.0,2590.0,61.0,3.0,12.0,51.0
+Double BLT,660.0,42.0,10.0,65.0,2080.0,43.0,3.0,8.0,29.0
+Ham & Egg Melt,1230.0,70.0,35.0,665.0,2900.0,78.0,3.0,7.0,68.0
+Chicken Clubhouse Super Stacker,1240.0,85.0,33.0,245.0,3330.0,62.0,4.0,13.0,59.0
+Patty Melt,1080.0,71.0,29.0,160.0,1920.0,64.0,4.0,6.0,48.0
+Bacon Cheeseburger,830.0,54.0,25.0,180.0,1760.0,40.0,2.0,9.0,45.0
+Mega Monster Cheeseburger,1190.0,84.0,39.0,290.0,1680.0,40.0,2.0,9.0,69.0
+Avocado Bacon & Cheese Omelette,870.0,68.0,25.0,865.0,1490.0,13.0,3.0,4.0,52.0
+Corned Beef Hash & Cheese Omelette,970.0,71.0,30.0,880.0,2000.0,27.0,2.0,4.0,57.0
+International Omelette,720.0,52.0,21.0,850.0,1590.0,15.0,1.0,6.0,48.0
+3 New York Cheesecake Pancakes,730.0,27.0,13.0,125.0,1530.0,106.0,4.0,44.0,17.0
+3 Double Blueberry Pancakes,480.0,12.0,4.0,55.0,1370.0,81.0,5.0,31.0,12.0
+3 Chocolate Chip Pancakes Chocolate Version,480.0,17.0,7.0,55.0,1330.0,74.0,6.0,24.0,14.0
+3 Harvest Grain N Nut Pancakes,760.0,40.0,10.0,110.0,1500.0,81.0,8.0,20.0,19.0
+Chicken/Country Fried Steak Dinner w/ Country Gravy Choice of Meat,830.0,54.0,16.0,80.0,2200.0,58.0,2.0,1.0,28.0
+Loco Moco,900.0,35.0,15.0,105.0,810.0,106.0,1.0,3.0,36.0
+Pork Chops & Eggs 4 oz,910.0,52.0,16.0,155.0,1830.0,66.0,5.0,10.0,46.0
+South of the Border Burrito,1280.0,73.0,26.0,585.0,3150.0,112.0,7.0,16.0,46.0
+Strawberry Banana French Toast,880.0,31.0,11.0,240.0,780.0,131.0,7.0,51.0,21.0
+Our Original French Toast,750.0,36.0,14.0,260.0,830.0,85.0,4.0,29.0,20.0
+Belgian Waffle,520.0,27.0,16.0,145.0,760.0,60.0,2.0,14.0,10.0
+German Crepes,680.0,34.0,12.0,245.0,880.0,76.0,3.0,29.0,17.0
+Crispy Chicken Strips & Fries,1240.0,67.0,12.0,90.0,2360.0,117.0,8.0,13.0,42.0
+Appetizer Sampler,1640.0,90.0,21.0,115.0,3520.0,147.0,9.0,23.0,60.0
+Monster Mozza Sticks,770.0,38.0,16.0,70.0,2680.0,68.0,7.0,5.0,39.0
+Savory Pork Chops 6 oz,950.0,60.0,16.0,140.0,1640.0,42.0,7.0,3.0,63.0
+Smoked Sausage,770.0,58.0,22.0,105.0,2500.0,38.0,6.0,6.0,25.0
+Sirloin Steak Dinner,1180.0,84.0,26.0,155.0,2560.0,50.0,9.0,6.0,62.0
+Create Your 55+ Omelette,220.0,16.0,4.5,385.0,280.0,4.0,0.0,1.0,14.0
+55+ Egg White Omelette,70.0,2.0,0.0,5.0,150.0,1.0,0.0,0.0,12.0
+55+ Breakfast Sampler,640.0,41.0,13.0,85.0,1570.0,48.0,3.0,6.0,18.0
+55+ Pot Roast,500.0,24.0,10.0,65.0,1710.0,55.0,3.0,11.0,20.0
+55+ Smokehouse Combo,680.0,47.0,16.0,85.0,1570.0,49.0,3.0,6.0,16.0
+55+ Crispy Chicken Strips,770.0,43.0,11.0,80.0,1790.0,69.0,6.0,14.0,27.0
+Stuffed French Toast,900.0,37.0,18.0,55.0,770.0,127.0,5.0,60.0,15.0
+Garden Omelette,840.0,66.0,24.0,835.0,1050.0,17.0,4.0,5.0,47.0
+Chicken Fajita Omelette,960.0,63.0,24.0,945.0,2110.0,24.0,3.0,9.0,74.0
+3 Original Buttermilk Pancakes w/ Butter,430.0,17.0,7.0,75.0,1390.0,57.0,3.0,12.0,12.0
+Breakfast Sampler,920.0,56.0,18.0,145.0,2660.0,69.0,4.0,11.0,34.0
+T Bone Steak & Eggs 10 oz,720.0,32.0,14.0,175.0,2170.0,57.0,3.0,13.0,52.0
+T Bone Steak & Eggs 12 oz,810.0,36.0,16.0,205.0,2390.0,57.0,4.0,13.0,64.0
+Sirloin Tips & Eggs,1040.0,58.0,16.0,145.0,2770.0,86.0,5.0,27.0,45.0
+Chicken/Country Fried Steak Dinner w/ Country Gravy,1430.0,87.0,25.0,140.0,3570.0,123.0,6.0,10.0,39.0
+Chicken/Country Fried Steak Dinner w/ Sausage Gravy,1530.0,95.0,28.0,139.0,3900.0,129.0,6.0,10.0,41.0
+Smokehouse Combo,1000.0,67.0,23.0,145.0,2640.0,69.0,4.0,11.0,29.0
+Biscuits & Gravy Combo w/ Sausage Gravy,1150.0,71.0,24.0,70.0,2750.0,15.0,5.0,8.0,25.0
+Split Decision Breakfast,860.0,52.0,21.0,205.0,1940.0,71.0,4.0,21.0,29.0
+Simple & Fit 2 Egg Breakfast,350.0,10.0,2.0,30.0,870.0,36.0,5.0,5.0,28.0
+Chorizo & Eggs,1390.0,91.0,25.0,840.0,3210.0,94.0,6.0,17.0,49.0
+Eggs Benedict,900.0,54.0,21.0,455.0,2910.0,62.0,5.0,8.0,41.0
+Huevos Rancheros,740.0,39.0,14.0,55.0,1620.0,73.0,10.0,4.0,25.0
+Classic Skillets,1180.0,77.0,29.0,135.0,2460.0,94.0,7.0,13.0,31.0
+Chicken Florentine Crepes,840.0,46.0,21.0,295.0,1660.0,48.0,4.0,19.0,58.0
+T Bone Steak 12 oz,880.0,54.0,15.0,130.0,1870.0,41.0,8.0,3.0,59.0
+Sirloin Steak Tips,780.0,40.0,13.0,105.0,2460.0,70.0,4.0,28.0,40.0
+2 Slices of Spam,180.0,16.0,5.0,35.0,780.0,2.0,0.0,1.0,7.0
+Chicken/Country Fried Steak Dinner w/ Country Gravy,1050.0,64.0,21.0,100.0,2840.0,87.0,6.0,2.0,33.0
+Chicken/ Country Fried Steak Dinner w/ Sausage Gravy,1150.0,72.0,24.0,110.0,3180.0,93.0,6.0,2.0,36.0
+55+ Pork Chop 6 oz,730.0,47.0,11.0,75.0,1250.0,42.0,7.0,2.0,35.0
+55+ Smoked Sausage,560.0,41.0,15.0,60.0,1970.0,36.0,6.0,5.0,15.0
+Create a Face Pancake,450.0,11.0,4.0,50.0,1180.0,76.0,3.0,28.0,13.0
+Funny Face,500.0,25.0,14.0,45.0,1130.0,64.0,4.0,23.0,11.0
+Wings,910.0,54.0,13.0,365.0,4610.0,25.0,3.0,8.0,83.0
+Swedish Crepes,660.0,30.0,9.0,230.0,880.0,81.0,3.0,34.0,17.0
+Cheese Blintzes,890.0,57.0,28.0,290.0,1300.0,66.0,2.0,30.0,28.0
+Big Steak Omelette,1160.0,79.0,27.0,895.0,2030.0,47.0,5.0,9.0,68.0
+Country Omelette,1090.0,77.0,28.0,885.0,2000.0,42.0,3.0,7.0,56.0
+Hearty Ham & Cheese Omelette,940.0,68.0,29.0,945.0,2460.0,17.0,0.0,7.0,66.0
+Bacon Temptation Omelette,1080.0,85.0,35.0,940.0,2310.0,16.0,1.0,7.0,64.0
+Spinach & Mushroom Omelette,890.0,70.0,26.0,850.0,1630.0,20.0,3.0,7.0,46.0
+Colorado Omelette,1150.0,86.0,33.0,955.0,2750.0,19.0,1.0,8.0,77.0
+French Fries Side,460.0,22.0,4.0,0.0,740.0,59.0,5.0,0.0,6.0
+Hash Browns,280.0,18.0,3.5,0.0,430.0,28.0,2.0,1.0,3.0
+4 Pork Sausage Links,350.0,33.0,11.0,65.0,600.0,2.0,0.0,0.0,12.0
+4 Bacon Strips,170.0,12.0,4.5,35.0,710.0,2.0,0.0,2.0,14.0
+4 Ham Slices,120.0,3.0,1.0,65.0,1260.0,3.0,0.0,3.0,21.0
+2 Sirloin Steaks,340.0,20.0,8.0,110.0,730.0,0.0,0.0,0.0,41.0
+4 Turkey Bacon Strips,130.0,10.0,2.5,50.0,670.0,1.0,0.0,1.0,10.0
+Onion Rings,1010.0,56.0,10.0,0.0,900.0,113.0,6.0,15.0,14.0
+2 Pork Sausage Patties,410.0,39.0,14.0,75.0,790.0,1.0,0.0,1.0,13.0
+Scrapple,220.0,11.0,4.5,100.0,1100.0,8.0,1.0,0.0,22.0
+Onion Rings Side,500.0,28.0,5.0,0.0,450.0,57.0,3.0,7.0,7.0
+Baked Potato,300.0,7.0,1.0,0.0,15.0,54.0,4.0,2.0,6.0
+3 Strawberry Banana Pancakes,530.0,12.0,4.0,55.0,1340.0,121.0,6.0,33.0,13.0
+1 Flour Tortilla,280.0,7.0,2.5,0.0,720.0,46.0,1.0,1.0,7.0
+4 Turkey Sausage Links,190.0,13.0,3.0,75.0,630.0,1.0,0.0,0.0,17.0
+2 Smoked Sausage Links,400.0,34.0,14.0,85.0,1260.0,4.0,0.0,2.0,19.0
+American Cheese for Create Your Omelette,150.0,12.0,7.0,25.0,480.0,2.0,0.0,1.0,8.0
+Cheddar Cheese Shredded for Create Your Omelette,230.0,19.0,12.0,60.0,350.0,1.0,0.0,0.0,14.0
+Jack & Cheddar Cheese Blend for Create Your Omelette,220.0,18.0,10.0,55.0,350.0,2.0,0.0,0.0,13.0
+Swiss Cheese for Create Your Omelette,160.0,12.0,7.0,40.0,80.0,0.0,0.0,0.0,11.0
+2 Bacon Strips,80.0,6.0,2.0,20.0,350.0,1.0,0.0,1.0,7.0
+2 Pork Sausage Links,180.0,17.0,6.0,35.0,300.0,1.0,0.0,0.0,6.0
+Diced Ham for Create Your Own Omelette,30.0,1.0,0.0,15.0,320.0,1.0,0.0,1.0,5.0
+Fresh Green Peppers & Onions for Create Your Own Omelette,10.0,0.0,0.0,0.0,0.0,2.0,0.0,1.0,0.0
+Fresh Tomatoes for Create Your Omelette,10.0,0.0,0.0,0.0,0.0,2.0,1.0,1.0,0.0
+Fresh Spinach for Create Your Omelette,15.0,0.0,0.0,0.0,45.0,2.0,1.0,0.0,2.0
+Fresh Mushrooms for Create Your Omelette,10.0,0.0,0.0,0.0,0.0,2.0,1.0,1.0,2.0
+2 Corn Tortillas,120.0,2.0,0.0,0.0,10.0,24.0,2.0,0.0,3.0
+Glazed Strawberries w/ Whipped Topping,90.0,2.5,2.0,0.0,10.0,19.0,1.0,9.0,0.0
+Blueberry Compote w/ Whipped Topping,100.0,2.5,2.0,0.0,45.0,19.0,1.0,15.0,0.0
+Blueberry Compote,70.0,0.0,0.0,0.0,40.0,18.0,1.0,14.0,0.0
+Chocolate Sauce,100.0,0.0,0.0,0.0,15.0,26.0,1.0,21.0,1.0
+Strawberry Preserves,210.0,0.0,0.0,0.0,15.0,55.0,1.0,51.0,0.0
+Reduced Fat Italian Dressing,15.0,1.0,0.0,0.0,105.0,1.0,0.0,1.0,0.0
+Buttermilk Ranch Dressing,270.0,29.0,4.5,20.0,420.0,2.0,0.0,1.0,1.0
+Sugar Free Syrup,15.0,0.0,0.0,0.0,55.0,6.0,0.0,0.0,0.0
+Blueberry Syrup,110.0,0.0,0.0,0.0,10.0,26.0,0.0,18.0,0.0
+Boysenberry Syrup,100.0,0.0,0.0,0.0,5.0,26.0,0.0,18.0,0.0
+Butter Pecan Syrup,110.0,0.0,0.0,0.0,20.0,28.0,0.0,18.0,0.0
+Old Fashioned Maple Syrup,110.0,0.0,0.0,0.0,15.0,27.0,0.0,18.0,0.0
+Strawberry Syrup,100.0,0.0,0.0,0.0,10.0,26.0,0.0,19.0,0.0
+Blue Cheese Dressing,300.0,32.0,6.0,30.0,310.0,1.0,0.0,1.0,2.0
+Creamy Caesar Dressing,270.0,27.0,5.0,25.0,590.0,6.0,0.0,2.0,2.0
+Honey Mustard Dressing,220.0,19.0,3.0,15.0,450.0,13.0,1.0,12.0,1.0
+Ice Cream Sundae,310.0,19.0,14.0,40.0,115.0,30.0,0.0,25.0,6.0
+Jr Ice Cream Sundae,130.0,7.0,5.0,20.0,55.0,15.0,0.0,12.0,3.0
+Iced Coffee Original,180.0,4.5,3.0,20.0,120.0,26.0,1.0,25.0,8.0
+Iced Coffee Mocha,220.0,4.5,2.5,15.0,110.0,39.0,1.0,37.0,8.0
+Iced Coffee Vanilla,230.0,4.5,2.5,15.0,110.0,39.0,1.0,38.0,8.0
+International House Roast Flavored Coffee French Vanilla,190.0,7.0,6.0,0.0,10.0,33.0,1.0,31.0,0.0
+International House Roast Flavored Coffee Swiss Mocha,190.0,7.0,6.0,0.0,10.0,31.0,1.0,30.0,0.0
+Splashberry,150.0,0.0,0.0,0.0,20.0,40.0,0.0,34.0,1.0
+Tropical Island Twist,200.0,0.0,0.0,0.0,25.0,52.0,0.0,51.0,0.0
+Apple Juice Regular,120.0,0.0,0.0,0.0,10.0,30.0,0.0,27.0,0.0
+Apple Juice Kids,150.0,0.0,0.0,0.0,15.0,37.0,0.0,34.0,0.0
+Apple Juice Large,210.0,0.0,0.0,0.0,20.0,52.0,0.0,48.0,0.0
+Fanta Orange,120.0,0.0,0.0,0.0,5.0,35.0,0.0,32.0,0.0
+Pibb Xtra,110.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Sprite,110.0,0.0,0.0,0.0,25.0,29.0,0.0,29.0,0.0
+Cranberry Juice Regular,120.0,0.0,0.0,0.0,35.0,30.0,2.0,30.0,0.0
+Cranberry Juice Kids,150.0,0.0,0.0,5.0,45.0,38.0,2.0,38.0,0.0
+Cranberry Juice Large,210.0,0.0,0.0,5.0,65.0,53.0,3.0,53.0,0.0
+Grapefruit Juice Regular,90.0,0.0,0.0,0.0,0.0,22.0,0.0,20.0,1.0
+Grapefruit Juice Kids,110.0,0.0,0.0,0.0,0.0,28.0,0.0,25.0,1.0
+Grapefruit Juice Large,160.0,0.0,0.0,0.0,0.0,39.0,0.0,35.0,2.0
+Floridas Natural Premium Orange Juice Regular,110.0,0.0,0.0,0.0,0.0,25.0,1.0,21.0,2.0
+Floridas Natural Premium Orange Juice Kids,130.0,0.0,0.0,0.0,0.0,31.0,1.0,26.0,2.0
+Floridas Natural Premium Orange Juice Large,180.0,0.5,0.0,0.0,0.0,44.0,1.0,37.0,3.0
+Tomato Juice Regular,50.0,0.0,0.0,0.0,740.0,10.0,2.0,6.0,2.0
+Tomato Juice Kids,60.0,0.0,0.0,0.0,930.0,12.0,3.0,8.0,3.0
+Tomato Juice Large,80.0,0.0,0.0,0.0,1300.0,17.0,4.0,11.0,4.0
+Minute Maid Lemonade,110.0,0.0,0.0,0.0,50.0,32.0,0.0,29.0,0.0
+Cherry Coke,120.0,0.0,0.0,0.0,5.0,32.0,0.0,32.0,0.0
+Coca Cola,120.0,0.0,0.0,0.0,0.0,32.0,0.0,32.0,0.0
+Coca Cola Zero,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Diet Coke,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Diet Pepsi,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+Tropicana Yellow Lemonade,140.0,0.0,0.0,0.0,10.0,34.0,0.0,33.0,0.0
+2% Milk Regular,120.0,5.0,3.0,20.0,115.0,12.0,0.0,12.0,8.0
+2% Milk Kids,150.0,6.0,4.0,25.0,150.0,15.0,0.0,15.0,10.0
+2% Milk Large,220.0,9.0,5.0,35.0,200.0,21.0,0.0,21.0,14.0
+Chocolate Milk Regular,180.0,4.5,3.0,20.0,115.0,27.0,1.0,24.0,8.0
+Chocolate Milk Kids,220.0,6.0,3.5,20.0,140.0,34.0,1.0,30.0,10.0
+Chocolate Milk Large,310.0,8.0,5.0,30.0,200.0,48.0,1.0,43.0,13.0
+Chocolate Milk Shake,470.0,20.0,12.0,70.0,240.0,62.0,1.0,51.0,14.0
+Strawberry Milk Shake,470.0,20.0,12.0,70.0,240.0,62.0,1.0,45.0,14.0
+Vanilla Milk Shake,480.0,20.0,12.0,70.0,230.0,63.0,0.0,55.0,14.0
+Hot Chocolate,140.0,5.0,4.5,0.0,200.0,25.0,1.0,22.0,1.0
+Barqs Root Beer,130.0,0.0,0.0,0.0,25.0,35.0,0.0,35.0,0.0
+Hi C Fruit Punch,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Mountain Dew,130.0,0.0,0.0,0.0,45.0,37.0,0.0,37.0,0.0
+Mug Root Beer,120.0,0.0,0.0,0.0,20.0,31.0,0.0,31.0,0.0
+Pepsi,120.0,0.0,0.0,0.0,25.0,33.0,0.0,33.0,0.0
+Pepsi Wild Cherry,120.0,0.0,0.0,0.0,25.0,33.0,0.0,33.0,0.0
+Sierra Mist,120.0,0.0,0.0,0.0,25.0,32.0,0.0,32.0,0.0
+Tropicana Fruit Punch,130.0,0.0,0.0,0.0,30.0,36.0,0.0,36.0,0.0
+Tropicana Orange Twister,130.0,0.0,0.0,0.0,30.0,37.0,0.0,36.0,0.0
+Dr Pepper,120.0,0.0,0.0,0.0,40.0,31.0,0.0,30.0,0.0
+Freshly Brewed Iced Tea,10.0,0.0,0.0,0.0,5.0,2.0,0.0,0.0,0.0
+Brisk Raspberry Iced Tea,90.0,0.0,0.0,0.0,30.0,25.0,0.0,25.0,0.0
+Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+3 Chocolate Chocolate Chip Pancakes Buttermilk Version,470.0,17.0,7.0,55.0,1330.0,71.0,4.0,24.0,13.0
+Cheeseburger,740.0,48.0,23.0,165.0,1410.0,39.0,2.0,8.0,38.0
+55+ French Toast,520.0,27.0,11.0,180.0,570.0,56.0,3.0,19.0,14.0
+Chicken & Waffles,1190.0,67.0,22.0,225.0,2140.0,109.0,4.0,27.0,40.0
+2 Turkey Sausage Patties,140.0,10.0,2.5,55.0,580.0,0.0,0.0,0.0,12.0
+2 Turkey Sausage Links,90.0,7.0,1.5,35.0,310.0,0.0,0.0,0.0,8.0
+2 Turkey Bacon Strips,70.0,5.0,1.5,25.0,330.0,1.0,0.0,1.0,5.0
+Cottage Cheese,50.0,2.5,1.5,10.0,220.0,2.0,0.0,2.0,5.0
+Low Fat Strawberry Yogurt,70.0,0.0,0.0,5.0,40.0,13.0,0.0,10.0,2.0
+Whole Wheat Toast w/ Butter & Jam or Jelly,320.0,9.0,4.0,15.0,380.0,52.0,5.0,20.0,10.0
+Wheatberry Toast w/ Butter & Jam or Jelly,330.0,9.0,4.5,15.0,440.0,58.0,5.0,17.0,7.0
+Sourdough Toast w/ Butter & Jam or Jelly,320.0,13.0,7.0,30.0,430.0,45.0,1.0,10.0,6.0
+White Toast w/ Butter & Jam or Jelly,250.0,7.0,4.0,15.0,260.0,43.0,1.0,20.0,5.0
+Marble Rye Toast w/ Butter & Jam or Jelly,440.0,11.0,3.5,15.0,530.0,74.0,3.0,19.0,12.0
+English Muffin w/ Butter,180.0,7.0,4.0,15.0,210.0,25.0,2.0,2.0,5.0
+2 Biscuits w/ Butter,490.0,21.0,11.0,20.0,1270.0,65.0,2.0,7.0,10.0
+Tropicana Premium Orange Juice Kids,150.0,0.0,0.0,5.0,45.0,38.0,2.0,38.0,0.0
+Tropicana Premium Orange Juice Regular,110.0,0.0,0.0,0.0,0.0,25.0,1.0,21.0,2.0
+Tropicana Premium Orange Juice Large,200.0,0.0,0.0,0.0,0.0,46.0,0.0,38.0,4.0
+Manzanita Sol,130.0,0.0,0.0,0.0,30.0,34.0,0.0,33.0,0.0
+Tilapia Florentine,680.0,43.0,18.0,160.0,2390.0,34.0,5.0,5.0,43.0
+Fried Chicken Dinner,1350.0,78.0,21.0,330.0,3940.0,88.0,9.0,11.0,78.0
+Bananas Foster Brioche French Toast,1010.0,49.0,16.0,220.0,1150.0,123.0,4.0,60.0,20.0
+55+ Tilapia Florentine,560.0,38.0,17.0,120.0,1720.0,33.0,4.0,4.0,26.0
+Reorder or Combo Accompaniment of 2 All You Can Eat Pancakes,310.0,14.0,6.0,60.0,950.0,38.0,2.0,8.0,8.0
+Full Order of 5 All You Can Eat Pancakes,670.0,24.0,8.0,110.0,2270.0,94.0,4.0,21.0,20.0
+Banana & Brown Sugar Oatmeal,250.0,4.0,0.5,5.0,125.0,50.0,5.0,19.0,8.0
+Grits,80.0,0.0,0.0,0.0,125.0,17.0,0.0,0.0,2.0
+Spinach Roasted Red Pepper & Cheese Melt,1390.0,93.0,43.0,635.0,2490.0,81.0,5.0,7.0,59.0
+White Cheddar Cheese for Create Your Own Omelette,170.0,14.0,8.0,40.0,270.0,1.0,0.0,0.0,11.0
+Pepper Jack Cheese for Create Your Own Omelette,160.0,13.0,8.0,35.0,270.0,1.0,0.0,0.0,10.0
+Honey Balsamic Dressing,190.0,14.0,2.0,0.0,260.0,15.0,0.0,13.0,0.0
+4 Slices of Spam,350.0,33.0,11.0,70.0,1570.0,4.0,0.0,1.0,15.0
+Blue Cheese Bacon Burger,840.0,56.0,27.0,190.0,1670.0,37.0,1.0,7.0,46.0
+Hamburger,740.0,48.0,23.0,165.0,1410.0,39.0,2.0,8.0,38.0
+T Bone Steak 10 oz,800.0,50.0,14.0,105.0,1640.0,41.0,8.0,2.0,48.0
+Corned Beef Hash & Eggs,730.0,37.0,16.0,125.0,2480.0,75.0,5.0,14.0,26.0
+Machaca,1230.0,88.0,27.0,810.0,2400.0,55.0,6.0,7.0,56.0
+Migas,1110.0,81.0,24.0,765.0,2100.0,54.0,6.0,7.0,42.0
+Pork Chops & Eggs 6 oz,1040.0,57.0,18.0,195.0,2150.0,67.0,4.0,10.0,66.0
+Chorizo Fiesta Omelette,1150.0,90.0,31.0,885.0,3100.0,33.0,3.0,12.0,53.0
+Classic Breakfast Crepes,1040.0,70.0,28.0,740.0,2400.0,45.0,1.0,18.0,58.0
+Strawberries & Cream Crepes,880.0,30.0,9.0,235.0,920.0,117.0,4.0,51.0,19.0
+Create Your Own Sweet Crepe Combo w/ German Crepe,390.0,22.0,9.0,135.0,440.0,39.0,2.0,15.0,9.0
+Chicken & 3 Cheese Quesadilla,980.0,55.0,28.0,220.0,2400.0,56.0,4.0,6.0,67.0
+Pot Roast,840.0,44.0,19.0,165.0,2980.0,65.0,3.0,11.0,51.0
+55+ Buttermilk Pancakes,430.0,17.0,7.0,75.0,1390.0,57.0,3.0,12.0,12.0
+Jr Chicken & Waffles,520.0,28.0,12.0,115.0,880.0,48.0,2.0,7.0,20.0
+Chicken & Spinach Salad w/ Crispy Chicken,1370.0,89.0,27.0,355.0,2830.0,77.0,6.0,31.0,67.0
+Crispy Chicken Cobb Salad w/ Fried Chicken,1250.0,96.0,27.0,520.0,2370.0,39.0,3.0,7.0,58.0
+Crispy Chicken Cobb Salad w/ Grilled Chicken,1070.0,84.0,25.0,570.0,1940.0,12.0,2.0,7.0,67.0
+Spicy Chicken Ranch Sandwich,810.0,48.0,17.0,125.0,2410.0,59.0,4.0,11.0,35.0
+Rustic Cheesy Tomato Soup,290.0,20.0,12.0,60.0,1200.0,22.0,2.0,7.0,5.0
+2 Chocolate Chocolate Chip Pancakes Buttermilk Version,330.0,12.0,6.0,35.0,890.0,49.0,3.0,18.0,9.0
+2 Chocolate Chocolate Chip Pancakes Chocolate Version,340.0,13.0,6.0,35.0,890.0,51.0,4.0,18.0,9.0
+2 Double Blueberry Pancakes,350.0,9.0,3.5,35.0,930.0,60.0,4.0,26.0,8.0
+2 Harvest Grain N Nut Pancakes,530.0,29.0,8.0,80.0,1020.0,54.0,5.0,13.0,13.0
+2 Harvest Grain N Nut Pancakes w/ Blueberry Compote,560.0,24.0,5.0,60.0,1000.0,73.0,6.0,28.0,13.0
+2 New York Cheesecake Pancakes,520.0,19.0,9.0,80.0,1030.0,77.0,3.0,32.0,11.0
+2 Original Buttermilk Pancakes,310.0,14.0,6.0,60.0,950.0,38.0,2.0,8.0,8.0
+2 Original Buttermilk Pancakes w/ Glazed Strawberries,330.0,9.0,3.5,35.0,890.0,56.0,3.0,17.0,8.0
+2 Original Buttermilk Pancakes w/ Peaches,330.0,9.0,3.5,35.0,910.0,55.0,3.0,22.0,8.0
+2 Raspberry White Chocolate Chip Pancakes,560.0,12.0,6.0,40.0,930.0,104.0,4.0,68.0,10.0
+2 Red Velvet Pancakes,400.0,10.0,4.5,40.0,920.0,70.0,3.0,39.0,9.0
+2 Strawberry Banana Pancakes,390.0,9.0,3.5,35.0,890.0,72.0,5.0,26.0,9.0
+Banana Crepes w/ Nutella,960.0,45.0,14.0,220.0,910.0,121.0,5.0,67.0,21.0
+Chicken Cordon Bleu,1200.0,84.0,27.0,175.0,2750.0,57.0,7.0,6.0,53.0
+Create Your Rooty Jr,230.0,19.0,6.0,270.0,420.0,2.0,0.0,1.0,14.0
+Fruit Crepe & Ice Cream,300.0,16.0,8.0,75.0,280.0,33.0,1.0,19.0,7.0
+Never Empty Coffee Pot Per Cup Regular & Decaf,5.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0
+Turkey & Avocado Bennie,790.0,50.0,19.0,575.0,1080.0,49.0,5.0,11.0,41.0
+Tuscan Scramble,420.0,30.0,10.0,720.0,710.0,8.0,3.0,3.0,30.0
+Glazed Strawberries,70.0,0.0,0.0,0.0,5.0,17.0,1.0,8.0,0.0
+Peach Topping,60.0,0.0,0.0,0.0,20.0,16.0,1.0,13.0,0.0
+2 Fried Eggs,170.0,12.0,4.0,390.0,160.0,1.0,0.0,0.0,13.0
+2 Hard or Soft Boiled Eggs,160.0,11.0,3.5,375.0,125.0,1.0,0.0,1.0,13.0
+2 Poached Eggs,130.0,8.0,2.5,325.0,260.0,1.0,0.0,0.0,11.0
+2 Scrambled Eggs,220.0,17.0,5.0,475.0,230.0,2.0,0.0,1.0,15.0
+Glazed Strawberries for Stuffed French Toast,130.0,0.0,0.0,0.0,15.0,35.0,2.0,16.0,0.0
+Peach Vanilla for Stuffed French Toast,180.0,3.0,1.5,20.0,65.0,38.0,2.0,32.0,2.0
+Strawberry Vanilla for Stuffed French Toast,190.0,3.0,1.5,20.0,35.0,42.0,2.0,22.0,1.0
+Peach for Crepes,120.0,0.0,0.0,0.0,45.0,31.0,2.0,26.0,1.0
+Raspberry for Crepes,150.0,0.0,0.0,0.0,10.0,38.0,2.0,31.0,1.0
+Glazed Strawberries for Cheese Blintzes,70.0,0.0,0.0,0.0,5.0,17.0,1.0,8.0,0.0
+3 Fried Eggs,250.0,18.0,6.0,590.0,240.0,2.0,1.0,1.0,20.0
+3 Hard or Soft Boiled Eggs,230.0,16.0,5.0,560.0,190.0,2.0,0.0,2.0,19.0
+3 Poached Eggs,190.0,13.0,4.0,490.0,390.0,1.0,0.0,0.0,17.0
+3 Scrambled Eggs,220.0,17.0,5.0,475.0,2.0,3.0,1.0,1.0,23.0
+2 Canadian Style Bacon,120.0,5.0,2.0,50.0,1520.0,1.0,0.0,1.0,19.0
+Corned Beef Hash,300.0,19.0,9.0,50.0,1090.0,19.0,2.0,1.0,14.0
+2 Pork Chops 4 oz,310.0,19.0,7.0,95.0,460.0,0.0,1.0,0.0,35.0
+2 Pork Chops 6 oz,450.0,24.0,9.0,140.0,780.0,1.0,0.0,1.0,55.0
+Biscuits & Gravy Combo w/ Country Gravy,1150.0,71.0,24.0,71.0,2750.0,105.0,5.0,8.0,25.0
+Chicken Fried Chicken & Eggs w/ Country Gravy,890.0,48.0,13.0,105.0,2150.0,84.0,5.0,10.0,31.0
+Mixed Fruit Version A,60.0,0.0,0.0,0.0,0.0,16.0,2.0,13.0,1.0
+Mixed Fruit Version B,50.0,0.0,0.0,0.0,5.0,14.0,1.0,11.0,1.0
+Mixed Fruit Version C,50.0,0.0,0.0,0.0,0.0,13.0,2.0,9.0,1.0
+Mixed Fruit Version D,60.0,0.0,0.0,0.0,5.0,13.0,2.0,12.0,1.0
+Sirloin Steak & Eggs,770.0,37.0,15.0,185.0,2110.0,57.0,3.0,12.0,53.0
+Avocado,70.0,7.0,1.0,0.0,0.0,4.0,3.0,0.0,1.0
+Diced Bacon,130.0,10.0,3.5,30.0,570.0,1.0,0.0,1.0,8.0
+3 Harvest Grain N Nut Pancakes w/ Blueberry Compote,790.0,34.0,7.0,90.0,1480.0,100.0,9.0,35.0,19.0
+3 Original Buttermilk Pancakes w/ Glazed Strawberries,450.0,12.0,4.0,55.0,1330.0,75.0,4.0,21.0,12.0
+3 Original Buttermilk Pancakes w/ Peaches,440.0,12.0,4.0,55.0,1350.0,73.0,3.0,26.0,12.0
+3 Raspberry White Chocolate Chip Pancakes,710.0,17.0,8.0,55.0,1370.0,128.0,5.0,77.0,14.0
+3 Red Velvet Pancakes,540.0,14.0,5.0,55.0,1370.0,94.0,4.0,47.0,13.0
+Creamy Italian,210.0,18.0,2.5,0.0,490.0,12.0,0.0,10.0,0.0
+Fat Free Raspberry Vinaigrette,50.0,0.0,0.0,0.0,500.0,12.0,0.0,12.0,0.0
+French or Catalina Dressing,80.0,0.5,0.0,0.0,570.0,18.0,0.0,12.0,0.0
+Orange Vinaigrette,170.0,14.0,2.0,0.0,290.0,10.0,0.0,7.0,1.0
+Raspberry Vinaigrette,120.0,11.0,1.5,0.0,710.0,6.0,0.0,5.0,0.0
+Thousand Island Dressing,240.0,22.0,3.5,10.0,460.0,9.0,0.0,6.0,0.0
+Savory Pork Chops 4 oz,820.0,54.0,14.0,100.0,1330.0,41.0,8.0,2.0,42.0
+Mashed Potatoes,190.0,9.0,5.0,20.0,620.0,25.0,2.0,1.0,2.0
+1 Fried Egg,170.0,12.0,4.0,390.0,160.0,1.0,0.0,0.0,13.0
+1 Hard or Soft Boiled Egg,150.0,11.0,3.5,375.0,125.0,1.0,0.0,1.0,13.0
+1 Poached Egg,130.0,8.0,2.5,325.0,260.0,1.0,0.0,0.0,11.0
+1 Scrambled Egg,220.0,17.0,5.0,475.0,230.0,2.0,0.0,1.0,15.0
+Applesauce Pouch,40.0,0.0,0.0,0.0,5.0,10.0,1.0,8.0,0.0
+1/2 Belgian Waffle,230.0,10.0,5.0,60.0,350.0,30.0,1.0,7.0,5.0
+1 Brioche French Toast,210.0,9.0,2.5,70.0,310.0,27.0,1.0,8.0,6.0
+1 Buttermilk Pancake,120.0,3.0,0.5,20.0,440.0,19.0,1.0,4.0,4.0
+Banana Slices w/ Whipped Topping,50.0,2.5,2.0,0.0,0.0,7.0,1.0,4.0,0.0
+Peaches w/ Whipped Topping,90.0,2.5,2.0,0.0,25.0,17.0,1.0,14.0,0.0
+Silver 5,460.0,25.0,10.0,315.0,1240.0,40.0,2.0,9.0,19.0
+Blueberry Compote for Fruit Crepe,150.0,0.0,0.0,0.0,80.0,36.0,2.0,28.0,0.0
+1 Egg White 2 oz,50.0,2.5,0.0,5.0,95.0,1.0,0.0,0.0,6.0
+1 Egg Substitute 2 oz,70.0,4.5,1.0,0.0,120.0,1.0,0.0,0.0,6.0
+1 Turkey Bacon,35.0,2.5,0.5,15.0,170.0,0.0,0.0,0.0,2.0
+1 Turkey Sausage Link,45.0,3.5,1.0,20.0,160.0,0.0,0.0,0.0,4.0
+1 Turkey Sausage Patty,70.0,5.0,1.0,25.0,290.0,0.0,0.0,0.0,6.0
+SoBe Yumberry Pomegranate Lifewater,0.0,0.0,0.0,0.0,85.0,0.0,0.0,0.0,0.0
+Sweet Iced Tea Sweet Version,140.0,0.0,0.0,0.0,5.0,35.0,0.0,34.0,0.0
+Sweet Iced Tea Sweeter Version,170.0,0.0,0.0,0.0,5.0,44.0,0.0,42.0,0.0
+3 Bacon,130.0,9.0,3.0,25.0,530.0,1.0,0.0,1.0,11.0
+3 Pork Sausage Links,260.0,25.0,8.0,50.0,450.0,1.0,0.0,0.0,9.0
+55+ Pork Chop 4 oz,660.0,45.0,10.0,50.0,1100.0,41.0,7.0,2.0,25.0
+Create Your French Toast Combo w/ Bananas Foster Brioche French Toast,630.0,30.0,10.0,145.0,730.0,76.0,3.0,35.0,13.0
+Create Your French Toast Combo w/ Original French Toast,520.0,27.0,11.0,180.0,570.0,56.0,3.0,19.0,14.0
+Create Your French Toast Combo w/ Peach Vanilla Stuffed French Toast,540.0,20.0,10.0,40.0,410.0,83.0,4.0,46.0,8.0
+Create Your French Toast Combo w/ Strawberry Banana French Toast,560.0,22.0,8.0,160.0,520.0,80.0,4.0,31.0,14.0
+Create Your French Toast Combo w/ Strawberry Stuffed French Toast,520.0,19.0,9.0,30.0,390.0,81.0,4.0,38.0,8.0
+Create Your French Toast Combo w/ Strawberry Vanilla Stuffed French Toast,540.0,20.0,10.0,40.0,400.0,84.0,4.0,41.0,8.0
+Create Your Sweet Crepe Combo w/ Banana Crepe w/ Nutella,960.0,45.0,14.0,220.0,910.0,121.0,5.0,67.0,21.0
+Create Your Sweet Crepe Combo w/ Strawberries & Cream,410.0,16.0,6.0,120.0,460.0,59.0,2.0,26.0,9.0
+Create Your Sweet Crepe Combo w/ Swedish Crepe,370.0,18.0,6.0,125.0,440.0,44.0,2.0,20.0,9.0
+Create Your Sweet Crepe Combo w/ Sweet Cream Cheese & Raspberry Topping,420.0,24.0,12.0,105.0,380.0,44.0,2.0,29.0,8.0
+Create Your Sweet Crepe Combo w/ Sweet Cream Cheese Crepe & Peach Topping,410.0,24.0,12.0,105.0,400.0,42.0,1.0,27.0,8.0
+Brioche French Toast Plain,720.0,35.0,13.0,225.0,980.0,82.0,3.0,25.0,18.0
+Sweet Cream Cheese Crepes,670.0,46.0,23.0,210.0,740.0,52.0,1.0,27.0,15.0
+Red Potato Hash,480.0,35.0,7.0,5.0,840.0,37.0,4.0,2.0,5.0
+Whole Kernel Buttered Corn,140.0,5.0,0.5,0.0,450.0,24.0,1.0,9.0,3.0
+English Breakfast Tea,10.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,1.0
+French Toast Hot Chocolate,340.0,9.0,8.0,0.0,410.0,66.0,1.0,57.0,1.0
+French Toast Hot Chocolate Kids,200.0,6.0,6.0,0.0,210.0,35.0,1.0,31.0,1.0
+Green Tea,10.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,1.0
+Lemonade Iced Tea,80.0,0.0,0.0,0.0,10.0,20.0,0.0,18.0,0.0
+Golden Chamomile Tea,10.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,0.0
+Denver Omelette Burger,1030.0,67.0,29.0,590.0,2210.0,43.0,2.0,10.0,63.0
+Crepe & Ice Cream,300.0,16.0,8.0,75.0,280.0,33.0,1.0,19.0,7.0
+2 Buttermilk Pancakes w/ Butter,310.0,14.0,6.0,60.0,950.0,38.0,2.0,8.0,8.0
+2 Harvest Grain N Nut Pancakes w/ Raspberry,560.0,24.0,5.0,60.0,970.0,73.0,6.0,29.0,14.0
+2 Original Buttermilk Pancakes w/ Raspberry,340.0,9.0,3.5,35.0,890.0,56.0,3.0,24.0,8.0
+2 Red Velvet Cheesecake Pancakes,400.0,10.0,4.5,40.0,920.0,70.0,3.0,39.0,9.0
+3 Harvest Grain N Nut Pancakes w/ Raspberry,790.0,34.0,7.0,90.0,1450.0,100.0,9.0,36.0,20.0
+3 Original Buttermilk Pancakes w/ Raspberry,460.0,12.0,4.0,55.0,1330.0,75.0,4.0,28.0,12.0
+Apple Ring Pancakes Side Order,470.0,14.0,5.0,65.0,1360.0,75.0,5.0,26.0,12.0
+Apple Ring Pancakes Full Order,730.0,20.0,6.0,100.0,2240.0,119.0,6.0,39.0,20.0
+Bacon Crusted Grilled Chicken Breast w/ Red Potato Hash,920.0,63.0,21.0,180.0,2160.0,42.0,5.0,5.0,49.0
+Californian Scramble w/ Egg Whites,460.0,31.0,12.0,65.0,980.0,12.0,5.0,3.0,34.0
+Create Your Own French Toast Combo w/ Brioche French Toast Plain,500.0,26.0,10.0,160.0,670.0,55.0,2.0,17.0,12.0
+Egg White Omelette,140.0,4.0,0.0,10.0,300.0,2.0,1.0,1.0,23.0
+Egg White Vegetable Omelette,330.0,20.0,5.0,30.0,790.0,13.0,6.0,3.0,28.0
+Grilled Cheese Sandwich w/ Applesauce,420.0,25.0,15.0,55.0,730.0,36.0,3.0,11.0,12.0
+Kids Holiday Cupcake Pancake Combo,520.0,27.0,10.0,290.0,890.0,51.0,1.0,31.0,18.0
+Macaroni & Cheese w/ Applesauce,350.0,9.0,2.5,15.0,550.0,55.0,3.0,16.0,11.0
+Pumpkin Pancakes Side Order,310.0,9.0,3.5,35.0,1050.0,49.0,3.0,18.0,9.0
+Pumpkin Pancakes Full Order,730.0,20.0,6.0,100.0,2240.0,119.0,8.0,39.0,20.0
+Scary Face Pancakes,540.0,22.0,13.0,45.0,1210.0,78.0,3.0,32.0,11.0
+Simple & Fit Two Egg Breakfast,350.0,10.0,2.0,30.0,870.0,36.0,5.0,5.0,28.0
+Tuscan Scramble w/ Egg Whites,230.0,11.0,3.5,20.0,650.0,8.0,3.0,2.0,26.0
+Weekday Breakfast Special 2 Egg Cheese Omelette w/ 2 Buttermilk Pancakes,750.0,48.0,21.0,500.0,1580.0,43.0,2.0,9.0,36.0
+Grilled Chicken Club with Avocado,690.0,37.0,13.0,170.0,1900.0,43.0,5.0,9.0,46.0
+Jr Ham & Egg Melt w/ Applesauce,360.0,21.0,10.0,290.0,780.0,25.0,2.0,10.0,19.0
+Roasted Turkey Sandwich,840.0,42.0,10.0,115.0,1910.0,59.0,4.0,5.0,54.0
+Slice of Ham,120.0,3.0,1.0,65.0,1260.0,3.0,0.0,3.0,21.0
+Additional Burger Patty,360.0,28.0,12.0,100.0,135.0,0.0,0.0,0.0,27.0
+Banana Slices,20.0,0.0,0.0,0.0,0.0,5.0,1.0,3.0,0.0
+Glazed Strawberries for Fruit Crepe,130.0,0.0,0.0,0.0,15.0,35.0,2.0,16.0,0.0
+Hickory Smoked Bacon,80.0,6.0,2.0,20.0,350.0,1.0,0.0,1.0,7.0
+Ice Cream,100.0,4.5,2.5,20.0,50.0,12.0,0.0,9.0,3.0
+Ice Cream w/ Whipped Topping,120.0,7.0,5.0,20.0,55.0,13.0,0.0,10.0,3.0
+Raspberry Topping w/ Whipped Topping,100.0,2.5,2.0,0.0,10.0,19.0,1.0,16.0,1.0
+Raspberry Topping,150.0,0.0,0.0,0.0,10.0,38.0,2.0,32.0,1.0
+Raspberry,70.0,0.0,0.0,0.0,5.0,17.0,1.0,8.0,0.0
+Coca Cola 16 fl oz,120.0,0.0,0.0,0.0,0.0,32.0,0.0,32.0,0.0
+Bottled Water,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Floridas Natural Premium Orange Juice Regular,110.0,0.0,0.0,0.0,0.0,25.0,1.0,21.0,2.0
+Classic Skillets,1040.0,62.0,26.0,135.0,2350.0,92.0,7.0,12.0,29.0
+Peach Topping,60.0,0.0,0.0,0.0,20.0,16.0,1.0,13.0,0.0
+Grits,100.0,0.0,0.0,0.0,150.0,21.0,0.0,0.0,2.0
+Sierra Mist 30 fl oz,230.0,0.0,0.0,0.0,45.0,63.0,0.0,63.0,0.0
+1 Turkey Sausage Link,45.0,3.5,1.0,20.0,160.0,0.0,0.0,0.0,4.0
+Strawberry Preserves,230.0,0.0,0.0,0.0,15.0,59.0,1.0,54.0,0.0
+Sausage Kids,90.0,8.0,3.0,15.0,150.0,0.0,0.0,0.0,3.0
+English Breakfast Tea,10.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,1.0
+Banana Slices w/ Whipped Topping,45.0,2.0,2.0,0.0,5.0,7.0,1.0,4.0,0.0
+12 oz T Bone Steak,750.0,40.0,13.0,130.0,1750.0,41.0,7.0,4.0,59.0
+12 oz T Bone Steak & Eggs,810.0,36.0,16.0,205.0,2390.0,57.0,4.0,13.0,64.0
+4 Red Velvet Pancakes,680.0,16.0,5.0,75.0,1820.0,118.0,5.0,55.0,17.0
+Diet Pepsi 30 fl oz,0.0,0.0,0.0,0.0,95.0,0.0,0.0,0.0,0.0
+3 Poached Eggs for Big 3 Egg Breakfast,190.0,13.0,4.0,490.0,390.0,1.0,0.0,0.0,17.0
+Tropicana Yellow Lemonade 30 fl oz,280.0,0.0,0.0,0.0,25.0,68.0,0.0,66.0,0.0
+Chocolate Milk Shake,470.0,20.0,12.0,70.0,240.0,62.0,1.0,51.0,14.0
+Floridas Natural Premium Orange Juice Kids,130.0,0.0,0.0,0.0,0.0,31.0,1.0,26.0,2.0
+Diet Pepsi 16 fl oz,0.0,0.0,0.0,0.0,45.0,0.0,0.0,0.0,0.0
+2 Poached Eggs,130.0,8.0,2.5,325.0,260.0,1.0,0.0,0.0,11.0
+3 Original Buttermilk Pancakes,430.0,17.0,7.0,75.0,1390.0,57.0,3.0,12.0,12.0
+Minute Maid Lemonade 30 fl oz,220.0,0.0,0.0,0.0,105.0,63.0,0.0,58.0,0.0
+Green Tea,10.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,1.0
+3 Scrambled Eggs for Big 3 Egg Breakfast,330.0,26.0,7.0,710.0,340.0,3.0,0.0,1.0,23.0
+3 New York Cheesecake Pancakes,730.0,26.0,12.0,125.0,1540.0,107.0,4.0,44.0,17.0
+French Fries Side,320.0,15.0,3.0,0.0,990.0,41.0,4.0,0.0,4.0
+Cherry Coke 16 fl oz,120.0,0.0,0.0,0.0,5.0,32.0,0.0,32.0,0.0
+Strawberries & Cream Crepes,810.0,31.0,10.0,235.0,930.0,116.0,4.0,49.0,18.0
+Chicken & Waffles,1030.0,50.0,21.0,225.0,1680.0,105.0,4.0,17.0,40.0
+4 Strawberry Banana Pancakes,670.0,15.0,4.5,70.0,1780.0,122.0,8.0,40.0,17.0
+Grapefruit Juice Regular,90.0,0.0,0.0,0.0,0.0,22.0,0.0,20.0,1.0
+Fried Chicken Dinner,1350.0,78.0,21.0,330.0,3940.0,88.0,9.0,11.0,78.0
+Swedish Crepe for Create Your Sweet Crepe Combo,370.0,18.0,6.0,125.0,440.0,44.0,2.0,20.0,9.0
+German Crepes,680.0,34.0,12.0,245.0,880.0,76.0,3.0,29.0,17.0
+1 Fried Egg for 55+ Breakfast Sampler,80.0,6.0,2.0,195.0,80.0,1.0,0.0,0.0,7.0
+Sweet Cream Cheese Crepes,670.0,46.0,22.0,210.0,740.0,53.0,1.0,27.0,15.0
+Coca Cola Zero 16 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+4 Pork Sausage Links,350.0,33.0,11.0,65.0,600.0,2.0,0.0,0.0,12.0
+Blueberry Compote,70.0,0.0,0.0,0.0,40.0,18.0,1.0,14.0,0.0
+Sierra Mist 16 fl oz,120.0,0.0,0.0,0.0,25.0,32.0,0.0,32.0,0.0
+Biscuits & Gravy Combo w/ Country Gravy,1160.0,71.0,24.0,70.0,2770.0,106.0,5.0,8.0,25.0
+4 Turkey Sausage Links,190.0,13.0,3.0,75.0,630.0,1.0,0.0,0.0,17.0
+Create Your French Toast Combo w/ Peach Vanilla Stuffed French Toast,450.0,2.5,1.5,10.0,35.0,18.0,1.0,15.0,1.0
+Roasted Turkey & Fixings,1000.0,40.0,18.0,160.0,2570.0,106.0,9.0,38.0,55.0
+Ice Cream Sundae,310.0,17.0,13.0,40.0,125.0,33.0,0.0,25.0,5.0
+Huevos Rancheros,740.0,39.0,14.0,55.0,1620.0,73.0,10.0,4.0,25.0
+Sourdough Toast w/ Butter & Jam or Jelly,320.0,13.0,7.0,30.0,430.0,45.0,1.0,10.0,6.0
+3 Hard or Soft Boiled Eggs,230.0,16.0,5.0,560.0,190.0,2.0,0.0,2.0,19.0
+Fresh Spinach for Create Your Omelette,15.0,0.0,0.0,0.0,45.0,2.0,1.0,0.0,2.0
+Fresh Green Peppers & Onions for Create Your Own Omelette,10.0,0.0,0.0,0.0,0.0,2.0,0.0,1.0,0.0
+Cheeseburger Slider Trio,1060.0,65.0,30.0,200.0,1920.0,72.0,3.0,16.0,49.0
+Iced Coffee Original,180.0,4.5,3.0,20.0,120.0,26.0,1.0,25.0,8.0
+Turkey Avocado & Bacon Wrap,750.0,39.0,8.0,95.0,2100.0,56.0,6.0,5.0,45.0
+Pibb Xtra 16 fl oz,110.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+Chicken & 3 Cheese Quesadilla,930.0,50.0,25.0,205.0,2330.0,57.0,4.0,6.0,63.0
+4 Double Blueberry Pancakes,600.0,15.0,4.5,70.0,1810.0,102.0,6.0,36.0,16.0
+Cherry Coke 30 fl oz,240.0,0.0,0.0,0.0,10.0,64.0,0.0,64.0,0.0
+Biscuits & Gravy Combo w/ Sausage Gravy,1260.0,79.0,27.0,85.0,3110.0,111.0,5.0,9.0,28.0
+Glazed Strawberries for Fruit Crepe,130.0,0.0,0.0,0.0,15.0,35.0,2.0,16.0,0.0
+55+ Tilapia Florentine,560.0,38.0,17.0,120.0,1720.0,33.0,4.0,4.0,26.0
+3 Fried Eggs,250.0,18.0,6.0,590.0,240.0,2.0,1.0,1.0,20.0
+Iced Coffee Vanilla,230.0,4.5,2.5,15.0,110.0,39.0,1.0,38.0,8.0
+Mug Root Beer 16 fl oz,120.0,0.0,0.0,0.0,20.0,31.0,0.0,31.0,0.0
+Vanilla Milk Shake,480.0,20.0,12.0,70.0,230.0,63.0,0.0,55.0,14.0
+Spicy Chicken Ranch Sandwich,740.0,40.0,12.0,105.0,2420.0,60.0,3.0,11.0,33.0
+Crispy Chicken Cobb Salad w/ Fried Chicken,1260.0,97.0,27.0,525.0,2380.0,39.0,3.0,7.0,58.0
+3 Strawberry Banana Pancakes,530.0,12.0,4.0,55.0,1340.0,97.0,6.0,33.0,13.0
+Create Your 55+ Omelette,220.0,16.0,4.5,385.0,280.0,4.0,0.0,1.0,14.0
+Californian Scramble w/ Egg Whites,460.0,31.0,12.0,65.0,980.0,12.0,5.0,3.0,34.0
+Mega Monster Cheeseburger,1140.0,78.0,36.0,270.0,1880.0,40.0,1.0,9.0,69.0
+Whole Wheat Toast w/ Butter & Jam or Jelly,320.0,9.0,4.0,15.0,380.0,52.0,5.0,20.0,10.0
+2 Turkey Sausage Patties,120.0,7.0,1.5,55.0,600.0,0.0,0.0,0.0,14.0
+4 Slices of Spam,350.0,33.0,11.0,70.0,1570.0,4.0,0.0,1.0,15.0
+Blueberry Compote for Fruit Crepe,150.0,0.0,0.0,0.0,80.0,36.0,2.0,28.0,0.0
+Corned Beef Hash for Big 3 Egg Breakfast,300.0,19.0,9.0,50.0,1090.0,19.0,2.0,1.0,14.0
+3 Cinna Stack Pancakes,630.0,21.0,7.0,55.0,1470.0,98.0,4.0,48.0,12.0
+Ice Cream,100.0,4.5,2.5,20.0,50.0,12.0,0.0,9.0,3.0
+Smokehouse Combo,1000.0,67.0,23.0,145.0,2640.0,69.0,4.0,11.0,29.0
+Chicken & Spinach Salad w/ Crispy Chicken,1390.0,91.0,27.0,355.0,2860.0,79.0,6.0,33.0,67.0
+Marble Rye Toast w/ Butter & Jam or Jelly,440.0,11.0,3.5,15.0,530.0,74.0,3.0,19.0,12.0
+Lemonade Iced Tea 16 oz,80.0,0.0,0.0,0.0,10.0,20.0,0.0,18.0,0.0
+2 Slices of Spam,180.0,16.0,5.0,35.0,780.0,2.0,0.0,1.0,7.0
+Sirloin Steak Tips,760.0,105.0,12.0,120.0,2380.0,70.0,5.0,27.0,44.0
+Creamy Caesar Dressing,280.0,28.0,5.0,25.0,600.0,6.0,0.0,2.0,2.0
+Sobe Yumberry Pomegranate Lifewater 30 fl oz,0.0,0.0,0.0,0.0,170.0,0.0,0.0,0.0,0.0
+10 oz T Bone Steak,670.0,36.0,11.0,105.0,1530.0,41.0,7.0,4.0,48.0
+Honey Balsamic Dressing,200.0,15.0,2.0,0.0,270.0,16.0,0.0,14.0,0.0
+Mug Root Beer 30 fl oz,230.0,0.0,0.0,0.0,35.0,61.0,0.0,61.0,0.0
+Hash Browns,280.0,18.0,3.5,0.0,430.0,28.0,2.0,1.0,3.0
+Tropicana Yellow Lemonade 16 fl oz,140.0,0.0,0.0,0.0,10.0,34.0,0.0,33.0,0.0
+4 Turkey Bacon Strips,130.0,10.0,2.5,50.0,670.0,1.0,0.0,1.0,10.0
+3 Red Velvet Pancakes,540.0,13.0,4.5,55.0,1370.0,95.0,4.0,47.0,13.0
+Peach Vanilla for Stuffed French Toast,90.0,2.5,1.5,10.0,35.0,18.0,1.0,15.0,1.0
+Mountain Dew 30 fl oz,260.0,0.0,0.0,0.0,95.0,73.0,0.0,73.0,0.0
+6 oz Pork Chops & Eggs,1040.0,57.0,18.0,195.0,2150.0,67.0,4.0,10.0,66.0
+55+ Pot Roast,490.0,24.0,10.0,65.0,1680.0,54.0,3.0,11.0,20.0
+2 Corn Tortillas,120.0,2.0,0.0,0.0,10.0,24.0,2.0,0.0,3.0
+Grapefruit Juice Kids,110.0,0.0,0.0,0.0,0.0,28.0,0.0,25.0,1.0
+Tomato Juice Kids,60.0,0.0,0.0,0.0,930.0,12.0,3.0,8.0,3.0
+2 Chocolate Chocolate Chip Pancakes Buttermilk Version,330.0,12.0,5.0,35.0,890.0,50.0,4.0,17.0,9.0
+Create a Face Pancake,450.0,11.0,3.5,50.0,1180.0,77.0,3.0,28.0,13.0
+2 Biscuits w/ Butter,490.0,21.0,11.0,20.0,1270.0,65.0,2.0,7.0,10.0
+Bacon Crusted Grilled Chicken Breast w/ Red Potato Hash,780.0,47.0,17.0,175.0,2020.0,43.0,5.0,5.0,47.0
+3 Double Blueberry Pancakes,480.0,11.0,4.0,55.0,1370.0,82.0,5.0,31.0,12.0
+Smoked Sausage,760.0,58.0,22.0,105.0,2600.0,38.0,5.0,7.0,25.0
+Tropicana Orange Twister 16 fl oz,130.0,0.0,0.0,0.0,30.0,37.0,0.0,36.0,0.0
+Jr Cheeseburger Sliders w/ Motts Applesauce,680.0,39.0,17.0,125.0,1040.0,54.0,3.0,17.0,29.0
+Country Fried Steak Dinner w/ Country Gravy,1060.0,69.0,24.0,105.0,2810.0,78.0,7.0,4.0,33.0
+Cheeseburger Omelette,1450.0,104.0,38.0,930.0,3170.0,54.0,5.0,14.0,75.0
+4 Chocolate Chip Pancakes Buttermilk Version Pancakes,620.0,21.0,8.0,75.0,1770.0,94.0,5.0,31.0,17.0
+3 Chocolate Chip Pancakes Chocolate Version,490.0,17.0,7.0,55.0,1330.0,72.0,6.0,24.0,14.0
+Honey Mustard Dressing,230.0,20.0,3.0,15.0,480.0,13.0,1.0,12.0,1.0
+Raspberry for Sweet Cream cheese Crepes,150.0,0.0,0.0,0.0,45.0,31.0,2.0,26.0,1.0
+Dr Pepper 16 fl oz,120.0,0.0,0.0,0.0,40.0,31.0,0.0,30.0,0.0
+Apple Juice Regular,120.0,0.0,0.0,0.0,10.0,30.0,0.0,27.0,0.0
+Country Fried Steak w/ Country Gravy,840.0,60.0,18.0,85.0,2160.0,48.0,3.0,1.0,28.0
+Denver Omelette Burger,980.0,61.0,25.0,575.0,2210.0,43.0,1.0,10.0,63.0
+3 Harvest Grain N Nut Pancakes,760.0,40.0,10.0,110.0,1500.0,81.0,8.0,20.0,19.0
+Sirloin Steak Dinner,1060.0,69.0,23.0,155.0,2450.0,50.0,8.0,7.0,62.0
+Split Decision Breakfast,870.0,54.0,22.0,210.0,1920.0,68.0,3.0,19.0,28.0
+2 Turkey Sausage Links,90.0,7.0,1.5,35.0,310.0,0.0,0.0,0.0,8.0
+South of the Border Burrito,1280.0,73.0,26.0,585.0,3150.0,112.0,7.0,16.0,46.0
+55+ Egg White Omelette,70.0,2.0,0.0,5.0,150.0,1.0,0.0,0.0,12.0
+Philly Cheese Steak Stacker,820.0,42.0,17.0,110.0,2820.0,61.0,3.0,12.0,51.0
+Tropicana Premium Orange Juice Kids,140.0,0.0,0.0,5.0,0.0,33.0,0.0,27.0,3.0
+Tilapia Florentine,680.0,43.0,18.0,160.0,2390.0,34.0,5.0,5.0,43.0
+2 Original Buttermilk Pancakes,310.0,14.0,6.0,60.0,950.0,38.0,2.0,8.0,8.0
+Our Original French Toast,740.0,36.0,14.0,260.0,830.0,84.0,4.0,28.0,20.0
+Avocado Bacon & Cheese Omelette,870.0,68.0,25.0,865.0,1490.0,13.0,3.0,4.0,52.0
+Pepsi Wild Cherry 16 fl oz,120.0,0.0,0.0,0.0,25.0,33.0,0.0,33.0,0.0
+2 Fried Eggs,170.0,12.0,4.0,390.0,160.0,1.0,0.0,0.0,13.0
+Hot Chocolate 16 oz To Go,290.0,10.0,10.0,0.0,390.0,53.0,1.0,44.0,1.0
+Hearty Ham & Cheese Omelette,940.0,68.0,29.0,945.0,2460.0,17.0,0.0,7.0,66.0
+Chicken Clubhouse Super Stacker,1090.0,69.0,23.0,195.0,3290.0,62.0,4.0,13.0,59.0
+1 Turkey Sausage Patty,60.0,3.5,1.0,25.0,300.0,0.0,0.0,0.0,7.0
+Pot Roast,820.0,43.0,18.0,165.0,2890.0,64.0,3.0,11.0,50.0
+Scrapple,220.0,11.0,4.5,100.0,1100.0,8.0,1.0,0.0,22.0
+Additional Burger Patty,360.0,28.0,12.0,100.0,350.0,0.0,0.0,0.0,27.0
+2 Pork Sausage Links,180.0,17.0,6.0,35.0,300.0,1.0,0.0,0.0,6.0
+Chicken/Country Fried Steak & Eggs w/ Country Gravy,1440.0,92.0,28.0,140.0,3540.0,114.0,8.0,10.0,39.0
+Grilled Chicken & Veggie Salad,670.0,41.0,7.0,95.0,1070.0,43.0,8.0,28.0,36.0
+Glazed Strawberries for Stuffed French Toast,130.0,0.0,0.0,0.0,15.0,35.0,2.0,16.0,0.0
+2 Sirloin Steaks,340.0,20.0,8.0,110.0,730.0,0.0,0.0,0.0,41.0
+Turkey Bacon Kids,35.0,2.5,0.5,15.0,170.0,0.0,0.0,0.0,2.0
+Sirloin Tips & Eggs,1030.0,123.0,15.0,160.0,2680.0,87.0,6.0,26.0,49.0
+Side Caesar Salad,390.0,33.0,7.0,35.0,860.0,15.0,3.0,4.0,10.0
+2 Pork Sausage Patties,340.0,31.0,11.0,70.0,870.0,2.0,0.0,1.0,15.0
+Peaches w/ Whipped Topping,80.0,2.0,2.0,0.0,30.0,18.0,1.0,14.0,0.0
+Diced Ham for Create Your Own Omelette,30.0,1.0,0.0,15.0,320.0,1.0,0.0,1.0,5.0
+German Crepe for Create Your Sweet Crepe Combo,390.0,22.0,9.0,135.0,440.0,39.0,2.0,15.0,9.0
+Onion Rings,970.0,51.0,9.0,0.0,1030.0,112.0,8.0,15.0,14.0
+Tomato Juice Large,80.0,0.0,0.0,0.0,1300.0,17.0,4.0,11.0,4.0
+Lemonade Iced Tea 30 fl oz,120.0,0.0,0.0,0.0,15.0,28.0,0.0,26.0,0.0
+Splashberry 16 fl oz,150.0,0.0,0.0,0.0,20.0,40.0,0.0,34.0,1.0
+Cheddar Cheese Shredded for Create Your Omelette,230.0,19.0,12.0,60.0,350.0,1.0,0.0,0.0,14.0
+Splashberry 30 fl oz,260.0,0.0,0.0,0.0,35.0,67.0,1.0,56.0,1.0
+Raspberry Vinaigrette Dressing,120.0,11.0,1.5,0.0,760.0,6.0,0.0,5.0,0.0
+5 Original Buttermilk Pancakes,670.0,24.0,8.0,110.0,2270.0,94.0,4.0,21.0,20.0
+Double BLT,670.0,42.0,10.0,60.0,2040.0,42.0,3.0,8.0,29.0
+Crispy Chicken Cobb Salad w/ Grilled Chicken,1080.0,85.0,25.0,570.0,1950.0,12.0,2.0,7.0,67.0
+Iced Coffee Mocha,220.0,4.5,2.5,15.0,110.0,39.0,1.0,37.0,8.0
+Bananas Foster Brioche French Toast for Create Your French Toast Combo,620.0,30.0,10.0,145.0,730.0,77.0,3.0,35.0,13.0
+Classic Breakfast Crepes,1040.0,70.0,28.0,740.0,2400.0,45.0,1.0,18.0,58.0
+Onion Rings Side,480.0,26.0,4.5,0.0,510.0,56.0,4.0,7.0,7.0
+Clam Chowder Soup,320.0,21.0,8.0,45.0,1070.0,27.0,1.0,3.0,7.0
+Sirloin Steak & Eggs,770.0,37.0,15.0,185.0,2110.0,57.0,3.0,12.0,53.0
+Create Your Own Omelette,440.0,33.0,9.0,775.0,560.0,7.0,0.0,2.0,28.0
+2% Milk Kids,150.0,6.0,4.0,25.0,150.0,15.0,0.0,15.0,10.0
+Loco Moco,890.0,35.0,15.0,105.0,750.0,105.0,1.0,3.0,36.0
+Grilled Chicken Caesar Salad,790.0,56.0,13.0,156.0,1300.0,27.0,6.0,7.0,49.0
+Fat Free Raspberry Vinaigrette Dressing,60.0,0.0,0.0,0.0,590.0,14.0,0.0,14.0,0.0
+Baked Potato,300.0,7.0,1.0,0.0,15.0,54.0,4.0,2.0,6.0
+3 Chocolate Chocolate Chip Pancakes Buttermilk Version,480.0,16.0,7.0,55.0,1330.0,72.0,4.0,24.0,13.0
+4 Cinna Stack Pancakes,810.0,27.0,9.0,75.0,1960.0,126.0,6.0,60.0,16.0
+French Toast Hot Chocolate,330.0,7.0,7.0,0.0,410.0,67.0,1.0,58.0,1.0
+Manzanita Sol 16 fl oz,130.0,0.0,0.0,0.0,30.0,34.0,0.0,33.0,0.0
+Weekday Breakfast Special 2 Egg Cheese Omelette w/ 2 Buttermilk Pancakes,750.0,48.0,21.0,500.0,1580.0,43.0,2.0,9.0,36.0
+2 Cupcake Pancakes,470.0,13.0,7.0,40.0,920.0,81.0,2.0,45.0,8.0
+55+ Roasted Turkey & Fixings,930.0,38.0,17.0,125.0,2400.0,106.0,9.0,37.0,41.0
+6 oz Savory Pork Chops,820.0,46.0,13.0,140.0,1530.0,42.0,6.0,4.0,63.0
+Tropicana Orange Twister 30 fl oz,260.0,0.0,0.0,0.0,60.0,73.0,0.0,70.0,0.0
+Barqs Root Beer 30 fl oz,260.0,0.0,0.0,0.0,50.0,70.0,0.0,70.0,0.0
+Stuffed French Toast,890.0,36.0,18.0,55.0,770.0,128.0,5.0,60.0,15.0
+Egg White Vegetable Omelette,330.0,20.0,6.0,30.0,790.0,13.0,6.0,3.0,28.0
+Chicken Florentine Crepes,900.0,53.0,22.0,296.0,1660.0,48.0,4.0,19.0,58.0
+Mixed Greens House Salad,25.0,0.0,0.0,0.0,20.0,5.0,2.0,2.0,1.0
+Corned Beef Hash & Cheese Omelette,970.0,71.0,30.0,880.0,2000.0,27.0,2.0,4.0,57.0
+Cheeseburger,690.0,43.0,20.0,150.0,1400.0,39.0,1.0,8.0,38.0
+4 Bacon Strips,170.0,12.0,4.5,35.0,710.0,2.0,0.0,2.0,14.0
+American Cheese for Create Your Omelette,150.0,12.0,7.0,25.0,480.0,2.0,0.0,1.0,8.0
+Sweet Iced Tea Sweet Version 30 fl oz,270.0,0.0,0.0,0.0,15.0,70.0,0.0,67.0,1.0
+Fanta Orange 16 fl oz,120.0,0.0,0.0,0.0,5.0,35.0,0.0,32.0,0.0
+Strawberry Vanilla for Stuffed French Toast,200.0,5.0,3.0,15.0,45.0,40.0,2.0,20.0,1.0
+Migas,1120.0,82.0,24.0,765.0,2070.0,55.0,6.0,8.0,42.0
+Californian Scramble,640.0,50.0,18.0,765.0,1050.0,12.0,4.0,3.0,38.0
+Banana Slices,20.0,0.0,0.0,0.0,0.0,5.0,1.0,3.0,0.0
+Tropicana Fruit Punch 16 fl oz,130.0,0.0,0.0,0.0,30.0,36.0,0.0,36.0,0.0
+1 Poached Egg for 55+ Breakfast Sampler,60.0,4.0,1.5,165.0,130.0,0.0,0.0,0.0,6.0
+2 Scrambled Eggs,220.0,17.0,5.0,475.0,230.0,2.0,0.0,1.0,15.0
+Chocolate Milk Regular,180.0,4.5,3.0,20.0,115.0,27.0,1.0,24.0,8.0
+55+ Breakfast Sampler,640.0,41.0,13.0,85.0,1570.0,48.0,3.0,6.0,18.0
+Seasonal Mixed Fruit w/ Pineapple Apples Oranges & Strawberries for Simple & Fit 2 Egg Breakfast,50.0,0.0,0.0,0.0,0.0,13.0,2.0,9.0,1.0
+White Toast w/ Butter & Jam or Jelly,250.0,7.0,4.0,15.0,260.0,43.0,1.0,20.0,5.0
+Apple Juice Large,210.0,0.0,0.0,0.0,20.0,52.0,0.0,48.0,0.0
+Sweet Iced Tea Sweet Version 16 fl oz,140.0,0.0,0.0,0.0,5.0,35.0,0.0,34.0,0.0
+Brioche French Toast Plain,720.0,35.0,13.0,225.0,980.0,82.0,3.0,25.0,18.0
+Ham & Egg Melt,1080.0,53.0,24.0,620.0,2900.0,78.0,3.0,7.0,67.0
+Roasted Turkey Sandwich,850.0,43.0,10.0,115.0,1870.0,59.0,4.0,5.0,54.0
+1 Scrambled Egg for 55+ Breakfast Sampler,110.0,9.0,2.5,235.0,115.0,1.0,0.0,0.0,8.0
+Pepsi 30 fl oz,230.0,0.0,0.0,0.0,45.0,66.0,0.0,66.0,0.0
+Chicken & Spinach Salad w/ Grilled Chicken,1100.0,73.0,24.0,390.0,2200.0,43.0,4.0,33.0,69.0
+10 oz T Bone Steak & Eggs,720.0,32.0,14.0,175.0,2170.0,57.0,3.0,13.0,52.0
+2 6 oz Pork Chops,450.0,24.0,9.0,140.0,780.0,1.0,0.0,1.0,55.0
+Rustic Cheesy Tomato Soup,290.0,20.0,12.0,60.0,1200.0,22.0,2.0,7.0,5.0
+Grapefruit Juice Large,160.0,0.0,0.0,0.0,0.0,39.0,0.0,35.0,2.0
+Appetizer Sampler,1400.0,70.0,17.0,105.0,3160.0,135.0,10.0,11.0,59.0
+Funny Face,490.0,20.0,13.0,45.0,1150.0,67.0,4.0,23.0,11.0
+Red Potato Hash,350.0,21.0,4.0,5.0,730.0,37.0,4.0,2.0,5.0
+Coca Cola 30 fl oz,230.0,0.0,0.0,0.0,5.0,64.0,0.0,64.0,0.0
+Chicken Fried Chicken Dinner w/ Country Gravy,620.0,29.0,9.0,70.0,1850.0,68.0,4.0,11.0,26.0
+Reduced Fat Italian Dressing,15.0,1.0,0.0,0.0,105.0,1.0,0.0,1.0,0.0
+Corned Beef Hash & Eggs,730.0,37.0,16.0,125.0,2480.0,75.0,5.0,14.0,26.0
+Jr Chicken & Waffles,550.0,29.0,13.0,125.0,870.0,53.0,2.0,9.0,20.0
+2 Cinnaa Stack Pancakes,440.0,15.0,6.0,35.0,990.0,69.0,3.0,36.0,8.0
+Machaca,1240.0,88.0,27.0,810.0,2370.0,57.0,6.0,8.0,56.0
+Wheatberry Toast w/ Butter & Jam or Jelly,330.0,9.0,4.5,15.0,440.0,58.0,5.0,17.0,7.0
+Buttermilk Ranch Dressing,280.0,30.0,4.5,20.0,440.0,2.0,0.0,1.0,1.0
+Country Omelette,1090.0,77.0,28.0,885.0,2000.0,42.0,3.0,7.0,56.0
+Avocado for Create Your Omelette,80.0,7.0,1.0,0.0,0.0,4.0,3.0,0.0,1.0
+Coca Cola Zero 30 fl oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Freshly Brewed Iced Tea 30 fl oz,15.0,0.0,0.0,0.0,10.0,3.0,0.0,0.0,1.0
+2 4 oz Pork Chops,310.0,19.0,7.0,95.0,460.0,0.0,1.0,0.0,35.0
+Slice of Ham,120.0,3.0,1.0,65.0,1260.0,3.0,0.0,3.0,21.0
+Thousand Island Dressing,250.0,24.0,3.5,15.0,480.0,10.0,0.0,6.0,0.0
+Barqs Root Beer 16 fl oz,130.0,0.0,0.0,0.0,25.0,35.0,0.0,35.0,0.0
+2 Canadian Style Bacon for Big 3 Egg Breakfast,120.0,5.0,2.0,50.0,1520.0,1.0,0.0,1.0,19.0
+Minute Maid Lemonade 16 fl oz,110.0,0.0,0.0,0.0,50.0,32.0,0.0,29.0,0.0
+SoBe Yumberry Pomegranate Lifewater 16 fl oz,0.0,0.0,0.0,0.0,85.0,0.0,0.0,0.0,0.0
+Brisk Raspberry Iced Tea 30 oz,190.0,0.0,0.0,0.0,60.0,49.0,0.0,49.0,0.0
+Hot Chocolate,140.0,5.0,4.5,0.0,200.0,25.0,1.0,22.0,1.0
+Monster Mozza Sticks,770.0,38.0,16.0,70.0,2700.0,68.0,7.0,5.0,39.0
+Bacon Temptation Omelette,1080.0,85.0,35.0,940.0,2310.0,16.0,1.0,7.0,64.0
+55+ Smokehouse Combo,680.0,47.0,16.0,85.0,1570.0,49.0,3.0,6.0,16.0
+Hi C Fruit Punch 16 fl oz,120.0,0.0,0.0,0.0,15.0,32.0,0.0,32.0,0.0
+International House Roast Flavored Coffee Swiss Mocha,190.0,7.0,6.0,0.0,10.0,31.0,1.0,30.0,0.0
+Eggs Benedict,910.0,55.0,22.0,460.0,2940.0,63.0,5.0,8.0,42.0
+2% Milk Large,220.0,9.0,5.0,35.0,200.0,21.0,0.0,21.0,14.0
+4 Chocolate Chocolate Chip Pancakes Chocolate Version,640.0,21.0,9.0,75.0,1770.0,94.0,7.0,31.0,18.0
+Fresh Mushrooms for Create Your Omelette,10.0,0.0,0.0,0.0,0.0,2.0,1.0,1.0,2.0
+Fresh Tomatoes for Create Your Omelette,10.0,0.0,0.0,0.0,0.0,2.0,1.0,1.0,0.0
+Glazed Strawberries for Rooty Tooty Fresh N Fruity Pancakes,70.0,0.0,0.0,0.0,5.0,17.0,1.0,8.0,0.0
+Pepper Jack Cheese for Create Your Omelette,160.0,13.0,8.0,35.0,270.0,1.0,0.0,0.0,10.0
+2 Smoked Sausage Links,400.0,34.0,14.0,85.0,1260.0,4.0,0.0,2.0,19.0
+55+ Pork Chop 6 oz,600.0,33.0,8.0,75.0,1140.0,42.0,6.0,4.0,35.0
+Mountain Dew 16 fl oz,130.0,0.0,0.0,0.0,45.0,37.0,0.0,37.0,0.0
+1 Buttermilk Pancake,120.0,3.0,0.5,20.0,440.0,19.0,1.0,4.0,4.0
+Seasonal Mixed Fruit w/ Pineapple Honeydew Oranges & Grapes for Simple & Fit 2 Egg Breakfast,60.0,0.0,0.0,0.0,5.0,13.0,2.0,12.0,1.0
+3 Cupcake Pancakes,630.0,18.0,10.0,55.0,1370.0,106.0,3.0,53.0,12.0
+Colorado Omelette,1150.0,86.0,33.0,955.0,2750.0,19.0,1.0,8.0,77.0
+Raspberry for Fruit Crepe,140.0,0.0,0.0,0.0,5.0,35.0,2.0,29.0,1.0
+Tropicana Fruit Punch 30 fl oz,260.0,0.0,0.0,0.0,60.0,70.0,0.0,70.0,0.0
+4 New York Cheesecake Pancakes,940.0,35.0,16.0,165.0,2040.0,136.0,5.0,55.0,22.0
+Hamburger,620.0,37.0,16.0,135.0,1160.0,39.0,1.0,8.0,34.0
+Motts Applesauce,40.0,0.0,0.0,0.0,5.0,10.0,1.0,8.0,0.0
+Blue Cheese Dressing,310.0,33.0,6.0,30.0,320.0,1.0,0.0,1.0,2.0
+55+ Buttermilk Pancakes,430.0,17.0,7.0,75.0,1390.0,57.0,3.0,12.0,12.0
+Cheese Blintzes,890.0,57.0,28.0,290.0,1300.0,66.0,2.0,30.0,28.0
+2 Strawberry Banana Pancakes,390.0,8.0,3.5,35.0,900.0,73.0,5.0,26.0,9.0
+Seasonal Mixed Fruit w/ Honeydew Watermelon Pineapple & Grapes for Simple & Fit 2 Egg Breakfast,50.0,0.0,0.0,0.0,5.0,14.0,1.0,11.0,1.0
+2 Red Velvet Pancakes,400.0,10.0,4.0,40.0,930.0,71.0,3.0,39.0,8.0
+2 Chocolate Chocolate Chip Pancakes Chocolate Version,350.0,12.0,6.0,35.0,890.0,50.0,4.0,17.0,9.0
+Peach for Sweet Cream Cheese Crepes,120.0,0.0,0.0,0.0,45.0,31.0,2.0,26.0,1.0
+Jack & Cheddar Cheese Blend for Create Your Omelette,220.0,18.0,10.0,55.0,350.0,2.0,0.0,0.0,13.0
+Hi C Fruit Punch 30 fl oz,240.0,0.0,0.0,0.0,30.0,64.0,0.0,64.0,0.0
+Spinach Roasted Red Pepper & Cheese Melt,1190.0,71.0,29.0,575.0,2420.0,82.0,5.0,7.0,54.0
+Breakfast Sampler,920.0,56.0,18.0,145.0,2660.0,69.0,4.0,11.0,34.0
+Blueberry Compote w/ Whipped Topping,100.0,2.0,2.0,0.0,45.0,20.0,1.0,15.0,0.0
+Country Fried Steak w/ Sausage Gravy,940.0,67.0,21.0,95.0,2480.0,53.0,4.0,1.0,31.0
+Roasted Chicken Noodle Soup,170.0,6.0,2.5,25.0,990.0,21.0,1.0,3.0,8.0
+Chocolate Milk Kids,220.0,6.0,3.5,20.0,140.0,34.0,1.0,30.0,10.0
+Bacon Kids,40.0,3.0,1.0,10.0,180.0,0.0,0.0,0.0,4.0
+Tuscan Scramble,420.0,30.0,10.0,720.0,710.0,8.0,3.0,3.0,30.0
+Original French Toast for Create Your French Toast Combo,520.0,27.0,11.0,180.0,570.0,56.0,3.0,19.0,14.0
+Seasonal Mixed Fruit w/ Pineapple Apples Oranges & Grapes for Simple & Fit 2 Egg Breakfast,60.0,0.0,0.0,0.0,0.0,16.0,2.0,13.0,1.0
+Chorizo & Eggs,1350.0,85.0,26.0,850.0,3280.0,92.0,6.0,17.0,55.0
+Raspberry Topping,70.0,0.0,0.0,0.0,5.0,18.0,1.0,15.0,1.0
+Sprite 30 fl oz,230.0,0.0,0.0,0.0,50.0,58.0,0.0,58.0,0.0
+Garlic Bread,160.0,9.0,2.0,0.0,280.0,17.0,1.0,0.0,3.0
+Cheesy Eggs Kids,210.0,16.0,7.0,275.0,270.0,2.0,1.0,0.0,14.0
+Manzanita Sol 30 fl oz,260.0,0.0,0.0,0.0,60.0,68.0,0.0,64.0,0.0
+1 Brioche French Toast for Create Your Rooty Jr,210.0,9.0,2.5,70.0,310.0,27.0,1.0,8.0,6.0
+Loaded Potato w/ Bacon Soup,370.0,22.0,9.0,45.0,1170.0,33.0,2.0,4.0,10.0
+Sprite 16 fl oz,110.0,0.0,0.0,0.0,25.0,29.0,0.0,29.0,0.0
+Garden Omelette,830.0,66.0,24.0,835.0,1050.0,16.0,3.0,6.0,47.0
+Belgian Waffle,590.0,30.0,17.0,160.0,750.0,69.0,3.0,17.0,11.0
+55+ Pork Chop 4 oz,530.0,31.0,7.0,50.0,980.0,41.0,7.0,3.0,25.0
+International Omelette,720.0,52.0,21.0,850.0,1590.0,15.0,1.0,6.0,48.0
+55+ Smoked Sausage,560.0,40.0,15.0,60.0,1970.0,36.0,5.0,6.0,15.0
+1 Egg White,50.0,2.5,0.0,5.0,95.0,1.0,0.0,0.0,6.0
+Mashed Potatoes,190.0,9.0,5.0,20.0,620.0,25.0,2.0,1.0,2.0
+Strawberry Milk Shake,470.0,20.0,12.0,70.0,240.0,62.0,1.0,45.0,14.0
+Spicy Poblano Omelette,1070.0,81.0,34.0,940.0,2150.0,27.0,6.0,8.0,61.0
+4 oz Savory Pork Chops,690.0,40.0,11.0,100.0,1210.0,41.0,7.0,4.0,42.0
+Freshly Brewed Iced Tea 16 fl oz,10.0,0.0,0.0,0.0,5.0,2.0,0.0,0.0,0.0
+4 Rooty Tooty Fresh N Fruity Pancakes,500.0,14.0,4.5,70.0,1770.0,77.0,4.0,18.0,16.0
+Tropicana Premium Orange Juice Large,200.0,0.0,0.0,0.0,0.0,46.0,0.0,38.0,4.0
+Brisk Raspberry Iced Tea 16 fl oz,90.0,0.0,0.0,0.0,30.0,25.0,0.0,25.0,0.0
+Simple & Fit 2 Egg Breakfast,350.0,10.0,2.0,30.0,870.0,36.0,5.0,5.0,28.0
+Pepsi wild Cherry 30 fl oz,230.0,0.0,0.0,0.0,45.0,66.0,0.0,66.0,0.0
+Strawberries & Cream Crepe for Create Your Sweet Crepe Combo,420.0,16.0,6.0,115.0,470.0,59.0,2.0,25.0,9.0
+Diced Bacon for Create Your Omelette,60.0,5.0,2.0,15.0,280.0,1.0,0.0,1.0,4.0
+Raspberry w/ Whipped Topping,100.0,2.0,2.0,0.0,10.0,19.0,1.0,16.0,1.0
+Dr Pepper 30 fl oz,230.0,0.0,0.0,0.0,75.0,62.0,0.0,60.0,0.0
+Pibb Xtra 30 fl oz,230.0,0.0,0.0,0.0,35.0,64.0,0.0,64.0,0.0
+Fanta Orange 30 fl oz,240.0,0.0,0.0,0.0,10.0,70.0,0.0,64.0,0.0
+Breakfast Sammy,400.0,26.0,11.0,295.0,760.0,24.0,1.0,5.0,18.0
+Diet Coke 16 fl oz,0.0,0.0,0.0,0.0,10.0,0.0,0.0,0.0,0.0
+Silver 5,460.0,25.0,10.0,315.0,1240.0,40.0,2.0,9.0,19.0
+Sweet Cream Cheese Crepe w/ Raspberry Topping for Create Your Sweet Crepe Combo,420.0,24.0,12.0,105.0,380.0,45.0,2.0,29.0,8.0
+Banana Crepes w/ Nutella,960.0,44.0,13.0,220.0,910.0,121.0,5.0,67.0,21.0
+Pepsi 16 fl oz,120.0,0.0,0.0,0.0,25.0,33.0,0.0,33.0,0.0
+55+ French Toast,520.0,27.0,11.0,180.0,570.0,56.0,3.0,19.0,14.0
+Yogurt Tube Kids,70.0,0.0,0.0,5.0,40.0,13.0,0.0,10.0,2.0
+Chocolate Milk Large,310.0,8.0,5.0,30.0,200.0,48.0,1.0,43.0,13.0
+Crispy Chicken Strips & Fries,880.0,41.0,7.0,80.0,2160.0,86.0,5.0,1.0,40.0
+Chicken Nuggets w/ Motts Applesauce,210.0,11.0,2.5,25.0,350.0,18.0,2.0,8.0,11.0
+Cheeseburger Sliders,1070.0,65.0,30.0,200.0,2380.0,73.0,3.0,16.0,50.0
+Low Fat Strawberry Yogurt,70.0,0.0,0.0,5.0,40.0,13.0,0.0,10.0,2.0
+55+ Rooty,270.0,16.0,6.0,45.0,770.0,22.0,1.0,6.0,11.0
+Tuscan Scramble w/ Egg Whites,230.0,11.0,3.5,20.0,650.0,8.0,3.0,2.0,26.0
+Chocolate Sauce,100.0,0.0,0.0,0.0,15.0,26.0,1.0,21.0,1.0
+Bananas Foster Brioche French Toast,1000.0,48.0,16.0,220.0,1150.0,124.0,4.0,59.0,20.0
+French or Catalina Dressing,100.0,0.5,0.0,0.0,700.0,22.0,0.0,15.0,0.0
+Big Steak Omelette,1150.0,78.0,27.0,890.0,2390.0,47.0,5.0,10.0,67.0
+Tomato Juice Regular,50.0,0.0,0.0,0.0,740.0,10.0,2.0,6.0,2.0
+Strawberry Banana French Toast for Create Your French Toast Combo,560.0,21.0,8.0,160.0,520.0,81.0,4.0,31.0,14.0
+55+ Crispy Chicken Strips,550.0,25.0,8.0,65.0,1350.0,56.0,5.0,3.0,26.0
+Tropical Island Twist,200.0,0.0,0.0,0.0,25.0,52.0,0.0,51.0,0.0
+Fruit Crepe & Ice Cream,300.0,14.0,8.0,75.0,280.0,34.0,1.0,19.0,7.0
+1/2 Belgian Waffle for Create Your Rooty Jr,260.0,11.0,6.0,70.0,340.0,35.0,1.0,9.0,6.0
+2 Harvest Grain N Nut Pancakes,530.0,29.0,8.0,80.0,1020.0,54.0,5.0,13.0,13.0
+Tropicana Premium Orange Juice Regular,110.0,0.0,0.0,0.0,0.0,26.0,0.0,21.0,2.0
+Golden Chamomile Tea,10.0,0.0,0.0,0.0,0.0,2.0,1.0,0.0,0.0
+Apple Juice Kids,150.0,0.0,0.0,0.0,15.0,37.0,0.0,34.0,0.0
+Creamy Italian Dressing,230.0,19.0,3.0,0.0,510.0,12.0,0.0,11.0,0.0
+International House Roast Flavored Coffee French Vanilla,190.0,7.0,6.0,0.0,10.0,33.0,1.0,31.0,0.0
+4 oz Pork Chops & Eggs,910.0,52.0,16.0,155.0,1830.0,66.0,5.0,10.0,46.0
+Never Empty Coffee Pot Per Cup Regular & Decaf,5.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0
+Banana & Brown Sugar Oatmeal,260.0,4.5,1.0,5.0,125.0,50.0,5.0,20.0,8.0
+1 Flour Tortilla,280.0,7.0,2.5,0.0,720.0,46.0,1.0,1.0,7.0
+Country Fried Steak Dinner w/ Sausage Gravy,1160.0,77.0,27.0,115.0,3150.0,83.0,7.0,4.0,36.0
+2 Turkey Bacon Strips,70.0,5.0,1.5,25.0,330.0,1.0,0.0,1.0,5.0
+Macaroni & Cheese w/ Applesauce,340.0,9.0,2.5,10.0,660.0,54.0,3.0,16.0,10.0
+4 Harvest Grain N Nut Pancakes,990.0,51.0,11.0,140.0,1980.0,108.0,10.0,26.0,26.0
+French Toast w/ Nutella,430.0,23.0,9.0,325.0,360.0,40.0,2.0,19.0,15.0
+2% Milk Regular,120.0,5.0,3.0,20.0,115.0,12.0,0.0,12.0,8.0
+Glazed Strawberries w/ Whipped Topping,90.0,2.0,2.0,0.0,15.0,19.0,1.0,9.0,0.0
+Brioche French Toast Plain for Create Your French Toast Combo,500.0,26.0,10.0,160.0,670.0,55.0,2.0,17.0,12.0
+Sweet Iced Tea Sweeter Version 16 fl oz,170.0,0.0,0.0,0.0,5.0,44.0,0.0,42.0,0.0
+Spinach & Mushroom Omelette,890.0,70.0,26.0,855.0,1640.0,20.0,3.0,7.0,46.0
+Patty Melt,1030.0,65.0,25.0,145.0,1920.0,64.0,4.0,6.0,47.0
+2 Double Blueberry Pancakes,350.0,8.0,3.0,35.0,930.0,61.0,4.0,26.0,8.0
+Hickory Smoked Bacon,80.0,6.0,2.0,20.0,350.0,1.0,0.0,1.0,7.0
+Chicken Fried Chicken & Eggs w/ Country Gravy,890.0,48.0,13.0,105.0,2150.0,84.0,5.0,10.0,31.0
+French Fries,640.0,31.0,6.0,0.0,1980.0,82.0,8.0,1.0,8.0
+Sweet Iced Tea Sweeter Version 30 fl oz,330.0,0.0,0.0,0.0,10.0,84.0,0.0,82.0,1.0
+Banana Crepe w/ Nutella for Create Your Sweet Crepe Combo,490.0,23.0,8.0,110.0,460.0,62.0,3.0,34.0,11.0
+1 Hard or Soft Boiled Egg for 55+ Breakfast Sampler,80.0,5.0,1.5,185.0,60.0,1.0,0.0,1.0,6.0
+Grilled Cheese Sandwich w/ Applesauce,420.0,25.0,15.0,55.0,730.0,36.0,3.0,11.0,12.0
+White Cheddar Cheese for Create Your Omelette,170.0,14.0,8.0,40.0,270.0,1.0,0.0,0.0,11.0
+Chicken Fajita Omelette,960.0,63.0,24.0,945.0,2110.0,24.0,3.0,9.0,74.0
+English Muffin w/ Butter,180.0,7.0,4.0,15.0,210.0,25.0,2.0,2.0,5.0
+Swedish Crepes,660.0,30.0,9.0,230.0,880.0,81.0,3.0,34.0,17.0
+2 New York Cheesecake Pancakes,510.0,18.0,9.0,80.0,1030.0,78.0,3.0,32.0,11.0
+Wings,910.0,54.0,13.0,365.0,4610.0,25.0,3.0,8.0,83.0
+Swiss Cheese for Create Your Omelette,160.0,12.0,7.0,40.0,80.0,0.0,0.0,0.0,11.0
+Sweet Cream Cheese Crepe w/ Peach Topping for Create Your Sweet Crepe Combo,410.0,24.0,12.0,105.0,400.0,43.0,1.0,27.0,8.0
+Strawberry Banana French Toast,870.0,31.0,11.0,240.0,790.0,131.0,7.0,51.0,21.0
+2 Hard or Soft Boiled Eggs,160.0,11.0,3.5,375.0,125.0,1.0,0.0,1.0,13.0
+1 Turkey Bacon,35.0,2.5,0.5,15.0,170.0,0.0,0.0,0.0,2.0
+Chicken Country Fried Steak & Eggs w/ Sausage Gravy,1540.0,100.0,31.0,155.0,3880.0,119.0,8.0,10.0,41.0
+Tropical Island Twist 30 fl oz,280.0,0.0,0.0,0.0,35.0,73.0,0.0,72.0,0.0
+Create Your Rooty Jr,230.0,19.0,6.0,270.0,420.0,2.0,0.0,1.0,14.0
+Jr Cupcake Pancake Combo,550.0,27.0,11.0,295.0,900.0,58.0,1.0,38.0,18.0
+Cottage Cheese,50.0,2.5,1.5,10.0,220.0,2.0,0.0,2.0,5.0
+Minestrone Soup,150.0,2.5,0.0,0.0,1130.0,27.0,2.0,3.0,5.0
+Jr Ice Cream Sundae,130.0,6.0,4.5,20.0,55.0,16.0,0.0,12.0,3.0
+2 Bacon Strips,80.0,6.0,2.0,20.0,350.0,1.0,0.0,1.0,7.0
+Diet Coke 30 fl oz,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+4 Cupcake Pancakes,790.0,22.0,12.0,75.0,1810.0,132.0,4.0,61.0,16.0
+Floridas Natural Premium Orange Juice Large,180.0,0.5,0.0,0.0,0.0,44.0,1.0,37.0,3.0

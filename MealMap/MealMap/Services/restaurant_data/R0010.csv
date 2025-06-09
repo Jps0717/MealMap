@@ -1,0 +1,359 @@
+Item,Calories,Fat (g),Saturated Fat (g),Cholesterol (mg),Sodium (mg),Carbs (g),Fiber (g),Sugar (g),Protein (g)
+Whopper,670.0,40.0,12.0,90.0,980.0,49.0,2.0,11.0,28.0
+Fries (Medium),380.0,17.0,2.5,0.0,270.0,45.0,4.0,0.0,5.0
+Chicken Nuggets (10 pcs),430.0,27.0,5.0,65.0,850.0,26.0,2.0,0.0,23.0
+Impossible Whopper,630.0,34.0,10.0,10.0,1080.0,58.0,4.0,12.0,25.0
+Unsweetened Tea 40 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Hash Browns Small,250.0,16.0,3.5,0.0,580.0,24.0,3.0,0.0,2.0
+Hamburger,220.0,8.0,3.0,30.0,380.0,26.0,1.0,6.0,11.0
+Cheeseburger,270.0,12.0,5.0,40.0,560.0,27.0,1.0,7.0,13.0
+Whopper Jr Sandwich,310.0,18.0,5.0,40.0,390.0,27.0,1.0,7.0,13.0
+Double Cheeseburger,360.0,18.0,8.0,70.0,580.0,27.0,1.0,7.0,20.0
+Whopper Sandwich w/ Mayo,630.0,38.0,11.0,85.0,810.0,49.0,2.0,11.0,26.0
+Whopper Sandwich w/ Cheese & Mayo,710.0,45.0,15.0,105.0,1160.0,50.0,2.0,11.0,30.0
+Double Whopper Sandwich w/ Mayo,850.0,54.0,18.0,155.0,870.0,49.0,2.0,11.0,43.0
+Double Whopper Sandwich w/ Cheese & Mayo,930.0,61.0,22.0,180.0,1230.0,50.0,2.0,11.0,48.0
+Spicy Crispy Chicken Jr,390.0,21.0,3.5,30.0,740.0,37.0,2.0,6.0,12.0
+Original Chicken Sandwich w/ Mayo,660.0,40.0,7.0,75.0,1170.0,48.0,2.0,5.0,28.0
+Tendergrill Chicken Sandwich w/ Mayo,420.0,18.0,3.0,95.0,700.0,35.0,2.0,6.0,32.0
+Tendercrisp Chicken Sandwich w/ Mayo,660.0,40.0,7.0,70.0,1220.0,49.0,4.0,7.0,26.0
+BK Veggie Burger w/ Mayo,390.0,15.0,2.5,5.0,1060.0,42.0,6.0,9.0,22.0
+Croissanwich Egg & Cheese,300.0,15.0,7.0,130.0,580.0,30.0,1.0,4.0,11.0
+Croissanwich Bacon Egg & Cheese,340.0,18.0,8.0,140.0,730.0,30.0,1.0,4.0,12.0
+Sausage Biscuit,390.0,25.0,6.0,35.0,1020.0,28.0,1.0,2.0,12.0
+Croissanwich Ham Egg & Cheese,330.0,16.0,7.0,145.0,1000.0,31.0,1.0,5.0,16.0
+Bacon Egg & Cheese Biscuit,380.0,23.0,5.0,140.0,1230.0,29.0,1.0,2.0,13.0
+Croissanwich Sausage Egg & Cheese,470.0,30.0,12.0,165.0,890.0,30.0,1.0,4.0,18.0
+Ham Egg & Cheese Biscuit,370.0,21.0,4.0,145.0,1500.0,30.0,1.0,3.0,16.0
+Sausage Egg & Cheese Biscuit,510.0,35.0,9.0,165.0,1390.0,29.0,1.0,2.0,18.0
+French Fries Value Salted,220.0,10.0,1.5,0.0,330.0,31.0,3.0,0.0,2.0
+French Fries Small Salted,320.0,14.0,2.5,0.0,480.0,44.0,3.0,0.0,4.0
+French Fries Medium Salted,380.0,17.0,3.0,0.0,570.0,53.0,4.0,0.0,5.0
+French Fries Large Salted,430.0,19.0,3.5,0.0,640.0,60.0,4.0,0.0,6.0
+Hash Browns Medium,500.0,33.0,7.0,0.0,1140.0,48.0,7.0,0.0,4.0
+Hash Browns Large,670.0,44.0,9.0,0.0,1530.0,65.0,9.0,0.0,5.0
+Onion Rings Value,150.0,8.0,1.5,0.0,400.0,19.0,1.0,2.0,1.0
+Onion Rings Small,320.0,16.0,3.0,0.0,840.0,41.0,3.0,4.0,3.0
+Onion Rings Medium,410.0,21.0,3.5,0.0,1080.0,53.0,4.0,5.0,4.0
+Onion Rings Large,500.0,25.0,4.5,0.0,1310.0,64.0,5.0,7.0,5.0
+Mayonnaise,80.0,9.0,0.5,10.0,75.0,1.0,0.0,0.0,0.0
+Barbecue Dipping Sauce,40.0,0.0,0.0,0.0,310.0,11.0,0.0,10.0,0.0
+Buffalo Dipping Sauce,80.0,8.0,1.5,5.0,360.0,2.0,0.0,1.0,0.0
+Zesty Onion Ring Dipping Sauce,150.0,15.0,2.5,20.0,240.0,3.0,0.0,1.0,0.0
+Ranch Dipping Sauce,140.0,15.0,2.5,10.0,230.0,1.0,0.0,1.0,1.0
+Ketchup,10.0,0.0,0.0,0.0,125.0,3.0,0.0,2.0,0.0
+Breakfast Syrup,120.0,0.0,0.0,0.0,15.0,30.0,0.0,18.0,0.0
+Dutch Apple Pie,340.0,14.0,6.0,0.0,310.0,51.0,1.0,25.0,3.0
+3 French Toast Sticks,230.0,11.0,2.0,0.0,260.0,29.0,1.0,8.0,3.0
+5 French Toast Sticks,380.0,18.0,3.0,0.0,430.0,49.0,2.0,13.0,5.0
+American Cheese,40.0,3.5,2.0,10.0,180.0,1.0,0.0,0.0,2.0
+Buttery Garlic Croutons,60.0,2.5,0.0,10.0,180.0,9.0,0.0,1.0,1.0
+Hershey's Sundae Pie,310.0,19.0,12.0,10.0,220.0,32.0,1.0,22.0,3.0
+Garden Side Salad,60.0,4.0,2.5,10.0,95.0,3.0,1.0,2.0,4.0
+Bacon Cheeseburger,280.0,13.0,6.0,45.0,630.0,27.0,1.0,7.0,14.0
+BK Veggie Burger,310.0,7.0,1.0,0.0,990.0,42.0,6.0,9.0,22.0
+Coca Cola Classic 20 fl oz,190.0,0.0,0.0,0.0,0.0,51.0,0.0,51.0,0.0
+Bacon Double Cheeseburger,370.0,20.0,9.0,75.0,660.0,27.0,1.0,7.0,21.0
+Double Whopper Sandwich w/ Cheese,770.0,43.0,19.0,170.0,1090.0,50.0,2.0,11.0,47.0
+Double Whopper Sandwich,690.0,36.0,15.0,145.0,730.0,49.0,2.0,11.0,43.0
+Original Chicken Sandwich,450.0,16.0,3.5,60.0,990.0,48.0,2.0,4.0,28.0
+Tendercrisp Chicken Sandwich,440.0,16.0,3.0,60.0,1030.0,49.0,4.0,7.0,26.0
+Tendergrill Chicken Sandwich,320.0,6.0,1.0,90.0,610.0,35.0,2.0,6.0,32.0
+Whopper Sandwich w/ Cheese,560.0,27.0,12.0,95.0,1030.0,50.0,2.0,11.0,30.0
+Whopper Sandwich,470.0,20.0,8.0,75.0,670.0,49.0,2.0,11.0,26.0
+BK Ultimate Breakfast Platter,1190.0,66.0,15.0,320.0,2460.0,123.0,5.0,32.0,27.0
+Kids Oatmeal,170.0,3.0,1.5,5.0,260.0,32.0,3.0,12.0,4.0
+Pancake & Sausage Platter,610.0,31.0,9.0,80.0,1010.0,72.0,1.0,30.0,12.0
+Strawberry or Grape Jam,30.0,0.0,0.0,0.0,0.0,7.0,0.0,6.0,0.0
+Caramel Sundae,290.0,6.0,4.0,25.0,260.0,53.0,0.0,39.0,6.0
+2 Chocolate Chip Cookies,330.0,15.0,8.0,20.0,250.0,47.0,1.0,29.0,3.0
+Chocolate Fudge Sundae,280.0,7.0,5.0,20.0,220.0,47.0,1.0,41.0,6.0
+2 Oatmeal Raisin Cookies,310.0,13.0,8.0,20.0,260.0,46.0,3.0,26.0,4.0
+Soft Serve Cone,190.0,4.5,3.0,20.0,150.0,32.0,0.0,24.0,5.0
+Soft Serve Cup,170.0,4.5,3.0,20.0,150.0,28.0,0.0,24.0,5.0
+2 White Chocolate Macadamia Nut Cookies,340.0,18.0,8.0,20.0,240.0,44.0,0.0,28.0,4.0
+Diet Coke Small,0.0,0.0,0.0,0.0,20.0,0.0,0.0,0.0,0.0
+Diet Coke 30 fl oz,0.0,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0
+Diet Coke 40 fl oz,5.0,0.0,0.0,0.0,35.0,0.0,0.0,0.0,0.0
+Coca Cola Classic 16 fl oz,140.0,0.0,0.0,0.0,0.0,39.0,0.0,39.0,0.0
+Coca Cola Classic 30 fl oz,290.0,0.0,0.0,0.0,5.0,77.0,0.0,77.0,0.0
+Sprite 16 fl oz,140.0,0.0,0.0,0.0,30.0,39.0,0.0,39.0,0.0
+Sprite 20 fl oz,190.0,0.0,0.0,0.0,40.0,51.0,0.0,51.0,0.0
+Sprite 30 fl oz,290.0,0.0,0.0,0.0,65.0,77.0,0.0,77.0,0.0
+Sprite 40 fl oz,380.0,0.0,0.0,0.0,85.0,102.0,0.0,102.0,0.0
+Dr Pepper 16 fl oz,140.0,0.0,0.0,0.0,35.0,39.0,0.0,39.0,0.0
+Dr Pepper 20 fl oz,190.0,0.0,0.0,0.0,45.0,51.0,0.0,51.0,0.0
+Dr Pepper 30 fl oz,280.0,0.0,0.0,0.0,70.0,77.0,0.0,77.0,0.0
+Dr Pepper 40 fl oz,370.0,0.0,0.0,0.0,90.0,101.0,0.0,101.0,0.0
+Fat Free Milk,90.0,0.0,0.0,5.0,125.0,13.0,0.0,12.0,9.0
+1% Low Fat Chocolate Milk 8 fl oz,160.0,2.5,1.5,15.0,150.0,26.0,0.0,25.0,8.0
+Vanilla Milk Shake,580.0,15.0,10.0,60.0,420.0,98.0,0.0,85.0,14.0
+Chocolate Milk Shake,610.0,16.0,10.0,60.0,500.0,103.0,1.0,88.0,14.0
+Strawberry Milk Shake,640.0,15.0,10.0,60.0,440.0,113.0,0.0,99.0,14.0
+Barq's Root Beer 16 fl oz,160.0,0.0,0.0,0.0,20.0,46.0,0.0,46.0,0.0
+Barq's Root Beer 40 fl oz,430.0,0.0,0.0,0.0,45.0,121.0,0.0,121.0,0.0
+Fanta Orange 16 fl oz,160.0,0.0,0.0,0.0,0.0,42.0,0.0,42.0,0.0
+Fanta Orange 20 fl oz,210.0,0.0,0.0,0.0,0.0,56.0,0.0,56.0,0.0
+Fanta Orange 30 fl oz,310.0,0.0,0.0,0.0,0.0,84.0,0.0,84.0,0.0
+Fanta Orange 40 fl oz,410.0,0.0,0.0,0.0,0.0,111.0,0.0,111.0,0.0
+Barq's Root Beer 20 fl oz,220.0,0.0,0.0,0.0,25.0,61.0,0.0,61.0,0.0
+Barq's Root Beer 30 fl oz,320.0,0.0,0.0,0.0,35.0,91.0,0.0,91.0,0.0
+Hi C Fruit Punch 16 fl oz,150.0,0.0,0.0,0.0,15.0,42.0,0.0,42.0,0.0
+Hi C Fruit Punch 20 fl oz,200.0,0.0,0.0,0.0,15.0,55.0,0.0,55.0,0.0
+Hi C Fruit Punch 30 fl oz,300.0,0.0,0.0,0.0,25.0,82.0,0.0,82.0,0.0
+Cherry Coke 16 fl oz,150.0,0.0,0.0,0.0,5.0,42.0,0.0,42.0,0.0
+Cherry Coke 20 fl oz,200.0,0.0,0.0,0.0,10.0,56.0,0.0,56.0,0.0
+Cherry Coke 30 fl oz,300.0,0.0,0.0,0.0,15.0,84.0,0.0,84.0,0.0
+Cherry Coke 40 fl oz,400.0,0.0,0.0,0.0,20.0,111.0,0.0,111.0,0.0
+Minute Maid Light Lemonade 16 fl oz,5.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Minute Maid Light Lemonade 20 fl oz,10.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+Minute Maid Light Lemonade 30 fl oz,10.0,0.0,0.0,0.0,5.0,1.0,0.0,0.0,0.0
+Minute Maid Light Lemonade 40 fl oz,15.0,0.0,0.0,0.0,10.0,2.0,0.0,0.0,0.0
+Seattle's Best Coffee Decaf 16 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattle's Best Coffee Decaf 20 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattle's Best Coffee Regular 16 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattle's Best Coffee Regular 20 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Diet Coke 16 fl oz,0.0,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0
+Minute Maid Orange Juice 10 oz,140.0,0.0,0.0,0.0,20.0,33.0,0.0,30.0,2.0
+Coca Cola Classic Large 40 fl oz,380.0,0.0,0.0,0.0,10.0,102.0,0.0,102.0,0.0
+Hi C Fruit Punch 40 fl oz,400.0,0.0,0.0,0.0,35.0,108.0,0.0,108.0,0.0
+Crispy Chicken Jr,450.0,30.0,5.0,30.0,780.0,34.0,2.0,5.0,12.0
+6 Chicken Nuggets,260.0,16.0,2.5,35.0,470.0,16.0,1.0,0.0,12.0
+10 Chicken Nuggets,430.0,27.0,4.5,55.0,780.0,27.0,2.0,0.0,20.0
+20 Chicken Nuggets,860.0,54.0,9.0,115.0,1570.0,53.0,3.0,1.0,39.0
+Smoothie Strawberry Banana 16 fl oz,310.0,1.0,0.0,0.0,55.0,71.0,3.0,50.0,4.0
+Smoothie Tropical Mango 16 fl oz,370.0,0.0,0.0,0.0,70.0,86.0,2.0,56.0,5.0
+Mocha Frappe 16 fl oz,400.0,16.0,7.0,10.0,250.0,60.0,0.0,40.0,3.0
+Caramel Frappe 16 fl oz,410.0,16.0,7.0,10.0,270.0,63.0,0.0,42.0,3.0
+Iced Coffee Vanilla Medium,190.0,8.0,5.0,30.0,45.0,28.0,0.0,28.0,1.0
+Iced Coffee Medium,150.0,8.0,5.0,30.0,45.0,19.0,0.0,19.0,1.0
+Unsweetened Tea 20 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Unsweetened Tea 30 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Sweet Tea 20 fl oz,120.0,0.0,0.0,0.0,0.0,35.0,0.0,35.0,0.0
+Sweet Tea 30 fl oz,160.0,0.0,0.0,0.0,0.0,49.0,0.0,49.0,0.0
+Sweet Tea 40 fl oz,240.0,0.0,0.0,0.0,0.0,71.0,0.0,71.0,0.0
+Rodeo Burger,310.0,12.0,4.0,30.0,440.0,38.0,1.0,9.0,12.0
+Chocolate Chip Cookie,160.0,8.0,4.0,10.0,125.0,24.0,1.0,15.0,2.0
+Quaker Oatmeal Maple Flavor,170.0,3.0,1.5,5.0,270.0,32.0,3.0,12.0,4.0
+Big Fish Sandwich,510.0,28.0,4.5,30.0,1180.0,51.0,2.0,7.0,16.0
+Rodeo Crispy Chicken Sandwich,410.0,17.0,3.0,20.0,870.0,53.0,2.0,14.0,12.0
+Capri Sun 100% Apple Juice,80.0,0.0,0.0,0.0,25.0,20.0,0.0,20.0,0.0
+Bacon Cheeseburger Deluxe,290.0,13.0,6.0,45.0,640.0,28.0,1.0,7.0,14.0
+Butter Sugar Cookie,160.0,7.0,3.5,15.0,135.0,22.0,0.0,12.0,2.0
+Carnival Cookie,160.0,7.0,3.0,10.0,120.0,22.0,1.0,14.0,2.0
+Red White & Blue Cookie,160.0,6.0,3.0,5.0,125.0,23.0,0.0,14.0,1.0
+Ginger Spice Cookie,150.0,5.0,2.5,10.0,135.0,25.0,1.0,13.0,2.0
+Reese's Peanut Butter Cup Pie,310.0,19.0,10.0,5.0,200.0,31.0,2.0,21.0,5.0
+Bacon & Cheese Whopper Sandwich,750.0,49.0,16.0,115.0,1260.0,46.0,2.0,8.0,33.0
+Bacon Cheddar Ranch Chicken Salad w/ TenderCrisp Chicken,720.0,50.0,13.0,120.0,1960.0,32.0,5.0,7.0,36.0
+Bacon Cheddar Ranch Chicken Salad w/ TenderGrill Chicken,590.0,40.0,12.0,150.0,1540.0,18.0,3.0,6.0,42.0
+9 Chicken Fries,280.0,17.0,2.5,35.0,850.0,20.0,1.0,1.0,13.0
+Chicken Fry Dipping Sauce,140.0,13.0,2.0,10.0,180.0,6.0,0.0,5.0,0.0
+Extra Long Cheeseburger,590.0,34.0,13.0,90.0,1040.0,45.0,2.0,9.0,26.0
+Flame Grilled Chicken Burger,480.0,25.0,2.5,5.0,1160.0,42.0,2.0,10.0,22.0
+Garden Grilled Chicken Salad w/ TenderCrisp Chicken,450.0,24.0,7.0,85.0,1070.0,30.0,5.0,6.0,29.0
+Garden Grilled Chicken Salad w/ TenderGrill Chicken,320.0,14.0,6.0,115.0,650.0,16.0,2.0,4.0,36.0
+Sausage Egg Cheese & Hash Brown Burrito,370.0,23.0,8.0,150.0,930.0,27.0,3.0,2.0,15.0
+King Croissanwich w/ Double Sausage,700.0,51.0,20.0,210.0,1410.0,31.0,1.0,5.0,27.0
+King Croissanwich w/ Sausage & Bacon,580.0,39.0,16.0,190.0,1370.0,31.0,1.0,5.0,24.0
+Mott's Natural Applesauce,50.0,0.0,0.0,0.0,0.0,13.0,1.0,11.0,0.0
+NY Ultimate Platter,870.0,44.0,12.0,305.0,1650.0,95.0,4.0,31.0,22.0
+Cinnamon Roll Otis Spunkmeyer,280.0,11.0,6.0,15.0,280.0,41.0,2.0,22.0,4.0
+Pie Made W/ SNICKERS,300.0,16.0,9.0,5.0,230.0,36.0,1.0,25.0,4.0
+King Croissanwich w/ Ham & Sausage,530.0,34.0,14.0,185.0,1280.0,31.0,1.0,5.0,23.0
+Cheetos Chicken Fries,280.0,18.0,3.5,35.0,890.0,16.0,1.0,1.0,14.0
+Chocolate Oreo Shake,610.0,19.0,12.0,55.0,560.0,99.0,1.0,81.0,13.0
+Oreo Shake,730.0,21.0,11.0,60.0,550.0,121.0,1.0,100.0,15.0
+Iced Coffee Mocha Medium,170.0,8.0,5.0,30.0,110.0,23.0,1.0,21.0,2.0
+Bacon King Sandwich,1040.0,69.0,28.0,220.0,1900.0,48.0,1.0,10.0,57.0
+Homestyle Cheeseburger,550.0,27.0,12.0,95.0,1140.0,48.0,2.0,10.0,30.0
+Bacon Cheeseburger Flame Broiled Burgers,300.0,15.0,6.0,50.0,710.0,27.0,1.0,7.0,15.0
+Cheesy Tots,310.0,15.0,1.0,0.0,780.0,34.0,3.0,0.0,9.0
+Egg Normous Burrito,910.0,55.0,16.0,320.0,2020.0,73.0,6.0,8.0,33.0
+Classic Grilled Dog,310.0,16.0,6.0,30.0,960.0,32.0,2.0,10.0,11.0
+Chili Cheese Grilled Dog,330.0,19.0,8.0,40.0,980.0,28.0,2.0,5.0,14.0
+Fully Loaded Croissanwich,570.0,37.0,15.0,195.0,1650.0,32.0,1.0,5.0,27.0
+Supreme Breakfast Sandwich,880.0,59.0,21.0,375.0,2170.0,45.0,2.0,7.0,41.0
+Ken's Ranch Dressing,260.0,4.0,2.5,10.0,95.0,3.0,1.0,2.0,4.0
+Hi C Fruit Punch 20 fl oz,280.0,0.0,0.0,0.0,95.0,77.0,0.0,75.0,0.0
+Chicken Club Salad,610.0,41.0,12.0,140.0,1660.0,18.0,7.0,6.0,46.0
+Vanilla Milk Shake,580.0,15.0,10.0,60.0,420.0,98.0,0.0,85.0,14.0
+Cherry Coke 16 fl oz,220.0,0.0,0.0,0.0,55.0,61.0,0.0,61.0,0.0
+Barqs Root Beer 16 fl oz,240.0,0.0,0.0,0.0,100.0,65.0,0.0,65.0,0.0
+King Croissanwich w/ Double Sausage,700.0,51.0,20.0,210.0,1410.0,31.0,1.0,5.0,27.0
+Garden Side Salad,60.0,4.0,2.5,10.0,95.0,3.0,1.0,2.0,4.0
+Strawberry Milk Shake,640.0,15.0,10.0,60.0,440.0,113.0,0.0,99.0,14.0
+Froot Loops Shake,720.0,17.0,11.0,65.0,560.0,126.0,2.0,103.0,16.0
+Zesty Onion Ring Dipping Sauce,150.0,15.0,2.5,20.0,240.0,3.0,0.0,1.0,0.0
+Double Whopper Sandwich,740.0,40.0,17.0,165.0,910.0,49.0,2.0,11.0,47.0
+Sprite 20 fl oz,260.0,0.0,0.0,0.0,120.0,70.0,0.0,70.0,0.0
+Bacon Cheeseburger Flamed Broiled Burgers,300.0,15.0,6.0,50.0,710.0,27.0,1.0,7.0,15.0
+Coca Cola Classic 20 fl oz,270.0,0.0,0.0,0.0,60.0,73.0,0.0,73.0,0.0
+Diet Coke 16 fl oz,0.0,0.0,0.0,0.0,70.0,0.0,0.0,0.0,0.0
+Oatmeal Kids,170.0,3.0,1.5,5.0,260.0,32.0,3.0,12.0,4.0
+Chocolate Oreo Shake,610.0,19.0,12.0,55.0,560.0,99.0,1.0,81.0,13.0
+Seattles Best Coffee Regular 20 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattles Best Coffee Regular 16 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Coke Icee,110.0,0.0,0.0,0.0,10.0,30.0,0.0,30.0,0.0
+Oreo Shake,730.0,21.0,11.0,60.0,550.0,121.0,1.0,100.0,15.0
+Strawberry Banana Smoothie 16 fl oz,310.0,1.0,0.0,0.0,55.0,71.0,3.0,50.0,4.0
+Minute Maid Light Lemonade 29 fl oz,15.0,0.0,0.0,0.0,105.0,5.0,0.0,0.0,0.0
+Chocolate Milk Shake,610.0,16.0,10.0,60.0,500.0,103.0,1.0,88.0,14.0
+Dr Pepper 16 fl oz,190.0,0.0,0.0,0.0,60.0,52.0,0.0,51.0,0.0
+Croissanwich Egg & Cheese,300.0,15.0,7.0,130.0,580.0,30.0,1.0,4.0,11.0
+BK Ultimate Breakfast Platter,1190.0,66.0,15.0,320.0,2460.0,123.0,5.0,32.0,27.0
+Capri Sun 100% Apple Juice,80.0,0.0,0.0,0.0,25.0,20.0,0.0,20.0,0.0
+Onion Rings Medium,410.0,21.0,3.5,0.0,1080.0,53.0,4.0,5.0,4.0
+Sprite 38 fl oz,500.0,0.0,0.0,0.0,230.0,133.0,0.0,133.0,0.0
+Dr Pepper 20 fl oz,240.0,0.0,0.0,0.0,75.0,65.0,0.0,64.0,0.0
+Reeses Peanut Butter Cup Pie,310.0,19.0,10.0,5.0,200.0,31.0,2.0,21.0,5.0
+Bacon King Jr Sandwich,570.0,38.0,15.0,115.0,1050.0,27.0,0.0,6.0,29.0
+20 Chicken Nuggets,860.0,54.0,9.0,115.0,1570.0,53.0,3.0,1.0,39.0
+Quaker Oatmeal Maple Flavor,170.0,3.0,1.5,5.0,270.0,32.0,3.0,12.0,4.0
+Pie Made W/ Snickers,300.0,16.0,9.0,5.0,230.0,36.0,1.0,25.0,4.0
+Cherry Coke 38 fl oz,530.0,0.0,0.0,0.0,130.0,145.0,0.0,145.0,0.0
+2 White Chocolate Macadamia Nut Cookies,340.0,18.0,8.0,20.0,240.0,44.0,0.0,28.0,4.0
+Seattles Best Coffee Decaf 16 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Double Hamburger,310.0,15.0,6.0,60.0,400.0,26.0,1.0,6.0,18.0
+Mayonnaise,80.0,9.0,0.5,10.0,75.0,1.0,0.0,0.0,0.0
+1% Low Fat Chocolate Milk 8 fl oz,160.0,2.5,1.5,15.0,150.0,26.0,0.0,25.0,8.0
+Sprite 16 fl oz,210.0,0.0,0.0,0.0,95.0,56.0,0.0,56.0,0.0
+2 Chocolate Chip Cookies,330.0,15.0,8.0,20.0,250.0,47.0,1.0,29.0,3.0
+Oreo Cookie Cheesecake,350.0,18.0,8.0,35.0,310.0,41.0,1.0,25.0,6.0
+Original Chicken Sandwich w/ Mayo,660.0,40.0,7.0,75.0,1170.0,48.0,2.0,5.0,28.0
+Minute Maid Light Lemonade 16 fl oz,10.0,0.0,0.0,0.0,60.0,3.0,0.0,0.0,0.0
+Soft Serve Cone,140.0,4.0,3.0,15.0,100.0,24.0,0.0,17.0,3.0
+Original Chicken Sandwich,450.0,16.0,3.5,60.0,990.0,48.0,2.0,4.0,28.0
+Soft Serve Cup,170.0,4.5,3.0,20.0,150.0,28.0,0.0,24.0,5.0
+Bacon Cheddar Ranch Chicken Salad w/ Grilled Chicken & Dressing,620.0,41.0,12.0,140.0,1640.0,18.0,7.0,6.0,46.0
+Sweet Tea 29 fl oz,160.0,0.0,0.0,0.0,0.0,49.0,0.0,49.0,0.0
+Fanta Orange 16 fl oz,230.0,0.0,0.0,0.0,60.0,62.0,0.0,61.0,0.0
+3 French Toast Sticks,230.0,11.0,2.0,0.0,260.0,29.0,2.0,8.0,3.0
+Motts Natural Applesauce,50.0,0.0,0.0,0.0,0.0,13.0,1.0,11.0,0.0
+Tropical Mango Smoothie 16 fl oz,370.0,0.0,0.0,0.0,70.0,86.0,2.0,56.0,5.0
+Spicy Crispy Chicken Jr,390.0,21.0,3.5,30.0,740.0,37.0,2.0,6.0,12.0
+Carnival Cookie,160.0,7.0,3.0,10.0,120.0,22.0,1.0,14.0,2.0
+Fanta Orange 20 fl oz,280.0,0.0,0.0,0.0,70.0,78.0,0.0,77.0,0.0
+Dr Pepper 29 fl oz,350.0,0.0,0.0,0.0,105.0,94.0,0.0,93.0,0.0
+Unsweetened Tea 20 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+BBQ Bacon Whopper Sandwich,800.0,51.0,17.0,125.0,1540.0,53.0,2.0,14.0,35.0
+Egg Normous Burrito,910.0,55.0,16.0,320.0,2020.0,73.0,6.0,8.0,33.0
+Minute Maid Lemonade,140.0,0.0,0.0,0.0,60.0,39.0,0.0,39.0,0.0
+BBQ Bacon Crispy Chicken Sandwich,790.0,49.0,10.0,80.0,1630.0,60.0,2.0,13.0,28.0
+Fanta Orange 38 fl oz,540.0,0.0,0.0,0.0,135.0,148.0,0.0,146.0,0.0
+PB&J Jamwich,300.0,16.0,3.0,0.0,290.0,33.0,4.0,11.0,11.0
+Cherry Coke 29 fl oz,410.0,0.0,0.0,0.0,100.0,110.0,0.0,110.0,0.0
+Ginger Spice Cookie,150.0,5.0,2.5,10.0,135.0,25.0,1.0,13.0,2.0
+Cinnamon Toast Crunch Shake,780.0,19.0,11.0,65.0,570.0,137.0,1.0,113.0,16.0
+Bacon & Cheese Crispy Chicken Sandwich,800.0,51.0,12.0,90.0,1670.0,55.0,2.0,8.0,30.0
+Dr Pepper 38 fl oz,450.0,0.0,0.0,0.0,140.0,124.0,0.0,121.0,0.0
+Whopper Sandwich w/ Cheese & Mayo,740.0,46.0,16.0,115.0,1340.0,50.0,2.0,11.0,32.0
+Barqs Root Beer 29 fl oz,430.0,0.0,0.0,0.0,180.0,118.0,0.0,118.0,0.0
+Fully Loaded Croissanwich,610.0,40.0,17.0,225.0,1680.0,31.0,1.0,5.0,28.0
+Sausage Egg Cheese & Hash Brown Burrito,370.0,23.0,8.0,150.0,930.0,27.0,3.0,2.0,15.0
+4 Chicken Nuggets,170.0,11.0,1.5,25.0,310.0,11.0,1.0,0.0,8.0
+New York Style Cheesecake,360.0,22.0,11.0,65.0,280.0,34.0,1.0,25.0,6.0
+Hi C Fruit Punch 29 fl oz,410.0,0.0,0.0,0.0,135.0,111.0,0.0,109.0,0.0
+Double Whopper Sandwich w/ Cheese & Mayo,900.0,58.0,20.0,195.0,1410.0,50.0,2.0,11.0,48.0
+Diet Coke 38 fl oz,0.0,0.0,0.0,0.0,160.0,1.0,0.0,0.0,0.0
+Crispy Chicken Jr,450.0,30.0,5.0,30.0,780.0,34.0,2.0,5.0,12.0
+Iced Coffee Vanilla Medium,190.0,8.0,5.0,30.0,45.0,28.0,0.0,28.0,1.0
+Bacon & Cheese Whopper Sandwich,790.0,51.0,17.0,125.0,1560.0,50.0,2.0,11.0,35.0
+Grilled Chicken Sandwich,370.0,7.0,2.0,75.0,740.0,39.0,6.0,7.0,36.0
+Big Fish Sandwich,510.0,28.0,4.5,30.0,1180.0,51.0,2.0,7.0,16.0
+Cherry Coke 20 fl oz,280.0,0.0,0.0,0.0,70.0,76.0,0.0,76.0,0.0
+Garden Chicken Salad w/ Grilled Chicken,340.0,15.0,6.0,100.0,770.0,16.0,7.0,4.0,39.0
+Onion Rings Value,150.0,8.0,1.5,0.0,400.0,19.0,1.0,2.0,1.0
+Ranch Dipping Sauce,140.0,15.0,2.5,10.0,230.0,1.0,0.0,1.0,1.0
+Whopper Sandwich w/ Cheese,580.0,29.0,13.0,105.0,1200.0,50.0,2.0,11.0,32.0
+9 Chicken Fries,280.0,17.0,2.5,35.0,850.0,20.0,1.0,1.0,13.0
+Ketchup,10.0,0.0,0.0,0.0,125.0,3.0,0.0,2.0,0.0
+Frozen Fanta Cherry ICEE,110.0,0.0,0.0,0.0,10.0,31.0,0.0,31.0,0.0
+Jalapeno Chicken Fries,300.0,18.0,3.0,40.0,950.0,19.0,1.0,1.0,15.0
+Butter Sugar Cookie,160.0,7.0,3.5,15.0,135.0,22.0,0.0,12.0,2.0
+Chicken Garden Salad,520.0,33.0,9.0,120.0,1210.0,17.0,7.0,5.0,40.0
+Garden Chicken Salad w/ Crispy Chicken,440.0,25.0,7.0,75.0,930.0,31.0,3.0,4.0,25.0
+2 Oatmeal Raisin Cookies,310.0,13.0,8.0,20.0,260.0,46.0,3.0,26.0,4.0
+10 Chicken Nuggets,430.0,27.0,4.5,55.0,780.0,27.0,2.0,0.0,20.0
+Coca Cola Classic 16 fl oz,140.0,0.0,0.0,0.0,0.0,39.0,0.0,39.0,0.0
+Chicken Fry Dipping Sauce,140.0,13.0,2.0,10.0,180.0,6.0,0.0,5.0,0.0
+Sweet Tea 40 fl oz,240.0,0.0,0.0,0.0,0.0,71.0,0.0,71.0,0.0
+Cheesy Tots,310.0,15.0,1.0,0.0,780.0,34.0,3.0,0.0,9.0
+Minute Maid Orange Juice 10 oz,140.0,0.0,0.0,0.0,20.0,33.0,0.0,30.0,2.0
+Breakfast Syrup,120.0,0.0,0.0,0.0,15.0,30.0,0.0,18.0,0.0
+Seattles Best Coffee Decaf 20 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Cinnamon Roll Otis Spunkmeyer,280.0,11.0,6.0,15.0,280.0,41.0,2.0,22.0,4.0
+Crispy Chicken Sandwich,460.0,17.0,3.0,50.0,890.0,54.0,2.0,7.0,23.0
+Barqs Root Beer 38 fl oz,570.0,0.0,0.0,0.0,230.0,155.0,0.0,118.0,0.0
+Fully Loaded Biscuit,610.0,42.0,20.0,225.0,2170.0,31.0,1.0,4.0,28.0
+Croissanwich Sausage Egg & Cheese,470.0,30.0,12.0,165.0,890.0,30.0,1.0,4.0,18.0
+Supreme Breakfast Sandwich,880.0,59.0,21.0,375.0,2170.0,45.0,2.0,7.0,41.0
+5 French Toast Sticks,380.0,18.0,3.0,0.0,430.0,49.0,2.0,13.0,5.0
+French Fries Medium Salted,380.0,17.0,3.0,0.0,570.0,53.0,4.0,0.0,5.0
+6 Chicken Nuggets,260.0,16.0,2.5,35.0,470.0,16.0,1.0,0.0,12.0
+Kens Ranch Dressing,260.0,28.0,4.0,10.0,240.0,2.0,0.0,2.0,1.0
+King Croissanwich w/ Sausage & Bacon,580.0,39.0,16.0,190.0,1370.0,31.0,1.0,5.0,24.0
+Sprite 29 fl oz,380.0,0.0,0.0,0.0,170.0,102.0,0.0,102.0,0.0
+Hi C Fruit Punch 16 fl oz,220.0,0.0,0.0,0.0,75.0,62.0,0.0,60.0,0.0
+BK Joe Coffee,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Unsweetened Tea 40 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Pancake & Sausage Platter,610.0,31.0,9.0,80.0,1010.0,72.0,1.0,30.0,12.0
+Flamin Hot Mac N Cheetos,390.0,22.0,4.5,15.0,1170.0,40.0,7.0,3.0,9.0
+Crispy Chicken Sandwich w/ Mayo,670.0,41.0,7.0,60.0,1080.0,54.0,2.0,8.0,23.0
+Mocha Frappe 16 fl oz,400.0,16.0,7.0,10.0,250.0,60.0,0.0,40.0,3.0
+Grilled Chicken Sandwich w/ Mayo,470.0,19.0,4.0,85.0,840.0,39.0,6.0,7.0,37.0
+Double Whopper Sandwich w/ Mayo,900.0,58.0,20.0,175.0,1050.0,49.0,2.0,11.0,48.0
+Onion Rings Large,500.0,25.0,4.5,0.0,1310.0,64.0,5.0,7.0,5.0
+Iced Coffee Mocha Medium,170.0,8.0,5.0,30.0,110.0,23.0,1.0,21.0,2.0
+Rodeo Burger,310.0,12.0,4.0,30.0,440.0,38.0,1.0,9.0,12.0
+Caramel Frappe 16 fl oz,410.0,16.0,7.0,10.0,270.0,63.0,0.0,42.0,3.0
+Fanta Orange 29 fl oz,410.0,0.0,0.0,0.0,105.0,113.0,0.0,111.0,0.0
+French Fries Value Salted,220.0,10.0,1.5,0.0,400.0,31.0,2.0,0.0,3.0
+Whopper Jr Sandwich,310.0,18.0,5.0,40.0,390.0,27.0,1.0,7.0,13.0
+Caramel Sundae,290.0,6.0,4.0,25.0,260.0,53.0,0.0,39.0,6.0
+Sausage Egg & Cheese Biscuit,510.0,35.0,9.0,165.0,1390.0,29.0,1.0,2.0,18.0
+Whopper Sandwich w/ Mayo,660.0,40.0,12.0,90.0,980.0,49.0,2.0,11.0,28.0
+American Cheese,40.0,3.5,2.0,10.0,180.0,1.0,0.0,0.0,2.0
+Hash Browns Medium,500.0,33.0,7.0,0.0,1140.0,48.0,7.0,0.0,4.0
+NY Ultimate Platter,870.0,44.0,12.0,305.0,1650.0,95.0,4.0,31.0,22.0
+Barqs Root Beer 20 fl oz,300.0,0.0,0.0,0.0,120.0,81.0,0.0,81.0,0.0
+Strawberry or Grape Jam,30.0,0.0,0.0,0.0,0.0,7.0,0.0,6.0,0.0
+Unsweetened Tea 29 fl oz,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Bacon Cheeseburger Deluxe,290.0,13.0,6.0,45.0,640.0,28.0,1.0,7.0,14.0
+Buffalo Dipping Sauce,80.0,8.0,1.5,5.0,360.0,2.0,0.0,1.0,0.0
+Onion Rings Small,320.0,16.0,3.0,0.0,840.0,41.0,3.0,4.0,3.0
+Fat Free Milk,90.0,0.0,0.0,5.0,125.0,13.0,0.0,12.0,9.0
+Homestyle Cheeseburger,550.0,27.0,12.0,95.0,1140.0,48.0,2.0,10.0,30.0
+Dutch Apple Pie,340.0,14.0,6.0,0.0,310.0,51.0,1.0,25.0,3.0
+Minute Maid Light Lemonade 38 fl oz,20.0,0.0,0.0,0.0,135.0,7.0,0.0,0.0,0.0
+Chili Cheese Grilled Dog,330.0,19.0,8.0,40.0,980.0,28.0,2.0,5.0,14.0
+Croissanwich Ham Egg & Cheese,340.0,16.0,7.0,145.0,1000.0,31.0,1.0,5.0,16.0
+Hi C Fruit Punch 38 fl oz,530.0,0.0,0.0,0.0,180.0,146.0,0.0,143.0,0.0
+Chicken Nuggets King Jr Meal w/ 4 Chicken Nuggets,190.0,11.0,2.0,20.0,360.0,13.0,2.0,0.0,8.0
+BK Veggie Burger w/ Mayo,390.0,15.0,2.5,5.0,1060.0,42.0,6.0,9.0,22.0
+Double Whopper Sandwich w/ Cheese,820.0,47.0,21.0,185.0,1270.0,50.0,2.0,11.0,52.0
+Croissanwich Bacon Egg & Cheese,340.0,18.0,8.0,140.0,730.0,30.0,1.0,4.0,12.0
+Mello Yello,170.0,0.0,0.0,0.0,45.0,46.0,0.0,46.0,0.0
+French Fries Large Salted,430.0,19.0,3.5,0.0,640.0,60.0,4.0,0.0,6.0
+Rodeo King,1250.0,82.0,31.0,230.0,2270.0,69.0,3.0,14.0,60.0
+Red White & Blue Cookie,160.0,6.0,3.0,5.0,125.0,23.0,0.0,14.0,1.0
+Buttery Garlic Croutons,60.0,2.5,0.0,10.0,180.0,9.0,0.0,1.0,1.0
+Farmhouse King,1220.0,80.0,28.0,335.0,2050.0,62.0,2.0,15.0,63.0
+Iced Coffee Medium,150.0,8.0,5.0,30.0,45.0,19.0,0.0,19.0,1.0
+Chicken Cordon Bleu Sandwich,730.0,39.0,9.0,90.0,1930.0,63.0,2.0,16.0,32.0
+Sweet Tea 20 fl oz,120.0,0.0,0.0,0.0,0.0,35.0,0.0,35.0,0.0
+Minute Maid Light Lemonade 20 fl oz,10.0,0.0,0.0,0.0,70.0,4.0,0.0,0.0,0.0
+Bacon Cheddar Ranch Chicken Salad w/ Crispy Chicken & Dressing,710.0,50.0,13.0,110.0,1800.0,34.0,3.0,6.0,32.0
+BK Veggie Burger,310.0,7.0,2.5,0.0,990.0,42.0,6.0,9.0,22.0
+Whopper Sandwich,500.0,22.0,9.0,80.0,840.0,49.0,2.0,11.0,28.0
+Barbecue Dipping Sauce,40.0,0.0,0.0,0.0,310.0,11.0,0.0,10.0,0.0
+King Croissanwich w/ Ham & Sausage,530.0,34.0,14.0,185.0,1280.0,31.0,1.0,5.0,23.0
+Hash Browns Large,670.0,44.0,9.0,0.0,1530.0,65.0,9.0,0.0,5.0
+Bacon Egg & Cheese Biscuit,380.0,23.0,5.0,140.0,1230.0,29.0,1.0,2.0,13.0
+French Fries Small Salted,320.0,14.0,2.5,0.0,480.0,44.0,3.0,0.0,4.0
+Rodeo Crispy Chicken Sandwich,410.0,17.0,3.0,20.0,870.0,53.0,2.0,14.0,12.0
+Classic Grilled Dog,310.0,16.0,6.0,30.0,960.0,32.0,2.0,10.0,11.0
+Bacon King Sandwich,1150.0,79.0,31.0,240.0,2150.0,49.0,2.0,10.0,61.0
+Hash Browns Small,250.0,16.0,3.5,0.0,580.0,24.0,3.0,0.0,2.0
+Extra Long Cheeseburger,590.0,34.0,13.0,90.0,1040.0,45.0,2.0,9.0,26.0
+Ham Egg & Cheese Biscuit,370.0,21.0,4.0,145.0,1500.0,30.0,1.0,3.0,16.0
