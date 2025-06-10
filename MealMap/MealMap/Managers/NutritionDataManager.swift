@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 class NutritionDataManager: ObservableObject {
     @Published var isLoading = false
@@ -7,39 +8,52 @@ class NutritionDataManager: ObservableObject {
     
     private let cache = CacheManager.shared
     
-    // In-memory cache for immediate access
-    private var memoryCache: [String: RestaurantNutritionData] = [:]
+    private var memoryCache: [String: CachedNutritionItem] = [:]
     private var loadingTasks: [String: Task<RestaurantNutritionData?, Never>] = [:]
     
+    private let maxMemoryCacheSize = 20
+    private let cacheExpiryTime: TimeInterval = 600 // 10 minutes
+    private let backgroundQueue = DispatchQueue(label: "nutrition.parsing", qos: .utility)
+    
+    private var csvParsingCache: [String: [String]] = [:]
+    
     init() {
-        print("NutritionDataManager initialized with caching system")
+        print("NutritionDataManager initialized with enhanced caching system")
+        setupMemoryManagement()
+    }
+    
+    private func setupMemoryManagement() {
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.didReceiveMemoryWarningNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.clearExpiredCache()
+        }
     }
     
     func loadNutritionData(for restaurantName: String) {
+        let cacheKey = restaurantName.lowercased()
         print("🍽️ Loading nutrition data for restaurant: '\(restaurantName)'")
         
-        // Check memory cache first (fastest)
-        if let memoryData = memoryCache[restaurantName] {
+        if let cachedItem = memoryCache[cacheKey], !cachedItem.isExpired {
             print("💾 Using memory cached nutrition data for \(restaurantName)")
             self.isLoading = false
-            self.currentRestaurantData = memoryData
+            self.currentRestaurantData = cachedItem.data
             self.errorMessage = nil
             return
         }
         
-        // Check persistent cache
         if let cachedData = cache.getCachedNutritionData(for: restaurantName) {
             print("💿 Using persistent cached nutrition data for \(restaurantName)")
             self.isLoading = false
             self.currentRestaurantData = cachedData
             self.errorMessage = nil
-            // Also store in memory cache for even faster future access
-            memoryCache[restaurantName] = cachedData
+            updateMemoryCache(cacheKey, cachedData)
             return
         }
         
-        // Check if already loading to prevent duplicate requests
-        if let existingTask = loadingTasks[restaurantName] {
+        if let existingTask = loadingTasks[cacheKey] {
             print("⏳ Already loading \(restaurantName), waiting for completion...")
             isLoading = true
             errorMessage = nil
@@ -49,15 +63,14 @@ class NutritionDataManager: ObservableObject {
                     await MainActor.run {
                         self.isLoading = false
                         self.currentRestaurantData = result
-                        self.memoryCache[restaurantName] = result
+                        self.updateMemoryCache(cacheKey, result)
                     }
                 }
-                loadingTasks.removeValue(forKey: restaurantName)
+                loadingTasks.removeValue(forKey: cacheKey)
             }
             return
         }
         
-        // Get restaurant ID from cache manager
         guard let restaurantID = cache.getRestaurantID(for: restaurantName) else {
             print("❌ No nutrition data available for \(restaurantName)")
             errorMessage = "No nutrition data available for \(restaurantName)"
@@ -68,19 +81,18 @@ class NutritionDataManager: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        // Create loading task to prevent duplicates
         let task = Task {
             return await loadNutritionDataInBackground(for: restaurantName, restaurantID: restaurantID)
         }
         
-        loadingTasks[restaurantName] = task
+        loadingTasks[cacheKey] = task
         
         Task {
             if let result = await task.value {
                 await MainActor.run {
                     self.isLoading = false
                     self.currentRestaurantData = result
-                    self.memoryCache[restaurantName] = result
+                    self.updateMemoryCache(cacheKey, result)
                 }
             } else {
                 await MainActor.run {
@@ -88,42 +100,31 @@ class NutritionDataManager: ObservableObject {
                     self.errorMessage = "Failed to load nutrition data for \(restaurantName)"
                 }
             }
-            loadingTasks.removeValue(forKey: restaurantName)
+            loadingTasks.removeValue(forKey: cacheKey)
         }
     }
     
-    // Background loading with automatic caching
     private func loadNutritionDataInBackground(for restaurantName: String, restaurantID: String) async -> RestaurantNutritionData? {
         print("Background loading nutrition data for \(restaurantName) with ID \(restaurantID)")
         
-        // Try different bundle paths for CSV files
-        var content: String?
-        let possiblePaths = [
-            Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "Services/restaurant_data"),
-            Bundle.main.path(forResource: restaurantID, ofType: "csv"),
-            Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "restaurant_data")
-        ]
-        
-        for path in possiblePaths {
-            if let validPath = path {
-                do {
-                    let fileContent = try String(contentsOfFile: validPath)
-                    content = fileContent
-                    print("Successfully loaded nutrition data from: \(validPath)")
-                    break
-                } catch {
-                    print("Failed to load from \(validPath): \(error.localizedDescription)")
-                }
-            }
+        if let cachedParsedData = csvParsingCache[restaurantID] {
+            return await processPreParsedCSV(cachedParsedData, restaurantName: restaurantName, restaurantID: restaurantID)
         }
         
-        guard let fileContent = content else {
+        guard let fileContent = await loadCSVFile(restaurantID: restaurantID) else {
             print("Failed to load nutrition data file for \(restaurantName) (ID: \(restaurantID))")
             return nil
         }
         
-        // Parse CSV content
-        let nutritionItems = parseNutritionCSV(content: fileContent, restaurantName: restaurantName)
+        let nutritionItems = await withCheckedContinuation { continuation in
+            backgroundQueue.async {
+                let parsedLines = fileContent.components(separatedBy: .newlines)
+                self.csvParsingCache[restaurantID] = parsedLines
+                
+                let items = self.parseNutritionCSV(lines: parsedLines, restaurantName: restaurantName)
+                continuation.resume(returning: items)
+            }
+        }
         
         guard !nutritionItems.isEmpty else {
             print("No valid nutrition items found for \(restaurantName)")
@@ -135,56 +136,79 @@ class NutritionDataManager: ObservableObject {
             items: nutritionItems
         )
         
-        // Cache the data immediately
         cache.cacheNutritionData(restaurantData, for: restaurantName)
         print("Loaded and cached \(nutritionItems.count) nutrition items for \(restaurantName)")
         
         return restaurantData
     }
     
-    private func parseNutritionCSV(content: String, restaurantName: String) -> [NutritionData] {
-        let lines = content.components(separatedBy: .newlines)
-        var nutritionItems: [NutritionData] = []
+    private func processPreParsedCSV(_ lines: [String], restaurantName: String, restaurantID: String) async -> RestaurantNutritionData? {
+        let nutritionItems = await withCheckedContinuation { continuation in
+            backgroundQueue.async {
+                let items = self.parseNutritionCSV(lines: lines, restaurantName: restaurantName)
+                continuation.resume(returning: items)
+            }
+        }
         
-        // Skip header line and process data
+        guard !nutritionItems.isEmpty else { return nil }
+        
+        return RestaurantNutritionData(
+            restaurantName: restaurantName,
+            items: nutritionItems
+        )
+    }
+    
+    private func loadCSVFile(restaurantID: String) async -> String? {
+        let possiblePaths = [
+            Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "Services/restaurant_data"),
+            Bundle.main.path(forResource: restaurantID, ofType: "csv"),
+            Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "restaurant_data")
+        ]
+        
+        for path in possiblePaths {
+            if let validPath = path {
+                do {
+                    let fileContent = try String(contentsOfFile: validPath)
+                    print("Successfully loaded nutrition data from: \(validPath)")
+                    return fileContent
+                } catch {
+                    print("Failed to load from \(validPath): \(error.localizedDescription)")
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    private func parseNutritionCSV(lines: [String], restaurantName: String) -> [NutritionData] {
+        var nutritionItems: [NutritionData] = []
+        nutritionItems.reserveCapacity(lines.count)
+        
         for (index, line) in lines.enumerated() {
-            if index == 0 { continue } // Skip header
+            if index == 0 { continue }
             
             let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !trimmedLine.isEmpty else { continue }
             
-            // Handle CSV parsing with potential commas in quoted fields
-            let components = parseCSVLine(line)
+            let components = parseCSVLine(trimmedLine)
             guard components.count >= 10 else {
-                print("Skipping line \(index) for \(restaurantName): insufficient columns (\(components.count))")
                 continue
             }
             
             let item = components[0].trimmingCharacters(in: .whitespacesAndNewlines)
             guard !item.isEmpty else { continue }
             
-            // Parse numeric values with error handling
-            let calories = parseDouble(components[1]) ?? 0.0
-            let fat = parseDouble(components[2]) ?? 0.0
-            let saturatedFat = parseDouble(components[3]) ?? 0.0
-            let cholesterol = parseDouble(components[4]) ?? 0.0
-            let sodium = parseDouble(components[5]) ?? 0.0
-            let carbs = parseDouble(components[6]) ?? 0.0
-            let fiber = parseDouble(components[7]) ?? 0.0
-            let sugar = parseDouble(components[8]) ?? 0.0
-            let protein = parseDouble(components[9]) ?? 0.0
-            
             let nutritionData = NutritionData(
                 item: item,
-                calories: calories,
-                fat: fat,
-                saturatedFat: saturatedFat,
-                cholesterol: cholesterol,
-                sodium: sodium,
-                carbs: carbs,
-                fiber: fiber,
-                sugar: sugar,
-                protein: protein
+                calories: parseDoubleOptimized(components[1]),
+                fat: parseDoubleOptimized(components[2]),
+                saturatedFat: parseDoubleOptimized(components[3]),
+                cholesterol: parseDoubleOptimized(components[4]),
+                sodium: parseDoubleOptimized(components[5]),
+                carbs: parseDoubleOptimized(components[6]),
+                fiber: parseDoubleOptimized(components[7]),
+                sugar: parseDoubleOptimized(components[8]),
+                protein: parseDoubleOptimized(components[9])
             )
             
             nutritionItems.append(nutritionData)
@@ -194,16 +218,19 @@ class NutritionDataManager: ObservableObject {
         return nutritionItems
     }
     
-    // Helper function to parse CSV lines that might contain quoted fields
     private func parseCSVLine(_ line: String) -> [String] {
+        if !line.contains("\"") {
+            return line.components(separatedBy: ",").map { 
+                $0.trimmingCharacters(in: .whitespacesAndNewlines) 
+            }
+        }
+        
         var components: [String] = []
+        components.reserveCapacity(10)
         var currentComponent = ""
         var insideQuotes = false
-        var i = line.startIndex
         
-        while i < line.endIndex {
-            let char = line[i]
-            
+        for char in line {
             if char == "\"" {
                 insideQuotes.toggle()
             } else if char == "," && !insideQuotes {
@@ -212,29 +239,50 @@ class NutritionDataManager: ObservableObject {
             } else {
                 currentComponent.append(char)
             }
-            
-            i = line.index(after: i)
         }
         
-        // Add the last component
         components.append(currentComponent.trimmingCharacters(in: .whitespacesAndNewlines))
         
         return components
     }
     
-    // Helper function to safely parse double values
-    private func parseDouble(_ string: String) -> Double? {
+    private func parseDoubleOptimized(_ string: String) -> Double {
         let cleaned = string.trimmingCharacters(in: .whitespacesAndNewlines)
             .replacingOccurrences(of: "\"", with: "")
-        return Double(cleaned)
+        return Double(cleaned) ?? 0.0
     }
     
-    // Preload nutrition data for a restaurant without updating UI
+    private func updateMemoryCache(_ key: String, _ data: RestaurantNutritionData) {
+        if memoryCache.count >= maxMemoryCacheSize {
+            clearExpiredCache()
+        }
+        
+        if memoryCache.count >= maxMemoryCacheSize {
+            let oldestKey = memoryCache.min { $0.value.timestamp < $1.value.timestamp }?.key
+            if let key = oldestKey {
+                memoryCache.removeValue(forKey: key)
+            }
+        }
+        
+        memoryCache[key] = CachedNutritionItem(data: data, timestamp: Date())
+    }
+    
+    private func clearExpiredCache() {
+        let now = Date()
+        memoryCache = memoryCache.filter { !$0.value.isExpired(at: now) }
+        
+        if csvParsingCache.count > 30 {
+            csvParsingCache.removeAll()
+        }
+    }
+    
     func preloadNutritionData(for restaurantName: String) {
-        guard memoryCache[restaurantName] == nil,
+        let cacheKey = restaurantName.lowercased()
+        
+        guard memoryCache[cacheKey] == nil,
               cache.getCachedNutritionData(for: restaurantName) == nil,
-              loadingTasks[restaurantName] == nil else {
-            return // Already cached or loading
+              loadingTasks[cacheKey] == nil else {
+            return
         }
         
         guard let restaurantID = cache.getRestaurantID(for: restaurantName) else {
@@ -245,19 +293,18 @@ class NutritionDataManager: ObservableObject {
             return await loadNutritionDataInBackground(for: restaurantName, restaurantID: restaurantID)
         }
         
-        loadingTasks[restaurantName] = task
+        loadingTasks[cacheKey] = task
         
         Task {
             if let result = await task.value {
                 await MainActor.run {
-                    self.memoryCache[restaurantName] = result
+                    self.updateMemoryCache(cacheKey, result)
                 }
             }
-            loadingTasks.removeValue(forKey: restaurantName)
+            loadingTasks.removeValue(forKey: cacheKey)
         }
     }
     
-    // Get cache statistics
     func getCacheInfo() -> (memoryCount: Int, persistentCount: Int) {
         let stats = cache.getCacheStats()
         return (memoryCache.count, stats.nutritionCacheSize)
@@ -270,6 +317,24 @@ class NutritionDataManager: ObservableObject {
     
     func clearMemoryCache() {
         memoryCache.removeAll()
+        csvParsingCache.removeAll()
         print("Cleared nutrition memory cache")
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
+private struct CachedNutritionItem {
+    let data: RestaurantNutritionData
+    let timestamp: Date
+    
+    var isExpired: Bool {
+        isExpired(at: Date())
+    }
+    
+    func isExpired(at date: Date = Date()) -> Bool {
+        date.timeIntervalSince(timestamp) > 600
     }
 }

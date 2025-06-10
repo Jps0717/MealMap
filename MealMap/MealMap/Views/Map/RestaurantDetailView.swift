@@ -163,7 +163,7 @@ struct RestaurantDetailView: View {
                             // Action buttons
                             fullScreenActionButtons()
                                 .padding(.horizontal, 24)
-                                .padding(.bottom, 40)
+                                .padding(.bottom, 100)
                                 .background(Color(.systemBackground))
                         }
                     }
@@ -172,6 +172,7 @@ struct RestaurantDetailView: View {
             }
         }
         .navigationBarHidden(true)
+        .statusBarHidden(false)
         .tabViewStyle(.page(indexDisplayMode: .never))
         .ignoresSafeArea(.all)
         .onAppear {

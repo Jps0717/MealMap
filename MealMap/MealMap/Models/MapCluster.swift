@@ -56,62 +56,97 @@ struct MapCluster: Identifiable, Hashable {
     }
     
     static func createClusters(from restaurants: [Restaurant], zoomLevel: Double, span: MKCoordinateSpan, center: CLLocationCoordinate2D) -> [MapCluster] {
-        let individualPinThreshold = 0.008
-        let maxIndividualPins = 100
+        // Early return for empty data
+        guard !restaurants.isEmpty else { return [] }
         
+        let individualPinThreshold = 0.008
+        let maxIndividualPins = 50
+        
+        // Show individual pins when zoomed in
         if zoomLevel < individualPinThreshold {
-            let mapCenter = CLLocation(latitude: center.latitude, longitude: center.longitude)
-
-            let restaurantsWithDistance = restaurants.map { restaurant in
-                let loc = CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude)
-                return (restaurant: restaurant, distance: loc.distance(from: mapCenter))
+            return createIndividualClusters(
+                restaurants: restaurants,
+                center: center,
+                maxPins: maxIndividualPins
+            )
+        }
+        
+        // Use grid-based clustering for zoomed out views
+        return createGridClusters(
+            restaurants: restaurants,
+            zoomLevel: zoomLevel,
+            span: span
+        )
+    }
+    
+    private static func createIndividualClusters(
+        restaurants: [Restaurant],
+        center: CLLocationCoordinate2D,
+        maxPins: Int
+    ) -> [MapCluster] {
+        let mapCenter = CLLocation(latitude: center.latitude, longitude: center.longitude)
+        
+        // Pre-calculate distances and sort efficiently
+        let sortedRestaurants = restaurants.lazy
+            .map { restaurant -> (restaurant: Restaurant, distanceSquared: Double) in
+                let deltaLat = restaurant.latitude - center.latitude
+                let deltaLon = restaurant.longitude - center.longitude
+                return (restaurant, deltaLat * deltaLat + deltaLon * deltaLon)
             }
-            
-            let closestRestaurants = restaurantsWithDistance.sorted { $0.distance < $1.distance }
-                .prefix(maxIndividualPins)
-                .map { $0.restaurant }
-            
-            return closestRestaurants.map { restaurant in
-                let coordinate = CLLocationCoordinate2D(
+            .sorted { $0.distanceSquared < $1.distanceSquared }
+            .prefix(maxPins)
+            .map { $0.restaurant }
+        
+        return sortedRestaurants.map { restaurant in
+            MapCluster(
+                id: "restaurant_\(restaurant.id)",
+                coordinate: CLLocationCoordinate2D(
                     latitude: restaurant.latitude,
                     longitude: restaurant.longitude
-                )
-                return MapCluster(
-                    id: "restaurant_\(restaurant.id)",
-                    coordinate: coordinate,
-                    restaurants: [restaurant]
-                )
-            }
+                ),
+                restaurants: [restaurant]
+            )
         }
+    }
+    
+    private static func createGridClusters(
+        restaurants: [Restaurant],
+        zoomLevel: Double,
+        span: MKCoordinateSpan
+    ) -> [MapCluster] {
+        // Dynamic grid size based on zoom level and density
+        let baseFactor = 0.015
+        let gridSize = max(zoomLevel * baseFactor, 0.01)
         
-        let clusteringFactor = 0.02
-        let gridSize = zoomLevel * clusteringFactor
-        
-        let minGridSize = 0.02
-        let effectiveGridSize = max(gridSize, minGridSize)
-
+        // Use dictionary for faster grouping
         var clusters: [String: [Restaurant]] = [:]
+        clusters.reserveCapacity(restaurants.count / 4) // Estimate capacity
         
         for restaurant in restaurants {
-            let gridX = Int(restaurant.latitude / effectiveGridSize)
-            let gridY = Int(restaurant.longitude / effectiveGridSize)
+            let gridX = Int(restaurant.latitude / gridSize)
+            let gridY = Int(restaurant.longitude / gridSize)
             let key = "\(gridX),\(gridY)"
             
-            if clusters[key] == nil {
-                clusters[key] = []
-            }
-            clusters[key]?.append(restaurant)
+            clusters[key, default: []].append(restaurant)
         }
         
-        return clusters.map { (gridKey, restaurants) in
-            let centerLat = restaurants.map { $0.latitude }.reduce(0, +) / Double(restaurants.count)
-            let centerLon = restaurants.map { $0.longitude }.reduce(0, +) / Double(restaurants.count)
-            let coordinate = CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon)
+        // Filter out single-restaurant clusters at higher zoom levels
+        let shouldFilterSingles = zoomLevel > 0.05
+        
+        return clusters.compactMap { (gridKey, restaurantGroup) in
+            // Skip single restaurants at high zoom levels to reduce clutter
+            if shouldFilterSingles && restaurantGroup.count == 1 {
+                return nil
+            }
+            
+            // Calculate center more efficiently
+            let centerLat = restaurantGroup.reduce(0.0) { $0 + $1.latitude } / Double(restaurantGroup.count)
+            let centerLon = restaurantGroup.reduce(0.0) { $0 + $1.longitude } / Double(restaurantGroup.count)
             
             return MapCluster(
                 id: "grid_\(gridKey)",
-                coordinate: coordinate,
-                restaurants: restaurants
+                coordinate: CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon),
+                restaurants: restaurantGroup
             )
         }
     }
@@ -128,100 +163,106 @@ class ClusterManager: ObservableObject {
     @Published var clusters: [MapCluster] = []
     @Published var transitionState: ClusterTransitionState = .stable
     
-    private var clusterCache: [String: [MapCluster]] = [:]
+    private var clusterCache: [String: CachedClusterData] = [:]
     private var lastUpdateTask: Task<Void, Never>?
-    private var lastClusteringData: (restaurants: [Restaurant], zoomLevel: Double, center: CLLocationCoordinate2D)?
+    private var lastClusteringData: ClusteringData?
     
     private var isUpdating = false
-    private var wasShowingClusters = true // Track previous state
+    private var wasShowingClusters = true
+    
+    private let maxCacheSize = 10
+    private let cacheExpiryTime: TimeInterval = 180 // 3 minutes
+    private let minUpdateInterval: TimeInterval = 0.1 // Minimum time between updates
+    private var lastUpdateTime = Date.distantPast
     
     func updateClusters(
         restaurants: [Restaurant],
         zoomLevel: Double,
         span: MKCoordinateSpan,
         center: CLLocationCoordinate2D,
-        debounceDelay: TimeInterval = 0.2
+        debounceDelay: TimeInterval = 0.15
     ) {
-        guard !isUpdating else { return }
-        
-        lastUpdateTask?.cancel()
-        
-        if let lastData = lastClusteringData,
-           lastData.restaurants.count == restaurants.count,
-           abs(lastData.zoomLevel - zoomLevel) < 0.0005,
-           abs(lastData.center.latitude - center.latitude) < 0.0005,
-           abs(lastData.center.longitude - center.longitude) < 0.0005 {
+        // Throttle updates
+        let now = Date()
+        if now.timeIntervalSince(lastUpdateTime) < minUpdateInterval {
             return
         }
+        
+        guard !isUpdating else { return }
+        
+        let newData = ClusteringData(
+            restaurants: restaurants,
+            zoomLevel: zoomLevel,
+            span: span,
+            center: center
+        )
+        
+        // Skip update if data hasn't changed significantly
+        if let lastData = lastClusteringData,
+           lastData.isSimilar(to: newData, threshold: 0.001) {
+            return
+        }
+        
+        lastUpdateTask?.cancel()
+        lastUpdateTime = now
         
         lastUpdateTask = Task {
             try? await Task.sleep(nanoseconds: UInt64(debounceDelay * 1_000_000_000))
             
             if !Task.isCancelled {
-                await updateClustersInternal(
-                    restaurants: restaurants,
-                    zoomLevel: zoomLevel,
-                    span: span,
-                    center: center
-                )
+                await updateClustersInternal(data: newData)
             }
         }
     }
     
-    private func updateClustersInternal(
-        restaurants: [Restaurant],
-        zoomLevel: Double,
-        span: MKCoordinateSpan,
-        center: CLLocationCoordinate2D
-    ) async {
+    private func updateClustersInternal(data: ClusteringData) async {
         isUpdating = true
-        lastClusteringData = (restaurants: restaurants, zoomLevel: zoomLevel, center: center)
+        lastClusteringData = data
         
-        let cacheKey = MapCluster.createCacheKey(restaurantCount: restaurants.count, zoomLevel: zoomLevel, center: center)
+        let cacheKey = data.cacheKey
         
-        let willShowClusters = zoomLevel >= 0.008
-        let shouldAnimate = wasShowingClusters != willShowClusters
-        
-        if shouldAnimate {
-            transitionState = willShowClusters ? .mergingToClusters : .splittingToIndividual
-            
-            try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
-        }
-        
-        if let cachedClusters = clusterCache[cacheKey] {
-            withAnimation(.easeInOut(duration: shouldAnimate ? 0.4 : 0.2)) {
-                self.clusters = cachedClusters
+        // Check cache first
+        if let cached = clusterCache[cacheKey], !cached.isExpired {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.clusters = cached.clusters
             }
-            
-            if shouldAnimate {
-                try? await Task.sleep(nanoseconds: 400_000_000) // 0.4 seconds
-                transitionState = .stable
-            }
-            
-            wasShowingClusters = willShowClusters
             isUpdating = false
             return
         }
         
+        let willShowClusters = data.zoomLevel >= 0.008
+        let shouldAnimate = wasShowingClusters != willShowClusters
+        
+        if shouldAnimate {
+            transitionState = willShowClusters ? .mergingToClusters : .splittingToIndividual
+            try? await Task.sleep(nanoseconds: 100_000_000)
+        }
+        
+        // Perform clustering on background queue
         let newClusters = await Task.detached {
-            return MapCluster.createClusters(
-                from: restaurants,
-                zoomLevel: zoomLevel,
-                span: span,
-                center: center
+            MapCluster.createClusters(
+                from: data.restaurants,
+                zoomLevel: data.zoomLevel,
+                span: data.span,
+                center: data.center
             )
         }.value
         
-        withAnimation(.easeInOut(duration: shouldAnimate ? 0.4 : 0.25)) {
-            if clusterCache.count > 20 {
-                clusterCache.removeAll()
-            }
-            clusterCache[cacheKey] = newClusters
+        // Cache results
+        clusterCache[cacheKey] = CachedClusterData(
+            clusters: newClusters,
+            timestamp: Date()
+        )
+        
+        // Clean cache
+        cleanCache()
+        
+        withAnimation(.easeInOut(duration: shouldAnimate ? 0.4 : 0.2)) {
             self.clusters = newClusters
         }
         
         if shouldAnimate {
-            try? await Task.sleep(nanoseconds: 400_000_000) // 0.4 seconds
+            try? await Task.sleep(nanoseconds: 400_000_000)
             transitionState = .stable
         }
         
@@ -229,9 +270,56 @@ class ClusterManager: ObservableObject {
         isUpdating = false
     }
     
+    private func cleanCache() {
+        // Remove expired entries
+        clusterCache = clusterCache.filter { !$0.value.isExpired }
+        
+        // Remove oldest entries if needed
+        if clusterCache.count > maxCacheSize {
+            let sortedKeys = clusterCache.keys.sorted { key1, key2 in
+                clusterCache[key1]?.timestamp ?? Date.distantPast <
+                clusterCache[key2]?.timestamp ?? Date.distantPast
+            }
+            
+            let keysToRemove = sortedKeys.prefix(clusterCache.count - maxCacheSize)
+            keysToRemove.forEach { clusterCache.removeValue(forKey: $0) }
+        }
+    }
+    
     func clearCache() {
         clusterCache.removeAll()
         lastClusteringData = nil
         transitionState = .stable
+        lastUpdateTask?.cancel()
+    }
+}
+
+private struct ClusteringData {
+    let restaurants: [Restaurant]
+    let zoomLevel: Double
+    let span: MKCoordinateSpan
+    let center: CLLocationCoordinate2D
+    
+    var cacheKey: String {
+        let roundedZoom = round(zoomLevel * 1000) / 1000
+        let roundedLat = round(center.latitude * 100) / 100
+        let roundedLon = round(center.longitude * 100) / 100
+        return "\(restaurants.count)_\(roundedZoom)_\(roundedLat)_\(roundedLon)"
+    }
+    
+    func isSimilar(to other: ClusteringData, threshold: Double) -> Bool {
+        restaurants.count == other.restaurants.count &&
+        abs(zoomLevel - other.zoomLevel) < threshold &&
+        abs(center.latitude - other.center.latitude) < threshold &&
+        abs(center.longitude - other.center.longitude) < threshold
+    }
+}
+
+private struct CachedClusterData {
+    let clusters: [MapCluster]
+    let timestamp: Date
+    
+    var isExpired: Bool {
+        Date().timeIntervalSince(timestamp) > 180 // 3 minutes
     }
 }
