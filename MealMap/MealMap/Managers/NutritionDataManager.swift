@@ -16,9 +16,11 @@ class NutritionDataManager: ObservableObject {
     }
     
     func loadNutritionData(for restaurantName: String) {
+        print("🍽️ Loading nutrition data for restaurant: '\(restaurantName)'")
+        
         // Check memory cache first (fastest)
         if let memoryData = memoryCache[restaurantName] {
-            print("Using memory cached nutrition data for \(restaurantName)")
+            print("💾 Using memory cached nutrition data for \(restaurantName)")
             self.isLoading = false
             self.currentRestaurantData = memoryData
             self.errorMessage = nil
@@ -27,7 +29,7 @@ class NutritionDataManager: ObservableObject {
         
         // Check persistent cache
         if let cachedData = cache.getCachedNutritionData(for: restaurantName) {
-            print("Using persistent cached nutrition data for \(restaurantName)")
+            print("💿 Using persistent cached nutrition data for \(restaurantName)")
             self.isLoading = false
             self.currentRestaurantData = cachedData
             self.errorMessage = nil
@@ -38,7 +40,7 @@ class NutritionDataManager: ObservableObject {
         
         // Check if already loading to prevent duplicate requests
         if let existingTask = loadingTasks[restaurantName] {
-            print("Already loading \(restaurantName), waiting for completion...")
+            print("⏳ Already loading \(restaurantName), waiting for completion...")
             isLoading = true
             errorMessage = nil
             
@@ -57,11 +59,12 @@ class NutritionDataManager: ObservableObject {
         
         // Get restaurant ID from cache manager
         guard let restaurantID = cache.getRestaurantID(for: restaurantName) else {
-            print("No nutrition data available for \(restaurantName)")
+            print("❌ No nutrition data available for \(restaurantName)")
             errorMessage = "No nutrition data available for \(restaurantName)"
             return
         }
         
+        print("🆔 Found restaurant ID: \(restaurantID) for \(restaurantName)")
         isLoading = true
         errorMessage = nil
         
