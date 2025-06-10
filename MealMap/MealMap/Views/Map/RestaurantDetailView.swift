@@ -171,6 +171,9 @@ struct RestaurantDetailView: View {
                 .ignoresSafeArea(.all)
             }
         }
+        .navigationBarHidden(true)
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .ignoresSafeArea(.all)
         .onAppear {
             withAnimation(.spring(response: 0.8, dampingFraction: 0.8)) {
                 animateIn = true

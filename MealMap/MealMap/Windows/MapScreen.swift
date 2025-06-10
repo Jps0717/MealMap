@@ -10,7 +10,7 @@ struct MapScreen: View {
     @StateObject private var clusterManager = ClusterManager()
     @StateObject private var searchManager = SearchManager()
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 0, longitude: 0), 
+        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @State private var searchText: String = ""
@@ -23,7 +23,7 @@ struct MapScreen: View {
     @State private var hasInitialLocation: Bool = false
     @State private var showListView: Bool = false
     @State private var restaurants: [Restaurant] = []
-    @State private var lastClusterUpdateTime: Date = Date.distantPast 
+    @State private var lastClusterUpdateTime: Date = Date.distantPast
     @State private var isLoadingRestaurants: Bool = false
     @State private var lastDataFetchLocation: CLLocationCoordinate2D?
     @State private var lastDataFetchTime: Date = Date.distantPast
@@ -48,30 +48,30 @@ struct MapScreen: View {
     @State private var selectedCuisines: Set<String> = []
     @State private var selectedRating: Double = 0
     @State private var isOpenNow: Bool = false
-    @State private var maxDistance: Double = 5.0 
+    @State private var maxDistance: Double = 5.0
 
-    @State private var restaurantCache: [String: [Restaurant]] = [:] 
+    @State private var restaurantCache: [String: [Restaurant]] = [:]
     @State private var lastSuccessfulFetch: CLLocationCoordinate2D?
     @State private var pendingFetchTask: Task<Void, Never>?
 
     private let minimumGeocodeInterval: TimeInterval = 5.0
     private let minimumDistanceChange: CLLocationDegrees = 0.01
-    private let zoomedOutThreshold: CLLocationDegrees = 0.5 
-    private let pinVisibilityThreshold: CLLocationDegrees = 0.1 
-    private let clusterVisibilityThreshold: CLLocationDegrees = 0.15 
+    private let zoomedOutThreshold: CLLocationDegrees = 0.5
+    private let pinVisibilityThreshold: CLLocationDegrees = 0.1
+    private let clusterVisibilityThreshold: CLLocationDegrees = 0.15
 
-    private let minimumDataFetchInterval: TimeInterval = 3.0 
-    private let minimumDataFetchDistance: CLLocationDegrees = 0.08 
-    private let clusterUpdateThrottle: TimeInterval = 0.8 
+    private let minimumDataFetchInterval: TimeInterval = 3.0
+    private let minimumDataFetchDistance: CLLocationDegrees = 0.08
+    private let clusterUpdateThrottle: TimeInterval = 0.8
 
     private var hasValidLocation: Bool {
-        return locationManager.lastLocation != nil && 
+        return locationManager.lastLocation != nil &&
                (locationManager.authorizationStatus == .authorizedWhenInUse ||
                 locationManager.authorizationStatus == .authorizedAlways)
     }
 
     private var shouldShowClusters: Bool {
-        region.span.latitudeDelta > 0.02 && !showSearchResults 
+        region.span.latitudeDelta > 0.02 && !showSearchResults
     }
 
     private var mapItems: [MapItem] {
@@ -93,7 +93,7 @@ struct MapScreen: View {
     }
     
     private func getFilteredRestaurantsForDisplay(from restaurantList: [Restaurant]) -> [Restaurant] {
-        let maxRestaurants = showSearchResults ? 75 : 30 
+        let maxRestaurants = showSearchResults ? 75 : 30
         let center = region.center
         let isZoomedIn = region.span.latitudeDelta <= pinVisibilityThreshold
         let isZoomedOutTooFar = region.span.latitudeDelta > clusterVisibilityThreshold && !showSearchResults
@@ -150,7 +150,7 @@ struct MapScreen: View {
                             
                             let regionChange = abs(oldRegion.center.latitude - newRegion.center.latitude) +
                                              abs(oldRegion.center.longitude - newRegion.center.longitude)
-                            if regionChange > 0.02 { 
+                            if regionChange > 0.02 {
                                 updateAreaName(for: newRegion.center)
                             }
 
@@ -159,13 +159,13 @@ struct MapScreen: View {
                             
                             if !showSearchResults && (zoomChange > 0.005 || now.timeIntervalSince(lastClusterUpdateTime) > clusterUpdateThrottle) {
                                 Task { @MainActor in
-                                    try? await Task.sleep(nanoseconds: 200_000_000) 
+                                    try? await Task.sleep(nanoseconds: 200_000_000)
                                     clusterManager.updateClusters(
                                         restaurants: restaurants,
                                         zoomLevel: newRegion.span.latitudeDelta,
                                         span: newRegion.span,
                                         center: newRegion.center,
-                                        debounceDelay: zoomChange > 0.01 ? 0.05 : 0.5 
+                                        debounceDelay: zoomChange > 0.01 ? 0.05 : 0.5
                                     )
                                     lastClusterUpdateTime = Date()
                                 }
@@ -183,7 +183,7 @@ struct MapScreen: View {
                                     noNutritionDataCount: cluster.noNutritionDataCount
                                 )
                                 .transition(.asymmetric(
-                                    insertion: clusterManager.transitionState == .mergingToClusters ? 
+                                    insertion: clusterManager.transitionState == .mergingToClusters ?
                                         .scale(scale: 0.1).combined(with: .opacity) :
                                         .scale.combined(with: .opacity),
                                     removal: clusterManager.transitionState == .splittingToIndividual ?
@@ -433,14 +433,16 @@ struct MapScreen: View {
                         restaurant: restaurant,
                         isPresented: $showingRestaurantDetail
                     )
-                    .zIndex(100) 
+                    .zIndex(100)
                     .onDisappear {
                         selectedRestaurant = nil
                     }
                 }
             }
         }
-        .preferredColorScheme(.light)  
+        .preferredColorScheme(.light)
+        .navigationBarHidden(showingRestaurantDetail)
+        .animation(.easeInOut(duration: 0.3), value: showingRestaurantDetail)
         .onAppear {
             locationManager.requestLocationPermission()
         }
@@ -558,7 +560,7 @@ struct MapScreen: View {
         pendingFetchTask?.cancel()
         
         pendingFetchTask = Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 500_000_000) 
+            try? await Task.sleep(nanoseconds: 500_000_000)
             
             guard !Task.isCancelled else { return }
             fetchRestaurantDataAndUpdateClusters(for: center)
@@ -694,7 +696,7 @@ struct MapScreen: View {
         withAnimation(.easeInOut(duration: 1.0)) {
             region = MKCoordinateRegion(
                 center: coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005) 
+                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
             )
         }
     }
@@ -725,7 +727,7 @@ struct MapScreen: View {
         let centerLat = (minLat + maxLat) / 2
         let centerLon = (minLon + maxLon) / 2
         
-        let spanLat = max((maxLat - minLat) * 1.2, 0.01) 
+        let spanLat = max((maxLat - minLat) * 1.2, 0.01)
         let spanLon = max((maxLon - minLon) * 1.2, 0.01)
         
         return MKCoordinateRegion(
@@ -1054,7 +1056,7 @@ struct FilterPanel: View {
         .padding(.horizontal, 8)
         .padding(.bottom, 8)
         .ignoresSafeArea(.keyboard)
-        .onTapGesture { } 
+        .onTapGesture { }
         .onChange(of: show) { oldValue, newValue in
             if newValue {
                 lastShowTime = Date()
