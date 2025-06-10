@@ -4,7 +4,7 @@ import CoreLocation
 struct ListView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var searchText: String = ""
-    @State private var selectedSortOption: SortOption = .distance
+    @State private var selectedSortOptions: Set<SortOption> = [.distance] 
     @State private var isRefreshing: Bool = false
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
@@ -18,7 +18,8 @@ struct ListView: View {
     // Computed properties for filtering and sorting
     private var filteredAndSortedRestaurants: [Restaurant] {
         let filtered = filteredRestaurants
-        return sortRestaurants(filtered)
+        let additionallyFiltered = applyMultipleFilters(filtered)
+        return sortRestaurants(additionallyFiltered)
     }
     
     private var filteredRestaurants: [Restaurant] {
@@ -105,13 +106,17 @@ struct ListView: View {
                             .shadow(color: .black.opacity(0.1), radius: 8, y: 2)
                     )
                     
-                    // Sort Options
+                    // Multiple selection filter buttons
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
                             ForEach(SortOption.allCases, id: \.self) { option in
                                 Button(action: {
                                     withAnimation {
-                                        selectedSortOption = option
+                                        if selectedSortOptions.contains(option) {
+                                            selectedSortOptions.remove(option)
+                                        } else {
+                                            selectedSortOptions.insert(option)
+                                        }
                                         selectionFeedback.selectionChanged()
                                     }
                                 }) {
@@ -121,12 +126,12 @@ struct ListView: View {
                                         Text(option.rawValue)
                                             .font(.system(size: 14, weight: .medium))
                                     }
-                                    .foregroundColor(selectedSortOption == option ? .white : .blue)
+                                    .foregroundColor(selectedSortOptions.contains(option) ? .white : .blue)
                                     .padding(.horizontal, 16)
                                     .padding(.vertical, 8)
                                     .background(
                                         RoundedRectangle(cornerRadius: 20)
-                                            .fill(selectedSortOption == option ? .blue : .blue.opacity(0.1))
+                                            .fill(selectedSortOptions.contains(option) ? .blue : .blue.opacity(0.1))
                                     )
                                 }
                             }
@@ -134,11 +139,20 @@ struct ListView: View {
                         .padding(.horizontal, 4)
                     }
                     
-                    // Results count
+                    // Results count with active filters info
                     HStack {
-                        Text("\(filteredAndSortedRestaurants.count) restaurants found")
-                            .font(.system(size: 14))
-                            .foregroundColor(.gray)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("\(filteredAndSortedRestaurants.count) restaurants found")
+                                .font(.system(size: 14))
+                                .foregroundColor(.gray)
+                            
+                            if !selectedSortOptions.isEmpty {
+                                let filterText = selectedSortOptions.contains(.nutritionAvailable) ? "Showing only restaurants with nutrition data" : "Active filters: \(selectedSortOptions.map { $0.rawValue }.joined(separator: ", "))"
+                                Text(filterText)
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.blue)
+                            }
+                        }
                         
                         Spacer()
                         
@@ -240,7 +254,7 @@ struct ListView: View {
                 }
             }
         }
-        .sheet(isPresented: $showingRestaurantDetail) {
+        .fullScreenCover(isPresented: $showingRestaurantDetail) {
             if let restaurant = selectedRestaurant {
                 RestaurantDetailView(
                     restaurant: restaurant,
@@ -250,11 +264,29 @@ struct ListView: View {
         }
     }
     
+    private func applyMultipleFilters(_ restaurants: [Restaurant]) -> [Restaurant] {
+        var filtered = restaurants
+        
+        // Apply nutrition data filter if selected
+        if selectedSortOptions.contains(.nutritionAvailable) {
+            filtered = filtered.filter { restaurant in
+                RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
+            }
+        }
+        
+        // Could add other filters here in the future
+        // For now, cuisine and distance are just for sorting, not filtering
+        
+        return filtered
+    }
+    
     private func sortRestaurants(_ restaurants: [Restaurant]) -> [Restaurant] {
-        switch selectedSortOption {
-        case .distance:
-            guard let userLocation = userLocation else { return restaurants }
-            return restaurants.sorted { restaurant1, restaurant2 in
+        var sorted = restaurants
+        
+        // Apply sorting based on selected options
+        if selectedSortOptions.contains(.distance), let userLocation = userLocation {
+            // Sort by distance
+            sorted = sorted.sorted { restaurant1, restaurant2 in
                 let location1 = CLLocation(latitude: restaurant1.latitude, longitude: restaurant1.longitude)
                 let location2 = CLLocation(latitude: restaurant2.latitude, longitude: restaurant2.longitude)
                 
@@ -263,28 +295,19 @@ struct ListView: View {
                 
                 return distance1 < distance2
             }
-            
-        case .cuisine:
-            return restaurants.sorted { restaurant1, restaurant2 in
+        } else if selectedSortOptions.contains(.cuisine) {
+            // Sort by cuisine if distance is not selected
+            sorted = sorted.sorted { restaurant1, restaurant2 in
                 let cuisine1 = restaurant1.cuisine ?? "Unknown"
                 let cuisine2 = restaurant2.cuisine ?? "Unknown"
                 return cuisine1.localizedCaseInsensitiveCompare(cuisine2) == .orderedAscending
             }
-            
-        case .nutritionAvailable:
-            return restaurants.sorted { restaurant1, restaurant2 in
-                let hasNutrition1 = RestaurantData.restaurantsWithNutritionData.contains(restaurant1.name)
-                let hasNutrition2 = RestaurantData.restaurantsWithNutritionData.contains(restaurant2.name)
-                
-                if hasNutrition1 && !hasNutrition2 {
-                    return true
-                } else if !hasNutrition1 && hasNutrition2 {
-                    return false
-                } else {
-                    return restaurant1.name.localizedCaseInsensitiveCompare(restaurant2.name) == .orderedAscending
-                }
-            }
+        } else if selectedSortOptions.isEmpty {
+            // Fallback: Sort by name if no sorting options are selected
+            sorted = sorted.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
         }
+        
+        return sorted
     }
     
     private func performRefresh() async {

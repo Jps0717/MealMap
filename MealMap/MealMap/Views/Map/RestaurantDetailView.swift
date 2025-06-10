@@ -9,6 +9,7 @@ struct RestaurantDetailView: View {
     @State private var selectedTab: DetailTab = .nutrition
     @State private var hasNutritionData: Bool = false
     @StateObject private var nutritionManager = NutritionDataManager()
+    @State private var cameraPosition: MapCameraPosition = .automatic
     
     enum DetailTab: String, CaseIterable {
         case info = "Info"
@@ -27,9 +28,14 @@ struct RestaurantDetailView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Background blur
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
+                // Generic map-style background
+                MapStyleBackground()
+                    .ignoresSafeArea(.all)
+                
+                // Full-screen blur overlay extending to all edges
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .ignoresSafeArea(.all)
                     .onTapGesture {
                         dismissView()
                     }
@@ -310,8 +316,8 @@ struct RestaurantInfoView: View {
                 InfoRow(icon: "phone.fill", title: "Phone", value: phone, geometry: geometry)
             }
             
-            InfoRow(icon: "mappin.circle.fill", title: "Coordinates", 
-                   value: "\(String(format: "%.4f", restaurant.latitude)), \(String(format: "%.4f", restaurant.longitude))", 
+            InfoRow(icon: "mappin.circle.fill", title: "Coordinates",
+                   value: "\(String(format: "%.4f", restaurant.latitude)), \(String(format: "%.4f", restaurant.longitude))",
                    geometry: geometry)
         }
     }
