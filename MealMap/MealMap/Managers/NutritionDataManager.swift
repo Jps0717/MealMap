@@ -5,110 +5,58 @@ class NutritionDataManager: ObservableObject {
     @Published var currentRestaurantData: RestaurantNutritionData?
     @Published var errorMessage: String?
     
-    private let restaurantMapping: [String: String] = [
-        "7 Eleven": "R0000",
-        "Applebee's": "R0001",
-        "Arby's": "R0002",
-        "Auntie Anne's": "R0003",
-        "BJ's Restaurant & Brewhouse": "R0004",
-        "Baskin Robbins": "R0005",
-        "Bob Evans": "R0006",
-        "Bojangles": "R0007",
-        "Bonefish Grill": "R0008",
-        "Boston Market": "R0009",
-        "Burger King": "R0010",
-        "California Pizza Kitchen": "R0011",
-        "Captain D's": "R0012",
-        "Carl's Jr.": "R0013",
-        "Carrabba's Italian Grill": "R0014",
-        "Casey's General Store": "R0015",
-        "Checker's Drive-In/Rallys": "R0016",
-        "Chick-Fil-A": "R0017",
-        "Chick-fil-A": "R0018",
-        "Chili's": "R0019",
-        "Chipotle": "R0020",
-        "Chuck E. Cheese": "R0021",
-        "Church's Chicken": "R0022",
-        "Ci Ci's Pizza": "R0023",
-        "Culver's": "R0024",
-        "Dairy Queen": "R0025",
-        "Del Taco": "R0026",
-        "Denny's": "R0027",
-        "Dickey's Barbeque Pit": "R0028",
-        "Domino's": "R0029",
-        "Dunkin'": "R0030",
-        "Einstein Bros": "R0031",
-        "El Pollo Loco": "R0032",
-        "Famous Dave's": "R0033",
-        "Firehouse Subs": "R0034",
-        "Five Guys": "R0035",
-        "Friendly's": "R0036",
-        "Frisch's Big Boy": "R0037",
-        "Golden Corral": "R0038",
-        "Hardee's": "R0039",
-        "Hooters": "R0040",
-        "IHOP": "R0041",
-        "In-N-Out Burger": "R0042",
-        "Jack in the Box": "R0043",
-        "Jamba Juice": "R0044",
-        "Jason's Deli": "R0045",
-        "Jersey Mike's Subs": "R0046",
-        "Joe's Crab Shack": "R0047",
-        "KFC": "R0048",
-        "Krispy Kreme": "R0049",
-        "Krystal": "R0050",
-        "Little Caesars": "R0051",
-        "Long John Silver's": "R0052",
-        "LongHorn Steakhouse": "R0053",
-        "Marco's Pizza": "R0054",
-        "McAlister's Deli": "R0055",
-        "McDonald's": "R0056",
-        "Moe's Southwest Grill": "R0057",
-        "Noodles & Company": "R0058",
-        "O'Charley's": "R0059",
-        "Olive Garden": "R0060",
-        "Outback Steakhouse": "R0061",
-        "PF Chang's": "R0062",
-        "Panda Express": "R0063",
-        "Panera Bread": "R0064",
-        "Papa John's": "R0065",
-        "Papa Murphy's": "R0066",
-        "Perkins": "R0067",
-        "Pizza Hut": "R0068",
-        "Popeyes": "R0069",
-        "Potbelly Sandwich Shop": "R0070",
-        "Qdoba": "R0071",
-        "Quiznos": "R0072",
-        "Red Lobster": "R0073",
-        "Red Robin": "R0074",
-        "Romano's Macaroni Grill": "R0075",
-        "Round Table Pizza": "R0076",
-        "Ruby Tuesday": "R0077",
-        "Sbarro": "R0078",
-        "Sheetz": "R0079",
-        "Sonic": "R0080",
-        "Starbucks": "R0081",
-        "Steak 'N Shake": "R0082",
-        "Subway": "R0083",
-        "TGI Friday's": "R0084",
-        "Taco Bell": "R0085",
-        "The Capital Grille": "R0086",
-        "Tim Hortons": "R0087",
-        "Wawa": "R0088",
-        "Wendy's": "R0089",
-        "Whataburger": "R0090",
-        "White Castle": "R0091",
-        "Wingstop": "R0092",
-        "Yard House": "R0093",
-        "Zaxby's": "R0094"
-    ]
+    private let cache = CacheManager.shared
+    
+    // In-memory cache for immediate access
+    private var memoryCache: [String: RestaurantNutritionData] = [:]
+    private var loadingTasks: [String: Task<RestaurantNutritionData?, Never>] = [:]
     
     init() {
-        print("Loaded \(restaurantMapping.count) restaurant mappings")
+        print("NutritionDataManager initialized with caching system")
     }
     
     func loadNutritionData(for restaurantName: String) {
-        guard let restaurantID = restaurantMapping[restaurantName] else {
+        // Check memory cache first (fastest)
+        if let memoryData = memoryCache[restaurantName] {
+            print("Using memory cached nutrition data for \(restaurantName)")
+            self.isLoading = false
+            self.currentRestaurantData = memoryData
+            self.errorMessage = nil
+            return
+        }
+        
+        // Check persistent cache
+        if let cachedData = cache.getCachedNutritionData(for: restaurantName) {
+            print("Using persistent cached nutrition data for \(restaurantName)")
+            self.isLoading = false
+            self.currentRestaurantData = cachedData
+            self.errorMessage = nil
+            // Also store in memory cache for even faster future access
+            memoryCache[restaurantName] = cachedData
+            return
+        }
+        
+        // Check if already loading to prevent duplicate requests
+        if let existingTask = loadingTasks[restaurantName] {
+            print("Already loading \(restaurantName), waiting for completion...")
+            isLoading = true
+            errorMessage = nil
+            
+            Task {
+                if let result = await existingTask.value {
+                    await MainActor.run {
+                        self.isLoading = false
+                        self.currentRestaurantData = result
+                        self.memoryCache[restaurantName] = result
+                    }
+                }
+                loadingTasks.removeValue(forKey: restaurantName)
+            }
+            return
+        }
+        
+        // Get restaurant ID from cache manager
+        guard let restaurantID = cache.getRestaurantID(for: restaurantName) else {
             print("No nutrition data available for \(restaurantName)")
             errorMessage = "No nutrition data available for \(restaurantName)"
             return
@@ -117,148 +65,111 @@ class NutritionDataManager: ObservableObject {
         isLoading = true
         errorMessage = nil
         
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.loadNutritionDataAsync(restaurantName: restaurantName, restaurantID: restaurantID)
+        // Create loading task to prevent duplicates
+        let task = Task {
+            return await loadNutritionDataInBackground(for: restaurantName, restaurantID: restaurantID)
+        }
+        
+        loadingTasks[restaurantName] = task
+        
+        Task {
+            if let result = await task.value {
+                await MainActor.run {
+                    self.isLoading = false
+                    self.currentRestaurantData = result
+                    self.memoryCache[restaurantName] = result
+                }
+            } else {
+                await MainActor.run {
+                    self.isLoading = false
+                    self.errorMessage = "Failed to load nutrition data for \(restaurantName)"
+                }
+            }
+            loadingTasks.removeValue(forKey: restaurantName)
         }
     }
     
-    private func loadNutritionDataAsync(restaurantName: String, restaurantID: String) {
-        print("Attempting to load nutrition data for \(restaurantName) with ID \(restaurantID)")
+    // Background loading with automatic caching
+    private func loadNutritionDataInBackground(for restaurantName: String, restaurantID: String) async -> RestaurantNutritionData? {
+        print("Background loading nutrition data for \(restaurantName) with ID \(restaurantID)")
         
-        if let bundlePath = Bundle.main.resourcePath {
-            print("Bundle path: \(bundlePath)")
-            let fileManager = FileManager.default
-            do {
-                let contents = try fileManager.contentsOfDirectory(atPath: bundlePath)
-                print("Bundle contents: \(contents.prefix(5))")
-            } catch {
-                print("Could not list bundle contents: \(error)")
-            }
-        }
-        
-        // For now, let's hardcode McDonald's data as a test
-        if restaurantName == "McDonald's" {
-            let hardcodedItems = [
-                NutritionData(
-                    item: "Big Mac",
-                    calories: 550,
-                    fat: 30,
-                    saturatedFat: 10,
-                    cholesterol: 80,
-                    sodium: 1010,
-                    carbs: 44,
-                    fiber: 3,
-                    sugar: 9,
-                    protein: 25
-                ),
-                NutritionData(
-                    item: "McChicken",
-                    calories: 400,
-                    fat: 21,
-                    saturatedFat: 3.5,
-                    cholesterol: 40,
-                    sodium: 560,
-                    carbs: 40,
-                    fiber: 2,
-                    sugar: 5,
-                    protein: 14
-                ),
-                NutritionData(
-                    item: "Fries (Medium)",
-                    calories: 320,
-                    fat: 15,
-                    saturatedFat: 2,
-                    cholesterol: 0,
-                    sodium: 260,
-                    carbs: 44,
-                    fiber: 4,
-                    sugar: 0,
-                    protein: 4
-                ),
-                NutritionData(
-                    item: "Quarter Pounder with Cheese",
-                    calories: 520,
-                    fat: 26,
-                    saturatedFat: 12,
-                    cholesterol: 75,
-                    sodium: 1120,
-                    carbs: 42,
-                    fiber: 3,
-                    sugar: 10,
-                    protein: 26
-                ),
-                NutritionData(
-                    item: "Chicken McNuggets (10 pc)",
-                    calories: 440,
-                    fat: 27,
-                    saturatedFat: 4.5,
-                    cholesterol: 65,
-                    sodium: 840,
-                    carbs: 27,
-                    fiber: 2,
-                    sugar: 0,
-                    protein: 22
-                )
-            ]
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.isLoading = false
-                self?.currentRestaurantData = RestaurantNutritionData(
-                    restaurantName: restaurantName,
-                    items: hardcodedItems
-                )
-                print("Loaded hardcoded McDonald's data with \(hardcodedItems.count) items")
-            }
-            return
-        }
-        
+        // Try different bundle paths for CSV files
         var content: String?
+        let possiblePaths = [
+            Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "Services/restaurant_data"),
+            Bundle.main.path(forResource: restaurantID, ofType: "csv"),
+            Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "restaurant_data")
+        ]
         
-        if let path = Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "Services/restaurant_data") {
-            content = try? String(contentsOfFile: path)
-            print("Loaded from Services/restaurant_data: \(path)")
-        }
-        
-        if content == nil, let path = Bundle.main.path(forResource: restaurantID, ofType: "csv") {
-            content = try? String(contentsOfFile: path)
-            print("Loaded from main bundle: \(path)")
-        }
-        
-        if content == nil, let path = Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "restaurant_data") {
-            content = try? String(contentsOfFile: path)
-            print("Loaded from restaurant_data: \(path)")
+        for path in possiblePaths {
+            if let validPath = path {
+                do {
+                    let fileContent = try String(contentsOfFile: validPath)
+                    content = fileContent
+                    print("Successfully loaded nutrition data from: \(validPath)")
+                    break
+                } catch {
+                    print("Failed to load from \(validPath): \(error.localizedDescription)")
+                }
+            }
         }
         
         guard let fileContent = content else {
-            DispatchQueue.main.async { [weak self] in
-                self?.isLoading = false
-                self?.errorMessage = "Could not load nutrition data file for \(restaurantName) (ID: \(restaurantID))"
-                print("Failed to load nutrition data for \(restaurantName) - tried all bundle paths")
-            }
-            return
+            print("Failed to load nutrition data file for \(restaurantName) (ID: \(restaurantID))")
+            return nil
         }
         
-        let lines = fileContent.components(separatedBy: .newlines)
+        // Parse CSV content
+        let nutritionItems = parseNutritionCSV(content: fileContent, restaurantName: restaurantName)
+        
+        guard !nutritionItems.isEmpty else {
+            print("No valid nutrition items found for \(restaurantName)")
+            return nil
+        }
+        
+        let restaurantData = RestaurantNutritionData(
+            restaurantName: restaurantName,
+            items: nutritionItems
+        )
+        
+        // Cache the data immediately
+        cache.cacheNutritionData(restaurantData, for: restaurantName)
+        print("Loaded and cached \(nutritionItems.count) nutrition items for \(restaurantName)")
+        
+        return restaurantData
+    }
+    
+    private func parseNutritionCSV(content: String, restaurantName: String) -> [NutritionData] {
+        let lines = content.components(separatedBy: .newlines)
         var nutritionItems: [NutritionData] = []
         
-        for line in lines.dropFirst() { 
+        // Skip header line and process data
+        for (index, line) in lines.enumerated() {
+            if index == 0 { continue } // Skip header
+            
             let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !trimmedLine.isEmpty else { continue }
             
-            let components = line.components(separatedBy: ",")
-            guard components.count >= 10 else { continue }
+            // Handle CSV parsing with potential commas in quoted fields
+            let components = parseCSVLine(line)
+            guard components.count >= 10 else {
+                print("Skipping line \(index) for \(restaurantName): insufficient columns (\(components.count))")
+                continue
+            }
             
             let item = components[0].trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !item.isEmpty else { continue }
             
-            let calories = Double(components[1]) ?? 0.0
-            let fat = Double(components[2]) ?? 0.0
-            let saturatedFat = Double(components[3]) ?? 0.0
-            let cholesterol = Double(components[4]) ?? 0.0
-            let sodium = Double(components[5]) ?? 0.0
-            let carbs = Double(components[6]) ?? 0.0
-            let fiber = Double(components[7]) ?? 0.0
-            let sugar = Double(components[8]) ?? 0.0
-            let protein = Double(components[9]) ?? 0.0
+            // Parse numeric values with error handling
+            let calories = parseDouble(components[1]) ?? 0.0
+            let fat = parseDouble(components[2]) ?? 0.0
+            let saturatedFat = parseDouble(components[3]) ?? 0.0
+            let cholesterol = parseDouble(components[4]) ?? 0.0
+            let sodium = parseDouble(components[5]) ?? 0.0
+            let carbs = parseDouble(components[6]) ?? 0.0
+            let fiber = parseDouble(components[7]) ?? 0.0
+            let sugar = parseDouble(components[8]) ?? 0.0
+            let protein = parseDouble(components[9]) ?? 0.0
             
             let nutritionData = NutritionData(
                 item: item,
@@ -276,18 +187,86 @@ class NutritionDataManager: ObservableObject {
             nutritionItems.append(nutritionData)
         }
         
-        DispatchQueue.main.async { [weak self] in
-            self?.isLoading = false
-            self?.currentRestaurantData = RestaurantNutritionData(
-                restaurantName: restaurantName,
-                items: nutritionItems
-            )
-            print("Loaded \(nutritionItems.count) nutrition items for \(restaurantName)")
+        print("Parsed \(nutritionItems.count) items from CSV for \(restaurantName)")
+        return nutritionItems
+    }
+    
+    // Helper function to parse CSV lines that might contain quoted fields
+    private func parseCSVLine(_ line: String) -> [String] {
+        var components: [String] = []
+        var currentComponent = ""
+        var insideQuotes = false
+        var i = line.startIndex
+        
+        while i < line.endIndex {
+            let char = line[i]
+            
+            if char == "\"" {
+                insideQuotes.toggle()
+            } else if char == "," && !insideQuotes {
+                components.append(currentComponent.trimmingCharacters(in: .whitespacesAndNewlines))
+                currentComponent = ""
+            } else {
+                currentComponent.append(char)
+            }
+            
+            i = line.index(after: i)
         }
+        
+        // Add the last component
+        components.append(currentComponent.trimmingCharacters(in: .whitespacesAndNewlines))
+        
+        return components
+    }
+    
+    // Helper function to safely parse double values
+    private func parseDouble(_ string: String) -> Double? {
+        let cleaned = string.trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "\"", with: "")
+        return Double(cleaned)
+    }
+    
+    // Preload nutrition data for a restaurant without updating UI
+    func preloadNutritionData(for restaurantName: String) {
+        guard memoryCache[restaurantName] == nil,
+              cache.getCachedNutritionData(for: restaurantName) == nil,
+              loadingTasks[restaurantName] == nil else {
+            return // Already cached or loading
+        }
+        
+        guard let restaurantID = cache.getRestaurantID(for: restaurantName) else {
+            return
+        }
+        
+        let task = Task {
+            return await loadNutritionDataInBackground(for: restaurantName, restaurantID: restaurantID)
+        }
+        
+        loadingTasks[restaurantName] = task
+        
+        Task {
+            if let result = await task.value {
+                await MainActor.run {
+                    self.memoryCache[restaurantName] = result
+                }
+            }
+            loadingTasks.removeValue(forKey: restaurantName)
+        }
+    }
+    
+    // Get cache statistics
+    func getCacheInfo() -> (memoryCount: Int, persistentCount: Int) {
+        let stats = cache.getCacheStats()
+        return (memoryCache.count, stats.nutritionCacheSize)
     }
     
     func clearData() {
         currentRestaurantData = nil
         errorMessage = nil
+    }
+    
+    func clearMemoryCache() {
+        memoryCache.removeAll()
+        print("Cleared nutrition memory cache")
     }
 }
