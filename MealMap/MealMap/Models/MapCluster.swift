@@ -170,9 +170,9 @@ class ClusterManager: ObservableObject {
     private var isUpdating = false
     private var wasShowingClusters = true
     
-    private let maxCacheSize = 10
-    private let cacheExpiryTime: TimeInterval = 180 // 3 minutes
-    private let minUpdateInterval: TimeInterval = 0.1 // Minimum time between updates
+    private let maxCacheSize = 20 // Increased for better coverage
+    private let cacheExpiryTime: TimeInterval = 300
+    private let minUpdateInterval: TimeInterval = 0.05 // Very responsive
     private var lastUpdateTime = Date.distantPast
     
     func updateClusters(
@@ -180,9 +180,12 @@ class ClusterManager: ObservableObject {
         zoomLevel: Double,
         span: MKCoordinateSpan,
         center: CLLocationCoordinate2D,
-        debounceDelay: TimeInterval = 0.15
+        debounceDelay: TimeInterval = 0.1
     ) {
-        // Throttle updates
+        // FIXED: Early return for empty restaurants to prevent unnecessary processing
+        guard !restaurants.isEmpty else { return }
+        
+        // Minimal throttling for smoothness
         let now = Date()
         if now.timeIntervalSince(lastUpdateTime) < minUpdateInterval {
             return
@@ -197,9 +200,9 @@ class ClusterManager: ObservableObject {
             center: center
         )
         
-        // Skip update if data hasn't changed significantly
+        // More lenient similarity check for responsiveness
         if let lastData = lastClusteringData,
-           lastData.isSimilar(to: newData, threshold: 0.001) {
+           lastData.isSimilar(to: newData, threshold: 0.003) {
             return
         }
         
@@ -221,24 +224,27 @@ class ClusterManager: ObservableObject {
         
         let cacheKey = data.cacheKey
         
-        // Check cache first
+        // INSTANT: Check cache first for immediate response
         if let cached = clusterCache[cacheKey], !cached.isExpired {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.clusters = cached.clusters
+            await MainActor.run {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.clusters = cached.clusters
+                }
+                self.isUpdating = false
             }
-            isUpdating = false
             return
         }
         
-        let willShowClusters = data.zoomLevel >= 0.008
+        let willShowClusters = data.zoomLevel >= 0.015
         let shouldAnimate = wasShowingClusters != willShowClusters
         
         if shouldAnimate {
-            transitionState = willShowClusters ? .mergingToClusters : .splittingToIndividual
-            try? await Task.sleep(nanoseconds: 100_000_000)
+            await MainActor.run {
+                transitionState = willShowClusters ? .mergingToClusters : .splittingToIndividual
+            }
         }
         
-        // Perform clustering on background queue
+        // Background clustering for smooth performance
         let newClusters = await Task.detached {
             MapCluster.createClusters(
                 from: data.restaurants,
@@ -248,28 +254,37 @@ class ClusterManager: ObservableObject {
             )
         }.value
         
-        // Cache results
+        // Cache results immediately
         clusterCache[cacheKey] = CachedClusterData(
             clusters: newClusters,
             timestamp: Date()
         )
         
-        // Clean cache
-        cleanCache()
-        
-        withAnimation(.easeInOut(duration: shouldAnimate ? 0.4 : 0.2)) {
-            self.clusters = newClusters
+        // Periodic cache cleaning
+        if clusterCache.count > maxCacheSize {
+            cleanCache()
         }
         
-        if shouldAnimate {
-            try? await Task.sleep(nanoseconds: 400_000_000)
-            transitionState = .stable
+        // INSTANT: Update UI immediately
+        await MainActor.run {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.clusters = newClusters
+            }
+            
+            if shouldAnimate {
+                Task {
+                    try? await Task.sleep(nanoseconds: 100_000_000) // Minimal delay
+                    await MainActor.run {
+                        self.transitionState = .stable
+                    }
+                }
+            }
+            
+            self.wasShowingClusters = willShowClusters
+            self.isUpdating = false
         }
-        
-        wasShowingClusters = willShowClusters
-        isUpdating = false
     }
-    
+
     private func cleanCache() {
         // Remove expired entries
         clusterCache = clusterCache.filter { !$0.value.isExpired }
@@ -320,6 +335,6 @@ private struct CachedClusterData {
     let timestamp: Date
     
     var isExpired: Bool {
-        Date().timeIntervalSince(timestamp) > 180 // 3 minutes
+        Date().timeIntervalSince(timestamp) > 300
     }
 }

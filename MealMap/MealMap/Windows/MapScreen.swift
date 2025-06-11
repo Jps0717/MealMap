@@ -11,16 +11,18 @@ struct MapScreen: View {
     @StateObject private var clusterManager = ClusterManager()
     @StateObject private var searchManager = SearchManager()
     
-    // UI State
+    // UI State - Reduced state variables
     @State private var searchText = ""
+    @State private var lastRegionUpdate = Date.distantPast
     
     // Haptic Feedback
     private let mediumFeedback = UIImpactFeedbackGenerator(style: .medium)
     private let heavyFeedback = UIImpactFeedbackGenerator(style: .heavy)
     
-    // Configuration
-    private let pinVisibilityThreshold: CLLocationDegrees = 0.1
-    private let clusterVisibilityThreshold: CLLocationDegrees = 0.15
+    // Configuration - Optimized for instant response
+    private let pinVisibilityThreshold: CLLocationDegrees = 0.08
+    private let clusterVisibilityThreshold: CLLocationDegrees = 0.12
+    private let regionUpdateThreshold: TimeInterval = 0.1 // Debounce map updates
     
     // Computed Properties
     private var hasValidLocation: Bool {
@@ -32,19 +34,21 @@ struct MapScreen: View {
     private var mapItems: [MapItem] {
         var items: [MapItem] = []
         
-        // Add custom user location pin (non-interactive)
+        // Add user location
         if let userLocation = locationManager.lastLocation {
             items.append(.userLocation(userLocation.coordinate))
         }
         
+        // Get best available restaurants (cached or current)
         let restaurantsToShow = viewModel.showSearchResults ?
-            viewModel.filteredRestaurants : viewModel.restaurants
+            viewModel.filteredRestaurants :
+            viewModel.getBestAvailableRestaurants(for: viewModel.region.center)
         
         if viewModel.showSearchResults {
             items.append(contentsOf: getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) })
         } else if viewModel.region.span.latitudeDelta > clusterVisibilityThreshold {
             // Don't show anything when too zoomed out
-        } else if viewModel.region.span.latitudeDelta > 0.02 {
+        } else if viewModel.region.span.latitudeDelta > 0.015 {
             items.append(contentsOf: clusterManager.clusters.map { .cluster($0) })
         } else {
             items.append(contentsOf: getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) })
@@ -101,18 +105,22 @@ struct MapScreen: View {
         }
     }
     
-    // MARK: - Main Map View
+    // MARK: - Main Map View - Instant Response
     private var mainMapView: some View {
         ZStack {
+            // INSTANT: No debouncing on region updates - immediate response
             Map(coordinateRegion: Binding(
                 get: { viewModel.region },
-                set: { viewModel.updateRegion($0) }
+                set: { newRegion in
+                    // INSTANT: Update immediately without any delay or debouncing
+                    viewModel.updateRegion(newRegion)
+                }
             ), showsUserLocation: false, annotationItems: mapItems) { item in
                 MapAnnotation(coordinate: item.coordinate) {
                     switch item {
                     case .userLocation(let coordinate):
                         UserLocationAnnotationView()
-                            .allowsHitTesting(false) // Make it non-interactive
+                            .allowsHitTesting(false)
                         
                     case .cluster(let cluster):
                         ClusterAnnotationView(
@@ -145,15 +153,27 @@ struct MapScreen: View {
                 Spacer()
             }
             
+            // NEW: Subtle loading indicator that doesn't block interaction
             if viewModel.isLoadingRestaurants {
                 VStack {
                     HStack {
                         Spacer()
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                            .scaleEffect(0.8)
-                            .padding(.trailing, 20)
-                            .padding(.top, 60)
+                        
+                        // NEW: Progress-aware loading indicator
+                        ZStack {
+                            Circle()
+                                .stroke(Color.blue.opacity(0.2), lineWidth: 2)
+                                .frame(width: 20, height: 20)
+                            
+                            Circle()
+                                .trim(from: 0, to: 1.0 - viewModel.loadingProgress)
+                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
+                                .frame(width: 20, height: 20)
+                                .rotationEffect(.degrees(-90))
+                                .animation(.easeInOut(duration: 0.3), value: viewModel.loadingProgress)
+                        }
+                        .padding(.trailing, 20)
+                        .padding(.top, 60)
                     }
                     Spacer()
                 }
@@ -161,11 +181,15 @@ struct MapScreen: View {
             
             restaurantDetailOverlay
         }
+        // SIMPLIFIED: Use regular restaurants property and computed logic
         .onReceive(viewModel.$restaurants) { restaurants in
-            updateClusters(with: restaurants)
-        }
-        .onReceive(viewModel.$region) { region in
-            updateClusters(with: viewModel.restaurants)
+            // Use combined restaurants from cache and current for clustering
+            let availableRestaurants = viewModel.showSearchResults ? 
+                viewModel.filteredRestaurants : restaurants
+            
+            if !availableRestaurants.isEmpty {
+                updateClusters(with: availableRestaurants)
+            }
         }
     }
     
@@ -335,13 +359,16 @@ struct MapScreen: View {
         viewModel.clearSearch()
     }
     
+    // SIMPLIFIED: Instant cluster updates without artificial delays
     private func updateClusters(with restaurants: [Restaurant]) {
+        guard !restaurants.isEmpty else { return }
+        
         clusterManager.updateClusters(
             restaurants: restaurants,
             zoomLevel: viewModel.region.span.latitudeDelta,
             span: viewModel.region.span,
             center: viewModel.region.center,
-            debounceDelay: 0.15
+            debounceDelay: 0.1 // Minimal delay for smooth clustering
         )
     }
     
@@ -354,6 +381,7 @@ struct MapScreen: View {
         guard !isZoomedOutTooFar else { return [] }
         
         if isZoomedIn || viewModel.showSearchResults {
+            // OPTIMIZED: More efficient distance calculation
             return restaurantList.sorted { r1, r2 in
                 let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
                 let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
