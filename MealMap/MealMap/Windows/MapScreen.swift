@@ -25,7 +25,6 @@ struct MapScreen: View {
     
     // Configuration - Optimized for instant response
     private let pinVisibilityThreshold: CLLocationDegrees = 0.08
-    private let regionUpdateThreshold: TimeInterval = 0.1 // Debounce map updates
     
     // Computed Properties
     private var hasValidLocation: Bool {
@@ -100,15 +99,23 @@ struct MapScreen: View {
         }
     }
     
-    // MARK: - Main Map View - Instant Response
+    // MARK: - Main Map View - Always Interactive
     private var mainMapView: some View {
         ZStack {
-            // INSTANT: No debouncing on region updates - immediate response
+            // Map layer - ALWAYS fully interactive
             Map(coordinateRegion: Binding(
                 get: { viewModel.region },
                 set: { newRegion in
-                    // INSTANT: Update immediately without any delay or debouncing
-                    viewModel.updateRegion(newRegion)
+                    let latDiff = abs(viewModel.region.center.latitude - newRegion.center.latitude)
+                    let lonDiff = abs(viewModel.region.center.longitude - newRegion.center.longitude)
+                    let movement = latDiff + lonDiff
+                    
+                    if movement > 0.0005 { // ~50 meters - very sensitive
+                        viewModel.updateRegion(newRegion)
+                    } else {
+                        // Still update the region for zoom changes
+                        viewModel.region = newRegion
+                    }
                 }
             ), showsUserLocation: false, annotationItems: mapItems) { item in
                 MapAnnotation(coordinate: item.coordinate) {
@@ -133,44 +140,52 @@ struct MapScreen: View {
             }
             .mapStyle(.standard(pointsOfInterest: []))
             .ignoresSafeArea(edges: .all)
+            .disabled(false) // Explicitly ensure map is never disabled
             
+            // UI overlays that DON'T block map interaction
             VStack {
                 streamlinedHeader
+                    .allowsHitTesting(true) // Allow header interactions
                 Spacer()
             }
             
-            // NEW: Subtle loading indicator that doesn't block interaction
+            // Non-blocking loading indicator - positioned to not interfere
             if viewModel.isLoadingRestaurants {
                 VStack {
                     Spacer()
-                    
-                    // Centered progress indicator (clockwise)
-                    ZStack {
-                        Circle()
-                            .stroke(Color.blue.opacity(0.2), lineWidth: 3)
-                            .frame(width: 40, height: 40)
+                    HStack {
+                        Spacer()
                         
-                        Circle()
-                            .trim(from: 0, to: viewModel.loadingProgress)
-                            .stroke(Color.blue, style: StrokeStyle(lineWidth: 3, lineCap: .round))
-                            .frame(width: 40, height: 40)
-                            .rotationEffect(.degrees(-90))
-                            .animation(.easeInOut(duration: 0.3), value: viewModel.loadingProgress)
-                        
-                        // Optional: Add a subtle background
-                        Circle()
-                            .fill(.ultraThinMaterial)
-                            .frame(width: 32, height: 32)
-                            .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                        // Compact corner loading indicator
+                        ZStack {
+                            Circle()
+                                .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                                .frame(width: 32, height: 32)
+                            
+                            Circle()
+                                .trim(from: 0, to: viewModel.loadingProgress)
+                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
+                                .frame(width: 32, height: 32)
+                                .rotationEffect(.degrees(-90))
+                                .animation(.easeInOut(duration: 0.3), value: viewModel.loadingProgress)
+                            
+                            Circle()
+                                .fill(.ultraThinMaterial)
+                                .frame(width: 24, height: 24)
+                                .shadow(color: .black.opacity(0.1), radius: 3, y: 1)
+                        }
+                        .padding(.trailing, 20)
+                        .padding(.bottom, 120) // Position above restaurant detail area
                     }
-                    
-                    Spacer()
                 }
-                .allowsHitTesting(false) // Don't block map interactions
+                .allowsHitTesting(false) // Critical: Don't block ANY interactions
+                .zIndex(1) // Keep below other UI elements
             }
             
             restaurantDetailOverlay
+                .zIndex(100) // Keep restaurant detail on top
         }
+        .allowsHitTesting(true) // Ensure the entire ZStack allows interactions
     }
     
     // MARK: - Streamlined Header
@@ -292,8 +307,15 @@ struct MapScreen: View {
     }
     
     private func handleLocationChange(_ location: CLLocation?) {
+        // Only update the location annotation, don't move the map view
         guard let location = location else { return }
-        initializeWithLocation(location.coordinate)
+        
+        // Only initialize if this is the very first location and we don't have a proper region set
+        if viewModel.region.center.latitude == 0 && viewModel.region.center.longitude == 0 {
+            initializeWithLocation(location.coordinate)
+        }
+        
+        // Otherwise just let the location annotation update without moving the map
     }
     
     private func initializeWithLocation(_ coordinate: CLLocationCoordinate2D) {
@@ -359,32 +381,36 @@ struct MapScreen: View {
     }
 }
 
-// MARK: - Enhanced User Location with softer design
+// MARK: - Enhanced User Location with proper centering
 struct UserLocationAnnotationView: View {
     @State private var isPulsing = false
     
     var body: some View {
         ZStack {
-            // Outer pulsing circle - properly centered
+            // Outer pulsing circle - properly anchored to center
             Circle()
                 .fill(Color.blue.opacity(0.3))
                 .frame(width: 20, height: 20)
                 .scaleEffect(isPulsing ? 2.0 : 1.0)
                 .opacity(isPulsing ? 0.0 : 0.6)
-                .animation(.easeOut(duration: 1.5).repeatForever(autoreverses: false), value: isPulsing)
+                .animation(
+                    .easeOut(duration: 1.5)
+                    .repeatForever(autoreverses: false),
+                    value: isPulsing
+                )
             
-            // Inner solid circle - always centered
+            // Inner solid circle - always perfectly centered
             Circle()
                 .fill(Color.blue)
                 .frame(width: 12, height: 12)
                 .overlay(
                     Circle()
                         .stroke(Color.white, lineWidth: 2)
-                        .frame(width: 12, height: 12)
                 )
-                .shadow(color: .black.opacity(0.2), radius: 2, y: 1)
+                .shadow(color: .black.opacity(0.3), radius: 3, y: 1)
         }
-        .frame(width: 40, height: 40) // Fixed container size to prevent drift
+        .frame(width: 40, height: 40) // Fixed container prevents any drift
+        .position(x: 20, y: 20) // Explicitly center within the frame
         .onAppear {
             isPulsing = true
         }

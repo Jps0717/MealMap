@@ -45,6 +45,9 @@ final class MapViewModel: ObservableObject {
     private let cacheExpiryInterval: TimeInterval = 600
     private let preloadRadius: Double = 2.0
     
+    private let regionUpdateThreshold: Double = 0.001 // Was 0.005, now detects even small movements
+    private let significantMoveThreshold: Double = 0.003 // Was 0.05, now triggers on 300m moves
+    
     // MARK: - Computed Properties
     var hasValidLocation: Bool {
         locationManager.lastLocation != nil &&
@@ -70,23 +73,39 @@ final class MapViewModel: ObservableObject {
         setupLocationObserver()
     }
     
-    // MARK: - Public Methods - Non-blocking approach
+    // MARK: - Public Methods - Always Non-blocking and Smooth
     func updateRegion(_ newRegion: MKCoordinateRegion) {
-        let oldRegion = region
+        // INSTANT: Update region immediately for smooth panning
         region = newRegion
         
-        // Check if this requires entirely new data (not just zoom changes)
-        let needsNewData = needsNewDataForRegion(from: oldRegion, to: newRegion)
+        // BACKGROUND: Defer all heavy calculations to background
+        Task { @MainActor in
+            await handleRegionChangeInBackground(newRegion)
+        }
+    }
+    
+    private func handleRegionChangeInBackground(_ newRegion: MKCoordinateRegion) async {
+        // Calculate movement in background to avoid blocking UI
+        let latDiff = abs(region.center.latitude - newRegion.center.latitude)
+        let lonDiff = abs(region.center.longitude - newRegion.center.longitude)
+        let distanceMoved = latDiff + lonDiff
         
-        if needsNewData {
-            // Show loading for entirely new data requests
+        // Quick check for significant movement
+        let isSignificantMove = distanceMoved > significantMoveThreshold
+        let needsBackgroundLoading = distanceMoved > regionUpdateThreshold
+        
+        // Only show loading for significant moves to new areas
+        if isSignificantMove && needsBackgroundLoading {
             withAnimation(.easeInOut(duration: 0.2)) {
                 isLoadingRestaurants = true
                 loadingProgress = 0.0
             }
         }
         
-        startBackgroundDataLoading(for: newRegion, showLoading: needsNewData)
+        // Always start background loading for any meaningful movement (but don't block UI)
+        if needsBackgroundLoading {
+            startBackgroundDataLoading(for: newRegion, showLoading: isSignificantMove)
+        }
     }
     
     func performSearch(query: String, maxDistance: Double?) {
@@ -143,20 +162,21 @@ final class MapViewModel: ObservableObject {
     
     // MARK: - NEW: Non-blocking Background Loading
     private func startBackgroundDataLoading(for newRegion: MKCoordinateRegion, force: Bool = false, showLoading: Bool = false) {
-        updateAreaNameIfNeeded(for: newRegion.center)
-        
-        loadRestaurantDataInBackground(for: newRegion.center, force: force, showLoading: showLoading)
-        
-        preloadNearbyAreas(around: newRegion.center)
+        // BACKGROUND: Do all work in background to keep UI smooth
+        Task.detached { @MainActor in
+            await self.updateAreaNameIfNeeded(for: newRegion.center)
+            await self.loadRestaurantDataInBackground(for: newRegion.center, force: force, showLoading: showLoading)
+            await self.preloadNearbyAreas(around: newRegion.center)
+        }
     }
-    
+
     private func loadRestaurantDataInBackground(for center: CLLocationCoordinate2D, force: Bool = false, showLoading: Bool = false) {
         let cacheKey = createCacheKey(for: center)
         
-        // If we have cached data and not forcing, show it immediately WITHOUT loading indicator
+        // INSTANT: Check cache immediately without blocking
         if !force, let cached = restaurantCache[cacheKey], !cached.isExpired {
             restaurants = cached.restaurants
-            // Ensure loading is hidden when using cached data
+            // Hide loading immediately when using cached data
             if isLoadingRestaurants {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     isLoadingRestaurants = false
@@ -166,7 +186,7 @@ final class MapViewModel: ObservableObject {
             return
         }
         
-        // Only show loading if we're actually going to fetch new data
+        // BACKGROUND: Show loading only if we're actually fetching new data
         if showLoading {
             withAnimation(.easeInOut(duration: 0.2)) {
                 isLoadingRestaurants = true
@@ -174,12 +194,14 @@ final class MapViewModel: ObservableObject {
             }
         }
         
+        // BACKGROUND: Cancel any existing task for this area
         dataFetchTasks[cacheKey]?.cancel()
         backgroundLoadingAreas.insert(cacheKey)
         updateLoadingProgress()
         
-        dataFetchTasks[cacheKey] = Task { @MainActor in
-            await fetchRestaurantDataNonBlocking(for: center, cacheKey: cacheKey, force: force, showLoading: showLoading)
+        // BACKGROUND: Fetch data without blocking main thread
+        dataFetchTasks[cacheKey] = Task.detached { @MainActor in
+            await self.fetchRestaurantDataNonBlocking(for: center, cacheKey: cacheKey, force: force, showLoading: showLoading)
         }
     }
     
@@ -236,13 +258,19 @@ final class MapViewModel: ObservableObject {
         dataFetchTasks.removeValue(forKey: cacheKey)
     }
     
-    private func preloadNearbyAreas(around center: CLLocationCoordinate2D) {
+    private func preloadNearbyAreas(around center: CLLocationCoordinate2D) async {
         let offsets: [(lat: Double, lon: Double)] = [
+            // Immediate adjacent areas (closer)
+            (0.005, 0), (-0.005, 0), (0, 0.005), (0, -0.005),
+            // Diagonal immediate
+            (0.005, 0.005), (-0.005, -0.005), (0.005, -0.005), (-0.005, 0.005),
+            // Slightly further areas
             (0.01, 0), (-0.01, 0), (0, 0.01), (0, -0.01),
+            // Further diagonal
             (0.01, 0.01), (-0.01, -0.01), (0.01, -0.01), (-0.01, 0.01)
         ]
         
-        for offset in offsets {
+        for (index, offset) in offsets.enumerated() {
             let nearbyCenter = CLLocationCoordinate2D(
                 latitude: center.latitude + offset.lat,
                 longitude: center.longitude + offset.lon
@@ -250,14 +278,16 @@ final class MapViewModel: ObservableObject {
             
             let nearbyCacheKey = createCacheKey(for: nearbyCenter)
             
+            // BACKGROUND: Check cache and loading status without blocking
             if restaurantCache[nearbyCacheKey]?.isExpired != false &&
                !backgroundLoadingAreas.contains(nearbyCacheKey) {
                 
-                Task { @MainActor in
-                    try? await Task.sleep(nanoseconds: 200_000_000)
+                Task.detached { @MainActor in
+                    let delay = index < 8 ? 100_000_000 : 300_000_000 // 100ms for close, 300ms for far
+                    try? await Task.sleep(nanoseconds: UInt64(delay))
                     
-                    if !backgroundLoadingAreas.contains(nearbyCacheKey) {
-                        loadRestaurantDataInBackground(for: nearbyCenter)
+                    if !self.backgroundLoadingAreas.contains(nearbyCacheKey) {
+                        await self.loadRestaurantDataInBackground(for: nearbyCenter)
                     }
                 }
             }
@@ -272,7 +302,7 @@ final class MapViewModel: ObservableObject {
         }
     }
     
-    private func updateAreaNameIfNeeded(for coordinate: CLLocationCoordinate2D) {
+    private func updateAreaNameIfNeeded(for coordinate: CLLocationCoordinate2D) async {
         let timeSinceLastGeocode = Date().timeIntervalSince(lastGeocodeTime)
         let shouldUpdate = timeSinceLastGeocode >= 3.0 || {
             if let lastLocation = lastGeocodeLocation {
@@ -284,7 +314,7 @@ final class MapViewModel: ObservableObject {
         }()
         
         if shouldUpdate {
-            updateAreaNameDebounced(for: coordinate)
+            await updateAreaNameDebounced(for: coordinate)
         }
     }
     
@@ -304,7 +334,7 @@ final class MapViewModel: ObservableObject {
         startBackgroundDataLoading(for: region)
     }
     
-    private func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) {
+    private func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) async {
         geocodeTask?.cancel()
         geocodeTask = Task { @MainActor in
             try? await Task.sleep(nanoseconds: 500_000_000)
@@ -427,8 +457,8 @@ final class MapViewModel: ObservableObject {
     }
     
     private func createCacheKey(for coordinate: CLLocationCoordinate2D) -> String {
-        let lat = round(coordinate.latitude * 100) / 100
-        let lon = round(coordinate.longitude * 100) / 100
+        let lat = round(coordinate.latitude * 200) / 200
+        let lon = round(coordinate.longitude * 200) / 200
         return "\(lat)_\(lon)"
     }
     
@@ -455,9 +485,8 @@ final class MapViewModel: ObservableObject {
         let lonDiff = abs(oldRegion.center.longitude - newRegion.center.longitude)
         let distanceMoved = latDiff + lonDiff
         
-        // Only show loading if moved to a significantly different area
-        // 0.05 degrees is roughly 5-6km, indicating a major location change
-        let significantDistanceThreshold: Double = 0.05
+        // 0.003 degrees is roughly 300-400m, making it very responsive
+        let significantDistanceThreshold: Double = significantMoveThreshold
         
         // Check if we need new data from the cache/API
         let newCacheKey = createCacheKey(for: newRegion.center)
@@ -465,8 +494,13 @@ final class MapViewModel: ObservableObject {
         // Check if we already have this data cached
         let hasDataCached = restaurantCache[newCacheKey]?.isExpired == false
         
-        // Only trigger loading for major location changes that require NEW data from API
-        return distanceMoved > significantDistanceThreshold && !hasDataCached
+        // Always trigger background loading for ANY movement, but only show loading indicator for major moves
+        if distanceMoved > regionUpdateThreshold {
+            // Always start background loading for any movement
+            return true
+        }
+        
+        return false
     }
     
     private func cancelAllTasks() {
