@@ -21,8 +21,8 @@ final class MapViewModel: ObservableObject {
     @Published var showingRestaurantDetail = false
     
     // MARK: - New Properties for Non-Blocking Loading
-    @Published var backgroundLoadingAreas: Set<String> = [] // Track which areas are loading
-    @Published var loadingProgress: Double = 1.0 // 0.0 to 1.0, 1.0 means not loading
+    @Published var backgroundLoadingAreas: Set<String> = []
+    @Published var loadingProgress: Double = 1.0
     
     // MARK: - Private Properties
     private let overpassService = OverpassAPIService()
@@ -32,7 +32,7 @@ final class MapViewModel: ObservableObject {
     // Enhanced caching for immediate response
     private var regionUpdateTask: Task<Void, Never>?
     private var geocodeTask: Task<Void, Never>?
-    private var dataFetchTasks: [String: Task<Void, Never>] = [:] // Multiple concurrent tasks
+    private var dataFetchTasks: [String: Task<Void, Never>] = [:]
     private var restaurantCache: [String: CachedRestaurantData] = [:]
     
     // State tracking
@@ -41,9 +41,9 @@ final class MapViewModel: ObservableObject {
     private var pendingDataFetches: Set<String> = []
     
     // Configuration - Optimized for responsiveness
-    private let maxCacheSize = 25 // Increased cache for more coverage
-    private let cacheExpiryInterval: TimeInterval = 600 // 10 minutes - longer retention
-    private let preloadRadius: Double = 2.0 // Preload nearby areas
+    private let maxCacheSize = 25
+    private let cacheExpiryInterval: TimeInterval = 600
+    private let preloadRadius: Double = 2.0
     
     // MARK: - Computed Properties
     var hasValidLocation: Bool {
@@ -58,7 +58,6 @@ final class MapViewModel: ObservableObject {
     
     // NEW: Combined restaurants from cache and current area
     var allAvailableRestaurants: [Restaurant] {
-        // Show cached restaurants immediately, then update with fresh data
         let currentCacheKey = createCacheKey(for: region.center)
         if let cached = restaurantCache[currentCacheKey] {
             return cached.restaurants
@@ -73,10 +72,8 @@ final class MapViewModel: ObservableObject {
     
     // MARK: - Public Methods - Non-blocking approach
     func updateRegion(_ newRegion: MKCoordinateRegion) {
-        // IMMEDIATELY update region - never block user interaction
         region = newRegion
         
-        // Start background loading without blocking UI
         startBackgroundDataLoading(for: newRegion)
     }
     
@@ -85,7 +82,6 @@ final class MapViewModel: ObservableObject {
         
         let distanceFilter = (maxDistance ?? 20.0) < 20.0 ? maxDistance : nil
         
-        // Search in all available restaurants (cached + current)
         let result = searchManager.search(
             query: query,
             in: allAvailableRestaurants,
@@ -103,7 +99,6 @@ final class MapViewModel: ObservableObject {
     }
     
     func refreshData(for coordinate: CLLocationCoordinate2D) {
-        // Force refresh but still non-blocking
         startBackgroundDataLoading(for: MKCoordinateRegion(
             center: coordinate,
             span: region.span
@@ -113,7 +108,7 @@ final class MapViewModel: ObservableObject {
     func selectRestaurant(_ restaurant: Restaurant) {
         selectedRestaurant = restaurant
         zoomToRestaurant(restaurant)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // Reduced delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.showingRestaurantDetail = true
         }
     }
@@ -122,13 +117,11 @@ final class MapViewModel: ObservableObject {
         cancelAllTasks()
     }
     
-    // NEW: Method to get cached restaurants for a specific area
     func getCachedRestaurants(for coordinate: CLLocationCoordinate2D) -> [Restaurant]? {
         let cacheKey = createCacheKey(for: coordinate)
         return restaurantCache[cacheKey]?.restaurants
     }
     
-    // NEW: Get best available restaurants (cached or current)
     func getBestAvailableRestaurants(for coordinate: CLLocationCoordinate2D) -> [Restaurant] {
         if let cached = getCachedRestaurants(for: coordinate) {
             return cached
@@ -138,29 +131,23 @@ final class MapViewModel: ObservableObject {
     
     // MARK: - NEW: Non-blocking Background Loading
     private func startBackgroundDataLoading(for newRegion: MKCoordinateRegion, force: Bool = false) {
-        // Update area name immediately if cached, otherwise in background
         updateAreaNameIfNeeded(for: newRegion.center)
         
-        // Start restaurant data loading in background
         loadRestaurantDataInBackground(for: newRegion.center, force: force)
         
-        // Preload nearby areas for smooth panning
         preloadNearbyAreas(around: newRegion.center)
     }
     
     private func loadRestaurantDataInBackground(for center: CLLocationCoordinate2D, force: Bool = false) {
         let cacheKey = createCacheKey(for: center)
         
-        // If we have cached data and not forcing, show it immediately
         if !force, let cached = restaurantCache[cacheKey], !cached.isExpired {
             restaurants = cached.restaurants
             return
         }
         
-        // Cancel existing task for this area if any
         dataFetchTasks[cacheKey]?.cancel()
         
-        // Mark area as loading
         backgroundLoadingAreas.insert(cacheKey)
         updateLoadingProgress()
         
@@ -171,7 +158,6 @@ final class MapViewModel: ObservableObject {
     
     private func fetchRestaurantDataNonBlocking(for center: CLLocationCoordinate2D, cacheKey: String, force: Bool) async {
         do {
-            // Show loading indicator subtly
             if backgroundLoadingAreas.count == 1 {
                 loadingProgress = 0.0
                 withAnimation(.easeInOut(duration: 0.2)) {
@@ -181,22 +167,18 @@ final class MapViewModel: ObservableObject {
             
             let fetchedRestaurants = try await overpassService.fetchFastFoodRestaurants(near: center)
             
-            // Cache the results
             restaurantCache[cacheKey] = CachedRestaurantData(
                 restaurants: fetchedRestaurants,
                 timestamp: Date()
             )
             
-            // Clean old cache entries
             cleanCache()
             
-            // Update restaurants if this is the current area
             let currentCacheKey = createCacheKey(for: region.center)
             if cacheKey == currentCacheKey {
                 restaurants = fetchedRestaurants
             }
             
-            // Update loading state
             backgroundLoadingAreas.remove(cacheKey)
             updateLoadingProgress()
             
@@ -208,7 +190,6 @@ final class MapViewModel: ObservableObject {
             }
             
         } catch {
-            // Handle error gracefully - don't block UI
             backgroundLoadingAreas.remove(cacheKey)
             updateLoadingProgress()
             
@@ -222,14 +203,13 @@ final class MapViewModel: ObservableObject {
             print("Background restaurant fetch error: \(error)")
         }
         
-        // Clean up task
         dataFetchTasks.removeValue(forKey: cacheKey)
     }
     
     private func preloadNearbyAreas(around center: CLLocationCoordinate2D) {
         let offsets: [(lat: Double, lon: Double)] = [
-            (0.01, 0), (-0.01, 0), (0, 0.01), (0, -0.01), // Adjacent areas
-            (0.01, 0.01), (-0.01, -0.01), (0.01, -0.01), (-0.01, 0.01) // Diagonal areas
+            (0.01, 0), (-0.01, 0), (0, 0.01), (0, -0.01),
+            (0.01, 0.01), (-0.01, -0.01), (0.01, -0.01), (-0.01, 0.01)
         ]
         
         for offset in offsets {
@@ -240,13 +220,11 @@ final class MapViewModel: ObservableObject {
             
             let nearbyCacheKey = createCacheKey(for: nearbyCenter)
             
-            // Only preload if not already cached and not currently loading
-            if restaurantCache[nearbyCacheKey]?.isExpired != false && 
+            if restaurantCache[nearbyCacheKey]?.isExpired != false &&
                !backgroundLoadingAreas.contains(nearbyCacheKey) {
                 
                 Task { @MainActor in
-                    // Add small delay to not overwhelm the API
-                    try? await Task.sleep(nanoseconds: 200_000_000) // 0.2s
+                    try? await Task.sleep(nanoseconds: 200_000_000)
                     
                     if !backgroundLoadingAreas.contains(nearbyCacheKey) {
                         loadRestaurantDataInBackground(for: nearbyCenter)
@@ -260,13 +238,11 @@ final class MapViewModel: ObservableObject {
         if backgroundLoadingAreas.isEmpty {
             loadingProgress = 1.0
         } else {
-            // Calculate progress based on active loading tasks
             loadingProgress = max(0.2, 1.0 - (Double(backgroundLoadingAreas.count) * 0.2))
         }
     }
     
     private func updateAreaNameIfNeeded(for coordinate: CLLocationCoordinate2D) {
-        // Check if we need to update area name
         let timeSinceLastGeocode = Date().timeIntervalSince(lastGeocodeTime)
         let shouldUpdate = timeSinceLastGeocode >= 3.0 || {
             if let lastLocation = lastGeocodeLocation {
@@ -282,7 +258,6 @@ final class MapViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Existing Methods - Optimized
     private func setupLocationObserver() {
         if let location = locationManager.lastLocation {
             initializeWithLocation(location.coordinate)
@@ -302,7 +277,7 @@ final class MapViewModel: ObservableObject {
     private func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) {
         geocodeTask?.cancel()
         geocodeTask = Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 500_000_000) // Reduced debounce
+            try? await Task.sleep(nanoseconds: 500_000_000)
             
             guard !Task.isCancelled else { return }
             
@@ -347,7 +322,6 @@ final class MapViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Helper Methods
     private func handleSearchResult(_ result: SearchResult) {
         switch result {
         case .noQuery:
@@ -428,10 +402,8 @@ final class MapViewModel: ObservableObject {
     }
     
     private func cleanCache() {
-        // Remove expired entries
         restaurantCache = restaurantCache.filter { !$0.value.isExpired }
         
-        // Remove oldest entries if cache is too large
         if restaurantCache.count > maxCacheSize {
             let sortedKeys = restaurantCache.keys.sorted { key1, key2 in
                 let timestamp1 = restaurantCache[key1]?.timestamp ?? Date.distantPast
@@ -476,12 +448,11 @@ final class MapViewModel: ObservableObject {
     struct TimeoutError: Error {}
 }
 
-// MARK: - Supporting Models
 private struct CachedRestaurantData {
     let restaurants: [Restaurant]
     let timestamp: Date
     
     var isExpired: Bool {
-        Date().timeIntervalSince(timestamp) > 600 // 10 minutes - longer retention
+        Date().timeIntervalSince(timestamp) > 600
     }
 }

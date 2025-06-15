@@ -8,7 +8,6 @@ struct MapScreen: View {
     @StateObject private var viewModel = MapViewModel()
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var networkMonitor = NetworkMonitor.shared
-    @StateObject private var clusterManager = ClusterManager()
     @StateObject private var searchManager = SearchManager()
     
     // UI State - Reduced state variables
@@ -21,7 +20,6 @@ struct MapScreen: View {
     
     // Configuration - Optimized for instant response
     private let pinVisibilityThreshold: CLLocationDegrees = 0.08
-    private let clusterVisibilityThreshold: CLLocationDegrees = 0.12
     private let regionUpdateThreshold: TimeInterval = 0.1 // Debounce map updates
     
     // Computed Properties
@@ -39,20 +37,12 @@ struct MapScreen: View {
             items.append(.userLocation(userLocation.coordinate))
         }
         
-        // Get best available restaurants (cached or current)
+        // Get best available restaurants (cached or current) - always show individual pins
         let restaurantsToShow = viewModel.showSearchResults ?
             viewModel.filteredRestaurants :
             viewModel.getBestAvailableRestaurants(for: viewModel.region.center)
         
-        if viewModel.showSearchResults {
-            items.append(contentsOf: getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) })
-        } else if viewModel.region.span.latitudeDelta > clusterVisibilityThreshold {
-            // Don't show anything when too zoomed out
-        } else if viewModel.region.span.latitudeDelta > 0.015 {
-            items.append(contentsOf: clusterManager.clusters.map { .cluster($0) })
-        } else {
-            items.append(contentsOf: getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) })
-        }
+        items.append(contentsOf: getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) })
         
         return items
     }
@@ -122,15 +112,6 @@ struct MapScreen: View {
                         UserLocationAnnotationView()
                             .allowsHitTesting(false)
                         
-                    case .cluster(let cluster):
-                        ClusterAnnotationView(
-                            count: cluster.count,
-                            nutritionDataCount: cluster.nutritionDataCount,
-                            noNutritionDataCount: cluster.noNutritionDataCount
-                        )
-                        .transition(.scale.combined(with: .opacity))
-                        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: clusterManager.transitionState)
-                        
                     case .restaurant(let restaurant):
                         RestaurantAnnotationView(
                             restaurant: restaurant,
@@ -141,7 +122,7 @@ struct MapScreen: View {
                             }
                         )
                         .transition(.scale.combined(with: .opacity))
-                        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: clusterManager.transitionState)
+                        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.selectedRestaurant?.id)
                     }
                 }
             }
@@ -180,16 +161,6 @@ struct MapScreen: View {
             }
             
             restaurantDetailOverlay
-        }
-        // SIMPLIFIED: Use regular restaurants property and computed logic
-        .onReceive(viewModel.$restaurants) { restaurants in
-            // Use combined restaurants from cache and current for clustering
-            let availableRestaurants = viewModel.showSearchResults ? 
-                viewModel.filteredRestaurants : restaurants
-            
-            if !availableRestaurants.isEmpty {
-                updateClusters(with: availableRestaurants)
-            }
         }
     }
     
@@ -359,24 +330,11 @@ struct MapScreen: View {
         viewModel.clearSearch()
     }
     
-    // SIMPLIFIED: Instant cluster updates without artificial delays
-    private func updateClusters(with restaurants: [Restaurant]) {
-        guard !restaurants.isEmpty else { return }
-        
-        clusterManager.updateClusters(
-            restaurants: restaurants,
-            zoomLevel: viewModel.region.span.latitudeDelta,
-            span: viewModel.region.span,
-            center: viewModel.region.center,
-            debounceDelay: 0.1 // Minimal delay for smooth clustering
-        )
-    }
-    
     private func getFilteredRestaurantsForDisplay(from restaurantList: [Restaurant]) -> [Restaurant] {
-        let maxRestaurants = viewModel.showSearchResults ? 75 : 50
+        let maxRestaurants = viewModel.showSearchResults ? 100 : 75 // Increased limits since no clustering
         let center = viewModel.region.center
         let isZoomedIn = viewModel.region.span.latitudeDelta <= pinVisibilityThreshold
-        let isZoomedOutTooFar = viewModel.region.span.latitudeDelta > clusterVisibilityThreshold && !viewModel.showSearchResults
+        let isZoomedOutTooFar = viewModel.region.span.latitudeDelta > 0.15 && !viewModel.showSearchResults
         
         guard !isZoomedOutTooFar else { return [] }
         
@@ -389,7 +347,7 @@ struct MapScreen: View {
             }.prefix(maxRestaurants).map { $0 }
         }
         
-        return restaurantList
+        return Array(restaurantList.prefix(maxRestaurants))
     }
 }
 
@@ -470,13 +428,11 @@ struct NoLocationView: View {
 
 enum MapItem: Identifiable {
     case userLocation(CLLocationCoordinate2D)
-    case cluster(MapCluster)
     case restaurant(Restaurant)
 
     var id: AnyHashable {
         switch self {
         case .userLocation(let coordinate): return "user_\(coordinate.latitude)_\(coordinate.longitude)"
-        case .cluster(let c): return c.id
         case .restaurant(let r): return r.id
         }
     }
@@ -484,7 +440,6 @@ enum MapItem: Identifiable {
     var coordinate: CLLocationCoordinate2D {
         switch self {
         case .userLocation(let coordinate): return coordinate
-        case .cluster(let c): return c.coordinate
         case .restaurant(let r): return CLLocationCoordinate2D(latitude: r.latitude, longitude: r.longitude)
         }
     }
