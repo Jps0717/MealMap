@@ -1,4 +1,6 @@
 import SwiftUI
+import CoreLocation
+import Combine
 
 struct ContentView: View {
     @State private var isBottomTabExpanded = false
@@ -7,9 +9,12 @@ struct ContentView: View {
     @State private var isAnimating = false
     @State private var scrollOffset: CGFloat = 0
     @State private var canDismissSheet = true
+    @State private var currentLocationName = ""
+    @State private var showingSearchView = false
 
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var networkMonitor = NetworkMonitor.shared
+    @StateObject private var mapViewModel = MapViewModel()
 
     // Gentle haptic feedback
     private let lightFeedback = UIImpactFeedbackGenerator(style: .light)
@@ -143,6 +148,17 @@ struct ContentView: View {
             }
         }
         .ignoresSafeArea()
+        .onReceive(locationManager.$lastLocation) { location in
+            if let location = location {
+                updateLocationName(for: location.coordinate)
+            }
+        }
+        .sheet(isPresented: $showingSearchView) {
+            RestaurantSearchView(
+                isPresented: $showingSearchView,
+                mapViewModel: mapViewModel
+            )
+        }
     }
 
     // MARK: - Continuous Control
@@ -254,18 +270,18 @@ struct ContentView: View {
         let progress = maxDistance > 0 ? max(0, min(1, (collapsedOffset - currentOffset) / maxDistance)) : 0
 
         return VStack(spacing: 0) {
-            // Dynamic drag indicator
+            // Dynamic drag indicator with better positioning
             RoundedRectangle(cornerRadius: 2.5, style: .continuous)
                 .fill(.secondary.opacity(0.3 + progress * 0.3))
                 .frame(
                     width: 36 + progress * 8,
                     height: 4
                 )
-                .padding(.top, 8)
-                .padding(.bottom, 4)
+                .padding(.top, 10)
+                .padding(.bottom, 8)
 
-            // Header content
-            HStack(alignment: .center, spacing: 16) {
+            // Header content with improved spacing and alignment
+            HStack(alignment: .center, spacing: 14) {
                 // Menu button
                 Button(action: {
                     mediumFeedback.impactOccurred()
@@ -279,49 +295,37 @@ struct ContentView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                 }
 
-                // Center content with progress indicator
-                VStack(spacing: 2) {
-                    HStack(spacing: 4) {
-                        Text("FOR YOU")
-                            .font(.system(size: 15, weight: .semibold, design: .rounded))
-                            .foregroundColor(.blue)
+                // Center content with location only
+                HStack(spacing: 6) {
+                    Image(systemName: "location.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
 
-                        Image(systemName: "chevron.up")
-                            .font(.system(size: 10, weight: .semibold))
-                            .foregroundColor(.blue.opacity(0.6))
-                            .rotationEffect(.degrees(progress * 180))
-                    }
-
-                    HStack(spacing: 4) {
-                        Image(systemName: "location.fill")
-                            .font(.system(size: 9))
-                            .foregroundColor(.secondary)
-
-                        Text("NEW YORK")
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundColor(.secondary)
-                    }
+                    Text(currentLocationName.isEmpty ? "Getting location..." : currentLocationName)
+                        .font(.system(size: 18, weight: .semibold, design: .rounded))
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                 }
+                .frame(maxWidth: .infinity)
 
-                Spacer()
-
-                // Profile
+                // Profile button with consistent sizing
                 Button(action: {
                     mediumFeedback.impactOccurred()
                     // Profile action
                 }) {
                     Circle()
                         .fill(.blue)
-                        .frame(width: 34, height: 34)
+                        .frame(width: 40, height: 40)
                         .overlay(
                             Text("SL")
-                                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
                                 .foregroundColor(.white)
                         )
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.vertical, 12)
+            .padding(.vertical, 14)
         }
         .frame(height: bottomTabCollapsedHeight)
     }
@@ -365,7 +369,7 @@ struct ContentView: View {
                                 title: "Find Restaurants",
                                 subtitle: "Search nearby places",
                                 color: .blue,
-                                action: { print("Find Restaurants tapped") }
+                                action: { showingSearchView = true }
                             ),
                             AppMenuItem(
                                 icon: "heart.fill",
@@ -385,53 +389,10 @@ struct ContentView: View {
                         progress: progress
                     )
                     
-                    // Discover Section
-                    AppMenuSection(
-                        title: "Discover",
-                        items: [
-                            AppMenuItem(
-                                icon: "star.fill",
-                                title: "Top Rated",
-                                subtitle: "Highly rated restaurants",
-                                color: .yellow,
-                                action: { print("Top Rated tapped") }
-                            ),
-                            AppMenuItem(
-                                icon: "flame.fill",
-                                title: "Trending",
-                                subtitle: "Popular right now",
-                                color: .pink,
-                                action: { print("Trending tapped") }
-                            ),
-                            AppMenuItem(
-                                icon: "leaf.fill",
-                                title: "Healthy Options",
-                                subtitle: "Nutritious choices",
-                                color: .green,
-                                action: { print("Healthy Options tapped") }
-                            )
-                        ],
-                        progress: progress
-                    )
-                    
                     // Tools Section
                     AppMenuSection(
                         title: "Tools",
                         items: [
-                            AppMenuItem(
-                                icon: "list.bullet",
-                                title: "Meal Planner",
-                                subtitle: "Plan your meals",
-                                color: .purple,
-                                action: { print("Meal Planner tapped") }
-                            ),
-                            AppMenuItem(
-                                icon: "chart.bar.fill",
-                                title: "Nutrition Tracker",
-                                subtitle: "Track your intake",
-                                color: .teal,
-                                action: { print("Nutrition Tracker tapped") }
-                            ),
                             AppMenuItem(
                                 icon: "gearshape.fill",
                                 title: "Settings",
@@ -460,8 +421,8 @@ struct ContentView: View {
                 // Pull-to-dismiss gesture that only works when scrolled to top
                 DragGesture()
                     .onChanged { value in
-                        if canDismissSheet.wrappedValue && 
-                           value.translation.height > 20 && 
+                        if canDismissSheet.wrappedValue &&
+                           value.translation.height > 20 &&
                            value.translation.height > abs(value.translation.width) * 1.5 {
                             onDismiss()
                         }
@@ -470,6 +431,30 @@ struct ContentView: View {
         }
         .frame(height: expandedHeight - bottomTabCollapsedHeight)
         .clipped()
+    }
+    
+    // MARK: - Helper Methods
+    private func updateLocationName(for coordinate: CLLocationCoordinate2D) {
+        Task {
+            let geocoder = CLGeocoder()
+            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            
+            do {
+                let placemarks = try await geocoder.reverseGeocodeLocation(location)
+                if let placemark = placemarks.first {
+                    await MainActor.run {
+                        currentLocationName = placemark.locality ??
+                                            placemark.subLocality ??
+                                            placemark.administrativeArea ??
+                                            "Unknown Location"
+                    }
+                }
+            } catch {
+                await MainActor.run {
+                    currentLocationName = "Location unavailable"
+                }
+            }
+        }
     }
 }
 

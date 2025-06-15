@@ -153,10 +153,11 @@ final class MapViewModel: ObservableObject {
     private func loadRestaurantDataInBackground(for center: CLLocationCoordinate2D, force: Bool = false, showLoading: Bool = false) {
         let cacheKey = createCacheKey(for: center)
         
+        // If we have cached data and not forcing, show it immediately WITHOUT loading indicator
         if !force, let cached = restaurantCache[cacheKey], !cached.isExpired {
             restaurants = cached.restaurants
-            // Hide loading immediately if we have cached data
-            if showLoading {
+            // Ensure loading is hidden when using cached data
+            if isLoadingRestaurants {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     isLoadingRestaurants = false
                     loadingProgress = 1.0
@@ -165,8 +166,15 @@ final class MapViewModel: ObservableObject {
             return
         }
         
-        dataFetchTasks[cacheKey]?.cancel()
+        // Only show loading if we're actually going to fetch new data
+        if showLoading {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                isLoadingRestaurants = true
+                loadingProgress = 0.0
+            }
+        }
         
+        dataFetchTasks[cacheKey]?.cancel()
         backgroundLoadingAreas.insert(cacheKey)
         updateLoadingProgress()
         
@@ -177,7 +185,8 @@ final class MapViewModel: ObservableObject {
     
     private func fetchRestaurantDataNonBlocking(for center: CLLocationCoordinate2D, cacheKey: String, force: Bool, showLoading: Bool = false) async {
         do {
-            if showLoading || backgroundLoadingAreas.count == 1 {
+            // Only show loading if explicitly requested (for new data fetches)
+            if showLoading {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     isLoadingRestaurants = true
                     loadingProgress = 0.0
@@ -201,7 +210,8 @@ final class MapViewModel: ObservableObject {
             backgroundLoadingAreas.remove(cacheKey)
             updateLoadingProgress()
             
-            if backgroundLoadingAreas.isEmpty {
+            // Hide loading when done (only if we were showing it)
+            if showLoading || isLoadingRestaurants {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     isLoadingRestaurants = false
                     loadingProgress = 1.0
@@ -212,7 +222,8 @@ final class MapViewModel: ObservableObject {
             backgroundLoadingAreas.remove(cacheKey)
             updateLoadingProgress()
             
-            if backgroundLoadingAreas.isEmpty {
+            // Hide loading on error too
+            if showLoading || isLoadingRestaurants {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     isLoadingRestaurants = false
                     loadingProgress = 1.0
@@ -448,12 +459,13 @@ final class MapViewModel: ObservableObject {
         let significantDistanceThreshold: Double = 0.05
         
         // Check if we need new data from the cache/API
-        let oldCacheKey = createCacheKey(for: oldRegion.center)
         let newCacheKey = createCacheKey(for: newRegion.center)
-        let differentCacheRegion = oldCacheKey != newCacheKey
         
-        // Only trigger loading for major location changes that require new data
-        return distanceMoved > significantDistanceThreshold && differentCacheRegion
+        // Check if we already have this data cached
+        let hasDataCached = restaurantCache[newCacheKey]?.isExpired == false
+        
+        // Only trigger loading for major location changes that require NEW data from API
+        return distanceMoved > significantDistanceThreshold && !hasDataCached
     }
     
     private func cancelAllTasks() {

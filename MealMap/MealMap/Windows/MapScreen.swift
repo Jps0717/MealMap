@@ -210,18 +210,6 @@ struct MapScreen: View {
             .padding(.horizontal, 16)
             
             HStack(spacing: 8) {
-                if !viewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
-                    Text(viewModel.currentAreaName)
-                        .font(.system(size: 11, weight: .semibold, design: .rounded))
-                        .foregroundColor(.primary)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(
-                            Capsule()
-                                .fill(.ultraThinMaterial)
-                        )
-                }
-                
                 if viewModel.showSearchResults {
                     HStack(spacing: 4) {
                         Image(systemName: "magnifyingglass")
@@ -361,24 +349,26 @@ struct UserLocationAnnotationView: View {
     
     var body: some View {
         ZStack {
-            // Outer pulsing circle
+            // Outer pulsing circle - properly centered
             Circle()
-                .fill(Color.blue.opacity(0.2))
-                .frame(width: isPulsing ? 32 : 16, height: isPulsing ? 32 : 16)
-                .scaleEffect(isPulsing ? 1.3 : 1.0)
-                .opacity(isPulsing ? 0.0 : 1.0)
-                .animation(.easeInOut(duration: 1.8).repeatForever(autoreverses: false), value: isPulsing)
+                .fill(Color.blue.opacity(0.3))
+                .frame(width: 20, height: 20)
+                .scaleEffect(isPulsing ? 2.0 : 1.0)
+                .opacity(isPulsing ? 0.0 : 0.6)
+                .animation(.easeOut(duration: 1.5).repeatForever(autoreverses: false), value: isPulsing)
             
-            // Inner solid circle
+            // Inner solid circle - always centered
             Circle()
                 .fill(Color.blue)
                 .frame(width: 12, height: 12)
                 .overlay(
                     Circle()
                         .stroke(Color.white, lineWidth: 2)
+                        .frame(width: 12, height: 12)
                 )
                 .shadow(color: .black.opacity(0.2), radius: 2, y: 1)
         }
+        .frame(width: 40, height: 40) // Fixed container size to prevent drift
         .onAppear {
             isPulsing = true
         }
