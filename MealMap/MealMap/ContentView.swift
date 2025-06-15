@@ -63,7 +63,7 @@ struct ContentView: View {
                             )
                             
                             // Content that appears based on current position
-                            continuousContent(
+                            AppMenuContent(
                                 expandedHeight: expandedHeight,
                                 currentOffset: bottomSheetOffset,
                                 collapsedOffset: collapsedOffset,
@@ -280,8 +280,8 @@ struct ContentView: View {
         .frame(height: bottomTabCollapsedHeight)
     }
     
-    // MARK: - Continuous Content
-    private func continuousContent(
+    // MARK: - App Menu Content
+    private func AppMenuContent(
         expandedHeight: CGFloat,
         currentOffset: CGFloat,
         collapsedOffset: CGFloat,
@@ -291,39 +291,111 @@ struct ContentView: View {
         let progress = maxDistance > 0 ? max(0, min(1, (collapsedOffset - currentOffset) / maxDistance)) : 0
         
         return VStack(spacing: 0) {
-            // Content appears progressively
-            VStack(spacing: 20) {
-                // Header that fades in
+            // Menu content appears progressively
+            VStack(spacing: 24) {
+                // Welcome header
                 VStack(spacing: 8) {
-                    Text("Nearby Restaurants")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                    Text("Explore MealMap")
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
                         .foregroundColor(.primary)
                     
-                    Text("Discover great places around you")
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                    Text("Discover, plan, and enjoy great food experiences")
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                         .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
                 }
                 .padding(.horizontal, 24)
                 .opacity(progress)
                 
-                // Restaurant list
-                ScrollView(showsIndicators: false) {
-                    LazyVStack(spacing: 10) {
-                        ForEach(0..<12, id: \.self) { index in
-                            SimpleRestaurantRow(
-                                name: "Restaurant \(index + 1)", 
-                                cuisine: ["Italian", "Asian", "Mexican", "American", "Mediterranean"][index % 5],
-                                distance: String(format: "%.1f mi", Double(index + 1) * 0.2 + 0.1),
-                                rating: 4.0 + Double(index % 10) * 0.1
-                            )
-                            .opacity(max(0, progress * 1.2 - 0.2))
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 30)
-                }
-                .frame(maxHeight: expandedHeight - bottomTabCollapsedHeight - 120)
+                // Quick Actions Section
+                AppMenuSection(
+                    title: "Quick Actions",
+                    items: [
+                        AppMenuItem(
+                            icon: "magnifyingglass",
+                            title: "Find Restaurants",
+                            subtitle: "Search nearby places",
+                            color: .blue,
+                            action: { print("Find Restaurants tapped") }
+                        ),
+                        AppMenuItem(
+                            icon: "heart.fill",
+                            title: "Favorites",
+                            subtitle: "Your saved places",
+                            color: .red,
+                            action: { print("Favorites tapped") }
+                        ),
+                        AppMenuItem(
+                            icon: "clock.fill",
+                            title: "Recent",
+                            subtitle: "Recently visited",
+                            color: .orange,
+                            action: { print("Recent tapped") }
+                        )
+                    ],
+                    progress: progress
+                )
+                
+                // Discover Section
+                AppMenuSection(
+                    title: "Discover",
+                    items: [
+                        AppMenuItem(
+                            icon: "star.fill",
+                            title: "Top Rated",
+                            subtitle: "Highly rated restaurants",
+                            color: .yellow,
+                            action: { print("Top Rated tapped") }
+                        ),
+                        AppMenuItem(
+                            icon: "flame.fill",
+                            title: "Trending",
+                            subtitle: "Popular right now",
+                            color: .pink,
+                            action: { print("Trending tapped") }
+                        ),
+                        AppMenuItem(
+                            icon: "leaf.fill",
+                            title: "Healthy Options",
+                            subtitle: "Nutritious choices",
+                            color: .green,
+                            action: { print("Healthy Options tapped") }
+                        )
+                    ],
+                    progress: progress
+                )
+                
+                // Tools Section
+                AppMenuSection(
+                    title: "Tools",
+                    items: [
+                        AppMenuItem(
+                            icon: "list.bullet",
+                            title: "Meal Planner",
+                            subtitle: "Plan your meals",
+                            color: .purple,
+                            action: { print("Meal Planner tapped") }
+                        ),
+                        AppMenuItem(
+                            icon: "chart.bar.fill",
+                            title: "Nutrition Tracker",
+                            subtitle: "Track your intake",
+                            color: .teal,
+                            action: { print("Nutrition Tracker tapped") }
+                        ),
+                        AppMenuItem(
+                            icon: "gearshape.fill",
+                            title: "Settings",
+                            subtitle: "App preferences",
+                            color: .gray,
+                            action: { print("Settings tapped") }
+                        )
+                    ],
+                    progress: progress
+                )
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 40)
             
             Spacer(minLength: 0)
         }
@@ -332,70 +404,107 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Simple Restaurant Row
-struct SimpleRestaurantRow: View {
-    let name: String
-    let cuisine: String
-    let distance: String
-    let rating: Double
+// MARK: - Menu Components
+
+struct AppMenuItem {
+    let icon: String
+    let title: String
+    let subtitle: String
+    let color: Color
+    let action: () -> Void
+}
+
+struct AppMenuSection: View {
+    let title: String
+    let items: [AppMenuItem]
+    let progress: CGFloat
     
     var body: some View {
-        HStack(spacing: 12) {
-            // Simple image placeholder
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(.blue.opacity(0.1))
-                .frame(width: 46, height: 46)
-                .overlay(
-                    Image(systemName: "fork.knife")
-                        .foregroundColor(.blue.opacity(0.6))
-                        .font(.system(size: 13, weight: .medium))
-                )
-            
-            // Restaurant info
-            VStack(alignment: .leading, spacing: 3) {
-                Text(name)
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+        VStack(alignment: .leading, spacing: 12) {
+            // Section header
+            HStack {
+                Text(title)
+                    .font(.system(size: 18, weight: .semibold, design: .rounded))
                     .foregroundColor(.primary)
-                    .lineLimit(1)
-                
-                HStack(spacing: 6) {
-                    Text(cuisine)
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
-                        .foregroundColor(.secondary)
-                    
-                    Text("•")
-                        .foregroundColor(.secondary.opacity(0.5))
-                    
-                    HStack(spacing: 2) {
-                        Image(systemName: "star.fill")
-                            .font(.system(size: 9))
-                            .foregroundColor(.orange)
-                        
-                        Text(String(format: "%.1f", rating))
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundColor(.secondary)
-                    }
+                Spacer()
+            }
+            .padding(.horizontal, 4)
+            .opacity(max(0, progress * 1.5 - 0.3))
+            
+            // Menu items
+            VStack(spacing: 8) {
+                ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+                    AppMenuItemRow(item: item)
+                        .opacity(max(0, progress * 1.8 - 0.4 - Double(index) * 0.1))
                 }
             }
-            
-            Spacer()
-            
-            // Simple distance
-            Text(distance)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
-                .foregroundColor(.blue)
         }
-        .padding(.horizontal, 14)
-        .padding(.vertical, 10)
-        .background(
-            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(.background)
-                .overlay(
+    }
+}
+
+struct AppMenuItemRow: View {
+    let item: AppMenuItem
+    @State private var isPressed = false
+    
+    var body: some View {
+        Button(action: {
+            let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+            impactFeedback.impactOccurred()
+            item.action()
+        }) {
+            HStack(spacing: 16) {
+                // Icon
+                ZStack {
                     RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .stroke(.primary.opacity(0.05), lineWidth: 0.5)
-                )
-        )
-        .shadow(color: .black.opacity(0.03), radius: 4, y: 1)
+                        .fill(item.color.opacity(0.15))
+                        .frame(width: 48, height: 48)
+                    
+                    Image(systemName: item.icon)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(item.color)
+                }
+                
+                // Content
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(item.title)
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                    
+                    Text(item.subtitle)
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
+                
+                Spacer()
+                
+                // Chevron
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(.secondary.opacity(0.6))
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
+            .background(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(.background)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .stroke(.primary.opacity(0.06), lineWidth: 0.5)
+                    )
+            )
+            .scaleEffect(isPressed ? 0.98 : 1.0)
+            .opacity(isPressed ? 0.8 : 1.0)
+            .shadow(color: .black.opacity(0.04), radius: 8, y: 2)
+            .shadow(color: .black.opacity(0.02), radius: 1, y: 1)
+        }
+        .buttonStyle(PlainButtonStyle())
+        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+            withAnimation(.easeInOut(duration: 0.1)) {
+                isPressed = pressing
+            }
+        }, perform: {})
     }
 }
 
