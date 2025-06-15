@@ -72,9 +72,21 @@ final class MapViewModel: ObservableObject {
     
     // MARK: - Public Methods - Non-blocking approach
     func updateRegion(_ newRegion: MKCoordinateRegion) {
+        let oldRegion = region
         region = newRegion
         
-        startBackgroundDataLoading(for: newRegion)
+        // Check if this requires entirely new data (not just zoom changes)
+        let needsNewData = needsNewDataForRegion(from: oldRegion, to: newRegion)
+        
+        if needsNewData {
+            // Show loading for entirely new data requests
+            withAnimation(.easeInOut(duration: 0.2)) {
+                isLoadingRestaurants = true
+                loadingProgress = 0.0
+            }
+        }
+        
+        startBackgroundDataLoading(for: newRegion, showLoading: needsNewData)
     }
     
     func performSearch(query: String, maxDistance: Double?) {
@@ -102,7 +114,7 @@ final class MapViewModel: ObservableObject {
         startBackgroundDataLoading(for: MKCoordinateRegion(
             center: coordinate,
             span: region.span
-        ), force: true)
+        ), force: true, showLoading: true)
     }
     
     func selectRestaurant(_ restaurant: Restaurant) {
@@ -130,19 +142,26 @@ final class MapViewModel: ObservableObject {
     }
     
     // MARK: - NEW: Non-blocking Background Loading
-    private func startBackgroundDataLoading(for newRegion: MKCoordinateRegion, force: Bool = false) {
+    private func startBackgroundDataLoading(for newRegion: MKCoordinateRegion, force: Bool = false, showLoading: Bool = false) {
         updateAreaNameIfNeeded(for: newRegion.center)
         
-        loadRestaurantDataInBackground(for: newRegion.center, force: force)
+        loadRestaurantDataInBackground(for: newRegion.center, force: force, showLoading: showLoading)
         
         preloadNearbyAreas(around: newRegion.center)
     }
     
-    private func loadRestaurantDataInBackground(for center: CLLocationCoordinate2D, force: Bool = false) {
+    private func loadRestaurantDataInBackground(for center: CLLocationCoordinate2D, force: Bool = false, showLoading: Bool = false) {
         let cacheKey = createCacheKey(for: center)
         
         if !force, let cached = restaurantCache[cacheKey], !cached.isExpired {
             restaurants = cached.restaurants
+            // Hide loading immediately if we have cached data
+            if showLoading {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    isLoadingRestaurants = false
+                    loadingProgress = 1.0
+                }
+            }
             return
         }
         
@@ -152,16 +171,16 @@ final class MapViewModel: ObservableObject {
         updateLoadingProgress()
         
         dataFetchTasks[cacheKey] = Task { @MainActor in
-            await fetchRestaurantDataNonBlocking(for: center, cacheKey: cacheKey, force: force)
+            await fetchRestaurantDataNonBlocking(for: center, cacheKey: cacheKey, force: force, showLoading: showLoading)
         }
     }
     
-    private func fetchRestaurantDataNonBlocking(for center: CLLocationCoordinate2D, cacheKey: String, force: Bool) async {
+    private func fetchRestaurantDataNonBlocking(for center: CLLocationCoordinate2D, cacheKey: String, force: Bool, showLoading: Bool = false) async {
         do {
-            if backgroundLoadingAreas.count == 1 {
-                loadingProgress = 0.0
+            if showLoading || backgroundLoadingAreas.count == 1 {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     isLoadingRestaurants = true
+                    loadingProgress = 0.0
                 }
             }
             
@@ -416,6 +435,25 @@ final class MapViewModel: ObservableObject {
                 restaurantCache.removeValue(forKey: key)
             }
         }
+    }
+    
+    private func needsNewDataForRegion(from oldRegion: MKCoordinateRegion, to newRegion: MKCoordinateRegion) -> Bool {
+        // Calculate distance moved between centers
+        let latDiff = abs(oldRegion.center.latitude - newRegion.center.latitude)
+        let lonDiff = abs(oldRegion.center.longitude - newRegion.center.longitude)
+        let distanceMoved = latDiff + lonDiff
+        
+        // Only show loading if moved to a significantly different area
+        // 0.05 degrees is roughly 5-6km, indicating a major location change
+        let significantDistanceThreshold: Double = 0.05
+        
+        // Check if we need new data from the cache/API
+        let oldCacheKey = createCacheKey(for: oldRegion.center)
+        let newCacheKey = createCacheKey(for: newRegion.center)
+        let differentCacheRegion = oldCacheKey != newCacheKey
+        
+        // Only trigger loading for major location changes that require new data
+        return distanceMoved > significantDistanceThreshold && differentCacheRegion
     }
     
     private func cancelAllTasks() {

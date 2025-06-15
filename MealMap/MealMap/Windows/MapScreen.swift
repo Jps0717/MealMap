@@ -137,27 +137,31 @@ struct MapScreen: View {
             // NEW: Subtle loading indicator that doesn't block interaction
             if viewModel.isLoadingRestaurants {
                 VStack {
-                    HStack {
-                        Spacer()
+                    Spacer()
+                    
+                    // Centered progress indicator (clockwise)
+                    ZStack {
+                        Circle()
+                            .stroke(Color.blue.opacity(0.2), lineWidth: 3)
+                            .frame(width: 40, height: 40)
                         
-                        // NEW: Progress-aware loading indicator
-                        ZStack {
-                            Circle()
-                                .stroke(Color.blue.opacity(0.2), lineWidth: 2)
-                                .frame(width: 20, height: 20)
-                            
-                            Circle()
-                                .trim(from: 0, to: 1.0 - viewModel.loadingProgress)
-                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
-                                .frame(width: 20, height: 20)
-                                .rotationEffect(.degrees(-90))
-                                .animation(.easeInOut(duration: 0.3), value: viewModel.loadingProgress)
-                        }
-                        .padding(.trailing, 20)
-                        .padding(.top, 60)
+                        Circle()
+                            .trim(from: 0, to: viewModel.loadingProgress)
+                            .stroke(Color.blue, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                            .frame(width: 40, height: 40)
+                            .rotationEffect(.degrees(-90))
+                            .animation(.easeInOut(duration: 0.3), value: viewModel.loadingProgress)
+                        
+                        // Optional: Add a subtle background
+                        Circle()
+                            .fill(.ultraThinMaterial)
+                            .frame(width: 32, height: 32)
+                            .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                     }
+                    
                     Spacer()
                 }
+                .allowsHitTesting(false) // Don't block map interactions
             }
             
             restaurantDetailOverlay
