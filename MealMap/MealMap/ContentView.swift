@@ -54,7 +54,7 @@ struct ContentView: View {
 
             ZStack {
                 // Main Map Screen - always visible
-                MapScreen()
+                MapScreen(viewModel: mapViewModel)
                     .ignoresSafeArea()
 
                 if !shouldShowLocationScreens {
@@ -159,6 +159,12 @@ struct ContentView: View {
                 mapViewModel: mapViewModel
             )
         }
+        .onChange(of: mapViewModel.showSearchResults) { oldValue, newValue in
+            if newValue {
+                // Close the bottom sheet when search results are displayed
+                closeBottomSheet()
+            }
+        }
     }
 
     // MARK: - Continuous Control
@@ -178,6 +184,20 @@ struct ContentView: View {
         }
 
         mediumFeedback.impactOccurred()
+    }
+
+    private func closeBottomSheet() {
+        if isBottomTabExpanded {
+            let geometry = UIScreen.main.bounds
+            let safeAreaHeight = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
+            let screenHeight = geometry.height
+            let expandedHeight = screenHeight * 0.6
+            let maxDragDistance = expandedHeight - bottomTabCollapsedHeight
+            let collapsedOffset = maxDragDistance - collapsedBottomPadding + safeAreaHeight * 0.2
+            let expandedOffset: CGFloat = 0
+            
+            dismissSheet(collapsedOffset: collapsedOffset, expandedOffset: expandedOffset)
+        }
     }
 
     private func handleContinuousDrag(

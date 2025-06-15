@@ -5,7 +5,7 @@ import CoreLocation
 // MARK: - Simplified MapScreen with ViewModel
 
 struct MapScreen: View {
-    @StateObject private var viewModel = MapViewModel()
+    @ObservedObject var viewModel: MapViewModel
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var networkMonitor = NetworkMonitor.shared
     @StateObject private var searchManager = SearchManager()
@@ -13,6 +13,11 @@ struct MapScreen: View {
     // UI State - Reduced state variables
     @State private var searchText = ""
     @State private var lastRegionUpdate = Date.distantPast
+    
+    
+    init(viewModel: MapViewModel) {
+        self.viewModel = viewModel
+    }
     
     // Haptic Feedback
     private let mediumFeedback = UIImpactFeedbackGenerator(style: .medium)
@@ -323,14 +328,25 @@ struct MapScreen: View {
     }
     
     private func getFilteredRestaurantsForDisplay(from restaurantList: [Restaurant]) -> [Restaurant] {
-        let maxRestaurants = viewModel.showSearchResults ? 100 : 75 // Increased limits since no clustering
+        let maxRestaurants = viewModel.showSearchResults ? 100 : 75
         let center = viewModel.region.center
         let isZoomedIn = viewModel.region.span.latitudeDelta <= pinVisibilityThreshold
-        let isZoomedOutTooFar = viewModel.region.span.latitudeDelta > 0.15 && !viewModel.showSearchResults
         
+        // Always show search results regardless of zoom level
+        if viewModel.showSearchResults {
+            // When showing search results, always display them regardless of zoom level
+            return restaurantList.sorted { r1, r2 in
+                let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
+                let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
+                return d1 < d2
+            }.prefix(maxRestaurants).map { $0 }
+        }
+        
+        // For regular browsing (not search), apply zoom limitations
+        let isZoomedOutTooFar = viewModel.region.span.latitudeDelta > 0.15
         guard !isZoomedOutTooFar else { return [] }
         
-        if isZoomedIn || viewModel.showSearchResults {
+        if isZoomedIn {
             // OPTIMIZED: More efficient distance calculation
             return restaurantList.sorted { r1, r2 in
                 let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
@@ -440,5 +456,5 @@ enum MapItem: Identifiable {
 }
 
 #Preview {
-    MapScreen()
+    MapScreen(viewModel: MapViewModel())
 }

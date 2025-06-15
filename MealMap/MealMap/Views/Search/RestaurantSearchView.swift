@@ -289,38 +289,80 @@ struct RestaurantSearchView: View {
             }
         }
         
-        // Perform search with distance filter
+        // Perform search with distance filter - this will trigger the search and show results
         mapViewModel.performSearch(query: searchText, maxDistance: maxDistance)
         
-        // Dismiss the search view
+        // Dismiss the search view so user can see results on map
         isPresented = false
     }
     
     private func selectCuisine(_ cuisine: String) {
         if selectedCuisine == cuisine {
             selectedCuisine = nil
+            mapViewModel.clearSearch()
         } else {
             selectedCuisine = cuisine
             searchText = cuisine
-            performSearch()
+            
+            if !recentSearches.contains(cuisine) {
+                recentSearches.insert(cuisine, at: 0)
+                if recentSearches.count > 5 {
+                    recentSearches.removeLast()
+                }
+            }
+            
+            // Perform the search immediately
+            mapViewModel.performSearch(query: cuisine, maxDistance: maxDistance)
+            
+            // Dismiss the search view to show results
+            isPresented = false
         }
     }
     
     private func searchForHighestRated() {
-        // For now, just search for "restaurant" - could be enhanced with rating data
+        // Search for all restaurants to show highest rated
         searchText = "restaurant"
-        performSearch()
+        
+        // Add to recent searches
+        if !recentSearches.contains("restaurant") {
+            recentSearches.insert("restaurant", at: 0)
+            if recentSearches.count > 5 {
+                recentSearches.removeLast()
+            }
+        }
+        
+        mapViewModel.performSearch(query: "restaurant", maxDistance: maxDistance)
+        isPresented = false
     }
     
     private func searchForOpenRestaurants() {
-        // For now, show all restaurants - could be enhanced with hours data
-        searchText = "restaurant"
-        performSearch()
+        // Search for all restaurants - could be enhanced with hours data
+        searchText = "open restaurants"
+        
+        // Add to recent searches
+        if !recentSearches.contains("open restaurants") {
+            recentSearches.insert("open restaurants", at: 0)
+            if recentSearches.count > 5 {
+                recentSearches.removeLast()
+            }
+        }
+        
+        mapViewModel.performSearch(query: "restaurant", maxDistance: maxDistance)
+        isPresented = false
     }
     
     private func showClosestRestaurants() {
-        // Clear search to show all nearby restaurants
+        // Clear search to show all nearby restaurants and zoom to user location
         mapViewModel.clearSearch()
+        
+        // Add to recent searches
+        if !recentSearches.contains("nearby restaurants") {
+            recentSearches.insert("nearby restaurants", at: 0)
+            if recentSearches.count > 5 {
+                recentSearches.removeLast()
+            }
+        }
+        
         isPresented = false
     }
     

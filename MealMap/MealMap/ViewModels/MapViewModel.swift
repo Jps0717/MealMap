@@ -381,20 +381,11 @@ final class MapViewModel: ObservableObject {
         }
     }
     
-    private func zoomToRestaurant(_ restaurant: Restaurant) {
-        let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
-        withAnimation(.easeInOut(duration: 1.0)) {
-            region = MKCoordinateRegion(
-                center: coordinate,
-                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-            )
-        }
-    }
-    
     private func showCuisineResults(_ restaurants: [Restaurant]) {
         filteredRestaurants = restaurants
         showSearchResults = true
         
+        // Always zoom to show all cuisine results, regardless of zoom level
         if let bounds = calculateBounds(for: restaurants) {
             withAnimation(.easeInOut(duration: 1.0)) {
                 region = bounds
@@ -416,13 +407,23 @@ final class MapViewModel: ObservableObject {
         let centerLat = (minLat + maxLat) / 2
         let centerLon = (minLon + maxLon) / 2
         
-        let spanLat = max((maxLat - minLat) * 1.2, 0.01)
-        let spanLon = max((maxLon - minLon) * 1.2, 0.01)
+        let spanLat = max((maxLat - minLat) * 1.3, 0.02) // Increased padding and minimum span
+        let spanLon = max((maxLon - minLon) * 1.3, 0.02) // Increased padding and minimum span
         
         return MKCoordinateRegion(
             center: CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon),
             span: MKCoordinateSpan(latitudeDelta: spanLat, longitudeDelta: spanLon)
         )
+    }
+    
+    private func zoomToRestaurant(_ restaurant: Restaurant) {
+        let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+        withAnimation(.easeInOut(duration: 1.0)) {
+            region = MKCoordinateRegion(
+                center: coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+            )
+        }
     }
     
     private func createCacheKey(for coordinate: CLLocationCoordinate2D) -> String {
