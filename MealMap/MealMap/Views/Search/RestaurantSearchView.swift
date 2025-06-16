@@ -5,8 +5,6 @@ struct RestaurantSearchView: View {
     @Binding var isPresented: Bool
     @State private var searchText = ""
     @State private var selectedCuisine: String?
-    @State private var maxDistance: Double = 5.0
-    @State private var showingDistanceSlider = false
     
     // Dependencies
     @ObservedObject var mapViewModel: MapViewModel
@@ -41,17 +39,9 @@ struct RestaurantSearchView: View {
                         // Quick Cuisine Filters
                         cuisineFiltersSection
                         
-                        // Distance Filter
-                        distanceFilterSection
-                        
                         // Recent Searches
                         if !recentSearches.isEmpty {
                             recentSearchesSection
-                        }
-                        
-                        // Popular Nearby (if we have location)
-                        if locationManager.lastLocation != nil {
-                            popularNearbySection
                         }
                     }
                     .padding(.horizontal, 20)
@@ -106,7 +96,7 @@ struct RestaurantSearchView: View {
             // Search suggestions or results count
             if !searchText.isEmpty {
                 HStack {
-                    Text("Search in \(formatDistance(maxDistance)) radius")
+                    Text("Press Search or Enter to find restaurants")
                         .font(.system(size: 14, weight: .medium, design: .rounded))
                         .foregroundColor(.secondary)
                     Spacer()
@@ -143,52 +133,6 @@ struct RestaurantSearchView: View {
                         }
                     )
                 }
-            }
-        }
-        .padding(.horizontal, 4)
-    }
-    
-    // MARK: - Distance Filter
-    private var distanceFilterSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text("Search Radius")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
-                    .foregroundColor(.primary)
-                Spacer()
-                Button(formatDistance(maxDistance)) {
-                    withAnimation(.easeInOut(duration: 0.3)) {
-                        showingDistanceSlider.toggle()
-                    }
-                }
-                .font(.system(size: 16, weight: .semibold, design: .rounded))
-                .foregroundColor(.blue)
-            }
-            
-            if showingDistanceSlider {
-                VStack(spacing: 12) {
-                    Slider(value: $maxDistance, in: 1...25, step: 0.5) {
-                        Text("Distance")
-                    } minimumValueLabel: {
-                        Text("1mi")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.secondary)
-                    } maximumValueLabel: {
-                        Text("25mi")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.secondary)
-                    }
-                    .accentColor(.blue)
-                    
-                    HStack {
-                        Text("Search within \(formatDistance(maxDistance))")
-                            .font(.system(size: 14, weight: .medium, design: .rounded))
-                            .foregroundColor(.secondary)
-                        Spacer()
-                    }
-                }
-                .padding(.vertical, 8)
-                .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
         .padding(.horizontal, 4)
@@ -231,51 +175,6 @@ struct RestaurantSearchView: View {
         .padding(.horizontal, 4)
     }
     
-    // MARK: - Popular Nearby
-    private var popularNearbySection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text("Quick Actions")
-                    .font(.system(size: 20, weight: .bold, design: .rounded))
-                    .foregroundColor(.primary)
-                Spacer()
-            }
-            
-            VStack(spacing: 12) {
-                QuickActionButton(
-                    icon: "star.fill",
-                    title: "Highest Rated",
-                    color: .yellow,
-                    action: {
-                        // Search for highest rated
-                        searchForHighestRated()
-                    }
-                )
-                
-                QuickActionButton(
-                    icon: "clock.fill",
-                    title: "Open Now",
-                    color: .green,
-                    action: {
-                        // Search for open restaurants
-                        searchForOpenRestaurants()
-                    }
-                )
-                
-                QuickActionButton(
-                    icon: "location.fill",
-                    title: "Closest to Me",
-                    color: .blue,
-                    action: {
-                        // Show closest restaurants
-                        showClosestRestaurants()
-                    }
-                )
-            }
-        }
-        .padding(.horizontal, 4)
-    }
-    
     // MARK: - Actions
     private func performSearch() {
         guard !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
@@ -290,7 +189,7 @@ struct RestaurantSearchView: View {
         }
         
         // Perform search with distance filter - this will trigger the search and show results
-        mapViewModel.performSearch(query: searchText, maxDistance: maxDistance)
+        mapViewModel.performSearch(query: searchText, maxDistance: nil) // Remove distance parameter
         
         // Dismiss the search view so user can see results on map
         isPresented = false
@@ -311,66 +210,11 @@ struct RestaurantSearchView: View {
                 }
             }
             
-            // Perform the search immediately
-            mapViewModel.performSearch(query: cuisine, maxDistance: maxDistance)
+            // Perform the search immediately with distance
+            mapViewModel.performSearch(query: cuisine, maxDistance: nil) // Remove distance parameter
             
             // Dismiss the search view to show results
             isPresented = false
-        }
-    }
-    
-    private func searchForHighestRated() {
-        // Search for all restaurants to show highest rated
-        searchText = "restaurant"
-        
-        // Add to recent searches
-        if !recentSearches.contains("restaurant") {
-            recentSearches.insert("restaurant", at: 0)
-            if recentSearches.count > 5 {
-                recentSearches.removeLast()
-            }
-        }
-        
-        mapViewModel.performSearch(query: "restaurant", maxDistance: maxDistance)
-        isPresented = false
-    }
-    
-    private func searchForOpenRestaurants() {
-        // Search for all restaurants - could be enhanced with hours data
-        searchText = "open restaurants"
-        
-        // Add to recent searches
-        if !recentSearches.contains("open restaurants") {
-            recentSearches.insert("open restaurants", at: 0)
-            if recentSearches.count > 5 {
-                recentSearches.removeLast()
-            }
-        }
-        
-        mapViewModel.performSearch(query: "restaurant", maxDistance: maxDistance)
-        isPresented = false
-    }
-    
-    private func showClosestRestaurants() {
-        // Clear search to show all nearby restaurants and zoom to user location
-        mapViewModel.clearSearch()
-        
-        // Add to recent searches
-        if !recentSearches.contains("nearby restaurants") {
-            recentSearches.insert("nearby restaurants", at: 0)
-            if recentSearches.count > 5 {
-                recentSearches.removeLast()
-            }
-        }
-        
-        isPresented = false
-    }
-    
-    private func formatDistance(_ distance: Double) -> String {
-        if distance == floor(distance) {
-            return "\(Int(distance))mi"
-        } else {
-            return String(format: "%.1fmi", distance)
         }
     }
 }
@@ -408,10 +252,10 @@ struct CuisineFilterButton: View {
             .padding(.vertical, 14)
             .background(
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .fill(isSelected ? color.opacity(0.15) : Color(.systemBackground))
+                    .fill(isSelected ? Color.green.opacity(0.15) : Color(.systemBackground))
                     .overlay(
                         RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(isSelected ? color : Color(.systemGray5), lineWidth: isSelected ? 2 : 1)
+                            .stroke(isSelected ? Color.green : Color(.systemGray5), lineWidth: isSelected ? 2 : 1)
                     )
             )
             .shadow(color: .black.opacity(0.04), radius: 4, y: 2)

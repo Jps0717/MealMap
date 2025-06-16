@@ -14,7 +14,6 @@ struct MapScreen: View {
     @State private var searchText = ""
     @State private var lastRegionUpdate = Date.distantPast
     
-    
     init(viewModel: MapViewModel) {
         self.viewModel = viewModel
     }
@@ -41,10 +40,16 @@ struct MapScreen: View {
             items.append(.userLocation(userLocation.coordinate))
         }
         
-        // Get best available restaurants (cached or current) - always show individual pins
-        let restaurantsToShow = viewModel.showSearchResults ?
-            viewModel.filteredRestaurants :
-            viewModel.getBestAvailableRestaurants(for: viewModel.region.center)
+        // SIMPLIFIED: Always use radius-filtered restaurants when radius filter is active
+        let restaurantsToShow: [Restaurant]
+        
+        if viewModel.hasActiveRadiusFilter || viewModel.showSearchResults {
+            // Use radius-filtered restaurants (this will continuously apply radius filter)
+            restaurantsToShow = viewModel.restaurantsWithinSearchRadius
+        } else {
+            // Normal browsing - show all available restaurants
+            restaurantsToShow = viewModel.allAvailableRestaurants
+        }
         
         items.append(contentsOf: getFilteredRestaurantsForDisplay(from: restaurantsToShow).map { .restaurant($0) })
         
@@ -179,7 +184,7 @@ struct MapScreen: View {
                     }
                 }
                 .allowsHitTesting(false) // Critical: Don't block ANY interactions
-                .zIndex(1) // Keep below other UI elements
+                .zIndex(2) // Keep below search radius but above map
             }
             
             restaurantDetailOverlay
@@ -234,8 +239,10 @@ struct MapScreen: View {
                     HStack(spacing: 4) {
                         Image(systemName: "magnifyingglass")
                             .font(.system(size: 10))
-                        Text("\(viewModel.filteredRestaurants.count) results")
+                        Text("\(viewModel.restaurantsWithinSearchRadius.count) results")
                             .font(.system(size: 11, weight: .medium, design: .rounded))
+                        
+                        
                         Button(action: {
                             viewModel.clearSearch()
                             clearSearch()
@@ -252,6 +259,7 @@ struct MapScreen: View {
                             .fill(Color.blue.opacity(0.1))
                     )
                 }
+                
                 
                 Spacer()
                 
@@ -378,6 +386,14 @@ struct MapScreen: View {
         }
         
         return Array(restaurantList.prefix(maxRestaurants))
+    }
+    
+    private func formatSearchRadius(_ radius: Double) -> String {
+        if radius == floor(radius) {
+            return "\(Int(radius))mi"
+        } else {
+            return String(format: "%.1fmi", radius)
+        }
     }
 }
 

@@ -73,7 +73,10 @@ final class OverpassAPIService {
         let radius = 5.0 * 1609.34 // 5 miles in meters
         let query = """
         [out:json];
-        node["amenity"="fast_food"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
+        (
+          node["amenity"="restaurant"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
+          node["amenity"="fast_food"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
+        );
         out body;
         """
         
