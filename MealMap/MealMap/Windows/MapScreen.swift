@@ -263,8 +263,34 @@ struct MapScreen: View {
             )
             .padding(.horizontal, 16)
             
-            // SIMPLIFIED: Remove Home button, just show search results and location
             HStack(spacing: 16) {
+                // Home button - navigate back to HomeScreen
+                Button(action: {
+                    heavyFeedback.impactOccurred()
+                    dismiss()
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "house.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                        Text("Home")
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
+                    .background(
+                        LinearGradient(
+                            colors: [.green, .green.opacity(0.8)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .cornerRadius(20)
+                    .shadow(color: .green.opacity(0.3), radius: 8, y: 4)
+                }
+                
+                Spacer()
+                
                 // Search results indicator
                 if viewModel.showSearchResults {
                     HStack(spacing: 4) {
@@ -293,8 +319,6 @@ struct MapScreen: View {
                             )
                     )
                 }
-                
-                Spacer()
                 
                 // Location button (existing)
                 Button(action: {
