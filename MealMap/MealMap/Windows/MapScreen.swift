@@ -112,6 +112,7 @@ struct MapScreen: View {
                     .environmentObject(locationManager)
                     .environmentObject(viewModel)
                     .navigationBarTitleDisplayMode(.inline)
+                    .preferredColorScheme(.light) // Force light mode in home screen
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
                             Button("Done") {
@@ -189,23 +190,30 @@ struct MapScreen: View {
                     HStack {
                         Spacer()
                         
-                        // Compact corner loading indicator
+                        // UPDATED: Loading indicator with HomeScreen-consistent styling
                         ZStack {
                             Circle()
-                                .stroke(Color.white.opacity(0.3), lineWidth: 2)
-                                .frame(width: 32, height: 32)
+                                .stroke(Color(.systemBackground).opacity(0.8), lineWidth: 3) // More visible background
+                                .frame(width: 40, height: 40) // Slightly larger for better visibility
                             
                             Circle()
                                 .trim(from: 0, to: viewModel.loadingProgress)
-                                .stroke(Color.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
-                                .frame(width: 32, height: 32)
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [.blue, .blue.opacity(0.8)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    style: StrokeStyle(lineWidth: 3, lineCap: .round)
+                                )
+                                .frame(width: 40, height: 40)
                                 .rotationEffect(.degrees(-90))
                                 .animation(.easeInOut(duration: 0.3), value: viewModel.loadingProgress)
                             
                             Circle()
                                 .fill(.ultraThinMaterial)
-                                .frame(width: 24, height: 24)
-                                .shadow(color: .black.opacity(0.1), radius: 3, y: 1)
+                                .frame(width: 30, height: 30)
+                                .shadow(color: .black.opacity(0.1), radius: 4, y: 2) // Consistent shadow
                         }
                         .padding(.trailing, 20)
                         .padding(.bottom, 120) // Position above restaurant detail area
@@ -224,11 +232,11 @@ struct MapScreen: View {
     // MARK: - Enhanced Header with Reorganized Layout
     private var enhancedHeader: some View {
         VStack(spacing: 16) {
-            // Search bar at the top
+            // Search bar at the top - UPDATED: Match HomeScreen styling
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
-                    .font(.system(size: 16))
+                    .font(.system(size: 18)) // Match HomeScreen font size
 
                 TextField("Search restaurants, cuisines...", text: $searchText)
                     .font(.system(size: 16, design: .rounded))
@@ -254,17 +262,18 @@ struct MapScreen: View {
                     }
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.horizontal, 20) // Match HomeScreen padding
+            .padding(.vertical, 16) // Match HomeScreen padding
             .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.white)
-                    .shadow(color: .black.opacity(0.08), radius: 4, y: 2)
+                RoundedRectangle(cornerRadius: 16) // Match HomeScreen corner radius
+                    .fill(Color(.systemBackground)) // Match HomeScreen background
+                    .shadow(color: .black.opacity(0.08), radius: 8, y: 2) // Match HomeScreen shadow
             )
             .padding(.horizontal, 16)
             
+            // UPDATED: Control buttons with consistent HomeScreen styling
             HStack(spacing: 16) {
-                // Home button - navigate back to HomeScreen
+                // Home button - UPDATED: Match HomeScreen Map button styling but with green color
                 Button(action: {
                     heavyFeedback.impactOccurred()
                     dismiss()
@@ -291,20 +300,20 @@ struct MapScreen: View {
                 
                 Spacer()
                 
-                // Search results indicator
+                // Search results indicator - UPDATED: Match HomeScreen capsule styling
                 if viewModel.showSearchResults {
-                    HStack(spacing: 4) {
+                    HStack(spacing: 6) { // Increased spacing for better readability
                         Image(systemName: "magnifyingglass")
-                            .font(.system(size: 10))
+                            .font(.system(size: 12)) // Slightly larger icon
                         Text("\(viewModel.restaurantsWithinSearchRadius.count) results")
-                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                            .font(.system(size: 12, weight: .medium, design: .rounded)) // Larger, readable text
                         
                         Button(action: {
                             viewModel.clearSearch()
                             clearSearch()
                         }) {
                             Image(systemName: "xmark")
-                                .font(.system(size: 8, weight: .bold))
+                                .font(.system(size: 10, weight: .bold))
                         }
                     }
                     .foregroundColor(.blue)
@@ -312,7 +321,7 @@ struct MapScreen: View {
                     .padding(.vertical, 8)
                     .background(
                         Capsule()
-                            .fill(Color.blue.opacity(0.1))
+                            .fill(.blue.opacity(0.1))
                             .overlay(
                                 Capsule()
                                     .stroke(.blue.opacity(0.3), lineWidth: 1)
@@ -320,7 +329,7 @@ struct MapScreen: View {
                     )
                 }
                 
-                // Location button (existing)
+                // Location button - UPDATED: Match HomeScreen button sizing and style
                 Button(action: {
                     heavyFeedback.impactOccurred()
                     centerOnUserLocation()
@@ -498,39 +507,64 @@ struct NoLocationView: View {
     let onRetry: () -> Void
 
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            Image(systemName: "location.slash")
-                .font(.system(size: 60))
-                .foregroundColor(.gray)
-            Text(title)
-                .font(.system(.title2, design: .rounded, weight: .bold))
-                .multilineTextAlignment(.center)
-                .foregroundColor(.gray)
-                .padding(.horizontal)
-            Text(subtitle)
-                .font(.system(.body, design: .rounded))
-                .multilineTextAlignment(.center)
-                .foregroundColor(.gray)
-                .padding(.horizontal)
-            Button(action: onRetry) {
-                Text(buttonText)
-                    .font(.system(.headline, design: .rounded))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
-                    .background(
-                        LinearGradient(
-                            colors: [.blue, .blue.opacity(0.8)],
-                            startPoint: .top,
-                            endPoint: .bottom
+        ZStack {
+            // UPDATED: Match HomeScreen background gradient
+            LinearGradient(
+                colors: [Color(.systemBackground), Color(.systemGray6)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
+            VStack(spacing: 24) { // Increased spacing for better layout
+                Spacer()
+                
+                // UPDATED: More prominent icon with consistent styling
+                ZStack {
+                    Circle()
+                        .fill(Color.gray.opacity(0.1))
+                        .frame(width: 120, height: 120)
+                    
+                    Image(systemName: "location.slash")
+                        .font(.system(size: 48, weight: .medium)) // More consistent with HomeScreen
+                        .foregroundColor(.gray)
+                }
+                
+                VStack(spacing: 12) {
+                    Text(title)
+                        .font(.system(size: 22, weight: .bold, design: .rounded)) // Match HomeScreen font style
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.primary) // Use primary color for better readability
+                        .padding(.horizontal)
+                        
+                    Text(subtitle)
+                        .font(.system(size: 16, weight: .medium, design: .rounded)) // Match HomeScreen font style
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 40)
+                }
+                
+                // UPDATED: Match HomeScreen button styling
+                Button(action: onRetry) {
+                    Text(buttonText)
+                        .font(.system(size: 16, weight: .semibold, design: .rounded)) // Match HomeScreen button font
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                        .background(
+                            LinearGradient(
+                                colors: [.blue, .blue.opacity(0.8)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
                         )
-                    )
-                    .cornerRadius(24)
+                        .cornerRadius(20) // Match HomeScreen button corner radius
+                        .shadow(color: .blue.opacity(0.3), radius: 8, y: 4) // Match HomeScreen shadow
+                }
+                
+                Spacer()
             }
-            Spacer()
         }
-        .background(Color(.systemBackground).ignoresSafeArea())
     }
 }
 

@@ -95,35 +95,37 @@ class HomeScreenDataManager: ObservableObject {
         }
     }
     
+    // FIXED: Remove mapViewModel dependency and accept restaurants parameter
     private func filterRestaurantsByCategory(_ category: RestaurantCategory, from restaurants: [Restaurant]) -> [Restaurant] {
+        guard !restaurants.isEmpty else { return [] }
+        
         switch category {
         case .fastFood:
             return restaurants.filter { RestaurantData.restaurantsWithNutritionData.contains($0.name) }
         case .healthy:
             return restaurants.filter { restaurant in
-                let healthyKeywords = ["salad", "fresh", "bowl", "juice", "smoothie"]
-                let lowercaseName = restaurant.name.lowercased()
-                return healthyKeywords.contains { lowercaseName.contains($0) }
+                let name = restaurant.name.lowercased()
+                return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
+                       name.contains("juice") || name.contains("smoothie")
             }
         case .vegan:
             return restaurants.filter { restaurant in
-                let veganKeywords = ["vegan", "plant", "veggie", "green"]
-                let lowercaseName = restaurant.name.lowercased()
-                let lowercaseCuisine = restaurant.cuisine?.lowercased() ?? ""
-                return veganKeywords.contains { lowercaseName.contains($0) } ||
-                       lowercaseCuisine.contains("vegan")
+                let name = restaurant.name.lowercased()
+                let cuisine = restaurant.cuisine?.lowercased() ?? ""
+                return name.contains("vegan") || name.contains("plant") || name.contains("veggie") ||
+                       name.contains("green") || cuisine.contains("vegan")
             }
         case .highProtein:
             return restaurants.filter { restaurant in
-                let proteinKeywords = ["grill", "steakhouse", "bbq", "chicken", "protein"]
-                let lowercaseName = restaurant.name.lowercased()
-                return proteinKeywords.contains { lowercaseName.contains($0) }
+                let name = restaurant.name.lowercased()
+                return name.contains("grill") || name.contains("steakhouse") || name.contains("bbq") ||
+                       name.contains("chicken") || name.contains("protein")
             }
         case .lowCarb:
             return restaurants.filter { restaurant in
-                let lowCarbKeywords = ["salad", "grill", "steakhouse", "bowl"]
-                let lowercaseName = restaurant.name.lowercased()
-                return lowCarbKeywords.contains { lowercaseName.contains($0) }
+                let name = restaurant.name.lowercased()
+                return name.contains("salad") || name.contains("grill") || name.contains("steakhouse") ||
+                       name.contains("bowl")
             }
         }
     }
@@ -207,10 +209,13 @@ struct HomeScreen: View {
                 }
             }
             .navigationBarHidden(true)
+            // FORCED: Always use light appearance
+            .preferredColorScheme(.light)
             .fullScreenCover(isPresented: $showingMapScreen) {
                 NavigationView {
                     MapScreen(viewModel: mapViewModel)
                         .navigationBarTitleDisplayMode(.inline)
+                        .preferredColorScheme(.light) // Force light mode in map too
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button("Back") {
@@ -228,6 +233,7 @@ struct HomeScreen: View {
                         restaurants: filterRestaurantsByCategory(category),
                         isPresented: $showingCategoryList
                     )
+                    .preferredColorScheme(.light) // Force light mode in category list
                 }
             }
             .sheet(isPresented: $showingRestaurantDetail) {
@@ -236,6 +242,7 @@ struct HomeScreen: View {
                         restaurant: restaurant,
                         isPresented: $showingRestaurantDetail
                     )
+                    .preferredColorScheme(.light) // Force light mode in restaurant detail
                 }
             }
         }
@@ -519,26 +526,26 @@ struct HomeScreen: View {
         case .healthy:
             return restaurantList.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("fresh") || name.contains("bowl") || 
+                return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
                        name.contains("juice") || name.contains("smoothie")
             }
         case .vegan:
             return restaurantList.filter { restaurant in
                 let name = restaurant.name.lowercased()
                 let cuisine = restaurant.cuisine?.lowercased() ?? ""
-                return name.contains("vegan") || name.contains("plant") || name.contains("veggie") || 
+                return name.contains("vegan") || name.contains("plant") || name.contains("veggie") ||
                        name.contains("green") || cuisine.contains("vegan")
             }
         case .highProtein:
             return restaurantList.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("grill") || name.contains("steakhouse") || name.contains("bbq") || 
+                return name.contains("grill") || name.contains("steakhouse") || name.contains("bbq") ||
                        name.contains("chicken") || name.contains("protein")
             }
         case .lowCarb:
             return restaurantList.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("grill") || name.contains("steakhouse") || 
+                return name.contains("salad") || name.contains("grill") || name.contains("steakhouse") ||
                        name.contains("bowl")
             }
         }

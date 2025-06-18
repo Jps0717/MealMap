@@ -63,6 +63,8 @@ struct ContentView: View {
             }
         }
         .ignoresSafeArea()
+        // FORCED: Always use light appearance at the app level
+        .preferredColorScheme(.light)
     }
 }
 

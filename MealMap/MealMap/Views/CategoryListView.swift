@@ -54,6 +54,8 @@ struct CategoryListView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            // FORCED: Always use light appearance
+            .preferredColorScheme(.light)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Done") {
@@ -69,6 +71,7 @@ struct CategoryListView: View {
                     restaurant: restaurant,
                     isPresented: $showingRestaurantDetail
                 )
+                .preferredColorScheme(.light) // Force light mode in restaurant detail
             }
         }
         .onAppear {
