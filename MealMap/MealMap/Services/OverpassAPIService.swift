@@ -74,7 +74,6 @@ final class OverpassAPIService {
         let query = """
         [out:json];
         (
-          node["amenity"="restaurant"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
           node["amenity"="fast_food"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
         );
         out body;

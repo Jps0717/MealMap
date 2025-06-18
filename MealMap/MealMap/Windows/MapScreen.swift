@@ -14,6 +14,9 @@ struct MapScreen: View {
     @State private var searchText = ""
     @State private var lastRegionUpdate = Date.distantPast
     
+    @Environment(\.dismiss) private var dismiss
+    @State private var showingHomeScreen = false
+    
     init(viewModel: MapViewModel) {
         self.viewModel = viewModel
     }
@@ -24,6 +27,7 @@ struct MapScreen: View {
     
     // Configuration - Optimized for instant response
     private let pinVisibilityThreshold: CLLocationDegrees = 0.08
+    private let maxZoomOutLevel: CLLocationDegrees = 0.08
     
     // Computed Properties
     private var hasValidLocation: Bool {
@@ -102,30 +106,53 @@ struct MapScreen: View {
         } message: {
             Text(viewModel.searchErrorMessage ?? "")
         }
+        .sheet(isPresented: $showingHomeScreen) {
+            NavigationView {
+                HomeScreen()
+                    .environmentObject(locationManager)
+                    .environmentObject(viewModel)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button("Done") {
+                                showingHomeScreen = false
+                            }
+                        }
+                    }
+            }
+        }
     }
     
     // MARK: - Main Map View - Always Interactive
     private var mainMapView: some View {
         ZStack {
-            // Map layer - ALWAYS fully interactive
+            // Map layer - ALWAYS fully interactive with zoom limits
             Map(coordinateRegion: Binding(
                 get: { viewModel.region },
                 set: { newRegion in
-                    let latDiff = abs(viewModel.region.center.latitude - newRegion.center.latitude)
-                    let lonDiff = abs(viewModel.region.center.longitude - newRegion.center.longitude)
+                    var constrainedRegion = newRegion
+                    if constrainedRegion.span.latitudeDelta > maxZoomOutLevel {
+                        constrainedRegion.span.latitudeDelta = maxZoomOutLevel
+                    }
+                    if constrainedRegion.span.longitudeDelta > maxZoomOutLevel {
+                        constrainedRegion.span.longitudeDelta = maxZoomOutLevel
+                    }
+                    
+                    let latDiff = abs(viewModel.region.center.latitude - constrainedRegion.center.latitude)
+                    let lonDiff = abs(viewModel.region.center.longitude - constrainedRegion.center.longitude)
                     let movement = latDiff + lonDiff
                     
                     if movement > 0.0005 { // ~50 meters - very sensitive
-                        viewModel.updateRegion(newRegion)
+                        viewModel.updateRegion(constrainedRegion)
                     } else {
                         // Still update the region for zoom changes
-                        viewModel.region = newRegion
+                        viewModel.region = constrainedRegion
                     }
                 }
             ), showsUserLocation: false, annotationItems: mapItems) { item in
                 MapAnnotation(coordinate: item.coordinate) {
                     switch item {
-                    case .userLocation(let coordinate):
+                    case .userLocation(_):
                         UserLocationAnnotationView()
                             .allowsHitTesting(false)
                         
@@ -149,7 +176,8 @@ struct MapScreen: View {
             
             // UI overlays that DON'T block map interaction
             VStack {
-                streamlinedHeader
+                // UPDATED: Enhanced header with reorganized layout
+                enhancedHeader
                     .allowsHitTesting(true) // Allow header interactions
                 Spacer()
             }
@@ -193,9 +221,10 @@ struct MapScreen: View {
         .allowsHitTesting(true) // Ensure the entire ZStack allows interactions
     }
     
-    // MARK: - Streamlined Header
-    private var streamlinedHeader: some View {
-        VStack(spacing: 8) {
+    // MARK: - Enhanced Header with Reorganized Layout
+    private var enhancedHeader: some View {
+        VStack(spacing: 16) {
+            // Search bar at the top
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
@@ -234,14 +263,15 @@ struct MapScreen: View {
             )
             .padding(.horizontal, 16)
             
-            HStack(spacing: 8) {
+            // SIMPLIFIED: Remove Home button, just show search results and location
+            HStack(spacing: 16) {
+                // Search results indicator
                 if viewModel.showSearchResults {
                     HStack(spacing: 4) {
                         Image(systemName: "magnifyingglass")
                             .font(.system(size: 10))
                         Text("\(viewModel.restaurantsWithinSearchRadius.count) results")
                             .font(.system(size: 11, weight: .medium, design: .rounded))
-                        
                         
                         Button(action: {
                             viewModel.clearSearch()
@@ -252,17 +282,21 @@ struct MapScreen: View {
                         }
                     }
                     .foregroundColor(.blue)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
                     .background(
                         Capsule()
                             .fill(Color.blue.opacity(0.1))
+                            .overlay(
+                                Capsule()
+                                    .stroke(.blue.opacity(0.3), lineWidth: 1)
+                            )
                     )
                 }
                 
-                
                 Spacer()
                 
+                // Location button (existing)
                 Button(action: {
                     heavyFeedback.impactOccurred()
                     centerOnUserLocation()
@@ -270,7 +304,7 @@ struct MapScreen: View {
                     Image(systemName: "location.fill")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white)
-                        .frame(width: 36, height: 36)
+                        .frame(width: 44, height: 44)
                         .background(
                             LinearGradient(
                                 colors: [.blue, .blue.opacity(0.8)],
@@ -278,15 +312,13 @@ struct MapScreen: View {
                                 endPoint: .bottom
                             )
                         )
-                        .cornerRadius(18)
-                        .shadow(color: .blue.opacity(0.3), radius: 6, y: 3)
+                        .cornerRadius(22)
+                        .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
                 }
             }
             .padding(.horizontal, 16)
-            
-            Spacer()
         }
-        .padding(.top, 75)
+        .padding(.top, 75) // Account for safe area
     }
     
     // MARK: - Restaurant Detail Overlay
