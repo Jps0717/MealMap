@@ -4,10 +4,11 @@ import CoreLocation
 struct ListView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var searchText: String = ""
-    @State private var selectedSortOptions: Set<SortOption> = [.distance] 
+    @State private var selectedSortOptions: Set<SortOption> = [.distance]
     @State private var isRefreshing: Bool = false
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
+    @State private var isLoadingRestaurant = false
     
     // Data passed from MapScreen
     let restaurants: [Restaurant]
@@ -217,8 +218,13 @@ struct ListView: View {
                                     userLocation: userLocation,
                                     hasNutritionData: RestaurantData.restaurantsWithNutritionData.contains(restaurant.name),
                                     onTap: {
+                                        isLoadingRestaurant = true
                                         selectedRestaurant = restaurant
-                                        showingRestaurantDetail = true
+                                        
+                                        // Add a small delay to show loading state
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            showingRestaurantDetail = true
+                                        }
                                     },
                                     onMapTap: {
                                         onRestaurantSelected(restaurant)
@@ -236,30 +242,48 @@ struct ListView: View {
                     }
                 }
             }
+            .navigationTitle("Restaurants")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.primary)
-                    }
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(
+                leading: Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.primary)
                 }
-                
-                ToolbarItem(placement: .principal) {
-                    Text("Restaurants")
-                        .font(.system(size: 18, weight: .bold))
-                }
-            }
+            )
         }
         .fullScreenCover(isPresented: $showingRestaurantDetail) {
             if let restaurant = selectedRestaurant {
                 RestaurantDetailView(
                     restaurant: restaurant,
-                    isPresented: $showingRestaurantDetail
+                    isPresented: $showingRestaurantDetail,
+                    selectedCategory: nil
                 )
+            }
+        }
+        .overlay(
+            // Loading overlay
+            Group {
+                if isLoadingRestaurant {
+                    if let restaurant = selectedRestaurant {
+                        RestaurantLoadingView(restaurantName: restaurant.name)
+                    } else {
+                        LoadingView(
+                            title: "Loading Restaurant...",
+                            subtitle: "Please wait...",
+                            style: .overlay
+                        )
+                    }
+                }
+            }
+        )
+        .onChange(of: showingRestaurantDetail) { oldValue, newValue in
+            if !newValue {
+                // Reset loading state when detail view is dismissed
+                isLoadingRestaurant = false
             }
         }
     }
@@ -285,7 +309,7 @@ struct ListView: View {
         
         // Apply sorting based on selected options
         if selectedSortOptions.contains(.distance), let userLocation = userLocation {
-            // Sort by distance
+            // Smart compound sort: Distance + Nutrition Data Priority
             sorted = sorted.sorted { restaurant1, restaurant2 in
                 let location1 = CLLocation(latitude: restaurant1.latitude, longitude: restaurant1.longitude)
                 let location2 = CLLocation(latitude: restaurant2.latitude, longitude: restaurant2.longitude)
@@ -293,6 +317,47 @@ struct ListView: View {
                 let distance1 = userLocation.distance(from: location1)
                 let distance2 = userLocation.distance(from: location2)
                 
+                let hasNutrition1 = RestaurantData.restaurantsWithNutritionData.contains(restaurant1.name)
+                let hasNutrition2 = RestaurantData.restaurantsWithNutritionData.contains(restaurant2.name)
+                
+                // Convert distances to miles for easier comparison
+                let miles1 = distance1 / 1609.34
+                let miles2 = distance2 / 1609.34
+                
+                // Define distance brackets (0.1 mile tolerance)
+                let distanceTolerance = 0.1
+                let distanceDifference = abs(miles1 - miles2)
+                
+                // If distances are very similar (within tolerance), prioritize nutrition data
+                if distanceDifference <= distanceTolerance {
+                    // Both have nutrition data or both don't - sort by exact distance
+                    if hasNutrition1 == hasNutrition2 {
+                        return distance1 < distance2
+                    }
+                    // One has nutrition data, one doesn't - prioritize nutrition data
+                    return hasNutrition1 && !hasNutrition2
+                }
+                
+                // If distances are significantly different, sort by distance primarily
+                // But still give slight preference to nutrition data if distance difference is small
+                if distanceDifference <= 0.3 { // Within 0.3 miles
+                    // If both have different nutrition status and close distance, prefer nutrition data
+                    if hasNutrition1 != hasNutrition2 {
+                        // Only prefer nutrition data if the distance penalty is small
+                        let nutritionPreference = hasNutrition1 && !hasNutrition2
+                        let distancePreference = distance1 < distance2
+                        
+                        // If nutrition restaurant is only slightly farther (within 0.2 miles), prefer it
+                        if nutritionPreference && miles1 <= miles2 + 0.2 {
+                            return true
+                        }
+                        if !nutritionPreference && miles2 <= miles1 + 0.2 {
+                            return false
+                        }
+                    }
+                }
+                
+                // Default: sort by distance
                 return distance1 < distance2
             }
         } else if selectedSortOptions.contains(.cuisine) {

@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreLocation
+import ObjectiveC
 
 // MARK: - Optimized Restaurant Model Extension
 extension Restaurant {
@@ -95,7 +96,7 @@ class HomeScreenDataManager: ObservableObject {
         }
     }
     
-    // FIXED: Remove mapViewModel dependency and accept restaurants parameter
+    // FIXED: Remove problematic optional parameter and use proper filtering
     private func filterRestaurantsByCategory(_ category: RestaurantCategory, from restaurants: [Restaurant]) -> [Restaurant] {
         guard !restaurants.isEmpty else { return [] }
         
@@ -157,6 +158,11 @@ struct HomeScreen: View {
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
     @State private var showingCategoryList = false
+    @State private var isLoadingInitialData = false
+    @State private var isLoadingCategoryData = false
+    
+    @State private var showingFilters = false
+    @State private var globalFilter = RestaurantFilter()
     
     // PERFORMANCE: Cache filtered results to avoid recomputation
     @State private var cachedCategoryCounts: [RestaurantCategory: Int] = [:]
@@ -178,34 +184,57 @@ struct HomeScreen: View {
                 )
                 .ignoresSafeArea()
                 
-                ScrollView(.vertical, showsIndicators: false) {
-                    // PERFORMANCE: Use LazyVStack for better scroll performance
-                    LazyVStack(spacing: 24) {
-                        // Header Section
-                        headerSection
-                        
-                        // Search Bar
-                        searchSection
-                        
-                        // Quick Access Categories
-                        quickAccessSection
-                        
-                        // PERFORMANCE: Only show sections if we have data
-                        if !cachedPopularChains.isEmpty {
-                            popularChainsSection
+                if isLoadingInitialData {
+                    LoadingView(
+                        title: "Setting up MealMap",
+                        subtitle: "Loading restaurant data near you...",
+                        progress: mapViewModel.loadingProgress,
+                        style: .fullScreen
+                    )
+                } else {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        // PERFORMANCE: Use LazyVStack for better scroll performance
+                        LazyVStack(spacing: 24) {
+                            // Header Section
+                            headerSection
+                            
+                            // Search Bar
+                            searchSection
+                            
+                            // Quick Access Categories
+                            quickAccessSection
+                            
+                            // PERFORMANCE: Only show sections if we have data
+                            if !cachedPopularChains.isEmpty {
+                                popularChainsSection
+                            } else if !isLoadingCategoryData && !mapViewModel.isLoadingRestaurants {
+                                // Show loading for popular chains when not loading and no data yet
+                                DataLoadingView(
+                                    dataType: "Popular Chains",
+                                    progress: nil
+                                )
+                                .padding(.horizontal, 20)
+                            }
+                            
+                            if !cachedNearbyRestaurants.isEmpty {
+                                nearbyPicksSection
+                            } else if !isLoadingCategoryData && !mapViewModel.isLoadingRestaurants {
+                                // Show loading for nearby restaurants when not loading and no data yet
+                                DataLoadingView(
+                                    dataType: "Nearby Restaurants",  
+                                    progress: nil
+                                )
+                                .padding(.horizontal, 20)
+                            }
+                            
+                            // Bottom padding
+                            Rectangle()
+                                .fill(Color.clear)
+                                .frame(height: 50)
                         }
-                        
-                        if !cachedNearbyRestaurants.isEmpty {
-                            nearbyPicksSection
-                        }
-                        
-                        // Bottom padding
-                        Rectangle()
-                            .fill(Color.clear)
-                            .frame(height: 50)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
                 }
             }
             .navigationBarHidden(true)
@@ -240,10 +269,20 @@ struct HomeScreen: View {
                 if let restaurant = selectedRestaurant {
                     RestaurantDetailView(
                         restaurant: restaurant,
-                        isPresented: $showingRestaurantDetail
+                        isPresented: $showingRestaurantDetail,
+                        selectedCategory: nil
                     )
                     .preferredColorScheme(.light) // Force light mode in restaurant detail
                 }
+            }
+            .sheet(isPresented: $showingFilters) {
+                RestaurantFilterView(
+                    filter: $globalFilter,
+                    isPresented: $showingFilters,
+                    availableRestaurants: mapViewModel.allAvailableRestaurants,
+                    userLocation: locationManager.lastLocation?.coordinate
+                )
+                .preferredColorScheme(.light)
             }
         }
         .onAppear {
@@ -251,7 +290,27 @@ struct HomeScreen: View {
         }
         // PERFORMANCE: Update cached data when restaurants change
         .onChange(of: mapViewModel.restaurants) { oldValue, newValue in
+            if !newValue.isEmpty && cachedCategoryCounts.isEmpty {
+                isLoadingCategoryData = true
+            }
             updateCachedData()
+            if isLoadingCategoryData {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isLoadingCategoryData = false
+                }
+            }
+        }
+        .onChange(of: mapViewModel.isLoadingRestaurants) { oldValue, newValue in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                // Show full screen loading only when starting to load and no data exists
+                isLoadingInitialData = newValue && mapViewModel.restaurants.isEmpty
+            }
+        }
+        .onChange(of: globalFilter) { oldValue, newValue in
+            if newValue.hasActiveFilters {
+                // If global filter is active, show filtered results on map
+                showFilteredResultsOnMap()
+            }
         }
     }
     
@@ -277,28 +336,53 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    mediumFeedback.impactOccurred()
-                    showingMapScreen = true
-                }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "map.fill")
-                            .font(.system(size: 16, weight: .semibold))
-                        Text("Map")
-                            .font(.system(size: 16, weight: .semibold, design: .rounded))
-                    }
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
-                    .background(
-                        LinearGradient(
-                            colors: [.blue, .blue.opacity(0.8)],
-                            startPoint: .top,
-                            endPoint: .bottom
+                HStack(spacing: 12) {
+                    Button(action: {
+                        lightFeedback.impactOccurred()
+                        showingFilters = true
+                    }) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "slider.horizontal.3")
+                                .font(.system(size: 14, weight: .semibold))
+                            
+                            if globalFilter.hasActiveFilters {
+                                Circle()
+                                    .fill(Color.red)
+                                    .frame(width: 6, height: 6)
+                            }
+                        }
+                        .foregroundColor(globalFilter.hasActiveFilters ? .white : .blue)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 10)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(globalFilter.hasActiveFilters ? Color.blue : Color.blue.opacity(0.1))
                         )
-                    )
-                    .cornerRadius(20)
-                    .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
+                    }
+                    
+                    Button(action: {
+                        mediumFeedback.impactOccurred()
+                        showingMapScreen = true
+                    }) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "map.fill")
+                                .font(.system(size: 16, weight: .semibold))
+                            Text("Map")
+                                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(
+                            LinearGradient(
+                                colors: [.blue, .blue.opacity(0.8)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .cornerRadius(20)
+                        .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
+                    }
                 }
             }
         }
@@ -341,26 +425,57 @@ struct HomeScreen: View {
         VStack(alignment: .leading, spacing: 16) {
             sectionHeader("Quick Access", subtitle: "Browse by category")
             
-            // PERFORMANCE: Use simple Grid instead of LazyVGrid for small static content
-            VStack(spacing: 12) {
-                HStack(spacing: 12) {
-                    ForEach(Array(RestaurantCategory.allCases.prefix(2)), id: \.self) { category in
-                        CategoryCard(
-                            category: category,
-                            restaurantCount: cachedCategoryCounts[category] ?? 0
-                        ) {
-                            selectCategory(category)
+            if isLoadingCategoryData || mapViewModel.isLoadingRestaurants || (cachedCategoryCounts.isEmpty && mapViewModel.restaurants.isEmpty) {
+                // Show loading animation for categories
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        ForEach(Array(RestaurantCategory.allCases.prefix(2)), id: \.self) { category in
+                            CategoryCard(
+                                category: category,
+                                restaurantCount: 0,
+                                isLoading: true
+                            ) {
+                                // Disabled while loading
+                            }
+                        }
+                    }
+                    
+                    HStack(spacing: 12) {
+                        ForEach(Array(RestaurantCategory.allCases.dropFirst(2)), id: \.self) { category in
+                            CategoryCard(
+                                category: category,
+                                restaurantCount: 0,
+                                isLoading: true
+                            ) {
+                                // Disabled while loading
+                            }
                         }
                     }
                 }
-                
-                HStack(spacing: 12) {
-                    ForEach(Array(RestaurantCategory.allCases.dropFirst(2)), id: \.self) { category in
-                        CategoryCard(
-                            category: category,
-                            restaurantCount: cachedCategoryCounts[category] ?? 0
-                        ) {
-                            selectCategory(category)
+            } else {
+                // PERFORMANCE: Use simple Grid instead of LazyVGrid for small static content
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        ForEach(Array(RestaurantCategory.allCases.prefix(2)), id: \.self) { category in
+                            CategoryCard(
+                                category: category,
+                                restaurantCount: cachedCategoryCounts[category] ?? 0,
+                                isLoading: false
+                            ) {
+                                selectCategory(category)
+                            }
+                        }
+                    }
+                    
+                    HStack(spacing: 12) {
+                        ForEach(Array(RestaurantCategory.allCases.dropFirst(2)), id: \.self) { category in
+                            CategoryCard(
+                                category: category,
+                                restaurantCount: cachedCategoryCounts[category] ?? 0,
+                                isLoading: false
+                            ) {
+                                selectCategory(category)
+                            }
                         }
                     }
                 }
@@ -494,8 +609,22 @@ struct HomeScreen: View {
     
     private func performSearch() {
         guard !searchText.isEmpty else { return }
-        mapViewModel.performSearch(query: searchText, maxDistance: nil)
-        showingMapScreen = true
+        
+        // Show loading state during search
+        Task {
+            await MainActor.run {
+                // Trigger search with visual feedback
+                lightFeedback.impactOccurred()
+            }
+            
+            // Small delay to show search feedback
+            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
+            
+            await MainActor.run {
+                mapViewModel.performSearch(query: searchText, maxDistance: nil)
+                showingMapScreen = true
+            }
+        }
     }
     
     private func selectCategory(_ category: RestaurantCategory) {
@@ -512,6 +641,12 @@ struct HomeScreen: View {
     
     private func showViewAllOnMap() {
         mediumFeedback.impactOccurred()
+        showingMapScreen = true
+    }
+    
+    private func showFilteredResultsOnMap() {
+        // This could be enhanced to pre-filter the map results
+        // For now, just show the map
         showingMapScreen = true
     }
     
@@ -582,6 +717,33 @@ struct HomeScreen: View {
                 from: userCoordinate,
                 to: CLLocationCoordinate2D(latitude: restaurant2.latitude, longitude: restaurant2.longitude)
             )
+            
+            let hasNutrition1 = RestaurantData.restaurantsWithNutritionData.contains(restaurant1.name)
+            let hasNutrition2 = RestaurantData.restaurantsWithNutritionData.contains(restaurant2.name)
+            
+            // Convert to miles for easier comparison
+            let miles1 = distance1 / 1609.34
+            let miles2 = distance2 / 1609.34
+            let distanceDifference = abs(miles1 - miles2)
+            
+            // If distances are very similar (within 0.1 mile), prioritize nutrition data
+            if distanceDifference <= 0.1 {
+                if hasNutrition1 == hasNutrition2 {
+                    return distance1 < distance2
+                }
+                return hasNutrition1 && !hasNutrition2
+            }
+            
+            // For moderate distance differences (within 0.3 miles), still give slight preference to nutrition data
+            if distanceDifference <= 0.3 && hasNutrition1 != hasNutrition2 {
+                if hasNutrition1 && miles1 <= miles2 + 0.2 {
+                    return true
+                }
+                if hasNutrition2 && miles2 <= miles1 + 0.2 {
+                    return false
+                }
+            }
+            
             return distance1 < distance2
         }
     }
@@ -604,54 +766,39 @@ struct HomeScreen: View {
     }
 }
 
-// MARK: - Restaurant Category Enum
-enum RestaurantCategory: String, CaseIterable {
-    case fastFood = "Fast Food"
-    case healthy = "Healthy"
-    case vegan = "Vegan"
-    case highProtein = "High Protein"
-    case lowCarb = "Low Carb"
-    
-    var icon: String {
-        switch self {
-        case .fastFood: return "takeoutbag.and.cup.and.straw"
-        case .healthy: return "leaf.fill"
-        case .vegan: return "carrot.fill"
-        case .highProtein: return "dumbbell.fill"
-        case .lowCarb: return "minus.circle.fill"
-        }
-    }
-    
-    var color: Color {
-        switch self {
-        case .fastFood: return .orange
-        case .healthy: return .green
-        case .vegan: return .mint
-        case .highProtein: return .red
-        case .lowCarb: return .blue
-        }
-    }
-}
-
 // MARK: - Category Card
 struct CategoryCard: View {
     let category: RestaurantCategory
     let restaurantCount: Int
+    let isLoading: Bool
     let action: () -> Void
+    
+    init(category: RestaurantCategory, restaurantCount: Int, isLoading: Bool = false, action: @escaping () -> Void) {
+        self.category = category
+        self.restaurantCount = restaurantCount
+        self.isLoading = isLoading
+        self.action = action
+    }
     
     @State private var isPressed = false
     
     var body: some View {
-        Button(action: action) {
+        Button(action: isLoading ? {} : action) {
             VStack(spacing: 12) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 16)
                         .fill(category.color.opacity(0.15))
                         .frame(width: 60, height: 60)
                     
-                    Image(systemName: category.icon)
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(category.color)
+                    if isLoading {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                            .progressViewStyle(CircularProgressViewStyle(tint: category.color))
+                    } else {
+                        Image(systemName: category.icon)
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundColor(category.color)
+                    }
                 }
                 
                 VStack(spacing: 4) {
@@ -660,9 +807,19 @@ struct CategoryCard: View {
                         .foregroundColor(.primary)
                         .multilineTextAlignment(.center)
                     
-                    Text("\(restaurantCount) options")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundColor(.secondary)
+                    if isLoading {
+                        LoadingView(
+                            title: "",
+                            subtitle: nil,
+                            progress: nil,
+                            style: .compact
+                        )
+                        .frame(height: 20)
+                    } else {
+                        Text("\(restaurantCount) options")
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             .padding(.vertical, 20)
@@ -673,11 +830,13 @@ struct CategoryCard: View {
                     .shadow(color: .black.opacity(0.06), radius: 8, y: 2)
             )
             .scaleEffect(isPressed ? 0.95 : 1.0)
+            .opacity(isLoading ? 0.7 : 1.0)
         }
         .buttonStyle(PlainButtonStyle())
+        .disabled(isLoading)
         .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
             withAnimation(.easeInOut(duration: 0.1)) {
-                isPressed = pressing
+                isPressed = pressing && !isLoading
             }
         }, perform: {})
     }
@@ -690,10 +849,19 @@ struct PopularChainCard: View {
     
     @State private var isPressed = false
     
+    private var restaurantCategory: RestaurantCategory? {
+        for category in RestaurantCategory.allCases {
+            if restaurant.matchesCategory(category) {
+                return category
+            }
+        }
+        return nil
+    }
+    
     var body: some View {
         Button(action: action) {
             VStack(spacing: 12) {
-                // Restaurant image placeholder
+                // Restaurant image placeholder with category color accent
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(.systemGray5))
                     .frame(width: 120, height: 80)
@@ -703,17 +871,40 @@ struct PopularChainCard: View {
                                 .font(.system(size: 20))
                                 .foregroundColor(.gray)
                             
-                            if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
-                                HStack(spacing: 2) {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .font(.system(size: 8))
-                                        .foregroundColor(.green)
-                                    Text("Nutrition")
-                                        .font(.system(size: 8, weight: .medium))
-                                        .foregroundColor(.green)
+                            HStack(spacing: 4) {
+                                if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
+                                    HStack(spacing: 2) {
+                                        Image(systemName: "checkmark.circle.fill")
+                                            .font(.system(size: 8))
+                                            .foregroundColor(.green)
+                                        Text("Nutrition")
+                                            .font(.system(size: 8, weight: .medium))
+                                            .foregroundColor(.green)
+                                    }
+                                }
+                                
+                                if let category = restaurantCategory {
+                                    HStack(spacing: 2) {
+                                        Image(systemName: category.icon)
+                                            .font(.system(size: 8))
+                                            .foregroundColor(category.color)
+                                        Text(category.rawValue)
+                                            .font(.system(size: 7, weight: .bold))
+                                            .foregroundColor(category.color)
+                                    }
+                                    .padding(.horizontal, 4)
+                                    .padding(.vertical, 2)
+                                    .background(
+                                        Capsule()
+                                            .fill(category.color.opacity(0.15))
+                                    )
                                 }
                             }
                         }
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(restaurantCategory?.color ?? Color.clear, lineWidth: restaurantCategory != nil ? 2 : 0)
                     )
                 
                 VStack(spacing: 4) {
@@ -723,11 +914,21 @@ struct PopularChainCard: View {
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
                     
-                    if let cuisine = restaurant.cuisine {
-                        Text(cuisine.capitalized)
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
+                    HStack {
+                        if let cuisine = restaurant.cuisine {
+                            Text(cuisine.capitalized)
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .foregroundColor(.secondary)
+                                .lineLimit(1)
+                        }
+                        
+                        Spacer()
+                        
+                        if let category = restaurantCategory {
+                            Circle()
+                                .fill(category.color)
+                                .frame(width: 8, height: 8)
+                        }
                     }
                 }
             }
@@ -738,6 +939,10 @@ struct PopularChainCard: View {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color(.systemBackground))
                     .shadow(color: .black.opacity(0.06), radius: 6, y: 2)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(restaurantCategory?.color.opacity(0.3) ?? Color.clear, lineWidth: restaurantCategory != nil ? 1 : 0)
             )
             .scaleEffect(isPressed ? 0.95 : 1.0)
         }
@@ -758,18 +963,27 @@ struct NearbyRestaurantCard: View {
     @StateObject private var locationManager = LocationManager.shared
     @State private var isPressed = false
     
+    private var restaurantCategory: RestaurantCategory? {
+        for category in RestaurantCategory.allCases {
+            if restaurant.matchesCategory(category) {
+                return category
+            }
+        }
+        return nil
+    }
+    
     var body: some View {
         Button(action: action) {
             HStack(spacing: 16) {
-                // Restaurant image placeholder
+                // Restaurant image placeholder with category color
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(Color(.systemGray5))
+                    .fill(restaurantCategory?.color.opacity(0.1) ?? Color(.systemGray5))
                     .frame(width: 60, height: 60)
                     .overlay(
                         VStack(spacing: 2) {
-                            Image(systemName: "fork.knife")
+                            Image(systemName: restaurantCategory?.icon ?? "fork.knife")
                                 .font(.system(size: 16))
-                                .foregroundColor(.gray)
+                                .foregroundColor(restaurantCategory?.color ?? .gray)
                             
                             if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
                                 Image(systemName: "checkmark.circle.fill")
@@ -778,12 +992,32 @@ struct NearbyRestaurantCard: View {
                             }
                         }
                     )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(restaurantCategory?.color ?? Color.clear, lineWidth: restaurantCategory != nil ? 2 : 0)
+                    )
                 
                 VStack(alignment: .leading, spacing: 6) {
-                    Text(restaurant.name)
-                        .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundColor(.primary)
-                        .lineLimit(1)
+                    HStack {
+                        Text(restaurant.name)
+                            .font(.system(size: 16, weight: .semibold, design: .rounded))
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+                        
+                        Spacer()
+                        
+                        if let category = restaurantCategory {
+                            Text(category.rawValue)
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(
+                                    Capsule()
+                                        .fill(category.color)
+                                )
+                        }
+                    }
                     
                     if let cuisine = restaurant.cuisine {
                         Text(cuisine.capitalized)
@@ -793,19 +1027,25 @@ struct NearbyRestaurantCard: View {
                     }
                     
                     HStack(spacing: 8) {
-                        // Distance
+                        // Distance with category color
                         if let userLocation = locationManager.lastLocation {
                             let distance = calculateDistance(
                                 from: userLocation.coordinate,
                                 to: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
                             )
                             
-                            Text(formatDistance(distance))
-                                .font(.system(size: 12, weight: .medium, design: .rounded))
-                                .foregroundColor(.blue)
+                            HStack(spacing: 4) {
+                                Image(systemName: "location.fill")
+                                    .font(.system(size: 10))
+                                    .foregroundColor(restaurantCategory?.color ?? .blue)
+                                
+                                Text(formatDistance(distance))
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .foregroundColor(restaurantCategory?.color ?? .blue)
+                            }
                         }
                         
-                        // Nutrition score placeholder
+                        // Nutrition score with enhanced styling
                         if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
                             HStack(spacing: 2) {
                                 Image(systemName: "star.fill")
@@ -815,15 +1055,31 @@ struct NearbyRestaurantCard: View {
                                     .font(.system(size: 12, weight: .medium, design: .rounded))
                                     .foregroundColor(.secondary)
                             }
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(
+                                Capsule()
+                                    .fill(Color.yellow.opacity(0.1))
+                            )
                         }
+                        
+                        Spacer()
                     }
                 }
                 
                 Spacer()
                 
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.secondary.opacity(0.6))
+                VStack(spacing: 4) {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.secondary.opacity(0.6))
+                    
+                    if let category = restaurantCategory {
+                        Circle()
+                            .fill(category.color)
+                            .frame(width: 6, height: 6)
+                    }
+                }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
@@ -831,6 +1087,14 @@ struct NearbyRestaurantCard: View {
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color(.systemBackground))
                     .shadow(color: .black.opacity(0.06), radius: 6, y: 2)
+            )
+            .overlay(
+                HStack {
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(restaurantCategory?.color ?? Color.clear)
+                        .frame(width: restaurantCategory != nil ? 4 : 0)
+                    Spacer()
+                }
             )
             .scaleEffect(isPressed ? 0.98 : 1.0)
         }

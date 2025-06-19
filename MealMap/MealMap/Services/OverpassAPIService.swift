@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import SwiftUI
 
 /// Model representing a restaurant fetched from the Overpass API.
 struct Restaurant: Identifiable, Equatable, Hashable {
@@ -14,11 +15,77 @@ struct Restaurant: Identifiable, Equatable, Hashable {
     let website: String?
     let type: String
     
+    var amenityType: String? = nil
+    
+    var hasNutritionData: Bool {
+        return RestaurantData.restaurantsWithNutritionData.contains(self.name)
+    }
+    
+    var displayPriority: Int {
+        if amenityType == "fast_food" && hasNutritionData {
+            return 4 // Highest priority: fast food with nutrition
+        } else if amenityType == "restaurant" && hasNutritionData {
+            return 3 // High priority: restaurant with nutrition
+        } else if amenityType == "fast_food" {
+            return 2 // Medium priority: fast food without nutrition
+        } else {
+            return 1 // Low priority: restaurant without nutrition
+        }
+    }
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(name)
         hasher.combine(latitude)
         hasher.combine(longitude)
+    }
+}
+
+extension Restaurant {
+    func matchesCategory(_ category: RestaurantCategory) -> Bool {
+        let name = self.name.lowercased()
+        let cuisine = self.cuisine?.lowercased() ?? ""
+        
+        switch category {
+        case .fastFood:
+            return RestaurantData.restaurantsWithNutritionData.contains(self.name) ||
+                   PopularChains.fastFoodChains.contains { chain in
+                       name.contains(chain.lowercased())
+                   }
+            
+        case .healthy:
+            return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
+                   name.contains("juice") || name.contains("smoothie") || name.contains("organic") ||
+                   PopularChains.healthyChains.contains { chain in
+                       name.contains(chain.lowercased())
+                   }
+            
+        case .vegan:
+            return name.contains("vegan") || name.contains("plant") || name.contains("veggie") ||
+                   name.contains("green") || cuisine.contains("vegan") || cuisine.contains("vegetarian")
+            
+        case .highProtein:
+            return name.contains("grill") || name.contains("steakhouse") || name.contains("bbq") ||
+                   name.contains("chicken") || name.contains("protein") || name.contains("meat")
+            
+        case .lowCarb:
+            return name.contains("salad") || name.contains("grill") || name.contains("steakhouse") ||
+                   name.contains("bowl") || name.contains("keto")
+        }
+    }
+    
+    func matchesHealthyType(_ type: HealthyType) -> Bool {
+        let name = self.name.lowercased()
+        return type.searchTerms.contains { term in
+            name.contains(term)
+        }
+    }
+    
+    func distanceFrom(_ coordinate: CLLocationCoordinate2D) -> Double {
+        let restaurantLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
+        let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let distanceInMeters = restaurantLocation.distance(from: userLocation)
+        return distanceInMeters / 1609.34 // Convert to miles
     }
 }
 
@@ -28,7 +95,7 @@ final class OverpassAPIService {
     
     /// Fetches restaurants within a bounding box
     func fetchRestaurants(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) async throws -> [Restaurant] {
-        let query = createRestaurantQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
+        let query = createRestaurantQuery(minLat: minLat, minLon: minLon, maxLat: maxLon, maxLon: maxLon)
         
         guard let url = URL(string: baseURL) else {
             throw URLError(.badURL)

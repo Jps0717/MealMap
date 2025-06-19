@@ -73,7 +73,7 @@ struct MapScreen: View {
                 )
             } else if !hasValidLocation {
                 NoLocationView(
-                    title: "No Location Found",
+                    title: "Getting Your Location...",
                     subtitle: "MealMap needs your location to find restaurants near you.",
                     buttonText: "Request Location",
                     onRetry: {
@@ -185,42 +185,7 @@ struct MapScreen: View {
             
             // Non-blocking loading indicator - positioned to not interfere
             if viewModel.isLoadingRestaurants {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        
-                        // UPDATED: Loading indicator with HomeScreen-consistent styling
-                        ZStack {
-                            Circle()
-                                .stroke(Color(.systemBackground).opacity(0.8), lineWidth: 3) // More visible background
-                                .frame(width: 40, height: 40) // Slightly larger for better visibility
-                            
-                            Circle()
-                                .trim(from: 0, to: viewModel.loadingProgress)
-                                .stroke(
-                                    LinearGradient(
-                                        colors: [.blue, .blue.opacity(0.8)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    ),
-                                    style: StrokeStyle(lineWidth: 3, lineCap: .round)
-                                )
-                                .frame(width: 40, height: 40)
-                                .rotationEffect(.degrees(-90))
-                                .animation(.easeInOut(duration: 0.3), value: viewModel.loadingProgress)
-                            
-                            Circle()
-                                .fill(.ultraThinMaterial)
-                                .frame(width: 30, height: 30)
-                                .shadow(color: .black.opacity(0.1), radius: 4, y: 2) // Consistent shadow
-                        }
-                        .padding(.trailing, 20)
-                        .padding(.bottom, 120) // Position above restaurant detail area
-                    }
-                }
-                .allowsHitTesting(false) // Critical: Don't block ANY interactions
-                .zIndex(2) // Keep below search radius but above map
+                MapDataLoadingView(progress: viewModel.loadingProgress)
             }
             
             restaurantDetailOverlay
@@ -360,7 +325,8 @@ struct MapScreen: View {
             if viewModel.showingRestaurantDetail, let restaurant = viewModel.selectedRestaurant {
                 RestaurantDetailView(
                     restaurant: restaurant,
-                    isPresented: $viewModel.showingRestaurantDetail
+                    isPresented: $viewModel.showingRestaurantDetail,
+                    selectedCategory: nil
                 )
                 .ignoresSafeArea(.all)
                 .zIndex(100)

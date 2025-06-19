@@ -5,550 +5,586 @@ import CoreLocation
 struct RestaurantDetailView: View {
     let restaurant: Restaurant
     @Binding var isPresented: Bool
+    let selectedCategory: RestaurantCategory?
     @State private var animateIn = false
-    @State private var selectedTab: DetailTab = .nutrition
     @State private var hasNutritionData: Bool = false
     @StateObject private var nutritionManager = NutritionDataManager()
     @State private var scrollOffset: CGFloat = 0
+    @State private var viewState: ViewState = .initializing
     
-    enum DetailTab: String, CaseIterable {
-        case info = "Info"
-        case nutrition = "Nutrition"
-        case directions = "Directions"
-        
-        var icon: String {
-            switch self {
-            case .info: return "info.circle.fill"
-            case .directions: return "location.fill"
-            case .nutrition: return "leaf.fill"
-            }
-        }
+    enum ViewState {
+        case initializing
+        case loading
+        case loaded
+        case noData
+        case error(String)
     }
     
     var body: some View {
-        ZStack {
-            // Full-screen map background
-            MapStyleBackground()
-                .ignoresSafeArea(.all)
-            
-            // Gradient overlay for better readability
-            LinearGradient(
-                colors: [
-                    Color.black.opacity(0.3),
-                    Color.black.opacity(0.1),
-                    Color.clear,
-                    Color.white.opacity(0.8),
-                    Color.white
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea(.all)
-            
-            // Main content
-            GeometryReader { geometry in
-                ScrollView {
-                    VStack(spacing: 0) {
-                        // Hero header section
-                        VStack(spacing: 16) {
-                            Spacer().frame(height: 60) // Status bar padding
-                            
-                            // Close button
-                            HStack {
-                                Button(action: dismissView) {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .font(.system(size: 32))
-                                        .foregroundColor(.white)
-                                        .background(
-                                            Circle()
-                                                .fill(.ultraThinMaterial)
-                                                .frame(width: 44, height: 44)
-                                        )
-                                }
-                                
-                                Spacer()
-                            }
-                            .padding(.horizontal, 20)
-                            
-                            // Restaurant pin and info
-                            VStack(spacing: 20) {
-                                // Large restaurant pin
-                                Image(systemName: "fork.knife.circle.fill")
-                                    .font(.system(size: 80))
-                                    .foregroundColor(.red)
-                                    .background(
-                                        Circle()
-                                            .fill(.white)
-                                            .frame(width: 70, height: 70)
-                                    )
-                                    .shadow(color: .black.opacity(0.3), radius: 10, y: 5)
-                                
-                                // Restaurant name and cuisine
-                                VStack(spacing: 8) {
-                                    Text(restaurant.name)
-                                        .font(.system(size: 32, weight: .bold))
-                                        .foregroundColor(.white)
-                                        .multilineTextAlignment(.center)
-                                        .shadow(color: .black.opacity(0.5), radius: 2, y: 1)
-                                    
-                                    if let cuisine = restaurant.cuisine {
-                                        Text(cuisine.capitalized)
-                                            .font(.system(size: 18, weight: .medium))
-                                            .foregroundColor(.white.opacity(0.9))
-                                            .padding(.horizontal, 16)
-                                            .padding(.vertical, 8)
-                                            .background(
-                                                Capsule()
-                                                    .fill(.ultraThinMaterial)
-                                            )
-                                    }
-                                }
-                            }
-                            
-                            Spacer().frame(height: 40)
-                        }
-                        .frame(height: 400)
-                        
-                        // Content card section
-                        VStack(spacing: 0) {
-                            // Tab selector
-                            HStack(spacing: 0) {
-                                ForEach(DetailTab.allCases, id: \.self) { tab in
-                                    Button(action: {
-                                        withAnimation(.easeInOut(duration: 0.3)) {
-                                            selectedTab = tab
-                                        }
-                                        if tab == .nutrition {
-                                            nutritionManager.loadNutritionData(for: restaurant.name)
-                                        }
-                                    }) {
-                                        VStack(spacing: 8) {
-                                            Image(systemName: tab.icon)
-                                                .font(.system(size: 20))
-                                            Text(tab.rawValue)
-                                                .font(.system(size: 14, weight: .medium))
-                                        }
-                                        .foregroundColor(selectedTab == tab ? .white : .gray)
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 20)
-                                        .background(
-                                            selectedTab == tab ? 
-                                            Color.blue : Color.clear
-                                        )
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                }
-                            }
-                            .background(Color(.systemGray6))
-                            .cornerRadius(16, corners: [.topLeft, .topRight])
-                            
-                            // Tab content
-                            VStack(spacing: 24) {
-                                switch selectedTab {
-                                case .info:
-                                    FullScreenRestaurantInfoView(restaurant: restaurant)
-                                case .nutrition:
-                                    FullScreenRestaurantNutritionView(
-                                        restaurant: restaurant,
-                                        nutritionManager: nutritionManager
-                                    )
-                                case .directions:
-                                    FullScreenRestaurantDirectionsView(restaurant: restaurant)
-                                }
-                            }
-                            .padding(24)
-                            .background(Color(.systemBackground))
-                            .frame(minHeight: geometry.size.height * 0.6)
-                            
-                            // Action buttons
-                            fullScreenActionButtons()
-                                .padding(.horizontal, 24)
-                                .padding(.bottom, 100)
-                                .background(Color(.systemBackground))
-                        }
-                    }
+        NavigationView {
+            ZStack {
+                // Background
+                LinearGradient(
+                    colors: [Color(.systemBackground), Color(.systemGray6)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+                
+                VStack(spacing: 0) {
+                    // Restaurant Header
+                    restaurantHeader
+                        .padding(.horizontal, 20)
+                        .padding(.top, 20)
+                        .background(Color(.systemBackground))
+                    
+                    // Content based on view state
+                    contentView
                 }
-                .ignoresSafeArea(.all)
             }
-        }
-        .navigationBarHidden(true)
-        .statusBarHidden(false)
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .ignoresSafeArea(.all)
-        .onAppear {
-            withAnimation(.spring(response: 0.8, dampingFraction: 0.8)) {
-                animateIn = true
-            }
-            
-            if selectedTab == .nutrition {
-                nutritionManager.loadNutritionData(for: restaurant.name)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private func fullScreenActionButtons() -> some View {
-        VStack(spacing: 16) {
-            HStack(spacing: 16) {
-                // Call button
-                if let phone = restaurant.phone {
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        if let url = URL(string: "tel:\(phone.replacingOccurrences(of: " ", with: ""))") {
-                            UIApplication.shared.open(url)
-                        }
+                        isPresented = false
                     }) {
-                        HStack(spacing: 12) {
-                            Image(systemName: "phone.fill")
-                                .font(.system(size: 18))
-                            Text("Call")
-                                .font(.system(size: 16, weight: .semibold))
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.green)
-                        .cornerRadius(12)
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.primary)
                     }
                 }
                 
-                // Directions button
-                Button(action: openInMaps) {
+                ToolbarItem(placement: .principal) {
+                    Text(restaurant.name)
+                        .font(.system(size: 18, weight: .bold))
+                        .lineLimit(1)
+                }
+            }
+        }
+        .onAppear {
+            setupView()
+        }
+        .onChange(of: nutritionManager.isLoading) { oldValue, newValue in
+            updateViewState()
+        }
+        .onChange(of: nutritionManager.currentRestaurantData) { oldValue, newValue in
+            updateViewState()
+        }
+        .onChange(of: nutritionManager.errorMessage) { oldValue, newValue in
+            updateViewState()
+        }
+    }
+    
+    // MARK: - Content View
+    @ViewBuilder
+    private var contentView: some View {
+        switch viewState {
+        case .initializing, .loading:
+            LoadingView(
+                title: "Loading Menu...",
+                subtitle: "Getting nutrition data for \(restaurant.name)",
+                progress: nil,
+                style: .fullScreen
+            )
+            .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            
+        case .loaded:
+            if let restaurantData = nutritionManager.currentRestaurantData {
+                menuContent(restaurantData)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+            }
+            
+        case .noData:
+            noDataView
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            
+        case .error(let message):
+            errorView(message: message)
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+        }
+    }
+    
+    // MARK: - Setup and State Management
+    private func setupView() {
+        hasNutritionData = RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
+        
+        if hasNutritionData {
+            viewState = .loading
+            nutritionManager.loadNutritionData(for: restaurant.name)
+        } else {
+            viewState = .noData
+        }
+        
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+            animateIn = true
+        }
+    }
+    
+    private func updateViewState() {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            if let errorMessage = nutritionManager.errorMessage {
+                viewState = .error(errorMessage)
+            } else if nutritionManager.isLoading {
+                viewState = .loading
+            } else if let _ = nutritionManager.currentRestaurantData {
+                viewState = .loaded
+            } else if hasNutritionData {
+                viewState = .loading // Still waiting for data
+            } else {
+                viewState = .noData
+            }
+        }
+    }
+    
+    // MARK: - Restaurant Header
+    private var restaurantHeader: some View {
+        VStack(spacing: 16) {
+            HStack {
+                // Restaurant Icon
+                ZStack {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.blue.opacity(0.1))
+                        .frame(width: 60, height: 60)
+                    
+                    Image(systemName: "fork.knife")
+                        .font(.system(size: 24, weight: .medium))
+                        .foregroundColor(.blue)
+                }
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(restaurant.name)
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .foregroundColor(.primary)
+                        .lineLimit(2)
+                    
+                    if let cuisine = restaurant.cuisine {
+                        Text(cuisine.capitalized)
+                            .font(.system(size: 16, weight: .medium, design: .rounded))
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    // Nutrition availability indicator
+                    HStack(spacing: 6) {
+                        if hasNutritionData {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 12))
+                                .foregroundColor(.green)
+                            Text("Nutrition data available")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.green)
+                        } else {
+                            Image(systemName: "info.circle")
+                                .font(.system(size: 12))
+                                .foregroundColor(.orange)
+                            Text("No nutrition data")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(.orange)
+                        }
+                    }
+                }
+                
+                Spacer()
+            }
+            
+            // Category filter indicator if applicable
+            if let category = selectedCategory {
+                HStack {
+                    HStack(spacing: 8) {
+                        Image(systemName: category.icon)
+                            .font(.system(size: 14))
+                            .foregroundColor(category.color)
+                        
+                        Text("Filtering by \(category.rawValue)")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(category.color)
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(category.color.opacity(0.1))
+                    )
+                    
+                    Spacer()
+                }
+            }
+        }
+    }
+    
+    // MARK: - No Data View
+    private var noDataView: some View {
+        VStack(spacing: 24) {
+            Spacer()
+            
+            Image(systemName: "info.circle.fill")
+                .font(.system(size: 50))
+                .foregroundColor(.orange)
+            
+            VStack(spacing: 12) {
+                Text("No Nutrition Data")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.primary)
+                
+                Text("Unfortunately, we don't have detailed nutrition information for \(restaurant.name) yet.")
+                    .font(.system(size: 16))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                
+                Text("You can still view restaurant details and location information.")
+                    .font(.system(size: 14))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+            }
+            
+            // Restaurant info section
+            VStack(spacing: 16) {
+                if let address = restaurant.address {
                     HStack(spacing: 12) {
                         Image(systemName: "location.fill")
-                            .font(.system(size: 18))
-                        Text("Directions")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 16))
+                            .foregroundColor(.blue)
+                        
+                        Text(address)
+                            .font(.system(size: 16))
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
                     }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(Color.blue)
-                    .cornerRadius(12)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.systemGray6))
+                    )
                 }
-            }
-            
-            // Website button (full width if available)
-            if let website = restaurant.website {
-                Button(action: {
-                    if let url = URL(string: website) {
-                        UIApplication.shared.open(url)
-                    }
-                }) {
+                
+                if let phone = restaurant.phone {
                     HStack(spacing: 12) {
-                        Image(systemName: "safari.fill")
-                            .font(.system(size: 18))
-                        Text("Visit Website")
-                            .font(.system(size: 16, weight: .semibold))
+                        Image(systemName: "phone.fill")
+                            .font(.system(size: 16))
+                            .foregroundColor(.green)
+                        
+                        Text(phone)
+                            .font(.system(size: 16))
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
                     }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(Color.orange)
-                    .cornerRadius(12)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.systemGray6))
+                    )
                 }
             }
+            .padding(.horizontal, 20)
+            
+            Spacer()
         }
     }
     
-    private func dismissView() {
-        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-            animateIn = false
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            isPresented = false
-        }
-    }
-    
-    private func openInMaps() {
-        let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
-        mapItem.name = restaurant.name
-        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-    }
-}
-
-// MARK: - Full Screen Content Views
-
-struct FullScreenRestaurantInfoView: View {
-    let restaurant: Restaurant
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            if let address = restaurant.address {
-                InfoCard(icon: "location.fill", title: "Address", value: address, color: .blue)
+    // MARK: - Error View
+    private func errorView(message: String) -> some View {
+        VStack(spacing: 24) {
+            Spacer()
+            
+            Image(systemName: "exclamationmark.triangle.fill")
+                .font(.system(size: 50))
+                .foregroundColor(.red)
+            
+            VStack(spacing: 12) {
+                Text("Unable to Load Menu")
+                    .font(.system(size: 24, weight: .bold))
+                    .foregroundColor(.primary)
+                
+                Text(message)
+                    .font(.system(size: 16))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
             }
             
-            if let cuisine = restaurant.cuisine {
-                InfoCard(icon: "fork.knife", title: "Cuisine", value: cuisine.capitalized, color: .green)
-            }
-            
-            if let hours = restaurant.openingHours {
-                InfoCard(icon: "clock.fill", title: "Hours", value: hours, color: .orange)
-            } else {
-                InfoCard(icon: "clock.fill", title: "Hours", value: "Hours not available", color: .gray)
-            }
-            
-            if let phone = restaurant.phone {
-                InfoCard(icon: "phone.fill", title: "Phone", value: phone, color: .red)
-            }
-            
-            InfoCard(
-                icon: "mappin.circle.fill", 
-                title: "Coordinates", 
-                value: "\(String(format: "%.4f", restaurant.latitude)), \(String(format: "%.4f", restaurant.longitude))",
-                color: .purple
-            )
-        }
-    }
-}
-
-struct FullScreenRestaurantNutritionView: View {
-    let restaurant: Restaurant
-    @ObservedObject var nutritionManager: NutritionDataManager
-    @State private var showingFullMenu = false
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            if nutritionManager.isLoading {
-                VStack(spacing: 16) {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                    Text("Loading nutrition data...")
-                        .font(.system(size: 18))
-                        .foregroundColor(.secondary)
+            Button(action: {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    viewState = .loading
                 }
-                .frame(minHeight: 150)
-            } else if let errorMessage = nutritionManager.errorMessage {
-                VStack(spacing: 16) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .font(.system(size: 50))
-                        .foregroundColor(.orange)
-                    
-                    Text("No Nutrition Data Available")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.primary)
-                    
-                    Text(errorMessage)
-                        .font(.system(size: 16))
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
+                nutritionManager.loadNutritionData(for: restaurant.name)
+            }) {
+                HStack(spacing: 8) {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 14, weight: .semibold))
+                    Text("Try Again")
+                        .font(.system(size: 16, weight: .semibold))
                 }
-                .frame(minHeight: 200)
-            } else if let restaurantData = nutritionManager.currentRestaurantData {
-                VStack(spacing: 20) {
-                    // Header
+                .foregroundColor(.white)
+                .padding(.horizontal, 24)
+                .padding(.vertical, 12)
+                .background(
+                    LinearGradient(
+                        colors: [.blue, .blue.opacity(0.8)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .cornerRadius(12)
+                .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
+            }
+            
+            Spacer()
+        }
+    }
+    
+    // MARK: - Menu Content
+    private func menuContent(_ restaurantData: RestaurantNutritionData) -> some View {
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                // Menu header with item count
+                VStack(spacing: 12) {
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Menu Items")
-                                .font(.system(size: 24, weight: .bold))
-                            Text("\(restaurantData.items.count) items available")
-                                .font(.system(size: 16))
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        Spacer()
-                        
-                        Button("View All") {
-                            showingFullMenu = true
-                        }
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.blue)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 10)
-                        .background(Color.blue.opacity(0.1))
-                        .cornerRadius(10)
-                    }
-                    
-                    // Preview of menu items
-                    VStack(spacing: 12) {
-                        ForEach(restaurantData.items.prefix(5)) { item in
-                            FullScreenMenuItemRow(item: item)
-                        }
-                        
-                        if restaurantData.items.count > 5 {
-                            Button("+ \(restaurantData.items.count - 5) more items") {
-                                showingFullMenu = true
+                                .font(.system(size: 20, weight: .bold, design: .rounded))
+                                .foregroundColor(.primary)
+                            
+                            let totalItems = restaurantData.items.count
+                            let filteredCount = getFilteredItems(restaurantData.items).count
+                            
+                            if let category = selectedCategory, filteredCount != totalItems {
+                                Text("\(filteredCount) \(category.rawValue.lowercased()) items of \(totalItems) total")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.secondary)
+                            } else {
+                                Text("\(totalItems) items available")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.secondary)
                             }
-                            .font(.system(size: 16, weight: .medium))
+                        }
+                        
+                        Spacer()
+                        
+                        // View full menu button
+                        NavigationLink(destination: NutritionMenuView(
+                            restaurantData: restaurantData,
+                            selectedCategory: selectedCategory
+                        )) {
+                            HStack(spacing: 6) {
+                                Text("View All")
+                                    .font(.system(size: 14, weight: .semibold))
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 12))
+                            }
                             .foregroundColor(.blue)
-                            .padding(.top, 8)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.blue.opacity(0.1))
+                            )
                         }
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
                 }
-            } else {
-                VStack(spacing: 20) {
-                    Image(systemName: "leaf.fill")
-                        .font(.system(size: 50))
-                        .foregroundColor(.green)
-                    
-                    Text("Tap to Load Nutrition Data")
-                        .font(.system(size: 20))
-                        .foregroundColor(.secondary)
-                    
-                    Button("Load Menu") {
-                        nutritionManager.loadNutritionData(for: restaurant.name)
-                    }
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 12)
-                    .background(Color.green)
-                    .cornerRadius(12)
-                }
-                .frame(minHeight: 200)
-            }
-        }
-        .sheet(isPresented: $showingFullMenu) {
-            if let restaurantData = nutritionManager.currentRestaurantData {
-                NutritionMenuView(restaurantData: restaurantData)
-            }
-        }
-    }
-}
-
-struct FullScreenRestaurantDirectionsView: View {
-    let restaurant: Restaurant
-    @State private var userLocation: CLLocation?
-    @State private var distance: String = "Calculating..."
-    
-    var body: some View {
-        VStack(spacing: 24) {
-            // Distance card
-            VStack(spacing: 16) {
-                Image(systemName: "location.circle.fill")
-                    .font(.system(size: 50))
-                    .foregroundColor(.blue)
                 
-                VStack(spacing: 8) {
-                    Text("Distance from You")
-                        .font(.system(size: 20, weight: .semibold))
-                    Text(distance)
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.blue)
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 30)
-            .background(Color.blue.opacity(0.1))
-            .cornerRadius(16)
-            
-            // Location details
-            VStack(spacing: 16) {
-                Text("Restaurant Location")
-                    .font(.system(size: 20, weight: .semibold))
+                // Menu items preview
+                let itemsToShow = getFilteredItems(restaurantData.items).prefix(10)
                 
-                VStack(spacing: 12) {
-                    HStack {
-                        Text("Latitude:")
+                if itemsToShow.isEmpty && selectedCategory != nil {
+                    // No items match category
+                    VStack(spacing: 16) {
+                        Image(systemName: selectedCategory?.icon ?? "exclamationmark.triangle")
+                            .font(.system(size: 40))
+                            .foregroundColor(selectedCategory?.color ?? .gray)
+                        
+                        Text("No \(selectedCategory?.rawValue ?? "Matching") Items")
+                            .font(.system(size: 18, weight: .semibold))
+                        
+                        Text("This restaurant doesn't have menu items that match the \(selectedCategory?.rawValue.lowercased() ?? "selected") criteria.")
+                            .font(.system(size: 14))
                             .foregroundColor(.secondary)
-                            .font(.system(size: 16))
-                        Spacer()
-                        Text(String(format: "%.6f", restaurant.latitude))
-                            .font(.system(size: 16, weight: .medium))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 40)
+                        
+                        NavigationLink(destination: NutritionMenuView(
+                            restaurantData: restaurantData,
+                            selectedCategory: nil
+                        )) {
+                            Text("View All Items")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 10)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.blue.opacity(0.1))
+                                )
+                        }
+                    }
+                    .padding(.vertical, 40)
+                } else {
+                    ForEach(Array(itemsToShow), id: \.id) { item in
+                        MenuItemCard(item: item, category: selectedCategory)
+                            .padding(.horizontal, 20)
                     }
                     
-                    HStack {
-                        Text("Longitude:")
-                            .foregroundColor(.secondary)
-                            .font(.system(size: 16))
-                        Spacer()
-                        Text(String(format: "%.6f", restaurant.longitude))
-                            .font(.system(size: 16, weight: .medium))
+                    // Show more button if there are more items
+                    if getFilteredItems(restaurantData.items).count > 10 {
+                        NavigationLink(destination: NutritionMenuView(
+                            restaurantData: restaurantData,
+                            selectedCategory: selectedCategory
+                        )) {
+                            HStack(spacing: 8) {
+                                Text("View \(getFilteredItems(restaurantData.items).count - 10) more items")
+                                    .font(.system(size: 16, weight: .semibold))
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 14))
+                            }
+                            .foregroundColor(.blue)
+                            .padding(.vertical, 16)
+                            .padding(.horizontal, 24)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(.blue.opacity(0.1))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(.blue.opacity(0.3), lineWidth: 1)
+                                    )
+                            )
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.top, 8)
                     }
                 }
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(12)
-            }
-            
-            Text("Tap 'Directions' below to open in Maps app for turn-by-turn navigation.")
-                .font(.system(size: 14))
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-                .padding()
-        }
-        .onAppear {
-            calculateDistance()
-        }
-    }
-    
-    private func calculateDistance() {
-        let locationManager = CLLocationManager()
-        if let userLoc = locationManager.location {
-            let restaurantLocation = CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude)
-            let distanceInMeters = userLoc.distance(from: restaurantLocation)
-            let distanceInMiles = distanceInMeters / 1609.34
-            
-            if distanceInMiles < 1 {
-                distance = String(format: "%.0f ft", distanceInMeters * 3.28084)
-            } else {
-                distance = String(format: "%.1f miles", distanceInMiles)
-            }
-        }
-    }
-}
-
-// MARK: - Helper Views
-
-struct InfoCard: View {
-    let icon: String
-    let title: String
-    let value: String
-    let color: Color
-    
-    var body: some View {
-        HStack(spacing: 16) {
-            Image(systemName: icon)
-                .font(.system(size: 24))
-                .foregroundColor(color)
-                .frame(width: 40)
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.primary)
                 
-                Text(value)
-                    .font(.system(size: 15))
-                    .foregroundColor(.secondary)
+                // Bottom padding
+                Rectangle()
+                    .fill(Color.clear)
+                    .frame(height: 40)
             }
-            
-            Spacer()
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+    }
+    
+    // MARK: - Helper Methods
+    private func getFilteredItems(_ items: [NutritionData]) -> [NutritionData] {
+        guard let category = selectedCategory else { return items }
+        
+        switch category {
+        case .fastFood:
+            return items
+        case .healthy:
+            return items.filter { item in
+                item.sodium <= 600 && item.fiber >= 3 && item.calories <= 500
+            }
+        case .vegan:
+            return items.filter { item in
+                let itemName = item.item.lowercased()
+                let nonVeganKeywords = ["chicken", "beef", "bacon", "cheese", "mayo", "milk", "egg", "butter", "cream"]
+                return !nonVeganKeywords.contains { itemName.contains($0) }
+            }
+        case .highProtein:
+            return items.filter { item in
+                item.protein >= 20
+            }
+        case .lowCarb:
+            return items.filter { item in
+                item.carbs <= 15
+            }
+        }
     }
 }
 
-struct FullScreenMenuItemRow: View {
+// MARK: - Menu Item Card
+struct MenuItemCard: View {
     let item: NutritionData
+    let category: RestaurantCategory?
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(item.item)
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.primary)
-                    .lineLimit(2)
+        VStack(alignment: .leading, spacing: 12) {
+            // Item name and calories
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.item)
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.primary)
+                        .lineLimit(2)
+                    
+                    Text("\(Int(item.calories)) calories")
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                }
                 
-                HStack(spacing: 12) {
-                    NutritionBadge(value: "\(Int(item.calories)) cal", color: .orange)
-                    NutritionBadge(value: "\(formatNumber(item.fat))g fat", color: .blue)
-                    NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .green)
+                Spacer()
+                
+                // Main metric based on category
+                VStack(alignment: .trailing, spacing: 2) {
+                    switch category {
+                    case .highProtein:
+                        Text("\(formatNumber(item.protein))g")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(item.protein >= 20 ? .green : .primary)
+                        Text("protein")
+                            .font(.system(size: 12))
+                            .foregroundColor(.secondary)
+                            
+                    case .lowCarb:
+                        Text("\(formatNumber(item.carbs))g")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(item.carbs <= 15 ? .green : .red)
+                        Text("carbs")
+                            .font(.system(size: 12))
+                            .foregroundColor(.secondary)
+                            
+                    default:
+                        Text("\(Int(item.calories))")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.primary)
+                        Text("calories")
+                            .font(.system(size: 12))
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             
-            Spacer()
-            
-            Text("\(Int(item.calories))")
-                .font(.system(size: 20, weight: .bold))
-                .foregroundColor(.primary)
+            // Nutrition highlights
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    // Show relevant nutrition based on category
+                    switch category {
+                    case .highProtein:
+                        NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .green, highlighted: item.protein >= 20)
+                        NutritionBadge(value: "\(formatNumber(item.fat))g fat", color: .orange)
+                        
+                    case .lowCarb:
+                        NutritionBadge(value: "\(formatNumber(item.carbs))g carbs", color: .red, highlighted: item.carbs <= 15)
+                        NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .green)
+                        
+                    case .healthy:
+                        NutritionBadge(value: "\(formatNumber(item.fiber))g fiber", color: .green, highlighted: item.fiber >= 3)
+                        NutritionBadge(value: "\(Int(item.sodium))mg sodium", color: .red, highlighted: item.sodium <= 600)
+                        
+                    case .vegan:
+                        NutritionBadge(value: "\(formatNumber(item.fiber))g fiber", color: .green)
+                        NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .mint)
+                        
+                    default:
+                        NutritionBadge(value: "\(formatNumber(item.fat))g fat", color: .orange)
+                        NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .green)
+                        NutritionBadge(value: "\(formatNumber(item.carbs))g carbs", color: .blue)
+                    }
+                }
+                .padding(.horizontal, 4)
+            }
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemBackground))
+                .shadow(color: .black.opacity(0.06), radius: 6, y: 2)
+        )
     }
     
     private func formatNumber(_ value: Double) -> String {
@@ -557,21 +593,6 @@ struct FullScreenMenuItemRow: View {
         } else {
             return String(format: "%.1f", value)
         }
-    }
-}
-
-struct NutritionBadge: View {
-    let value: String
-    let color: Color
-    
-    var body: some View {
-        Text(value)
-            .font(.system(size: 12, weight: .medium))
-            .foregroundColor(color)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(color.opacity(0.1))
-            .cornerRadius(6)
     }
 }
 
@@ -596,20 +617,45 @@ struct RoundedCorner: Shape {
     }
 }
 
+// MARK: - Nutrition Badge Component
+struct NutritionBadge: View {
+    let value: String
+    let color: Color
+    let highlighted: Bool
+    
+    init(value: String, color: Color, highlighted: Bool = false) {
+        self.value = value
+        self.color = color
+        self.highlighted = highlighted
+    }
+    
+    var body: some View {
+        Text(value)
+            .font(.system(size: 12, weight: highlighted ? .bold : .medium))
+            .foregroundColor(highlighted ? .white : color)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(highlighted ? color : color.opacity(0.1))
+            .cornerRadius(6)
+            .shadow(color: highlighted ? color.opacity(0.3) : .clear, radius: highlighted ? 2 : 0)
+    }
+}
+
 #Preview {
     RestaurantDetailView(
         restaurant: Restaurant(
             id: 1,
-            name: "McDonald's",
+            name: "Krispy Kreme",
             latitude: 37.7749,
             longitude: -122.4194,
             address: "123 Main St",
-            cuisine: "fast_food",
+            cuisine: "Donut",
             openingHours: "6:00 AM - 11:00 PM",
             phone: "+1-555-123-4567",
-            website: "https://mcdonalds.com",
+            website: "https://krispykreme.com",
             type: "node"
         ),
-        isPresented: .constant(true)
+        isPresented: .constant(true),
+        selectedCategory: .fastFood
     )
 }

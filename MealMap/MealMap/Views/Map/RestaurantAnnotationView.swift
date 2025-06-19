@@ -10,14 +10,37 @@ struct RestaurantAnnotationView: View {
     @State private var scale: CGFloat = 0.8
     @State private var opacity: Double = 0.0
     
+    private var restaurantCategory: RestaurantCategory? {
+        for category in RestaurantCategory.allCases {
+            if restaurant.matchesCategory(category) {
+                return category
+            }
+        }
+        return nil
+    }
+    
+    private var pinColor: Color {
+        if let category = restaurantCategory {
+            return category.color
+        }
+        return hasNutritionData ? .orange : .blue
+    }
+    
+    private var pinIcon: String {
+        if let category = restaurantCategory {
+            return category.icon
+        }
+        return restaurant.amenityType == "fast_food" ? "takeoutbag.and.cup.and.straw" : "fork.knife"
+    }
+    
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color.blue)
+                .fill(pinColor)
                 .frame(width: isSelected ? 32 : 28, height: isSelected ? 32 : 28)
                 .shadow(color: .black.opacity(0.2), radius: 3, y: 2)
             
-            Image(systemName: "fork.knife")
+            Image(systemName: pinIcon)
                 .font(.system(size: isSelected ? 14 : 12, weight: .medium))
                 .foregroundColor(.white)
             
@@ -26,6 +49,12 @@ struct RestaurantAnnotationView: View {
                     .fill(Color.green)
                     .frame(width: 8, height: 8)
                     .offset(x: 10, y: -10)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.white, lineWidth: 1)
+                            .frame(width: 8, height: 8)
+                            .offset(x: 10, y: -10)
+                    )
             }
         }
         .scaleEffect(isSelected ? 1.1 : 1.0)
@@ -81,19 +110,19 @@ struct RestaurantAnnotationView: View {
                     isSelected: false,
                     onTap: { _ in }
                 )
-                Text("With Nutrition")
+                Text("Fast Food")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             
             VStack(spacing: 8) {
                 RestaurantAnnotationView(
-                    restaurant: Restaurant(id: 2, name: "Local Cafe", latitude: 0, longitude: 0, address: nil, cuisine: nil, openingHours: nil, phone: nil, website: nil, type: "node"),
+                    restaurant: Restaurant(id: 2, name: "Sweetgreen", latitude: 0, longitude: 0, address: nil, cuisine: nil, openingHours: nil, phone: nil, website: nil, type: "node"),
                     hasNutritionData: false,
                     isSelected: false,
                     onTap: { _ in }
                 )
-                Text("No Nutrition")
+                Text("Healthy")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -102,24 +131,24 @@ struct RestaurantAnnotationView: View {
         HStack(spacing: 32) {
             VStack(spacing: 8) {
                 RestaurantAnnotationView(
-                    restaurant: Restaurant(id: 3, name: "Burger King", latitude: 0, longitude: 0, address: nil, cuisine: nil, openingHours: nil, phone: nil, website: nil, type: "node"),
+                    restaurant: Restaurant(id: 3, name: "Chipotle", latitude: 0, longitude: 0, address: nil, cuisine: nil, openingHours: nil, phone: nil, website: nil, type: "node"),
                     hasNutritionData: true,
                     isSelected: true,
                     onTap: { _ in }
                 )
-                Text("Selected")
+                Text("High Protein")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             
             VStack(spacing: 8) {
                 RestaurantAnnotationView(
-                    restaurant: Restaurant(id: 4, name: "Pizza Place", latitude: 0, longitude: 0, address: nil, cuisine: nil, openingHours: nil, phone: nil, website: nil, type: "node"),
+                    restaurant: Restaurant(id: 4, name: "Green Goddess", latitude: 0, longitude: 0, address: nil, cuisine: "vegan", openingHours: nil, phone: nil, website: nil, type: "node"),
                     hasNutritionData: false,
                     isSelected: true,
                     onTap: { _ in }
                 )
-                Text("Selected (No Data)")
+                Text("Vegan")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

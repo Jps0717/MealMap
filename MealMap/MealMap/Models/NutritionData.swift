@@ -1,6 +1,6 @@
 import Foundation
 
-struct NutritionData: Identifiable, Codable {
+struct NutritionData: Identifiable, Codable, Equatable {
     let id = UUID()
     let item: String
     let calories: Double
@@ -25,9 +25,26 @@ struct NutritionData: Identifiable, Codable {
         case sugar = "Sugar (g)"
         case protein = "Protein (g)"
     }
+    
+    static func == (lhs: NutritionData, rhs: NutritionData) -> Bool {
+        return lhs.item == rhs.item &&
+               lhs.calories == rhs.calories &&
+               lhs.fat == rhs.fat &&
+               lhs.saturatedFat == rhs.saturatedFat &&
+               lhs.cholesterol == rhs.cholesterol &&
+               lhs.sodium == rhs.sodium &&
+               lhs.carbs == rhs.carbs &&
+               lhs.fiber == rhs.fiber &&
+               lhs.sugar == rhs.sugar &&
+               lhs.protein == rhs.protein
+    }
 }
 
-struct RestaurantNutritionData {
+struct RestaurantNutritionData: Equatable {
     let restaurantName: String
     let items: [NutritionData]
+    
+    static func == (lhs: RestaurantNutritionData, rhs: RestaurantNutritionData) -> Bool {
+        return lhs.restaurantName == rhs.restaurantName && lhs.items == rhs.items
+    }
 }
