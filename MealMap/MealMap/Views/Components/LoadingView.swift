@@ -7,6 +7,8 @@ struct LoadingView: View {
     let subtitle: String?
     let progress: Double?
     let style: LoadingStyle
+    @State private var showSlowLoadingTip = false
+    @State private var loadingTimer: Timer?
     
     init(
         title: String = "Loading...",
@@ -60,6 +62,10 @@ struct LoadingView: View {
                             .foregroundColor(.white.opacity(0.8))
                             .multilineTextAlignment(.center)
                     }
+                    
+                    if showSlowLoadingTip {
+                        slowLoadingTipView(textColor: .white)
+                    }
                 }
             }
             .padding(32)
@@ -71,6 +77,12 @@ struct LoadingView: View {
         }
         .transition(.opacity.combined(with: .scale(scale: 0.9)))
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: progress)
+        .onAppear {
+            startSlowLoadingTimer()
+        }
+        .onDisappear {
+            stopSlowLoadingTimer()
+        }
     }
     
     private var inlineStyle: some View {
@@ -94,9 +106,19 @@ struct LoadingView: View {
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                 }
+                
+                if showSlowLoadingTip {
+                    slowLoadingTipView(textColor: .primary)
+                }
             }
         }
         .frame(minHeight: 120)
+        .onAppear {
+            startSlowLoadingTimer()
+        }
+        .onDisappear {
+            stopSlowLoadingTimer()
+        }
     }
     
     private var fullScreenStyle: some View {
@@ -123,6 +145,10 @@ struct LoadingView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 40)
                 }
+                
+                if showSlowLoadingTip {
+                    slowLoadingTipView(textColor: .primary)
+                }
             }
             
             Spacer()
@@ -135,6 +161,12 @@ struct LoadingView: View {
                 endPoint: .bottom
             )
         )
+        .onAppear {
+            startSlowLoadingTimer()
+        }
+        .onDisappear {
+            stopSlowLoadingTimer()
+        }
     }
     
     private var compactStyle: some View {
@@ -174,6 +206,46 @@ struct LoadingView: View {
             RoundedRectangle(cornerRadius: title.isEmpty ? 8 : 12)
                 .fill(title.isEmpty ? Color.clear : Color(.systemGray6))
         )
+    }
+    
+    // MARK: - Slow Loading Tip
+    private func slowLoadingTipView(textColor: Color) -> some View {
+        VStack(spacing: 8) {
+            HStack(spacing: 6) {
+                Image(systemName: "lightbulb.fill")
+                    .font(.system(size: 12))
+                    .foregroundColor(.yellow)
+                
+                Text("Taking longer than expected?")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(textColor)
+            }
+            
+            Text("Try closing and reopening this screen for faster loading")
+                .font(.system(size: 11))
+                .foregroundColor(textColor.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 20)
+        }
+        .padding(.top, 8)
+        .transition(.opacity.combined(with: .move(edge: .top)))
+    }
+    
+    // MARK: - Timer Management
+    private func startSlowLoadingTimer() {
+        // Only show tip for full screen and overlay loading styles
+        guard style == .fullScreen || style == .overlay else { return }
+        
+        loadingTimer = Timer.scheduledTimer(withTimeInterval: 8.0, repeats: false) { _ in
+            withAnimation(.easeInOut(duration: 0.5)) {
+                showSlowLoadingTip = true
+            }
+        }
+    }
+    
+    private func stopSlowLoadingTimer() {
+        loadingTimer?.invalidate()
+        loadingTimer = nil
     }
 }
 
