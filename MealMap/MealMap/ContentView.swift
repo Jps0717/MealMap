@@ -1,6 +1,5 @@
 import SwiftUI
 import CoreLocation
-import Combine
 
 struct ContentView: View {
     @StateObject private var locationManager = LocationManager.shared
@@ -67,6 +66,7 @@ struct ContentView: View {
         .preferredColorScheme(.light)
     }
 }
+
 
 // Preview
 #Preview {

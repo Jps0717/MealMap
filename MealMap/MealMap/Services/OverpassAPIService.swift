@@ -2,17 +2,6 @@ import Foundation
 import CoreLocation
 import SwiftUI
 
-extension CLLocationCoordinate2D: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(latitude)
-        hasher.combine(longitude)
-    }
-    
-    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-        return abs(lhs.latitude - rhs.latitude) < 0.00001 &&
-               abs(lhs.longitude - rhs.longitude) < 0.00001
-    }
-}
 
 /// Model representing a restaurant fetched from the Overpass API.
 struct Restaurant: Identifiable, Equatable, Hashable, Codable {
@@ -50,6 +39,10 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
         hasher.combine(name)
         hasher.combine(latitude)
         hasher.combine(longitude)
+    }
+    
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
 }
 
@@ -279,31 +272,29 @@ private struct Element: Decodable {
 }
 
 // MARK: - Test Function
-extension OverpassAPIService {
-    static func testConnection() async {
-        let service = OverpassAPIService()
-        
-        // Test with a small area in San Francisco
-        let coordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
-        
-        do {
-            let restaurants = try await service.fetchFastFoodRestaurants(near: coordinate, radius: 2.0)
-            
-            print("✅ Successfully fetched \(restaurants.count) restaurants")
-            
-            // Print first few restaurants for verification
-            for (index, restaurant) in restaurants.prefix(3).enumerated() {
-                print("\nRestaurant \(index + 1):")
-                print("ID: \(restaurant.id)")
-                print("Name: \(restaurant.name)")
-                print("Location: \(restaurant.latitude), \(restaurant.longitude)")
-                print("Cuisine: \(restaurant.cuisine ?? "Unknown")")
-                print("Address: \(restaurant.address ?? "Unknown")")
-                print("Priority: \(restaurant.displayPriority)")
-            }
-            
-        } catch {
-            print("❌ Error fetching restaurants: \(error)")
-        }
-    }
-}
+// static func testConnection() async {
+//     let service = OverpassAPIService()
+//     
+//     // Test with a small area in San Francisco
+//     let coordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+//     
+//     do {
+//         let restaurants = try await service.fetchFastFoodRestaurants(near: coordinate, radius: 2.0)
+//         
+//         print("✅ Successfully fetched \(restaurants.count) restaurants")
+//         
+//         // Print first few restaurants for verification
+//         for (index, restaurant) in restaurants.prefix(3).enumerated() {
+//             print("\nRestaurant \(index + 1):")
+//             print("ID: \(restaurant.id)")
+//             print("Name: \(restaurant.name)")
+//             print("Location: \(restaurant.latitude), \(restaurant.longitude)")
+//             print("Cuisine: \(restaurant.cuisine ?? "Unknown")")
+//             print("Address: \(restaurant.address ?? "Unknown")")
+//             print("Priority: \(restaurant.displayPriority)")
+//         }
+//         
+//     } catch {
+//         print("❌ Error fetching restaurants: \(error)")
+//     }
+// }

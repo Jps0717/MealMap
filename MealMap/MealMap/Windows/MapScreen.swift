@@ -144,7 +144,6 @@ struct MapScreen: View {
         }
         .onChange(of: viewModel.isLoadingRestaurants) { oldValue, newValue in
             if !newValue && isLoadingView {
-                // Delay hiding loading to show smooth transition
                 Task { @MainActor in
                     try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
                     withAnimation(.easeInOut(duration: 0.5)) {
@@ -166,16 +165,24 @@ struct MapScreen: View {
             }
         }
         .onChange(of: viewModel.region) { oldRegion, newRegion in
-            updateFilteredRestaurantsCache(for: newRegion)
+            Task { @MainActor in
+                self.updateFilteredRestaurantsCache(for: newRegion)
+            }
         }
         .onChange(of: viewModel.restaurants) { oldRestaurants, newRestaurants in
-            updateFilteredRestaurantsCache(for: viewModel.region)
+            Task { @MainActor in
+                self.updateFilteredRestaurantsCache(for: viewModel.region)
+            }
         }
         .onChange(of: viewModel.hasActiveRadiusFilter) { oldValue, newValue in
-            updateFilteredRestaurantsCache(for: viewModel.region)
+            Task { @MainActor in
+                self.updateFilteredRestaurantsCache(for: viewModel.region)
+            }
         }
         .onChange(of: viewModel.showSearchResults) { oldValue, newValue in
-            updateFilteredRestaurantsCache(for: viewModel.region)
+            Task { @MainActor in
+                self.updateFilteredRestaurantsCache(for: viewModel.region)
+            }
         }
         .alert("Search Results", isPresented: $viewModel.showSearchError) {
             Button("OK") { }
@@ -638,15 +645,15 @@ struct MapScreen: View {
                 viewModel.updateRegion(constrainedRegion)
                 // Invalidate cache when region changes significantly
                 if movement > 0.005 {
-                    cacheTimestamp = Date.distantPast
+                    self.cacheTimestamp = Date.distantPast
                 }
             } else {
                 // Always update the region for zoom changes to ensure smooth zooming
-                viewModel.region = constrainedRegion
+                self.viewModel.region = constrainedRegion
                 // Invalidate cache when zoom changes significantly
                 let zoomDiff = abs(viewModel.region.span.latitudeDelta - constrainedRegion.span.latitudeDelta)
                 if zoomDiff > 0.01 {
-                    cacheTimestamp = Date.distantPast
+                    self.cacheTimestamp = Date.distantPast
                 }
             }
         }
@@ -837,7 +844,7 @@ struct MapScreen: View {
         }
         
         // Mix them: 40% priority chains, 30% other nutrition restaurants, 30% all other restaurants
-        let chainCount = min(topChainsFiltered.count, Int(Double(count) * 0.4))
+        let chainCount = min(topChainsfiltered.count, Int(Double(count) * 0.4))
         let nutritionCount = min(otherNutritionSorted.count, Int(Double(count) * 0.3))
         let otherCount = count - chainCount - nutritionCount
         
@@ -969,73 +976,6 @@ struct OptimizedRestaurantAnnotationView: View {
 
 // MARK: - Supporting Views
 
-struct NoLocationView: View {
-    let title: String
-    let subtitle: String
-    let buttonText: String
-    let onRetry: () -> Void
-
-    var body: some View {
-        ZStack {
-            // UPDATED: Match HomeScreen background gradient
-            LinearGradient(
-                colors: [Color(.systemBackground), Color(.systemGray6)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
-            
-            VStack(spacing: 24) { // Increased spacing for better layout
-                Spacer()
-                
-                // UPDATED: More prominent icon with consistent styling
-                ZStack {
-                    Circle()
-                        .fill(Color.gray.opacity(0.1))
-                        .frame(width: 120, height: 120)
-                    
-                    Image(systemName: "location.slash")
-                        .font(.system(size: 48, weight: .medium)) // More consistent with HomeScreen
-                        .foregroundColor(.gray)
-                }
-                
-                VStack(spacing: 12) {
-                    Text(title)
-                        .font(.system(size: 22, weight: .bold, design: .rounded)) // Match HomeScreen font style
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.primary) // Use primary color for better readability
-                        .padding(.horizontal)
-                        
-                    Text(subtitle)
-                        .font(.system(size: 16, weight: .medium, design: .rounded)) // Match HomeScreen font style
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal, 40)
-                }
-                
-                // UPDATED: Match HomeScreen button styling
-                Button(action: onRetry) {
-                    Text(buttonText)
-                        .font(.system(size: 16, weight: .semibold, design: .rounded)) // Match HomeScreen button font
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 12)
-                        .background(
-                            LinearGradient(
-                                colors: [.blue, .blue.opacity(0.8)],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .cornerRadius(20) // Match HomeScreen button corner radius
-                        .shadow(color: .blue.opacity(0.3), radius: 8, y: 4) // Match HomeScreen shadow
-                }
-                
-                Spacer()
-            }
-        }
-    }
-}
 
 enum MapItem: Identifiable {
     case userLocation(CLLocationCoordinate2D)

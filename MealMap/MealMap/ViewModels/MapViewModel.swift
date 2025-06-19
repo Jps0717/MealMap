@@ -1,7 +1,6 @@
 import SwiftUI
 import MapKit
 import CoreLocation
-import Combine
 
 // MARK: - Distance Calculation Extension
 extension CLLocationCoordinate2D {
@@ -90,12 +89,14 @@ final class MapViewModel: ObservableObject {
     }
 
     // MARK: - Public Methods
-    // PERFORMANCE: Optimized region updates with debouncing
+    // FIX: Simplified region updates without publishing changes during view updates
     func updateRegion(_ newRegion: MKCoordinateRegion) {
         // Cancel previous update task
         regionUpdateTask?.cancel()
         
-        regionUpdateTask = Task { @MainActor in
+        regionUpdateTask = Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            
             // Debounce region updates
             try? await Task.sleep(nanoseconds: 50_000_000) // 50ms debounce
             
@@ -122,7 +123,9 @@ final class MapViewModel: ObservableObject {
         // Cancel previous area name update task
         areaNameUpdateTask?.cancel()
         
-        areaNameUpdateTask = Task { @MainActor in
+        areaNameUpdateTask = Task { @MainActor [weak self] in
+            guard let self = self else { return }
+            
             // Debounce area name updates - longer delay since they're less critical
             try? await Task.sleep(nanoseconds: 500_000_000) // 500ms debounce
             
@@ -138,8 +141,8 @@ final class MapViewModel: ObservableObject {
         userLocation = coordinate
         
         currentLoadingTask?.cancel()
-        currentLoadingTask = Task.detached {
-            await self.loadRestaurants(coordinate)
+        currentLoadingTask = Task.detached { [weak self] in
+            await self?.loadRestaurants(coordinate)
         }
     }
     
@@ -151,8 +154,8 @@ final class MapViewModel: ObservableObject {
         userLocation = coordinate
         
         currentLoadingTask?.cancel()
-        currentLoadingTask = Task.detached {
-            await self.loadOptimizedRestaurants(coordinate, radius: radius)
+        currentLoadingTask = Task.detached { [weak self] in
+            await self?.loadOptimizedRestaurants(coordinate, radius: radius)
         }
         
         // Wait for completion
@@ -276,10 +279,10 @@ final class MapViewModel: ObservableObject {
             self.selectedRestaurant = restaurant
             self.zoomToRestaurant(restaurant)
             
-            Task.detached {
+            Task.detached { [weak self] in
                 try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
                 await MainActor.run {
-                    self.showingRestaurantDetail = true
+                    self?.showingRestaurantDetail = true
                 }
             }
         }
@@ -308,8 +311,8 @@ final class MapViewModel: ObservableObject {
             )
         }
         
-        Task {
-            await updateAreaName(for: coordinate)
+        Task { [weak self] in
+            await self?.updateAreaName(for: coordinate)
         }
     }
 
@@ -353,8 +356,10 @@ final class MapViewModel: ObservableObject {
             if isRestaurantWithinRadius(restaurant) {
                 filteredRestaurants = [restaurant]
                 showSearchResults = true
-                Task.detached { @MainActor in
-                    self.zoomToShowResults([restaurant])
+                Task.detached { [weak self] in
+                    await MainActor.run {
+                        self?.zoomToShowResults([restaurant])
+                    }
                 }
             } else {
                 searchErrorMessage = "Restaurant found but outside search radius."
@@ -365,8 +370,10 @@ final class MapViewModel: ObservableObject {
             if isRestaurantWithinRadius(restaurant) {
                 filteredRestaurants = [restaurant]
                 showSearchResults = true
-                Task.detached { @MainActor in
-                    self.zoomToShowResults([restaurant])
+                Task.detached { [weak self] in
+                    await MainActor.run {
+                        self?.zoomToShowResults([restaurant])
+                    }
                 }
             } else {
                 searchErrorMessage = "Restaurant found but outside search radius."
@@ -379,8 +386,10 @@ final class MapViewModel: ObservableObject {
             if !radiusFilteredResults.isEmpty {
                 filteredRestaurants = radiusFilteredResults
                 showSearchResults = true
-                Task.detached { @MainActor in
-                    self.zoomToShowResults(radiusFilteredResults)
+                Task.detached { [weak self] in
+                    await MainActor.run {
+                        self?.zoomToShowResults(radiusFilteredResults)
+                    }
                 }
             } else {
                 searchErrorMessage = "Restaurants found but outside search radius."
@@ -391,8 +400,10 @@ final class MapViewModel: ObservableObject {
             if isRestaurantWithinRadius(restaurant) {
                 filteredRestaurants = [restaurant]
                 showSearchResults = true
-                Task.detached { @MainActor in
-                    self.zoomToShowResults([restaurant])
+                Task.detached { [weak self] in
+                    await MainActor.run {
+                        self?.zoomToShowResults([restaurant])
+                    }
                 }
             } else {
                 searchErrorMessage = "Restaurant found but outside search radius."
@@ -471,4 +482,38 @@ final class MapViewModel: ObservableObject {
             )
         }
     }
+}
+
+private struct CachedRestaurantData {
+    let restaurants: [Restaurant]
+    let timestamp: Date
+    
+    var isExpired: Bool {
+        Date().timeIntervalSince(timestamp) > 600
+    }
+}
+
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
+        }
+    }
+}
+
+private func filterRestaurantsByRadius(_ restaurants: [Restaurant], coordinate: CLLocationCoordinate2D, radius: Double) async -> [Restaurant] {
+    return await Task.detached {
+        let radiusInMeters = radius * 1609.34
+        let userLocationCL = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        
+        return restaurants.filter { restaurant in
+            let restaurantLocation = CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude)
+            let distance = userLocationCL.distance(from: restaurantLocation)
+            return distance <= radiusInMeters
+        }.sorted { restaurant1, restaurant2 in
+            let distance1 = userLocationCL.distance(from: CLLocation(latitude: restaurant1.latitude, longitude: restaurant1.longitude))
+            let distance2 = userLocationCL.distance(from: CLLocation(latitude: restaurant2.latitude, longitude: restaurant2.longitude))
+            return distance1 < distance2
+        }
+    }.value
 }

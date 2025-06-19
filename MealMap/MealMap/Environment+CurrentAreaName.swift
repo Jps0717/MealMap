@@ -9,4 +9,4 @@ extension EnvironmentValues {
         get { self[CurrentAreaNameKey.self] }
         set { self[CurrentAreaNameKey.self] = newValue }
     }
-} 
+}

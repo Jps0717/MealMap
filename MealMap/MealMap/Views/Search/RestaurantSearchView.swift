@@ -189,7 +189,7 @@ struct RestaurantSearchView: View {
         }
         
         // Perform search with distance filter - this will trigger the search and show results
-        mapViewModel.performSearch(query: searchText, maxDistance: nil) // Remove distance parameter
+        mapViewModel.performSearch(query: searchText, maxDistance: nil)
         
         // Dismiss the search view so user can see results on map
         isPresented = false
@@ -211,7 +211,7 @@ struct RestaurantSearchView: View {
             }
             
             // Perform the search immediately with distance
-            mapViewModel.performSearch(query: cuisine, maxDistance: nil) // Remove distance parameter
+            mapViewModel.performSearch(query: cuisine, maxDistance: nil)
             
             // Dismiss the search view to show results
             isPresented = false
