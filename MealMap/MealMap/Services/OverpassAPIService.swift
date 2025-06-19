@@ -136,11 +136,12 @@ final class OverpassAPIService {
     }
     
     /// Fetches fast food restaurants within specified radius
-    func fetchFastFoodRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 5.0) async throws -> [Restaurant] {
+    func fetchFastFoodRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 2.5) async throws -> [Restaurant] {
         // Throttle requests
         await throttleRequest()
         
         let radiusInMeters = radius * 1609.34
+        
         let query = createOptimizedFastFoodQuery(coordinate: coordinate, radius: radiusInMeters)
         
         guard let url = URL(string: baseURL) else {
@@ -151,7 +152,7 @@ final class OverpassAPIService {
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpBody = query.data(using: .utf8)
-        request.timeoutInterval = 25 // Shorter timeout for better UX
+        request.timeoutInterval = 15 // FIX: Shorter timeout for faster failure recovery
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
@@ -159,9 +160,11 @@ final class OverpassAPIService {
             throw URLError(.badServerResponse)
         }
         
-        let restaurants = try parseRestaurantsFromData(data)
+        // FIX: Process on background thread
+        let restaurants = try await Task.detached {
+            try self.parseRestaurantsFromData(data)
+        }.value
         
-        print("✅ Fetched \(restaurants.count) fast food restaurants")
         return restaurants
     }
     
@@ -184,6 +187,7 @@ final class OverpassAPIService {
         [out:json][timeout:20];
         (
           node["amenity"="fast_food"]["name"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
+          node["amenity"="restaurant"]["name"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
         );
         out body;
         """
@@ -200,6 +204,7 @@ final class OverpassAPIService {
                   !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                 return nil
             }
+            
             
             var restaurant = Restaurant(
                 id: element.id,
@@ -224,8 +229,20 @@ final class OverpassAPIService {
             return restaurant
         }
         
-        // Sort by priority for better user experience
-        return restaurants.sorted { $0.displayPriority > $1.displayPriority }
+        let sortedRestaurants = restaurants.sorted { r1, r2 in
+            let r1HasNutrition = RestaurantData.restaurantsWithNutritionData.contains(r1.name)
+            let r2HasNutrition = RestaurantData.restaurantsWithNutritionData.contains(r2.name)
+            
+            // Prioritize restaurants with nutrition data, then by display priority
+            if r1HasNutrition != r2HasNutrition {
+                return r1HasNutrition // Nutrition restaurants first
+            }
+            return r1.displayPriority > r2.displayPriority
+        }
+        
+        let limitedRestaurants = Array(sortedRestaurants.prefix(200))
+        
+        return limitedRestaurants
     }
     
     private func createRestaurantQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {

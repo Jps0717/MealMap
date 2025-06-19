@@ -30,7 +30,7 @@ final class MapViewModel: ObservableObject {
     @Published var showingRestaurantDetail = false
     
     // MARK: - Search Radius Properties
-    @Published var searchRadius: Double = 5.0 // Default 5 miles
+    @Published var searchRadius: Double = 2.5
     @Published var showSearchRadius = false
     @Published var activeSearchCenter: CLLocationCoordinate2D?
     @Published var hasActiveRadiusFilter = false
@@ -47,6 +47,12 @@ final class MapViewModel: ObservableObject {
     private var hasLoadedInitialData = false
     private var geocodeTask: Task<Void, Never>?
     private var dataFetchTask: Task<Void, Never>?
+    
+    private var currentLoadingTask: Task<Void, Never>?
+    
+    // PERFORMANCE: Add debouncing for region updates
+    private var regionUpdateTask: Task<Void, Never>?
+    private var areaNameUpdateTask: Task<Void, Never>?
 
     // MARK: - Computed Properties
     var hasValidLocation: Bool {
@@ -64,12 +70,12 @@ final class MapViewModel: ObservableObject {
     }
 
     var restaurantsWithinSearchRadius: [Restaurant] {
-        guard let userLocation = locationManager.lastLocation,
+        guard let userLocation = userLocation,
               hasActiveRadiusFilter || showSearchResults else {
             return restaurants
         }
 
-        let userLocationCL = CLLocation(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        let userLocationCL = CLLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
         let radiusInMeters = searchRadius * 1609.344
 
         return restaurants.filter { restaurant in
@@ -84,9 +90,46 @@ final class MapViewModel: ObservableObject {
     }
 
     // MARK: - Public Methods
+    // PERFORMANCE: Optimized region updates with debouncing
     func updateRegion(_ newRegion: MKCoordinateRegion) {
-        region = newRegion
-        updateAreaNameIfNeeded(for: newRegion.center)
+        // Cancel previous update task
+        regionUpdateTask?.cancel()
+        
+        regionUpdateTask = Task { @MainActor in
+            // Debounce region updates
+            try? await Task.sleep(nanoseconds: 50_000_000) // 50ms debounce
+            
+            guard !Task.isCancelled else { return }
+            
+            // Only update if there's a meaningful change
+            let latDiff = abs(self.region.center.latitude - newRegion.center.latitude)
+            let lonDiff = abs(self.region.center.longitude - newRegion.center.longitude)
+            let spanDiff = abs(self.region.span.latitudeDelta - newRegion.span.latitudeDelta)
+            
+            if latDiff > 0.0001 || lonDiff > 0.0001 || spanDiff > 0.001 {
+                self.region = newRegion
+                
+                // Only update area name if we've moved significantly (debounced separately)
+                if latDiff > 0.01 || lonDiff > 0.01 {
+                    self.updateAreaNameDebounced(for: newRegion.center)
+                }
+            }
+        }
+    }
+    
+    // PERFORMANCE: Debounced area name updates
+    private func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) {
+        // Cancel previous area name update task
+        areaNameUpdateTask?.cancel()
+        
+        areaNameUpdateTask = Task { @MainActor in
+            // Debounce area name updates - longer delay since they're less critical
+            try? await Task.sleep(nanoseconds: 500_000_000) // 500ms debounce
+            
+            guard !Task.isCancelled else { return }
+            
+            await self.updateAreaName(for: coordinate)
+        }
     }
 
     func refreshData(for coordinate: CLLocationCoordinate2D) {
@@ -94,9 +137,26 @@ final class MapViewModel: ObservableObject {
         
         userLocation = coordinate
         
-        Task {
-            await loadRestaurants(coordinate)
+        currentLoadingTask?.cancel()
+        currentLoadingTask = Task.detached {
+            await self.loadRestaurants(coordinate)
         }
+    }
+    
+    func refreshDataWithRadius(for coordinate: CLLocationCoordinate2D, radius: Double) async {
+        if hasLoadedInitialData && !restaurants.isEmpty {
+            return
+        }
+        
+        userLocation = coordinate
+        
+        currentLoadingTask?.cancel()
+        currentLoadingTask = Task.detached {
+            await self.loadOptimizedRestaurants(coordinate, radius: radius)
+        }
+        
+        // Wait for completion
+        await currentLoadingTask?.value
     }
     
     private func loadRestaurants(_ coordinate: CLLocationCoordinate2D) async {
@@ -135,12 +195,52 @@ final class MapViewModel: ObservableObject {
         }
     }
 
+    private func loadOptimizedRestaurants(_ coordinate: CLLocationCoordinate2D, radius: Double) async {
+        await MainActor.run {
+            isLoadingRestaurants = true
+            loadingProgress = 0.0
+        }
+        
+        do {
+            // STEP 1: Single API call with optimized radius
+            await MainActor.run { loadingProgress = 0.3 }
+            
+            let fetchedRestaurants = try await overpassService.fetchFastFoodRestaurants(near: coordinate, radius: radius)
+            
+            await MainActor.run {
+                loadingProgress = 0.8
+                print("✅ Loaded \(fetchedRestaurants.count) restaurants within \(radius) miles")
+            }
+            
+            await MainActor.run {
+                restaurants = fetchedRestaurants
+                hasLoadedInitialData = true
+                
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    loadingProgress = 1.0
+                    isLoadingRestaurants = false
+                }
+            }
+            
+        } catch {
+            await MainActor.run {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isLoadingRestaurants = false
+                    loadingProgress = 1.0
+                }
+                print("❌ Error loading restaurants: \(error)")
+            }
+        }
+    }
+
     func performSearch(query: String, maxDistance: Double?) {
         guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         
         guard let userLocation = locationManager.lastLocation else {
-            searchErrorMessage = "Location access required for search. Please enable location services."
-            showSearchError = true
+            Task { @MainActor in
+                self.searchErrorMessage = "Location access required for search. Please enable location services."
+                self.showSearchError = true
+            }
             return
         }
         
@@ -157,27 +257,40 @@ final class MapViewModel: ObservableObject {
             maxDistance: nil
         )
         
-        handleSearchResult(result)
+        Task { @MainActor in
+            self.handleSearchResult(result)
+        }
     }
 
     func clearSearch() {
-        filteredRestaurants = []
-        showSearchResults = false
-        hasActiveRadiusFilter = false
-        searchManager.hasActiveSearch = false
+        Task { @MainActor in
+            self.filteredRestaurants = []
+            self.showSearchResults = false
+            self.hasActiveRadiusFilter = false
+            self.searchManager.hasActiveSearch = false
+        }
     }
 
     func selectRestaurant(_ restaurant: Restaurant) {
-        selectedRestaurant = restaurant
-        zoomToRestaurant(restaurant)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.showingRestaurantDetail = true
+        Task { @MainActor in
+            self.selectedRestaurant = restaurant
+            self.zoomToRestaurant(restaurant)
+            
+            Task.detached {
+                try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
+                await MainActor.run {
+                    self.showingRestaurantDetail = true
+                }
+            }
         }
     }
 
     func cleanup() {
         dataFetchTask?.cancel()
         geocodeTask?.cancel()
+        regionUpdateTask?.cancel()
+        areaNameUpdateTask?.cancel()
+        currentLoadingTask?.cancel()
     }
 
     // MARK: - Private Methods
@@ -194,37 +307,38 @@ final class MapViewModel: ObservableObject {
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             )
         }
-        refreshData(for: coordinate)
-    }
-
-    private func updateAreaNameIfNeeded(for coordinate: CLLocationCoordinate2D) {
-        guard let userLoc = userLocation else { return }
-        let distance = userLoc.distance(to: coordinate)
-        guard distance > 2000 else { return } // Only update if moved more than 2km
         
-        updateAreaName(for: coordinate)
-    }
-
-    private func updateAreaName(for coordinate: CLLocationCoordinate2D) {
-        geocodeTask?.cancel()
-        geocodeTask = Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second debounce
-            guard !Task.isCancelled else { return }
-            
-            let geocoder = CLGeocoder()
-            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            
-            do {
-                let placemarks = try await geocoder.reverseGeocodeLocation(location)
-                guard let placemark = placemarks.first else { return }
-                
-                let areaName = placemark.locality ?? placemark.subLocality ?? placemark.administrativeArea ?? "Unknown Area"
-                currentAreaName = areaName
-            } catch {
-                print("Failed to get area name: \(error)")
-            }
+        Task {
+            await updateAreaName(for: coordinate)
         }
     }
+
+    // PERFORMANCE: Optimized area name updates
+    private func updateAreaName(for coordinate: CLLocationCoordinate2D) async {
+        do {
+            let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let placemarks = try await CLGeocoder().reverseGeocodeLocation(location)
+            
+            if let placemark = placemarks.first {
+                let components = [
+                    placemark.locality,
+                    placemark.administrativeArea,
+                    placemark.country
+                ].compactMap { $0 }
+                
+                let areaName = components.joined(separator: ", ")
+                
+                await MainActor.run {
+                    if !areaName.isEmpty {
+                        self.currentAreaName = areaName
+                    }
+                }
+            }
+        } catch {
+            print("Failed to get area name: \(error)")
+        }
+    }
+
 
     private func handleSearchResult(_ result: SearchResult) {
         switch result {
@@ -239,7 +353,9 @@ final class MapViewModel: ObservableObject {
             if isRestaurantWithinRadius(restaurant) {
                 filteredRestaurants = [restaurant]
                 showSearchResults = true
-                zoomToShowResults([restaurant])
+                Task.detached { @MainActor in
+                    self.zoomToShowResults([restaurant])
+                }
             } else {
                 searchErrorMessage = "Restaurant found but outside search radius."
                 showSearchError = true
@@ -249,7 +365,9 @@ final class MapViewModel: ObservableObject {
             if isRestaurantWithinRadius(restaurant) {
                 filteredRestaurants = [restaurant]
                 showSearchResults = true
-                zoomToShowResults([restaurant])
+                Task.detached { @MainActor in
+                    self.zoomToShowResults([restaurant])
+                }
             } else {
                 searchErrorMessage = "Restaurant found but outside search radius."
                 showSearchError = true
@@ -261,7 +379,9 @@ final class MapViewModel: ObservableObject {
             if !radiusFilteredResults.isEmpty {
                 filteredRestaurants = radiusFilteredResults
                 showSearchResults = true
-                zoomToShowResults(radiusFilteredResults)
+                Task.detached { @MainActor in
+                    self.zoomToShowResults(radiusFilteredResults)
+                }
             } else {
                 searchErrorMessage = "Restaurants found but outside search radius."
                 showSearchError = true
@@ -271,7 +391,9 @@ final class MapViewModel: ObservableObject {
             if isRestaurantWithinRadius(restaurant) {
                 filteredRestaurants = [restaurant]
                 showSearchResults = true
-                zoomToShowResults([restaurant])
+                Task.detached { @MainActor in
+                    self.zoomToShowResults([restaurant])
+                }
             } else {
                 searchErrorMessage = "Restaurant found but outside search radius."
                 showSearchError = true
@@ -314,6 +436,7 @@ final class MapViewModel: ObservableObject {
                 )
             }
         } else {
+            // FIX: Use userLocation.coordinate instead of userLocation directly
             let allCoords = restaurants.map { CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude) } + [userLocation.coordinate]
             
             let latitudes = allCoords.map { $0.latitude }
@@ -347,14 +470,5 @@ final class MapViewModel: ObservableObject {
                 span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
             )
         }
-    }
-}
-
-private struct CachedRestaurantData {
-    let restaurants: [Restaurant]
-    let timestamp: Date
-    
-    var isExpired: Bool {
-        Date().timeIntervalSince(timestamp) > 600
     }
 }
