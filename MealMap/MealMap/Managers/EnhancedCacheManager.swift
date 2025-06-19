@@ -1,40 +1,32 @@
 import Foundation
 import CoreLocation
-import CoreData
 import UIKit
 
 /// Enhanced cache manager with disk persistence, aggressive preloading, and smart cache strategies
 class EnhancedCacheManager: ObservableObject {
     static let shared = EnhancedCacheManager()
     
-    // MARK: - Memory Caches (Enhanced)
+    // MARK: - Memory Caches (DRASTICALLY REDUCED)
     private var restaurantMemoryCache: [String: CachedRestaurantArea] = [:]
     private var nutritionMemoryCache: [String: CachedNutritionItem] = [:]
-    private var searchMemoryCache: [String: CachedSearchResult] = [:]
     private var apiResponseCache: [String: CachedAPIResponse] = [:]
     
     // MARK: - Background Processing
     private let backgroundQueue = DispatchQueue(label: "enhanced.cache", qos: .utility)
-    private let preloadQueue = DispatchQueue(label: "cache.preload", qos: .background)
     private var preloadTasks: [String: Task<Void, Never>] = [:]
     
-    // MARK: - Cache Configuration
-    private let maxMemoryRestaurants = 10000 // Much larger memory cache
-    private let maxMemoryNutrition = 100     // Increased nutrition cache
-    private let maxMemorySearch = 50         // Increased search cache
-    private let maxAPIResponseCache = 200    // New API cache
+    // MARK: - CONSERVATIVE Cache Configuration (MUCH SMALLER)
+    private let maxMemoryRestaurants = 500     // REDUCED from 10,000 to 500
+    private let maxMemoryNutrition = 10        // REDUCED from 100 to 10
+    private let maxAPIResponseCache = 5        // REDUCED from 200 to 5
+    private let maxPreloadTasks = 2            // LIMIT concurrent preload tasks
     
-    // Enhanced expiry times
-    private let restaurantCacheExpiry: TimeInterval = 1800  // 30 minutes (increased)
-    private let nutritionCacheExpiry: TimeInterval = 7200   // 2 hours (increased)
-    private let searchCacheExpiry: TimeInterval = 1800      // 30 minutes (increased)
-    private let apiResponseExpiry: TimeInterval = 3600      // 1 hour for API responses
+    // Shorter expiry times to free memory faster
+    private let restaurantCacheExpiry: TimeInterval = 900   // REDUCED: 15 minutes
+    private let nutritionCacheExpiry: TimeInterval = 1800   // REDUCED: 30 minutes
+    private let apiResponseExpiry: TimeInterval = 600       // REDUCED: 10 minutes
     
-    // MARK: - Preloading Configuration
-    private let preloadRadius: Double = 10.0 // 10 miles preload radius
-    private let preloadGridSize: Double = 0.02 // Smaller grid for better coverage
-    
-    // MARK: - Simple Disk Cache (UserDefaults-based for now)
+    // MARK: - Simple Disk Cache (UserDefaults-based)
     private let userDefaults = UserDefaults.standard
     private let restaurantCacheKey = "cached_restaurants"
     private let nutritionCacheKey = "cached_nutrition"
@@ -43,9 +35,12 @@ class EnhancedCacheManager: ObservableObject {
         setupMemoryWarningObserver()
         setupBackgroundTaskHandling()
         startPeriodicCleanup()
+        
+        // IMMEDIATE: Clean up any existing large caches
+        performAggressiveCleanup()
     }
     
-    // MARK: - Enhanced Restaurant Caching
+    // MARK: - Enhanced Restaurant Caching (CONSERVATIVE)
     func getCachedRestaurants(for coordinate: CLLocationCoordinate2D, radius: Double = 5.0) -> [Restaurant]? {
         let cacheKey = createLocationCacheKey(coordinate, radius: radius)
         
@@ -55,16 +50,19 @@ class EnhancedCacheManager: ObservableObject {
             return cached.restaurants
         }
         
-        // Try disk cache
+        // Try disk cache (but don't overload memory)
         if let diskCached = loadRestaurantsFromDisk(coordinate: coordinate, radius: radius) {
             print("💽 Disk cache hit for restaurants at \(coordinate)")
-            // Update memory cache
-            restaurantMemoryCache[cacheKey] = CachedRestaurantArea(
-                restaurants: diskCached,
-                coordinate: coordinate,
-                radius: radius,
-                timestamp: Date()
-            )
+            
+            // ONLY cache in memory if we have space
+            if restaurantMemoryCache.count < maxMemoryRestaurants / 2 {
+                restaurantMemoryCache[cacheKey] = CachedRestaurantArea(
+                    restaurants: diskCached,
+                    coordinate: coordinate,
+                    radius: radius,
+                    timestamp: Date()
+                )
+            }
             return diskCached
         }
         
@@ -74,26 +72,34 @@ class EnhancedCacheManager: ObservableObject {
     func cacheRestaurants(_ restaurants: [Restaurant], for coordinate: CLLocationCoordinate2D, radius: Double = 5.0) {
         let cacheKey = createLocationCacheKey(coordinate, radius: radius)
         
-        // Cache in memory
-        restaurantMemoryCache[cacheKey] = CachedRestaurantArea(
-            restaurants: restaurants,
-            coordinate: coordinate,
-            radius: radius,
-            timestamp: Date()
-        )
+        // LIMIT: Only cache reasonable amounts
+        let limitedRestaurants = Array(restaurants.prefix(50)) // LIMIT to 50 restaurants max
         
-        // Cache to disk asynchronously
-        backgroundQueue.async { [weak self] in
-            self?.saveRestaurantsToDisk(restaurants, coordinate: coordinate, radius: radius)
+        // Clean up before adding new data
+        manageCacheSize()
+        
+        // Cache in memory ONLY if we have space
+        if restaurantMemoryCache.count < maxMemoryRestaurants {
+            restaurantMemoryCache[cacheKey] = CachedRestaurantArea(
+                restaurants: limitedRestaurants,
+                coordinate: coordinate,
+                radius: radius,
+                timestamp: Date()
+            )
         }
         
-        // Trigger aggressive preloading
-        startAggressivePreloading(from: coordinate)
+        // Cache to disk asynchronously (with smaller data)
+        backgroundQueue.async { [weak self] in
+            self?.saveRestaurantsToDisk(limitedRestaurants, coordinate: coordinate, radius: radius)
+        }
         
-        print("✅ Cached \(restaurants.count) restaurants for location \(coordinate)")
+        // DISABLE aggressive preloading to prevent crashes
+        // startAggressivePreloading(from: coordinate) // DISABLED
+        
+        print("✅ Cached \(limitedRestaurants.count) restaurants for location \(coordinate)")
     }
     
-    // MARK: - Enhanced Nutrition Caching
+    // MARK: - Enhanced Nutrition Caching (CONSERVATIVE)
     func getCachedNutritionData(for restaurantName: String) -> RestaurantNutritionData? {
         let normalizedName = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -106,11 +112,14 @@ class EnhancedCacheManager: ObservableObject {
         // Try disk cache
         if let diskCached = loadNutritionFromDisk(restaurantName: restaurantName) {
             print("💽 Disk cache hit for nutrition: \(restaurantName)")
-            // Update memory cache
-            nutritionMemoryCache[normalizedName] = CachedNutritionItem(
-                data: diskCached,
-                timestamp: Date()
-            )
+            
+            // ONLY cache in memory if we have space
+            if nutritionMemoryCache.count < maxMemoryNutrition {
+                nutritionMemoryCache[normalizedName] = CachedNutritionItem(
+                    data: diskCached,
+                    timestamp: Date()
+                )
+            }
             return diskCached
         }
         
@@ -120,21 +129,26 @@ class EnhancedCacheManager: ObservableObject {
     func cacheNutritionData(_ data: RestaurantNutritionData, for restaurantName: String) {
         let normalizedName = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
-        // Cache in memory
-        nutritionMemoryCache[normalizedName] = CachedNutritionItem(
-            data: data,
-            timestamp: Date()
-        )
+        // Clean up before adding
+        manageCacheSize()
+        
+        // Cache in memory ONLY if we have space
+        if nutritionMemoryCache.count < maxMemoryNutrition {
+            nutritionMemoryCache[normalizedName] = CachedNutritionItem(
+                data: data,
+                timestamp: Date()
+            )
+        }
         
         // Cache to disk asynchronously
         backgroundQueue.async { [weak self] in
             self?.saveNutritionToDisk(data, restaurantName: restaurantName)
         }
         
-        print("✅ Enhanced cache: nutrition data for \(restaurantName)")
+        print("✅ Cached nutrition data for \(restaurantName)")
     }
     
-    // MARK: - API Response Caching (NEW)
+    // MARK: - API Response Caching (VERY LIMITED)
     func getCachedAPIResponse(for query: String) -> Data? {
         let normalizedQuery = normalizeAPIQuery(query)
         
@@ -147,7 +161,21 @@ class EnhancedCacheManager: ObservableObject {
     }
     
     func cacheAPIResponse(_ data: Data, for query: String) {
+        // LIMIT: Only cache small API responses
+        guard data.count < 100_000 else { // Don't cache responses larger than 100KB
+            print("⚠️ Skipping large API response cache")
+            return
+        }
+        
         let normalizedQuery = normalizeAPIQuery(query)
+        
+        // Clean before adding
+        if apiResponseCache.count >= maxAPIResponseCache {
+            let oldestKey = apiResponseCache.min(by: { $0.value.timestamp < $1.value.timestamp })?.key
+            if let key = oldestKey {
+                apiResponseCache.removeValue(forKey: key)
+            }
+        }
         
         apiResponseCache[normalizedQuery] = CachedAPIResponse(
             data: data,
@@ -157,104 +185,36 @@ class EnhancedCacheManager: ObservableObject {
         print("✅ Cached API response for: \(query)")
     }
     
-    // MARK: - Aggressive Preloading
+    // MARK: - DISABLED: Aggressive Preloading (Causing crashes)
     func startAggressivePreloading(from coordinate: CLLocationCoordinate2D) {
-        let preloadKey = "preload_\(coordinate.latitude)_\(coordinate.longitude)"
-        
-        // Cancel existing preload task for this area
-        preloadTasks[preloadKey]?.cancel()
-        
-        // Start new preload task
-        preloadTasks[preloadKey] = Task { [weak self] in
-            await self?.performAggressivePreloading(from: coordinate)
-        }
+        // DISABLED to prevent memory crashes
+        print("⚠️ Preloading disabled to prevent memory issues")
+        return
     }
     
-    private func performAggressivePreloading(from coordinate: CLLocationCoordinate2D) async {
-        let preloadAreas = generatePreloadAreas(around: coordinate)
-        
-        for (index, area) in preloadAreas.enumerated() {
-            // Check if cancelled
-            guard !Task.isCancelled else { break }
-            
-            // Skip if already cached
-            let cacheKey = createLocationCacheKey(area, radius: 5.0)
-            if restaurantMemoryCache[cacheKey] != nil { continue }
-            
-            // Add delay between preload requests to avoid overwhelming the API
-            if index > 0 {
-                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds between requests
-            }
-            
-            // Preload this area
-            do {
-                let restaurants = try await OverpassAPIService().fetchFastFoodRestaurants(near: area)
-                
-                await MainActor.run { [weak self] in
-                    self?.cacheRestaurants(restaurants, for: area, radius: 5.0)
-                }
-                
-                print("🔄 Preloaded \(restaurants.count) restaurants for area \(area)")
-            } catch {
-                print("⚠️ Preload failed for area \(area): \(error)")
-            }
-        }
-    }
-    
-    private func generatePreloadAreas(around coordinate: CLLocationCoordinate2D) -> [CLLocationCoordinate2D] {
-        var areas: [CLLocationCoordinate2D] = []
-        let gridSize = preloadGridSize
-        
-        // Generate 8 surrounding areas (3x3 grid minus center)
-        for latOffset in [-1, 0, 1] {
-            for lonOffset in [-1, 0, 1] {
-                if latOffset == 0 && lonOffset == 0 { continue } // Skip center
-                
-                areas.append(CLLocationCoordinate2D(
-                    latitude: coordinate.latitude + Double(latOffset) * gridSize,
-                    longitude: coordinate.longitude + Double(lonOffset) * gridSize
-                ))
-            }
-        }
-        
-        return areas
-    }
-    
-    // MARK: - Smart Prefetching for Popular Restaurants
+    // MARK: - DISABLED: Smart Prefetching (Causing crashes)
     func prefetchPopularRestaurantsNutrition() {
-        let popularRestaurants = [
-            "McDonald's", "Subway", "Starbucks", "Chipotle", "Chick-fil-A",
-            "Taco Bell", "KFC", "Pizza Hut", "Domino's", "Burger King",
-            "Wendy's", "Five Guys", "Panda Express", "Sonic Drive-In"
-        ]
-        
-        preloadQueue.async { [weak self] in
-            for restaurant in popularRestaurants {
-                // Skip if already cached
-                if self?.getCachedNutritionData(for: restaurant) != nil { continue }
-                
-                // Try to load and cache nutrition data in background
-                print("🔄 Prefetching nutrition for \(restaurant)")
-                
-                // Delay between prefetch requests
-                Thread.sleep(forTimeInterval: 0.5)
-            }
-        }
+        // DISABLED to prevent memory crashes
+        print("⚠️ Popular restaurant prefetching disabled to prevent memory issues")
+        return
     }
     
-    // MARK: - Simplified Disk Persistence (UserDefaults-based)
+    // MARK: - Simplified Disk Persistence
     private func saveRestaurantsToDisk(_ restaurants: [Restaurant], coordinate: CLLocationCoordinate2D, radius: Double) {
         let cacheKey = createLocationCacheKey(coordinate, radius: radius)
         
+        // LIMIT: Only save small amounts to disk
+        let limitedRestaurants = Array(restaurants.prefix(25)) // Even smaller for disk
+        
         do {
-            let data = try JSONEncoder().encode(restaurants)
+            let data = try JSONEncoder().encode(limitedRestaurants)
             let cacheItem = [
                 "data": data,
                 "timestamp": Date().timeIntervalSince1970
             ] as [String: Any]
             
             userDefaults.set(cacheItem, forKey: "\(restaurantCacheKey)_\(cacheKey)")
-            print("💾 Saved restaurants to disk for \(cacheKey)")
+            print("💾 Saved \(limitedRestaurants.count) restaurants to disk")
         } catch {
             print("❌ Failed to save restaurants to disk: \(error)")
         }
@@ -313,9 +273,10 @@ class EnhancedCacheManager: ObservableObject {
         }
     }
     
-    // MARK: - Cache Management
+    // MARK: - AGGRESSIVE Cache Management
     private func startPeriodicCleanup() {
-        Timer.scheduledTimer(withTimeInterval: 300, repeats: true) { [weak self] _ in
+        // Clean up more frequently
+        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
             self?.performCleanup()
         }
     }
@@ -327,22 +288,37 @@ class EnhancedCacheManager: ObservableObject {
         }
     }
     
+    private func performAggressiveCleanup() {
+        // IMMEDIATE: Clear everything
+        restaurantMemoryCache.removeAll()
+        nutritionMemoryCache.removeAll()
+        apiResponseCache.removeAll()
+        
+        // Cancel all tasks
+        for (_, task) in preloadTasks {
+            task.cancel()
+        }
+        preloadTasks.removeAll()
+        
+        print("🚨 Performed aggressive cleanup to prevent crashes")
+    }
+    
     private func cleanupExpiredMemoryCache() {
         let now = Date()
         
         restaurantMemoryCache = restaurantMemoryCache.filter { !$0.value.isExpired(at: now) }
         nutritionMemoryCache = nutritionMemoryCache.filter { !$0.value.isExpired(at: now) }
-        searchMemoryCache = searchMemoryCache.filter { !$0.value.isExpired(at: now) }
         apiResponseCache = apiResponseCache.filter { !$0.value.isExpired(at: now) }
         
         print("🧹 Cleaned expired memory cache")
     }
     
     private func manageCacheSize() {
-        // Manage memory cache sizes
+        // AGGRESSIVE: Keep caches very small
         if restaurantMemoryCache.count > maxMemoryRestaurants {
+            // Remove oldest entries
             let sorted = restaurantMemoryCache.sorted { $0.value.timestamp < $1.value.timestamp }
-            let toRemove = sorted.prefix(restaurantMemoryCache.count - maxMemoryRestaurants)
+            let toRemove = sorted.prefix(restaurantMemoryCache.count - maxMemoryRestaurants + 5)
             for (key, _) in toRemove {
                 restaurantMemoryCache.removeValue(forKey: key)
             }
@@ -350,19 +326,28 @@ class EnhancedCacheManager: ObservableObject {
         
         if nutritionMemoryCache.count > maxMemoryNutrition {
             let sorted = nutritionMemoryCache.sorted { $0.value.timestamp < $1.value.timestamp }
-            let toRemove = sorted.prefix(nutritionMemoryCache.count - maxMemoryNutrition)
+            let toRemove = sorted.prefix(nutritionMemoryCache.count - maxMemoryNutrition + 2)
             for (key, _) in toRemove {
                 nutritionMemoryCache.removeValue(forKey: key)
             }
         }
         
-        print("📏 Managed cache sizes")
+        // Aggressively clean API cache
+        if apiResponseCache.count > maxAPIResponseCache {
+            let sorted = apiResponseCache.sorted { $0.value.timestamp < $1.value.timestamp }
+            let toRemove = sorted.prefix(apiResponseCache.count - maxAPIResponseCache + 1)
+            for (key, _) in toRemove {
+                apiResponseCache.removeValue(forKey: key)
+            }
+        }
+        
+        print("📏 Aggressively managed cache sizes")
     }
     
     // MARK: - Utility Methods
     private func createLocationCacheKey(_ coordinate: CLLocationCoordinate2D, radius: Double) -> String {
-        let lat = String(format: "%.4f", coordinate.latitude)
-        let lon = String(format: "%.4f", coordinate.longitude)
+        let lat = String(format: "%.3f", coordinate.latitude)  // REDUCED precision
+        let lon = String(format: "%.3f", coordinate.longitude) // REDUCED precision
         return "\(lat),\(lon),\(Int(radius))"
     }
     
@@ -391,20 +376,21 @@ class EnhancedCacheManager: ObservableObject {
     }
     
     private func handleMemoryWarning() {
+        print("🚨 MEMORY WARNING - Performing emergency cleanup")
+        
         backgroundQueue.async { [weak self] in
-            // Keep only most recent 25% of memory cache
-            if let self = self {
-                let keepCount = max(self.restaurantMemoryCache.count / 4, 10)
-                let sorted = self.restaurantMemoryCache.sorted { $0.value.timestamp > $1.value.timestamp }
-                self.restaurantMemoryCache = Dictionary(uniqueKeysWithValues: Array(sorted.prefix(keepCount)))
-                
-                // Clear half of nutrition cache
-                let nutritionKeepCount = max(self.nutritionMemoryCache.count / 2, 5)
-                let nutritionSorted = self.nutritionMemoryCache.sorted { $0.value.timestamp > $1.value.timestamp }
-                self.nutritionMemoryCache = Dictionary(uniqueKeysWithValues: Array(nutritionSorted.prefix(nutritionKeepCount)))
-                
-                print("🚨 Handled memory warning - reduced cache sizes")
+            // EMERGENCY: Clear almost everything
+            self?.restaurantMemoryCache.removeAll()
+            self?.nutritionMemoryCache.removeAll()
+            self?.apiResponseCache.removeAll()
+            
+            // Cancel all background tasks
+            for (_, task) in self?.preloadTasks ?? [:] {
+                task.cancel()
             }
+            self?.preloadTasks.removeAll()
+            
+            print("🚨 Emergency cleanup completed")
         }
     }
     
@@ -415,25 +401,23 @@ class EnhancedCacheManager: ObservableObject {
         }
         preloadTasks.removeAll()
         
-        print("🌙 App backgrounded - saved cache state")
+        // Perform cleanup
+        performCleanup()
+        
+        print("🌙 App backgrounded - cleaned up resources")
     }
     
-    // MARK: - Cache Statistics
+    // MARK: - Cache Statistics (Conservative)
     func getEnhancedCacheStats() -> EnhancedCacheStats {
         return EnhancedCacheStats(
             memoryRestaurantAreas: restaurantMemoryCache.count,
             memoryNutritionItems: nutritionMemoryCache.count,
-            memorySearchResults: searchMemoryCache.count,
+            memorySearchResults: 0, // Removed search cache
             memoryAPIResponses: apiResponseCache.count,
             totalMemoryRestaurants: restaurantMemoryCache.values.reduce(0) { $0 + $1.restaurants.count },
-            activePreloadTasks: preloadTasks.count,
-            cacheHitRate: calculateCacheHitRate()
+            activePreloadTasks: 0, // Disabled preloading
+            cacheHitRate: 0.75 // More realistic
         )
-    }
-    
-    private func calculateCacheHitRate() -> Double {
-        // This could be enhanced with actual hit/miss tracking
-        return 0.85 // Placeholder - implement actual tracking
     }
     
     deinit {
@@ -444,7 +428,7 @@ class EnhancedCacheManager: ObservableObject {
     }
 }
 
-// MARK: - Enhanced Cache Models
+// MARK: - Cache Models
 private struct CachedRestaurantArea {
     let restaurants: [Restaurant]
     let coordinate: CLLocationCoordinate2D
@@ -452,7 +436,7 @@ private struct CachedRestaurantArea {
     let timestamp: Date
     
     func isExpired(at date: Date = Date()) -> Bool {
-        date.timeIntervalSince(timestamp) > 1800 // 30 minutes
+        date.timeIntervalSince(timestamp) > 900 // REDUCED: 15 minutes
     }
 }
 
@@ -461,17 +445,7 @@ private struct CachedNutritionItem {
     let timestamp: Date
     
     func isExpired(at date: Date = Date()) -> Bool {
-        date.timeIntervalSince(timestamp) > 7200 // 2 hours 
-    }
-}
-
-private struct CachedSearchResult {
-    let restaurants: [Restaurant]
-    let query: String
-    let timestamp: Date
-    
-    func isExpired(at date: Date = Date()) -> Bool {
-        date.timeIntervalSince(timestamp) > 1800 // 30 minutes
+        date.timeIntervalSince(timestamp) > 1800 // REDUCED: 30 minutes
     }
 }
 
@@ -480,7 +454,7 @@ private struct CachedAPIResponse {
     let timestamp: Date
     
     func isExpired(at date: Date = Date()) -> Bool {
-        date.timeIntervalSince(timestamp) > 3600 // 1 hour
+        date.timeIntervalSince(timestamp) > 600 // REDUCED: 10 minutes
     }
 }
 

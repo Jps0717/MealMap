@@ -28,36 +28,29 @@ class HomeScreenDataManager: ObservableObject {
     @Published var cachedNearbyRestaurants: [Restaurant] = []
     @Published var isProcessing = false
     
-    private let processingQueue = DispatchQueue(label: "homescreen.processing", qos: .userInitiated)
-    
     func precomputeData(restaurants: [Restaurant], userLocation: CLLocationCoordinate2D?) {
         guard !isProcessing else { return }
         
         isProcessing = true
         
-        processingQueue.async { [weak self] in
-            guard let self = self else { return }
-            
-            // Process data in background - much simpler now
-            let categories = self.processCategories(restaurants)
-            let popularChains = self.processPopularChains(restaurants)
-            let nearbyRestaurants = self.processNearbyRestaurants(restaurants, userLocation: userLocation)
-            
-            // Update UI on main thread
-            DispatchQueue.main.async {
-                self.cachedCategories = categories
-                self.cachedPopularChains = popularChains
-                self.cachedNearbyRestaurants = nearbyRestaurants
-                self.isProcessing = false
-            }
-        }
+        let limitedRestaurants = Array(restaurants.prefix(100))
+        
+        let categories = processCategories(limitedRestaurants)
+        let popularChains = processPopularChains(limitedRestaurants)
+        let nearbyRestaurants = processNearbyRestaurants(limitedRestaurants, userLocation: userLocation)
+        
+        cachedCategories = categories
+        cachedPopularChains = popularChains
+        cachedNearbyRestaurants = nearbyRestaurants
+        isProcessing = false
     }
     
     private func processCategories(_ restaurants: [Restaurant]) -> [RestaurantCategory: [Restaurant]] {
         var results: [RestaurantCategory: [Restaurant]] = [:]
         
         for category in RestaurantCategory.allCases {
-            results[category] = filterRestaurantsByCategory(category, from: restaurants)
+            let filtered = filterRestaurantsByCategory(category, from: restaurants)
+            results[category] = Array(filtered.prefix(10))
         }
         
         return results
@@ -65,25 +58,24 @@ class HomeScreenDataManager: ObservableObject {
     
     private func processPopularChains(_ restaurants: [Restaurant]) -> [Restaurant] {
         let popularChainNames = [
-            "McDonald's", "Subway", "Starbucks", "Chipotle", "Chick-fil-A",
-            "Taco Bell", "KFC", "Pizza Hut", "Domino's", "Burger King"
+            "McDonald's", "Subway", "Starbucks", "Chipotle", "Chick-fil-A"
         ]
         
-        return restaurants.filter { restaurant in
+        let filtered = restaurants.filter { restaurant in
             let lowercaseName = restaurant.name.lowercased()
             return popularChainNames.contains { chainName in
                 lowercaseName.contains(chainName.lowercased())
             }
-        }.prefix(10).map { $0 }
+        }
+        return Array(filtered.prefix(5))
     }
     
     private func processNearbyRestaurants(_ restaurants: [Restaurant], userLocation: CLLocationCoordinate2D?) -> [Restaurant] {
         guard let userLocation = userLocation else {
-            return Array(restaurants.prefix(20)) // Just return first 20 if no location
+            return Array(restaurants.prefix(5))
         }
         
-        // Sort by distance and return closest ones
-        return restaurants.sorted { restaurant1, restaurant2 in
+        let sorted = restaurants.sorted { restaurant1, restaurant2 in
             let distance1 = calculateDistance(
                 from: userLocation,
                 to: CLLocationCoordinate2D(latitude: restaurant1.latitude, longitude: restaurant1.longitude)
@@ -94,9 +86,10 @@ class HomeScreenDataManager: ObservableObject {
             )
             return distance1 < distance2
         }
+        
+        return Array(sorted.prefix(5))
     }
     
-    // FIXED: Remove problematic optional parameter and use proper filtering
     private func filterRestaurantsByCategory(_ category: RestaurantCategory, from restaurants: [Restaurant]) -> [Restaurant] {
         guard !restaurants.isEmpty else { return [] }
         
@@ -106,27 +99,22 @@ class HomeScreenDataManager: ObservableObject {
         case .healthy:
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
-                       name.contains("juice") || name.contains("smoothie")
+                return name.contains("salad") || name.contains("fresh") || name.contains("bowl")
             }
         case .vegan:
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                let cuisine = restaurant.cuisine?.lowercased() ?? ""
-                return name.contains("vegan") || name.contains("plant") || name.contains("veggie") ||
-                       name.contains("green") || cuisine.contains("vegan")
+                return name.contains("vegan") || name.contains("plant")
             }
         case .highProtein:
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("grill") || name.contains("steakhouse") || name.contains("bbq") ||
-                       name.contains("chicken") || name.contains("protein")
+                return name.contains("grill") || name.contains("chicken")
             }
         case .lowCarb:
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("grill") || name.contains("steakhouse") ||
-                       name.contains("bowl")
+                return name.contains("salad") || name.contains("grill")
             }
         }
     }
@@ -164,19 +152,16 @@ struct HomeScreen: View {
     @State private var showingFilters = false
     @State private var globalFilter = RestaurantFilter()
     
-    // PERFORMANCE: Cache filtered results to avoid recomputation
     @State private var cachedCategoryCounts: [RestaurantCategory: Int] = [:]
     @State private var cachedPopularChains: [Restaurant] = []
     @State private var cachedNearbyRestaurants: [Restaurant] = []
     
-    // Haptic feedback
     private let mediumFeedback = UIImpactFeedbackGenerator(style: .medium)
     private let lightFeedback = UIImpactFeedbackGenerator(style: .light)
     
     var body: some View {
         NavigationView {
             ZStack {
-                // Background gradient
                 LinearGradient(
                     colors: [Color(.systemBackground), Color(.systemGray6)],
                     startPoint: .top,
@@ -193,22 +178,16 @@ struct HomeScreen: View {
                     )
                 } else {
                     ScrollView(.vertical, showsIndicators: false) {
-                        // PERFORMANCE: Use LazyVStack for better scroll performance
                         LazyVStack(spacing: 24) {
-                            // Header Section
                             headerSection
                             
-                            // Search Bar
                             searchSection
                             
-                            // Quick Access Categories
                             quickAccessSection
                             
-                            // PERFORMANCE: Only show sections if we have data
                             if !cachedPopularChains.isEmpty {
                                 popularChainsSection
                             } else if !isLoadingCategoryData && !mapViewModel.isLoadingRestaurants {
-                                // Show loading for popular chains when not loading and no data yet
                                 DataLoadingView(
                                     dataType: "Popular Chains",
                                     progress: nil
@@ -219,7 +198,6 @@ struct HomeScreen: View {
                             if !cachedNearbyRestaurants.isEmpty {
                                 nearbyPicksSection
                             } else if !isLoadingCategoryData && !mapViewModel.isLoadingRestaurants {
-                                // Show loading for nearby restaurants when not loading and no data yet
                                 DataLoadingView(
                                     dataType: "Nearby Restaurants",  
                                     progress: nil
@@ -227,7 +205,6 @@ struct HomeScreen: View {
                                 .padding(.horizontal, 20)
                             }
                             
-                            // Bottom padding
                             Rectangle()
                                 .fill(Color.clear)
                                 .frame(height: 50)
@@ -238,13 +215,12 @@ struct HomeScreen: View {
                 }
             }
             .navigationBarHidden(true)
-            // FORCED: Always use light appearance
             .preferredColorScheme(.light)
             .fullScreenCover(isPresented: $showingMapScreen) {
                 NavigationView {
                     MapScreen(viewModel: mapViewModel)
                         .navigationBarTitleDisplayMode(.inline)
-                        .preferredColorScheme(.light) // Force light mode in map too
+                        .preferredColorScheme(.light) 
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) {
                                 Button("Back") {
@@ -262,7 +238,7 @@ struct HomeScreen: View {
                         restaurants: filterRestaurantsByCategory(category),
                         isPresented: $showingCategoryList
                     )
-                    .preferredColorScheme(.light) // Force light mode in category list
+                    .preferredColorScheme(.light) 
                 }
             }
             .sheet(isPresented: $showingRestaurantDetail) {
@@ -272,7 +248,7 @@ struct HomeScreen: View {
                         isPresented: $showingRestaurantDetail,
                         selectedCategory: nil
                     )
-                    .preferredColorScheme(.light) // Force light mode in restaurant detail
+                    .preferredColorScheme(.light) 
                 }
             }
             .sheet(isPresented: $showingFilters) {
@@ -288,7 +264,6 @@ struct HomeScreen: View {
         .onAppear {
             setupInitialData()
         }
-        // PERFORMANCE: Update cached data when restaurants change
         .onChange(of: mapViewModel.restaurants) { oldValue, newValue in
             if !newValue.isEmpty && cachedCategoryCounts.isEmpty {
                 isLoadingCategoryData = true
@@ -302,19 +277,16 @@ struct HomeScreen: View {
         }
         .onChange(of: mapViewModel.isLoadingRestaurants) { oldValue, newValue in
             withAnimation(.easeInOut(duration: 0.3)) {
-                // Show full screen loading only when starting to load and no data exists
                 isLoadingInitialData = newValue && mapViewModel.restaurants.isEmpty
             }
         }
         .onChange(of: globalFilter) { oldValue, newValue in
             if newValue.hasActiveFilters {
-                // If global filter is active, show filtered results on map
                 showFilteredResultsOnMap()
             }
         }
     }
     
-    // MARK: - Header Section
     private var headerSection: some View {
         VStack(spacing: 16) {
             HStack {
@@ -388,7 +360,6 @@ struct HomeScreen: View {
         }
     }
     
-    // MARK: - Search Section
     private var searchSection: some View {
         HStack(spacing: 12) {
             Image(systemName: "magnifyingglass")
@@ -420,62 +391,31 @@ struct HomeScreen: View {
         )
     }
     
-    // MARK: - Quick Access Categories
     private var quickAccessSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             sectionHeader("Quick Access", subtitle: "Browse by category")
             
-            if isLoadingCategoryData || mapViewModel.isLoadingRestaurants || (cachedCategoryCounts.isEmpty && mapViewModel.restaurants.isEmpty) {
-                // Show loading animation for categories
-                VStack(spacing: 12) {
-                    HStack(spacing: 12) {
-                        ForEach(Array(RestaurantCategory.allCases.prefix(2)), id: \.self) { category in
-                            CategoryCard(
-                                category: category,
-                                restaurantCount: 0,
-                                isLoading: true
-                            ) {
-                                // Disabled while loading
-                            }
-                        }
-                    }
-                    
-                    HStack(spacing: 12) {
-                        ForEach(Array(RestaurantCategory.allCases.dropFirst(2)), id: \.self) { category in
-                            CategoryCard(
-                                category: category,
-                                restaurantCount: 0,
-                                isLoading: true
-                            ) {
-                                // Disabled while loading
-                            }
+            VStack(spacing: 12) {
+                HStack(spacing: 12) {
+                    ForEach(Array(RestaurantCategory.allCases.prefix(2)), id: \.self) { category in
+                        CategoryCard(
+                            category: category,
+                            restaurantCount: cachedCategoryCounts[category] ?? 0,
+                            isLoading: false
+                        ) {
+                            selectCategory(category)
                         }
                     }
                 }
-            } else {
-                // PERFORMANCE: Use simple Grid instead of LazyVGrid for small static content
-                VStack(spacing: 12) {
-                    HStack(spacing: 12) {
-                        ForEach(Array(RestaurantCategory.allCases.prefix(2)), id: \.self) { category in
-                            CategoryCard(
-                                category: category,
-                                restaurantCount: cachedCategoryCounts[category] ?? 0,
-                                isLoading: false
-                            ) {
-                                selectCategory(category)
-                            }
-                        }
-                    }
-                    
-                    HStack(spacing: 12) {
-                        ForEach(Array(RestaurantCategory.allCases.dropFirst(2)), id: \.self) { category in
-                            CategoryCard(
-                                category: category,
-                                restaurantCount: cachedCategoryCounts[category] ?? 0,
-                                isLoading: false
-                            ) {
-                                selectCategory(category)
-                            }
+                
+                HStack(spacing: 12) {
+                    ForEach(Array(RestaurantCategory.allCases.dropFirst(2)), id: \.self) { category in
+                        CategoryCard(
+                            category: category,
+                            restaurantCount: cachedCategoryCounts[category] ?? 0,
+                            isLoading: false
+                        ) {
+                            selectCategory(category)
                         }
                     }
                 }
@@ -483,15 +423,13 @@ struct HomeScreen: View {
         }
     }
     
-    // MARK: - Popular Chains Section
     private var popularChainsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             sectionHeader("Popular Chains", subtitle: "Top picks with nutrition data")
             
             ScrollView(.horizontal, showsIndicators: false) {
-                // PERFORMANCE: Use LazyHStack only for horizontal scrolling
                 LazyHStack(spacing: 16) {
-                    ForEach(cachedPopularChains.prefix(10), id: \.id) { restaurant in
+                    ForEach(cachedPopularChains.prefix(5), id: \.id) { restaurant in
                         PopularChainCard(restaurant: restaurant) {
                             selectRestaurant(restaurant)
                         }
@@ -503,7 +441,6 @@ struct HomeScreen: View {
         }
     }
     
-    // MARK: - Nearby Picks Section
     private var nearbyPicksSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
@@ -538,9 +475,8 @@ struct HomeScreen: View {
                 }
             }
             
-            // PERFORMANCE: Show limited nearby restaurants
             LazyVStack(spacing: 12) {
-                ForEach(cachedNearbyRestaurants.prefix(6), id: \.id) { restaurant in
+                ForEach(cachedNearbyRestaurants.prefix(3), id: \.id) { restaurant in
                     NearbyRestaurantCard(restaurant: restaurant) {
                         selectRestaurant(restaurant)
                     }
@@ -549,7 +485,6 @@ struct HomeScreen: View {
         }
     }
     
-    // MARK: - Helper Methods
     private func sectionHeader(_ title: String, subtitle: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title)
@@ -577,52 +512,44 @@ struct HomeScreen: View {
             return "Getting location..."
         }
         
-        // Use cached area name if available
         return mapViewModel.currentAreaName.isEmpty ? "Current Location" : mapViewModel.currentAreaName
     }
     
-    // PERFORMANCE: Simplified data setup
     private func setupInitialData() {
         locationManager.requestLocationPermission()
         
-        // PERFORMANCE: Only load data when location is available
         if let location = locationManager.lastLocation {
             mapViewModel.refreshData(for: location.coordinate)
         }
     }
     
-    // PERFORMANCE: Cache expensive computations
     private func updateCachedData() {
         guard !mapViewModel.restaurants.isEmpty else { return }
         
-        // Cache category counts
+        let limitedRestaurants = Array(mapViewModel.restaurants.prefix(50))
+        
         for category in RestaurantCategory.allCases {
-            cachedCategoryCounts[category] = filterRestaurantsByCategory(category).count
+            cachedCategoryCounts[category] = filterRestaurantsByCategory(category, from: limitedRestaurants).count
         }
         
-        // Cache popular chains
-        cachedPopularChains = getPopularChains()
+        cachedPopularChains = getPopularChains(from: limitedRestaurants)
         
-        // Cache nearby restaurants
-        cachedNearbyRestaurants = getNearbyRestaurants()
+        cachedNearbyRestaurants = getNearbyRestaurants(from: limitedRestaurants)
     }
     
     private func performSearch() {
         guard !searchText.isEmpty else { return }
         
-        // Show loading state during search with enhanced feedback
         Task {
             await MainActor.run {
                 lightFeedback.impactOccurred()
             }
             
-            // Show loading animation
-            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
+            try? await Task.sleep(nanoseconds: 500_000_000)
             
             await MainActor.run {
                 mapViewModel.performSearch(query: searchText, maxDistance: nil)
                 
-                // Add loading transition before showing map
                 withAnimation(.easeInOut(duration: 0.3)) {
                     showingMapScreen = true
                 }
@@ -633,12 +560,10 @@ struct HomeScreen: View {
     private func selectCategory(_ category: RestaurantCategory) {
         lightFeedback.impactOccurred()
         
-        // Add haptic feedback and smooth transition
         withAnimation(.easeInOut(duration: 0.2)) {
             selectedCategory = category
         }
         
-        // Small delay for visual feedback
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             showingCategoryList = true
         }
@@ -647,15 +572,12 @@ struct HomeScreen: View {
     private func selectRestaurant(_ restaurant: Restaurant) {
         mediumFeedback.impactOccurred()
         
-        // Preload nutrition data if available
         if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
-            let nutritionManager = NutritionDataManager()
             nutritionManager.preloadNutritionData(for: restaurant.name)
         }
         
         selectedRestaurant = restaurant
         
-        // Add smooth transition delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             showingRestaurantDetail = true
         }
@@ -664,23 +586,19 @@ struct HomeScreen: View {
     private func showViewAllOnMap() {
         mediumFeedback.impactOccurred()
         
-        // Add transition animation
         withAnimation(.easeInOut(duration: 0.3)) {
             showingMapScreen = true
         }
     }
     
     private func showFilteredResultsOnMap() {
-        // This could be enhanced to pre-filter the map results
-        // For now, just show the map with smooth transition
         withAnimation(.easeInOut(duration: 0.3)) {
             showingMapScreen = true
         }
     }
     
-    // PERFORMANCE: Simplified filtering with early returns
     private func filterRestaurantsByCategory(_ category: RestaurantCategory, from restaurants: [Restaurant]? = nil) -> [Restaurant] {
-        let restaurantList = restaurants ?? mapViewModel.allAvailableRestaurants
+        let restaurantList = restaurants ?? Array(mapViewModel.allAvailableRestaurants.prefix(50))
         guard !restaurantList.isEmpty else { return [] }
         
         switch category {
@@ -689,54 +607,48 @@ struct HomeScreen: View {
         case .healthy:
             return restaurantList.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
-                       name.contains("juice") || name.contains("smoothie")
+                return name.contains("salad") || name.contains("fresh") || name.contains("bowl")
             }
         case .vegan:
             return restaurantList.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                let cuisine = restaurant.cuisine?.lowercased() ?? ""
-                return name.contains("vegan") || name.contains("plant") || name.contains("veggie") ||
-                       name.contains("green") || cuisine.contains("vegan")
+                return name.contains("vegan") || name.contains("plant")
             }
         case .highProtein:
             return restaurantList.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("grill") || name.contains("steakhouse") || name.contains("bbq") ||
-                       name.contains("chicken") || name.contains("protein")
+                return name.contains("grill") || name.contains("chicken")
             }
         case .lowCarb:
             return restaurantList.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("grill") || name.contains("steakhouse") ||
-                       name.contains("bowl")
+                return name.contains("salad") || name.contains("grill")
             }
         }
     }
     
-    // PERFORMANCE: Simplified popular chains with static list
-    private func getPopularChains() -> [Restaurant] {
-        let popularChainNames = [
-            "McDonald's", "Subway", "Starbucks", "Chipotle", "Chick-fil-A",
-            "Taco Bell", "KFC", "Pizza Hut", "Domino's", "Burger King"
-        ]
+    private func getPopularChains(from restaurants: [Restaurant]? = nil) -> [Restaurant] {
+        let restaurantList = restaurants ?? Array(mapViewModel.allAvailableRestaurants.prefix(50))
+        let popularChainNames = ["McDonald's", "Subway", "Starbucks"]
         
-        return mapViewModel.allAvailableRestaurants.filter { restaurant in
+        let filtered = restaurantList.filter { restaurant in
             popularChainNames.contains { chainName in
                 restaurant.name.lowercased().contains(chainName.lowercased())
             }
         }
+        return Array(filtered.prefix(3))
     }
     
-    // PERFORMANCE: Simplified distance calculation
-    private func getNearbyRestaurants() -> [Restaurant] {
+    private func getNearbyRestaurants(from restaurants: [Restaurant]? = nil) -> [Restaurant] {
+        let restaurantList = restaurants ?? Array(mapViewModel.allAvailableRestaurants.prefix(50))
+        
         guard let userLocation = locationManager.lastLocation else {
-            return Array(mapViewModel.allAvailableRestaurants.prefix(6))
+            return Array(restaurantList.prefix(3))
         }
         
         let userCoordinate = userLocation.coordinate
         
-        return mapViewModel.allAvailableRestaurants.sorted { restaurant1, restaurant2 in
+        let sorted = restaurantList.sorted { restaurant1, restaurant2 in
             let distance1 = calculateDistance(
                 from: userCoordinate,
                 to: CLLocationCoordinate2D(latitude: restaurant1.latitude, longitude: restaurant1.longitude)
@@ -745,35 +657,10 @@ struct HomeScreen: View {
                 from: userCoordinate,
                 to: CLLocationCoordinate2D(latitude: restaurant2.latitude, longitude: restaurant2.longitude)
             )
-            
-            let hasNutrition1 = RestaurantData.restaurantsWithNutritionData.contains(restaurant1.name)
-            let hasNutrition2 = RestaurantData.restaurantsWithNutritionData.contains(restaurant2.name)
-            
-            // Convert to miles for easier comparison
-            let miles1 = distance1 / 1609.34
-            let miles2 = distance2 / 1609.34
-            let distanceDifference = abs(miles1 - miles2)
-            
-            // If distances are very similar (within 0.1 mile), prioritize nutrition data
-            if distanceDifference <= 0.1 {
-                if hasNutrition1 == hasNutrition2 {
-                    return distance1 < distance2
-                }
-                return hasNutrition1 && !hasNutrition2
-            }
-            
-            // For moderate distance differences (within 0.3 miles), still give slight preference to nutrition data
-            if distanceDifference <= 0.3 && hasNutrition1 != hasNutrition2 {
-                if hasNutrition1 && miles1 <= miles2 + 0.2 {
-                    return true
-                }
-                if hasNutrition2 && miles2 <= miles1 + 0.2 {
-                    return false
-                }
-            }
-            
             return distance1 < distance2
         }
+        
+        return Array(sorted.prefix(3))
     }
     
     private func calculateDistance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D) -> Double {
@@ -889,7 +776,6 @@ struct PopularChainCard: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 12) {
-                // Restaurant image placeholder with category color accent
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color(.systemGray5))
                     .frame(width: 120, height: 80)
@@ -1003,7 +889,6 @@ struct NearbyRestaurantCard: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 16) {
-                // Restaurant image placeholder with category color
                 RoundedRectangle(cornerRadius: 12)
                     .fill(restaurantCategory?.color.opacity(0.1) ?? Color(.systemGray5))
                     .frame(width: 60, height: 60)
@@ -1055,7 +940,6 @@ struct NearbyRestaurantCard: View {
                     }
                     
                     HStack(spacing: 8) {
-                        // Distance with category color
                         if let userLocation = locationManager.lastLocation {
                             let distance = calculateDistance(
                                 from: userLocation.coordinate,
@@ -1071,24 +955,6 @@ struct NearbyRestaurantCard: View {
                                     .font(.system(size: 12, weight: .medium, design: .rounded))
                                     .foregroundColor(restaurantCategory?.color ?? .blue)
                             }
-                        }
-                        
-                        // Nutrition score with enhanced styling
-                        if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
-                            HStack(spacing: 2) {
-                                Image(systemName: "star.fill")
-                                    .font(.system(size: 8))
-                                    .foregroundColor(.yellow)
-                                Text("4.2")
-                                    .font(.system(size: 12, weight: .medium, design: .rounded))
-                                    .foregroundColor(.secondary)
-                            }
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(
-                                Capsule()
-                                    .fill(Color.yellow.opacity(0.1))
-                            )
                         }
                         
                         Spacer()
