@@ -369,6 +369,25 @@ struct MapScreen: View {
                 
                 Spacer()
                 
+                HStack(spacing: 4) {
+                    Image(systemName: "checkmark.seal.fill")
+                        .font(.system(size: 10))
+                        .foregroundColor(.green)
+                    Text("Nutrition Only")
+                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .foregroundColor(.green)
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(
+                    Capsule()
+                        .fill(.green.opacity(0.1))
+                        .overlay(
+                            Capsule()
+                                .stroke(.green.opacity(0.3), lineWidth: 1)
+                        )
+                )
+                
                 // Search results indicator with enhanced loading
                 if viewModel.showSearchResults {
                     HStack(spacing: 6) {
@@ -381,7 +400,11 @@ struct MapScreen: View {
                                 .font(.system(size: 12))
                         }
                         
-                        Text(isSearching ? "Searching..." : "\(viewModel.restaurantsWithinSearchRadius.count) results")
+                        let nutritionRestaurantCount = viewModel.restaurantsWithinSearchRadius.filter { restaurant in
+                            RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
+                        }.count
+                        
+                        Text(isSearching ? "Searching..." : "\(nutritionRestaurantCount) results")
                             .font(.system(size: 12, weight: .medium, design: .rounded))
                         
                         if !isSearching {
@@ -513,10 +536,14 @@ struct MapScreen: View {
         let center = viewModel.region.center
         let isZoomedIn = viewModel.region.span.latitudeDelta <= pinVisibilityThreshold
         
+        let nutritionOnlyRestaurants = restaurantList.filter { restaurant in
+            RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
+        }
+        
         // Always show search results regardless of zoom level
         if viewModel.showSearchResults {
             // When showing search results, always display them regardless of zoom level
-            return restaurantList.sorted { r1, r2 in
+            return nutritionOnlyRestaurants.sorted { r1, r2 in
                 let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
                 let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
                 return d1 < d2
@@ -529,14 +556,14 @@ struct MapScreen: View {
         
         if isZoomedIn {
             // OPTIMIZED: More efficient distance calculation
-            return restaurantList.sorted { r1, r2 in
+            return nutritionOnlyRestaurants.sorted { r1, r2 in
                 let d1 = pow(r1.latitude - center.latitude, 2) + pow(r1.longitude - center.longitude, 2)
                 let d2 = pow(r2.latitude - center.latitude, 2) + pow(r2.longitude - center.longitude, 2)
                 return d1 < d2
             }.prefix(maxRestaurants).map { $0 }
         }
         
-        return Array(restaurantList.prefix(maxRestaurants))
+        return Array(nutritionOnlyRestaurants.prefix(maxRestaurants))
     }
     
     private func formatSearchRadius(_ radius: Double) -> String {

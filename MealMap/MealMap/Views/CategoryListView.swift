@@ -448,10 +448,6 @@ struct CategoryRestaurantRow: View {
     
     var body: some View {
         Button(action: {
-            // Preload nutrition data before navigation
-            if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
-                nutritionManager.preloadNutritionData(for: restaurant.name)
-            }
             action()
         }) {
             HStack(spacing: 16) {
@@ -595,12 +591,6 @@ struct CategoryRestaurantRow: View {
                 isPressed = pressing && !isPreloading
             }
         }, perform: {})
-        .onAppear {
-            // Preload nutrition data for restaurants with nutrition data
-            if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
-                nutritionManager.preloadNutritionData(for: restaurant.name)
-            }
-        }
         .onChange(of: nutritionManager.isLoading) { oldValue, newValue in
             withAnimation(.easeInOut(duration: 0.2)) {
                 isPreloading = newValue

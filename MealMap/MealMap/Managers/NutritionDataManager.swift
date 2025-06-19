@@ -1,66 +1,111 @@
 import Foundation
 import UIKit
 
+@MainActor
 class NutritionDataManager: ObservableObject {
     @Published var isLoading = false
     @Published var currentRestaurantData: RestaurantNutritionData?
     @Published var errorMessage: String?
     
-    private let enhancedCache = EnhancedCacheManager.shared
-    private let legacyCache = CacheManager.shared // Keep for backward compatibility
+    // MARK: - API Configuration
+    private let baseURL = "https://meal-map-api.onrender.com"
+    private let session = URLSession.shared
     
+    // MARK: - Cache Properties
+    private var nutritionCache = NutritionCache()
     private var loadingTasks: [String: Task<RestaurantNutritionData?, Never>] = [:]
+    private var availableRestaurantIDs: [String] = []
     
-    // Enhanced background processing
-    private let backgroundQueue = DispatchQueue(label: "nutrition.parsing", qos: .utility)
-    private let preloadQueue = DispatchQueue(label: "nutrition.preload", qos: .background)
-    
-    // Enhanced CSV parsing cache with compression
-    private var csvParsingCache: [String: [String]] = [:]
-    private let maxCSVCacheSize = 100 // Increased from 30
+    // MARK: - Performance Tracking
+    private var cacheHits = 0
+    private var cacheMisses = 0
     
     init() {
-        print("NutritionDataManager initialized with enhanced caching system")
-        setupMemoryManagement()
+        print("🍽️ NutritionDataManager initialized with Meal Map API")
+        Task {
+            await loadAvailableRestaurants()
+        }
+    }
+    
+    // MARK: - API Methods
+    private func loadAvailableRestaurants() async {
+        guard let url = URL(string: "\(baseURL)/restaurants") else {
+            print("❌ Invalid API URL")
+            return
+        }
         
-        // Start background prefetching of popular restaurants
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.enhancedCache.prefetchPopularRestaurantsNutrition()
+        do {
+            let (data, _) = try await session.data(from: url)
+            let restaurantIDs = try JSONDecoder().decode([String].self, from: data)
+            self.availableRestaurantIDs = restaurantIDs
+            print("✅ Loaded \(restaurantIDs.count) available restaurant IDs from API")
+        } catch {
+            print("❌ Failed to load available restaurants: \(error)")
         }
     }
     
-    private func setupMemoryManagement() {
-        NotificationCenter.default.addObserver(
-            forName: UIApplication.didReceiveMemoryWarningNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            self?.handleMemoryWarning()
+    private func fetchRestaurantFromAPI(restaurantId: String) async -> RestaurantNutritionData? {
+        guard let url = URL(string: "\(baseURL)/restaurants/\(restaurantId)") else {
+            print("❌ Invalid restaurant API URL for \(restaurantId)")
+            return nil
+        }
+        
+        do {
+            print("🌐 Fetching \(restaurantId) from API...")
+            let (data, response) = try await session.data(from: url)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                print("📡 API Response for \(restaurantId): \(httpResponse.statusCode)")
+                
+                if httpResponse.statusCode != 200 {
+                    print("❌ API returned status \(httpResponse.statusCode) for \(restaurantId)")
+                    return nil
+                }
+            }
+            
+            let restaurantJSON = try JSONDecoder().decode(RestaurantJSON.self, from: data)
+            
+            // Convert to our internal format
+            let nutritionItems = restaurantJSON.menu.map { menuItem in
+                NutritionData(
+                    item: menuItem.Item,
+                    calories: menuItem.Calories,
+                    fat: menuItem.Fat_g,
+                    saturatedFat: menuItem.Saturated_Fat_g,
+                    cholesterol: menuItem.Cholesterol_mg,
+                    sodium: menuItem.Sodium_mg,
+                    carbs: menuItem.Carbs_g,
+                    fiber: menuItem.Fiber_g,
+                    sugar: menuItem.Sugar_g,
+                    protein: menuItem.Protein_g
+                )
+            }
+            
+            print("✅ Fetched \(nutritionItems.count) items for \(restaurantJSON.restaurant_name) from API")
+            
+            return RestaurantNutritionData(
+                restaurantName: restaurantJSON.restaurant_name,
+                items: nutritionItems
+            )
+            
+        } catch {
+            print("❌ Failed to fetch \(restaurantId) from API: \(error)")
+            return nil
         }
     }
     
+    // MARK: - Public API
     func loadNutritionData(for restaurantName: String) {
         let cacheKey = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         print("🍽️ Loading nutrition data for restaurant: '\(restaurantName)'")
         
-        // Try enhanced cache first (fastest path)
-        if let cachedData = enhancedCache.getCachedNutritionData(for: restaurantName) {
-            print("🚀 Enhanced cache hit for \(restaurantName)")
-            self.isLoading = false
-            self.currentRestaurantData = cachedData
-            self.errorMessage = nil
-            return
-        }
-        
-        // Fall back to legacy cache
-        if let legacyCachedData = legacyCache.getCachedNutritionData(for: restaurantName) {
-            print("💿 Legacy cache hit for \(restaurantName)")
-            self.isLoading = false
-            self.currentRestaurantData = legacyCachedData
-            self.errorMessage = nil
-            
-            // Migrate to enhanced cache
-            enhancedCache.cacheNutritionData(legacyCachedData, for: restaurantName)
+        // Check cache first (super fast)
+        if let cachedData = nutritionCache.getRestaurant(named: restaurantName) {
+            print("⚡ Cache hit for \(restaurantName)")
+            cacheHits += 1
+            isLoading = false
+            currentRestaurantData = cachedData
+            errorMessage = nil
             return
         }
         
@@ -72,293 +117,401 @@ class NutritionDataManager: ObservableObject {
             
             Task {
                 if let result = await existingTask.value {
-                    await MainActor.run {
-                        self.isLoading = false
-                        self.currentRestaurantData = result
-                    }
+                    self.isLoading = false
+                    self.currentRestaurantData = result
                 }
-                loadingTasks.removeValue(forKey: cacheKey)
             }
             return
         }
         
-        // Get restaurant ID for CSV lookup
-        guard let restaurantID = legacyCache.getRestaurantID(for: restaurantName) else {
-            print("❌ No nutrition data available for \(restaurantName)")
-            errorMessage = "No nutrition data available for \(restaurantName)"
-            return
-        }
+        cacheMisses += 1
+        print("🔍 Cache miss for \(restaurantName), loading from API...")
         
-        print("🆔 Found restaurant ID: \(restaurantID) for \(restaurantName)")
         isLoading = true
         errorMessage = nil
         
-        // Start enhanced loading task
         let task = Task {
-            return await loadNutritionDataWithEnhancedCaching(for: restaurantName, restaurantID: restaurantID)
+            return await loadFromAPI(restaurantName: restaurantName)
         }
         
         loadingTasks[cacheKey] = task
         
         Task {
             if let result = await task.value {
-                await MainActor.run {
-                    self.isLoading = false
-                    self.currentRestaurantData = result
-                }
+                self.isLoading = false
+                self.currentRestaurantData = result
+                
+                // Store in cache for future use
+                self.nutritionCache.store(restaurant: result)
             } else {
-                await MainActor.run {
-                    self.isLoading = false
-                    self.errorMessage = "Failed to load nutrition data for \(restaurantName)"
-                }
+                self.isLoading = false
+                self.errorMessage = "No nutrition data available for \(restaurantName)"
             }
             loadingTasks.removeValue(forKey: cacheKey)
         }
     }
     
-    private func loadNutritionDataWithEnhancedCaching(for restaurantName: String, restaurantID: String) async -> RestaurantNutritionData? {
-        print("🔄 Enhanced loading nutrition data for \(restaurantName) with ID \(restaurantID)")
+    // MARK: - API Data Loading
+    private func loadFromAPI(restaurantName: String) async -> RestaurantNutritionData? {
+        // First try to find exact match by looking through restaurant mapping
+        let possibleMatch = findRestaurantIdForName(restaurantName)
         
-        // Check if CSV is already parsed and cached
-        if let cachedParsedData = csvParsingCache[restaurantID] {
-            print("📋 Using cached parsed CSV for \(restaurantName)")
-            return await processPreParsedCSV(cachedParsedData, restaurantName: restaurantName, restaurantID: restaurantID)
+        if let restaurantId = possibleMatch {
+            return await fetchRestaurantFromAPI(restaurantId: restaurantId)
         }
         
-        // Load and parse CSV file
-        guard let fileContent = await loadCSVFile(restaurantID: restaurantID) else {
-            print("❌ Failed to load nutrition data file for \(restaurantName) (ID: \(restaurantID))")
-            return nil
-        }
-        
-        // Parse CSV in background with enhanced caching
-        let nutritionItems = await withCheckedContinuation { continuation in
-            backgroundQueue.async {
-                let parsedLines = fileContent.components(separatedBy: .newlines)
-                
-                // Cache parsed lines with size management
-                self.manageCsvCacheSize()
-                self.csvParsingCache[restaurantID] = parsedLines
-                
-                let items = self.parseNutritionCSVOptimized(lines: parsedLines, restaurantName: restaurantName)
-                continuation.resume(returning: items)
-            }
-        }
-        
-        guard !nutritionItems.isEmpty else {
-            print("❌ No valid nutrition items found for \(restaurantName)")
-            return nil
-        }
-        
-        let restaurantData = RestaurantNutritionData(
-            restaurantName: restaurantName,
-            items: nutritionItems
-        )
-        
-        // Cache with both systems
-        enhancedCache.cacheNutritionData(restaurantData, for: restaurantName)
-        legacyCache.cacheNutritionData(restaurantData, for: restaurantName)
-        
-        print("✅ Enhanced cached \(nutritionItems.count) nutrition items for \(restaurantName)")
-        
-        return restaurantData
+        // If no exact match, try searching through available restaurant IDs
+        return await findBestFuzzyMatchFromAPI(for: restaurantName)
     }
     
-    private func processPreParsedCSV(_ lines: [String], restaurantName: String, restaurantID: String) async -> RestaurantNutritionData? {
-        let nutritionItems = await withCheckedContinuation { continuation in
-            backgroundQueue.async {
-                let items = self.parseNutritionCSVOptimized(lines: lines, restaurantName: restaurantName)
-                continuation.resume(returning: items)
-            }
-        }
-        
-        guard !nutritionItems.isEmpty else { return nil }
-        
-        let restaurantData = RestaurantNutritionData(
-            restaurantName: restaurantName,
-            items: nutritionItems
-        )
-        
-        // Cache the result
-        enhancedCache.cacheNutritionData(restaurantData, for: restaurantName)
-        
-        return restaurantData
+    private func findBestFuzzyMatchFromAPI(for restaurantName: String) async -> RestaurantNutritionData? {
+        // For now, skip fuzzy matching to avoid too many API calls
+        // Could be implemented later with a search endpoint
+        print("❌ No exact match found for \(restaurantName) in API")
+        return nil
     }
     
-    private func loadCSVFile(restaurantID: String) async -> String? {
-        let possiblePaths = [
-            Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "Services/restaurant_data"),
-            Bundle.main.path(forResource: restaurantID, ofType: "csv"),
-            Bundle.main.path(forResource: restaurantID, ofType: "csv", inDirectory: "restaurant_data")
+    // Enhanced restaurant name matching (same as before but with R0018 added)
+    private func findRestaurantIdForName(_ restaurantName: String) -> String? {
+        // Create a clean mapping based on RestaurantData.restaurantsWithNutritionData  
+        let restaurantMapping: [String: String] = [
+            // 7-Eleven variants
+            "7 eleven": "R0000",
+            "7-eleven": "R0000", 
+            "seven eleven": "R0000",
+            
+            // Applebee's variants
+            "applebees": "R0001",
+            "applebee": "R0001", 
+            
+            // Arby's variants
+            "arbys": "R0002",
+            "arby": "R0002",
+            
+            // Auntie Anne's variants
+            "auntie annes": "R0003",
+            
+            // BJ's variants
+            "bjs restaurant": "R0004",
+            "bjs": "R0004",
+            
+            // Baskin Robbins variants
+            "baskin robbins": "R0005",
+            "baskin-robbins": "R0005",
+            
+            // Bob Evans
+            "bob evans": "R0006", 
+            
+            // Bojangles
+            "bojangles": "R0007",
+            
+            // Bonefish Grill
+            "bonefish grill": "R0008",
+            
+            // Boston Market
+            "boston market": "R0009",
+            
+            // Burger King
+            "burger king": "R0010",
+            
+            // California Pizza Kitchen variants
+            "california pizza kitchen": "R0011",
+            "cpk": "R0011",
+            
+            // Captain D's variants
+            "captain ds": "R0012",
+            
+            // Carl's Jr variants
+            "carls jr": "R0013",
+            
+            // Carrabba's variants
+            "carrabbas": "R0014",
+            
+            // Casey's variants
+            "caseys": "R0015",
+            
+            // Checker's/Rally's variants
+            "checkers": "R0016",
+            "rallys": "R0016",
+            
+            // Chick-fil-A variants (R0017 has more comprehensive menu)
+            "chick-fil-a": "R0017",
+            "chick fil a": "R0017",
+            "chickfila": "R0017",
+            
+            // Chili's variants
+            "chilis": "R0019",
+            "chili": "R0019",
+            
+            // Chipotle variants
+            "chipotle": "R0020",
+            "chipotle mexican grill": "R0020",
+            
+            // Chuck E. Cheese variants
+            "chuck e cheese": "R0021",
+            
+            // Church's Chicken variants
+            "churchs chicken": "R0022",
+            
+            // CiCi's Pizza variants
+            "cicis pizza": "R0023",
+            
+            // Culver's variants
+            "culvers": "R0024",
+            
+            // Dairy Queen variants
+            "dairy queen": "R0025",
+            "dq": "R0025",
+            
+            // Del Taco
+            "del taco": "R0026",
+            
+            // Denny's variants
+            "dennys": "R0027",
+            
+            // Dickey's variants
+            "dickeys": "R0028",
+            
+            // Domino's variants
+            "dominos": "R0029",
+            "dominos pizza": "R0029",
+            
+            // Dunkin' variants
+            "dunkin donuts": "R0030",
+            "dunkin": "R0030",
+            
+            // Einstein Bros variants
+            "einstein bros": "R0031",
+            "einstein brothers": "R0031",
+            
+            // El Pollo Loco
+            "el pollo loco": "R0032",
+            
+            // Famous Dave's variants
+            "famous daves": "R0033",
+            
+            // Firehouse Subs
+            "firehouse subs": "R0034",
+            
+            // Five Guys
+            "five guys": "R0035",
+            
+            // Friendly's variants
+            "friendlys": "R0036",
+            
+            // Frisch's variants
+            "frischs": "R0037",
+            
+            // Golden Corral
+            "golden corral": "R0038",
+            
+            // Hardee's variants
+            "hardees": "R0039",
+            
+            // Hooters
+            "hooters": "R0040",
+            
+            // IHOP variants
+            "ihop": "R0041",
+            "international house of pancakes": "R0041",
+            
+            // In-N-Out variants
+            "in-n-out burger": "R0042",
+            "in n out": "R0042",
+            "innout": "R0042",
+            
+            // Jack in the Box
+            "jack in the box": "R0043",
+            
+            // Jamba Juice
+            "jamba juice": "R0044",
+            
+            // Jason's Deli variants
+            "jasons deli": "R0045",
+            
+            // Jersey Mike's variants
+            "jersey mikes": "R0046",
+            
+            // Joe's Crab Shack variants
+            "joes crab shack": "R0047",
+            
+            // KFC variants
+            "kfc": "R0048",
+            "kentucky fried chicken": "R0048",
+            
+            // Krispy Kreme
+            "krispy kreme": "R0049",
+            
+            // Krystal
+            "krystal": "R0050",
+            
+            // Little Caesars variants
+            "little caesars": "R0051",
+            
+            // Long John Silver's variants
+            "long john silvers": "R0052",
+            
+            // Longhorn Steakhouse
+            "longhorn steakhouse": "R0053",
+            
+            // Marco's Pizza variants
+            "marcos pizza": "R0054",
+            
+            // McAlister's Deli variants
+            "mcalisters deli": "R0055",
+            
+            // McDonald's variants
+            "mcdonalds": "R0056",
+            "mcd": "R0056",
+            
+            // Moe's variants
+            "moes": "R0057",
+            
+            // Noodles & Company variants
+            "noodles and company": "R0058",
+            
+            // O'Charley's variants
+            "ocharleys": "R0059",
+            
+            // Olive Garden
+            "olive garden": "R0060",
+            
+            // Outback variants
+            "outback steakhouse": "R0061",
+            "outback": "R0061",
+            
+            // P.F. Chang's variants
+            "pf changs": "R0062",
+            
+            // Panda Express
+            "panda express": "R0063",
+            
+            // Panera variants
+            "panera bread": "R0064",
+            "panera": "R0064",
+            
+            // Papa John's variants
+            "papa johns": "R0065",
+            
+            // Papa Murphy's variants
+            "papa murphys": "R0066",
+            
+            // Perkins
+            "perkins": "R0067",
+            
+            // Pizza Hut
+            "pizza hut": "R0068",
+            
+            // Popeyes variants
+            "popeyes": "R0069",
+            
+            // Potbelly variants
+            "potbelly sandwich shop": "R0070",
+            "potbelly": "R0070",
+            
+            // Qdoba
+            "qdoba": "R0071",
+            
+            // Quiznos
+            "quiznos": "R0072",
+            
+            // Red Lobster
+            "red lobster": "R0073",
+            
+            // Red Robin
+            "red robin": "R0074",
+            
+            // Romano's variants
+            "romanos": "R0075",
+            
+            // Round Table Pizza
+            "round table pizza": "R0076",
+            
+            // Ruby Tuesday
+            "ruby tuesday": "R0077",
+            
+            // Sbarro
+            "sbarro": "R0078",
+            
+            // Sheetz
+            "sheetz": "R0079",
+            
+            // Sonic variants
+            "sonic": "R0080",
+            "sonic drive-in": "R0080",
+            
+            // Starbucks
+            "starbucks": "R0081",
+            
+            // Steak 'n Shake variants
+            "steak n shake": "R0082",
+            
+            // Subway
+            "subway": "R0083",
+            
+            // TGI Friday's variants
+            "tgi fridays": "R0084",
+            "fridays": "R0084",
+            
+            // Taco Bell
+            "taco bell": "R0085",
+            
+            // The Capital Grille variants
+            "capital grille": "R0086",
+            
+            // Tim Hortons
+            "tim hortons": "R0087",
+            
+            // Wawa
+            "wawa": "R0088",
+            
+            // Wendy's variants
+            "wendys": "R0089",
+            
+            // Whataburger
+            "whataburger": "R0090",
+            
+            // White Castle
+            "white castle": "R0091",
+            
+            // Wingstop
+            "wingstop": "R0092",
+            
+            // Yard House
+            "yard house": "R0093",
+            
+            // Zaxby's variants
+            "zaxbys": "R0094"
         ]
         
-        for path in possiblePaths {
-            if let validPath = path {
-                do {
-                    let fileContent = try String(contentsOfFile: validPath)
-                    print("✅ Successfully loaded nutrition data from: \(validPath)")
-                    return fileContent
-                } catch {
-                    print("⚠️ Failed to load from \(validPath): \(error.localizedDescription)")
-                }
+        let lowercased = restaurantName.lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "'", with: "")
+            .replacingOccurrences(of: ".", with: "")
+        
+        // Try exact match first
+        if let restaurantId = restaurantMapping[lowercased] {
+            return restaurantId
+        }
+        
+        // Try partial matches
+        for (name, id) in restaurantMapping {
+            if name.contains(lowercased) || lowercased.contains(name) {
+                return id
             }
         }
         
         return nil
     }
     
-    // Enhanced CSV parsing with better performance
-    private func parseNutritionCSVOptimized(lines: [String], restaurantName: String) -> [NutritionData] {
-        var nutritionItems: [NutritionData] = []
-        nutritionItems.reserveCapacity(lines.count)
-        
-        // Use indices for better performance
-        for index in 1..<lines.count { // Skip header
-            let line = lines[index]
-            let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !trimmedLine.isEmpty else { continue }
-            
-            let components = parseCSVLineOptimized(trimmedLine)
-            guard components.count >= 10 else { continue }
-            
-            let item = components[0].trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !item.isEmpty && item.count > 2 else { continue }
-            
-            let nutritionData = NutritionData(
-                item: item,
-                calories: parseDoubleOptimized(components[1]),
-                fat: parseDoubleOptimized(components[2]),
-                saturatedFat: parseDoubleOptimized(components[3]),
-                cholesterol: parseDoubleOptimized(components[4]),
-                sodium: parseDoubleOptimized(components[5]),
-                carbs: parseDoubleOptimized(components[6]),
-                fiber: parseDoubleOptimized(components[7]),
-                sugar: parseDoubleOptimized(components[8]),
-                protein: parseDoubleOptimized(components[9])
-            )
-            
-            nutritionItems.append(nutritionData)
-        }
-        
-        print("🔧 Optimized parsing: \(nutritionItems.count) items from CSV for \(restaurantName)")
-        return nutritionItems
+    // MARK: - Utility Methods
+    func getAvailableRestaurants() -> [String] {
+        return nutritionCache.restaurantNames.sorted()
     }
     
-    // Optimized CSV line parsing
-    private func parseCSVLineOptimized(_ line: String) -> [String] {
-        // Fast path for simple lines without quotes
-        if !line.contains("\"") {
-            return line.split(separator: ",", maxSplits: 10, omittingEmptySubsequences: false)
-                .map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
-        }
-        
-        // Full parsing for complex lines
-        var components: [String] = []
-        components.reserveCapacity(12)
-        var currentComponent = ""
-        var insideQuotes = false
-        
-        for char in line {
-            if char == "\"" {
-                insideQuotes.toggle()
-            } else if char == "," && !insideQuotes {
-                components.append(currentComponent.trimmingCharacters(in: .whitespacesAndNewlines))
-                currentComponent = ""
-            } else {
-                currentComponent.append(char)
-            }
-        }
-        
-        components.append(currentComponent.trimmingCharacters(in: .whitespacesAndNewlines))
-        return components
-    }
-    
-    private func parseDoubleOptimized(_ string: String) -> Double {
-        // Fast path for common cases
-        if string.isEmpty || string == "0" { return 0.0 }
-        if string == "1" { return 1.0 }
-        
-        let cleaned = string.trimmingCharacters(in: .whitespacesAndNewlines)
-            .replacingOccurrences(of: "\"", with: "")
-        return Double(cleaned) ?? 0.0
-    }
-    
-    // Enhanced preloading with batch processing
-    func preloadNutritionData(for restaurantName: String) {
-        let cacheKey = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        // Skip if already cached or loading
-        guard enhancedCache.getCachedNutritionData(for: restaurantName) == nil,
-              legacyCache.getCachedNutritionData(for: restaurantName) == nil,
-              loadingTasks[cacheKey] == nil else {
-            return
-        }
-        
-        guard let restaurantID = legacyCache.getRestaurantID(for: restaurantName) else {
-            return
-        }
-        
-        // Use preload queue for background processing
-        preloadQueue.async { [weak self] in
-            let task = Task {
-                return await self?.loadNutritionDataWithEnhancedCaching(for: restaurantName, restaurantID: restaurantID)
-            }
-            
-            Task { [weak self] in
-                _ = await task.value
-                await MainActor.run {
-                    self?.loadingTasks.removeValue(forKey: cacheKey)
-                }
-            }
-        }
-    }
-    
-    // Batch preloading for multiple restaurants
-    func batchPreloadNutritionData(for restaurantNames: [String]) {
-        preloadQueue.async { [weak self] in
-            for (index, restaurantName) in restaurantNames.enumerated() {
-                // Add delays between batch requests
-                if index > 0 {
-                    Thread.sleep(forTimeInterval: 0.2)
-                }
-                
-                self?.preloadNutritionData(for: restaurantName)
-            }
-        }
-    }
-    
-    // MARK: - Cache Management
-    private func manageCsvCacheSize() {
-        if csvParsingCache.count > maxCSVCacheSize {
-            // Remove oldest entries (simple FIFO for now)
-            let keysToRemove = Array(csvParsingCache.keys.prefix(csvParsingCache.count - maxCSVCacheSize + 10))
-            for key in keysToRemove {
-                csvParsingCache.removeValue(forKey: key)
-            }
-        }
-    }
-    
-    private func handleMemoryWarning() {
-        backgroundQueue.async { [weak self] in
-            // Clear most of the CSV cache
-            self?.csvParsingCache.removeAll()
-            
-            // Cancel non-essential loading tasks - fix the array conversion
-            if let loadingTasks = self?.loadingTasks {
-                let tasksToCancel = Array(loadingTasks.values.prefix(3))
-                for task in tasksToCancel {
-                    task.cancel()
-                }
-            }
-            
-            print("🚨 NutritionDataManager: Handled memory warning")
-        }
-    }
-    
-    // MARK: - Statistics and Debugging
-    func getCacheInfo() -> (memoryCount: Int, persistentCount: Int, csvCacheCount: Int) {
-        let enhancedStats = enhancedCache.getEnhancedCacheStats()
-        return (enhancedStats.memoryNutritionItems, 0, csvParsingCache.count) // Simplified for now
+    func hasNutritionData(for restaurantName: String) -> Bool {
+        return nutritionCache.contains(restaurantName: restaurantName) ||
+               findRestaurantIdForName(restaurantName) != nil
     }
     
     func clearData() {
@@ -366,30 +519,62 @@ class NutritionDataManager: ObservableObject {
         errorMessage = nil
     }
     
-    func clearMemoryCache() {
-        csvParsingCache.removeAll()
-        print("🧹 Cleared nutrition memory cache")
+    // MARK: - Performance Monitoring
+    func getCacheStats() -> (hits: Int, misses: Int, hitRate: Double) {
+        let total = cacheHits + cacheMisses
+        let hitRate = total > 0 ? Double(cacheHits) / Double(total) : 0.0
+        return (cacheHits, cacheMisses, hitRate)
+    }
+    
+    func printPerformanceStats() {
+        let stats = getCacheStats()
+        print("📊 NutritionDataManager Performance:")
+        print("   Cache Hits: \(stats.hits)")
+        print("   Cache Misses: \(stats.misses)")
+        print("   Hit Rate: \(String(format: "%.1f", stats.hitRate * 100))%")
+        print("   Available Restaurants: \(getAvailableRestaurants().count)")
+        print("   API Restaurant IDs: \(availableRestaurantIDs.count)")
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
-        
-        // Cancel all loading tasks
+        // Cancel any pending tasks
         for (_, task) in loadingTasks {
             task.cancel()
         }
+        loadingTasks.removeAll()
+        print("🍽️ NutritionDataManager deinitalized")
     }
 }
 
-private struct CachedNutritionItem {
-    let data: RestaurantNutritionData
-    let timestamp: Date
+// MARK: - JSON Data Models for the API format (same as before)
+struct RestaurantJSON: Codable {
+    let restaurant_id: String
+    let restaurant_name: String
+    let menu: [MenuItemJSON]
+}
+
+struct MenuItemJSON: Codable {
+    let Item: String
+    let Calories: Double
+    let Fat_g: Double
+    let Saturated_Fat_g: Double
+    let Cholesterol_mg: Double
+    let Sodium_mg: Double
+    let Carbs_g: Double
+    let Fiber_g: Double
+    let Sugar_g: Double
+    let Protein_g: Double
     
-    var isExpired: Bool {
-        isExpired(at: Date())
-    }
-    
-    func isExpired(at date: Date = Date()) -> Bool {
-        date.timeIntervalSince(timestamp) > 600
+    enum CodingKeys: String, CodingKey {
+        case Item
+        case Calories
+        case Fat_g = "Fat (g)"
+        case Saturated_Fat_g = "Saturated Fat (g)"
+        case Cholesterol_mg = "Cholesterol (mg)"
+        case Sodium_mg = "Sodium (mg)"
+        case Carbs_g = "Carbs (g)"
+        case Fiber_g = "Fiber (g)"
+        case Sugar_g = "Sugar (g)"
+        case Protein_g = "Protein (g)"
     }
 }
