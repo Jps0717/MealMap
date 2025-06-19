@@ -610,44 +610,72 @@ struct HomeScreen: View {
     private func performSearch() {
         guard !searchText.isEmpty else { return }
         
-        // Show loading state during search
+        // Show loading state during search with enhanced feedback
         Task {
             await MainActor.run {
-                // Trigger search with visual feedback
                 lightFeedback.impactOccurred()
             }
             
-            // Small delay to show search feedback
-            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
+            // Show loading animation
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
             
             await MainActor.run {
                 mapViewModel.performSearch(query: searchText, maxDistance: nil)
-                showingMapScreen = true
+                
+                // Add loading transition before showing map
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    showingMapScreen = true
+                }
             }
         }
     }
     
     private func selectCategory(_ category: RestaurantCategory) {
         lightFeedback.impactOccurred()
-        selectedCategory = category
-        showingCategoryList = true
+        
+        // Add haptic feedback and smooth transition
+        withAnimation(.easeInOut(duration: 0.2)) {
+            selectedCategory = category
+        }
+        
+        // Small delay for visual feedback
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            showingCategoryList = true
+        }
     }
     
     private func selectRestaurant(_ restaurant: Restaurant) {
         mediumFeedback.impactOccurred()
+        
+        // Preload nutrition data if available
+        if RestaurantData.restaurantsWithNutritionData.contains(restaurant.name) {
+            let nutritionManager = NutritionDataManager()
+            nutritionManager.preloadNutritionData(for: restaurant.name)
+        }
+        
         selectedRestaurant = restaurant
-        showingRestaurantDetail = true
+        
+        // Add smooth transition delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            showingRestaurantDetail = true
+        }
     }
     
     private func showViewAllOnMap() {
         mediumFeedback.impactOccurred()
-        showingMapScreen = true
+        
+        // Add transition animation
+        withAnimation(.easeInOut(duration: 0.3)) {
+            showingMapScreen = true
+        }
     }
     
     private func showFilteredResultsOnMap() {
         // This could be enhanced to pre-filter the map results
-        // For now, just show the map
-        showingMapScreen = true
+        // For now, just show the map with smooth transition
+        withAnimation(.easeInOut(duration: 0.3)) {
+            showingMapScreen = true
+        }
     }
     
     // PERFORMANCE: Simplified filtering with early returns

@@ -550,6 +550,222 @@ struct CategoryLoadingView: View {
     }
 }
 
+struct NavigationLoadingView: View {
+    let destination: String
+    let progress: Double?
+    
+    init(destination: String, progress: Double? = nil) {
+        self.destination = destination
+        self.progress = progress
+    }
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            if let progress = progress {
+                CircularProgressView(progress: progress, size: .medium)
+            } else {
+                ProgressView()
+                    .scaleEffect(1.5)
+                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+            }
+            
+            VStack(spacing: 8) {
+                Text("Opening \(destination)...")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.primary)
+                
+                Text("Preparing your experience")
+                    .font(.system(size: 14))
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(24)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.ultraThinMaterial)
+                .shadow(color: .black.opacity(0.1), radius: 8, y: 4)
+        )
+    }
+}
+
+struct CategoryTransitionView: View {
+    let category: RestaurantCategory
+    let restaurantCount: Int
+    
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer()
+            
+            // Category icon with loading animation
+            ZStack {
+                Circle()
+                    .fill(category.color.opacity(0.1))
+                    .frame(width: 120, height: 120)
+                
+                ProgressView()
+                    .scaleEffect(2.0)
+                    .progressViewStyle(CircularProgressViewStyle(tint: category.color))
+                
+                Image(systemName: category.icon)
+                    .font(.system(size: 32, weight: .medium))
+                    .foregroundColor(category.color)
+                    .opacity(0.7)
+                    .offset(y: -4)
+            }
+            
+            VStack(spacing: 12) {
+                Text("Loading \(category.rawValue)")
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .foregroundColor(.primary)
+                
+                Text("Found \(restaurantCount) restaurants")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.secondary)
+                
+                Text("Preparing your dining options...")
+                    .font(.system(size: 14))
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(
+                colors: [Color(.systemBackground), category.color.opacity(0.05)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+    }
+}
+
+struct MapTransitionView: View {
+    let restaurantCount: Int
+    let searchQuery: String?
+    @State private var loadingProgress: Double = 0.0
+    @State private var currentStep = 0
+    
+    private let loadingSteps = [
+        "Loading map data...",
+        "Finding restaurants...",
+        "Optimizing view...",
+        "Almost ready!"
+    ]
+    
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer()
+            
+            // Map icon with loading animation
+            ZStack {
+                Circle()
+                    .fill(.blue.opacity(0.1))
+                    .frame(width: 120, height: 120)
+                
+                CircularProgressView(progress: loadingProgress, size: .large)
+                
+                Image(systemName: "map.fill")
+                    .font(.system(size: 32, weight: .medium))
+                    .foregroundColor(.blue)
+                    .opacity(0.7)
+            }
+            
+            VStack(spacing: 12) {
+                if let query = searchQuery {
+                    Text("Searching Map")
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .foregroundColor(.primary)
+                    
+                    Text("Looking for '\(query)'")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.secondary)
+                } else {
+                    Text("Loading Map")
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .foregroundColor(.primary)
+                    
+                    Text("\(restaurantCount) restaurants found")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.secondary)
+                }
+                
+                Text(loadingSteps[currentStep])
+                    .font(.system(size: 14))
+                    .foregroundColor(.blue)
+                    .animation(.easeInOut(duration: 0.3), value: currentStep)
+            }
+            
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            LinearGradient(
+                colors: [Color(.systemBackground), Color(.systemGray6)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+        .onAppear {
+            startLoadingAnimation()
+        }
+    }
+    
+    private func startLoadingAnimation() {
+        Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { timer in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                loadingProgress += 0.25
+                
+                if loadingProgress >= 0.25 && currentStep == 0 {
+                    currentStep = 1
+                } else if loadingProgress >= 0.5 && currentStep == 1 {
+                    currentStep = 2
+                } else if loadingProgress >= 0.75 && currentStep == 2 {
+                    currentStep = 3
+                }
+                
+                if loadingProgress >= 1.0 {
+                    timer.invalidate()
+                    loadingProgress = 1.0
+                }
+            }
+        }
+    }
+}
+
+struct FilterLoadingView: View {
+    let filterCount: Int
+    let category: RestaurantCategory?
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            ProgressView()
+                .scaleEffect(1.5)
+                .progressViewStyle(CircularProgressViewStyle(tint: category?.color ?? .blue))
+            
+            VStack(spacing: 8) {
+                Text("Applying Filters")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.primary)
+                
+                Text("\(filterCount) active filters")
+                    .font(.system(size: 14))
+                    .foregroundColor(.secondary)
+                
+                Text("Finding matching restaurants...")
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(20)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(.ultraThinMaterial)
+                .shadow(color: .black.opacity(0.1), radius: 6, y: 3)
+        )
+    }
+}
+
 #Preview("Overlay Loading") {
     ZStack {
         Color.gray.opacity(0.3)

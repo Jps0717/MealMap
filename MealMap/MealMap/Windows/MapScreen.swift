@@ -10,9 +10,12 @@ struct MapScreen: View {
     @StateObject private var networkMonitor = NetworkMonitor.shared
     @StateObject private var searchManager = SearchManager()
     
-    // UI State - Reduced state variables
+    // UI State - Enhanced with loading states
     @State private var searchText = ""
     @State private var lastRegionUpdate = Date.distantPast
+    @State private var isLoadingView = true
+    @State private var isSearching = false
+    @State private var searchLoadingProgress: Double = 0.0
     
     @Environment(\.dismiss) private var dismiss
     @State private var showingHomeScreen = false
@@ -62,6 +65,14 @@ struct MapScreen: View {
     
     var body: some View {
         ZStack {
+            // Background gradient
+            LinearGradient(
+                colors: [Color(.systemBackground), Color(.systemGray6)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
             if let locationError = locationManager.locationError {
                 NoLocationView(
                     title: "Location Access Required",
@@ -72,13 +83,11 @@ struct MapScreen: View {
                     }
                 )
             } else if !hasValidLocation {
-                NoLocationView(
-                    title: "Getting Your Location...",
-                    subtitle: "MealMap needs your location to find restaurants near you.",
-                    buttonText: "Request Location",
-                    onRetry: {
-                        locationManager.requestLocationPermission()
-                    }
+                LoadingView(
+                    title: "Getting Your Location",
+                    subtitle: "MealMap needs your location to find restaurants near you...",
+                    progress: nil,
+                    style: .fullScreen
                 )
             } else if !networkMonitor.isConnected {
                 NoLocationView(
@@ -89,17 +98,44 @@ struct MapScreen: View {
                         locationManager.restart()
                     }
                 )
+            } else if isLoadingView {
+                LoadingView(
+                    title: "Loading Map",
+                    subtitle: "Preparing restaurant locations for you...",
+                    progress: viewModel.loadingProgress,
+                    style: .fullScreen
+                )
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
             } else {
                 mainMapView
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
         }
         .preferredColorScheme(.light)
         .navigationBarHidden(true)
         .onAppear {
-            setupInitialLocation()
+            setupMapView()
         }
         .onChange(of: locationManager.lastLocation) { oldLocation, newLocation in
             handleLocationChange(newLocation)
+        }
+        .onChange(of: viewModel.isLoadingRestaurants) { oldValue, newValue in
+            if !newValue && isLoadingView {
+                // Delay hiding loading to show smooth transition
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    withAnimation(.easeInOut(duration: 0.5)) {
+                        isLoadingView = false
+                    }
+                }
+            }
+        }
+        .onChange(of: searchText) { oldValue, newValue in
+            if !newValue.isEmpty && oldValue.isEmpty {
+                startSearchAnimation()
+            } else if newValue.isEmpty {
+                isSearching = false
+                searchLoadingProgress = 0.0
+            }
         }
         .alert("Search Results", isPresented: $viewModel.showSearchError) {
             Button("OK") { }
@@ -120,6 +156,39 @@ struct MapScreen: View {
                             }
                         }
                     }
+            }
+        }
+    }
+    
+    // MARK: - Setup
+    private func setupMapView() {
+        setupInitialLocation()
+        
+        // Show loading for a minimum time for smooth UX
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            if !viewModel.isLoadingRestaurants {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    isLoadingView = false
+                }
+            }
+        }
+    }
+    
+    private func startSearchAnimation() {
+        isSearching = true
+        searchLoadingProgress = 0.0
+        
+        // Animate search progress
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            searchLoadingProgress += 0.15
+            
+            if searchLoadingProgress >= 1.0 {
+                timer.invalidate()
+                searchLoadingProgress = 1.0
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    isSearching = false
+                }
             }
         }
     }
@@ -188,20 +257,51 @@ struct MapScreen: View {
                 MapDataLoadingView(progress: viewModel.loadingProgress)
             }
             
+            // Search loading overlay
+            if isSearching {
+                VStack {
+                    Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        
+                        VStack(spacing: 12) {
+                            CircularProgressView(progress: searchLoadingProgress, size: .medium)
+                            
+                            Text("Searching...")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.blue)
+                        }
+                        .padding(16)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(.ultraThinMaterial)
+                                .shadow(color: .black.opacity(0.1), radius: 8, y: 4)
+                        )
+                        
+                        Spacer()
+                    }
+                    
+                    Spacer()
+                }
+                .allowsHitTesting(false)
+                .zIndex(1)
+            }
+            
             restaurantDetailOverlay
                 .zIndex(100) // Keep restaurant detail on top
         }
         .allowsHitTesting(true) // Ensure the entire ZStack allows interactions
     }
     
-    // MARK: - Enhanced Header with Reorganized Layout
+    // MARK: - Enhanced Header with Loading States
     private var enhancedHeader: some View {
         VStack(spacing: 16) {
-            // Search bar at the top - UPDATED: Match HomeScreen styling
+            // Search bar at the top with loading indicator
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
-                    .font(.system(size: 18)) // Match HomeScreen font size
+                    .font(.system(size: 18))
 
                 TextField("Search restaurants, cuisines...", text: $searchText)
                     .font(.system(size: 16, design: .rounded))
@@ -215,7 +315,11 @@ struct MapScreen: View {
                         }
                     }
 
-                if !searchText.isEmpty {
+                if isSearching {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                } else if !searchText.isEmpty {
                     Button(action: {
                         withAnimation(.easeInOut(duration: 0.2)) {
                             clearSearch()
@@ -227,18 +331,18 @@ struct MapScreen: View {
                     }
                 }
             }
-            .padding(.horizontal, 20) // Match HomeScreen padding
-            .padding(.vertical, 16) // Match HomeScreen padding
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
             .background(
-                RoundedRectangle(cornerRadius: 16) // Match HomeScreen corner radius
-                    .fill(Color(.systemBackground)) // Match HomeScreen background
-                    .shadow(color: .black.opacity(0.08), radius: 8, y: 2) // Match HomeScreen shadow
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.systemBackground))
+                    .shadow(color: .black.opacity(0.08), radius: 8, y: 2)
             )
             .padding(.horizontal, 16)
             
-            // UPDATED: Control buttons with consistent HomeScreen styling
+            // Control buttons with loading indicators
             HStack(spacing: 16) {
-                // Home button - UPDATED: Match HomeScreen Map button styling but with green color
+                // Home button with loading state
                 Button(action: {
                     heavyFeedback.impactOccurred()
                     dismiss()
@@ -265,20 +369,29 @@ struct MapScreen: View {
                 
                 Spacer()
                 
-                // Search results indicator - UPDATED: Match HomeScreen capsule styling
+                // Search results indicator with enhanced loading
                 if viewModel.showSearchResults {
-                    HStack(spacing: 6) { // Increased spacing for better readability
-                        Image(systemName: "magnifyingglass")
-                            .font(.system(size: 12)) // Slightly larger icon
-                        Text("\(viewModel.restaurantsWithinSearchRadius.count) results")
-                            .font(.system(size: 12, weight: .medium, design: .rounded)) // Larger, readable text
+                    HStack(spacing: 6) {
+                        if isSearching {
+                            ProgressView()
+                                .scaleEffect(0.7)
+                                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                        } else {
+                            Image(systemName: "magnifyingglass")
+                                .font(.system(size: 12))
+                        }
                         
-                        Button(action: {
-                            viewModel.clearSearch()
-                            clearSearch()
-                        }) {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 10, weight: .bold))
+                        Text(isSearching ? "Searching..." : "\(viewModel.restaurantsWithinSearchRadius.count) results")
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                        
+                        if !isSearching {
+                            Button(action: {
+                                viewModel.clearSearch()
+                                clearSearch()
+                            }) {
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 10, weight: .bold))
+                            }
                         }
                     }
                     .foregroundColor(.blue)
@@ -294,25 +407,32 @@ struct MapScreen: View {
                     )
                 }
                 
-                // Location button - UPDATED: Match HomeScreen button sizing and style
+                // Location button with loading state
                 Button(action: {
                     heavyFeedback.impactOccurred()
                     centerOnUserLocation()
                 }) {
-                    Image(systemName: "location.fill")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.white)
-                        .frame(width: 44, height: 44)
-                        .background(
-                            LinearGradient(
-                                colors: [.blue, .blue.opacity(0.8)],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .cornerRadius(22)
-                        .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
+                    if viewModel.isLoadingRestaurants {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    } else {
+                        Image(systemName: "location.fill")
+                            .font(.system(size: 16, weight: .medium))
+                    }
                 }
+                .foregroundColor(.white)
+                .frame(width: 44, height: 44)
+                .background(
+                    LinearGradient(
+                        colors: [.blue, .blue.opacity(0.8)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .cornerRadius(22)
+                .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
+                .disabled(viewModel.isLoadingRestaurants)
             }
             .padding(.horizontal, 16)
         }

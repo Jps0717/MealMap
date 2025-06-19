@@ -10,6 +10,8 @@ struct CategoryListView: View {
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
     @State private var showingFilters = false
+    @State private var isLoadingView = true
+    @State private var isSearching = false
     
     @State private var currentFilter = RestaurantFilter()
     @State private var searchText = ""
@@ -57,151 +59,21 @@ struct CategoryListView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                VStack(spacing: 12) {
-                    // Search bar
-                    HStack(spacing: 12) {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.secondary)
-                            .font(.system(size: 16))
-                        
-                        TextField("Search \(category.rawValue.lowercased()) restaurants...", text: $searchText)
-                            .font(.system(size: 16))
-                        
-                        if !searchText.isEmpty {
-                            Button(action: {
-                                searchText = ""
-                            }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.secondary)
-                                    .font(.system(size: 16))
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color(.systemGray6))
-                    )
-                    
-                    HStack {
-                        Button(action: {
-                            // Set category in filter to match current category
-                            currentFilter.category = category
-                            showingFilters = true
-                        }) {
-                            HStack(spacing: 8) {
-                                Image(systemName: "slider.horizontal.3")
-                                    .font(.system(size: 16, weight: .semibold))
-                                
-                                Text("Add Filters")
-                                    .font(.system(size: 16, weight: .semibold))
-                                
-                                if currentFilter.hasActiveNonCategoryFilters {
-                                    Circle()
-                                        .fill(Color.red)
-                                        .frame(width: 8, height: 8)
-                                }
-                            }
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(currentFilter.hasActiveNonCategoryFilters ? Color.blue : Color.orange)
-                            )
-                        }
-                        
-                        Spacer()
-                        
-                        if currentFilter.hasActiveNonCategoryFilters {
-                            Text("\(activeFilterCount) active filters")
-                                .font(.system(size: 14, weight: .medium))
-                                .foregroundColor(.blue)
-                        }
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 16)
-                .padding(.bottom, 12)
-                .background(Color(.systemBackground))
+            ZStack {
+                // Background gradient
+                LinearGradient(
+                    colors: [Color(.systemBackground), Color(.systemGray6)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
                 
-                // Results count and sorting
-                HStack {
-                    HStack(spacing: 8) {
-                        if currentFilter.hasNutritionData != false {
-                            HStack(spacing: 4) {
-                                Image(systemName: "checkmark.seal.fill")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.green)
-                                Text("With Nutrition")
-                                    .font(.system(size: 12, weight: .medium))
-                                    .foregroundColor(.green)
-                            }
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(
-                                Capsule()
-                                    .fill(Color.green.opacity(0.1))
-                            )
-                        }
-                        
-                        Text("\(filteredRestaurants.count) restaurants")
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    Spacer()
-                    
-                    if filteredRestaurants.isEmpty && (currentFilter.hasActiveFilters || !searchText.isEmpty) {
-                        Button("Clear Filters") {
-                            currentFilter = RestaurantFilter()
-                            currentFilter.category = category // Keep the category
-                            currentFilter.hasNutritionData = true // Keep nutrition filter by default
-                            searchText = ""
-                        }
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.blue)
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 12)
-                
-                // Restaurant list
-                if restaurants.isEmpty && !currentFilter.hasActiveFilters && searchText.isEmpty {
-                    // Show loading when no restaurants are provided and no filters are active
-                    LoadingView(
-                        title: "Loading \(category.rawValue) restaurants...",
-                        subtitle: "Finding options near you",
-                        progress: nil,
-                        style: .inline
-                    )
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else if filteredRestaurants.isEmpty {
-                    EmptyResultsView(
-                        hasFilters: currentFilter.hasActiveFilters || !searchText.isEmpty,
-                        category: category,
-                        hasNutritionFilter: currentFilter.hasNutritionData != false,
-                        onDisableNutritionFilter: {
-                            currentFilter.hasNutritionData = false
-                        }
-                    )
+                if isLoadingView {
+                    CategoryLoadingView(category: category)
+                        .transition(.opacity.combined(with: .scale(scale: 0.95)))
                 } else {
-                    List(filteredRestaurants, id: \.id) { restaurant in
-                        CategoryRestaurantRow(
-                            restaurant: restaurant,
-                            action: {
-                                selectedRestaurant = restaurant
-                                showingRestaurantDetail = true
-                            },
-                            category: category
-                        )
-                        .listRowInsets(EdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20))
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(Color.clear)
-                    }
-                    .listStyle(PlainListStyle())
+                    mainContent
+                        .transition(.opacity.combined(with: .move(edge: .bottom)))
                 }
             }
             .navigationTitle(category.rawValue)
@@ -212,6 +84,14 @@ struct CategoryListView: View {
                         isPresented = false
                     }
                     .font(.system(size: 16, weight: .semibold))
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if isLoadingView {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                            .progressViewStyle(CircularProgressViewStyle(tint: category.color))
+                    }
                 }
             }
         }
@@ -234,8 +114,214 @@ struct CategoryListView: View {
             )
         }
         .onAppear {
-            currentFilter.category = category
-            currentFilter.hasNutritionData = true
+            setupCategoryView()
+        }
+        .onChange(of: searchText) { oldValue, newValue in
+            if !newValue.isEmpty && oldValue.isEmpty {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    isSearching = true
+                }
+                
+                // Simulate search processing time
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        isSearching = false
+                    }
+                }
+            } else if newValue.isEmpty {
+                isSearching = false
+            }
+        }
+    }
+    
+    // MARK: - Setup
+    private func setupCategoryView() {
+        currentFilter.category = category
+        currentFilter.hasNutritionData = true
+        
+        // Simulate loading time for smooth UX
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            withAnimation(.easeInOut(duration: 0.5)) {
+                isLoadingView = false
+            }
+        }
+    }
+    
+    // MARK: - Main Content
+    private var mainContent: some View {
+        VStack(spacing: 0) {
+            VStack(spacing: 12) {
+                // Search bar with loading indicator
+                HStack(spacing: 12) {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.secondary)
+                        .font(.system(size: 16))
+                    
+                    TextField("Search \(category.rawValue.lowercased()) restaurants...", text: $searchText)
+                        .font(.system(size: 16))
+                    
+                    if isSearching {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                            .progressViewStyle(CircularProgressViewStyle(tint: category.color))
+                    } else if !searchText.isEmpty {
+                        Button(action: {
+                            searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(.secondary)
+                                .font(.system(size: 16))
+                        }
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color(.systemGray6))
+                )
+                
+                HStack {
+                    Button(action: {
+                        // Set category in filter to match current category
+                        currentFilter.category = category
+                        showingFilters = true
+                    }) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "slider.horizontal.3")
+                                .font(.system(size: 16, weight: .semibold))
+                            
+                            Text("Add Filters")
+                                .font(.system(size: 16, weight: .semibold))
+                            
+                            if currentFilter.hasActiveNonCategoryFilters {
+                                Circle()
+                                    .fill(Color.red)
+                                    .frame(width: 8, height: 8)
+                            }
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(currentFilter.hasActiveNonCategoryFilters ? Color.blue : category.color)
+                        )
+                    }
+                    
+                    Spacer()
+                    
+                    if currentFilter.hasActiveNonCategoryFilters {
+                        Text("\(activeFilterCount) active filters")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+            .padding(.bottom, 12)
+            .background(Color(.systemBackground))
+            
+            // Results count and sorting
+            HStack {
+                HStack(spacing: 8) {
+                    if currentFilter.hasNutritionData != false {
+                        HStack(spacing: 4) {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 12))
+                                .foregroundColor(.green)
+                            Text("With Nutrition")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.green)
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(
+                            Capsule()
+                                .fill(Color.green.opacity(0.1))
+                        )
+                    }
+                    
+                    if isSearching {
+                        HStack(spacing: 4) {
+                            ProgressView()
+                                .scaleEffect(0.6)
+                                .progressViewStyle(CircularProgressViewStyle(tint: category.color))
+                            Text("Searching...")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(category.color)
+                        }
+                    } else {
+                        Text("\(filteredRestaurants.count) restaurants")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                Spacer()
+                
+                if filteredRestaurants.isEmpty && (currentFilter.hasActiveFilters || !searchText.isEmpty) {
+                    Button("Clear Filters") {
+                        currentFilter = RestaurantFilter()
+                        currentFilter.category = category // Keep the category
+                        currentFilter.hasNutritionData = true // Keep nutrition filter by default
+                        searchText = ""
+                    }
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.blue)
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 12)
+            
+            // Restaurant list with loading states
+            if restaurants.isEmpty && !currentFilter.hasActiveFilters && searchText.isEmpty {
+                // Show loading when no restaurants are provided and no filters are active
+                LoadingView(
+                    title: "Loading \(category.rawValue)",
+                    subtitle: "Finding restaurants near you...",
+                    progress: nil,
+                    style: .fullScreen
+                )
+            } else if isSearching {
+                // Show search loading
+                VStack(spacing: 20) {
+                    Spacer()
+                    
+                    SearchLoadingView(searchQuery: searchText)
+                    
+                    Text("Filtering \(restaurants.count) restaurants...")
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                    
+                    Spacer()
+                }
+            } else if filteredRestaurants.isEmpty {
+                EmptyResultsView(
+                    hasFilters: currentFilter.hasActiveFilters || !searchText.isEmpty,
+                    category: category,
+                    hasNutritionFilter: currentFilter.hasNutritionData != false,
+                    onDisableNutritionFilter: {
+                        currentFilter.hasNutritionData = false
+                    }
+                )
+            } else {
+                List(filteredRestaurants, id: \.id) { restaurant in
+                    CategoryRestaurantRow(
+                        restaurant: restaurant,
+                        action: {
+                            selectedRestaurant = restaurant
+                            showingRestaurantDetail = true
+                        },
+                        category: category
+                    )
+                    .listRowInsets(EdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20))
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
+                }
+                .listStyle(PlainListStyle())
+            }
         }
     }
 }
