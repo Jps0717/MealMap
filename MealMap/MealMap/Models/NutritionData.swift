@@ -40,7 +40,7 @@ struct NutritionData: Identifiable, Codable, Equatable {
     }
 }
 
-struct RestaurantNutritionData: Equatable {
+struct RestaurantNutritionData: Codable, Equatable {
     let restaurantName: String
     let items: [NutritionData]
     

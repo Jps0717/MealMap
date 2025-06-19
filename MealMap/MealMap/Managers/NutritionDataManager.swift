@@ -6,20 +6,27 @@ class NutritionDataManager: ObservableObject {
     @Published var currentRestaurantData: RestaurantNutritionData?
     @Published var errorMessage: String?
     
-    private let cache = CacheManager.shared
+    private let enhancedCache = EnhancedCacheManager.shared
+    private let legacyCache = CacheManager.shared // Keep for backward compatibility
     
-    private var memoryCache: [String: CachedNutritionItem] = [:]
     private var loadingTasks: [String: Task<RestaurantNutritionData?, Never>] = [:]
     
-    private let maxMemoryCacheSize = 20
-    private let cacheExpiryTime: TimeInterval = 600 // 10 minutes
+    // Enhanced background processing
     private let backgroundQueue = DispatchQueue(label: "nutrition.parsing", qos: .utility)
+    private let preloadQueue = DispatchQueue(label: "nutrition.preload", qos: .background)
     
+    // Enhanced CSV parsing cache with compression
     private var csvParsingCache: [String: [String]] = [:]
+    private let maxCSVCacheSize = 100 // Increased from 30
     
     init() {
         print("NutritionDataManager initialized with enhanced caching system")
         setupMemoryManagement()
+        
+        // Start background prefetching of popular restaurants
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.enhancedCache.prefetchPopularRestaurantsNutrition()
+        }
     }
     
     private func setupMemoryManagement() {
@@ -28,31 +35,36 @@ class NutritionDataManager: ObservableObject {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.clearExpiredCache()
+            self?.handleMemoryWarning()
         }
     }
     
     func loadNutritionData(for restaurantName: String) {
-        let cacheKey = restaurantName.lowercased()
+        let cacheKey = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         print("🍽️ Loading nutrition data for restaurant: '\(restaurantName)'")
         
-        if let cachedItem = memoryCache[cacheKey], !cachedItem.isExpired {
-            print("💾 Using memory cached nutrition data for \(restaurantName)")
-            self.isLoading = false
-            self.currentRestaurantData = cachedItem.data
-            self.errorMessage = nil
-            return
-        }
-        
-        if let cachedData = cache.getCachedNutritionData(for: restaurantName) {
-            print("💿 Using persistent cached nutrition data for \(restaurantName)")
+        // Try enhanced cache first (fastest path)
+        if let cachedData = enhancedCache.getCachedNutritionData(for: restaurantName) {
+            print("🚀 Enhanced cache hit for \(restaurantName)")
             self.isLoading = false
             self.currentRestaurantData = cachedData
             self.errorMessage = nil
-            updateMemoryCache(cacheKey, cachedData)
             return
         }
         
+        // Fall back to legacy cache
+        if let legacyCachedData = legacyCache.getCachedNutritionData(for: restaurantName) {
+            print("💿 Legacy cache hit for \(restaurantName)")
+            self.isLoading = false
+            self.currentRestaurantData = legacyCachedData
+            self.errorMessage = nil
+            
+            // Migrate to enhanced cache
+            enhancedCache.cacheNutritionData(legacyCachedData, for: restaurantName)
+            return
+        }
+        
+        // Check if already loading
         if let existingTask = loadingTasks[cacheKey] {
             print("⏳ Already loading \(restaurantName), waiting for completion...")
             isLoading = true
@@ -63,7 +75,6 @@ class NutritionDataManager: ObservableObject {
                     await MainActor.run {
                         self.isLoading = false
                         self.currentRestaurantData = result
-                        self.updateMemoryCache(cacheKey, result)
                     }
                 }
                 loadingTasks.removeValue(forKey: cacheKey)
@@ -71,7 +82,8 @@ class NutritionDataManager: ObservableObject {
             return
         }
         
-        guard let restaurantID = cache.getRestaurantID(for: restaurantName) else {
+        // Get restaurant ID for CSV lookup
+        guard let restaurantID = legacyCache.getRestaurantID(for: restaurantName) else {
             print("❌ No nutrition data available for \(restaurantName)")
             errorMessage = "No nutrition data available for \(restaurantName)"
             return
@@ -81,8 +93,9 @@ class NutritionDataManager: ObservableObject {
         isLoading = true
         errorMessage = nil
         
+        // Start enhanced loading task
         let task = Task {
-            return await loadNutritionDataInBackground(for: restaurantName, restaurantID: restaurantID)
+            return await loadNutritionDataWithEnhancedCaching(for: restaurantName, restaurantID: restaurantID)
         }
         
         loadingTasks[cacheKey] = task
@@ -92,7 +105,6 @@ class NutritionDataManager: ObservableObject {
                 await MainActor.run {
                     self.isLoading = false
                     self.currentRestaurantData = result
-                    self.updateMemoryCache(cacheKey, result)
                 }
             } else {
                 await MainActor.run {
@@ -104,30 +116,37 @@ class NutritionDataManager: ObservableObject {
         }
     }
     
-    private func loadNutritionDataInBackground(for restaurantName: String, restaurantID: String) async -> RestaurantNutritionData? {
-        print("Background loading nutrition data for \(restaurantName) with ID \(restaurantID)")
+    private func loadNutritionDataWithEnhancedCaching(for restaurantName: String, restaurantID: String) async -> RestaurantNutritionData? {
+        print("🔄 Enhanced loading nutrition data for \(restaurantName) with ID \(restaurantID)")
         
+        // Check if CSV is already parsed and cached
         if let cachedParsedData = csvParsingCache[restaurantID] {
+            print("📋 Using cached parsed CSV for \(restaurantName)")
             return await processPreParsedCSV(cachedParsedData, restaurantName: restaurantName, restaurantID: restaurantID)
         }
         
+        // Load and parse CSV file
         guard let fileContent = await loadCSVFile(restaurantID: restaurantID) else {
-            print("Failed to load nutrition data file for \(restaurantName) (ID: \(restaurantID))")
+            print("❌ Failed to load nutrition data file for \(restaurantName) (ID: \(restaurantID))")
             return nil
         }
         
+        // Parse CSV in background with enhanced caching
         let nutritionItems = await withCheckedContinuation { continuation in
             backgroundQueue.async {
                 let parsedLines = fileContent.components(separatedBy: .newlines)
+                
+                // Cache parsed lines with size management
+                self.manageCsvCacheSize()
                 self.csvParsingCache[restaurantID] = parsedLines
                 
-                let items = self.parseNutritionCSV(lines: parsedLines, restaurantName: restaurantName)
+                let items = self.parseNutritionCSVOptimized(lines: parsedLines, restaurantName: restaurantName)
                 continuation.resume(returning: items)
             }
         }
         
         guard !nutritionItems.isEmpty else {
-            print("No valid nutrition items found for \(restaurantName)")
+            print("❌ No valid nutrition items found for \(restaurantName)")
             return nil
         }
         
@@ -136,8 +155,11 @@ class NutritionDataManager: ObservableObject {
             items: nutritionItems
         )
         
-        cache.cacheNutritionData(restaurantData, for: restaurantName)
-        print("Loaded and cached \(nutritionItems.count) nutrition items for \(restaurantName)")
+        // Cache with both systems
+        enhancedCache.cacheNutritionData(restaurantData, for: restaurantName)
+        legacyCache.cacheNutritionData(restaurantData, for: restaurantName)
+        
+        print("✅ Enhanced cached \(nutritionItems.count) nutrition items for \(restaurantName)")
         
         return restaurantData
     }
@@ -145,17 +167,22 @@ class NutritionDataManager: ObservableObject {
     private func processPreParsedCSV(_ lines: [String], restaurantName: String, restaurantID: String) async -> RestaurantNutritionData? {
         let nutritionItems = await withCheckedContinuation { continuation in
             backgroundQueue.async {
-                let items = self.parseNutritionCSV(lines: lines, restaurantName: restaurantName)
+                let items = self.parseNutritionCSVOptimized(lines: lines, restaurantName: restaurantName)
                 continuation.resume(returning: items)
             }
         }
         
         guard !nutritionItems.isEmpty else { return nil }
         
-        return RestaurantNutritionData(
+        let restaurantData = RestaurantNutritionData(
             restaurantName: restaurantName,
             items: nutritionItems
         )
+        
+        // Cache the result
+        enhancedCache.cacheNutritionData(restaurantData, for: restaurantName)
+        
+        return restaurantData
     }
     
     private func loadCSVFile(restaurantID: String) async -> String? {
@@ -169,10 +196,10 @@ class NutritionDataManager: ObservableObject {
             if let validPath = path {
                 do {
                     let fileContent = try String(contentsOfFile: validPath)
-                    print("Successfully loaded nutrition data from: \(validPath)")
+                    print("✅ Successfully loaded nutrition data from: \(validPath)")
                     return fileContent
                 } catch {
-                    print("Failed to load from \(validPath): \(error.localizedDescription)")
+                    print("⚠️ Failed to load from \(validPath): \(error.localizedDescription)")
                 }
             }
         }
@@ -180,23 +207,22 @@ class NutritionDataManager: ObservableObject {
         return nil
     }
     
-    private func parseNutritionCSV(lines: [String], restaurantName: String) -> [NutritionData] {
+    // Enhanced CSV parsing with better performance
+    private func parseNutritionCSVOptimized(lines: [String], restaurantName: String) -> [NutritionData] {
         var nutritionItems: [NutritionData] = []
         nutritionItems.reserveCapacity(lines.count)
         
-        for (index, line) in lines.enumerated() {
-            if index == 0 { continue }
-            
+        // Use indices for better performance
+        for index in 1..<lines.count { // Skip header
+            let line = lines[index]
             let trimmedLine = line.trimmingCharacters(in: .whitespacesAndNewlines)
             guard !trimmedLine.isEmpty else { continue }
             
-            let components = parseCSVLine(trimmedLine)
-            guard components.count >= 10 else {
-                continue
-            }
+            let components = parseCSVLineOptimized(trimmedLine)
+            guard components.count >= 10 else { continue }
             
             let item = components[0].trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !item.isEmpty else { continue }
+            guard !item.isEmpty && item.count > 2 else { continue }
             
             let nutritionData = NutritionData(
                 item: item,
@@ -214,19 +240,21 @@ class NutritionDataManager: ObservableObject {
             nutritionItems.append(nutritionData)
         }
         
-        print("Parsed \(nutritionItems.count) items from CSV for \(restaurantName)")
+        print("🔧 Optimized parsing: \(nutritionItems.count) items from CSV for \(restaurantName)")
         return nutritionItems
     }
     
-    private func parseCSVLine(_ line: String) -> [String] {
+    // Optimized CSV line parsing
+    private func parseCSVLineOptimized(_ line: String) -> [String] {
+        // Fast path for simple lines without quotes
         if !line.contains("\"") {
-            return line.components(separatedBy: ",").map { 
-                $0.trimmingCharacters(in: .whitespacesAndNewlines) 
-            }
+            return line.split(separator: ",", maxSplits: 10, omittingEmptySubsequences: false)
+                .map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
         }
         
+        // Full parsing for complex lines
         var components: [String] = []
-        components.reserveCapacity(10)
+        components.reserveCapacity(12)
         var currentComponent = ""
         var insideQuotes = false
         
@@ -242,72 +270,95 @@ class NutritionDataManager: ObservableObject {
         }
         
         components.append(currentComponent.trimmingCharacters(in: .whitespacesAndNewlines))
-        
         return components
     }
     
     private func parseDoubleOptimized(_ string: String) -> Double {
+        // Fast path for common cases
+        if string.isEmpty || string == "0" { return 0.0 }
+        if string == "1" { return 1.0 }
+        
         let cleaned = string.trimmingCharacters(in: .whitespacesAndNewlines)
             .replacingOccurrences(of: "\"", with: "")
         return Double(cleaned) ?? 0.0
     }
     
-    private func updateMemoryCache(_ key: String, _ data: RestaurantNutritionData) {
-        if memoryCache.count >= maxMemoryCacheSize {
-            clearExpiredCache()
-        }
-        
-        if memoryCache.count >= maxMemoryCacheSize {
-            let oldestKey = memoryCache.min { $0.value.timestamp < $1.value.timestamp }?.key
-            if let key = oldestKey {
-                memoryCache.removeValue(forKey: key)
-            }
-        }
-        
-        memoryCache[key] = CachedNutritionItem(data: data, timestamp: Date())
-    }
-    
-    private func clearExpiredCache() {
-        let now = Date()
-        memoryCache = memoryCache.filter { !$0.value.isExpired(at: now) }
-        
-        if csvParsingCache.count > 30 {
-            csvParsingCache.removeAll()
-        }
-    }
-    
+    // Enhanced preloading with batch processing
     func preloadNutritionData(for restaurantName: String) {
-        let cacheKey = restaurantName.lowercased()
+        let cacheKey = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
-        guard memoryCache[cacheKey] == nil,
-              cache.getCachedNutritionData(for: restaurantName) == nil,
+        // Skip if already cached or loading
+        guard enhancedCache.getCachedNutritionData(for: restaurantName) == nil,
+              legacyCache.getCachedNutritionData(for: restaurantName) == nil,
               loadingTasks[cacheKey] == nil else {
             return
         }
         
-        guard let restaurantID = cache.getRestaurantID(for: restaurantName) else {
+        guard let restaurantID = legacyCache.getRestaurantID(for: restaurantName) else {
             return
         }
         
-        let task = Task {
-            return await loadNutritionDataInBackground(for: restaurantName, restaurantID: restaurantID)
-        }
-        
-        loadingTasks[cacheKey] = task
-        
-        Task {
-            if let result = await task.value {
+        // Use preload queue for background processing
+        preloadQueue.async { [weak self] in
+            let task = Task {
+                return await self?.loadNutritionDataWithEnhancedCaching(for: restaurantName, restaurantID: restaurantID)
+            }
+            
+            Task { [weak self] in
+                _ = await task.value
                 await MainActor.run {
-                    self.updateMemoryCache(cacheKey, result)
+                    self?.loadingTasks.removeValue(forKey: cacheKey)
                 }
             }
-            loadingTasks.removeValue(forKey: cacheKey)
         }
     }
     
-    func getCacheInfo() -> (memoryCount: Int, persistentCount: Int) {
-        let stats = cache.getCacheStats()
-        return (memoryCache.count, stats.nutritionCacheSize)
+    // Batch preloading for multiple restaurants
+    func batchPreloadNutritionData(for restaurantNames: [String]) {
+        preloadQueue.async { [weak self] in
+            for (index, restaurantName) in restaurantNames.enumerated() {
+                // Add delays between batch requests
+                if index > 0 {
+                    Thread.sleep(forTimeInterval: 0.2)
+                }
+                
+                self?.preloadNutritionData(for: restaurantName)
+            }
+        }
+    }
+    
+    // MARK: - Cache Management
+    private func manageCsvCacheSize() {
+        if csvParsingCache.count > maxCSVCacheSize {
+            // Remove oldest entries (simple FIFO for now)
+            let keysToRemove = Array(csvParsingCache.keys.prefix(csvParsingCache.count - maxCSVCacheSize + 10))
+            for key in keysToRemove {
+                csvParsingCache.removeValue(forKey: key)
+            }
+        }
+    }
+    
+    private func handleMemoryWarning() {
+        backgroundQueue.async { [weak self] in
+            // Clear most of the CSV cache
+            self?.csvParsingCache.removeAll()
+            
+            // Cancel non-essential loading tasks - fix the array conversion
+            if let loadingTasks = self?.loadingTasks {
+                let tasksToCancel = Array(loadingTasks.values.prefix(3))
+                for task in tasksToCancel {
+                    task.cancel()
+                }
+            }
+            
+            print("🚨 NutritionDataManager: Handled memory warning")
+        }
+    }
+    
+    // MARK: - Statistics and Debugging
+    func getCacheInfo() -> (memoryCount: Int, persistentCount: Int, csvCacheCount: Int) {
+        let enhancedStats = enhancedCache.getEnhancedCacheStats()
+        return (enhancedStats.memoryNutritionItems, 0, csvParsingCache.count) // Simplified for now
     }
     
     func clearData() {
@@ -316,13 +367,17 @@ class NutritionDataManager: ObservableObject {
     }
     
     func clearMemoryCache() {
-        memoryCache.removeAll()
         csvParsingCache.removeAll()
-        print("Cleared nutrition memory cache")
+        print("🧹 Cleared nutrition memory cache")
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        
+        // Cancel all loading tasks
+        for (_, task) in loadingTasks {
+            task.cancel()
+        }
     }
 }
 

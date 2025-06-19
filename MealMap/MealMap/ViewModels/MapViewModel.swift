@@ -42,12 +42,14 @@ final class MapViewModel: ObservableObject {
     private let overpassService = OverpassAPIService()
     private let locationManager = LocationManager.shared
     private let searchManager = SearchManager()
+    private let enhancedCache = EnhancedCacheManager.shared
 
-    // PERFORMANCE: Simplified state tracking
+    // Enhanced state tracking
     private var userLocation: CLLocationCoordinate2D?
     private var hasLoadedInitialData = false
     private var geocodeTask: Task<Void, Never>?
     private var dataFetchTask: Task<Void, Never>?
+    private var backgroundPreloadTask: Task<Void, Never>?
 
     // MARK: - Computed Properties
     var hasValidLocation: Bool {
@@ -60,12 +62,12 @@ final class MapViewModel: ObservableObject {
         region.span.latitudeDelta > 0.02 && !showSearchResults
     }
 
-    // PERFORMANCE: Direct access to restaurants
+    // Enhanced restaurants access with caching
     var allAvailableRestaurants: [Restaurant] {
         return restaurants
     }
 
-    // PERFORMANCE: Optimized radius filtering
+    // Enhanced radius filtering with caching
     var restaurantsWithinSearchRadius: [Restaurant] {
         guard let userLocation = locationManager.lastLocation,
               hasActiveRadiusFilter || showSearchResults else {
@@ -84,24 +86,28 @@ final class MapViewModel: ObservableObject {
     // MARK: - Initialization
     init() {
         setupLocationObserver()
+        startBackgroundPreloading()
     }
 
     // MARK: - Public Methods
     func updateRegion(_ newRegion: MKCoordinateRegion) {
         region = newRegion
         
-        // PERFORMANCE: Only update area name for significant moves
+        // Enhanced area name updates with intelligent caching
         Task { @MainActor in
             await updateAreaNameIfNeeded(for: newRegion.center)
         }
+        
+        // Trigger smart preloading based on new region
+        triggerSmartPreloading(for: newRegion.center)
     }
 
-    // PERFORMANCE: Load data only once on app start
+    // Enhanced data loading with aggressive caching
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !hasLoadedInitialData else { return }
         
         userLocation = coordinate
-        loadRestaurantsAroundUser(coordinate)
+        loadRestaurantsWithEnhancedCaching(coordinate)
     }
 
     func performSearch(query: String, maxDistance: Double?) {
@@ -147,9 +153,10 @@ final class MapViewModel: ObservableObject {
     func cleanup() {
         dataFetchTask?.cancel()
         geocodeTask?.cancel()
+        backgroundPreloadTask?.cancel()
     }
 
-    // MARK: - Private Methods
+    // MARK: - Enhanced Private Methods
     private func setupLocationObserver() {
         if let location = locationManager.lastLocation {
             initializeWithLocation(location.coordinate)
@@ -166,8 +173,8 @@ final class MapViewModel: ObservableObject {
         refreshData(for: coordinate)
     }
 
-    // PERFORMANCE: Simplified data loading
-    private func loadRestaurantsAroundUser(_ coordinate: CLLocationCoordinate2D) {
+    // Enhanced data loading with smart caching
+    private func loadRestaurantsWithEnhancedCaching(_ coordinate: CLLocationCoordinate2D) {
         dataFetchTask?.cancel()
         
         isLoadingRestaurants = true
@@ -175,11 +182,12 @@ final class MapViewModel: ObservableObject {
         
         dataFetchTask = Task { @MainActor in
             do {
-                loadingProgress = 0.3
+                loadingProgress = 0.2
                 
-                let fetchedRestaurants = try await overpassService.fetchFastFoodRestaurants(near: coordinate)
+                // Try enhanced cache first - this should be very fast
+                let fetchedRestaurants = try await overpassService.fetchFastFoodRestaurants(near: coordinate, useCache: true)
                 
-                loadingProgress = 0.8
+                loadingProgress = 0.9
                 
                 restaurants = fetchedRestaurants
                 hasLoadedInitialData = true
@@ -189,19 +197,59 @@ final class MapViewModel: ObservableObject {
                     isLoadingRestaurants = false
                 }
                 
-                print("✅ Loaded \(fetchedRestaurants.count) restaurants")
+                print("✅ Enhanced loading: \(fetchedRestaurants.count) restaurants")
+                
+                // Get cache statistics
+                let stats = enhancedCache.getEnhancedCacheStats()
+                print("📊 Cache stats: \(stats.totalMemoryRestaurants) restaurants, \(stats.memoryNutritionItems) nutrition items")
                 
             } catch {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     isLoadingRestaurants = false
                     loadingProgress = 1.0
                 }
-                print("❌ Error loading restaurants: \(error)")
+                print("❌ Enhanced loading error: \(error)")
             }
         }
     }
 
-    // PERFORMANCE: Debounced area name updates
+    // Smart preloading based on user movement patterns
+    private func triggerSmartPreloading(for coordinate: CLLocationCoordinate2D) {
+        guard let userLocation = userLocation else { return }
+        
+        let distance = coordinate.distance(to: userLocation)
+        
+        // Only trigger preloading if user moved significantly (>1km)
+        guard distance > 1000 else { return }
+        
+        backgroundPreloadTask?.cancel()
+        backgroundPreloadTask = Task { [weak self] in
+            // Small delay to avoid overwhelming the system
+            try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+            
+            await self?.enhancedCache.startAggressivePreloading(from: coordinate)
+        }
+    }
+
+    private func startBackgroundPreloading() {
+        // Preload popular areas in major cities
+        let popularCoordinates = [
+            CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194), // San Francisco
+            CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437), // Los Angeles
+            CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060),  // New York
+            CLLocationCoordinate2D(latitude: 41.8781, longitude: -87.6298),  // Chicago
+            CLLocationCoordinate2D(latitude: 29.7604, longitude: -95.3698)   // Houston
+        ]
+        
+        Task {
+            // Wait a bit after app launch
+            try? await Task.sleep(nanoseconds: 5_000_000_000) // 5 seconds
+            
+            overpassService.preloadPopularAreas(popularCoordinates)
+        }
+    }
+
+    // Enhanced area name updates with debouncing
     private func updateAreaNameIfNeeded(for coordinate: CLLocationCoordinate2D) async {
         guard let userLoc = userLocation else { return }
         let distance = userLoc.distance(to: coordinate)
@@ -213,7 +261,7 @@ final class MapViewModel: ObservableObject {
     private func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) async {
         geocodeTask?.cancel()
         geocodeTask = Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second debounce
+            try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 second debounce (increased)
             guard !Task.isCancelled else { return }
             await updateAreaName(for: coordinate)
         }
@@ -239,7 +287,7 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    // PERFORMANCE: Simplified search result handling
+    // Enhanced search result handling
     private func handleSearchResult(_ result: SearchResult) {
         switch result {
         case .noQuery:
@@ -308,7 +356,7 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    // PERFORMANCE: Simplified zoom functions
+    // Enhanced zoom functions with better animations
     private func zoomToShowResults(_ restaurants: [Restaurant]) {
         guard !restaurants.isEmpty,
               let userLocation = locationManager.lastLocation else { return }
@@ -323,7 +371,7 @@ final class MapViewModel: ObservableObject {
             let latDiff = abs(userLocation.coordinate.latitude - restaurantCoord.latitude)
             let lonDiff = abs(userLocation.coordinate.longitude - restaurantCoord.longitude)
             
-            withAnimation(.easeInOut(duration: 1.0)) {
+            withAnimation(.easeInOut(duration: 1.2)) { // Slightly longer animation
                 region = MKCoordinateRegion(
                     center: CLLocationCoordinate2D(latitude: centerLat, longitude: centerLon),
                     span: MKCoordinateSpan(
@@ -343,7 +391,7 @@ final class MapViewModel: ObservableObject {
             let minLon = longitudes.min()!
             let maxLon = longitudes.max()!
             
-            withAnimation(.easeInOut(duration: 1.0)) {
+            withAnimation(.easeInOut(duration: 1.2)) {
                 region = MKCoordinateRegion(
                     center: CLLocationCoordinate2D(
                         latitude: (minLat + maxLat) / 2,
@@ -369,11 +417,18 @@ final class MapViewModel: ObservableObject {
     }
 }
 
-private struct CachedRestaurantData {
-    let restaurants: [Restaurant]
-    let timestamp: Date
-    
-    var isExpired: Bool {
-        Date().timeIntervalSince(timestamp) > 600
+// MARK: - Enhanced Cache Statistics
+extension MapViewModel {
+    func getCacheStatistics() -> String {
+        let stats = enhancedCache.getEnhancedCacheStats()
+        return """
+        📊 Enhanced Cache Statistics:
+        • Restaurant areas cached: \(stats.memoryRestaurantAreas)
+        • Nutrition items cached: \(stats.memoryNutritionItems)
+        • API responses cached: \(stats.memoryAPIResponses)
+        • Total restaurants: \(stats.totalMemoryRestaurants)
+        • Active preload tasks: \(stats.activePreloadTasks)
+        • Cache hit rate: \(String(format: "%.1f", stats.cacheHitRate * 100))%
+        """
     }
 }
