@@ -140,8 +140,11 @@ struct OptimizedRealTimeMapView: UIViewRepresentable {
             }
         }
         
-        // Show every restaurant returned
-        let newRestaurantAnnotations = viewModel.restaurants.map {
+        // FILTER-AWARE: Use filtered restaurants for map pins
+        let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
+        
+        // Show restaurants that match current filters
+        let newRestaurantAnnotations = restaurantsToShow.map {
             RestaurantMapAnnotation(restaurant: $0)
         }
         
@@ -149,6 +152,9 @@ struct OptimizedRealTimeMapView: UIViewRepresentable {
         let old = mapView.annotations.compactMap { $0 as? RestaurantMapAnnotation }
         mapView.removeAnnotations(old)
         mapView.addAnnotations(newRestaurantAnnotations)
+        
+        // Log for debugging
+        print("🗺️ Map showing \(newRestaurantAnnotations.count) pins (filters: \(viewModel.currentFilter.hasActiveFilters ? "active" : "none"))")
     }
     
     func makeCoordinator() -> Coordinator {
@@ -214,14 +220,15 @@ struct OptimizedRealTimeMapView: UIViewRepresentable {
             let emoji = getSimpleEmoji(for: restaurant)
             view.glyphText = emoji
             
-            // OPTIMIZED: Simple color scheme for better performance
+            // ENHANCED: Color pins based on active filters
+            let colors = getPinColorsForFilter(restaurant: restaurant, filter: parent.viewModel.currentFilter)
+            view.markerTintColor = colors.background
+            view.glyphTintColor = colors.foreground
+            
+            // Set display priority
             if restaurant.hasNutritionData {
-                view.markerTintColor = restaurant.amenityType == "fast_food" ? .systemOrange : .systemGreen
-                view.glyphTintColor = .white
                 view.displayPriority = .required
             } else {
-                view.markerTintColor = .systemGray2
-                view.glyphTintColor = .systemGray
                 view.displayPriority = .defaultLow
             }
             
@@ -247,6 +254,37 @@ struct OptimizedRealTimeMapView: UIViewRepresentable {
             
             // Default by amenity type
             return restaurant.amenityType == "fast_food" ? "🍔" : "🍽️"
+        }
+        
+        // NEW: Get pin colors based on active filters
+        private func getPinColorsForFilter(restaurant: Restaurant, filter: RestaurantFilter) -> (background: UIColor, foreground: UIColor) {
+            // If no filters are active, use default colors
+            guard filter.hasActiveFilters else {
+                if restaurant.hasNutritionData {
+                    return (restaurant.amenityType == "fast_food" ? .systemOrange : .systemGreen, .white)
+                } else {
+                    return (.systemGray2, .systemGray)
+                }
+            }
+            
+            // Color based on category filter
+            if let category = filter.category {
+                switch category {
+                case .fastFood:
+                    return (.systemOrange, .white)
+                case .healthy:
+                    return (.systemGreen, .white)
+                case .vegan:
+                    return (.systemMint, .white)
+                case .highProtein:
+                    return (.systemRed, .white)
+                case .lowCarb:
+                    return (.systemBlue, .white)
+                }
+            }
+            
+            // Default filtered color (purple to indicate filtering is active)
+            return (.systemPurple, .white)
         }
         
         // MARK: - Annotation Selection with Improved Performance

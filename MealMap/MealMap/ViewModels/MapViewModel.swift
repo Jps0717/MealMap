@@ -37,7 +37,12 @@ final class MapViewModel: ObservableObject {
     // MARK: - Loading Progress
     @Published var loadingProgress: Double = 1.0
     
-    @Published var currentFilter = RestaurantFilter()
+    @Published var currentFilter = RestaurantFilter() {
+        didSet {
+            objectWillChange.send()
+            print(" Filter updated: \(currentFilter.hasActiveFilters ? "active" : "none")")
+        }
+    }
 
     // MARK: - Private Properties
     private let overpassService = OverpassAPIService()
@@ -54,10 +59,8 @@ final class MapViewModel: ObservableObject {
     private var dataFetchTask: Task<Void, Never>?
     private var currentLoadingTask: Task<Void, Never>?
     
-    // PERFORMANCE: Simple initialization tracking
     private var hasInitialized = false
     
-    // OPTIMIZED: Enhanced debouncing for region updates
     private var regionUpdateTask: Task<Void, Never>?
     private var areaNameUpdateTask: Task<Void, Never>?
 
@@ -72,10 +75,10 @@ final class MapViewModel: ObservableObject {
         region.span.latitudeDelta > 0.02 && !showSearchResults
     }
 
-    // SIMPLIFIED: Direct restaurant access without complex caching
     var allAvailableRestaurants: [Restaurant] {
         print(" MapViewModel - allAvailableRestaurants called")
         print(" MapViewModel - Raw restaurants count: \(restaurants.count)")
+        print(" MapViewModel - Filter active: \(currentFilter.hasActiveFilters)")
         
         if !currentFilter.isEmpty {
             let filtered = restaurants.filter { restaurant in
@@ -85,7 +88,6 @@ final class MapViewModel: ObservableObject {
             return filtered
         }
         
-        // Return ALL restaurants without any filtering
         print(" MapViewModel - Returning ALL \(restaurants.count) restaurants")
         return restaurants
     }
@@ -95,7 +97,6 @@ final class MapViewModel: ObservableObject {
         print(" MapViewModel - hasActiveRadiusFilter: \(hasActiveRadiusFilter)")
         print(" MapViewModel - showSearchResults: \(showSearchResults)")
         
-        // SIMPLIFIED: Always return all restaurants for now
         print(" MapViewModel - Returning ALL restaurants (no radius filtering)")
         return allAvailableRestaurants
     }
@@ -111,11 +112,8 @@ final class MapViewModel: ObservableObject {
         updateAreaNameDebounced(for: newRegion.center)
     }
     
-    /// OPTIMIZED: Viewport-based restaurant fetching with enhanced caching
     func fetchRestaurantsForRegion(_ mapRegion: MKCoordinateRegion) async {
-        // Check cache first for instant response
         if let cachedRestaurants = boundingBoxCache.getCachedRestaurants(for: mapRegion) {
-            print(" Using cached restaurants for region")
             await MainActor.run {
                 self.restaurants = cachedRestaurants
             }
@@ -126,14 +124,12 @@ final class MapViewModel: ObservableObject {
             self.isLoadingRestaurants = true
         }
         
-        // Use Task.detached with utility priority for background processing
         let fetchTask = Task.detached(priority: .utility) { [weak self] in
             guard let self = self else { return }
             
             do {
                 let bbox = mapRegion.boundingBox
                 
-                // OPTIMIZED: Use new viewport-based fetching
                 let newRestaurants = try await self.overpassService.fetchRestaurantsForViewport(
                     minLat: bbox.minLat,
                     minLon: bbox.minLon,
@@ -141,7 +137,6 @@ final class MapViewModel: ObservableObject {
                     maxLon: bbox.maxLon
                 )
                 
-                // Cache the results
                 await MainActor.run {
                     self.boundingBoxCache.cacheRestaurants(newRestaurants, for: mapRegion)
                 }
@@ -160,35 +155,27 @@ final class MapViewModel: ObservableObject {
             }
         }
         
-        // Store task reference for potential cancellation
         currentLoadingTask?.cancel()
         currentLoadingTask = fetchTask
     }
 
     // MARK: - Public Methods
-    // OPTIMIZED: Enhanced region updates with better debouncing
     func updateRegion(_ newRegion: MKCoordinateRegion) {
-        // Cancel previous update task
         regionUpdateTask?.cancel()
         
         regionUpdateTask = Task.detached(priority: .utility) { @MainActor [weak self] in
             guard let self = self else { return }
             
-            // ENHANCED: Longer debounce for smoother panning (1-2 seconds as recommended)
-            try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 second debounce
-            
+            try? await Task.sleep(nanoseconds: 1_500_000_000)
             guard !Task.isCancelled else { return }
             
-            // Only update if there's a meaningful change (tighter tolerance for responsiveness)
             let latDiff = abs(self.region.center.latitude - newRegion.center.latitude)
             let lonDiff = abs(self.region.center.longitude - newRegion.center.longitude)
             let spanDiff = abs(self.region.span.latitudeDelta - newRegion.span.latitudeDelta)
             
-            // OPTIMIZED: More sensitive to changes for better responsiveness
             if latDiff > 0.0002 || lonDiff > 0.0002 || spanDiff > 0.001 {
                 self.region = newRegion
                 
-                // Only update area name if we've moved significantly
                 if latDiff > 0.01 || lonDiff > 0.01 {
                     self.updateAreaNameDebounced(for: newRegion.center)
                 }
@@ -196,24 +183,19 @@ final class MapViewModel: ObservableObject {
         }
     }
     
-    // PERFORMANCE: Debounced area name updates
     private func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) {
-        // Cancel previous area name update task
         areaNameUpdateTask?.cancel()
         
         areaNameUpdateTask = Task.detached(priority: .utility) { @MainActor [weak self] in
             guard let self = self else { return }
             
-            // Debounce area name updates
-            try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 second debounce
-            
+            try? await Task.sleep(nanoseconds: 2_000_000_000)
             guard !Task.isCancelled else { return }
             
             await self.updateAreaName(for: coordinate)
         }
     }
 
-    /// OPTIMIZED: Initial data loading with viewport approach
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !isLoadingRestaurants else { return }
         
@@ -222,10 +204,8 @@ final class MapViewModel: ObservableObject {
         isLoadingRestaurants = true
         loadingProgress = 0.0
         
-        // Cancel any existing task
         dataFetchTask?.cancel()
         
-        // Use Task.detached with utility priority for background processing
         dataFetchTask = Task.detached(priority: .utility) { [weak self] in
             guard let self = self else { return }
             
@@ -236,8 +216,7 @@ final class MapViewModel: ObservableObject {
             do {
                 print(" MapViewModel - Starting optimized viewport API fetch")
                 
-                // OPTIMIZED: Use viewport-based fetching instead of radius
-                let radius = 5.0 // 5 miles for good coverage
+                let radius = 5.0
                 let radiusInDegrees = radius / 69.0
                 
                 let fetchedRestaurants = try await self.overpassService.fetchRestaurantsForViewport(
@@ -253,10 +232,8 @@ final class MapViewModel: ObservableObject {
                     self.loadingProgress = 0.8
                 }
                 
-                // OPTIMIZED: Limit restaurants for performance (focus on quality)
                 let limitedRestaurants = Array(fetchedRestaurants.prefix(50))
                 
-                // Background: Preload nutrition data for top nutrition restaurants only
                 let nutritionRestaurants = limitedRestaurants.filter { $0.hasNutritionData }
                 let topNutritionRestaurants = Array(nutritionRestaurants.prefix(5))
                 if !topNutritionRestaurants.isEmpty {
@@ -280,7 +257,6 @@ final class MapViewModel: ObservableObject {
                 await MainActor.run {
                     print(" Error fetching restaurants: \(error)")
                     
-                    // Fallback test restaurants for debugging
                     let testRestaurants = [
                         Restaurant(
                             id: 999991,
@@ -359,10 +335,12 @@ final class MapViewModel: ObservableObject {
     }
     
     func applyFilter(_ filter: RestaurantFilter) {
+        print(" Applying filter: \(filter)")
         currentFilter = filter
     }
     
     func clearFilters() {
+        print(" Clearing all filters")
         currentFilter = RestaurantFilter()
     }
 
@@ -371,7 +349,7 @@ final class MapViewModel: ObservableObject {
         zoomToRestaurant(restaurant)
         
         Task { @MainActor [weak self] in
-            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
+            try? await Task.sleep(nanoseconds: 300_000_000)
             self?.showingRestaurantDetail = true
         }
     }
