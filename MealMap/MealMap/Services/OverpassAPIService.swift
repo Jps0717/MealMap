@@ -2,10 +2,10 @@ import Foundation
 import CoreLocation
 import SwiftUI
 
-// MARK: - Response Caching
-private class OverpassCache {
+// MARK: - Enhanced Viewport-Based Caching
+private class ViewportCache {
     private var cache: [String: (data: [Restaurant], timestamp: Date)] = [:]
-    private let maxAge: TimeInterval = 3600 // 1 hour
+    private let maxAge: TimeInterval = 1800 // 30 minutes for viewport data
     
     func get(for key: String) -> [Restaurant]? {
         guard let cached = cache[key],
@@ -18,6 +18,20 @@ private class OverpassCache {
     
     func store(_ data: [Restaurant], for key: String) {
         cache[key] = (data, Date())
+        // Clean old entries periodically
+        if cache.count > 50 {
+            let cutoff = Date().addingTimeInterval(-maxAge)
+            cache = cache.filter { $0.value.timestamp > cutoff }
+        }
+    }
+    
+    func createViewportKey(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
+        // Round to 3 decimal places (~100m precision) for better cache hits
+        return String(format: "%.3f_%.3f_%.3f_%.3f",
+                     (minLat * 1000).rounded() / 1000,
+                     (minLon * 1000).rounded() / 1000,
+                     (maxLat * 1000).rounded() / 1000,
+                     (maxLon * 1000).rounded() / 1000)
     }
 }
 
@@ -112,249 +126,159 @@ extension Restaurant {
     }
 }
 
-/// Service responsible for fetching restaurants using the Overpass API.
+/// Service responsible for fetching restaurants using the Overpass API with viewport optimization.
 final class OverpassAPIService {
+    // OPTIMIZED: Use high-performance Overpass instances
     private let baseURLs = [
+        "https://overpass.kumi.systems/api/interpreter",  // High-capacity mirror
         "https://overpass-api.de/api/interpreter",
-        "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
-        "https://overpass.kumi.systems/api/interpreter"
+        "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
     ]
     private var currentURLIndex = 0
     
-    // PERFORMANCE: Add caching
-    private let cache = OverpassCache()
+    // PERFORMANCE: Enhanced viewport-based caching
+    private let viewportCache = ViewportCache()
     private var lastRequestTime: Date = Date.distantPast
-    private let minimumRequestInterval: TimeInterval = 1.5 // Increased to avoid overloading
+    private let minimumRequestInterval: TimeInterval = 0.5 // Reduced for better responsiveness
     
-    /// Fetches restaurants within a bounding box with caching
+    /// OPTIMIZED: Viewport-based restaurant fetching with exact bounding box
+    func fetchRestaurantsForViewport(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) async throws -> [Restaurant] {
+        // Create precise viewport cache key
+        let cacheKey = viewportCache.createViewportKey(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
+        
+        // Check viewport cache first for instant response
+        if let cachedData = viewportCache.get(for: cacheKey) {
+            print("⚡ Viewport cache hit - instant response with \(cachedData.count) restaurants")
+            return cachedData
+        }
+        
+        // Throttle requests
+        await throttleRequest()
+        
+        // Use optimized bounding box query
+        let query = createOptimizedViewportQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
+        
+        let restaurants = try await executeQuery(query)
+        
+        // Cache the viewport result
+        viewportCache.store(restaurants, for: cacheKey)
+        
+        print("✅ Viewport fetch completed: \(restaurants.count) restaurants cached for key: \(cacheKey)")
+        return restaurants
+    }
+    
+    // OPTIMIZED: Flattened query with exact bounding box and minimal output
+    private func createOptimizedViewportQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
+        // Use exact bounding box coordinates and 'out center;' for minimal payload
+        return """
+        [out:json][timeout:8][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
+        (
+          node["amenity"="fast_food"]["name"];
+          node["amenity"="restaurant"]["name"];
+          node["amenity"="cafe"]["name"];
+        );
+        out center;
+        """
+    }
+    
+    /// LEGACY: Keep existing methods for compatibility
     func fetchRestaurants(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) async throws -> [Restaurant] {
-        // Create cache key based on rounded coordinates
-        let cacheKey = String(format: "%.3f_%.3f_%.3f_%.3f", minLat, minLon, maxLat, maxLon)
-        
-        // Check cache first
-        if let cachedData = cache.get(for: cacheKey) {
-            print("⚡ Cache hit for Overpass API request")
-            return cachedData
-        }
-        
-        // Throttle requests
-        await throttleRequest()
-        
-        let query = createOptimizedQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
-        
-        guard let url = URL(string: baseURLs[currentURLIndex]) else {
-            throw URLError(.badURL)
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.httpBody = query.data(using: .utf8)
-        request.timeoutInterval = 8 // Very short timeout
-        
-        print("🌐 Trying API: \(baseURLs[currentURLIndex])")
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw URLError(.badServerResponse)
-        }
-        
-        let restaurants = try await Task.detached {
-            try self.parseRestaurantsFromData(data)
-        }.value
-        
-        // Cache the result
-        cache.store(restaurants, for: cacheKey)
-        
-        return restaurants
+        // Redirect to optimized viewport method
+        return try await fetchRestaurantsForViewport(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
     }
     
-    /// OPTIMIZED: Fetch only nutrition-data restaurants
+    /// OPTIMIZED: Fetch only nutrition-data restaurants with viewport bounds
     func fetchNutritionRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 3.0) async throws -> [Restaurant] {
-        let cacheKey = String(format: "nutrition_%.4f_%.4f_%.1f", coordinate.latitude, coordinate.longitude, radius)
+        // Convert radius to bounding box for consistency
+        let radiusInDegrees = radius / 69.0 // Approximate conversion
+        let minLat = coordinate.latitude - radiusInDegrees
+        let maxLat = coordinate.latitude + radiusInDegrees
+        let minLon = coordinate.longitude - radiusInDegrees
+        let maxLon = coordinate.longitude + radiusInDegrees
         
-        if let cachedData = cache.get(for: cacheKey) {
-            print("⚡ Cache hit for nutrition restaurants")
+        let cacheKey = viewportCache.createViewportKey(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon) + "_nutrition"
+        
+        if let cachedData = viewportCache.get(for: cacheKey) {
+            print("⚡ Nutrition cache hit")
             return cachedData
         }
         
-        await throttleRequest()
+        // Use nutrition-focused query with bounding box
+        let query = createNutritionFocusedBoundingBoxQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
         
-        let radiusInMeters = radius * 1609.34
-        let query = createNutritionFocusedQuery(coordinate: coordinate, radius: radiusInMeters)
+        let restaurants = try await executeQuery(query)
         
-        guard let url = URL(string: baseURLs[currentURLIndex]) else {
-            throw URLError(.badURL)
+        // Filter to only restaurants with nutrition data
+        let nutritionRestaurants = restaurants.filter { restaurant in
+            RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
         }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.httpBody = query.data(using: .utf8)
-        request.timeoutInterval = 8 // Very short timeout
-        
-        print("🌐 Trying API: \(baseURLs[currentURLIndex])")
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw URLError(.badServerResponse)
-        }
-        
-        let restaurants = try await Task.detached {
-            let allRestaurants = try self.parseRestaurantsFromData(data)
-            // Filter to only restaurants with nutrition data
-            return allRestaurants.filter { restaurant in
-                RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
-            }
-        }.value
-        
-        cache.store(restaurants, for: cacheKey)
-        return restaurants
+        viewportCache.store(nutritionRestaurants, for: cacheKey)
+        return nutritionRestaurants
     }
     
-    // MARK: - Optimized Queries
-    private func createNutritionFocusedQuery(coordinate: CLLocationCoordinate2D, radius: Double) -> String {
-        // Only query for restaurant chains that we know have nutrition data
-        let knownChains = RestaurantData.restaurantsWithNutritionData.prefix(20).map { "\"name\"=\"\($0)\"" }.joined(separator: " or ")
+    private func createNutritionFocusedBoundingBoxQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
+        // Focus on known chains with nutrition data, use bounding box instead of radius
+        let knownChains = RestaurantData.restaurantsWithNutritionData.prefix(15).map {
+            "\"name\"~\"\($0)\""
+        }.joined(separator: " or ")
         
         return """
-        [out:json][timeout:15];
+        [out:json][timeout:8][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
         (
-          node["amenity"~"^(restaurant|fast_food)$"][\(knownChains)](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
+          node["amenity"~"^(restaurant|fast_food)$"][\(knownChains)];
         );
-        out body;
+        out center;
         """
     }
     
-    private func createOptimizedQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
-        return """
-        [out:json][timeout:15];
-        (
-          node["amenity"="fast_food"]["name"](\(minLat),\(minLon),\(maxLat),\(maxLon));
-          node["amenity"="restaurant"]["name"]["brand"](\(minLat),\(minLon),\(maxLat),\(maxLon));
-        );
-        out body;
-        """
-    }
-    
-    /// Fetches fast food restaurants within specified radius
-    func fetchFastFoodRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 2.5) async throws -> [Restaurant] {
-        let cacheKey = String(format: "fastfood_%.4f_%.4f_%.1f", coordinate.latitude, coordinate.longitude, radius)
-        
-        // Check cache first
-        if let cachedData = cache.get(for: cacheKey) {
-            print("⚡ Cache hit for fast food restaurants")
-            return cachedData
-        }
-        
-        // Throttle requests
-        await throttleRequest()
-        
-        let radiusInMeters = radius * 1609.34
-        
-        let query = createOptimizedFastFoodQuery(coordinate: coordinate, radius: radiusInMeters)
-        
-        guard let url = URL(string: baseURLs[currentURLIndex]) else {
-            throw URLError(.badURL)
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.httpBody = query.data(using: .utf8)
-        request.timeoutInterval = 10 // Reasonable timeout
-        
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw URLError(.badServerResponse)
-        }
-        
-        // Process on background thread
-        let restaurants = try await Task.detached {
-            try self.parseRestaurantsFromData(data)
-        }.value
-        
-        // Cache the result
-        cache.store(restaurants, for: cacheKey)
-        
-        return restaurants
-    }
-    
-    private func createOptimizedFastFoodQuery(coordinate: CLLocationCoordinate2D, radius: Double) -> String {
-        """
-        [out:json][timeout:20];
-        (
-          node["amenity"="fast_food"]["name"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
-          node["amenity"="restaurant"]["name"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
-        );
-        out body;
-        """
-    }
-    
-    private func createComprehensiveQuery(coordinate: CLLocationCoordinate2D, radius: Double) -> String {
-        """
-        [out:json][timeout:20];
-        (
-          node["amenity"="fast_food"]["name"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
-          node["amenity"="restaurant"]["name"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
-          node["amenity"="cafe"]["name"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
-        );
-        out body;
-        """
-    }
-    
-    /// IMPROVED: Fetch ALL nearby restaurants with robust fallback
+    /// OPTIMIZED: All nearby restaurants with bounding box approach
     func fetchAllNearbyRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 3.0) async throws -> [Restaurant] {
-        let cacheKey = String(format: "all_%.4f_%.4f_%.1f", coordinate.latitude, coordinate.longitude, radius)
+        // Convert to bounding box for consistent caching and querying
+        let radiusInDegrees = radius / 69.0
+        let minLat = coordinate.latitude - radiusInDegrees
+        let maxLat = coordinate.latitude + radiusInDegrees
+        let minLon = coordinate.longitude - radiusInDegrees
+        let maxLon = coordinate.longitude + radiusInDegrees
         
-        if let cachedData = cache.get(for: cacheKey) {
-            print("⚡ Cache hit for all nearby restaurants")
+        return try await fetchRestaurantsForViewport(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
+    }
+    
+    /// OPTIMIZED: Fast food restaurants with bounding box
+    func fetchFastFoodRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 2.5) async throws -> [Restaurant] {
+        let radiusInDegrees = radius / 69.0
+        let minLat = coordinate.latitude - radiusInDegrees
+        let maxLat = coordinate.latitude + radiusInDegrees
+        let minLon = coordinate.longitude - radiusInDegrees
+        let maxLon = coordinate.longitude + radiusInDegrees
+        
+        let cacheKey = viewportCache.createViewportKey(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon) + "_fastfood"
+        
+        if let cachedData = viewportCache.get(for: cacheKey) {
+            print("⚡ Fast food cache hit")
             return cachedData
         }
         
-        // Try fallback data first
-        if let fallbackData = getFallbackRestaurants(near: coordinate, radius: radius) {
-            print("🔄 Using fallback restaurant data")
-            cache.store(fallbackData, for: cacheKey)
-            return fallbackData
-        }
+        let query = createFastFoodBoundingBoxQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
+        let restaurants = try await executeQuery(query)
         
-        // Try multiple API endpoints
-        for attempt in 0..<baseURLs.count {
-            do {
-                let restaurants = try await fetchFromAPI(coordinate: coordinate, radius: radius)
-                cache.store(restaurants, for: cacheKey)
-                return restaurants
-            } catch {
-                print("❌ Attempt \(attempt + 1) failed: \(error.localizedDescription)")
-                // Switch to next URL for next attempt
-                currentURLIndex = (currentURLIndex + 1) % baseURLs.count
-                
-                if attempt < baseURLs.count - 1 {
-                    // Wait before trying next endpoint
-                    try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
-                }
-            }
-        }
-        
-        // If all API attempts fail, return fallback data
-        if let fallbackData = getFallbackRestaurants(near: coordinate, radius: radius) {
-            print("🆘 All APIs failed, using fallback data")
-            return fallbackData
-        }
-        
-        throw URLError(.timedOut)
+        viewportCache.store(restaurants, for: cacheKey)
+        return restaurants
     }
     
-    private func fetchFromAPI(coordinate: CLLocationCoordinate2D, radius: Double) async throws -> [Restaurant] {
-        await throttleRequest()
-        
-        let radiusInMeters = radius * 1609.34
-        let query = createSimplifiedQuery(coordinate: coordinate, radius: radiusInMeters)
-        
+    private func createFastFoodBoundingBoxQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
+        return """
+        [out:json][timeout:8][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
+        (
+          node["amenity"="fast_food"]["name"];
+          node["amenity"="restaurant"]["name"]["brand"];
+        );
+        out center;
+        """
+    }
+    
+    // MARK: - Core Query Execution
+    private func executeQuery(_ query: String) async throws -> [Restaurant] {
         guard let url = URL(string: baseURLs[currentURLIndex]) else {
             throw URLError(.badURL)
         }
@@ -363,9 +287,9 @@ final class OverpassAPIService {
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpBody = query.data(using: .utf8)
-        request.timeoutInterval = 8 // Aggressive timeout
+        request.timeoutInterval = 6 // Shorter timeout for responsiveness
         
-        print("🌐 Trying API: \(baseURLs[currentURLIndex])")
+        print("🌐 Optimized query to: \(baseURLs[currentURLIndex])")
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
@@ -373,69 +297,33 @@ final class OverpassAPIService {
             throw URLError(.badServerResponse)
         }
         
-        let restaurants = try await Task.detached {
+        // Parse on background thread for smooth UI
+        let restaurants = try await Task.detached(priority: .utility) {
             try self.parseRestaurantsFromData(data)
         }.value
         
-        print("✅ Successfully fetched \(restaurants.count) restaurants from API")
         return restaurants
-    }
-    
-    private func createSimplifiedQuery(coordinate: CLLocationCoordinate2D, radius: Double) -> String {
-        // Simplified query to reduce timeout risk
-        """
-        [out:json][timeout:10];
-        (
-          node["amenity"="fast_food"]["name"](around:\(radius),\(coordinate.latitude),\(coordinate.longitude));
-          node["amenity"="restaurant"]["name"](around:\(radius/2),\(coordinate.latitude),\(coordinate.longitude));
-        );
-        out body;
-        """
     }
     
     // FALLBACK: Generate realistic restaurant data based on location
     private func getFallbackRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double) -> [Restaurant]? {
         print("🔄 Generating fallback restaurant data...")
         
-        // IMPROVED: More diverse chains that match categories better
         let commonChains = [
-            // Fast Food
-            ("McDonald's", "fast_food"),
-            ("Burger King", "fast_food"),
-            ("KFC", "fast_food"),
-            ("Taco Bell", "fast_food"),
-            ("Wendy's", "fast_food"),
-            ("Arby's", "fast_food"),
-            
-            // Healthy/Mixed
-            ("Subway", "fast_food"), // Good for healthy and vegan options
-            ("Chipotle", "restaurant"), // Good for healthy, high protein, low carb, vegan
-            ("Panera Bread", "restaurant"), // Good for healthy and vegan options
-            ("Starbucks", "restaurant"), // Vegan-friendly drinks and some food
-            
-            // Traditional restaurants
-            ("Pizza Hut", "restaurant"),
-            ("Domino's", "restaurant"),
-            
-            // High protein focused
-            ("Chick-fil-A", "fast_food"), // High protein chicken
-            ("Five Guys", "restaurant"), // High protein burgers
-            
-            // Additional variety
-            ("Dunkin'", "restaurant"),
-            ("Dairy Queen", "fast_food")
+            ("McDonald's", "fast_food"), ("Burger King", "fast_food"), ("KFC", "fast_food"),
+            ("Taco Bell", "fast_food"), ("Wendy's", "fast_food"), ("Subway", "fast_food"),
+            ("Chipotle", "restaurant"), ("Panera Bread", "restaurant"), ("Starbucks", "restaurant"),
+            ("Pizza Hut", "restaurant"), ("Domino's", "restaurant"), ("Chick-fil-A", "fast_food"),
+            ("Five Guys", "restaurant"), ("Dunkin'", "restaurant"), ("Dairy Queen", "fast_food")
         ]
         
-        // Generate restaurants around the user's location
         var fallbackRestaurants: [Restaurant] = []
-        let radiusInDegrees = radius / 69.0 // Approximate conversion
+        let radiusInDegrees = radius / 69.0
         
         for (index, (name, amenityType)) in commonChains.enumerated() {
-            // Generate 1-2 locations per chain within radius (reduced for variety)
             let locationsCount = Int.random(in: 1...2)
             
             for locationIndex in 0..<locationsCount {
-                // Random offset within radius
                 let latOffset = Double.random(in: -radiusInDegrees...radiusInDegrees)
                 let lonOffset = Double.random(in: -radiusInDegrees...radiusInDegrees)
                 
@@ -452,9 +340,7 @@ final class OverpassAPIService {
                     type: "node"
                 )
                 
-                // IMPORTANT: Set amenityType properly
                 restaurant.amenityType = amenityType
-                
                 fallbackRestaurants.append(restaurant)
             }
         }
@@ -466,7 +352,7 @@ final class OverpassAPIService {
             return d1 < d2
         }
         
-        return Array(fallbackRestaurants.prefix(25)) // Increased variety
+        return Array(fallbackRestaurants.prefix(25))
     }
     
     private func getCuisineType(for restaurantName: String, amenityType: String) -> String {
@@ -514,7 +400,6 @@ final class OverpassAPIService {
                 return nil
             }
             
-            
             var restaurant = Restaurant(
                 id: element.id,
                 name: name,
@@ -538,24 +423,23 @@ final class OverpassAPIService {
             return restaurant
         }
         
+        // OPTIMIZED: Sort by nutrition data and priority
         let sortedRestaurants = restaurants.sorted { r1, r2 in
             let r1HasNutrition = RestaurantData.restaurantsWithNutritionData.contains(r1.name)
             let r2HasNutrition = RestaurantData.restaurantsWithNutritionData.contains(r2.name)
             
-            // Prioritize restaurants with nutrition data, then by display priority
             if r1HasNutrition != r2HasNutrition {
-                return r1HasNutrition // Nutrition restaurants first
+                return r1HasNutrition
             }
             return r1.displayPriority > r2.displayPriority
         }
         
-        let limitedRestaurants = Array(sortedRestaurants.prefix(200))
-        
-        return limitedRestaurants
+        // Limit results for performance - focus on quality over quantity
+        return Array(sortedRestaurants.prefix(75))
     }
 }
 
-// MARK: - Overpass Response Models
+// MARK: - Overpass Response Models (Updated for 'out center;')
 private struct OverpassResponse: Decodable {
     let version: Double
     let generator: String
@@ -575,31 +459,3 @@ private struct Element: Decodable {
     let lon: Double?
     let tags: [String: String]
 }
-
-// MARK: - Test Function
-// static func testConnection() async {
-//     let service = OverpassAPIService()
-//     
-//     // Test with a small area in San Francisco
-//     let coordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
-//     
-//     do {
-//         let restaurants = try await service.fetchFastFoodRestaurants(near: coordinate, radius: 2.0)
-//         
-//         print("✅ Successfully fetched \(restaurants.count) restaurants")
-//         
-//         // Print first few restaurants for verification
-//         for (index, restaurant) in restaurants.prefix(3).enumerated() {
-//             print("\nRestaurant \(index + 1):")
-//             print("ID: \(restaurant.id)")
-//             print("Name: \(restaurant.name)")
-//             print("Location: \(restaurant.latitude), \(restaurant.longitude)")
-//             print("Cuisine: \(restaurant.cuisine ?? "Unknown")")
-//             print("Address: \(restaurant.address ?? "Unknown")")
-//             print("Priority: \(restaurant.displayPriority)")
-//         }
-//         
-//     } catch {
-//         print("❌ Error fetching restaurants: \(error)")
-//     }
-// }

@@ -49,7 +49,7 @@ final class BoundingBoxCacheService {
     private func cacheKey(for region: MKCoordinateRegion) -> String {
         // Create key with appropriate precision for bounding box
         let bbox = region.boundingBox
-        return String(format: "%.3f_%.3f_%.3f_%.3f", 
+        return String(format: "%.3f_%.3f_%.3f_%.3f",
                      bbox.minLat, bbox.minLon, bbox.maxLat, bbox.maxLon)
     }
     

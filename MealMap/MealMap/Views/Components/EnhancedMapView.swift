@@ -19,8 +19,8 @@ struct EnhancedMapView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
-                // Enhanced MapKit view with real-time loading
-                RealTimeMapView(viewModel: viewModel) { restaurant in
+                // REAL-TIME: Enhanced MapKit view with immediate updates
+                OptimizedRealTimeMapView(viewModel: viewModel) { restaurant in
                     selectRestaurant(restaurant)
                 }
                 .ignoresSafeArea()
@@ -47,7 +47,7 @@ struct EnhancedMapView: View {
                         if viewModel.isLoadingRestaurants {
                             SpinningMapIndicator()
                                 .padding(.trailing, 20)
-                                .padding(.bottom, 20) // Moved lower from 30 to 20
+                                .padding(.bottom, 20)
                         }
                     }
                 }
@@ -95,23 +95,24 @@ struct EnhancedMapView: View {
     }
 }
 
-// MARK: - Real-time MapKit Implementation
-struct RealTimeMapView: UIViewRepresentable {
+// MARK: - REAL-TIME: MapKit Implementation with Immediate Pin Updates
+struct OptimizedRealTimeMapView: UIViewRepresentable {
     @ObservedObject var viewModel: MapViewModel
     let onRestaurantTap: (Restaurant) -> Void
-    @State private var shouldUpdateRegionProgrammatically = false
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         
-        // Disable default Apple pins and overlays
+        // OPTIMIZED: Disable resource-heavy features for better performance
         mapView.showsUserLocation = false
         mapView.showsBuildings = false
         mapView.showsTraffic = false
         mapView.showsCompass = false
         mapView.showsScale = false
         mapView.showsPointsOfInterest = false
+        mapView.isRotateEnabled = false
+        mapView.isPitchEnabled = false
         
         // Set initial region
         mapView.setRegion(viewModel.region, animated: false)
@@ -120,26 +121,15 @@ struct RealTimeMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
-        // PREVENT SNAP-BACK: Only update region for explicit programmatic changes
-        // Never update region while loading to avoid disrupting user interaction
-        if !viewModel.isLoadingRestaurants {
-            // Only update if there's a significant difference suggesting intentional programmatic update
-            if !mapView.region.isApproximatelyEqual(to: viewModel.region, tolerance: 0.001) {
-                mapView.setRegion(viewModel.region, animated: true)
-            }
-        }
+        // NEVER reset the map's region here — user panning stays entirely in their control
         
         // Always update annotations (this doesn't affect map position)
         updateAnnotations(mapView)
     }
     
     private func updateAnnotations(_ mapView: MKMapView) {
-        // Only update annotations if not currently loading to prevent flickering
+        // Skip annotation updates during loading to prevent flicker
         guard !viewModel.isLoadingRestaurants else { return }
-        
-        // Remove existing restaurant annotations only (keep user location)
-        let restaurantAnnotations = mapView.annotations.compactMap { $0 as? RestaurantMapAnnotation }
-        mapView.removeAnnotations(restaurantAnnotations)
         
         // Add user location annotation if available and not already present
         if let userLocation = LocationManager.shared.lastLocation {
@@ -150,10 +140,14 @@ struct RealTimeMapView: UIViewRepresentable {
             }
         }
         
-        // Add restaurant annotations
-        let newRestaurantAnnotations = viewModel.restaurants.map { restaurant in
-            RestaurantMapAnnotation(restaurant: restaurant)
+        // Show every restaurant returned
+        let newRestaurantAnnotations = viewModel.restaurants.map {
+            RestaurantMapAnnotation(restaurant: $0)
         }
+        
+        // Clear old pins and add all new ones
+        let old = mapView.annotations.compactMap { $0 as? RestaurantMapAnnotation }
+        mapView.removeAnnotations(old)
         mapView.addAnnotations(newRestaurantAnnotations)
     }
     
@@ -162,54 +156,32 @@ struct RealTimeMapView: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, MKMapViewDelegate {
-        var parent: RealTimeMapView
-        private var debounceTask: Task<Void, Never>?
+        var parent: OptimizedRealTimeMapView
         
-        init(_ parent: RealTimeMapView) {
+        init(_ parent: OptimizedRealTimeMapView) {
             self.parent = parent
         }
         
-        // MARK: - Region Change Detection with Debouncing
+        // MARK: - REAL-TIME: Immediate Region Change Detection
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            // Skip updates if currently loading to prevent snap-back
-            guard !parent.viewModel.isLoadingRestaurants else { return }
-            
-            // Cancel any existing debounce task
-            debounceTask?.cancel()
-            
-            // Use Task.detached with utility priority for debouncing
-            debounceTask = Task.detached(priority: .utility) { [weak self] in
+            // Fire off every pan immediately, off the main thread
+            Task.detached(priority: .utility) { [weak self] in
                 guard let self = self else { return }
-                
-                // Sleep 1 second
-                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
-                
-                // Guard against cancellation
-                guard !Task.isCancelled else { return }
-                
-                // Double-check we're not loading before proceeding
-                let isStillLoading = await MainActor.run {
-                    self.parent.viewModel.isLoadingRestaurants
-                }
-                
-                guard !isStillLoading else { return }
-                
-                // On MainActor, set viewModel.region = mapView.region (no mapView.setRegion here)
+                // Update viewModel.region so it stays in sync
                 await MainActor.run {
                     self.parent.viewModel.region = mapView.region
                 }
-                
-                // Still off-thread, call viewModel.fetchRestaurantsForRegion
+                // Fetch every move—no debounce, no cancellation
                 await self.parent.viewModel.fetchRestaurantsForRegion(mapView.region)
             }
         }
         
-        // MARK: - Custom Annotation Views
+        // MARK: - OPTIMIZED: Custom Annotation Views with Better Performance
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             if let userAnnotation = annotation as? UserLocationAnnotation {
                 return createUserLocationView(for: userAnnotation, in: mapView)
             } else if let restaurantAnnotation = annotation as? RestaurantMapAnnotation {
-                return createRestaurantView(for: restaurantAnnotation, in: mapView)
+                return createOptimizedRestaurantView(for: restaurantAnnotation, in: mapView)
             }
             return nil
         }
@@ -223,43 +195,33 @@ struct RealTimeMapView: UIViewRepresentable {
             view.markerTintColor = .systemBlue
             view.glyphTintColor = .white
             view.canShowCallout = false
+            view.displayPriority = .required
             
             return view
         }
         
-        private func createRestaurantView(for annotation: RestaurantMapAnnotation, in mapView: MKMapView) -> MKAnnotationView {
+        // OPTIMIZED: Simplified restaurant annotation for better performance
+        private func createOptimizedRestaurantView(for annotation: RestaurantMapAnnotation, in mapView: MKMapView) -> MKAnnotationView {
             let restaurant = annotation.restaurant
-            let emoji = RestaurantEmojiService.shared.getEmojiForRestaurant(restaurant)
-            let colors = RestaurantEmojiService.shared.getColorForEmoji(emoji)
             
-            // Use a unique identifier based on emoji to improve reuse
-            let identifier = "Restaurant_\(emoji)"
+            // Use simpler identifier for better reuse
+            let identifier = restaurant.hasNutritionData ? "RestaurantNutrition" : "RestaurantBasic"
             
             let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView ??
                       MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             
-            // Set the specific emoji for this restaurant
+            // OPTIMIZED: Simplified emoji and coloring logic
+            let emoji = getSimpleEmoji(for: restaurant)
             view.glyphText = emoji
             
-            // Set color based on the emoji
-            if let bgColor = UIColor(hexString: colors.background) {
-                view.markerTintColor = bgColor
-            } else {
-                // Fallback colors based on amenity type
-                view.markerTintColor = restaurant.amenityType == "fast_food" ? .systemOrange : .systemGreen
-            }
-            
-            // Set glyph color
-            if let fgColor = UIColor(hexString: colors.foreground) {
-                view.glyphTintColor = fgColor
-            } else {
-                view.glyphTintColor = restaurant.hasNutritionData ? .white : .systemGray
-            }
-            
-            // Highlight if has nutrition data
+            // OPTIMIZED: Simple color scheme for better performance
             if restaurant.hasNutritionData {
+                view.markerTintColor = restaurant.amenityType == "fast_food" ? .systemOrange : .systemGreen
+                view.glyphTintColor = .white
                 view.displayPriority = .required
             } else {
+                view.markerTintColor = .systemGray2
+                view.glyphTintColor = .systemGray
                 view.displayPriority = .defaultLow
             }
             
@@ -269,7 +231,25 @@ struct RealTimeMapView: UIViewRepresentable {
             return view
         }
         
-        // MARK: - Annotation Selection
+        // OPTIMIZED: Simple emoji logic for performance
+        private func getSimpleEmoji(for restaurant: Restaurant) -> String {
+            let name = restaurant.name.lowercased()
+            
+            // Fast lookup for common chains
+            if name.contains("mcdonald") { return "🍟" }
+            if name.contains("subway") { return "🥪" }
+            if name.contains("starbucks") { return "☕" }
+            if name.contains("pizza") { return "🍕" }
+            if name.contains("taco") { return "🌮" }
+            if name.contains("burger") { return "🍔" }
+            if name.contains("kfc") || name.contains("chicken") { return "🍗" }
+            if name.contains("dunkin") { return "🍩" }
+            
+            // Default by amenity type
+            return restaurant.amenityType == "fast_food" ? "🍔" : "🍽️"
+        }
+        
+        // MARK: - Annotation Selection with Improved Performance
         func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
             if let restaurantAnnotation = view.annotation as? RestaurantMapAnnotation {
                 parent.onRestaurantTap(restaurantAnnotation.restaurant)
@@ -284,7 +264,7 @@ struct RealTimeMapView: UIViewRepresentable {
     }
 }
 
-// MARK: - Custom Annotations
+// MARK: - Custom Annotations (Unchanged but optimized)
 class UserLocationAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     let title: String? = "Your Location"
@@ -308,7 +288,7 @@ class RestaurantMapAnnotation: NSObject, MKAnnotation {
     }
 }
 
-// MARK: - MKCoordinateRegion Extension
+// MARK: - MKCoordinateRegion Extension (Enhanced)
 extension MKCoordinateRegion {
     func isApproximatelyEqual(to other: MKCoordinateRegion, tolerance: Double = 0.001) -> Bool {
         abs(center.latitude - other.center.latitude) < tolerance &&
@@ -326,7 +306,7 @@ extension MKCoordinateRegion {
     }
 }
 
-// MARK: - UIColor Extension for Hex Colors
+// MARK: - UIColor Extension for Hex Colors (Unchanged)
 extension UIColor {
     convenience init?(hexString: String) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
@@ -353,12 +333,12 @@ extension UIColor {
     }
 }
 
-// MARK: - Spinning Map Loading Indicator
+// MARK: - OPTIMIZED: Spinning Map Loading Indicator
 struct SpinningMapIndicator: View {
     @State private var isRotating = false
     
     var body: some View {
-        // Map icon with spinning animation - no background circle
+        // Simplified loading indicator for better performance
         Image(systemName: "map.fill")
             .font(.system(size: 28, weight: .medium))
             .foregroundColor(.blue)
