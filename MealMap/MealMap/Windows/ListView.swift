@@ -194,7 +194,7 @@ struct ListView: View {
                                 .font(.system(size: 20, weight: .semibold))
                                 .foregroundColor(.primary)
                             
-                            Text(searchText.isEmpty ? 
+                            Text(searchText.isEmpty ?
                                  "Pull down to refresh or move the map to find restaurants" :
                                  "Try adjusting your search terms")
                                 .font(.system(size: 16))
@@ -345,7 +345,6 @@ struct ListView: View {
                     if hasNutrition1 != hasNutrition2 {
                         // Only prefer nutrition data if the distance penalty is small
                         let nutritionPreference = hasNutrition1 && !hasNutrition2
-                        let distancePreference = distance1 < distance2
                         
                         // If nutrition restaurant is only slightly farther (within 0.2 miles), prefer it
                         if nutritionPreference && miles1 <= miles2 + 0.2 {

@@ -91,6 +91,14 @@ struct CategoryListView: View {
                         ProgressView()
                             .scaleEffect(0.8)
                             .progressViewStyle(CircularProgressViewStyle(tint: category.color))
+                    } else {
+                        Button(action: {
+                            isPresented = false
+                        }) {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.primary)
+                        }
                     }
                 }
             }
@@ -379,7 +387,7 @@ struct EmptyResultsView: View {
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
                     } else {
-                        Text(hasFilters ? 
+                        Text(hasFilters ?
                              "Try adjusting your filters or search terms to find more restaurants." :
                              "We couldn't find any \(category.rawValue.lowercased()) restaurants in your area.")
                             .font(.system(size: 16))
@@ -428,7 +436,7 @@ struct CategoryRestaurantRow: View {
     let category: RestaurantCategory
     
     @StateObject private var locationManager = LocationManager.shared
-    @StateObject private var nutritionManager = NutritionDataManager()
+    @ObservedObject private var nutritionManager = NutritionDataManager.shared
     @State private var isPressed = false
     @State private var isPreloading = false
     

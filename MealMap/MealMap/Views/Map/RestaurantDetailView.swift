@@ -8,7 +8,7 @@ struct RestaurantDetailView: View {
     let selectedCategory: RestaurantCategory?
     @State private var animateIn = false
     @State private var hasNutritionData: Bool = false
-    @StateObject private var nutritionManager = NutritionDataManager()
+    @ObservedObject private var nutritionManager = NutritionDataManager.shared
     @State private var scrollOffset: CGFloat = 0
     @State private var viewState: ViewState = .initializing
     

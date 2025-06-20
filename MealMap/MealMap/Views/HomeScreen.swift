@@ -4,7 +4,7 @@ import CoreLocation
 struct HomeScreen: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var mapViewModel = MapViewModel()
-    @StateObject private var nutritionManager = NutritionDataManager()
+    @ObservedObject private var nutritionManager = NutritionDataManager.shared
     
     @State private var isLoadingRestaurants = false
     @State private var hasLoadedInitialData = false
@@ -269,7 +269,7 @@ struct HomeScreen: View {
                             isPresented: .constant(true)
                         )) {
                             CategoryCardView(
-                                category: categoryString, 
+                                category: categoryString,
                                 count: hasLoadedInitialData ? getCategoryCount(categoryString) : 0
                             )
                         }
@@ -315,31 +315,27 @@ struct HomeScreen: View {
     }
     
     private var popularChainsContentView: some View {
-        let chains = getPopularChains()
-        
-        if chains.isEmpty {
-            return AnyView(
-                Text("No popular chains found nearby")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .frame(maxWidth: .infinity, minHeight: 60)
-            )
-        } else {
-            return AnyView(
+        Group {
+            if let userLocation = locationManager.lastLocation {
+                let popularRestaurants = getPopularChains()
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 12) {
-                        ForEach(chains.prefix(8), id: \.id) { restaurant in
+                    HStack(spacing: 12) {
+                        ForEach(popularRestaurants, id: \.id) { restaurant in
                             PopularChainCardView(restaurant: restaurant) {
                                 selectedRestaurant = restaurant
                             }
                         }
                     }
-                    .padding(.horizontal, 2)
+                    .padding(.horizontal, 4)
                 }
-            )
+            } else {
+                Text("Location unavailable")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
         }
     }
-    
+
     private var nearbyRestaurantsView: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -393,8 +389,9 @@ struct HomeScreen: View {
             )
         } else {
             return AnyView(
-                LazyVStack(spacing: 8) {
-                    ForEach(nearby.prefix(5), id: \.id) { restaurant in
+                // OPTIMIZATION: Use VStack instead of LazyVStack for small counts
+                VStack(spacing: 8) {
+                    ForEach(nearby, id: \.id) { restaurant in
                         NearbyRestaurantRowView(restaurant: restaurant) {
                             selectedRestaurant = restaurant
                         }
@@ -414,7 +411,12 @@ struct HomeScreen: View {
         // Step 2: Start location services immediately
         locationManager.requestLocationPermission()
         
-        // Step 3: Start loading restaurants once location is available
+        // Step 3: Initialize nutrition manager
+        Task {
+            await nutritionManager.initializeIfNeeded()
+        }
+        
+        // Step 4: Start loading restaurants once location is available
         Task { @MainActor in
             // Wait for location
             var attempts = 0
@@ -429,12 +431,12 @@ struct HomeScreen: View {
                 return
             }
             
-            // Step 4: Load restaurants with progress tracking
+            // Step 5: Load restaurants with progress tracking
             isLoadingRestaurants = true
             
-            await mapViewModel.refreshDataWithRadius(for: userLocation, radius: 2.5)
+            mapViewModel.refreshData(for: userLocation)
             
-            // Step 5: Mark as loaded and hide main loading screen
+            // Step 6: Mark as loaded and hide main loading screen
             hasLoadedInitialData = true
             isLoadingRestaurants = false
             
@@ -452,29 +454,94 @@ struct HomeScreen: View {
         
         switch category {
         case "Fast Food":
-            return restaurants.filter { $0.amenityType == "fast_food" }
+            // FIXED: Include all fast food chains and restaurants with amenityType fast_food
+            return restaurants.filter { restaurant in
+                restaurant.amenityType == "fast_food" || 
+                isFastFoodChain(restaurant.name)
+            }
         case "Healthy":
+            // FIXED: Include healthy chains and keyword-based filtering
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("fresh") || name.contains("bowl")
+                return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
+                       isHealthyChain(restaurant.name)
             }
         case "Vegan":
+            // FIXED: Include vegan-friendly chains
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("vegan") || name.contains("plant")
+                return name.contains("vegan") || name.contains("plant") ||
+                       isVeganFriendlyChain(restaurant.name)
             }
         case "High Protein":
+            // FIXED: Include protein-focused chains and grills
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("grill") || name.contains("chicken")
+                return name.contains("grill") || name.contains("chicken") ||
+                       name.contains("steakhouse") || name.contains("bbq") ||
+                       isHighProteinChain(restaurant.name)
             }
         case "Low Carb":
+            // FIXED: Include low-carb friendly chains
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("grill")
+                return name.contains("salad") || name.contains("grill") ||
+                       name.contains("keto") || isLowCarbFriendlyChain(restaurant.name)
             }
         default:
             return []
+        }
+    }
+    
+    // MARK: - Chain Classification Helpers
+    
+    private func isFastFoodChain(_ name: String) -> Bool {
+        let fastFoodChains = [
+            "McDonald's", "Burger King", "KFC", "Taco Bell", "Wendy's",
+            "Subway", "Domino's", "Pizza Hut", "Dairy Queen", "Arby's",
+            "White Castle", "Carl's Jr", "Hardee's", "Jack in the Box",
+            "Popeyes", "Sonic", "Whataburger", "In-N-Out", "Five Guys"
+        ]
+        return fastFoodChains.contains { chain in
+            name.localizedCaseInsensitiveContains(chain)
+        }
+    }
+    
+    private func isHealthyChain(_ name: String) -> Bool {
+        let healthyChains = [
+            "Panera", "Chipotle", "Sweetgreen", "Freshii", "Noodles & Company",
+            "Panda Express", "Subway" // Subway can be healthy with right choices
+        ]
+        return healthyChains.contains { chain in
+            name.localizedCaseInsensitiveContains(chain)
+        }
+    }
+    
+    private func isVeganFriendlyChain(_ name: String) -> Bool {
+        let veganFriendlyChains = [
+            "Chipotle", "Subway", "Taco Bell", "Panera", "Starbucks"
+        ]
+        return veganFriendlyChains.contains { chain in
+            name.localizedCaseInsensitiveContains(chain)
+        }
+    }
+    
+    private func isHighProteinChain(_ name: String) -> Bool {
+        let highProteinChains = [
+            "KFC", "Chick-fil-A", "Popeyes", "Chipotle", "Five Guys",
+            "In-N-Out", "Whataburger", "Arby's", "Boston Market"
+        ]
+        return highProteinChains.contains { chain in
+            name.localizedCaseInsensitiveContains(chain)
+        }
+    }
+    
+    private func isLowCarbFriendlyChain(_ name: String) -> Bool {
+        let lowCarbChains = [
+            "Chipotle", "Five Guys", "In-N-Out", "Subway", "Jimmy John's"
+        ]
+        return lowCarbChains.contains { chain in
+            name.localizedCaseInsensitiveContains(chain)
         }
     }
     
@@ -487,31 +554,25 @@ struct HomeScreen: View {
             return []
         }
         
-        // Group restaurants by name (chain) and keep only the closest one
-        var chainMap: [String: Restaurant] = [:]
+        // OPTIMIZATION: Limit processing to first 20 restaurants
+        let limitedRestaurants = Array(mapViewModel.restaurants.prefix(20).filter({ $0.hasNutritionData }))
         
-        for restaurant in mapViewModel.restaurants.filter({ $0.hasNutritionData }) {
-            let distance = userLocation.distance(from: CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude))
-            
-            if let existingRestaurant = chainMap[restaurant.name] {
-                let existingDistance = userLocation.distance(from: CLLocation(latitude: existingRestaurant.latitude, longitude: existingRestaurant.longitude))
-                if distance < existingDistance {
-                    chainMap[restaurant.name] = restaurant
-                }
-            } else {
-                chainMap[restaurant.name] = restaurant
+        // Simple deduplication without complex grouping
+        var seen = Set<String>()
+        var result: [Restaurant] = []
+        
+        for restaurant in limitedRestaurants.sorted(by: { r1, r2 in
+            let distance1 = userLocation.distance(from: CLLocation(latitude: r1.latitude, longitude: r1.longitude))
+            let distance2 = userLocation.distance(from: CLLocation(latitude: r2.latitude, longitude: r2.longitude))
+            return distance1 < distance2
+        }) {
+            if !seen.contains(restaurant.name) && result.count < 6 { // REDUCED from 10
+                seen.insert(restaurant.name)
+                result.append(restaurant)
             }
         }
         
-        // Convert back to array and sort by distance
-        return Array(chainMap.values)
-            .sorted { restaurant1, restaurant2 in
-                let distance1 = userLocation.distance(from: CLLocation(latitude: restaurant1.latitude, longitude: restaurant1.longitude))
-                let distance2 = userLocation.distance(from: CLLocation(latitude: restaurant2.latitude, longitude: restaurant2.longitude))
-                return distance1 < distance2
-            }
-            .prefix(10)
-            .map { $0 }
+        return result
     }
     
     private func getNearbyRestaurants() -> [Restaurant] {
@@ -519,31 +580,14 @@ struct HomeScreen: View {
             return []
         }
         
-        // Group restaurants by name (chain) and keep only the closest one
-        var chainMap: [String: Restaurant] = [:]
+        // OPTIMIZATION: Much simpler approach
+        let limitedRestaurants = Array(mapViewModel.restaurants.prefix(15)) // REDUCED from all
         
-        for restaurant in mapViewModel.restaurants {
-            let distance = userLocation.distance(from: CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude))
-            
-            if let existingRestaurant = chainMap[restaurant.name] {
-                let existingDistance = userLocation.distance(from: CLLocation(latitude: existingRestaurant.latitude, longitude: existingRestaurant.longitude))
-                if distance < existingDistance {
-                    chainMap[restaurant.name] = restaurant
-                }
-            } else {
-                chainMap[restaurant.name] = restaurant
-            }
-        }
-        
-        // Convert back to array and sort by distance
-        return Array(chainMap.values)
-            .sorted { restaurant1, restaurant2 in
-                let distance1 = userLocation.distance(from: CLLocation(latitude: restaurant1.latitude, longitude: restaurant1.longitude))
-                let distance2 = userLocation.distance(from: CLLocation(latitude: restaurant2.latitude, longitude: restaurant2.longitude))
-                return distance1 < distance2
-            }
-            .prefix(6)
-            .map { $0 }
+        return Array(limitedRestaurants.sorted { r1, r2 in
+            let distance1 = userLocation.distance(from: CLLocation(latitude: r1.latitude, longitude: r1.longitude))
+            let distance2 = userLocation.distance(from: CLLocation(latitude: r2.latitude, longitude: r2.longitude))
+            return distance1 < distance2
+        }.prefix(4)) // REDUCED from 6
     }
 }
 

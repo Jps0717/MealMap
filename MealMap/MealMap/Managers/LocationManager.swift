@@ -10,6 +10,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var heading: Double = 0
     @Published var locationError: String?
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
+    @Published var usingFallbackLocation = false
     
     override init() {
         super.init()
@@ -25,6 +26,22 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
     }
     
+    // IMPROVED: Add fallback location support
+    func setFallbackLocation(_ location: CLLocation) {
+        lastLocation = location
+        usingFallbackLocation = true
+        locationError = nil
+        print("📍 Using fallback location: \(location.coordinate)")
+    }
+    
+    func clearFallbackLocation() {
+        usingFallbackLocation = false
+        // Restart location services if authorized
+        if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
         
@@ -33,6 +50,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
             locationError = nil
+            usingFallbackLocation = false
         case .denied:
             locationError = "Location access was denied. Please enable location access in Settings to find restaurants near you."
         case .restricted:
@@ -47,6 +65,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         lastLocation = locations.last
         locationError = nil // Clear any previous errors when we get a location
+        usingFallbackLocation = false // Clear fallback when we get real location
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
