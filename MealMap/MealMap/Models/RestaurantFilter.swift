@@ -43,6 +43,10 @@ struct RestaurantFilter: Equatable {
     var amenities: Set<RestaurantAmenity> = []
     var hasNutritionData: Bool? = nil
     
+    var isEmpty: Bool {
+        return !hasActiveFilters
+    }
+    
     var hasActiveFilters: Bool {
         return category != nil ||
                !specificChains.isEmpty ||

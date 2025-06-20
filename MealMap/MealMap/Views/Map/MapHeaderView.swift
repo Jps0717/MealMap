@@ -11,6 +11,8 @@ struct MapHeaderView: View {
     let onDismiss: () -> Void
     let onCenterLocation: () -> Void
     
+    @State private var showingFilters = false
+    
     var body: some View {
         VStack(spacing: 12) {
             // Search bar
@@ -74,6 +76,24 @@ struct MapHeaderView: View {
                 
                 MapStatusIndicators(viewModel: viewModel, isSearching: isSearching)
                 
+                Button(action: {
+                    showingFilters = true
+                }) {
+                    Image(systemName: hasActiveFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.white)
+                }
+                .frame(width: 44, height: 44)
+                .background(
+                    LinearGradient(
+                        colors: hasActiveFilters ? [Color.orange, Color.orange.opacity(0.8)] : [Color.gray, Color.gray.opacity(0.8)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .cornerRadius(22)
+                .shadow(color: (hasActiveFilters ? Color.orange : Color.gray).opacity(0.3), radius: 8, y: 4)
+                
                 Button(action: onCenterLocation) {
                     Image(systemName: "location.fill")
                         .font(.system(size: 16, weight: .medium))
@@ -92,7 +112,22 @@ struct MapHeaderView: View {
             }
             .padding(.horizontal, 16)
         }
-        .padding(.top, 40) // Moved higher from 45 to 40
+        .padding(.top, 40)
+        .sheet(isPresented: $showingFilters) {
+            RestaurantFilterView(
+                filter: Binding(
+                    get: { viewModel.currentFilter },
+                    set: { viewModel.currentFilter = $0 }
+                ),
+                isPresented: $showingFilters,
+                availableRestaurants: viewModel.restaurants,
+                userLocation: viewModel.userLocation
+            )
+        }
+    }
+    
+    private var hasActiveFilters: Bool {
+        !viewModel.currentFilter.isEmpty
     }
 }
 

@@ -36,6 +36,8 @@ final class MapViewModel: ObservableObject {
 
     // MARK: - Loading Progress
     @Published var loadingProgress: Double = 1.0
+    
+    @Published var currentFilter = RestaurantFilter()
 
     // MARK: - Private Properties
     private let overpassService = OverpassAPIService()
@@ -44,7 +46,9 @@ final class MapViewModel: ObservableObject {
     private let nutritionManager = NutritionDataManager.shared
     private let boundingBoxCache = BoundingBoxCacheService.shared
     
-    private var userLocation: CLLocationCoordinate2D?
+    var userLocation: CLLocationCoordinate2D? {
+        locationManager.lastLocation?.coordinate
+    }
     private var hasLoadedInitialData = false
     private var geocodeTask: Task<Void, Never>?
     private var dataFetchTask: Task<Void, Never>?
@@ -72,6 +76,14 @@ final class MapViewModel: ObservableObject {
     var allAvailableRestaurants: [Restaurant] {
         print("🔍 MapViewModel - allAvailableRestaurants called")
         print("🔍 MapViewModel - Raw restaurants count: \(restaurants.count)")
+        
+        if !currentFilter.isEmpty {
+            let filtered = restaurants.filter { restaurant in
+                currentFilter.matchesRestaurant(restaurant, userLocation: userLocation)
+            }
+            print("🔍 MapViewModel - Filtered to \(filtered.count) restaurants")
+            return filtered
+        }
         
         // Return ALL restaurants without any filtering
         print("🔍 MapViewModel - Returning ALL \(restaurants.count) restaurants")
@@ -209,8 +221,8 @@ final class MapViewModel: ObservableObject {
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !isLoadingRestaurants else { return }
         
-        // Set user location immediately
-        userLocation = coordinate
+        // Set user location immediately - CHANGE: Make userLocation publicly accessible
+        // userLocation = coordinate
         print("🔍 MapViewModel - Setting user location: \(coordinate)")
         
         isLoadingRestaurants = true
@@ -350,6 +362,14 @@ final class MapViewModel: ObservableObject {
             self.hasActiveRadiusFilter = false
             self.searchManager.hasActiveSearch = false
         }
+    }
+    
+    func applyFilter(_ filter: RestaurantFilter) {
+        currentFilter = filter
+    }
+    
+    func clearFilters() {
+        currentFilter = RestaurantFilter()
     }
 
     func selectRestaurant(_ restaurant: Restaurant) {
