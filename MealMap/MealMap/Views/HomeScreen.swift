@@ -34,6 +34,7 @@ struct HomeScreen: View {
             }
         }
         .onAppear {
+            clearFiltersOnHomeScreen()
             startOptimizedLoading()
         }
         .sheet(item: $selectedRestaurant) { restaurant in
@@ -43,6 +44,13 @@ struct HomeScreen: View {
                 selectedCategory: nil
             )
             .environmentObject(nutritionManager)
+        }
+    }
+    
+    private func clearFiltersOnHomeScreen() {
+        if mapViewModel.currentFilter.hasActiveFilters {
+            print(" HomeScreen: Clearing active filters for clean home experience")
+            mapViewModel.clearFilters()
         }
     }
     
@@ -75,7 +83,6 @@ struct HomeScreen: View {
     private var mainContentView: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Header
                 headerView
                 
                 searchBarView
@@ -193,12 +200,11 @@ struct HomeScreen: View {
     private func performSearch(query: String) async {
         isSearching = true
         
-        // Simple search through loaded restaurants
         let results = mapViewModel.restaurants.filter { restaurant in
             restaurant.name.localizedCaseInsensitiveContains(query)
         }
         
-        self.searchResults = Array(results.prefix(20)) // Limit to 20 results
+        self.searchResults = Array(results.prefix(20))
         self.isSearching = false
     }
     
@@ -227,7 +233,7 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
+                NavigationLink(destination: MapScreen(viewModel: createCleanMapViewModel())) {
                     HStack {
                         Image(systemName: "map")
                         Text("Map")
@@ -247,11 +253,24 @@ struct HomeScreen: View {
             }
             
             if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
-                Text("📍 \(mapViewModel.currentAreaName)")
+                Text(" \(mapViewModel.currentAreaName)")
                     .font(.caption)
                     .foregroundColor(.gray)
             }
         }
+    }
+    
+    private func createCleanMapViewModel() -> MapViewModel {
+        let cleanViewModel = MapViewModel()
+        
+        cleanViewModel.restaurants = mapViewModel.restaurants
+        cleanViewModel.region = mapViewModel.region
+        cleanViewModel.currentAreaName = mapViewModel.currentAreaName
+        
+        cleanViewModel.clearFilters()
+        
+        print(" Created clean MapViewModel for navigation from HomeScreen")
+        return cleanViewModel
     }
     
     private var categoriesView: some View {
@@ -288,7 +307,7 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink("View All", destination: MapScreen(viewModel: mapViewModel))
+                NavigationLink("View All", destination: MapScreen(viewModel: createCleanMapViewModel()))
                     .font(.caption)
                     .foregroundColor(.blue)
             }
@@ -345,7 +364,7 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink("View All", destination: MapScreen(viewModel: mapViewModel))
+                NavigationLink("View All", destination: MapScreen(viewModel: createCleanMapViewModel()))
                     .font(.caption)
                     .foregroundColor(.blue)
             }
@@ -389,7 +408,6 @@ struct HomeScreen: View {
             )
         } else {
             return AnyView(
-                // OPTIMIZATION: Use VStack instead of LazyVStack for small counts
                 VStack(spacing: 8) {
                     ForEach(nearby, id: \.id) { restaurant in
                         NearbyRestaurantRowView(restaurant: restaurant) {
@@ -402,45 +420,36 @@ struct HomeScreen: View {
     }
     
     private func startOptimizedLoading() {
-        // Step 1: Check if we already have data
         if hasLoadedInitialData && !mapViewModel.restaurants.isEmpty {
             showMainLoadingScreen = false
             return
         }
         
-        // Step 2: Start location services immediately
         locationManager.requestLocationPermission()
         
-        // Step 3: Initialize nutrition manager
         Task {
             await nutritionManager.initializeIfNeeded()
         }
         
-        // Step 4: Start loading restaurants once location is available
         Task { @MainActor in
-            // Wait for location
             var attempts = 0
-            while locationManager.lastLocation == nil && attempts < 50 { // 5 second timeout
-                try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 second
+            while locationManager.lastLocation == nil && attempts < 50 {
+                try? await Task.sleep(nanoseconds: 100_000_000)
                 attempts += 1
             }
             
             guard let userLocation = locationManager.lastLocation?.coordinate else {
-                // If no location after 5 seconds, hide loading screen anyway
                 showMainLoadingScreen = false
                 return
             }
             
-            // Step 5: Load restaurants with progress tracking
             isLoadingRestaurants = true
             
             mapViewModel.refreshData(for: userLocation)
             
-            // Step 6: Mark as loaded and hide main loading screen
             hasLoadedInitialData = true
             isLoadingRestaurants = false
             
-            // Smooth transition
             withAnimation(.easeInOut(duration: 0.5)) {
                 showMainLoadingScreen = false
             }
@@ -454,27 +463,23 @@ struct HomeScreen: View {
         
         switch category {
         case "Fast Food":
-            // FIXED: Include all fast food chains and restaurants with amenityType fast_food
             return restaurants.filter { restaurant in
                 restaurant.amenityType == "fast_food" || 
                 isFastFoodChain(restaurant.name)
             }
         case "Healthy":
-            // FIXED: Include healthy chains and keyword-based filtering
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
                 return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
                        isHealthyChain(restaurant.name)
             }
         case "Vegan":
-            // FIXED: Include vegan-friendly chains
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
                 return name.contains("vegan") || name.contains("plant") ||
                        isVeganFriendlyChain(restaurant.name)
             }
         case "High Protein":
-            // FIXED: Include protein-focused chains and grills
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
                 return name.contains("grill") || name.contains("chicken") ||
@@ -482,7 +487,6 @@ struct HomeScreen: View {
                        isHighProteinChain(restaurant.name)
             }
         case "Low Carb":
-            // FIXED: Include low-carb friendly chains
             return restaurants.filter { restaurant in
                 let name = restaurant.name.lowercased()
                 return name.contains("salad") || name.contains("grill") ||
@@ -554,10 +558,8 @@ struct HomeScreen: View {
             return []
         }
         
-        // OPTIMIZATION: Limit processing to first 20 restaurants
         let limitedRestaurants = Array(mapViewModel.restaurants.prefix(20).filter({ $0.hasNutritionData }))
         
-        // Simple deduplication without complex grouping
         var seen = Set<String>()
         var result: [Restaurant] = []
         
@@ -566,7 +568,7 @@ struct HomeScreen: View {
             let distance2 = userLocation.distance(from: CLLocation(latitude: r2.latitude, longitude: r2.longitude))
             return distance1 < distance2
         }) {
-            if !seen.contains(restaurant.name) && result.count < 6 { // REDUCED from 10
+            if !seen.contains(restaurant.name) && result.count < 6 {
                 seen.insert(restaurant.name)
                 result.append(restaurant)
             }
@@ -580,18 +582,16 @@ struct HomeScreen: View {
             return []
         }
         
-        // OPTIMIZATION: Much simpler approach
-        let limitedRestaurants = Array(mapViewModel.restaurants.prefix(15)) // REDUCED from all
+        let limitedRestaurants = Array(mapViewModel.restaurants.prefix(15))
         
         return Array(limitedRestaurants.sorted { r1, r2 in
             let distance1 = userLocation.distance(from: CLLocation(latitude: r1.latitude, longitude: r1.longitude))
             let distance2 = userLocation.distance(from: CLLocation(latitude: r2.latitude, longitude: r2.longitude))
             return distance1 < distance2
-        }.prefix(4)) // REDUCED from 6
+        }.prefix(4))
     }
 }
 
-// Simplified UI components
 struct SearchResultRow: View {
     let restaurant: Restaurant
     let onTap: () -> Void
@@ -658,12 +658,12 @@ struct CategoryCardView: View {
     
     private func getCategoryIcon(_ category: String) -> String {
         switch category {
-        case "Fast Food": return "🍔"
-        case "Healthy": return "🥗"
-        case "Vegan": return "🌱"
-        case "High Protein": return "🥩"
-        case "Low Carb": return "🥬"
-        default: return "🍽️"
+        case "Fast Food": return ""
+        case "Healthy": return ""
+        case "Vegan": return ""
+        case "High Protein": return ""
+        case "Low Carb": return ""
+        default: return ""
         }
     }
 }
