@@ -47,7 +47,7 @@ struct EnhancedMapView: View {
                         if viewModel.isLoadingRestaurants {
                             SpinningMapIndicator()
                                 .padding(.trailing, 20)
-                                .padding(.bottom, 50) // Lower position, closer to bottom
+                                .padding(.bottom, 20) // Moved lower from 30 to 20
                         }
                     }
                 }

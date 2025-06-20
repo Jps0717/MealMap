@@ -12,7 +12,7 @@ struct MapHeaderView: View {
     let onCenterLocation: () -> Void
     
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 12) {
             // Search bar
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
@@ -39,7 +39,7 @@ struct MapHeaderView: View {
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.vertical, 16)
+            .padding(.vertical, 14)
             .background(
                 RoundedRectangle(cornerRadius: 16)
                     .fill(Color(.systemBackground))
@@ -92,7 +92,7 @@ struct MapHeaderView: View {
             }
             .padding(.horizontal, 16)
         }
-        .padding(.top, 75)
+        .padding(.top, 40) // Moved higher from 45 to 40
     }
 }
 
@@ -102,27 +102,7 @@ struct MapStatusIndicators: View {
     
     var body: some View {
         HStack(spacing: 8) {
-            // Nutrition only indicator
-            HStack(spacing: 4) {
-                Image(systemName: "checkmark.seal.fill")
-                    .font(.system(size: 10))
-                    .foregroundColor(.green)
-                Text("Nutrition Only")
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
-                    .foregroundColor(.green)
-            }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(
-                Capsule()
-                    .fill(.green.opacity(0.1))
-                    .overlay(
-                        Capsule()
-                            .stroke(.green.opacity(0.3), lineWidth: 1)
-                    )
-            )
-            
-            // Search results indicator
+            // Search results indicator only (removed Nutrition Only tag)
             if viewModel.showSearchResults {
                 HStack(spacing: 6) {
                     if isSearching {
