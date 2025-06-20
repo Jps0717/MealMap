@@ -37,6 +37,20 @@ struct EnhancedMapView: View {
                         centerOnUserLocation()
                     }
                 )
+                
+                // Bottom right loading indicator
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        
+                        if viewModel.isLoadingRestaurants {
+                            SpinningMapIndicator()
+                                .padding(.trailing, 20)
+                                .padding(.bottom, 50) // Lower position, closer to bottom
+                        }
+                    }
+                }
             }
         }
         .sheet(isPresented: $showingRestaurantDetail) {
@@ -73,7 +87,10 @@ struct EnhancedMapView: View {
                 center: userLocation.coordinate,
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             )
-            viewModel.updateRegion(newRegion)
+            
+            // Force programmatic update by setting region directly
+            // This will trigger updateUIView to set the map region
+            viewModel.region = newRegion
         }
     }
 }
@@ -82,6 +99,7 @@ struct EnhancedMapView: View {
 struct RealTimeMapView: UIViewRepresentable {
     @ObservedObject var viewModel: MapViewModel
     let onRestaurantTap: (Restaurant) -> Void
+    @State private var shouldUpdateRegionProgrammatically = false
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
@@ -102,30 +120,41 @@ struct RealTimeMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
-        // Update region if changed externally
-        if !mapView.region.isApproximatelyEqual(to: viewModel.region) {
-            mapView.setRegion(viewModel.region, animated: true)
+        // PREVENT SNAP-BACK: Only update region for explicit programmatic changes
+        // Never update region while loading to avoid disrupting user interaction
+        if !viewModel.isLoadingRestaurants {
+            // Only update if there's a significant difference suggesting intentional programmatic update
+            if !mapView.region.isApproximatelyEqual(to: viewModel.region, tolerance: 0.001) {
+                mapView.setRegion(viewModel.region, animated: true)
+            }
         }
         
-        // Update annotations
+        // Always update annotations (this doesn't affect map position)
         updateAnnotations(mapView)
     }
     
     private func updateAnnotations(_ mapView: MKMapView) {
-        // Remove existing annotations
-        mapView.removeAnnotations(mapView.annotations)
+        // Only update annotations if not currently loading to prevent flickering
+        guard !viewModel.isLoadingRestaurants else { return }
         
-        // Add user location annotation if available
+        // Remove existing restaurant annotations only (keep user location)
+        let restaurantAnnotations = mapView.annotations.compactMap { $0 as? RestaurantMapAnnotation }
+        mapView.removeAnnotations(restaurantAnnotations)
+        
+        // Add user location annotation if available and not already present
         if let userLocation = LocationManager.shared.lastLocation {
-            let userAnnotation = UserLocationAnnotation(coordinate: userLocation.coordinate)
-            mapView.addAnnotation(userAnnotation)
+            let hasUserAnnotation = mapView.annotations.contains { $0 is UserLocationAnnotation }
+            if !hasUserAnnotation {
+                let userAnnotation = UserLocationAnnotation(coordinate: userLocation.coordinate)
+                mapView.addAnnotation(userAnnotation)
+            }
         }
         
         // Add restaurant annotations
-        let restaurantAnnotations = viewModel.restaurants.map { restaurant in
+        let newRestaurantAnnotations = viewModel.restaurants.map { restaurant in
             RestaurantMapAnnotation(restaurant: restaurant)
         }
-        mapView.addAnnotations(restaurantAnnotations)
+        mapView.addAnnotations(newRestaurantAnnotations)
     }
     
     func makeCoordinator() -> Coordinator {
@@ -142,20 +171,36 @@ struct RealTimeMapView: UIViewRepresentable {
         
         // MARK: - Region Change Detection with Debouncing
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            // Cancel previous debounce task
+            // Skip updates if currently loading to prevent snap-back
+            guard !parent.viewModel.isLoadingRestaurants else { return }
+            
+            // Cancel any existing debounce task
             debounceTask?.cancel()
             
-            // Debounce region changes (500ms)
-            debounceTask = Task { @MainActor in
-                try? await Task.sleep(nanoseconds: 500_000_000) // 500ms debounce
+            // Use Task.detached with utility priority for debouncing
+            debounceTask = Task.detached(priority: .utility) { [weak self] in
+                guard let self = self else { return }
                 
+                // Sleep 1 second
+                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+                
+                // Guard against cancellation
                 guard !Task.isCancelled else { return }
                 
-                // Update view model region
-                parent.viewModel.updateMapRegion(mapView.region)
+                // Double-check we're not loading before proceeding
+                let isStillLoading = await MainActor.run {
+                    self.parent.viewModel.isLoadingRestaurants
+                }
                 
-                // Fetch restaurants for new region
-                await parent.viewModel.fetchRestaurantsForRegion(mapView.region)
+                guard !isStillLoading else { return }
+                
+                // On MainActor, set viewModel.region = mapView.region (no mapView.setRegion here)
+                await MainActor.run {
+                    self.parent.viewModel.region = mapView.region
+                }
+                
+                // Still off-thread, call viewModel.fetchRestaurantsForRegion
+                await self.parent.viewModel.fetchRestaurantsForRegion(mapView.region)
             }
         }
         
@@ -305,5 +350,30 @@ extension UIColor {
             blue: Double(b) / 255,
             alpha: Double(a) / 255
         )
+    }
+}
+
+// MARK: - Spinning Map Loading Indicator
+struct SpinningMapIndicator: View {
+    @State private var isRotating = false
+    
+    var body: some View {
+        // Map icon with spinning animation - no background circle
+        Image(systemName: "map.fill")
+            .font(.system(size: 28, weight: .medium))
+            .foregroundColor(.blue)
+            .shadow(color: .black.opacity(0.3), radius: 4, x: 1, y: 2)
+            .rotationEffect(Angle(degrees: isRotating ? 360 : 0))
+            .animation(
+                Animation.linear(duration: 2.0)
+                    .repeatForever(autoreverses: false),
+                value: isRotating
+            )
+            .onAppear {
+                isRotating = true
+            }
+            .onDisappear {
+                isRotating = false
+            }
     }
 }
