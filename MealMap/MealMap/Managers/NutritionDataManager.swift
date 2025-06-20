@@ -7,6 +7,11 @@ class NutritionDataManager: ObservableObject {
     @Published var currentRestaurantData: RestaurantNutritionData?
     @Published var errorMessage: String?
     
+    // ENHANCED: Batch loading tracking
+    @Published var isBatchLoading = false
+    @Published var batchLoadingProgress: Double = 0.0
+    @Published var batchLoadingStatus: String = ""
+    
     // MARK: - Singleton Pattern
     static let shared = NutritionDataManager()
     
@@ -36,7 +41,7 @@ class NutritionDataManager: ObservableObject {
         config.httpMaximumConnectionsPerHost = 2 // Reduced to avoid overwhelming
         self.session = URLSession(configuration: config)
         
-        print("🍽️ NutritionDataManager singleton initialized")
+        print(" NutritionDataManager singleton initialized")
     }
     
     // MARK: - Startup Methods
@@ -55,30 +60,30 @@ class NutritionDataManager: ObservableObject {
             "McDonald's", "Subway", "Burger King", "KFC", "Wendy's"
         ]
         
-        print("🚀 Preloading critical restaurant data...")
+        print(" Preloading critical restaurant data...")
         
         for chain in criticalChains {
             guard !nutritionCache.contains(restaurantName: chain) else { 
-                print("⚡ \(chain) already cached")
+                print("  already cached")
                 continue 
             }
             
             if let data = await loadFromAPI(restaurantName: chain) {
                 nutritionCache.store(restaurant: data)
-                print("✅ Preloaded \(chain)")
+                print(" Preloaded ")
             } else {
-                print("❌ Failed to preload \(chain)")
+                print(" Failed to preload ")
             }
             
             // Longer delay to avoid overwhelming the API
             try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
         }
         
-        print("🎯 Critical preloading completed")
+        print(" Critical preloading completed")
     }
     
-    // MARK: - Optimized Batch Loading
-    func batchLoadNutritionData(for restaurantNames: [String]) {
+    // ENHANCED: Await-able batch loading with progress tracking
+    func batchLoadNutritionData(for restaurantNames: [String]) async {
         // Prevent multiple batch operations
         batchLoadingTask?.cancel()
         
@@ -86,44 +91,67 @@ class NutritionDataManager: ObservableObject {
         let uncachedRestaurants = restaurantNames.filter { !nutritionCache.contains(restaurantName: $0) }
         
         guard !uncachedRestaurants.isEmpty else {
-            print("📦 All restaurants already cached")
+            print(" All restaurants already cached")
             return
         }
         
         // Limit batch size to prevent overwhelming
         let limitedRestaurants = Array(uncachedRestaurants.prefix(5))
         
-        batchLoadingTask = Task {
-            var results: [RestaurantNutritionData] = []
-            
-            print("📦 Batch loading \(limitedRestaurants.count) restaurants...")
-            
-            for restaurantName in limitedRestaurants {
-                if let data = await loadFromAPI(restaurantName: restaurantName) {
-                    nutritionCache.store(restaurant: data)
-                    results.append(data)
-                    cacheMisses += 1
-                } else {
-                    print("❌ Failed to batch load \(restaurantName)")
-                }
-                
-                // Longer delay between requests
-                try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
+        await MainActor.run {
+            self.isBatchLoading = true
+            self.batchLoadingProgress = 0.0
+            self.batchLoadingStatus = "Starting batch load..."
+        }
+        
+        var results: [RestaurantNutritionData] = []
+        
+        print(" Batch loading restaurants...")
+        
+        for (index, restaurantName) in limitedRestaurants.enumerated() {
+            await MainActor.run {
+                self.batchLoadingStatus = "Loading ..."
+                self.batchLoadingProgress = Double(index) / Double(limitedRestaurants.count)
             }
             
-            print("📦 Batch loaded \(results.count)/\(limitedRestaurants.count) restaurants")
+            if let data = await loadFromAPI(restaurantName: restaurantName) {
+                nutritionCache.store(restaurant: data)
+                results.append(data)
+                cacheMisses += 1
+                print(" Batch loaded ")
+            } else {
+                print(" Failed to batch load ")
+            }
+            
+            // Delay between requests
+            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
+        }
+        
+        await MainActor.run {
+            self.batchLoadingProgress = 1.0
+            self.batchLoadingStatus = "Batch loading complete"
+            self.isBatchLoading = false
+        }
+        
+        print(" Batch loaded / restaurants")
+    }
+    
+    // MARK: - Old method for backward compatibility
+    func batchLoadNutritionData(for restaurantNames: [String]) {
+        Task {
+            await batchLoadNutritionData(for: restaurantNames)
         }
     }
     
     // MARK: - Optimized API Methods
     private func loadAvailableRestaurants() async {
         guard availableRestaurantIDs.isEmpty else {
-            print("✅ Restaurant IDs already loaded")
+            print(" Restaurant IDs already loaded")
             return
         }
         
         guard let url = URL(string: "\(baseURL)/restaurants") else {
-            print("❌ Invalid API URL")
+            print(" Invalid API URL")
             return
         }
         
@@ -131,15 +159,15 @@ class NutritionDataManager: ObservableObject {
             let (data, _) = try await session.data(from: url)
             let restaurantIDs = try JSONDecoder().decode([String].self, from: data)
             self.availableRestaurantIDs = restaurantIDs
-            print("✅ Loaded \(restaurantIDs.count) available restaurant IDs from API")
+            print(" Loaded  available restaurant IDs from API")
         } catch {
-            print("❌ Failed to load available restaurants: \(error.localizedDescription)")
+            print(" Failed to load available restaurants: ")
         }
     }
     
     private func fetchRestaurantFromAPI(restaurantId: String) async -> RestaurantNutritionData? {
         guard let url = URL(string: "\(baseURL)/restaurants/\(restaurantId)") else {
-            print("❌ Invalid restaurant API URL for \(restaurantId)")
+            print(" Invalid restaurant API URL for ")
             return nil
         }
         
@@ -147,7 +175,7 @@ class NutritionDataManager: ObservableObject {
             let (data, response) = try await session.data(from: url)
             
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                print("❌ API returned status \(httpResponse.statusCode) for \(restaurantId)")
+                print(" API returned status  for ")
                 return nil
             }
             
@@ -173,7 +201,7 @@ class NutritionDataManager: ObservableObject {
                 items: nutritionItems
             )
         } catch {
-            print("❌ Failed to fetch \(restaurantId) from API: \(error.localizedDescription)")
+            print(" Failed to fetch  from API: ")
             return nil
         }
     }
@@ -207,7 +235,7 @@ class NutritionDataManager: ObservableObject {
                 if let result = result {
                     self.nutritionCache.store(restaurant: result)
                 } else {
-                    self.errorMessage = "No nutrition data available for \(restaurantName)"
+                    self.errorMessage = "No nutrition data available for "
                 }
                 self.loadingTasks.removeValue(forKey: cacheKey)
             }
@@ -267,12 +295,12 @@ class NutritionDataManager: ObservableObject {
     
     func printPerformanceStats() {
         let stats = getCacheStats()
-        print("📊 NutritionDataManager Performance:")
-        print("   Cache Hits: \(stats.hits)")
-        print("   Cache Misses: \(stats.misses)")
-        print("   Hit Rate: \(String(format: "%.1f", stats.hitRate * 100))%")
-        print("   Available Restaurants: \(getAvailableRestaurants().count)")
-        print("   API Restaurant IDs: \(availableRestaurantIDs.count)")
+        print(" NutritionDataManager Performance:")
+        print("   Cache Hits: ")
+        print("   Cache Misses: ")
+        print("   Hit Rate: ")
+        print("   Available Restaurants: ")
+        print("   API Restaurant IDs: ")
     }
     
     deinit {
@@ -280,7 +308,7 @@ class NutritionDataManager: ObservableObject {
             task.cancel()
         }
         loadingTasks.removeAll()
-        print("🍽️ NutritionDataManager deinitalized")
+        print(" NutritionDataManager deinitalized")
     }
 }
 

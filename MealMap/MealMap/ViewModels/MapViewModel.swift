@@ -199,7 +199,7 @@ final class MapViewModel: ObservableObject {
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !isLoadingRestaurants else { return }
         
-        print(" MapViewModel - Starting viewport-based refresh for: \(coordinate)")
+        print("🗺️ MapViewModel - Starting viewport-based refresh for: \(coordinate)")
         
         isLoadingRestaurants = true
         loadingProgress = 0.0
@@ -214,7 +214,7 @@ final class MapViewModel: ObservableObject {
             }
             
             do {
-                print(" MapViewModel - Starting optimized viewport API fetch")
+                print("🗺️ MapViewModel - Starting optimized viewport API fetch")
                 
                 let radius = 5.0
                 let radiusInDegrees = radius / 69.0
@@ -226,36 +226,41 @@ final class MapViewModel: ObservableObject {
                     maxLon: coordinate.longitude + radiusInDegrees
                 )
                 
-                print(" MapViewModel - Viewport API returned \(fetchedRestaurants.count) restaurants")
+                print("🗺️ MapViewModel - Viewport API returned \(fetchedRestaurants.count) restaurants")
                 
                 await MainActor.run {
-                    self.loadingProgress = 0.8
+                    self.loadingProgress = 0.6
                 }
                 
                 let limitedRestaurants = Array(fetchedRestaurants.prefix(50))
                 
+                await MainActor.run {
+                    self.restaurants = limitedRestaurants
+                    self.loadingProgress = 0.8
+                    print("🗺️ MapViewModel - Set restaurants array to \(limitedRestaurants.count) items")
+                }
+                
+                // ENHANCED: Wait for batch loading to complete
                 let nutritionRestaurants = limitedRestaurants.filter { $0.hasNutritionData }
                 let topNutritionRestaurants = Array(nutritionRestaurants.prefix(5))
                 if !topNutritionRestaurants.isEmpty {
-                    Task.detached(priority: .background) { [weak self] in
-                        await self?.nutritionManager.batchLoadNutritionData(for: topNutritionRestaurants.map(\.name))
-                    }
+                    print("🍽️ Starting batch nutrition loading for \(topNutritionRestaurants.count) restaurants...")
+                    await self.nutritionManager.batchLoadNutritionData(for: topNutritionRestaurants.map(\.name))
+                    print("🍽️ Batch nutrition loading completed")
                 }
                 
                 await MainActor.run {
-                    self.restaurants = limitedRestaurants
                     self.loadingProgress = 1.0
                     self.isLoadingRestaurants = false
                     self.hasInitialized = true
                     
-                    print(" MapViewModel - Set restaurants array to \(limitedRestaurants.count) items")
-                    print(" Viewport loaded \(limitedRestaurants.count) restaurants near user location")
-                    print(" \(nutritionRestaurants.count) have nutrition data")
+                    print("🗺️ Viewport loaded \(limitedRestaurants.count) restaurants near user location")
+                    print("🗺️ \(nutritionRestaurants.count) have nutrition data")
                 }
                 
             } catch {
                 await MainActor.run {
-                    print(" Error fetching restaurants: \(error)")
+                    print("❌ Error fetching restaurants: \(error)")
                     
                     let testRestaurants = [
                         Restaurant(
@@ -285,7 +290,7 @@ final class MapViewModel: ObservableObject {
                     ]
                     
                     self.restaurants = testRestaurants
-                    print(" MapViewModel - Using fallback test restaurants: \(testRestaurants.count)")
+                    print("🗺️ MapViewModel - Using fallback test restaurants: \(testRestaurants.count)")
                     
                     self.searchErrorMessage = "Unable to load restaurants right now. Showing test data."
                     self.showSearchError = true

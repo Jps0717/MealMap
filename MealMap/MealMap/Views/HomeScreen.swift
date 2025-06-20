@@ -10,6 +10,11 @@ struct HomeScreen: View {
     @State private var hasLoadedInitialData = false
     @State private var showMainLoadingScreen = true
     
+    // ENHANCED: Loading status tracking
+    @State private var loadingStatus = "Setting up MealMap..."
+    @State private var loadingSubtitle = "Getting location..."
+    @State private var loadingProgress: Double = 0.0
+    
     @State private var searchText = ""
     @State private var isSearching = false
     @State private var searchResults: [Restaurant] = []
@@ -50,34 +55,50 @@ struct HomeScreen: View {
     private func clearFiltersOnHomeScreen() {
         if mapViewModel.currentFilter.hasActiveFilters {
             print(" HomeScreen: Clearing active filters for clean home experience")
+            updateLoadingStatus("Clearing filters", "Preparing clean experience...")
             mapViewModel.clearFilters()
         }
     }
     
     private var fullScreenLoadingView: some View {
-        VStack(spacing: 20) {
-            ProgressView()
-                .scaleEffect(1.5)
+        VStack(spacing: 24) {
+            ProgressView(value: loadingProgress, total: 1.0)
+                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                .scaleEffect(1.2)
+                .frame(width: 200)
             
             VStack(spacing: 8) {
-                Text("Setting up MealMap...")
+                Text(loadingStatus)
                     .font(.headline)
+                    .fontWeight(.semibold)
                 
-                if isLoadingRestaurants {
-                    Text("Loading restaurants near you")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                } else {
-                    Text("Getting location...")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
+                Text(loadingSubtitle)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
             }
+            
+            Text("\(Int(loadingProgress * 100))%")
+                .font(.caption2)
+                .foregroundColor(.blue)
+                .fontWeight(.medium)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(UIColor.systemBackground))
         .navigationTitle("MealMap")
         .navigationBarHidden(true)
+    }
+    
+    private func updateLoadingStatus(_ status: String, _ subtitle: String, progress: Double? = nil) {
+        Task { @MainActor in
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.loadingStatus = status
+                self.loadingSubtitle = subtitle
+                if let progress = progress {
+                    self.loadingProgress = progress
+                }
+            }
+        }
     }
     
     private var mainContentView: some View {
@@ -425,31 +446,82 @@ struct HomeScreen: View {
             return
         }
         
-        locationManager.requestLocationPermission()
-        
-        Task {
-            await nutritionManager.initializeIfNeeded()
-        }
-        
         Task { @MainActor in
+            // Step 1: Location setup
+            updateLoadingStatus("Getting Location", "Requesting location permission...", progress: 0.1)
+            locationManager.requestLocationPermission()
+            
+            // Step 2: Nutrition manager setup
+            updateLoadingStatus("Initializing", "Setting up nutrition database...", progress: 0.2)
+            await nutritionManager.initializeIfNeeded()
+            
+            // Step 3: Wait for location
+            updateLoadingStatus("Finding Location", "Waiting for GPS signal...", progress: 0.3)
             var attempts = 0
             while locationManager.lastLocation == nil && attempts < 50 {
                 try? await Task.sleep(nanoseconds: 100_000_000)
                 attempts += 1
+                
+                // Update progress while waiting
+                let waitProgress = 0.3 + (Double(attempts) / 50.0) * 0.2 // 0.3 to 0.5
+                updateLoadingStatus("Finding Location", "GPS signal: \(attempts * 2)%...", progress: waitProgress)
             }
             
             guard let userLocation = locationManager.lastLocation?.coordinate else {
+                updateLoadingStatus("Location Error", "Using fallback location...", progress: 0.6)
+                try? await Task.sleep(nanoseconds: 1_000_000_000)
                 showMainLoadingScreen = false
                 return
             }
             
+            // Step 4: Start restaurant loading
+            updateLoadingStatus("Fetching Restaurants", "Connecting to restaurant database...", progress: 0.6)
             isLoadingRestaurants = true
             
+            // Monitor restaurant loading progress
+            let progressMonitorTask = Task {
+                while isLoadingRestaurants || nutritionManager.isBatchLoading {
+                    try? await Task.sleep(nanoseconds: 300_000_000) // Check every 0.3 seconds
+                    
+                    let mapProgress = mapViewModel.loadingProgress
+                    
+                    if nutritionManager.isBatchLoading {
+                        // Show batch loading status
+                        let batchProgress = nutritionManager.batchLoadingProgress
+                        let combinedProgress = 0.6 + (mapProgress * 0.2) + (batchProgress * 0.2) // 0.6 to 1.0
+                        updateLoadingStatus("Loading Nutrition Data", nutritionManager.batchLoadingStatus, progress: combinedProgress)
+                    } else if isLoadingRestaurants {
+                        // Show restaurant loading status
+                        let adjustedProgress = 0.6 + (mapProgress * 0.3) // Scale to 0.6-0.9 range
+                        
+                        if mapProgress < 0.3 {
+                            updateLoadingStatus("Fetching Restaurants", "Searching nearby restaurants...", progress: adjustedProgress)
+                        } else if mapProgress < 0.8 {
+                            updateLoadingStatus("Processing Data", "Organizing restaurant information...", progress: adjustedProgress)
+                        } else {
+                            updateLoadingStatus("Preparing Nutrition", "Getting ready to load nutrition data...", progress: adjustedProgress)
+                        }
+                    }
+                }
+            }
+            
+            // Start the actual data refresh
             mapViewModel.refreshData(for: userLocation)
+            
+            // Wait for both restaurant loading and batch loading to complete
+            await progressMonitorTask.value
+            
+            // Step 5: Finalization
+            updateLoadingStatus("Almost Ready", "Finalizing your experience...", progress: 0.95)
             
             hasLoadedInitialData = true
             isLoadingRestaurants = false
             
+            // Final step
+            updateLoadingStatus("Ready!", "Welcome to MealMap!", progress: 1.0)
+            try? await Task.sleep(nanoseconds: 800_000_000) // Brief pause to show completion
+            
+            // Hide loading screen with animation
             withAnimation(.easeInOut(duration: 0.5)) {
                 showMainLoadingScreen = false
             }
@@ -496,8 +568,6 @@ struct HomeScreen: View {
             return []
         }
     }
-    
-    // MARK: - Chain Classification Helpers
     
     private func isFastFoodChain(_ name: String) -> Bool {
         let fastFoodChains = [
@@ -658,12 +728,12 @@ struct CategoryCardView: View {
     
     private func getCategoryIcon(_ category: String) -> String {
         switch category {
-        case "Fast Food": return ""
-        case "Healthy": return ""
-        case "Vegan": return ""
-        case "High Protein": return ""
-        case "Low Carb": return ""
-        default: return ""
+        case "Fast Food": return "🍔"
+        case "Healthy": return "🥗"
+        case "Vegan": return "🌱"
+        case "High Protein": return "🥩"
+        case "Low Carb": return "🥬"
+        default: return "🍽️"
         }
     }
 }
