@@ -51,7 +51,18 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
     var amenityType: String? = nil
     
     var hasNutritionData: Bool {
-        return RestaurantData.restaurantsWithNutritionData.contains(self.name)
+        // Use static list for synchronous access - fast and reliable
+        let normalizedName = self.name.lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "'", with: "")
+            .replacingOccurrences(of: ".", with: "")
+        
+        return RestaurantData.restaurantsWithNutritionData.contains { knownRestaurant in
+            let normalizedKnown = knownRestaurant.lowercased()
+                .replacingOccurrences(of: "'", with: "")
+                .replacingOccurrences(of: ".", with: "")
+            return normalizedName.contains(normalizedKnown) || normalizedKnown.contains(normalizedName)
+        }
     }
     
     var displayPriority: Int {
@@ -85,7 +96,9 @@ extension Restaurant {
         
         switch category {
         case .fastFood:
-            return RestaurantData.restaurantsWithNutritionData.contains(self.name) ||
+            return RestaurantData.restaurantsWithNutritionData.contains { chain in
+                name.contains(chain.lowercased())
+            } ||
                    PopularChains.fastFoodChains.contains { chain in
                        name.contains(chain.lowercased())
                    }
@@ -210,7 +223,7 @@ final class OverpassAPIService {
         
         // Filter to only restaurants with nutrition data
         let nutritionRestaurants = restaurants.filter { restaurant in
-            RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
+            restaurant.hasNutritionData
         }
         
         viewportCache.store(nutritionRestaurants, for: cacheKey)
@@ -425,8 +438,8 @@ final class OverpassAPIService {
         
         // OPTIMIZED: Sort by nutrition data and priority
         let sortedRestaurants = restaurants.sorted { r1, r2 in
-            let r1HasNutrition = RestaurantData.restaurantsWithNutritionData.contains(r1.name)
-            let r2HasNutrition = RestaurantData.restaurantsWithNutritionData.contains(r2.name)
+            let r1HasNutrition = r1.hasNutritionData
+            let r2HasNutrition = r2.hasNutritionData
             
             if r1HasNutrition != r2HasNutrition {
                 return r1HasNutrition

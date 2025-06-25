@@ -25,19 +25,18 @@ class NutritionDataManager: ObservableObject {
     private var loadingTasks: [String: Task<RestaurantNutritionData?, Never>] = [:]
     private var availableRestaurantIDs: [String] = []
     
-    // MARK: - Batch Loading Control
-    private var batchLoadingTask: Task<Void, Never>?
-    private var hasStartedPreloading = false
+    // MARK: - API Connection Status
+    private var hasCheckedAPIAvailability = false
     
     // MARK: - Performance Tracking
     private var cacheHits = 0
     private var cacheMisses = 0
     
     private init() {
-        // Configure session for better performance
+        // Configure session for better performance and Render cold start handling
         let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 8.0 // Increased timeout
-        config.timeoutIntervalForResource = 15.0
+        config.timeoutIntervalForRequest = 60.0 // Increased to handle Render cold start (50s+)
+        config.timeoutIntervalForResource = 90.0 // Total timeout for resource
         config.requestCachePolicy = .reloadIgnoringLocalCacheData
         config.httpMaximumConnectionsPerHost = 2 // Reduced to avoid overwhelming
         self.session = URLSession(configuration: config)
@@ -51,109 +50,21 @@ class NutritionDataManager: ObservableObject {
         debugLog(" NutritionDataManager singleton initialized (restored \(persisted.count) cached restaurants)")
     }
     
-    // MARK: - Startup Methods
+    // MARK: - Startup Methods - Lightweight Initialization Only
     func initializeIfNeeded() async {
-        guard !hasStartedPreloading else { return }
-        hasStartedPreloading = true
+        guard !hasCheckedAPIAvailability else { return }
+        hasCheckedAPIAvailability = true
         
-        await loadAvailableRestaurants()
-        await preloadCriticalRestaurants()
+        debugLog("🚀 Starting lightweight API initialization...")
+        
+        // Only check API availability - don't preload any actual data
+        await checkAPIAvailability()
+        
+        debugLog("✅ API availability check completed")
     }
     
-    // MARK: - Optimized Preloading
-    private func preloadCriticalRestaurants() async {
-        // Only preload the most commonly accessed restaurants
-        let criticalChains = [
-            "McDonald's", "Subway", "Burger King", "KFC", "Wendy's"
-        ]
-        
-        debugLog(" Preloading critical restaurant data...")
-        
-        for chain in criticalChains {
-            guard !nutritionCache.contains(restaurantName: chain) else { 
-                debugLog("  already cached")
-                continue 
-            }
-            
-            if let data = await loadFromAPI(restaurantName: chain) {
-                nutritionCache.store(restaurant: data)
-                diskCache.store(data)
-                debugLog(" Preloaded ")
-            } else {
-                debugLog(" Failed to preload ")
-            }
-            
-            // Longer delay to avoid overwhelming the API
-            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-        }
-        
-        debugLog(" Critical preloading completed")
-    }
-    
-    // ENHANCED: Await-able batch loading with progress tracking
-    func batchLoadNutritionData(for restaurantNames: [String]) async {
-        // Prevent multiple batch operations
-        batchLoadingTask?.cancel()
-        
-        // Filter out already cached restaurants
-        let uncachedRestaurants = restaurantNames.filter { !nutritionCache.contains(restaurantName: $0) }
-        
-        guard !uncachedRestaurants.isEmpty else {
-            debugLog(" All restaurants already cached")
-            return
-        }
-        
-        // Limit batch size to prevent overwhelming
-        let limitedRestaurants = Array(uncachedRestaurants.prefix(5))
-        
-        await MainActor.run {
-            self.isBatchLoading = true
-            self.batchLoadingProgress = 0.0
-            self.batchLoadingStatus = "Starting batch load..."
-        }
-        
-        var results: [RestaurantNutritionData] = []
-        
-        debugLog(" Batch loading restaurants...")
-        
-        for (index, restaurantName) in limitedRestaurants.enumerated() {
-            await MainActor.run {
-                self.batchLoadingStatus = "Loading ..."
-                self.batchLoadingProgress = Double(index) / Double(limitedRestaurants.count)
-            }
-            
-            if let data = await loadFromAPI(restaurantName: restaurantName) {
-                nutritionCache.store(restaurant: data)
-                diskCache.store(data)
-                results.append(data)
-                cacheMisses += 1
-                debugLog(" Batch loaded ")
-            } else {
-                debugLog(" Failed to batch load ")
-            }
-            
-            // Delay between requests
-            try? await Task.sleep(nanoseconds: 300_000_000) // 0.3 seconds
-        }
-        
-        await MainActor.run {
-            self.batchLoadingProgress = 1.0
-            self.batchLoadingStatus = "Batch loading complete"
-            self.isBatchLoading = false
-        }
-        
-        debugLog(" Batch loaded / restaurants")
-    }
-    
-    // MARK: - Old method for backward compatibility
-    func batchLoadNutritionData(for restaurantNames: [String]) {
-        Task {
-            await batchLoadNutritionData(for: restaurantNames)
-        }
-    }
-    
-    // MARK: - Optimized API Methods
-    private func loadAvailableRestaurants() async {
+    // ENHANCED: Just check if API is available - no data preloading
+    private func checkAPIAvailability() async {
         guard availableRestaurantIDs.isEmpty else {
             debugLog(" Restaurant IDs already loaded")
             return
@@ -164,27 +75,44 @@ class NutritionDataManager: ObservableObject {
             return
         }
         
-        do {
-            let (data, _) = try await session.data(from: url)
-            let restaurantIDs = try JSONDecoder().decode([String].self, from: data)
-            self.availableRestaurantIDs = restaurantIDs
-            debugLog(" Loaded  available restaurant IDs from API")
-        } catch {
-            debugLog(" Failed to load available restaurants: ")
-        }
-    }
-    
-    private func fetchRestaurantFromAPI(restaurantId: String) async -> RestaurantNutritionData? {
-        guard let url = URL(string: "\(baseURL)/restaurants/\(restaurantId)") else {
-            debugLog(" Invalid restaurant API URL for ")
-            return nil
-        }
+        debugLog(" Checking API availability (lightweight check)")
         
         do {
             let (data, response) = try await session.data(from: url)
             
+            if let httpResponse = response as? HTTPURLResponse {
+                debugLog(" API Response: Status \(httpResponse.statusCode)")
+                
+                if httpResponse.statusCode == 200 {
+                    let restaurantIDs = try JSONDecoder().decode([String].self, from: data)
+                    self.availableRestaurantIDs = restaurantIDs
+                    debugLog(" API is available with \(restaurantIDs.count) restaurants")
+                    return
+                } else {
+                    debugLog(" API returned status \(httpResponse.statusCode)")
+                }
+            } else {
+                debugLog(" No HTTP response received")
+            }
+        } catch {
+            debugLog(" API availability check failed: \(error.localizedDescription)")
+            debugLog(" Will use static restaurant list for hasNutritionData checks")
+        }
+    }
+
+    // MARK: - Optimized API Methods
+    private func fetchRestaurantFromAPI(restaurantId: String) async -> RestaurantNutritionData? {
+        guard let url = URL(string: "\(baseURL)/restaurants/\(restaurantId)") else {
+            debugLog(" Invalid restaurant API URL for \(restaurantId)")
+            return nil
+        }
+        
+        do {
+            debugLog(" Fetching \(restaurantId) from API...")
+            let (data, response) = try await session.data(from: url)
+            
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                debugLog(" API returned status  for ")
+                debugLog(" API returned status \(httpResponse.statusCode) for \(restaurantId)")
                 return nil
             }
             
@@ -205,17 +133,46 @@ class NutritionDataManager: ObservableObject {
                 )
             }
             
+            debugLog(" Successfully fetched \(restaurantJSON.restaurant_name) with \(nutritionItems.count) items")
+            
             return RestaurantNutritionData(
                 restaurantName: restaurantJSON.restaurant_name,
                 items: nutritionItems
             )
         } catch {
-            debugLog(" Failed to fetch  from API: ")
+            debugLog(" Failed to fetch \(restaurantId) from API: \(error.localizedDescription)")
             return nil
         }
     }
     
-    // MARK: - Public API with Fast Path
+    private func loadFromAPI(restaurantName: String) async -> RestaurantNutritionData? {
+        if let restaurantId = findRestaurantIdForName(restaurantName) {
+            return await fetchRestaurantFromAPI(restaurantId: restaurantId)
+        }
+        return nil
+    }
+    
+    private func findRestaurantIdForName(_ restaurantName: String) -> String? {
+        let restaurantMapping: [String: String] = [
+            "mcdonalds": "R0056", "mcdonald's": "R0056",
+            "subway": "R0083", "starbucks": "R0081",
+            "burger king": "R0010", "kfc": "R0048",
+            "taco bell": "R0085", "pizza hut": "R0068",
+            "dominos": "R0029", "domino's": "R0029",
+            "chick-fil-a": "R0017", "chick fil a": "R0017",
+            "wendys": "R0089", "wendy's": "R0089",
+            "chipotle": "R0020", "panera": "R0064", "panera bread": "R0064",
+            "dunkin": "R0030", "dunkin donuts": "R0030"
+        ]
+        
+        let lowercased = restaurantName.lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "'", with: "")
+            .replacingOccurrences(of: ".", with: "")
+        
+        return restaurantMapping[lowercased]
+    }
+    
     func loadNutritionData(for restaurantName: String) {
         let cacheKey = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -255,41 +212,35 @@ class NutritionDataManager: ObservableObject {
         loadingTasks[cacheKey] = task
     }
     
-    private func loadFromAPI(restaurantName: String) async -> RestaurantNutritionData? {
-        if let restaurantId = findRestaurantIdForName(restaurantName) {
-            return await fetchRestaurantFromAPI(restaurantId: restaurantId)
-        }
-        return nil
-    }
-    
-    private func findRestaurantIdForName(_ restaurantName: String) -> String? {
-        let restaurantMapping: [String: String] = [
-            "mcdonalds": "R0056", "mcdonald's": "R0056",
-            "subway": "R0083", "starbucks": "R0081",
-            "burger king": "R0010", "kfc": "R0048",
-            "taco bell": "R0085", "pizza hut": "R0068",
-            "dominos": "R0029", "domino's": "R0029",
-            "chick-fil-a": "R0017", "chick fil a": "R0017",
-            "wendys": "R0089", "wendy's": "R0089",
-            "chipotle": "R0020", "panera": "R0064", "panera bread": "R0064",
-            "dunkin": "R0030", "dunkin donuts": "R0030"
-        ]
-        
-        let lowercased = restaurantName.lowercased()
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-            .replacingOccurrences(of: "'", with: "")
-            .replacingOccurrences(of: ".", with: "")
-        
-        return restaurantMapping[lowercased]
-    }
-    
     func getAvailableRestaurants() -> [String] {
         return nutritionCache.restaurantNames.sorted()
     }
     
+    // ENHANCED: Efficient nutrition data availability check
     func hasNutritionData(for restaurantName: String) -> Bool {
-        return nutritionCache.contains(restaurantName: restaurantName) ||
-               findRestaurantIdForName(restaurantName) != nil
+        // First check if already in cache
+        if nutritionCache.contains(restaurantName: restaurantName) {
+            return true
+        }
+        
+        // Check against static list of known restaurants with nutrition data
+        let normalizedName = restaurantName.lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "'", with: "")
+            .replacingOccurrences(of: ".", with: "")
+        
+        // Check static list first (faster)
+        let hasStaticData = RestaurantData.restaurantsWithNutritionData.contains { knownRestaurant in
+            let normalizedKnown = knownRestaurant.lowercased()
+                .replacingOccurrences(of: "'", with: "")
+                .replacingOccurrences(of: ".", with: "")
+            return normalizedName.contains(normalizedKnown) || normalizedKnown.contains(normalizedName)
+        }
+        
+        // Also check if we have an API mapping for it
+        let hasAPIMapping = findRestaurantIdForName(restaurantName) != nil
+        
+        return hasStaticData || hasAPIMapping
     }
     
     func clearData() {

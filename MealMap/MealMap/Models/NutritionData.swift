@@ -88,7 +88,7 @@ struct RestaurantNutritionBundle: Codable {
 }
 
 // MARK: - Legacy Model for Compatibility
-struct RestaurantNutritionData: Equatable {
+struct RestaurantNutritionData: Equatable, Codable {
     let restaurantName: String
     let items: [NutritionData]
     

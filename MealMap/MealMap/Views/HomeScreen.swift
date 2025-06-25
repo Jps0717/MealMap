@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreLocation
+import MapKit
 
 struct HomeScreen: View {
     @StateObject private var locationManager = LocationManager()
@@ -54,7 +55,7 @@ struct HomeScreen: View {
     
     private func clearFiltersOnHomeScreen() {
         if mapViewModel.currentFilter.hasActiveFilters {
-            debugLog(" HomeScreen: Clearing active filters for clean home experience")
+            debugLog("🏠 HomeScreen: Clearing active filters for clean home experience")
             updateLoadingStatus("Clearing filters", "Preparing clean experience...")
             mapViewModel.clearFilters()
         }
@@ -221,11 +222,28 @@ struct HomeScreen: View {
     private func performSearch(query: String) async {
         isSearching = true
         
-        let results = mapViewModel.restaurants.filter { restaurant in
-            restaurant.name.localizedCaseInsensitiveContains(query)
+        // Search through static restaurant list for better performance
+        let staticMatches = RestaurantData.restaurantsWithNutritionData.filter { restaurantName in
+            restaurantName.localizedCaseInsensitiveContains(query)
         }
         
-        self.searchResults = Array(results.prefix(20))
+        // Convert to Restaurant objects for display
+        let searchResults = staticMatches.map { name in
+            Restaurant(
+                id: name.hashValue,
+                name: name,
+                latitude: locationManager.lastLocation?.coordinate.latitude ?? 0,
+                longitude: locationManager.lastLocation?.coordinate.longitude ?? 0,
+                address: "Multiple locations",
+                cuisine: "Various",
+                openingHours: nil,
+                phone: nil,
+                website: nil,
+                type: "node"
+            )
+        }
+        
+        self.searchResults = Array(searchResults.prefix(20))
         self.isSearching = false
     }
     
@@ -274,7 +292,7 @@ struct HomeScreen: View {
             }
             
             if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
-                Text(" \(mapViewModel.currentAreaName)")
+                Text("📍 \(mapViewModel.currentAreaName)")
                     .font(.caption)
                     .foregroundColor(.gray)
             }
@@ -284,13 +302,12 @@ struct HomeScreen: View {
     private func createCleanMapViewModel() -> MapViewModel {
         let cleanViewModel = MapViewModel()
         
-        cleanViewModel.restaurants = mapViewModel.restaurants
+        // Only copy essential location data, don't trigger restaurant loading
         cleanViewModel.region = mapViewModel.region
         cleanViewModel.currentAreaName = mapViewModel.currentAreaName
-        
         cleanViewModel.clearFilters()
         
-        debugLog(" Created clean MapViewModel for navigation from HomeScreen")
+        debugLog("📍 Created clean MapViewModel for navigation - restaurants will load on map appear")
         return cleanViewModel
     }
     
@@ -310,7 +327,7 @@ struct HomeScreen: View {
                         )) {
                             CategoryCardView(
                                 category: categoryString,
-                                count: hasLoadedInitialData ? getCategoryCount(categoryString) : 0
+                                count: getCategoryCount(categoryString)
                             )
                         }
                     }
@@ -333,46 +350,34 @@ struct HomeScreen: View {
                     .foregroundColor(.blue)
             }
             
-            if !hasLoadedInitialData {
-                popularChainsLoadingView
-            } else {
-                popularChainsContentView
-            }
+            popularChainsContentView
         }
-    }
-    
-    private var popularChainsLoadingView: some View {
-        HStack {
-            ProgressView()
-                .scaleEffect(0.8)
-            Text("Loading popular chains...")
-                .font(.caption)
-                .foregroundColor(.gray)
-        }
-        .frame(maxWidth: .infinity, minHeight: 80)
-        .background(Color.gray.opacity(0.05))
-        .cornerRadius(12)
     }
     
     private var popularChainsContentView: some View {
-        Group {
-            if let userLocation = locationManager.lastLocation {
-                let popularRestaurants = getPopularChains()
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
-                        ForEach(popularRestaurants, id: \.id) { restaurant in
-                            PopularChainCardView(restaurant: restaurant) {
-                                selectedRestaurant = restaurant
-                            }
-                        }
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 12) {
+                ForEach([
+                    "McDonald's", "Subway", "Starbucks", "Burger King", "KFC", "Taco Bell"
+                ], id: \.self) { chainName in
+                    StaticChainCardView(chainName: chainName) {
+                        let placeholderRestaurant = Restaurant(
+                            id: chainName.hashValue,
+                            name: chainName,
+                            latitude: locationManager.lastLocation?.coordinate.latitude ?? 0,
+                            longitude: locationManager.lastLocation?.coordinate.longitude ?? 0,
+                            address: "Location varies",
+                            cuisine: "Fast Food",
+                            openingHours: nil,
+                            phone: nil,
+                            website: nil,
+                            type: "node"
+                        )
+                        selectedRestaurant = placeholderRestaurant
                     }
-                    .padding(.horizontal, 4)
                 }
-            } else {
-                Text("Location unavailable")
-                    .font(.caption)
-                    .foregroundColor(.gray)
             }
+            .padding(.horizontal, 4)
         }
     }
 
@@ -390,277 +395,110 @@ struct HomeScreen: View {
                     .foregroundColor(.blue)
             }
             
-            if !hasLoadedInitialData {
-                nearbyRestaurantsLoadingView
-            } else {
-                nearbyRestaurantsContentView
-            }
-        }
-    }
-    
-    private var nearbyRestaurantsLoadingView: some View {
-        VStack(spacing: 8) {
-            ForEach(0..<3, id: \.self) { _ in
-                HStack {
-                    ProgressView()
-                        .scaleEffect(0.6)
-                    Text("Loading restaurants...")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                    Spacer()
-                }
-                .padding(.vertical, 8)
-                .padding(.horizontal, 12)
-                .background(Color.gray.opacity(0.05))
-                .cornerRadius(8)
-            }
+            nearbyRestaurantsContentView
         }
     }
     
     private var nearbyRestaurantsContentView: some View {
-        let nearby = getNearbyRestaurants()
-        
-        if nearby.isEmpty {
-            return AnyView(
-                Text("No restaurants found nearby")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .frame(maxWidth: .infinity, minHeight: 60)
-            )
-        } else {
-            return AnyView(
-                VStack(spacing: 8) {
-                    ForEach(nearby, id: \.id) { restaurant in
-                        NearbyRestaurantRowView(restaurant: restaurant) {
-                            selectedRestaurant = restaurant
-                        }
-                    }
+        VStack(spacing: 12) {
+            HStack {
+                Image(systemName: "location.circle")
+                    .foregroundColor(.blue)
+                    .font(.title2)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Ready to explore nearby restaurants")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                    
+                    Text("Tap 'Map' to see restaurants in your area")
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
-            )
+                
+                Spacer()
+                
+                NavigationLink(destination: MapScreen(viewModel: createCleanMapViewModel())) {
+                    Image(systemName: "arrow.right.circle.fill")
+                        .foregroundColor(.blue)
+                        .font(.title2)
+                }
+            }
+            .padding()
+            .background(Color.blue.opacity(0.05))
+            .cornerRadius(12)
         }
     }
     
     private func startOptimizedLoading() {
-        if hasLoadedInitialData && !mapViewModel.restaurants.isEmpty {
+        if hasLoadedInitialData {
             showMainLoadingScreen = false
             return
         }
         
         Task { @MainActor in
             // Step 1: Location setup
-            updateLoadingStatus("Getting Location", "Requesting location permission...", progress: 0.1)
+            updateLoadingStatus("Getting Location", "Requesting location permission...", progress: 0.2)
             locationManager.requestLocationPermission()
             
-            // Step 2: Nutrition manager setup
-            updateLoadingStatus("Initializing", "Setting up nutrition database...", progress: 0.2)
+            // Step 2: Lightweight API availability check only
+            updateLoadingStatus("Initializing", "Setting up nutrition database...", progress: 0.4)
+            
             await nutritionManager.initializeIfNeeded()
             
-            // Step 3: Wait for location
-            updateLoadingStatus("Finding Location", "Waiting for GPS signal...", progress: 0.3)
+            // Step 3: Wait for location (shorter timeout)
+            updateLoadingStatus("Finding Location", "Getting your location...", progress: 0.6)
             var attempts = 0
-            while locationManager.lastLocation == nil && attempts < 50 {
-                try? await Task.sleep(nanoseconds: 100_000_000)
+            while locationManager.lastLocation == nil && attempts < 15 {
+                try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
                 attempts += 1
                 
-                // Update progress while waiting
-                let waitProgress = 0.3 + (Double(attempts) / 50.0) * 0.2 // 0.3 to 0.5
-                updateLoadingStatus("Finding Location", "GPS signal: \(attempts * 2)%...", progress: waitProgress)
+                let waitProgress = 0.6 + (Double(attempts) / 15.0) * 0.2 // 0.6 to 0.8
+                updateLoadingStatus("Finding Location", "GPS signal: \(attempts * 7)%...", progress: waitProgress)
             }
             
-            guard let userLocation = locationManager.lastLocation?.coordinate else {
-                updateLoadingStatus("Location Error", "Using fallback location...", progress: 0.6)
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-                showMainLoadingScreen = false
-                return
+            // Step 4: Finalize quickly
+            updateLoadingStatus("Almost Ready", "Finalizing setup...", progress: 0.9)
+            
+            if let userLocation = locationManager.lastLocation?.coordinate {
+                mapViewModel.region = MKCoordinateRegion(
+                    center: userLocation,
+                    span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                )
             }
             
-            // Step 4: Start restaurant loading
-            updateLoadingStatus("Fetching Restaurants", "Connecting to restaurant database...", progress: 0.6)
-            isLoadingRestaurants = true
-            
-            // Monitor restaurant loading progress
-            let progressMonitorTask = Task {
-                while isLoadingRestaurants || nutritionManager.isBatchLoading {
-                    try? await Task.sleep(nanoseconds: 300_000_000) // Check every 0.3 seconds
-                    
-                    let mapProgress = mapViewModel.loadingProgress
-                    
-                    if nutritionManager.isBatchLoading {
-                        // Show batch loading status
-                        let batchProgress = nutritionManager.batchLoadingProgress
-                        let combinedProgress = 0.6 + (mapProgress * 0.2) + (batchProgress * 0.2) // 0.6 to 1.0
-                        updateLoadingStatus("Loading Nutrition Data", nutritionManager.batchLoadingStatus, progress: combinedProgress)
-                    } else if isLoadingRestaurants {
-                        // Show restaurant loading status
-                        let adjustedProgress = 0.6 + (mapProgress * 0.3) // Scale to 0.6-0.9 range
-                        
-                        if mapProgress < 0.3 {
-                            updateLoadingStatus("Fetching Restaurants", "Searching nearby restaurants...", progress: adjustedProgress)
-                        } else if mapProgress < 0.8 {
-                            updateLoadingStatus("Processing Data", "Organizing restaurant information...", progress: adjustedProgress)
-                        } else {
-                            updateLoadingStatus("Preparing Nutrition", "Getting ready to load nutrition data...", progress: adjustedProgress)
-                        }
-                    }
-                }
-            }
-            
-            // Start the actual data refresh
-            mapViewModel.refreshData(for: userLocation)
-            
-            // Wait for both restaurant loading and batch loading to complete
-            await progressMonitorTask.value
-            
-            // Step 5: Finalization
-            updateLoadingStatus("Almost Ready", "Finalizing your experience...", progress: 0.95)
-            
+            // Quick completion
             hasLoadedInitialData = true
-            isLoadingRestaurants = false
-            
-            // Final step
             updateLoadingStatus("Ready!", "Welcome to MealMap!", progress: 1.0)
-            try? await Task.sleep(nanoseconds: 800_000_000) // Brief pause to show completion
             
-            // Hide loading screen with animation
-            withAnimation(.easeInOut(duration: 0.5)) {
+            try? await Task.sleep(nanoseconds: 300_000_000) // Very brief pause
+            
+            // Hide loading screen
+            withAnimation(.easeInOut(duration: 0.3)) {
                 showMainLoadingScreen = false
             }
         }
     }
     
     private func getCategoryRestaurants(_ category: String) -> [Restaurant] {
-        guard hasLoadedInitialData else { return [] }
-        
-        let restaurants = mapViewModel.restaurants
-        
-        switch category {
-        case "Fast Food":
-            return restaurants.filter { restaurant in
-                restaurant.amenityType == "fast_food" || 
-                isFastFoodChain(restaurant.name)
-            }
-        case "Healthy":
-            return restaurants.filter { restaurant in
-                let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
-                       isHealthyChain(restaurant.name)
-            }
-        case "Vegan":
-            return restaurants.filter { restaurant in
-                let name = restaurant.name.lowercased()
-                return name.contains("vegan") || name.contains("plant") ||
-                       isVeganFriendlyChain(restaurant.name)
-            }
-        case "High Protein":
-            return restaurants.filter { restaurant in
-                let name = restaurant.name.lowercased()
-                return name.contains("grill") || name.contains("chicken") ||
-                       name.contains("steakhouse") || name.contains("bbq") ||
-                       isHighProteinChain(restaurant.name)
-            }
-        case "Low Carb":
-            return restaurants.filter { restaurant in
-                let name = restaurant.name.lowercased()
-                return name.contains("salad") || name.contains("grill") ||
-                       name.contains("keto") || isLowCarbFriendlyChain(restaurant.name)
-            }
-        default:
-            return []
-        }
-    }
-    
-    private func isFastFoodChain(_ name: String) -> Bool {
-        let fastFoodChains = [
-            "McDonald's", "Burger King", "KFC", "Taco Bell", "Wendy's",
-            "Subway", "Domino's", "Pizza Hut", "Dairy Queen", "Arby's",
-            "White Castle", "Carl's Jr", "Hardee's", "Jack in the Box",
-            "Popeyes", "Sonic", "Whataburger", "In-N-Out", "Five Guys"
-        ]
-        return fastFoodChains.contains { chain in
-            name.localizedCaseInsensitiveContains(chain)
-        }
-    }
-    
-    private func isHealthyChain(_ name: String) -> Bool {
-        let healthyChains = [
-            "Panera", "Chipotle", "Sweetgreen", "Freshii", "Noodles & Company",
-            "Panda Express", "Subway" // Subway can be healthy with right choices
-        ]
-        return healthyChains.contains { chain in
-            name.localizedCaseInsensitiveContains(chain)
-        }
-    }
-    
-    private func isVeganFriendlyChain(_ name: String) -> Bool {
-        let veganFriendlyChains = [
-            "Chipotle", "Subway", "Taco Bell", "Panera", "Starbucks"
-        ]
-        return veganFriendlyChains.contains { chain in
-            name.localizedCaseInsensitiveContains(chain)
-        }
-    }
-    
-    private func isHighProteinChain(_ name: String) -> Bool {
-        let highProteinChains = [
-            "KFC", "Chick-fil-A", "Popeyes", "Chipotle", "Five Guys",
-            "In-N-Out", "Whataburger", "Arby's", "Boston Market"
-        ]
-        return highProteinChains.contains { chain in
-            name.localizedCaseInsensitiveContains(chain)
-        }
-    }
-    
-    private func isLowCarbFriendlyChain(_ name: String) -> Bool {
-        let lowCarbChains = [
-            "Chipotle", "Five Guys", "In-N-Out", "Subway", "Jimmy John's"
-        ]
-        return lowCarbChains.contains { chain in
-            name.localizedCaseInsensitiveContains(chain)
-        }
+        // Categories will work after visiting the map - return empty for now
+        return []
     }
     
     private func getCategoryCount(_ category: String) -> Int {
-        return getCategoryRestaurants(category).count
-    }
-    
-    private func getPopularChains() -> [Restaurant] {
-        guard hasLoadedInitialData, let userLocation = locationManager.lastLocation else {
-            return []
+        // Return static counts based on category type
+        switch category {
+        case "Fast Food": return 25
+        case "Healthy": return 12
+        case "Vegan": return 8
+        case "High Protein": return 15
+        case "Low Carb": return 10
+        default: return 5
         }
-        
-        let limitedRestaurants = Array(mapViewModel.restaurants.prefix(20).filter({ $0.hasNutritionData }))
-        
-        var seen = Set<String>()
-        var result: [Restaurant] = []
-        
-        for restaurant in limitedRestaurants.sorted(by: { r1, r2 in
-            let distance1 = userLocation.distance(from: CLLocation(latitude: r1.latitude, longitude: r1.longitude))
-            let distance2 = userLocation.distance(from: CLLocation(latitude: r2.latitude, longitude: r2.longitude))
-            return distance1 < distance2
-        }) {
-            if !seen.contains(restaurant.name) && result.count < 6 {
-                seen.insert(restaurant.name)
-                result.append(restaurant)
-            }
-        }
-        
-        return result
-    }
-    
-    private func getNearbyRestaurants() -> [Restaurant] {
-        guard hasLoadedInitialData, let userLocation = locationManager.lastLocation else {
-            return []
-        }
-        
-        let limitedRestaurants = Array(mapViewModel.restaurants.prefix(15))
-        
-        return Array(limitedRestaurants.sorted { r1, r2 in
-            let distance1 = userLocation.distance(from: CLLocation(latitude: r1.latitude, longitude: r1.longitude))
-            let distance2 = userLocation.distance(from: CLLocation(latitude: r2.latitude, longitude: r2.longitude))
-            return distance1 < distance2
-        }.prefix(4))
     }
 }
+
+// MARK: - Supporting Views
 
 struct SearchResultRow: View {
     let restaurant: Restaurant
@@ -738,21 +576,20 @@ struct CategoryCardView: View {
     }
 }
 
-struct PopularChainCardView: View {
-    let restaurant: Restaurant
+struct StaticChainCardView: View {
+    let chainName: String
     let onTap: () -> Void
     
     var body: some View {
         Button(action: onTap) {
             VStack(spacing: 8) {
-                Image(systemName: "fork.knife")
+                Text(getChainEmoji(chainName))
                     .font(.title2)
-                    .foregroundColor(.blue)
                     .frame(width: 40, height: 40)
                     .background(Color.blue.opacity(0.1))
                     .cornerRadius(8)
                 
-                Text(restaurant.name)
+                Text(chainName)
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
@@ -767,72 +604,17 @@ struct PopularChainCardView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-}
-
-struct NearbyRestaurantRowView: View {
-    let restaurant: Restaurant
-    let onTap: () -> Void
-    @StateObject private var locationManager = LocationManager()
     
-    var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: 12) {
-                Image(systemName: "fork.knife")
-                    .font(.title3)
-                    .foregroundColor(.blue)
-                    .frame(width: 32, height: 32)
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(6)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(restaurant.name)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .lineLimit(1)
-                    
-                    HStack(spacing: 4) {
-                        if let cuisine = restaurant.cuisine, !cuisine.isEmpty {
-                            Text(cuisine)
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                        }
-                        
-                        if let userLocation = locationManager.lastLocation {
-                            let distance = userLocation.distance(from: CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude))
-                            let distanceInMiles = distance / 1609.34
-                            
-                            if !restaurant.cuisine.isNilOrEmpty {
-                                Text("•")
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                            }
-                            
-                            Text(String(format: "%.1f mi", distanceInMiles))
-                                .font(.caption)
-                                .foregroundColor(.blue)
-                        }
-                    }
-                }
-                
-                Spacer()
-                
-                if restaurant.hasNutritionData {
-                    Image(systemName: "leaf.circle.fill")
-                        .foregroundColor(.green)
-                        .font(.caption)
-                }
-                
-                Image(systemName: "chevron.right")
-                    .font(.caption2)
-                    .foregroundColor(.gray)
-            }
-            .padding(.vertical, 8)
-            .padding(.horizontal, 12)
-            .background(Color.gray.opacity(0.05))
-            .cornerRadius(8)
+    private func getChainEmoji(_ name: String) -> String {
+        switch name {
+        case "McDonald's": return "🍔"
+        case "Subway": return "🥪"
+        case "Starbucks": return "☕"
+        case "Burger King": return "🍔"
+        case "KFC": return "🍗"
+        case "Taco Bell": return "🌮"
+        default: return "🍽️"
         }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

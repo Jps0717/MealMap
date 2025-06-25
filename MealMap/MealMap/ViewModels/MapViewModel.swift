@@ -104,6 +104,7 @@ final class MapViewModel: ObservableObject {
     // MARK: - Initialization
     init() {
         setupLocationObserver()
+        debugLog("📍 MapViewModel initialized - restaurant loading deferred until map is shown")
     }
 
     // MARK: - OPTIMIZED: Viewport-based map methods
@@ -199,7 +200,7 @@ final class MapViewModel: ObservableObject {
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !isLoadingRestaurants else { return }
         
-        debugLog("🗺️ MapViewModel - Starting viewport-based refresh for: \(coordinate)")
+        debugLog("🗺️ MapViewModel - Starting DEFERRED viewport-based refresh for: \(coordinate)")
         
         isLoadingRestaurants = true
         loadingProgress = 0.0
@@ -214,7 +215,7 @@ final class MapViewModel: ObservableObject {
             }
             
             do {
-                debugLog("🗺️ MapViewModel - Starting optimized viewport API fetch")
+                debugLog("🗺️ MapViewModel - Starting optimized viewport API fetch (DEFERRED LOADING)")
                 
                 let radius = 5.0
                 let radiusInDegrees = radius / 69.0
@@ -229,43 +230,32 @@ final class MapViewModel: ObservableObject {
                 debugLog("🗺️ MapViewModel - Viewport API returned \(fetchedRestaurants.count) restaurants")
                 
                 await MainActor.run {
-                    self.loadingProgress = 0.6
+                    self.loadingProgress = 0.8
                 }
                 
                 let limitedRestaurants = Array(fetchedRestaurants.prefix(50))
                 
                 await MainActor.run {
                     self.restaurants = limitedRestaurants
-                    self.loadingProgress = 0.8
-                    debugLog("🗺️ MapViewModel - Set restaurants array to \(limitedRestaurants.count) items")
-                }
-                
-                // ENHANCED: Wait for batch loading to complete
-                let nutritionRestaurants = limitedRestaurants.filter { $0.hasNutritionData }
-                let topNutritionRestaurants = Array(nutritionRestaurants.prefix(5))
-                if !topNutritionRestaurants.isEmpty {
-                    debugLog("🍽️ Starting batch nutrition loading for \(topNutritionRestaurants.count) restaurants...")
-                    await self.nutritionManager.batchLoadNutritionData(for: topNutritionRestaurants.map(\.name))
-                    debugLog("🍽️ Batch nutrition loading completed")
-                }
-                
-                await MainActor.run {
                     self.loadingProgress = 1.0
                     self.isLoadingRestaurants = false
                     self.hasInitialized = true
                     
-                    debugLog("🗺️ Viewport loaded \(limitedRestaurants.count) restaurants near user location")
-                    debugLog("🗺️ \(nutritionRestaurants.count) have nutrition data")
+                    debugLog("🗺️ DEFERRED: Loaded \(limitedRestaurants.count) restaurants when map was accessed")
+                    
+                    let nutritionRestaurants = limitedRestaurants.filter { $0.hasNutritionData }
+                    debugLog("🍽️ Found \(nutritionRestaurants.count) restaurants with nutrition data (will load on-demand)")
                 }
                 
             } catch {
                 await MainActor.run {
                     debugLog("❌ Error fetching restaurants: \(error)")
                     
+                    // Simpler fallback for map access
                     let testRestaurants = [
                         Restaurant(
                             id: 999991,
-                            name: "Test McDonald's",
+                            name: "McDonald's",
                             latitude: coordinate.latitude + 0.001,
                             longitude: coordinate.longitude + 0.001,
                             address: "Test Address 1",
@@ -277,7 +267,7 @@ final class MapViewModel: ObservableObject {
                         ),
                         Restaurant(
                             id: 999992,
-                            name: "Test Subway",
+                            name: "Subway",
                             latitude: coordinate.latitude - 0.001,
                             longitude: coordinate.longitude + 0.001,
                             address: "Test Address 2",
@@ -292,8 +282,6 @@ final class MapViewModel: ObservableObject {
                     self.restaurants = testRestaurants
                     debugLog("🗺️ MapViewModel - Using fallback test restaurants: \(testRestaurants.count)")
                     
-                    self.searchErrorMessage = "Unable to load restaurants right now. Showing test data."
-                    self.showSearchError = true
                     self.isLoadingRestaurants = false
                     self.loadingProgress = 1.0
                 }
