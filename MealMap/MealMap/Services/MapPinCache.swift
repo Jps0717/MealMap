@@ -166,7 +166,7 @@ final class MapPinCache: ObservableObject {
             lastCleanup = now
         }
         
-        print("🧹 MapPinCache cleanup: \(pinDataCache.count) pin caches, \(visibilityCache.count) visibility caches")
+        debugLog("🧹 MapPinCache cleanup: \(pinDataCache.count) pin caches, \(visibilityCache.count) visibility caches")
     }
     
     func clearCache() {

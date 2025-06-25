@@ -148,7 +148,7 @@ final class OverpassAPIService {
         
         // Check viewport cache first for instant response
         if let cachedData = viewportCache.get(for: cacheKey) {
-            print("⚡ Viewport cache hit - instant response with \(cachedData.count) restaurants")
+            debugLog("⚡ Viewport cache hit - instant response with \(cachedData.count) restaurants")
             return cachedData
         }
         
@@ -163,7 +163,7 @@ final class OverpassAPIService {
         // Cache the viewport result
         viewportCache.store(restaurants, for: cacheKey)
         
-        print("✅ Viewport fetch completed: \(restaurants.count) restaurants cached for key: \(cacheKey)")
+        debugLog("✅ Viewport fetch completed: \(restaurants.count) restaurants cached for key: \(cacheKey)")
         return restaurants
     }
     
@@ -199,7 +199,7 @@ final class OverpassAPIService {
         let cacheKey = viewportCache.createViewportKey(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon) + "_nutrition"
         
         if let cachedData = viewportCache.get(for: cacheKey) {
-            print("⚡ Nutrition cache hit")
+            debugLog("⚡ Nutrition cache hit")
             return cachedData
         }
         
@@ -255,7 +255,7 @@ final class OverpassAPIService {
         let cacheKey = viewportCache.createViewportKey(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon) + "_fastfood"
         
         if let cachedData = viewportCache.get(for: cacheKey) {
-            print("⚡ Fast food cache hit")
+            debugLog("⚡ Fast food cache hit")
             return cachedData
         }
         
@@ -289,7 +289,7 @@ final class OverpassAPIService {
         request.httpBody = query.data(using: .utf8)
         request.timeoutInterval = 6 // Shorter timeout for responsiveness
         
-        print("🌐 Optimized query to: \(baseURLs[currentURLIndex])")
+        debugLog("🌐 Optimized query to: \(baseURLs[currentURLIndex])")
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
@@ -307,7 +307,7 @@ final class OverpassAPIService {
     
     // FALLBACK: Generate realistic restaurant data based on location
     private func getFallbackRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double) -> [Restaurant]? {
-        print("🔄 Generating fallback restaurant data...")
+        debugLog("🔄 Generating fallback restaurant data...")
         
         let commonChains = [
             ("McDonald's", "fast_food"), ("Burger King", "fast_food"), ("KFC", "fast_food"),

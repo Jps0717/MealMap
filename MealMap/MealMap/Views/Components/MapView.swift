@@ -12,11 +12,11 @@ struct MapView: View {
     
     // SIMPLIFIED: Just show all restaurants without any filtering or clustering
     private var displayedRestaurants: [Restaurant] {
-        print("🔍 MapView - Total restaurants to display: \(restaurants.count)")
+        debugLog("🔍 MapView - Total restaurants to display: \(restaurants.count)")
         
         // Print all restaurants for debugging
         for (index, restaurant) in restaurants.enumerated() {
-            print("🔍 MapView - Restaurant \(index + 1): \(restaurant.name) at (\(restaurant.latitude), \(restaurant.longitude))")
+            debugLog("🔍 MapView - Restaurant \(index + 1): \(restaurant.name) at (\(restaurant.latitude), \(restaurant.longitude))")
         }
         
         return restaurants // Show ALL restaurants
@@ -28,15 +28,15 @@ struct MapView: View {
         // Add user location
         if let userLoc = userLocation {
             items.append(.userLocation(userLoc))
-            print("🔍 MapView - Added user location pin at (\(userLoc.latitude), \(userLoc.longitude))")
+            debugLog("🔍 MapView - Added user location pin at (\(userLoc.latitude), \(userLoc.longitude))")
         }
         
         // Add ALL restaurant pins without any clustering or filtering
         let restaurantItems = displayedRestaurants.map { MapItem.restaurant($0) }
         items.append(contentsOf: restaurantItems)
-        print("🔍 MapView - Added \(restaurantItems.count) restaurant pins")
+        debugLog("🔍 MapView - Added \(restaurantItems.count) restaurant pins")
         
-        print("🔍 MapView - Total map items: \(items.count)")
+        debugLog("🔍 MapView - Total map items: \(items.count)")
         return items
     }
 
@@ -59,7 +59,7 @@ struct MapView: View {
                             hasNutritionData: restaurant.hasNutritionData,
                             isSelected: selectedRestaurant?.id == restaurant.id,
                             onTap: { _ in 
-                                print("🔍 MapView - Restaurant pin tapped: \(restaurant.name)")
+                                debugLog("🔍 MapView - Restaurant pin tapped: \(restaurant.name)")
                                 onRestaurantTap(restaurant) 
                             }
                         )
@@ -73,7 +73,7 @@ struct MapView: View {
         )
         .mapStyle(.standard(pointsOfInterest: []))
         .onAppear {
-            print("🔍 MapView - OnAppear: \(restaurants.count) restaurants available")
+            debugLog("🔍 MapView - OnAppear: \(restaurants.count) restaurants available")
         }
     }
 }

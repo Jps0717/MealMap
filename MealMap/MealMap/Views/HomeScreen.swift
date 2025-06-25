@@ -54,7 +54,7 @@ struct HomeScreen: View {
     
     private func clearFiltersOnHomeScreen() {
         if mapViewModel.currentFilter.hasActiveFilters {
-            print(" HomeScreen: Clearing active filters for clean home experience")
+            debugLog(" HomeScreen: Clearing active filters for clean home experience")
             updateLoadingStatus("Clearing filters", "Preparing clean experience...")
             mapViewModel.clearFilters()
         }
@@ -290,7 +290,7 @@ struct HomeScreen: View {
         
         cleanViewModel.clearFilters()
         
-        print(" Created clean MapViewModel for navigation from HomeScreen")
+        debugLog(" Created clean MapViewModel for navigation from HomeScreen")
         return cleanViewModel
     }
     

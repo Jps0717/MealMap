@@ -1,36 +1,47 @@
 #!/bin/bash
+set -euo pipefail
 
-echo "🔧 Preventing Xcode Build Hangs Script"
-echo "======================================"
+log_step() {
+    echo "$1"
+}
+
+log_step "🔧 Preventing Xcode Build Hangs Script"
+log_step "======================================"
 
 # Step 1: Clean all build artifacts
-echo "1. Cleaning build artifacts..."
-rm -rf ~/Library/Developer/Xcode/DerivedData/*
-rm -rf ~/Library/Caches/com.apple.dt.Xcode*
-rm -rf ~/Library/Developer/Xcode/iOS\ DeviceSupport/*/Symbols/System/Library/Caches
+log_step "1. Cleaning build artifacts..."
+paths=(
+    "$HOME/Library/Developer/Xcode/DerivedData/*"
+    "$HOME/Library/Caches/com.apple.dt.Xcode*"
+    "$HOME/Library/Developer/Xcode/iOS DeviceSupport/*/Symbols/System/Library/Caches"
+)
+for path in "${paths[@]}"; do
+    expanded_path=$(eval echo "$path")
+    [ -d "$expanded_path" ] && rm -rf "$expanded_path"
+done
 
 # Step 2: Disable problematic Xcode features
-echo "2. Disabling problematic Xcode features..."
+log_step "2. Disabling problematic Xcode features..."
 defaults write com.apple.dt.Xcode IDEIndexDisable -bool true
 defaults write com.apple.dt.Xcode DVTTextShowCompletionsOnDemand -bool true
 defaults write com.apple.dt.Xcode DVTTextShowFoldingRibbon -bool true
 
 # Step 3: Set build optimizations
-echo "3. Setting build optimizations..."
+log_step "3. Setting build optimizations..."
 # These will be manual steps in Xcode Build Settings
 
 # Step 4: Kill any stuck processes
-echo "4. Cleaning up stuck processes..."
-pkill -f "swift-frontend" 2>/dev/null || true
-pkill -f "sourcekit" 2>/dev/null || true
-pkill -f "xcodebuild" 2>/dev/null || true
+log_step "4. Cleaning up stuck processes..."
+for proc in swift-frontend sourcekit xcodebuild; do
+    pkill -f "$proc" 2>/dev/null || true
+done
 
-echo "✅ Prevention steps complete!"
+log_step "✅ Prevention steps complete!"
 echo ""
-echo "📋 MANUAL STEPS NEEDED IN XCODE:"
-echo "1. Go to Build Settings → Swift Compiler - Code Generation"
-echo "2. Set 'Optimization Level' to 'No Optimization [-Onone]' for DEBUG"
-echo "3. Set 'Compilation Mode' to 'Incremental'"
-echo "4. Disable 'Whole Module Optimization'"
+log_step "📋 MANUAL STEPS NEEDED IN XCODE:"
+log_step "1. Go to Build Settings → Swift Compiler - Code Generation"
+log_step "2. Set 'Optimization Level' to 'No Optimization [-Onone]' for DEBUG"
+log_step "3. Set 'Compilation Mode' to 'Incremental'"
+log_step "4. Disable 'Whole Module Optimization'"
 echo ""
-echo "🔄 RESTART YOUR MAC NOW to clear kernel-level issues"
+log_step "🔄 RESTART YOUR MAC NOW to clear kernel-level issues"

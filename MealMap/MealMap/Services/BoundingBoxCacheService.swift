@@ -42,7 +42,7 @@ final class BoundingBoxCacheService {
             region: region
         )
         
-        print("💾 Cached \(restaurants.count) restaurants for region \(key)")
+        debugLog("💾 Cached \(restaurants.count) restaurants for region \(key)")
     }
     
     // MARK: - Cache Management
@@ -66,12 +66,12 @@ final class BoundingBoxCacheService {
             cache.removeValue(forKey: key)
         }
         
-        print("🧹 Cleaned \(entriesToRemove) cache entries")
+        debugLog("🧹 Cleaned \(entriesToRemove) cache entries")
     }
     
     func clearCache() {
         cache.removeAll()
-        print("🗑️ Cleared all cache entries")
+        debugLog("🗑️ Cleared all cache entries")
     }
     
     // MARK: - Cache Statistics
