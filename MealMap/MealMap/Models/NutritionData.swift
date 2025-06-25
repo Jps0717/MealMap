@@ -98,9 +98,26 @@ struct RestaurantNutritionData: Equatable {
 }
 
 // MARK: - Fast Lookup Cache Models
-struct NutritionCache {
+struct NutritionCache: Codable {
     private var restaurantCache: [String: RestaurantNutritionData] = [:]
     private var itemCache: [String: [NutritionData]] = [:]
+
+    enum CodingKeys: String, CodingKey {
+        case restaurantCache
+    }
+
+    init() {}
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        restaurantCache = try container.decode([String: RestaurantNutritionData].self, forKey: .restaurantCache)
+        itemCache = restaurantCache.reduce(into: [:]) { $0[$1.key] = $1.value.items }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(restaurantCache, forKey: .restaurantCache)
+    }
     
     mutating func store(restaurant: RestaurantNutritionData) {
         let key = restaurant.restaurantName.lowercased()

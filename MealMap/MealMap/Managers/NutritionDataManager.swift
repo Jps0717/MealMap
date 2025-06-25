@@ -23,6 +23,12 @@ class NutritionDataManager: ObservableObject {
     private var nutritionCache = NutritionCache()
     private var loadingTasks: [String: Task<RestaurantNutritionData?, Never>] = [:]
     private var availableRestaurantIDs: [String] = []
+
+    // Persistent cache location
+    private let cacheFileURL: URL = {
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return docs.appendingPathComponent("nutrition_cache.json")
+    }()
     
     // MARK: - Batch Loading Control
     private var batchLoadingTask: Task<Void, Never>?
@@ -31,7 +37,7 @@ class NutritionDataManager: ObservableObject {
     // MARK: - Performance Tracking
     private var cacheHits = 0
     private var cacheMisses = 0
-    
+
     private init() {
         // Configure session for better performance
         let config = URLSessionConfiguration.default
@@ -40,8 +46,9 @@ class NutritionDataManager: ObservableObject {
         config.requestCachePolicy = .reloadIgnoringLocalCacheData
         config.httpMaximumConnectionsPerHost = 2 // Reduced to avoid overwhelming
         self.session = URLSession(configuration: config)
-        
+
         debugLog(" NutritionDataManager singleton initialized")
+        loadCacheFromDisk()
     }
     
     // MARK: - Startup Methods
@@ -78,7 +85,8 @@ class NutritionDataManager: ObservableObject {
             // Longer delay to avoid overwhelming the API
             try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
         }
-        
+
+        saveCacheToDisk()
         debugLog(" Critical preloading completed")
     }
     
@@ -132,7 +140,9 @@ class NutritionDataManager: ObservableObject {
             self.batchLoadingStatus = "Batch loading complete"
             self.isBatchLoading = false
         }
-        
+
+        saveCacheToDisk()
+
         debugLog(" Batch loaded / restaurants")
     }
     
@@ -234,6 +244,7 @@ class NutritionDataManager: ObservableObject {
                 self.currentRestaurantData = result
                 if let result = result {
                     self.nutritionCache.store(restaurant: result)
+                    self.saveCacheToDisk()
                 } else {
                     self.errorMessage = "No nutrition data available for "
                 }
@@ -302,12 +313,34 @@ class NutritionDataManager: ObservableObject {
         debugLog("   Available Restaurants: ")
         debugLog("   API Restaurant IDs: ")
     }
+
+    // MARK: - Disk Persistence
+    private func loadCacheFromDisk() {
+        guard let data = try? Data(contentsOf: cacheFileURL) else { return }
+        do {
+            nutritionCache = try JSONDecoder().decode(NutritionCache.self, from: data)
+            debugLog("🍏 Loaded nutrition cache from disk")
+        } catch {
+            debugLog("❌ Failed to load nutrition cache: \(error)")
+        }
+    }
+
+    private func saveCacheToDisk() {
+        do {
+            let data = try JSONEncoder().encode(nutritionCache)
+            try data.write(to: cacheFileURL)
+            debugLog("💾 Saved nutrition cache to disk")
+        } catch {
+            debugLog("❌ Failed to save nutrition cache: \(error)")
+        }
+    }
     
     deinit {
         for (_, task) in loadingTasks {
             task.cancel()
         }
         loadingTasks.removeAll()
+        saveCacheToDisk()
         debugLog(" NutritionDataManager deinitalized")
     }
 }
