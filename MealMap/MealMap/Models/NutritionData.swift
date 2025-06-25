@@ -88,12 +88,19 @@ struct RestaurantNutritionBundle: Codable {
 }
 
 // MARK: - Legacy Model for Compatibility
-struct RestaurantNutritionData: Equatable {
+/// Represents nutrition information for a single restaurant.
+///
+/// The model was previously kept separate from any persistence layer, but with
+/// the introduction of `NutritionDiskCache` we need to be able to encode and
+/// decode it.  Conformance to `Codable` is intentionally lightweight – the
+/// structure of the JSON mirrors the stored properties so default synthesis is
+/// sufficient.
+struct RestaurantNutritionData: Codable, Equatable {
     let restaurantName: String
     let items: [NutritionData]
-    
+
     static func == (lhs: RestaurantNutritionData, rhs: RestaurantNutritionData) -> Bool {
-        return lhs.restaurantName == rhs.restaurantName && lhs.items == rhs.items
+        lhs.restaurantName == rhs.restaurantName && lhs.items == rhs.items
     }
 }
 
