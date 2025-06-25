@@ -64,7 +64,7 @@ struct MapScreen: View {
             Task { @MainActor in
                 try? await Task.sleep(nanoseconds: 5_000_000_000) // 5 seconds
                 if isLoadingView && !hasInitialized {
-                    print("⚠️ Map loading timeout, forcing display")
+                    debugLog("⚠️ Map loading timeout, forcing display")
                     withAnimation(.easeInOut(duration: 0.5)) {
                         isLoadingView = false
                         hasInitialized = true
@@ -73,7 +73,7 @@ struct MapScreen: View {
             }
         }
         .onChange(of: viewModel.isLoadingRestaurants) { _, loading in
-            print("🔄 Restaurant loading state changed: \(loading)")
+            debugLog("🔄 Restaurant loading state changed: \(loading)")
             
             // IMPROVED: Better loading state management
             if !loading {
@@ -83,12 +83,12 @@ struct MapScreen: View {
                         isLoadingView = false
                         hasInitialized = true
                     }
-                    print("✅ Map view displayed")
+                    debugLog("✅ Map view displayed")
                 }
             }
         }
         .onChange(of: viewModel.restaurants) { _, restaurants in
-            print("📍 Restaurants updated: \(restaurants.count) restaurants")
+            debugLog("📍 Restaurants updated: \(restaurants.count) restaurants")
             updateRestaurantCache(for: viewModel.region)
             
             // IMPROVED: Also trigger loading completion when restaurants are available
@@ -99,7 +99,7 @@ struct MapScreen: View {
                         isLoadingView = false
                         hasInitialized = true
                     }
-                    print("✅ Map view displayed with \(restaurants.count) restaurants")
+                    debugLog("✅ Map view displayed with \(restaurants.count) restaurants")
                 }
             }
         }
@@ -107,7 +107,7 @@ struct MapScreen: View {
             updateRestaurantCache(for: newRegion)
         }
         .onChange(of: hasValidLocation) { _, hasLocation in
-            print("📍 Location status changed: \(hasLocation)")
+            debugLog("📍 Location status changed: \(hasLocation)")
             if hasLocation && !hasInitialized {
                 setupMapView()
             }
@@ -119,24 +119,24 @@ struct MapScreen: View {
         let status = locationManager.authorizationStatus
         let isAuthorized = status == .authorizedWhenInUse || status == .authorizedAlways
         
-        print("📍 Location check - hasLocation: \(hasLocation), status: \(status), isAuthorized: \(isAuthorized)")
+        debugLog("📍 Location check - hasLocation: \(hasLocation), status: \(status), isAuthorized: \(isAuthorized)")
         return hasLocation && isAuthorized
     }
     
     private func setupMapView() {
-        print("🎯 Setting up map view...")
+        debugLog("🎯 Setting up map view...")
         
         // IMPROVED: Better location handling
         if locationManager.authorizationStatus == .notDetermined {
-            print("📍 Requesting location permission...")
+            debugLog("📍 Requesting location permission...")
             locationManager.requestLocationPermission()
         }
         
         if let loc = locationManager.lastLocation {
-            print("📍 Using existing location: \(loc.coordinate)")
+            debugLog("📍 Using existing location: \(loc.coordinate)")
             viewModel.refreshData(for: loc.coordinate)
         } else {
-            print("📍 No location available, using fallback...")
+            debugLog("📍 No location available, using fallback...")
             // IMPROVED: Fallback to a default location (New York)
             let fallbackLocation = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
             viewModel.refreshData(for: fallbackLocation)

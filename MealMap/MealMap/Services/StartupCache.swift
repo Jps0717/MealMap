@@ -42,7 +42,7 @@ class StartupCache {
             return nil
         }
         
-        print("⚡ Loaded \(restaurants.count) restaurants from startup cache")
+        debugLog("⚡ Loaded \(restaurants.count) restaurants from startup cache")
         return restaurants
     }
     
@@ -58,9 +58,9 @@ class StartupCache {
             userDefaults.set(locationData, forKey: cacheLocationKey)
             userDefaults.set(Date(), forKey: cacheTimestampKey)
             
-            print("💾 Cached \(restaurants.count) restaurants for startup")
+            debugLog("💾 Cached \(restaurants.count) restaurants for startup")
         } catch {
-            print("❌ Failed to cache restaurants: \(error)")
+            debugLog("❌ Failed to cache restaurants: \(error)")
         }
     }
 }

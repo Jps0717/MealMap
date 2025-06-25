@@ -154,7 +154,7 @@ struct OptimizedRealTimeMapView: UIViewRepresentable {
         mapView.addAnnotations(newRestaurantAnnotations)
         
         // Log for debugging
-        print("🗺️ Map showing \(newRestaurantAnnotations.count) pins (filters: \(viewModel.currentFilter.hasActiveFilters ? "active" : "none"))")
+        debugLog("🗺️ Map showing \(newRestaurantAnnotations.count) pins (filters: \(viewModel.currentFilter.hasActiveFilters ? "active" : "none"))")
     }
     
     func makeCoordinator() -> Coordinator {

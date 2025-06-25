@@ -31,7 +31,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         lastLocation = location
         usingFallbackLocation = true
         locationError = nil
-        print("📍 Using fallback location: \(location.coordinate)")
+        debugLog("📍 Using fallback location: \(location.coordinate)")
     }
     
     func clearFallbackLocation() {

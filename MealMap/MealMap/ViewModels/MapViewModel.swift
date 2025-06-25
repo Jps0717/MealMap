@@ -40,7 +40,7 @@ final class MapViewModel: ObservableObject {
     @Published var currentFilter = RestaurantFilter() {
         didSet {
             objectWillChange.send()
-            print(" Filter updated: \(currentFilter.hasActiveFilters ? "active" : "none")")
+            debugLog(" Filter updated: \(currentFilter.hasActiveFilters ? "active" : "none")")
         }
     }
 
@@ -76,28 +76,28 @@ final class MapViewModel: ObservableObject {
     }
 
     var allAvailableRestaurants: [Restaurant] {
-        print(" MapViewModel - allAvailableRestaurants called")
-        print(" MapViewModel - Raw restaurants count: \(restaurants.count)")
-        print(" MapViewModel - Filter active: \(currentFilter.hasActiveFilters)")
+        debugLog(" MapViewModel - allAvailableRestaurants called")
+        debugLog(" MapViewModel - Raw restaurants count: \(restaurants.count)")
+        debugLog(" MapViewModel - Filter active: \(currentFilter.hasActiveFilters)")
         
         if !currentFilter.isEmpty {
             let filtered = restaurants.filter { restaurant in
                 currentFilter.matchesRestaurant(restaurant, userLocation: userLocation)
             }
-            print(" MapViewModel - Filtered to \(filtered.count) restaurants")
+            debugLog(" MapViewModel - Filtered to \(filtered.count) restaurants")
             return filtered
         }
         
-        print(" MapViewModel - Returning ALL \(restaurants.count) restaurants")
+        debugLog(" MapViewModel - Returning ALL \(restaurants.count) restaurants")
         return restaurants
     }
 
     var restaurantsWithinSearchRadius: [Restaurant] {
-        print(" MapViewModel - restaurantsWithinSearchRadius called")
-        print(" MapViewModel - hasActiveRadiusFilter: \(hasActiveRadiusFilter)")
-        print(" MapViewModel - showSearchResults: \(showSearchResults)")
+        debugLog(" MapViewModel - restaurantsWithinSearchRadius called")
+        debugLog(" MapViewModel - hasActiveRadiusFilter: \(hasActiveRadiusFilter)")
+        debugLog(" MapViewModel - showSearchResults: \(showSearchResults)")
         
-        print(" MapViewModel - Returning ALL restaurants (no radius filtering)")
+        debugLog(" MapViewModel - Returning ALL restaurants (no radius filtering)")
         return allAvailableRestaurants
     }
 
@@ -144,11 +144,11 @@ final class MapViewModel: ObservableObject {
                 await MainActor.run {
                     self.restaurants = newRestaurants
                     self.isLoadingRestaurants = false
-                    print(" Viewport loaded \(newRestaurants.count) restaurants")
+                    debugLog(" Viewport loaded \(newRestaurants.count) restaurants")
                 }
                 
             } catch {
-                print(" Error fetching restaurants for viewport: \(error)")
+                debugLog(" Error fetching restaurants for viewport: \(error)")
                 await MainActor.run {
                     self.isLoadingRestaurants = false
                 }
@@ -199,7 +199,7 @@ final class MapViewModel: ObservableObject {
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !isLoadingRestaurants else { return }
         
-        print("🗺️ MapViewModel - Starting viewport-based refresh for: \(coordinate)")
+        debugLog("🗺️ MapViewModel - Starting viewport-based refresh for: \(coordinate)")
         
         isLoadingRestaurants = true
         loadingProgress = 0.0
@@ -214,7 +214,7 @@ final class MapViewModel: ObservableObject {
             }
             
             do {
-                print("🗺️ MapViewModel - Starting optimized viewport API fetch")
+                debugLog("🗺️ MapViewModel - Starting optimized viewport API fetch")
                 
                 let radius = 5.0
                 let radiusInDegrees = radius / 69.0
@@ -226,7 +226,7 @@ final class MapViewModel: ObservableObject {
                     maxLon: coordinate.longitude + radiusInDegrees
                 )
                 
-                print("🗺️ MapViewModel - Viewport API returned \(fetchedRestaurants.count) restaurants")
+                debugLog("🗺️ MapViewModel - Viewport API returned \(fetchedRestaurants.count) restaurants")
                 
                 await MainActor.run {
                     self.loadingProgress = 0.6
@@ -237,16 +237,16 @@ final class MapViewModel: ObservableObject {
                 await MainActor.run {
                     self.restaurants = limitedRestaurants
                     self.loadingProgress = 0.8
-                    print("🗺️ MapViewModel - Set restaurants array to \(limitedRestaurants.count) items")
+                    debugLog("🗺️ MapViewModel - Set restaurants array to \(limitedRestaurants.count) items")
                 }
                 
                 // ENHANCED: Wait for batch loading to complete
                 let nutritionRestaurants = limitedRestaurants.filter { $0.hasNutritionData }
                 let topNutritionRestaurants = Array(nutritionRestaurants.prefix(5))
                 if !topNutritionRestaurants.isEmpty {
-                    print("🍽️ Starting batch nutrition loading for \(topNutritionRestaurants.count) restaurants...")
+                    debugLog("🍽️ Starting batch nutrition loading for \(topNutritionRestaurants.count) restaurants...")
                     await self.nutritionManager.batchLoadNutritionData(for: topNutritionRestaurants.map(\.name))
-                    print("🍽️ Batch nutrition loading completed")
+                    debugLog("🍽️ Batch nutrition loading completed")
                 }
                 
                 await MainActor.run {
@@ -254,13 +254,13 @@ final class MapViewModel: ObservableObject {
                     self.isLoadingRestaurants = false
                     self.hasInitialized = true
                     
-                    print("🗺️ Viewport loaded \(limitedRestaurants.count) restaurants near user location")
-                    print("🗺️ \(nutritionRestaurants.count) have nutrition data")
+                    debugLog("🗺️ Viewport loaded \(limitedRestaurants.count) restaurants near user location")
+                    debugLog("🗺️ \(nutritionRestaurants.count) have nutrition data")
                 }
                 
             } catch {
                 await MainActor.run {
-                    print("❌ Error fetching restaurants: \(error)")
+                    debugLog("❌ Error fetching restaurants: \(error)")
                     
                     let testRestaurants = [
                         Restaurant(
@@ -290,7 +290,7 @@ final class MapViewModel: ObservableObject {
                     ]
                     
                     self.restaurants = testRestaurants
-                    print("🗺️ MapViewModel - Using fallback test restaurants: \(testRestaurants.count)")
+                    debugLog("🗺️ MapViewModel - Using fallback test restaurants: \(testRestaurants.count)")
                     
                     self.searchErrorMessage = "Unable to load restaurants right now. Showing test data."
                     self.showSearchError = true
@@ -340,12 +340,12 @@ final class MapViewModel: ObservableObject {
     }
     
     func applyFilter(_ filter: RestaurantFilter) {
-        print(" Applying filter: \(filter)")
+        debugLog(" Applying filter: \(filter)")
         currentFilter = filter
     }
     
     func clearFilters() {
-        print(" Clearing all filters")
+        debugLog(" Clearing all filters")
         currentFilter = RestaurantFilter()
     }
 
@@ -408,7 +408,7 @@ final class MapViewModel: ObservableObject {
                 }
             }
         } catch {
-            print("Failed to get area name: \(error)")
+            debugLog("Failed to get area name: \(error)")
         }
     }
 
