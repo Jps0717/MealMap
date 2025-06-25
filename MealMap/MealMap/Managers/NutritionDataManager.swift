@@ -21,6 +21,7 @@ class NutritionDataManager: ObservableObject {
     
     // MARK: - Enhanced Cache
     private var nutritionCache = NutritionCache()
+    private let diskCache = NutritionDiskCache()
     private var loadingTasks: [String: Task<RestaurantNutritionData?, Never>] = [:]
     private var availableRestaurantIDs: [String] = []
     
@@ -40,8 +41,14 @@ class NutritionDataManager: ObservableObject {
         config.requestCachePolicy = .reloadIgnoringLocalCacheData
         config.httpMaximumConnectionsPerHost = 2 // Reduced to avoid overwhelming
         self.session = URLSession(configuration: config)
-        
-        debugLog(" NutritionDataManager singleton initialized")
+
+        // Prime in-memory cache from persisted disk cache
+        let persisted = diskCache.allEntries
+        for entry in persisted {
+            nutritionCache.store(restaurant: entry)
+        }
+
+        debugLog(" NutritionDataManager singleton initialized (restored \(persisted.count) cached restaurants)")
     }
     
     // MARK: - Startup Methods
@@ -70,6 +77,7 @@ class NutritionDataManager: ObservableObject {
             
             if let data = await loadFromAPI(restaurantName: chain) {
                 nutritionCache.store(restaurant: data)
+                diskCache.store(data)
                 debugLog(" Preloaded ")
             } else {
                 debugLog(" Failed to preload ")
@@ -116,6 +124,7 @@ class NutritionDataManager: ObservableObject {
             
             if let data = await loadFromAPI(restaurantName: restaurantName) {
                 nutritionCache.store(restaurant: data)
+                diskCache.store(data)
                 results.append(data)
                 cacheMisses += 1
                 debugLog(" Batch loaded ")
@@ -234,6 +243,7 @@ class NutritionDataManager: ObservableObject {
                 self.currentRestaurantData = result
                 if let result = result {
                     self.nutritionCache.store(restaurant: result)
+                    self.diskCache.store(result)
                 } else {
                     self.errorMessage = "No nutrition data available for "
                 }
