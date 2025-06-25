@@ -41,7 +41,7 @@ class NutritionDataManager: ObservableObject {
         config.httpMaximumConnectionsPerHost = 2 // Reduced to avoid overwhelming
         self.session = URLSession(configuration: config)
         
-        print(" NutritionDataManager singleton initialized")
+        debugLog(" NutritionDataManager singleton initialized")
     }
     
     // MARK: - Startup Methods
@@ -60,26 +60,26 @@ class NutritionDataManager: ObservableObject {
             "McDonald's", "Subway", "Burger King", "KFC", "Wendy's"
         ]
         
-        print(" Preloading critical restaurant data...")
+        debugLog(" Preloading critical restaurant data...")
         
         for chain in criticalChains {
             guard !nutritionCache.contains(restaurantName: chain) else { 
-                print("  already cached")
+                debugLog("  already cached")
                 continue 
             }
             
             if let data = await loadFromAPI(restaurantName: chain) {
                 nutritionCache.store(restaurant: data)
-                print(" Preloaded ")
+                debugLog(" Preloaded ")
             } else {
-                print(" Failed to preload ")
+                debugLog(" Failed to preload ")
             }
             
             // Longer delay to avoid overwhelming the API
             try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
         }
         
-        print(" Critical preloading completed")
+        debugLog(" Critical preloading completed")
     }
     
     // ENHANCED: Await-able batch loading with progress tracking
@@ -91,7 +91,7 @@ class NutritionDataManager: ObservableObject {
         let uncachedRestaurants = restaurantNames.filter { !nutritionCache.contains(restaurantName: $0) }
         
         guard !uncachedRestaurants.isEmpty else {
-            print(" All restaurants already cached")
+            debugLog(" All restaurants already cached")
             return
         }
         
@@ -106,7 +106,7 @@ class NutritionDataManager: ObservableObject {
         
         var results: [RestaurantNutritionData] = []
         
-        print(" Batch loading restaurants...")
+        debugLog(" Batch loading restaurants...")
         
         for (index, restaurantName) in limitedRestaurants.enumerated() {
             await MainActor.run {
@@ -118,9 +118,9 @@ class NutritionDataManager: ObservableObject {
                 nutritionCache.store(restaurant: data)
                 results.append(data)
                 cacheMisses += 1
-                print(" Batch loaded ")
+                debugLog(" Batch loaded ")
             } else {
-                print(" Failed to batch load ")
+                debugLog(" Failed to batch load ")
             }
             
             // Delay between requests
@@ -133,7 +133,7 @@ class NutritionDataManager: ObservableObject {
             self.isBatchLoading = false
         }
         
-        print(" Batch loaded / restaurants")
+        debugLog(" Batch loaded / restaurants")
     }
     
     // MARK: - Old method for backward compatibility
@@ -146,12 +146,12 @@ class NutritionDataManager: ObservableObject {
     // MARK: - Optimized API Methods
     private func loadAvailableRestaurants() async {
         guard availableRestaurantIDs.isEmpty else {
-            print(" Restaurant IDs already loaded")
+            debugLog(" Restaurant IDs already loaded")
             return
         }
         
         guard let url = URL(string: "\(baseURL)/restaurants") else {
-            print(" Invalid API URL")
+            debugLog(" Invalid API URL")
             return
         }
         
@@ -159,15 +159,15 @@ class NutritionDataManager: ObservableObject {
             let (data, _) = try await session.data(from: url)
             let restaurantIDs = try JSONDecoder().decode([String].self, from: data)
             self.availableRestaurantIDs = restaurantIDs
-            print(" Loaded  available restaurant IDs from API")
+            debugLog(" Loaded  available restaurant IDs from API")
         } catch {
-            print(" Failed to load available restaurants: ")
+            debugLog(" Failed to load available restaurants: ")
         }
     }
     
     private func fetchRestaurantFromAPI(restaurantId: String) async -> RestaurantNutritionData? {
         guard let url = URL(string: "\(baseURL)/restaurants/\(restaurantId)") else {
-            print(" Invalid restaurant API URL for ")
+            debugLog(" Invalid restaurant API URL for ")
             return nil
         }
         
@@ -175,7 +175,7 @@ class NutritionDataManager: ObservableObject {
             let (data, response) = try await session.data(from: url)
             
             if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
-                print(" API returned status  for ")
+                debugLog(" API returned status  for ")
                 return nil
             }
             
@@ -201,7 +201,7 @@ class NutritionDataManager: ObservableObject {
                 items: nutritionItems
             )
         } catch {
-            print(" Failed to fetch  from API: ")
+            debugLog(" Failed to fetch  from API: ")
             return nil
         }
     }
@@ -295,12 +295,12 @@ class NutritionDataManager: ObservableObject {
     
     func printPerformanceStats() {
         let stats = getCacheStats()
-        print(" NutritionDataManager Performance:")
-        print("   Cache Hits: ")
-        print("   Cache Misses: ")
-        print("   Hit Rate: ")
-        print("   Available Restaurants: ")
-        print("   API Restaurant IDs: ")
+        debugLog(" NutritionDataManager Performance:")
+        debugLog("   Cache Hits: ")
+        debugLog("   Cache Misses: ")
+        debugLog("   Hit Rate: ")
+        debugLog("   Available Restaurants: ")
+        debugLog("   API Restaurant IDs: ")
     }
     
     deinit {
@@ -308,7 +308,7 @@ class NutritionDataManager: ObservableObject {
             task.cancel()
         }
         loadingTasks.removeAll()
-        print(" NutritionDataManager deinitalized")
+        debugLog(" NutritionDataManager deinitalized")
     }
 }
 
