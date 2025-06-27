@@ -20,9 +20,23 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.headingFilter = 5 // Update heading every 5 degrees
         
         authorizationStatus = locationManager.authorizationStatus
+        
+        debugLog("📍 LocationManager initialized with status: \(authorizationStatusString)")
+    }
+    
+    private var authorizationStatusString: String {
+        switch authorizationStatus {
+        case .notDetermined: return "notDetermined"
+        case .denied: return "denied"
+        case .restricted: return "restricted"
+        case .authorizedWhenInUse: return "authorizedWhenInUse"
+        case .authorizedAlways: return "authorizedAlways"
+        @unknown default: return "unknown"
+        }
     }
     
     func requestLocationPermission() {
+        debugLog("📍 Requesting location permission (current status: \(authorizationStatusString))")
         locationManager.requestWhenInUseAuthorization()
     }
     
@@ -42,30 +56,89 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
+    // NEW: Force a fresh location update
+    func refreshCurrentLocation() {
+        debugLog("📍 FORCE REFRESH: Getting fresh current location")
+        
+        guard authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways else {
+            debugLog("❌ Cannot refresh location - not authorized (status: \(authorizationStatusString))")
+            return
+        }
+        
+        // Stop and restart location services to get fresh location
+        locationManager.stopUpdatingLocation()
+        
+        // Brief delay then restart
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            debugLog("📍 Restarting location services for fresh location")
+            self.locationManager.startUpdatingLocation()
+        }
+    }
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        let oldStatus = authorizationStatus
         authorizationStatus = manager.authorizationStatus
+        
+        debugLog("📍 Location authorization changed: \(authorizationStatusString(for: oldStatus)) → \(authorizationStatusString)")
         
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
+            debugLog("📍 Starting location updates...")
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
             locationError = nil
             usingFallbackLocation = false
         case .denied:
+            debugLog("❌ Location access denied")
             locationError = "Location access was denied. Please enable location access in Settings to find restaurants near you."
         case .restricted:
+            debugLog("❌ Location access restricted")
             locationError = "Location access is restricted on this device. Please check your device settings."
         case .notDetermined:
+            debugLog("⏳ Location access not determined")
             locationError = nil // Don't show error for undetermined state
         @unknown default:
+            debugLog("❓ Unknown location authorization status")
             locationError = "Unknown location authorization status."
         }
     }
     
+    private func authorizationStatusString(for status: CLAuthorizationStatus) -> String {
+        switch status {
+        case .notDetermined: return "notDetermined"
+        case .denied: return "denied"
+        case .restricted: return "restricted"
+        case .authorizedWhenInUse: return "authorizedWhenInUse"
+        case .authorizedAlways: return "authorizedAlways"
+        @unknown default: return "unknown"
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        lastLocation = locations.last
-        locationError = nil // Clear any previous errors when we get a location
-        usingFallbackLocation = false // Clear fallback when we get real location
+        guard let newLocation = locations.last else { return }
+        
+        debugLog("📍 NEW LOCATION RECEIVED:")
+        debugLog("   ↳ Coordinates: (\(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude))")
+        debugLog("   ↳ Accuracy: \(newLocation.horizontalAccuracy)m")
+        debugLog("   ↳ Timestamp: \(newLocation.timestamp)")
+        debugLog("   ↳ Age: \(abs(newLocation.timestamp.timeIntervalSinceNow))s ago")
+        
+        // Only use recent locations (within last 30 seconds)
+        if abs(newLocation.timestamp.timeIntervalSinceNow) < 30 {
+            let oldLocation = lastLocation
+            lastLocation = newLocation
+            locationError = nil
+            usingFallbackLocation = false
+            
+            if let old = oldLocation {
+                let distance = newLocation.distance(from: old)
+                debugLog("📍 Location updated - moved \(String(format: "%.0f", distance))m from previous location")
+            } else {
+                debugLog("📍 First location acquired!")
+            }
+        } else {
+            debugLog("⚠️ Ignoring old location (age: \(abs(newLocation.timestamp.timeIntervalSinceNow))s)")
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
@@ -90,18 +163,23 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func restart() {
+        debugLog("📍 RESTART: Restarting location services")
         locationError = nil
         
         // Only start updating if we have permission
         switch authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
+            debugLog("📍 Have authorization - starting location updates")
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
         case .notDetermined:
+            debugLog("📍 No authorization - requesting permission")
             requestLocationPermission()
         case .denied, .restricted:
+            debugLog("❌ Location denied/restricted")
             locationError = "Location access is required to find restaurants near you. Please enable it in Settings."
         @unknown default:
+            debugLog("❓ Unknown authorization status")
             locationError = "Unknown location authorization status."
         }
     }

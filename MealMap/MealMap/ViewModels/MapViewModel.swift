@@ -44,12 +44,21 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Private Properties
-    private let overpassService = OverpassAPIService()
+    // MARK: - Private Properties - NO CACHING
+    private let _overpassService = OverpassAPIService()
     private let locationManager = LocationManager.shared
     private let searchManager = SearchManager()
     private let nutritionManager = NutritionDataManager.shared
-    private let boundingBoxCache = BoundingBoxCacheService.shared
+    
+    var overpassService: OverpassAPIService {
+        return _overpassService
+    }
+    
+    private var geocoder = CLGeocoder()
+    private var lastGeocodingTime: Date = Date.distantPast
+    private var minimumGeocodingInterval: TimeInterval = 10.0 // 10 seconds between requests
+    private var lastGeocodedCoordinate: CLLocationCoordinate2D?
+    private var minimumDistanceThreshold: Double = 2000.0 // 2km in meters
     
     var userLocation: CLLocationCoordinate2D? {
         locationManager.lastLocation?.coordinate
@@ -76,7 +85,7 @@ final class MapViewModel: ObservableObject {
     }
 
     var allAvailableRestaurants: [Restaurant] {
-        debugLog(" MapViewModel - allAvailableRestaurants called")
+        debugLog(" MapViewModel - allAvailableRestaurants called (NO CACHING)")
         debugLog(" MapViewModel - Raw restaurants count: \(restaurants.count)")
         debugLog(" MapViewModel - Filter active: \(currentFilter.hasActiveFilters)")
         
@@ -93,7 +102,7 @@ final class MapViewModel: ObservableObject {
     }
 
     var restaurantsWithinSearchRadius: [Restaurant] {
-        debugLog(" MapViewModel - restaurantsWithinSearchRadius called")
+        debugLog(" MapViewModel - restaurantsWithinSearchRadius called (NO CACHING)")
         debugLog(" MapViewModel - hasActiveRadiusFilter: \(hasActiveRadiusFilter)")
         debugLog(" MapViewModel - showSearchResults: \(showSearchResults)")
         
@@ -104,103 +113,87 @@ final class MapViewModel: ObservableObject {
     // MARK: - Initialization
     init() {
         setupLocationObserver()
-        debugLog("📍 MapViewModel initialized - restaurant loading deferred until map is shown")
+        debugLog(" MapViewModel initialized - NO CACHING - restaurant loading deferred until map is shown")
     }
 
-    // MARK: - OPTIMIZED: Viewport-based map methods
+    // MARK: - NO CACHING: Always fresh API calls - MAP CENTERED WITH 50 LIMIT
     func updateMapRegion(_ newRegion: MKCoordinateRegion) {
         region = newRegion
         updateAreaNameDebounced(for: newRegion.center)
+        
+        // DYNAMIC MAP UPDATE: Fetch restaurants for new map center
+        debugLog(" MAP PAN: Fetching 50 restaurants centered on new map position")
+        Task {
+            await fetchRestaurantsForMapCenter(newRegion.center)
+        }
     }
     
-    func fetchRestaurantsForRegion(_ mapRegion: MKCoordinateRegion) async {
-        if let cachedRestaurants = boundingBoxCache.getCachedRestaurants(for: mapRegion) {
-            await MainActor.run {
-                self.restaurants = cachedRestaurants
-            }
-            return
-        }
+    func fetchRestaurantsForMapCenter(_ center: CLLocationCoordinate2D) async {
+        debugLog(" MAP CENTER FETCH: Getting 50 restaurants around (\(center.latitude), \(center.longitude))")
         
         await MainActor.run {
             self.isLoadingRestaurants = true
         }
         
-        let fetchTask = Task.detached(priority: .utility) { [weak self] in
-            guard let self = self else { return }
+        do {
+            // ALWAYS call API for map center with 2.5 mile radius
+            let restaurants = try await _overpassService.fetchAllNearbyRestaurants(
+                near: center,
+                radius: 2.5
+            )
             
-            do {
-                let bbox = mapRegion.boundingBox
-                
-                let newRestaurants = try await self.overpassService.fetchRestaurantsForViewport(
-                    minLat: bbox.minLat,
-                    minLon: bbox.minLon,
-                    maxLat: bbox.maxLat,
-                    maxLon: bbox.maxLon
-                )
-                
-                await MainActor.run {
-                    self.boundingBoxCache.cacheRestaurants(newRestaurants, for: mapRegion)
-                }
-                
-                await MainActor.run {
-                    self.restaurants = newRestaurants
-                    self.isLoadingRestaurants = false
-                    debugLog(" Viewport loaded \(newRestaurants.count) restaurants")
-                }
-                
-            } catch {
-                debugLog(" Error fetching restaurants for viewport: \(error)")
-                await MainActor.run {
-                    self.isLoadingRestaurants = false
-                }
+            await MainActor.run {
+                self.restaurants = restaurants
+                self.isLoadingRestaurants = false
+                debugLog(" MAP CENTER: Loaded \(restaurants.count) restaurants (max 50)")
+            }
+        } catch {
+            await MainActor.run {
+                self.isLoadingRestaurants = false
+                debugLog(" Map center fetch failed: \(error)")
             }
         }
-        
-        currentLoadingTask?.cancel()
-        currentLoadingTask = fetchTask
+    }
+    
+    func fetchRestaurantsForRegion(_ mapRegion: MKCoordinateRegion) async {
+        // REDIRECT: Use map center fetch instead
+        await fetchRestaurantsForMapCenter(mapRegion.center)
     }
 
-    // MARK: - Public Methods
     func updateRegion(_ newRegion: MKCoordinateRegion) {
         regionUpdateTask?.cancel()
         
         regionUpdateTask = Task.detached(priority: .utility) { @MainActor [weak self] in
             guard let self = self else { return }
             
-            try? await Task.sleep(nanoseconds: 1_500_000_000)
+            try? await Task.sleep(nanoseconds: 500_000_000) // Reduced delay for faster updates
             guard !Task.isCancelled else { return }
             
             let latDiff = abs(self.region.center.latitude - newRegion.center.latitude)
             let lonDiff = abs(self.region.center.longitude - newRegion.center.longitude)
             let spanDiff = abs(self.region.span.latitudeDelta - newRegion.span.latitudeDelta)
             
-            if latDiff > 0.0002 || lonDiff > 0.0002 || spanDiff > 0.001 {
+            if latDiff > 0.002 || lonDiff > 0.002 || spanDiff > 0.001 {
                 self.region = newRegion
                 
                 if latDiff > 0.01 || lonDiff > 0.01 {
                     self.updateAreaNameDebounced(for: newRegion.center)
                 }
+                
+                // DYNAMIC UPDATE: Fetch fresh data when map moves significantly
+                debugLog(" MAP MOVED: Fetching fresh 50 restaurants for new center")
+                await self.fetchRestaurantsForMapCenter(newRegion.center)
             }
-        }
-    }
-    
-    private func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) {
-        areaNameUpdateTask?.cancel()
-        
-        areaNameUpdateTask = Task.detached(priority: .utility) { @MainActor [weak self] in
-            guard let self = self else { return }
-            
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
-            guard !Task.isCancelled else { return }
-            
-            await self.updateAreaName(for: coordinate)
         }
     }
 
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !isLoadingRestaurants else { return }
         
-        debugLog("🗺️ MapViewModel - Starting DEFERRED viewport-based refresh for: \(coordinate)")
+        debugLog(" REFRESH: Getting 50 restaurants around coordinate: \(coordinate)")
+        
+        // Force a fresh location update first
+        locationManager.refreshCurrentLocation()
         
         isLoadingRestaurants = true
         loadingProgress = 0.0
@@ -215,49 +208,46 @@ final class MapViewModel: ObservableObject {
             }
             
             do {
-                debugLog("🗺️ MapViewModel - Starting optimized viewport API fetch (DEFERRED LOADING)")
+                debugLog(" REFRESH API: Starting fresh fetch for 50 restaurants")
                 
-                let radius = 5.0
-                let radiusInDegrees = radius / 69.0
-                
-                let fetchedRestaurants = try await self.overpassService.fetchRestaurantsForViewport(
-                    minLat: coordinate.latitude - radiusInDegrees,
-                    minLon: coordinate.longitude - radiusInDegrees,
-                    maxLat: coordinate.latitude + radiusInDegrees,
-                    maxLon: coordinate.longitude + radiusInDegrees
+                // Use the standardized map center fetch
+                let fetchedRestaurants = try await self._overpassService.fetchAllNearbyRestaurants(
+                    near: coordinate,
+                    radius: 2.5
                 )
                 
-                debugLog("🗺️ MapViewModel - Viewport API returned \(fetchedRestaurants.count) restaurants")
+                debugLog(" REFRESH SUCCESS: Got \(fetchedRestaurants.count) restaurants")
                 
                 await MainActor.run {
                     self.loadingProgress = 0.8
                 }
                 
-                let limitedRestaurants = Array(fetchedRestaurants.prefix(50))
-                
                 await MainActor.run {
-                    self.restaurants = limitedRestaurants
+                    self.restaurants = fetchedRestaurants
                     self.loadingProgress = 1.0
                     self.isLoadingRestaurants = false
                     self.hasInitialized = true
                     
-                    debugLog("🗺️ DEFERRED: Loaded \(limitedRestaurants.count) restaurants when map was accessed")
+                    debugLog(" REFRESH FINAL: Loaded \(fetchedRestaurants.count) restaurants (max 50)")
                     
-                    let nutritionRestaurants = limitedRestaurants.filter { $0.hasNutritionData }
-                    debugLog("🍽️ Found \(nutritionRestaurants.count) restaurants with nutrition data (will load on-demand)")
+                    let nutritionRestaurants = fetchedRestaurants.filter { $0.hasNutritionData }
+                    debugLog(" Found \(nutritionRestaurants.count) restaurants with nutrition data")
                 }
                 
             } catch {
                 await MainActor.run {
-                    debugLog("❌ Error fetching restaurants: \(error)")
+                    debugLog(" Error fetching restaurants: \(error)")
                     
-                    // Simpler fallback for map access
+                    // Use fallback restaurants with REAL user coordinates
+                    let userCoord = self.userLocation ?? coordinate
+                    debugLog(" Using fallback restaurants for real location: \(userCoord)")
+                    
                     let testRestaurants = [
                         Restaurant(
                             id: 999991,
                             name: "McDonald's",
-                            latitude: coordinate.latitude + 0.001,
-                            longitude: coordinate.longitude + 0.001,
+                            latitude: userCoord.latitude + 0.001,
+                            longitude: userCoord.longitude + 0.001,
                             address: "Test Address 1",
                             cuisine: "Fast Food",
                             openingHours: nil,
@@ -268,8 +258,8 @@ final class MapViewModel: ObservableObject {
                         Restaurant(
                             id: 999992,
                             name: "Subway",
-                            latitude: coordinate.latitude - 0.001,
-                            longitude: coordinate.longitude + 0.001,
+                            latitude: userCoord.latitude - 0.001,
+                            longitude: userCoord.longitude + 0.001,
                             address: "Test Address 2",
                             cuisine: "Fast Food",
                             openingHours: nil,
@@ -280,7 +270,7 @@ final class MapViewModel: ObservableObject {
                     ]
                     
                     self.restaurants = testRestaurants
-                    debugLog("🗺️ MapViewModel - Using fallback test restaurants: \(testRestaurants.count)")
+                    debugLog(" MapViewModel - Using fallback test restaurants: \(testRestaurants.count)")
                     
                     self.isLoadingRestaurants = false
                     self.loadingProgress = 1.0
@@ -289,7 +279,7 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    func performSearch(query: String, maxDistance: Double?) {
+    func performSearch(query: String, maxDistance: Double? = 2.5) {
         guard !query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         
         guard let userLocation = locationManager.lastLocation else {
@@ -310,7 +300,7 @@ final class MapViewModel: ObservableObject {
             query: query,
             in: restaurants,
             userLocation: userLocation,
-            maxDistance: nil
+            maxDistance: searchRadius
         )
         
         Task { @MainActor in
@@ -353,6 +343,8 @@ final class MapViewModel: ObservableObject {
         regionUpdateTask?.cancel()
         areaNameUpdateTask?.cancel()
         currentLoadingTask?.cancel()
+        
+        geocoder.cancelGeocode()
     }
 
     // MARK: - Private Methods
@@ -374,11 +366,58 @@ final class MapViewModel: ObservableObject {
             await self?.updateAreaName(for: coordinate)
         }
     }
+    
+    private func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) {
+        areaNameUpdateTask?.cancel()
+        
+        areaNameUpdateTask = Task.detached(priority: .utility) { @MainActor [weak self] in
+            guard let self = self else { return }
+            
+            try? await Task.sleep(nanoseconds: 5_000_000_000)
+            guard !Task.isCancelled else { return }
+            
+            if !self.shouldPerformGeocoding(for: coordinate) {
+                debugLog(" Skipping geocoding - too recent or too close")
+                return
+            }
+            
+            await self.updateAreaName(for: coordinate)
+        }
+    }
+
+    private func shouldPerformGeocoding(for coordinate: CLLocationCoordinate2D) -> Bool {
+        let now = Date()
+        
+        // Check time-based throttling
+        if now.timeIntervalSince(lastGeocodingTime) < minimumGeocodingInterval {
+            return false
+        }
+        
+        // Check distance-based throttling
+        if let lastCoordinate = lastGeocodedCoordinate {
+            let lastLocation = CLLocation(latitude: lastCoordinate.latitude, longitude: lastCoordinate.longitude)
+            let currentLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let distance = lastLocation.distance(from: currentLocation)
+            
+            if distance < minimumDistanceThreshold {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     private func updateAreaName(for coordinate: CLLocationCoordinate2D) async {
+        await MainActor.run {
+            self.lastGeocodingTime = Date()
+            self.lastGeocodedCoordinate = coordinate
+        }
+        
         do {
+            geocoder.cancelGeocode()
+            
             let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            let placemarks = try await CLGeocoder().reverseGeocodeLocation(location)
+            let placemarks = try await geocoder.reverseGeocodeLocation(location)
             
             if let placemark = placemarks.first {
                 let components = [
@@ -392,11 +431,12 @@ final class MapViewModel: ObservableObject {
                 await MainActor.run {
                     if !areaName.isEmpty {
                         self.currentAreaName = areaName
+                        debugLog(" Updated area name: \(areaName)")
                     }
                 }
             }
         } catch {
-            debugLog("Failed to get area name: \(error)")
+            debugLog(" Failed to get area name: \(error)")
         }
     }
 

@@ -21,14 +21,13 @@ struct HomeScreen: View {
     @State private var searchResults: [Restaurant] = []
     @State private var selectedRestaurant: Restaurant?
     @State private var searchWorkItem: DispatchWorkItem?
+    @State private var showSearchScreen = false
     
-    // Categories mapping string to enum
+    // Categories mapping string to enum - UPDATED: Only 3 categories + custom
     private let categoryMapping: [String: RestaurantCategory] = [
         "Fast Food": .fastFood,
         "Healthy": .healthy,
-        "Vegan": .vegan,
-        "High Protein": .highProtein,
-        "Low Carb": .lowCarb
+        "High Protein": .highProtein
     ]
     
     var body: some View {
@@ -55,7 +54,6 @@ struct HomeScreen: View {
     
     private func clearFiltersOnHomeScreen() {
         if mapViewModel.currentFilter.hasActiveFilters {
-            debugLog("🏠 HomeScreen: Clearing active filters for clean home experience")
             updateLoadingStatus("Clearing filters", "Preparing clean experience...")
             mapViewModel.clearFilters()
         }
@@ -109,11 +107,7 @@ struct HomeScreen: View {
                 
                 searchBarView
                 
-                if isSearching && !searchText.isEmpty {
-                    searchResultsView
-                } else {
-                    contentSectionsView
-                }
+                contentSectionsView
             }
             .padding()
         }
@@ -131,128 +125,26 @@ struct HomeScreen: View {
     }
     
     private var searchBarView: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        Button {
+            showSearchScreen = true
+        } label: {
             HStack {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.gray)
                 
-                TextField("Search restaurants (e.g., McDonald's, Subway...)", text: $searchText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .onChange(of: searchText) { oldValue, newValue in
-                        handleSearchTextChange(newValue)
-                    }
-                
-                if !searchText.isEmpty {
-                    Button(action: clearSearch) {
-                        Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.gray)
-                    }
-                }
-            }
-        }
-        .padding(.horizontal)
-        .padding(.vertical, 8)
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(12)
-    }
-    
-    private var searchResultsView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Search Results")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                
-                if isSearching {
-                    ProgressView()
-                        .scaleEffect(0.8)
-                }
+                Text("Search restaurants...")
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Spacer()
             }
-            
-            if searchResults.isEmpty && !isSearching {
-                VStack(spacing: 8) {
-                    Image(systemName: "magnifyingglass")
-                        .font(.largeTitle)
-                        .foregroundColor(.gray)
-                    
-                    Text("No restaurants found")
-                        .font(.headline)
-                        .foregroundColor(.gray)
-                    
-                    Text("Try searching for: McDonald's, Subway, Starbucks, etc.")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.center)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 30)
-            } else {
-                LazyVStack(spacing: 8) {
-                    ForEach(searchResults.prefix(10), id: \.id) { restaurant in
-                        SearchResultRow(restaurant: restaurant) {
-                            selectedRestaurant = restaurant
-                        }
-                    }
-                }
-            }
+            .padding()
+            .background(Color.gray.opacity(0.1))
+            .cornerRadius(12)
         }
-    }
-    
-    private func handleSearchTextChange(_ newValue: String) {
-        searchWorkItem?.cancel()
-        
-        if newValue.isEmpty {
-            Task { @MainActor in
-                self.isSearching = false
-                self.searchResults = []
-            }
-        } else if newValue.count >= 2 {
-            let workItem = DispatchWorkItem {
-                Task { @MainActor in
-                    await self.performSearch(query: newValue)
-                }
-            }
-            searchWorkItem = workItem
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: workItem)
-        }
-    }
-    
-    private func performSearch(query: String) async {
-        isSearching = true
-        
-        // Search through static restaurant list for better performance
-        let staticMatches = RestaurantData.restaurantsWithNutritionData.filter { restaurantName in
-            restaurantName.localizedCaseInsensitiveContains(query)
-        }
-        
-        // Convert to Restaurant objects for display
-        let searchResults = staticMatches.map { name in
-            Restaurant(
-                id: name.hashValue,
-                name: name,
-                latitude: locationManager.lastLocation?.coordinate.latitude ?? 0,
-                longitude: locationManager.lastLocation?.coordinate.longitude ?? 0,
-                address: "Multiple locations",
-                cuisine: "Various",
-                openingHours: nil,
-                phone: nil,
-                website: nil,
-                type: "node"
-            )
-        }
-        
-        self.searchResults = Array(searchResults.prefix(20))
-        self.isSearching = false
-    }
-    
-    private func clearSearch() {
-        Task { @MainActor in
-            self.searchText = ""
-            self.searchResults = []
-            self.isSearching = false
-            self.searchWorkItem?.cancel()
+        .buttonStyle(.plain)
+        .sheet(isPresented: $showSearchScreen) {
+            SearchScreen(isPresented: $showSearchScreen)
         }
     }
     
@@ -272,7 +164,7 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: MapScreen(viewModel: createCleanMapViewModel())) {
+                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
                     HStack {
                         Image(systemName: "map")
                         Text("Map")
@@ -289,6 +181,7 @@ struct HomeScreen: View {
                     .foregroundColor(.white)
                     .cornerRadius(20)
                 }
+
             }
             
             if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
@@ -299,18 +192,6 @@ struct HomeScreen: View {
         }
     }
     
-    private func createCleanMapViewModel() -> MapViewModel {
-        let cleanViewModel = MapViewModel()
-        
-        // Only copy essential location data, don't trigger restaurant loading
-        cleanViewModel.region = mapViewModel.region
-        cleanViewModel.currentAreaName = mapViewModel.currentAreaName
-        cleanViewModel.clearFilters()
-        
-        debugLog("📍 Created clean MapViewModel for navigation - restaurants will load on map appear")
-        return cleanViewModel
-    }
-    
     private var categoriesView: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Browse by Category")
@@ -318,19 +199,43 @@ struct HomeScreen: View {
                 .fontWeight(.semibold)
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
-                ForEach(Array(categoryMapping.keys), id: \.self) { categoryString in
-                    if let categoryEnum = categoryMapping[categoryString] {
-                        NavigationLink(destination: CategoryListView(
-                            category: categoryEnum,
-                            restaurants: getCategoryRestaurants(categoryString),
-                            isPresented: .constant(true)
-                        )) {
-                            CategoryCardView(
-                                category: categoryString,
-                                count: getCategoryCount(categoryString)
-                            )
-                        }
-                    }
+                NavigationLink(destination: CategoryListView(
+                    category: .fastFood,
+                    restaurants: getFastFoodRestaurants(),
+                    isPresented: .constant(true)
+                )) {
+                    CategoryCardView(
+                        category: "Fast Food",
+                        count: getFastFoodRestaurants().count
+                    )
+                }
+                
+                NavigationLink(destination: CategoryListView(
+                    category: .healthy,
+                    restaurants: getHealthyRestaurants(),
+                    isPresented: .constant(true)
+                )) {
+                    CategoryCardView(
+                        category: "Healthy",
+                        count: getHealthyRestaurants().count
+                    )
+                }
+                
+                NavigationLink(destination: CategoryListView(
+                    category: .highProtein,
+                    restaurants: getHighProteinRestaurants(),
+                    isPresented: .constant(true)
+                )) {
+                    CategoryCardView(
+                        category: "High Protein",
+                        count: getHighProteinRestaurants().count
+                    )
+                }
+                
+                Button(action: {
+                    print("Custom category creation not yet implemented")
+                }) {
+                    CustomCategoryCardView()
                 }
             }
         }
@@ -345,9 +250,11 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink("View All", destination: MapScreen(viewModel: createCleanMapViewModel()))
-                    .font(.caption)
-                    .foregroundColor(.blue)
+                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
+                    Text("View All")
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                }
             }
             
             popularChainsContentView
@@ -380,7 +287,7 @@ struct HomeScreen: View {
             .padding(.horizontal, 4)
         }
     }
-
+    
     private var nearbyRestaurantsView: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -390,9 +297,11 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink("View All", destination: MapScreen(viewModel: createCleanMapViewModel()))
-                    .font(.caption)
-                    .foregroundColor(.blue)
+                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
+                    Text("View All")
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                }
             }
             
             nearbyRestaurantsContentView
@@ -418,7 +327,7 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: MapScreen(viewModel: createCleanMapViewModel())) {
+                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
                     Image(systemName: "arrow.right.circle.fill")
                         .foregroundColor(.blue)
                         .font(.title2)
@@ -430,6 +339,84 @@ struct HomeScreen: View {
         }
     }
     
+    private func createRestaurantsFromNames(_ names: [String], cuisine: String) -> [Restaurant] {
+        let restaurants: [Restaurant] = names.compactMap { name in
+            guard RestaurantData.hasNutritionData(for: name) else { return nil }
+            
+            return Restaurant(
+                id: name.hashValue,
+                name: name,
+                latitude: locationManager.lastLocation?.coordinate.latitude ?? 37.7749,
+                longitude: locationManager.lastLocation?.coordinate.longitude ?? -122.4194,
+                address: "Multiple locations",
+                cuisine: cuisine,
+                openingHours: "Varies by location",
+                phone: nil,
+                website: nil,
+                type: "chain"
+            )
+        }
+        
+        return restaurants.sorted { $0.name < $1.name }
+    }
+    
+    private func getFastFoodRestaurants() -> [Restaurant] {
+        let fastFoodNames = [
+            "7 Eleven",
+            "Arby's",
+            "Bojangles",
+            "Burger King",
+            "Carl's Jr.",
+            "Checkers Drive-In / Rally's",
+            "Chick-fil-A",
+            "Church's Chicken",
+            "Dairy Queen",
+            "Domino's",
+            "Dunkin' Donuts",
+            "Five Guys",
+            "Hardee's",
+            "In-N-Out Burger",
+            "Jack in the Box",
+            "KFC",
+            "McDonald's",
+            "Papa John's",
+            "Pizza Hut",
+            "Popeyes",
+            "Quiznos",
+            "Sbarro",
+            "Sonic",
+            "Subway",
+            "Taco Bell",
+            "Wendy's",
+            "Whataburger",
+            "White Castle",
+            "Wingstop"
+        ]
+
+        return createRestaurantsFromNames(fastFoodNames, cuisine: "Fast Food")
+    }
+    
+    private func getHealthyRestaurants() -> [Restaurant] {
+        let healthyNames = [
+            "Panera Bread", "Chipotle", "Subway", "Noodles & Company",
+            "Panda Express", "Jason's Deli", "Firehouse Subs",
+            "Potbelly Sandwich Shop", "Qdoba", "Moe's Southwest Grill"
+        ]
+        
+        return createRestaurantsFromNames(healthyNames, cuisine: "Healthy/Fast Casual")
+    }
+    
+    private func getHighProteinRestaurants() -> [Restaurant] {
+        let highProteinNames = [
+            "KFC", "Chick-fil-A", "Popeyes", "Chipotle", "Five Guys",
+            "In-N-Out Burger", "Whataburger", "Arby's", "Boston Market",
+            "Outback Steakhouse", "LongHorn Steakhouse", "Red Lobster",
+            "TGI Friday's", "Applebee's", "Red Robin"
+        ]
+        
+        return createRestaurantsFromNames(highProteinNames, cuisine: "High Protein")
+    }
+    
     private func startOptimizedLoading() {
         if hasLoadedInitialData {
             showMainLoadingScreen = false
@@ -437,27 +424,23 @@ struct HomeScreen: View {
         }
         
         Task { @MainActor in
-            // Step 1: Location setup
             updateLoadingStatus("Getting Location", "Requesting location permission...", progress: 0.2)
             locationManager.requestLocationPermission()
             
-            // Step 2: Lightweight API availability check only
             updateLoadingStatus("Initializing", "Setting up nutrition database...", progress: 0.4)
             
             await nutritionManager.initializeIfNeeded()
             
-            // Step 3: Wait for location (shorter timeout)
             updateLoadingStatus("Finding Location", "Getting your location...", progress: 0.6)
             var attempts = 0
             while locationManager.lastLocation == nil && attempts < 15 {
-                try? await Task.sleep(nanoseconds: 200_000_000) // 0.2 seconds
+                try? await Task.sleep(nanoseconds: 200_000_000)
                 attempts += 1
                 
-                let waitProgress = 0.6 + (Double(attempts) / 15.0) * 0.2 // 0.6 to 0.8
+                let waitProgress = 0.6 + (Double(attempts) / 15.0) * 0.2
                 updateLoadingStatus("Finding Location", "GPS signal: \(attempts * 7)%...", progress: waitProgress)
             }
             
-            // Step 4: Finalize quickly
             updateLoadingStatus("Almost Ready", "Finalizing setup...", progress: 0.9)
             
             if let userLocation = locationManager.lastLocation?.coordinate {
@@ -467,76 +450,15 @@ struct HomeScreen: View {
                 )
             }
             
-            // Quick completion
             hasLoadedInitialData = true
             updateLoadingStatus("Ready!", "Welcome to MealMap!", progress: 1.0)
             
-            try? await Task.sleep(nanoseconds: 300_000_000) // Very brief pause
+            try? await Task.sleep(nanoseconds: 300_000_000)
             
-            // Hide loading screen
             withAnimation(.easeInOut(duration: 0.3)) {
                 showMainLoadingScreen = false
             }
         }
-    }
-    
-    private func getCategoryRestaurants(_ category: String) -> [Restaurant] {
-        // Categories will work after visiting the map - return empty for now
-        return []
-    }
-    
-    private func getCategoryCount(_ category: String) -> Int {
-        // Return static counts based on category type
-        switch category {
-        case "Fast Food": return 25
-        case "Healthy": return 12
-        case "Vegan": return 8
-        case "High Protein": return 15
-        case "Low Carb": return 10
-        default: return 5
-        }
-    }
-}
-
-// MARK: - Supporting Views
-
-struct SearchResultRow: View {
-    let restaurant: Restaurant
-    let onTap: () -> Void
-    
-    var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: 12) {
-                Image(systemName: "fork.knife")
-                    .font(.title3)
-                    .foregroundColor(.blue)
-                    .frame(width: 32, height: 32)
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(8)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(restaurant.name)
-                        .font(.headline)
-                        .foregroundColor(.primary)
-                    
-                    if restaurant.hasNutritionData {
-                        Text("Nutrition data available")
-                            .font(.caption)
-                            .foregroundColor(.green)
-                    }
-                }
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-            .padding()
-            .background(Color.gray.opacity(0.05))
-            .cornerRadius(12)
-        }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -554,25 +476,57 @@ struct CategoryCardView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.primary)
             
-            Text("\(count) restaurants")
+            Text("\(count) restaurant\(count == 1 ? "" : "s")")
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundColor(.blue)
+                .fontWeight(.medium)
         }
         .padding()
         .frame(maxWidth: .infinity, minHeight: 100)
-        .background(Color.gray.opacity(0.1))
+        .background(Color.blue.opacity(0.05))
         .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.blue.opacity(0.2), lineWidth: 1)
+        )
     }
     
     private func getCategoryIcon(_ category: String) -> String {
         switch category {
         case "Fast Food": return "🍔"
         case "Healthy": return "🥗"
-        case "Vegan": return "🌱"
         case "High Protein": return "🥩"
-        case "Low Carb": return "🥬"
         default: return "🍽️"
         }
+    }
+}
+
+struct CustomCategoryCardView: View {
+    var body: some View {
+        VStack(spacing: 8) {
+            Image(systemName: "plus.circle.fill")
+                .font(.system(size: 32))
+                .foregroundColor(.gray)
+            
+            Text("Custom")
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.gray)
+            
+            Text("Create category")
+                .font(.caption)
+                .foregroundColor(.gray)
+                .fontWeight(.medium)
+        }
+        .padding()
+        .frame(maxWidth: .infinity, minHeight: 100)
+        .background(Color.gray.opacity(0.05))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [5]))
+        )
     }
 }
 

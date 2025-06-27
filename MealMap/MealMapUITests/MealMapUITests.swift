@@ -16,13 +16,13 @@ final class MealMapUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Cleanup after tests
     }
+    // Verify home screen loads
 
     @MainActor
     func testAppLaunch() throws {
         let app = XCUIApplication()
         app.launch()
 
-        // Verify home screen loads
         XCTAssertTrue(app.staticTexts["Discover Restaurants"].exists, "Home screen should display")
     }
     

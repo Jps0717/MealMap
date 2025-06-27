@@ -6,15 +6,13 @@ struct NutritionMenuView: View {
     @State private var searchText = ""
     @State private var selectedItem: NutritionData?
     @State private var showingItemDetail = false
-    @State private var showCategoryFilterOnly = true
-    @State private var isProcessingFilter = false
     
-    // UPDATE: Enhanced filtering with category support
+    // Simplified filtering - removed category filter toggle
     private var filteredItems: [NutritionData] {
         var items = restaurantData.items
         
-        // Apply category filter if enabled
-        if showCategoryFilterOnly, let category = selectedCategory {
+        // Apply category filter automatically if category is selected
+        if let category = selectedCategory {
             items = filterItemsByCategory(items, category: category)
         }
         
@@ -36,19 +34,9 @@ struct NutritionMenuView: View {
             return items.filter { item in
                 item.sodium <= 600 && item.fiber >= 3 && item.calories <= 500
             }
-        case .vegan:
-            return items.filter { item in
-                let itemName = item.item.lowercased()
-                let nonVeganKeywords = ["chicken", "beef", "bacon", "cheese", "mayo", "milk", "egg", "butter", "cream"]
-                return !nonVeganKeywords.contains { itemName.contains($0) }
-            }
         case .highProtein:
             return items.filter { item in
                 item.protein >= 20
-            }
-        case .lowCarb:
-            return items.filter { item in
-                item.carbs <= 15
             }
         }
     }
@@ -56,50 +44,6 @@ struct NutritionMenuView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if let category = selectedCategory {
-                    VStack(spacing: 12) {
-                        HStack {
-                            Toggle(isOn: Binding(
-                                get: { showCategoryFilterOnly },
-                                set: { newValue in
-                                    isProcessingFilter = true
-                                    showCategoryFilterOnly = newValue
-                                    
-                                    // Add small delay to show processing
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                        isProcessingFilter = false
-                                    }
-                                }
-                            )) {
-                                HStack(spacing: 8) {
-                                    Image(systemName: category.icon)
-                                        .foregroundColor(category.color)
-                                    Text("Show only \(category.rawValue.lowercased()) items")
-                                        .font(.system(size: 16, weight: .medium))
-                                }
-                            }
-                            .toggleStyle(SwitchToggleStyle(tint: category.color))
-                        }
-                        .padding(.horizontal)
-                        
-                        if isProcessingFilter {
-                            LoadingView(
-                                title: "Filtering items...",
-                                style: .compact
-                            )
-                            .padding(.horizontal)
-                        } else if showCategoryFilterOnly {
-                            HStack {
-                                Text("\(filteredItems.count) items match \(category.rawValue.lowercased()) criteria")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.secondary)
-                                Spacer()
-                            }
-                            .padding(.horizontal)
-                        }
-                    }
-                    .padding(.top)
-                }
                 
                 // Search bar
                 HStack {
@@ -110,7 +54,7 @@ struct NutritionMenuView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
                 .padding(.horizontal)
-                .padding(.top, selectedCategory == nil ? 16 : 8)
+                .padding(.top, 16)
                 
                 // Menu items list
                 List(filteredItems) { item in
@@ -137,100 +81,187 @@ struct MenuItemRow: View {
     let item: NutritionData
     let category: RestaurantCategory?
     
+    // Health scoring for highlighting harmful vs healthy items
+    private var healthScore: HealthScore {
+        calculateHealthScore(for: item)
+    }
+    
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(item.item)
-                    .font(.headline)
-                    .foregroundColor(.primary)
-                
-                // UPDATE: Category-specific nutrition highlights
-                HStack(spacing: 16) {
-                    Label("\(Int(item.calories))", systemImage: "flame.fill")
-                        .font(.caption)
-                        .foregroundColor(.orange)
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(item.item)
+                        .font(.headline)
+                        .foregroundColor(.primary)
                     
-                    // Show relevant nutrition based on category
-                    switch category {
-                    case .highProtein:
-                        Label("\(formatNumber(item.protein))g protein", systemImage: "figure.strengthtraining.traditional")
+                    Spacer()
+                    
+                    // Health indicator using symbols instead of emojis
+                    Image(systemName: healthScore.symbolName)
+                        .foregroundColor(healthScore.color)
+                        .font(.system(size: 16, weight: .semibold))
+                    
+                    // Simplified health badge - only for concerning items
+                    if healthScore == .veryUnhealthy || healthScore == .unhealthy {
+                        Text(healthScore.label)
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(healthScore.color.opacity(0.2))
+                            .foregroundColor(healthScore.color)
+                            .cornerRadius(6)
+                    }
+                }
+                
+                // Only show noteworthy nutrition metrics (good or concerning)
+                HStack(spacing: 16) {
+                    ForEach(getNoteworthyMetrics(for: item, category: category), id: \.text) { metric in
+                        Label(metric.text, systemImage: metric.icon)
                             .font(.caption)
-                            .foregroundColor(item.protein >= 20 ? .green : .secondary)
-                            .fontWeight(item.protein >= 20 ? .bold : .regular)
-                        
-                    case .lowCarb:
-                        Label("\(formatNumber(item.carbs))g carbs", systemImage: "minus.circle.fill")
-                            .font(.caption)
-                            .foregroundColor(item.carbs <= 15 ? .green : .red)
-                            .fontWeight(item.carbs <= 15 ? .bold : .regular)
-                        
-                    case .healthy:
-                        Label("\(formatNumber(item.fiber))g fiber", systemImage: "leaf.fill")
-                            .font(.caption)
-                            .foregroundColor(item.fiber >= 3 ? .green : .secondary)
-                            .fontWeight(item.fiber >= 3 ? .bold : .regular)
-                            
-                        Label("\(Int(item.sodium))mg sodium", systemImage: "drop.fill")
-                            .font(.caption)
-                            .foregroundColor(item.sodium <= 600 ? .green : .red)
-                            .fontWeight(item.sodium <= 600 ? .bold : .regular)
-                        
-                    case .vegan:
-                        Label("\(formatNumber(item.fiber))g fiber", systemImage: "leaf.fill")
-                            .font(.caption)
-                            .foregroundColor(.green)
-                            
-                        Label("\(formatNumber(item.protein))g protein", systemImage: "figure.strengthtraining.traditional")
-                            .font(.caption)
-                            .foregroundColor(.mint)
-                        
-                    default:
-                        Label("\(formatNumber(item.fat))g fat", systemImage: "drop.fill")
-                            .font(.caption)
-                            .foregroundColor(.blue)
-                        
-                        Label("\(formatNumber(item.protein))g protein", systemImage: "figure.strengthtraining.traditional")
-                            .font(.caption)
-                            .foregroundColor(.green)
+                            .foregroundColor(metric.color)
+                            .fontWeight(metric.isHighlighted ? .bold : .regular)
                     }
                 }
             }
             
             Spacer()
             
-            // UPDATE: Show category-relevant main metric
-            VStack(alignment: .trailing) {
-                switch category {
-                case .highProtein:
-                    Text("\(formatNumber(item.protein))g")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(item.protein >= 20 ? .green : .primary)
-                    Text("protein")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        
-                case .lowCarb:
-                    Text("\(formatNumber(item.carbs))g")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(item.carbs <= 15 ? .green : .red)
-                    Text("carbs")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        
-                default:
-                    Text("\(Int(item.calories))")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.primary)
-                    Text("calories")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
+            // Main metric display - always calories
+            VStack(alignment: .trailing, spacing: 2) {
+                Text("\(Int(item.calories))")
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(getCalorieColor(item.calories))
+                Text("cal")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
             }
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, 10)
+        .background(
+            // Very subtle background highlighting for very unhealthy items
+            healthScore == .veryUnhealthy ? 
+            Color.red.opacity(0.03) : Color.clear
+        )
+        .cornerRadius(6)
+    }
+    
+    // Get only noteworthy nutrition metrics (good or bad, skip neutral)
+    private func getNoteworthyMetrics(for item: NutritionData, category: RestaurantCategory?) -> [NutritionMetric] {
+        var metrics: [NutritionMetric] = []
+        
+        // High sodium (concerning)
+        if item.sodium > 1500 {
+            metrics.append(NutritionMetric(
+                text: "\(Int(item.sodium))mg sodium",
+                icon: "exclamationmark.triangle.fill",
+                color: .red,
+                isHighlighted: true
+            ))
+        } else if item.sodium > 1000 {
+            metrics.append(NutritionMetric(
+                text: "\(Int(item.sodium))mg sodium",
+                icon: "exclamationmark.triangle.fill",
+                color: .orange,
+                isHighlighted: true
+            ))
+        } else if item.sodium <= 400 {
+            // Low sodium (good)
+            metrics.append(NutritionMetric(
+                text: "\(Int(item.sodium))mg sodium",
+                icon: "checkmark.circle.fill",
+                color: .green,
+                isHighlighted: true
+            ))
+        }
+        
+        // High saturated fat (concerning)
+        if item.saturatedFat > 15 {
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.saturatedFat))g sat fat",
+                icon: "exclamationmark.triangle.fill",
+                color: .red,
+                isHighlighted: true
+            ))
+        } else if item.saturatedFat > 10 {
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.saturatedFat))g sat fat",
+                icon: "exclamationmark.triangle.fill",
+                color: .orange,
+                isHighlighted: true
+            ))
+        } else if item.saturatedFat <= 3 {
+            // Low saturated fat (good)
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.saturatedFat))g sat fat",
+                icon: "checkmark.circle.fill",
+                color: .green,
+                isHighlighted: true
+            ))
+        }
+        
+        // High protein (good)
+        if item.protein >= 25 {
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.protein))g protein",
+                icon: "checkmark.circle.fill",
+                color: .green,
+                isHighlighted: true
+            ))
+        } else if item.protein >= 20 && category == .highProtein {
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.protein))g protein",
+                icon: "checkmark.circle",
+                color: .green,
+                isHighlighted: true
+            ))
+        }
+        
+        // High fiber (good)
+        if item.fiber >= 5 {
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.fiber))g fiber",
+                icon: "leaf.fill",
+                color: .green,
+                isHighlighted: true
+            ))
+        } else if item.fiber >= 3 && category == .healthy {
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.fiber))g fiber",
+                icon: "leaf.fill",
+                color: .green,
+                isHighlighted: true
+            ))
+        }
+        
+        // High sugar (concerning)
+        if item.sugar > 30 {
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.sugar))g sugar",
+                icon: "exclamationmark.triangle.fill",
+                color: .red,
+                isHighlighted: true
+            ))
+        } else if item.sugar > 20 {
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.sugar))g sugar",
+                icon: "exclamationmark.triangle.fill",
+                color: .orange,
+                isHighlighted: true
+            ))
+        } else if item.sugar <= 5 {
+            // Low sugar (good)
+            metrics.append(NutritionMetric(
+                text: "\(formatNumber(item.sugar))g sugar",
+                icon: "checkmark.circle.fill",
+                color: .green,
+                isHighlighted: true
+            ))
+        }
+        
+        // Limit to 2 most important metrics to avoid clutter
+        return Array(metrics.prefix(2))
     }
     
     private func formatNumber(_ value: Double) -> String {
@@ -238,6 +269,99 @@ struct MenuItemRow: View {
             return String(Int(value))
         } else {
             return String(format: "%.1f", value)
+        }
+    }
+    
+    // Health scoring system
+    private func calculateHealthScore(for item: NutritionData) -> HealthScore {
+        var unhealthyPoints = 0
+        var healthyPoints = 0
+        
+        // Unhealthy factors
+        if item.calories > 800 { unhealthyPoints += 2 }
+        else if item.calories > 600 { unhealthyPoints += 1 }
+        
+        if item.sodium > 1500 { unhealthyPoints += 3 }
+        else if item.sodium > 1000 { unhealthyPoints += 2 }
+        else if item.sodium > 600 { unhealthyPoints += 1 }
+        
+        if item.saturatedFat > 15 { unhealthyPoints += 2 }
+        else if item.saturatedFat > 10 { unhealthyPoints += 1 }
+        
+        if item.sugar > 30 { unhealthyPoints += 2 }
+        else if item.sugar > 20 { unhealthyPoints += 1 }
+        
+        // Healthy factors
+        if item.fiber >= 5 { healthyPoints += 2 }
+        else if item.fiber >= 3 { healthyPoints += 1 }
+        
+        if item.protein >= 25 { healthyPoints += 2 }
+        else if item.protein >= 15 { healthyPoints += 1 }
+        
+        if item.calories < 400 { healthyPoints += 1 }
+        
+        // Determine score
+        let netScore = healthyPoints - unhealthyPoints
+        
+        if unhealthyPoints >= 5 { return .veryUnhealthy }
+        else if unhealthyPoints >= 3 { return .unhealthy }
+        else if netScore >= 2 { return .healthy }
+        else if netScore >= 1 { return .somewhatHealthy }
+        else { return .neutral }
+    }
+    
+    // Color coding functions
+    private func getCalorieColor(_ calories: Double) -> Color {
+        if calories > 800 { return .red }
+        else if calories > 600 { return .orange }
+        else if calories < 400 { return .green }
+        else { return .primary }
+    }
+}
+
+// Helper struct for nutrition metrics
+struct NutritionMetric {
+    let text: String
+    let icon: String
+    let color: Color
+    let isHighlighted: Bool
+}
+
+// Health scoring enum
+enum HealthScore: Equatable {
+    case veryUnhealthy
+    case unhealthy
+    case neutral
+    case somewhatHealthy
+    case healthy
+    
+    var color: Color {
+        switch self {
+        case .veryUnhealthy: return .red
+        case .unhealthy: return .orange
+        case .neutral: return .gray
+        case .somewhatHealthy: return .green
+        case .healthy: return .green
+        }
+    }
+    
+    var label: String {
+        switch self {
+        case .veryUnhealthy: return "AVOID"
+        case .unhealthy: return "LIMIT"
+        case .neutral: return ""
+        case .somewhatHealthy: return ""
+        case .healthy: return ""
+        }
+    }
+    
+    var symbolName: String {
+        switch self {
+        case .veryUnhealthy: return "xmark.circle.fill"
+        case .unhealthy: return "exclamationmark.triangle.fill"
+        case .neutral: return "minus.circle"
+        case .somewhatHealthy: return "checkmark.circle"
+        case .healthy: return "checkmark.circle.fill"
         }
     }
 }

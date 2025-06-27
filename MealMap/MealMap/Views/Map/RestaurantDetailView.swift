@@ -9,9 +9,17 @@ struct RestaurantDetailView: View {
     @State private var animateIn = false
     @State private var hasNutritionData: Bool = false
     @ObservedObject private var nutritionManager = NutritionDataManager.shared
-    @State private var scrollOffset: CGFloat = 0
     @State private var viewState: ViewState = .initializing
-    
+    @State private var searchText = ""
+    @State private var selectedMenuCategory: MenuCategory = .all 
+
+    enum MenuCategory: String, CaseIterable {
+        case all = "All"
+        case food = "Food"
+        case drinks = "Drinks"
+        case desserts = "Desserts"
+    }
+
     enum ViewState {
         case initializing
         case loading
@@ -19,26 +27,23 @@ struct RestaurantDetailView: View {
         case noData
         case error(String)
     }
-    
+
     var body: some View {
         NavigationView {
             ZStack {
-                // Background
                 LinearGradient(
                     colors: [Color(.systemBackground), Color(.systemGray6)],
                     startPoint: .top,
                     endPoint: .bottom
                 )
                 .ignoresSafeArea()
-                
+
                 VStack(spacing: 0) {
-                    // Restaurant Header
                     restaurantHeader
                         .padding(.horizontal, 20)
                         .padding(.top, 20)
                         .background(Color(.systemBackground))
-                    
-                    // Content based on view state
+
                     contentView
                 }
             }
@@ -46,15 +51,14 @@ struct RestaurantDetailView: View {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
+                    Button {
                         isPresented = false
-                    }) {
+                    } label: {
                         Image(systemName: "xmark")
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.primary)
                     }
                 }
-                
                 ToolbarItem(placement: .principal) {
                     Text(restaurant.name)
                         .font(.system(size: 18, weight: .bold))
@@ -62,21 +66,12 @@ struct RestaurantDetailView: View {
                 }
             }
         }
-        .onAppear {
-            setupView()
-        }
-        .onChange(of: nutritionManager.isLoading) { oldValue, newValue in
-            updateViewState()
-        }
-        .onChange(of: nutritionManager.currentRestaurantData) { oldValue, newValue in
-            updateViewState()
-        }
-        .onChange(of: nutritionManager.errorMessage) { oldValue, newValue in
-            updateViewState()
-        }
+        .onAppear { setupView() }
+        .onChange(of: nutritionManager.isLoading) { _, _ in updateViewState() }
+        .onChange(of: nutritionManager.currentRestaurantData) { _, _ in updateViewState() }
+        .onChange(of: nutritionManager.errorMessage) { _, _ in updateViewState() }
     }
-    
-    // MARK: - Content View
+
     @ViewBuilder
     private var contentView: some View {
         switch viewState {
@@ -88,83 +83,80 @@ struct RestaurantDetailView: View {
                 style: .fullScreen
             )
             .transition(.opacity.combined(with: .scale(scale: 0.95)))
-            
+
         case .loaded:
             if let restaurantData = nutritionManager.currentRestaurantData {
-                menuContent(restaurantData)
+                fullMenuContent(restaurantData)
                     .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
-            
+
         case .noData:
             noDataView
                 .transition(.opacity.combined(with: .scale(scale: 0.95)))
-            
+
         case .error(let message):
             errorView(message: message)
                 .transition(.opacity.combined(with: .scale(scale: 0.95)))
         }
     }
-    
-    // MARK: - Setup and State Management
+
     private func setupView() {
         hasNutritionData = RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
-        
+        debugLog("🍽️ Opening '\(restaurant.name)' – has nutrition: \(hasNutritionData)")
+
         if hasNutritionData {
             viewState = .loading
+            debugLog("🔄 Loading nutrition for \(restaurant.name)")
             nutritionManager.loadNutritionData(for: restaurant.name)
         } else {
             viewState = .noData
         }
-        
+
         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
             animateIn = true
         }
     }
-    
+
     private func updateViewState() {
         withAnimation(.easeInOut(duration: 0.3)) {
-            if let errorMessage = nutritionManager.errorMessage {
-                viewState = .error(errorMessage)
+            if let error = nutritionManager.errorMessage {
+                viewState = .error(error)
             } else if nutritionManager.isLoading {
                 viewState = .loading
-            } else if let _ = nutritionManager.currentRestaurantData {
+            } else if nutritionManager.currentRestaurantData != nil {
                 viewState = .loaded
             } else if hasNutritionData {
-                viewState = .loading // Still waiting for data
+                viewState = .loading
             } else {
                 viewState = .noData
             }
         }
     }
-    
-    // MARK: - Restaurant Header
+
     private var restaurantHeader: some View {
         VStack(spacing: 16) {
             HStack {
-                // Restaurant Icon
                 ZStack {
                     RoundedRectangle(cornerRadius: 16)
                         .fill(Color.blue.opacity(0.1))
                         .frame(width: 60, height: 60)
-                    
                     Image(systemName: "fork.knife")
                         .font(.system(size: 24, weight: .medium))
                         .foregroundColor(.blue)
                 }
-                
+
                 VStack(alignment: .leading, spacing: 4) {
                     Text(restaurant.name)
                         .font(.system(size: 22, weight: .bold, design: .rounded))
                         .foregroundColor(.primary)
                         .lineLimit(2)
-                    
+
                     if let cuisine = restaurant.cuisine {
                         Text(cuisine.capitalized)
                             .font(.system(size: 16, weight: .medium, design: .rounded))
                             .foregroundColor(.secondary)
                     }
-                    
-                    // Nutrition availability indicator
+
                     HStack(spacing: 6) {
                         if hasNutritionData {
                             Image(systemName: "checkmark.circle.fill")
@@ -183,463 +175,259 @@ struct RestaurantDetailView: View {
                         }
                     }
                 }
-                
                 Spacer()
             }
-            
-            // Category filter indicator if applicable
+
             if let category = selectedCategory {
                 HStack {
-                    HStack(spacing: 8) {
-                        Image(systemName: category.icon)
-                            .font(.system(size: 14))
-                            .foregroundColor(category.color)
-                        
-                        Text("Filtering by \(category.rawValue)")
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(category.color)
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(category.color.opacity(0.1))
-                    )
-                    
+                    Image(systemName: category.icon)
+                        .foregroundColor(category.color)
+                    Text("Filtering by \(category.rawValue)")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(category.color)
                     Spacer()
                 }
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: 12).fill(category.color.opacity(0.1)))
             }
         }
     }
-    
-    // MARK: - No Data View
+
     private var noDataView: some View {
         VStack(spacing: 24) {
             Spacer()
-            
             Image(systemName: "info.circle.fill")
                 .font(.system(size: 50))
                 .foregroundColor(.orange)
-            
-            VStack(spacing: 12) {
-                Text("No Nutrition Data")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.primary)
-                
-                Text("Unfortunately, we don't have detailed nutrition information for \(restaurant.name) yet.")
-                    .font(.system(size: 16))
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-                
-                Text("You can still view restaurant details and location information.")
-                    .font(.system(size: 14))
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-            }
-            
-            // Restaurant info section
+
+            Text("No Nutrition Data")
+                .font(.system(size: 24, weight: .bold))
+            Text("We don't have detailed nutrition for \(restaurant.name).")
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+                .padding(.horizontal, 40)
+
             VStack(spacing: 16) {
                 if let address = restaurant.address {
-                    HStack(spacing: 12) {
+                    HStack {
                         Image(systemName: "location.fill")
-                            .font(.system(size: 16))
-                            .foregroundColor(.blue)
-                        
                         Text(address)
-                            .font(.system(size: 16))
-                            .foregroundColor(.primary)
-                        
                         Spacer()
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color(.systemGray6))
-                    )
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
                 }
-                
                 if let phone = restaurant.phone {
-                    HStack(spacing: 12) {
+                    HStack {
                         Image(systemName: "phone.fill")
-                            .font(.system(size: 16))
-                            .foregroundColor(.green)
-                        
                         Text(phone)
-                            .font(.system(size: 16))
-                            .foregroundColor(.primary)
-                        
                         Spacer()
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color(.systemGray6))
-                    )
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
                 }
             }
             .padding(.horizontal, 20)
-            
             Spacer()
         }
     }
-    
-    // MARK: - Error View
+
     private func errorView(message: String) -> some View {
         VStack(spacing: 24) {
             Spacer()
-            
             Image(systemName: "exclamationmark.triangle.fill")
                 .font(.system(size: 50))
                 .foregroundColor(.red)
-            
-            VStack(spacing: 12) {
-                Text("Unable to Load Menu")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.primary)
-                
-                Text(message)
-                    .font(.system(size: 16))
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 40)
-            }
-            
-            Button(action: {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    viewState = .loading
-                }
+
+            Text("Unable to Load Menu")
+                .font(.system(size: 24, weight: .bold))
+            Text(message)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+                .padding(.horizontal, 40)
+
+            Button {
+                viewState = .loading
                 nutritionManager.loadNutritionData(for: restaurant.name)
-            }) {
-                HStack(spacing: 8) {
+            } label: {
+                HStack {
                     Image(systemName: "arrow.clockwise")
-                        .font(.system(size: 14, weight: .semibold))
                     Text("Try Again")
-                        .font(.system(size: 16, weight: .semibold))
                 }
+                .padding()
+                .background(LinearGradient(colors: [.blue, .blue.opacity(0.8)], startPoint: .top, endPoint: .bottom))
                 .foregroundColor(.white)
-                .padding(.horizontal, 24)
-                .padding(.vertical, 12)
-                .background(
-                    LinearGradient(
-                        colors: [.blue, .blue.opacity(0.8)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
                 .cornerRadius(12)
-                .shadow(color: .blue.opacity(0.3), radius: 8, y: 4)
             }
-            
             Spacer()
         }
     }
-    
-    // MARK: - Menu Content
-    private func menuContent(_ restaurantData: RestaurantNutritionData) -> some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                // Menu header with item count
-                VStack(spacing: 12) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Menu Items")
-                                .font(.system(size: 20, weight: .bold, design: .rounded))
-                                .foregroundColor(.primary)
-                            
-                            let totalItems = restaurantData.items.count
-                            let filteredCount = getFilteredItems(restaurantData.items).count
-                            
-                            if let category = selectedCategory, filteredCount != totalItems {
-                                Text("\(filteredCount) \(category.rawValue.lowercased()) items of \(totalItems) total")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.secondary)
-                            } else {
-                                Text("\(totalItems) items available")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        // View full menu button
-                        NavigationLink(destination: NutritionMenuView(
-                            restaurantData: restaurantData,
-                            selectedCategory: selectedCategory
-                        )) {
-                            HStack(spacing: 6) {
-                                Text("View All")
-                                    .font(.system(size: 14, weight: .semibold))
-                                Image(systemName: "arrow.right")
-                                    .font(.system(size: 12))
-                            }
-                            .foregroundColor(.blue)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 8)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.blue.opacity(0.1))
-                            )
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                }
-                
-                // Menu items preview
-                let itemsToShow = getFilteredItems(restaurantData.items).prefix(10)
-                
-                if itemsToShow.isEmpty && selectedCategory != nil {
-                    // No items match category
-                    VStack(spacing: 16) {
-                        Image(systemName: selectedCategory?.icon ?? "exclamationmark.triangle")
-                            .font(.system(size: 40))
-                            .foregroundColor(selectedCategory?.color ?? .gray)
-                        
-                        Text("No \(selectedCategory?.rawValue ?? "Matching") Items")
-                            .font(.system(size: 18, weight: .semibold))
-                        
-                        Text("This restaurant doesn't have menu items that match the \(selectedCategory?.rawValue.lowercased() ?? "selected") criteria.")
-                            .font(.system(size: 14))
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
-                        
-                        NavigationLink(destination: NutritionMenuView(
-                            restaurantData: restaurantData,
-                            selectedCategory: nil
-                        )) {
-                            Text("View All Items")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.blue)
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 10)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(.blue.opacity(0.1))
-                                )
-                        }
-                    }
-                    .padding(.vertical, 40)
-                } else {
-                    ForEach(Array(itemsToShow), id: \.id) { item in
-                        MenuItemCard(item: item, category: selectedCategory)
-                            .padding(.horizontal, 20)
-                    }
-                    
-                    // Show more button if there are more items
-                    if getFilteredItems(restaurantData.items).count > 10 {
-                        NavigationLink(destination: NutritionMenuView(
-                            restaurantData: restaurantData,
-                            selectedCategory: selectedCategory
-                        )) {
-                            HStack(spacing: 8) {
-                                Text("View \(getFilteredItems(restaurantData.items).count - 10) more items")
-                                    .font(.system(size: 16, weight: .semibold))
-                                Image(systemName: "arrow.right")
-                                    .font(.system(size: 14))
-                            }
-                            .foregroundColor(.blue)
-                            .padding(.vertical, 16)
-                            .padding(.horizontal, 24)
-                            .background(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(.blue.opacity(0.1))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .stroke(.blue.opacity(0.3), lineWidth: 1)
-                                    )
-                            )
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.top, 8)
+
+    private func fullMenuContent(_ data: RestaurantNutritionData) -> some View {
+        VStack(spacing: 0) {
+            VStack(spacing: 12) {
+                Picker("Menu Category", selection: $selectedMenuCategory) {
+                    ForEach(MenuCategory.allCases, id: \.self) { category in
+                        Text(category.rawValue).tag(category)
                     }
                 }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.horizontal)
                 
-                // Bottom padding
-                Rectangle()
-                    .fill(Color.clear)
-                    .frame(height: 40)
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.gray)
+                    TextField("Search menu items...", text: $searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                .padding(.horizontal)
             }
+            .padding(.vertical, 12)
+            .background(Color(.systemBackground))
+
+            List(filteredItems(from: data.items)) { item in
+                NavigationLink {
+                    MenuItemDetailView(item: item)
+                } label: {
+                    MenuItemCard(item: item, category: selectedCategory)
+                        .padding(.vertical, 4)
+                }
+                .listRowBackground(Color(.systemBackground))
+            }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+        }
+    }
+
+    private func filteredItems(from items: [NutritionData]) -> [NutritionData] {
+        var list = items
+        
+        list = filterByMenuCategory(list, category: selectedMenuCategory)
+        
+        if let cat = selectedCategory {
+            list = filterItemsByCategory(list, category: cat)
+        }
+        if !searchText.isEmpty {
+            list = list.filter { $0.item.localizedCaseInsensitiveContains(searchText) }
+        }
+        return list
+    }
+
+    private func filterByMenuCategory(_ items: [NutritionData], category: MenuCategory) -> [NutritionData] {
+        switch category {
+        case .all:
+            return items
+        case .food:
+            return items.filter { !isDrink($0) && !isDessert($0) }
+        case .drinks:
+            return items.filter { isDrink($0) }
+        case .desserts:
+            return items.filter { isDessert($0) }
         }
     }
     
-    // MARK: - Helper Methods
-    private func getFilteredItems(_ items: [NutritionData]) -> [NutritionData] {
-        guard let category = selectedCategory else { return items }
-        
+    private func isDrink(_ item: NutritionData) -> Bool {
+        let drinkKeywords = ["coffee", "latte", "cappuccino", "espresso", "tea", "smoothie", "shake", 
+                           "juice", "soda", "cola", "drink", "water", "milk", "hot chocolate", 
+                           "frappuccino", "refresher", "iced", "cold brew", "macchiato", "mocha"]
+        let itemLower = item.item.lowercased()
+        return drinkKeywords.contains { itemLower.contains($0) }
+    }
+    
+    private func isDessert(_ item: NutritionData) -> Bool {
+        let dessertKeywords = ["cookie", "cake", "pie", "donut", "doughnut", "muffin", "brownie", 
+                             "ice cream", "sundae", "froyo", "parfait", "cheesecake", "cupcake",
+                             "danish", "pastry", "scone", "cinnamon roll", "sweet", "dessert",
+                             "chocolate chip", "fudge", "caramel", "vanilla", "strawberry"]
+        let itemLower = item.item.lowercased()
+        return dessertKeywords.contains { itemLower.contains($0) }
+    }
+
+    private func filterItemsByCategory(_ items: [NutritionData], category: RestaurantCategory) -> [NutritionData] {
         switch category {
-        case .fastFood:
-            return items
-        case .healthy:
-            return items.filter { item in
-                item.sodium <= 600 && item.fiber >= 3 && item.calories <= 500
-            }
-        case .vegan:
-            return items.filter { item in
-                let itemName = item.item.lowercased()
-                let nonVeganKeywords = ["chicken", "beef", "bacon", "cheese", "mayo", "milk", "egg", "butter", "cream"]
-                return !nonVeganKeywords.contains { itemName.contains($0) }
-            }
-        case .highProtein:
-            return items.filter { item in
-                item.protein >= 20
-            }
-        case .lowCarb:
-            return items.filter { item in
-                item.carbs <= 15
-            }
+        case .fastFood: return items
+        case .healthy: return items.filter { $0.sodium <= 600 && $0.fiber >= 3 && $0.calories <= 500 }
+        case .highProtein: return items.filter { $0.protein >= 20 }
         }
     }
 }
 
 // MARK: - Menu Item Card
+
 struct MenuItemCard: View {
     let item: NutritionData
     let category: RestaurantCategory?
-    
+
+    private var isHighCalories: Bool { item.calories > 800 }
+    private var isHighSodium:  Bool { item.sodium  > 1000 }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // Item name and calories
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(item.item)
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.primary)
                         .lineLimit(2)
-                    
                     Text("\(Int(item.calories)) calories")
-                        .font(.system(size: 14))
-                        .foregroundColor(.secondary)
+                        .foregroundColor(isHighCalories ? .red : .secondary)
                 }
-                
                 Spacer()
-                
-                // Main metric based on category
                 VStack(alignment: .trailing, spacing: 2) {
-                    switch category {
-                    case .highProtein:
-                        Text("\(formatNumber(item.protein))g")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(item.protein >= 20 ? .green : .primary)
-                        Text("protein")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                            
-                    case .lowCarb:
-                        Text("\(formatNumber(item.carbs))g")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(item.carbs <= 15 ? .green : .red)
-                        Text("carbs")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                            
-                    default:
-                        Text("\(Int(item.calories))")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundColor(.primary)
-                        Text("calories")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                    }
+                    Text("\(Int(item.calories))")
+                        .bold()
+                        .foregroundColor(isHighCalories ? .red : .primary)
+                    Text("cal").font(.caption)
                 }
             }
-            
-            // Nutrition highlights
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
-                    // Show relevant nutrition based on category
-                    switch category {
-                    case .highProtein:
-                        NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .green, highlighted: item.protein >= 20)
-                        NutritionBadge(value: "\(formatNumber(item.fat))g fat", color: .orange)
-                        
-                    case .lowCarb:
-                        NutritionBadge(value: "\(formatNumber(item.carbs))g carbs", color: .red, highlighted: item.carbs <= 15)
-                        NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .green)
-                        
-                    case .healthy:
-                        NutritionBadge(value: "\(formatNumber(item.fiber))g fiber", color: .green, highlighted: item.fiber >= 3)
-                        NutritionBadge(value: "\(Int(item.sodium))mg sodium", color: .red, highlighted: item.sodium <= 600)
-                        
-                    case .vegan:
-                        NutritionBadge(value: "\(formatNumber(item.fiber))g fiber", color: .green)
-                        NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .mint)
-                        
-                    default:
-                        NutritionBadge(value: "\(formatNumber(item.fat))g fat", color: .orange)
-                        NutritionBadge(value: "\(formatNumber(item.protein))g protein", color: .green)
-                        NutritionBadge(value: "\(formatNumber(item.carbs))g carbs", color: .blue)
-                    }
+                    NutritionBadge(
+                        value: "\(Int(item.sodium))mg sodium",
+                        highlighted: isHighSodium
+                    )
+                    NutritionBadge(value: "\(format(item.fat))g fat")
+                    NutritionBadge(value: "\(format(item.protein))g protein")
+                    NutritionBadge(value: "\(format(item.carbs))g carbs")
                 }
                 .padding(.horizontal, 4)
             }
         }
-        .padding(16)
+        .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
                 .fill(Color(.systemBackground))
-                .shadow(color: .black.opacity(0.06), radius: 6, y: 2)
+                .shadow(color: Color.black.opacity(0.05), radius: 2, y: 1)
         )
     }
-    
-    private func formatNumber(_ value: Double) -> String {
-        if value.truncatingRemainder(dividingBy: 1) == 0 {
-            return String(Int(value))
-        } else {
-            return String(format: "%.1f", value)
-        }
+
+    private func format(_ v: Double) -> String {
+        v.truncatingRemainder(dividingBy: 1) == 0 ? "\(Int(v))" : String(format: "%.1f", v)
     }
 }
 
-// Extension for corner radius
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RoundedCorner(radius: radius, corners: corners))
-    }
-}
+// MARK: - Nutrition Badge
 
-struct RoundedCorner: Shape {
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
-    }
-}
-
-// MARK: - Nutrition Badge Component
 struct NutritionBadge: View {
     let value: String
-    let color: Color
     let highlighted: Bool
-    
-    init(value: String, color: Color, highlighted: Bool = false) {
+
+    init(value: String, highlighted: Bool = false) {
         self.value = value
-        self.color = color
         self.highlighted = highlighted
     }
-    
+
     var body: some View {
         Text(value)
-            .font(.system(size: 12, weight: highlighted ? .bold : .medium))
-            .foregroundColor(highlighted ? .white : color)
+            .font(.caption2)
+            .foregroundColor(highlighted ? .white : .primary)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
-            .background(highlighted ? color : color.opacity(0.1))
+            .background(highlighted ? Color.red : Color.gray.opacity(0.2))
             .cornerRadius(6)
-            .shadow(color: highlighted ? color.opacity(0.3) : .clear, radius: highlighted ? 2 : 0)
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     RestaurantDetailView(

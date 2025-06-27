@@ -267,19 +267,15 @@ struct OptimizedRealTimeMapView: UIViewRepresentable {
                 }
             }
             
-            // Color based on category filter
+            // Color based on category filter (updated for 3 categories)
             if let category = filter.category {
                 switch category {
                 case .fastFood:
                     return (.systemOrange, .white)
                 case .healthy:
                     return (.systemGreen, .white)
-                case .vegan:
-                    return (.systemMint, .white)
                 case .highProtein:
                     return (.systemRed, .white)
-                case .lowCarb:
-                    return (.systemBlue, .white)
                 }
             }
             
