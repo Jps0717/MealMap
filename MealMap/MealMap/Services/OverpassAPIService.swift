@@ -2,40 +2,7 @@ import Foundation
 import CoreLocation
 import SwiftUI
 
-// MARK: - Enhanced Viewport-Based Caching
-private class ViewportCache {
-    private var cache: [String: (data: [Restaurant], timestamp: Date)] = [:]
-    private let maxAge: TimeInterval = 1800 // 30 minutes for viewport data
-    
-    func get(for key: String) -> [Restaurant]? {
-        guard let cached = cache[key],
-              Date().timeIntervalSince(cached.timestamp) < maxAge else {
-            cache.removeValue(forKey: key)
-            return nil
-        }
-        return cached.data
-    }
-    
-    func store(_ data: [Restaurant], for key: String) {
-        cache[key] = (data, Date())
-        // Clean old entries periodically
-        if cache.count > 50 {
-            let cutoff = Date().addingTimeInterval(-maxAge)
-            cache = cache.filter { $0.value.timestamp > cutoff }
-        }
-    }
-    
-    func createViewportKey(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
-        // Round to 3 decimal places (~100m precision) for better cache hits
-        return String(format: "%.3f_%.3f_%.3f_%.3f",
-                     (minLat * 1000).rounded() / 1000,
-                     (minLon * 1000).rounded() / 1000,
-                     (maxLat * 1000).rounded() / 1000,
-                     (maxLon * 1000).rounded() / 1000)
-    }
-}
-
-/// Model representing a restaurant fetched from the Overpass API.
+/// Enhanced Restaurant Model with improved nutrition data detection
 struct Restaurant: Identifiable, Equatable, Hashable, Codable {
     let id: Int
     let name: String
@@ -50,21 +17,8 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
     
     var amenityType: String? = nil
     
-    var hasNutritionData: Bool {
-        // Use the centralized helper from RestaurantData
-        return RestaurantData.hasNutritionData(for: self.name)
-    }
-    
-    var displayPriority: Int {
-        if amenityType == "fast_food" && hasNutritionData {
-            return 4 // Highest priority: fast food with nutrition
-        } else if amenityType == "restaurant" && hasNutritionData {
-            return 3 // High priority: restaurant with nutrition
-        } else if amenityType == "fast_food" {
-            return 2 // Medium priority: fast food without nutrition
-        } else {
-            return 1 // Low priority: restaurant without nutrition
-        }
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
     func hash(into hasher: inout Hasher) {
@@ -74,31 +28,128 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
         hasher.combine(longitude)
     }
     
-    var coordinate: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    func distanceFrom(_ coordinate: CLLocationCoordinate2D) -> Double {
+        let restaurantLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
+        let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let distanceInMeters = restaurantLocation.distance(from: userLocation)
+        let distanceInMiles = distanceInMeters / 1609.34
+        return distanceInMiles
     }
-}
-
-extension Restaurant {
+    
+    // ENHANCED: Improved nutrition data detection
+    var hasNutritionData: Bool {
+        // Use the RestaurantData helper for consistent detection
+        return RestaurantData.hasNutritionData(for: self.name)
+    }
+    
+    // Get restaurant ID for API calls
+    var restaurantID: String? {
+        return RestaurantData.getRestaurantID(for: self.name)
+    }
+    
+    // Enhanced emoji logic based on restaurant name and type
+    var emoji: String {
+        let name = self.name.lowercased()
+        
+        // Chain-specific emojis
+        if name.contains("mcdonald") { return "🍟" }
+        if name.contains("burger king") { return "👑" }
+        if name.contains("subway") { return "🥪" }
+        if name.contains("starbucks") { return "☕" }
+        if name.contains("domino") { return "🍕" }
+        if name.contains("pizza hut") { return "🍕" }
+        if name.contains("taco bell") { return "🌮" }
+        if name.contains("chipotle") { return "🌯" }
+        if name.contains("wendy") { return "🍔" }
+        if name.contains("kfc") { return "🍗" }
+        if name.contains("popeyes") { return "🍗" }
+        if name.contains("chick-fil-a") { return "🐔" }
+        if name.contains("dunkin") { return "🍩" }
+        if name.contains("baskin") || name.contains("dairy queen") { return "🍦" }
+        if name.contains("panera") { return "🥖" }
+        if name.contains("five guys") { return "🍔" }
+        if name.contains("in-n-out") { return "🍔" }
+        if name.contains("shake shack") { return "🥤" }
+        
+        // Cuisine-specific emojis
+        if name.contains("sushi") || cuisine?.lowercased().contains("sushi") == true { return "🍣" }
+        if name.contains("chinese") || cuisine?.lowercased().contains("chinese") == true { return "🥡" }
+        if name.contains("italian") || cuisine?.lowercased().contains("italian") == true { return "🍝" }
+        if name.contains("mexican") || cuisine?.lowercased().contains("mexican") == true { return "🌮" }
+        if name.contains("thai") || cuisine?.lowercased().contains("thai") == true { return "🍜" }
+        if name.contains("indian") || cuisine?.lowercased().contains("indian") == true { return "🍛" }
+        if name.contains("seafood") || cuisine?.lowercased().contains("seafood") == true { return "🦐" }
+        if name.contains("steakhouse") || name.contains("steak") { return "🥩" }
+        if name.contains("bbq") || name.contains("barbecue") { return "🍖" }
+        if name.contains("deli") { return "🥪" }
+        if name.contains("bakery") { return "🧁" }
+        if name.contains("ice cream") { return "🍦" }
+        
+        // Type-based fallbacks
+        switch amenityType {
+        case "fast_food":
+            return "🍔"
+        case "restaurant":
+            return "🍽️"
+        case "cafe":
+            return "☕"
+        case "bar", "pub":
+            return "🍻"
+        case "bakery":
+            return "🥖"
+        case "ice_cream":
+            return "🍦"
+        case "food_court":
+            return "🍱"
+        default:
+            return "🍽️"
+        }
+    }
+    
+    // ENHANCED: Color based on nutrition data availability
+    var pinColor: Color {
+        // Priority: Nutrition data gets distinctive colors
+        if hasNutritionData {
+            return .green // Nutrition data available - bright green
+        }
+        
+        // Fallback color by amenity type
+        switch amenityType {
+        case "fast_food":
+            return .orange
+        case "restaurant":
+            return .blue
+        case "cafe":
+            return .brown
+        case "bar", "pub":
+            return .purple
+        case "bakery":
+            return .pink
+        case "ice_cream":
+            return .cyan
+        case "food_court":
+            return .indigo
+        default:
+            return .gray
+        }
+    }
+    
+    // Background color for contrast
+    var pinBackgroundColor: Color {
+        return pinColor.opacity(0.9)
+    }
+    
     func matchesCategory(_ category: RestaurantCategory) -> Bool {
         let name = self.name.lowercased()
         let cuisine = self.cuisine?.lowercased() ?? ""
         
         switch category {
         case .fastFood:
-            return RestaurantData.restaurantsWithNutritionData.contains { chain in
-                name.contains(chain.lowercased())
-            } ||
-                   PopularChains.fastFoodChains.contains { chain in
-                       name.contains(chain.lowercased())
-                   }
+            return hasNutritionData || amenityType == "fast_food"
             
         case .healthy:
             return name.contains("salad") || name.contains("fresh") || name.contains("bowl") ||
-                   name.contains("juice") || name.contains("smoothie") || name.contains("organic") ||
-                   PopularChains.healthyChains.contains { chain in
-                       name.contains(chain.lowercased())
-                   }
+                   name.contains("juice") || name.contains("smoothie") || name.contains("organic")
             
         case .highProtein:
             return name.contains("grill") || name.contains("steakhouse") || name.contains("bbq") ||
@@ -112,150 +163,93 @@ extension Restaurant {
             name.contains(term)
         }
     }
-    
-    func distanceFrom(_ coordinate: CLLocationCoordinate2D) -> Double {
-        let restaurantLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
-        let userLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        let distanceInMeters = restaurantLocation.distance(from: userLocation)
-        let distanceInMiles = distanceInMeters / 1609.34 // Convert to miles
-        
-        // DETAILED LOGGING: Show distance calculations
-        debugLog("📏 DISTANCE: '\(self.name)' is \(String(format: "%.2f", distanceInMiles)) miles away")
-        debugLog("   ↳ Restaurant: (\(self.latitude), \(self.longitude))")
-        debugLog("   ↳ User: (\(coordinate.latitude), \(coordinate.longitude))")
-        debugLog("   ↳ Distance: \(String(format: "%.0f", distanceInMeters))m / \(String(format: "%.2f", distanceInMiles)) miles")
-        
-        return distanceInMiles
-    }
 }
 
-/// Service responsible for fetching restaurants using the Overpass API - ZERO CACHING
+/// Enhanced Overpass API Service with better performance
 final class OverpassAPIService {
-    // OPTIMIZED: Use high-performance Overpass instances
     private let baseURLs = [
-        "https://overpass.kumi.systems/api/interpreter",  // High-capacity mirror
+        "https://overpass.kumi.systems/api/interpreter",
         "https://overpass-api.de/api/interpreter",
         "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
     ]
     private var currentURLIndex = 0
     
-    private var lastRequestTime: Date = Date.distantPast
-    private let minimumRequestInterval: TimeInterval = 0.3 // Reduced for faster fresh calls
-    
-    /// ZERO CACHING: Always fresh viewport-based restaurant fetching
-    func fetchRestaurantsForViewport(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) async throws -> [Restaurant] {
-        debugLog("🔥 ZERO CACHING - FRESH API CALL (MEMORY LIMITED):")
-        debugLog("🔥 Bounds: (\(minLat), \(minLon)) to (\(maxLat), \(maxLon))")
-        debugLog("🔥 NO CACHE CHECK - Going straight to API")
+    /// Direct map viewport fetch optimized for nutrition chains
+    func fetchRestaurants(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) async throws -> [Restaurant] {
+        debugLog("🗺️ DIRECT FETCH: Getting restaurants for map viewport")
+        debugLog("🗺️ Bounds: (\(minLat), \(minLon)) to (\(maxLat), \(maxLon))")
         
-        // Throttle requests
-        await throttleRequest()
-        
-        // Use optimized bounding box query
-        let query = createOptimizedViewportQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
-        
-        debugLog("🔥 OVERPASS QUERY (MEMORY CONSCIOUS):")
-        debugLog(query)
+        // ENHANCED: Query optimized for nutrition chains
+        let query = createNutritionOptimizedQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
         
         let restaurants = try await executeQuery(query)
         
-        debugLog("🔥 ZERO CACHING - FRESH API RESPONSE: \(restaurants.count) restaurants (memory limited)")
+        debugLog("🗺️ SUCCESS: Found \(restaurants.count) restaurants for map viewport")
         return restaurants
     }
     
-    /// ZERO CACHING: Always fresh nutrition-data restaurants
-    func fetchNutritionRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 2.5) async throws -> [Restaurant] {
+    /// BACKWARD COMPATIBILITY: Support existing methods
+    func fetchAllNearbyRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 5.0) async throws -> [Restaurant] {
+        // Convert to bounding box and use direct fetch
         let radiusInDegrees = radius / 69.0
         let minLat = coordinate.latitude - radiusInDegrees
         let maxLat = coordinate.latitude + radiusInDegrees
         let minLon = coordinate.longitude - radiusInDegrees
         let maxLon = coordinate.longitude + radiusInDegrees
         
-        debugLog("🔥 ZERO CACHING - FRESH NUTRITION QUERY (2.5 miles)")
-        
-        let query = createNutritionFocusedBoundingBoxQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
-        
-        let restaurants = try await executeQuery(query)
-        
-        // Filter to only restaurants with nutrition data
-        let nutritionRestaurants = restaurants.filter { restaurant in
-            restaurant.hasNutritionData
-        }
-        
-        debugLog("🔥 ZERO CACHING - FRESH NUTRITION RESPONSE: \(nutritionRestaurants.count) restaurants (never cached)")
-        return nutritionRestaurants
+        return try await fetchRestaurants(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
     }
     
-    /// ZERO CACHING: Always fresh fast food restaurants
-    func fetchFastFoodRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 2.5) async throws -> [Restaurant] {
-        let radiusInDegrees = radius / 69.0
-        let minLat = coordinate.latitude - radiusInDegrees
-        let maxLat = coordinate.latitude + radiusInDegrees
-        let minLon = coordinate.longitude - radiusInDegrees
-        let maxLon = coordinate.longitude + radiusInDegrees
-        
-        debugLog("🔥 ZERO CACHING - FRESH FAST FOOD QUERY")
-        
-        let query = createFastFoodBoundingBoxQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
-        let restaurants = try await executeQuery(query)
-        
-        debugLog("🔥 ZERO CACHING - FRESH FAST FOOD RESPONSE: \(restaurants.count) restaurants (never cached)")
-        return restaurants
+    func fetchRestaurantsForViewport(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double, zoomLevel: ZoomLevel) async throws -> [Restaurant] {
+        return try await fetchRestaurants(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
     }
     
-    /// ZERO CACHING: All nearby restaurants with bounding box approach - LIMITED TO 2.5 MILES
-    func fetchAllNearbyRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 2.5) async throws -> [Restaurant] {
-        // Convert to bounding box for consistent querying - FIXED AT 2.5 MILES
-        let radiusInDegrees = radius / 69.0
-        let minLat = coordinate.latitude - radiusInDegrees
-        let maxLat = coordinate.latitude + radiusInDegrees
-        let minLon = coordinate.longitude - radiusInDegrees
-        let maxLon = coordinate.longitude + radiusInDegrees
-        
-        debugLog("🔥 ZERO CACHING - 2.5 MILE LIMIT: Fetching restaurants in 2.5 mile radius")
-        
-        return try await fetchRestaurantsForViewport(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
+    func fetchNutritionRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 5.0) async throws -> [Restaurant] {
+        let allRestaurants = try await fetchAllNearbyRestaurants(near: coordinate, radius: radius)
+        return allRestaurants.filter { $0.hasNutritionData }
     }
     
-    // GET ALL RESTAURANTS: No filtering, no requirements, just everything
-    private func createOptimizedViewportQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
+    func fetchFastFoodRestaurants(near coordinate: CLLocationCoordinate2D, radius: Double = 5.0) async throws -> [Restaurant] {
+        let allRestaurants = try await fetchAllNearbyRestaurants(near: coordinate, radius: radius)
+        return allRestaurants.filter { $0.amenityType == "fast_food" || $0.hasNutritionData }
+    }
+    
+    func fetchAllNearbyRestaurants(near coordinate: CLLocationCoordinate2D, zoomLevel: ZoomLevel) async throws -> [Restaurant] {
+        return try await fetchAllNearbyRestaurants(near: coordinate, radius: 5.0)
+    }
+    
+    /// ENHANCED: Query optimized for nutrition chains
+    private func createNutritionOptimizedQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
+        // Get known nutrition chain names for targeted querying
+        let knownChains = ["McDonald's", "Subway", "Starbucks", "Burger King", "Taco Bell", 
+                          "Chipotle", "Panera", "KFC", "Wendy's", "Domino's", "Pizza Hut",
+                          "Dunkin", "Five Guys", "Chick-fil-A", "Popeyes"]
+        
+        // Create targeted queries for known chains
+        let chainQueries = knownChains.map { chain in
+            "node[\"name\"~\"\(chain)\",i][\"amenity\"~\"restaurant|fast_food|cafe\"]"
+        }.joined(separator: ";\n  ")
+        
         return """
-        [out:json][timeout:8][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
+        [out:json][timeout:12][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
         (
+          // Known nutrition chains
+          \(chainQueries);
+          
+          // All fast food
           node["amenity"="fast_food"];
-          node["amenity"="restaurant"];
-          node["amenity"="cafe"];
-          node["amenity"="bar"];
-          node["amenity"="pub"];
-          node["amenity"="food_court"];
-          node["amenity"="ice_cream"];
+          
+          // Chain restaurants with brand names
+          node["amenity"="restaurant"]["brand"];
+          
+          // Popular cafes
+          node["amenity"="cafe"]["brand"];
         );
         out;
         """
     }
     
-    private func createNutritionFocusedBoundingBoxQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
-        // Same query - get everything, filter later
-        return createOptimizedViewportQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
-    }
-    
-    private func createFastFoodBoundingBoxQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
-        return """
-        [out:json][timeout:8][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
-        (
-          node["amenity"="fast_food"];
-          node["amenity"="restaurant"];
-          node["amenity"="cafe"];
-          node["amenity"="bar"];
-          node["amenity"="pub"];
-          node["amenity"="food_court"];
-          node["amenity"="ice_cream"];
-        );
-        out;
-        """
-    }
-    
-    // MARK: - Core Query Execution
+    /// EXECUTE QUERY: Enhanced execution with better error handling
     private func executeQuery(_ query: String) async throws -> [Restaurant] {
         guard let url = URL(string: baseURLs[currentURLIndex]) else {
             throw URLError(.badURL)
@@ -265,9 +259,9 @@ final class OverpassAPIService {
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpBody = query.data(using: .utf8)
-        request.timeoutInterval = 8 // Reduced timeout for speed
+        request.timeoutInterval = 12 // Increased timeout
         
-        debugLog("🌐 Ultra-fast query to: \(baseURLs[currentURLIndex])")
+        debugLog("🌐 Querying: \(baseURLs[currentURLIndex])")
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -278,63 +272,66 @@ final class OverpassAPIService {
                 throw URLError(.badServerResponse)
             }
             
-            // Parse on background thread for smooth UI
-            let restaurants = try await Task.detached(priority: .utility) {
-                try self.parseRestaurantsFromData(data)
-            }.value
+            let restaurants = try parseRestaurantsFromData(data)
             
-            return restaurants
+            // ENHANCED: Filter and prioritize nutrition restaurants
+            let nutritionRestaurants = restaurants.filter { $0.hasNutritionData }
+            let otherRestaurants = restaurants.filter { !$0.hasNutritionData }
+            
+            debugLog("🍽️ Nutrition restaurants: \(nutritionRestaurants.count)")
+            debugLog("🍽️ Other restaurants: \(otherRestaurants.count)")
+            
+            // Prioritize nutrition restaurants
+            return nutritionRestaurants + Array(otherRestaurants.prefix(100))
             
         } catch {
-            debugLog("🔄 Primary API failed: \(error.localizedDescription)")
+            debugLog("❌ Query failed: \(error.localizedDescription)")
             
-            // Try next server URL
+            // Try next server
             currentURLIndex = (currentURLIndex + 1) % baseURLs.count
             
-            // Don't try fallback - just retry with next server
+            // Retry once with next server
             if currentURLIndex != 0 {
-                debugLog("🔄 Retrying with server: \(baseURLs[currentURLIndex])")
+                debugLog("🔄 Retrying with: \(baseURLs[currentURLIndex])")
                 return try await executeQuery(query)
             } else {
-                debugLog("❌ All servers failed")
                 throw error
             }
         }
     }
     
-    private func throttleRequest() async {
-        let now = Date()
-        let timeSinceLastRequest = now.timeIntervalSince(lastRequestTime)
-        
-        if timeSinceLastRequest < minimumRequestInterval {
-            let sleepTime = minimumRequestInterval - timeSinceLastRequest
-            try? await Task.sleep(nanoseconds: UInt64(sleepTime * 1_000_000_000))
-        }
-        
-        lastRequestTime = Date()
-    }
-    
+    /// Enhanced parser with better restaurant detection
     private func parseRestaurantsFromData(_ data: Data) throws -> [Restaurant] {
         let decoder = JSONDecoder()
         let overpass = try decoder.decode(OverpassResponse.self, from: data)
         
-        debugLog("📡 MEMORY-LIMITED API RESPONSE: Received \(overpass.elements.count) elements")
+        debugLog("📡 Raw response: \(overpass.elements.count) elements")
         
         var restaurants: [Restaurant] = []
+        var seenRestaurants: Set<String> = []
         
         for element in overpass.elements {
-            // MINIMAL REQUIREMENTS: Just coordinates and any kind of name/brand
-            guard let lat = element.lat,
-                  let lon = element.lon else {
-                continue // Skip logging for memory efficiency
+            // Must have coordinates
+            guard let lat = element.lat, let lon = element.lon else { continue }
+            
+            // Must be food-related
+            guard let amenityType = element.tags["amenity"],
+                  ["fast_food", "restaurant", "cafe", "bar", "pub", "food_court", "ice_cream", "bakery"].contains(amenityType) else {
+                continue
             }
             
-            // Try to get a name from multiple sources
+            // Get name with fallbacks
             let name = element.tags["name"] ??
                       element.tags["brand"] ??
                       element.tags["operator"] ??
-                      element.tags["amenity"]?.capitalized ??
-                      "Restaurant #\(element.id)"
+                      "\(amenityType.capitalized) #\(element.id)"
+            
+            // Skip if name is empty, too long, or already seen
+            guard !name.isEmpty && name.count < 100 else { continue }
+            
+            let locationKey = "\(name)_\(String(format: "%.3f", lat))_\(String(format: "%.3f", lon))"
+            guard !seenRestaurants.contains(locationKey) else { continue }
+            seenRestaurants.insert(locationKey)
             
             var restaurant = Restaurant(
                 id: element.id,
@@ -349,36 +346,39 @@ final class OverpassAPIService {
                 type: element.type
             )
             
-            // Set amenity type
-            restaurant.amenityType = element.tags["amenity"]
-            
+            restaurant.amenityType = amenityType
             restaurants.append(restaurant)
         }
         
-        debugLog("✅ MEMORY-LIMITED PARSE: \(restaurants.count) restaurants (2.5 mile limit)")
-        
-        // Sort by nutrition data availability for better user experience
-        let sortedRestaurants = restaurants.sorted { r1, r2 in
-            if r1.hasNutritionData != r2.hasNutritionData {
-                return r1.hasNutritionData
-            }
-            return r1.name < r2.name
-        }
-        
-        debugLog("🎯 NUTRITION BREAKDOWN (2.5 MILES):")
-        let withNutrition = sortedRestaurants.filter { $0.hasNutritionData }
-        let withoutNutrition = sortedRestaurants.filter { !$0.hasNutritionData }
-        debugLog("   ✅ With nutrition: \(withNutrition.count)")
-        debugLog("   ❌ Without nutrition: \(withoutNutrition.count)")
-        
-        // MAP LIMIT: Return only 50 restaurants for map display
-        let mapLimitedResults = Array(sortedRestaurants.prefix(50))
-        debugLog("📊 MAP LIMITED: Returning \(mapLimitedResults.count) restaurants (max 50 for map)")
-        return mapLimitedResults
+        debugLog("✅ Parsed: \(restaurants.count) unique food locations")
+        return restaurants
     }
 }
 
-// MARK: - Overpass Response Models (Updated for 'out center;')
+// MARK: - Simplified Zoom Level (for backward compatibility)
+enum ZoomLevel {
+    case veryFar, far, medium, close, veryClose
+    
+    static func from(latitudeDelta: Double) -> ZoomLevel {
+        switch latitudeDelta {
+        case 0.2...: return .veryFar
+        case 0.05..<0.2: return .far
+        case 0.01..<0.05: return .medium
+        case 0.002..<0.01: return .close
+        default: return .veryClose
+        }
+    }
+    
+    var shouldShowPins: Bool {
+        return true // Always show pins for simplicity
+    }
+    
+    var maxRestaurants: Int {
+        return 200 // Higher limit for better coverage
+    }
+}
+
+// MARK: - Overpass Response Models
 private struct OverpassResponse: Decodable {
     let version: Double
     let generator: String

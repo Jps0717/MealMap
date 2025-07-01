@@ -55,7 +55,8 @@ struct HomeScreen: View {
     private func clearFiltersOnHomeScreen() {
         if mapViewModel.currentFilter.hasActiveFilters {
             updateLoadingStatus("Clearing filters", "Preparing clean experience...")
-            mapViewModel.clearFilters()
+            // FIXED: Use the correct method name
+            mapViewModel.clearFiltersOnHomeScreen()
         }
     }
     

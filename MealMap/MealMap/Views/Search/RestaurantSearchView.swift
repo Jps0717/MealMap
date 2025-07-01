@@ -12,14 +12,14 @@ struct RestaurantSearchView: View {
     
     // Popular cuisines for quick access
     private let popularCuisines = [
-        ("Pizza", "🍕", Color.red),
-        ("Burger", "🍔", Color.orange),
-        ("Chinese", "🥡", Color.yellow),
-        ("Mexican", "🌮", Color.green),
-        ("Italian", "🍝", Color.blue),
-        ("Thai", "🍜", Color.purple),
-        ("Indian", "🍛", Color.pink),
-        ("Japanese", "🍣", Color.teal)
+        ("Pizza", "\u{1F355}", Color.red),
+        ("Burger", "\u{1F354}", Color.orange),
+        ("Chinese", "\u{1F358}", Color.yellow),
+        ("Mexican", "\u{1F92E}", Color.green),
+        ("Italian", "\u{1F35D}", Color.blue),
+        ("Thai", "\u{1F35C}", Color.purple),
+        ("Indian", "\u{1F358}", Color.pink),
+        ("Japanese", "\u{1F363}", Color.teal)
     ]
     
     // Recent searches (could be persisted later)
@@ -188,8 +188,10 @@ struct RestaurantSearchView: View {
             }
         }
         
-        // Perform search with distance filter - this will trigger the search and show results
-        mapViewModel.performSearch(query: searchText, maxDistance: nil)
+        // FIXED: Perform search without maxDistance parameter
+        Task {
+            await mapViewModel.performSearch(query: searchText)
+        }
         
         // Dismiss the search view so user can see results on map
         isPresented = false
@@ -210,8 +212,10 @@ struct RestaurantSearchView: View {
                 }
             }
             
-            // Perform the search immediately with distance
-            mapViewModel.performSearch(query: cuisine, maxDistance: nil)
+            // FIXED: Perform search without maxDistance parameter
+            Task {
+                await mapViewModel.performSearch(query: cuisine)
+            }
             
             // Dismiss the search view to show results
             isPresented = false

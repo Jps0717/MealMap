@@ -311,7 +311,7 @@ struct SearchScreen: View {
             restaurantName.localizedCaseInsensitiveContains(query)
         }
         
-        let staticResults = staticMatches.map { name in
+        let staticResults = staticMatches.compactMap { name -> Restaurant? in
             Restaurant(
                 id: name.hashValue,
                 name: name,
@@ -328,16 +328,14 @@ struct SearchScreen: View {
         
         allResults.append(contentsOf: staticResults)
         
-        // 2. Search through live Overpass API restaurants and fast food
+        // 2. Search through live Overpass API restaurants
         if let userLocation = locationManager.lastLocation?.coordinate {
             do {
-                // Fetch nearby restaurants and fast food from Overpass API
                 let nearbyRestaurants = try await overpassService.fetchAllNearbyRestaurants(
                     near: userLocation,
-                    radius: 5.0 // 5 mile search radius
+                    zoomLevel: ZoomLevel.medium
                 )
                 
-                // Filter Overpass results by search query
                 let overpassMatches = nearbyRestaurants.filter { restaurant in
                     restaurant.name.localizedCaseInsensitiveContains(query) ||
                     restaurant.cuisine?.localizedCaseInsensitiveContains(query) == true ||
@@ -345,7 +343,6 @@ struct SearchScreen: View {
                     (restaurant.amenityType == "restaurant" && query.localizedCaseInsensitiveContains("restaurant"))
                 }
                 
-                // Remove duplicates with static results based on name similarity
                 let filteredOverpassMatches = overpassMatches.filter { overpassRestaurant in
                     !allResults.contains { staticRestaurant in
                         staticRestaurant.name.localizedCaseInsensitiveContains(overpassRestaurant.name) ||
@@ -366,23 +363,19 @@ struct SearchScreen: View {
             }
         }
         
-        // Sort all results by relevance and nutrition data availability
         let sortedResults = allResults.sorted { first, second in
-            // Prioritize exact matches
             let firstExact = first.name.localizedCaseInsensitiveCompare(query) == .orderedSame
             let secondExact = second.name.localizedCaseInsensitiveCompare(query) == .orderedSame
             
             if firstExact && !secondExact { return true }
             if !firstExact && secondExact { return false }
             
-            // Prioritize restaurants with nutrition data
             let firstHasNutrition = RestaurantData.restaurantsWithNutritionData.contains(first.name)
             let secondHasNutrition = RestaurantData.restaurantsWithNutritionData.contains(second.name)
             
             if firstHasNutrition && !secondHasNutrition { return true }
             if !firstHasNutrition && secondHasNutrition { return false }
             
-            // Prioritize fast food when searching for "fast food"
             if query.localizedCaseInsensitiveContains("fast food") {
                 let firstIsFastFood = first.amenityType == "fast_food"
                 let secondIsFastFood = second.amenityType == "fast_food"
@@ -391,7 +384,6 @@ struct SearchScreen: View {
                 if !firstIsFastFood && secondIsFastFood { return false }
             }
             
-            // Sort by distance if user location is available
             if let userLocation = locationManager.lastLocation?.coordinate {
                 let firstDistance = first.distanceFrom(userLocation)
                 let secondDistance = second.distanceFrom(userLocation)
@@ -401,7 +393,7 @@ struct SearchScreen: View {
             return first.name < second.name
         }
         
-        self.searchResults = Array(sortedResults.prefix(25)) // Limit to 25 results for performance
+        self.searchResults = Array(sortedResults.prefix(25))
         self.isSearching = false
     }
     
@@ -411,7 +403,6 @@ struct SearchScreen: View {
             
             var allResults: [Restaurant] = []
             
-            // Static category restaurants
             let categoryRestaurants: [String]
             
             switch category {
@@ -441,32 +432,27 @@ struct SearchScreen: View {
             
             allResults.append(contentsOf: staticResults)
             
-            // Fetch from Overpass API based on category
             if let userLocation = locationManager.lastLocation?.coordinate {
                 do {
                     let nearbyRestaurants: [Restaurant]
                     
                     switch category {
                     case .fastFood:
-                        // Fetch fast food specifically
-                        nearbyRestaurants = try await overpassService.fetchFastFoodRestaurants(
+                        nearbyRestaurants = try await overpassService.fetchNutritionRestaurants(
                             near: userLocation,
                             radius: 5.0
                         )
                     case .healthy, .highProtein:
-                        // Fetch all restaurants and filter later
                         nearbyRestaurants = try await overpassService.fetchAllNearbyRestaurants(
                             near: userLocation,
-                            radius: 5.0
+                            zoomLevel: ZoomLevel.medium
                         )
                     }
                     
-                    // Filter by category matching
                     let categoryMatches = nearbyRestaurants.filter { restaurant in
                         restaurant.matchesCategory(category)
                     }
                     
-                    // Remove duplicates with static results
                     let filteredCategoryMatches = categoryMatches.filter { overpassRestaurant in
                         !allResults.contains { staticRestaurant in
                             staticRestaurant.name.localizedCaseInsensitiveContains(overpassRestaurant.name) ||
@@ -486,7 +472,6 @@ struct SearchScreen: View {
                 }
             }
             
-            // Sort by nutrition data availability and distance
             let sortedResults = allResults.sorted { first, second in
                 let firstHasNutrition = RestaurantData.restaurantsWithNutritionData.contains(first.name)
                 let secondHasNutrition = RestaurantData.restaurantsWithNutritionData.contains(second.name)
@@ -522,11 +507,9 @@ struct SearchScreen: View {
         let trimmed = search.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         
-        // Remove if already exists and add to front
         recentSearches.removeAll { $0 == trimmed }
         recentSearches.insert(trimmed, at: 0)
         
-        // Keep only last 10 searches
         if recentSearches.count > 10 {
             recentSearches.removeLast()
         }

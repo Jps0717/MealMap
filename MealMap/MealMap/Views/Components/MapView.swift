@@ -53,10 +53,10 @@ struct MapView: View {
                         UserLocationAnnotationView()
 
                     case .restaurant(let restaurant):
-                        // Simple pin for all restaurants
+                        // SIMPLIFIED: Pin for all restaurants (no nutrition data needed)
                         UltraOptimizedPin(
                             restaurant: restaurant,
-                            hasNutritionData: restaurant.hasNutritionData,
+                            hasNutritionData: false, // Not used anymore since we show all restaurants
                             isSelected: selectedRestaurant?.id == restaurant.id,
                             onTap: { _ in 
                                 debugLog("🔍 MapView - Restaurant pin tapped: \(restaurant.name)")

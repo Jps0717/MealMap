@@ -1,7 +1,7 @@
 import SwiftUI
 import MapKit
-import CoreLocation
 
+/// Enhanced MapContentView with immediate restaurant detail on pin tap
 struct MapContentView: View {
     @ObservedObject var viewModel: MapViewModel
     @Binding var searchText: String
@@ -12,16 +12,38 @@ struct MapContentView: View {
     let onSearch: () -> Void
     let onClearSearch: () -> Void
     
+    @State private var selectedRestaurant: Restaurant?
+    @State private var showingRestaurantDetail = false
+    
     var body: some View {
         // Use the new enhanced map view with real-time loading
-        EnhancedMapView(
-            viewModel: viewModel,
-            searchText: $searchText,
-            isSearching: $isSearching,
-            onDismiss: onDismiss,
-            onSearch: onSearch,
-            onClearSearch: onClearSearch
-        )
+        // FIXED: Use correct parameter order for EnhancedMapView
+        ZStack {
+            EnhancedMapView(
+                viewModel: viewModel,
+                searchText: $searchText,
+                isSearching: $isSearching,
+                onSearch: onSearch,
+                onClearSearch: onClearSearch,
+                onDismiss: onDismiss
+            )
+            .ignoresSafeArea()
+        }
+        .sheet(isPresented: $showingRestaurantDetail) {
+            if let restaurant = selectedRestaurant {
+                RestaurantDetailView(
+                    restaurant: restaurant,
+                    isPresented: $showingRestaurantDetail,
+                    selectedCategory: nil
+                )
+            }
+        }
+    }
+    
+    private func selectRestaurant(_ restaurant: Restaurant) {
+        debugLog(" MapContentView: Restaurant selected - \(restaurant.name)")
+        selectedRestaurant = restaurant
+        showingRestaurantDetail = true
     }
 }
 

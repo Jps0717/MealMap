@@ -1,107 +1,83 @@
 import SwiftUI
 import MapKit
 
-// MARK: - Ultra-Optimized Pin View
+// MARK: - Enhanced Pin View with Emojis and Colors
 struct UltraOptimizedPin: View {
     let restaurant: Restaurant
-    let hasNutritionData: Bool
+    let hasNutritionData: Bool // Keep for backward compatibility but not used
     let isSelected: Bool
     let onTap: (Restaurant) -> Void
-    
-    var body: some View {
-        Button(action: { onTap(restaurant) }) {
-            Circle()
-                .fill(pinColor)
-                .frame(width: isSelected ? 18 : 12, height: isSelected ? 18 : 12)
-                .overlay(
-                    Circle()
-                        .stroke(Color.white, lineWidth: isSelected ? 2 : 1)
-                )
-                .shadow(color: .black.opacity(0.15), radius: isSelected ? 2 : 1, y: isSelected ? 1 : 0)
-        }
-        .buttonStyle(PlainButtonStyle())
-        .scaleEffect(isSelected ? 1.1 : 1.0)
-        .animation(.easeInOut(duration: 0.15), value: isSelected)
-    }
-    
-    private var pinColor: Color {
-        if hasNutritionData {
-            return restaurant.amenityType == "fast_food" ? .orange : .blue
-        } else {
-            return restaurant.amenityType == "fast_food" ? .red : .gray
-        }
-    }
-}
-
-// MARK: - Performance-Optimized Restaurant Annotation
-struct RestaurantAnnotationView: View {
-    let restaurant: Restaurant
-    let hasNutritionData: Bool
-    let isSelected: Bool
-    let onTap: (Restaurant) -> Void
-    
-    // Remove @State animations for better performance
-    private var restaurantCategory: RestaurantCategory? {
-        for category in RestaurantCategory.allCases {
-            if restaurant.matchesCategory(category) {
-                return category
-            }
-        }
-        return nil
-    }
-    
-    private var pinColor: Color {
-        if let category = restaurantCategory {
-            return category.color
-        }
-        return hasNutritionData ? .orange : .blue
-    }
-    
-    private var pinIcon: String {
-        if let category = restaurantCategory {
-            return category.icon
-        }
-        return restaurant.amenityType == "fast_food" ? "f.square.fill" : "fork.knife"
-    }
     
     var body: some View {
         Button(action: { onTap(restaurant) }) {
             ZStack {
-                // Simplified pin shape
+                // Background circle with restaurant-specific color
                 Circle()
-                    .fill(pinColor)
-                    .frame(width: isSelected ? 28 : 20, height: isSelected ? 28 : 20)
-                    .shadow(color: .black.opacity(0.15), radius: 2, y: 1)
+                    .fill(restaurant.pinBackgroundColor)
+                    .frame(width: isSelected ? 32 : 24, height: isSelected ? 32 : 24)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.white, lineWidth: isSelected ? 3 : 2)
+                    )
+                    .shadow(color: restaurant.pinColor.opacity(0.4), radius: isSelected ? 4 : 2, y: isSelected ? 2 : 1)
                 
-                // Icon (only for selected or important restaurants)
-                if isSelected || hasNutritionData {
-                    Image(systemName: pinIcon)
-                        .font(.system(size: isSelected ? 12 : 8, weight: .medium))
-                        .foregroundColor(.white)
-                }
-                
-                // Nutrition indicator - simplified
-                if hasNutritionData {
-                    Circle()
-                        .fill(Color.green)
-                        .frame(width: 6, height: 6)
-                        .offset(x: 8, y: -8)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white, lineWidth: 1)
-                                .frame(width: 6, height: 6)
-                                .offset(x: 8, y: -8)
-                        )
-                }
+                // Restaurant emoji
+                Text(restaurant.emoji)
+                    .font(.system(size: isSelected ? 14 : 12))
+                    .scaleEffect(isSelected ? 1.1 : 1.0)
             }
         }
         .buttonStyle(PlainButtonStyle())
         .scaleEffect(isSelected ? 1.15 : 1.0)
-        .animation(.easeInOut(duration: 0.2), value: isSelected)
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)
     }
 }
 
-// MARK: - Clustered Pin View for Zoom Out
+// MARK: - Enhanced Restaurant Annotation with Rich Visual Design
+struct RestaurantAnnotationView: View {
+    let restaurant: Restaurant
+    let hasNutritionData: Bool // Keep for backward compatibility but not used
+    let isSelected: Bool
+    let onTap: (Restaurant) -> Void
+    
+    var body: some View {
+        Button(action: { onTap(restaurant) }) {
+            ZStack {
+                // Main pin background
+                RoundedRectangle(cornerRadius: isSelected ? 16 : 12)
+                    .fill(restaurant.pinBackgroundColor)
+                    .frame(width: isSelected ? 48 : 36, height: isSelected ? 48 : 36)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: isSelected ? 16 : 12)
+                            .stroke(Color.white, lineWidth: isSelected ? 3 : 2)
+                    )
+                    .shadow(color: restaurant.pinColor.opacity(0.5), radius: isSelected ? 6 : 3, y: isSelected ? 3 : 2)
+                
+                VStack(spacing: 2) {
+                    // Restaurant emoji
+                    Text(restaurant.emoji)
+                        .font(.system(size: isSelected ? 16 : 12))
+                    
+                    // Optional nutrition indicator
+                    if restaurant.hasNutritionData {
+                        Circle()
+                            .fill(Color.green)
+                            .frame(width: isSelected ? 6 : 4, height: isSelected ? 6 : 4)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 1)
+                            )
+                    }
+                }
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+        .scaleEffect(isSelected ? 1.2 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
+    }
+}
+
+// MARK: - Enhanced Clustered Pin View
 struct ClusteredPinView: View {
     let count: Int
     let coordinate: CLLocationCoordinate2D
@@ -110,41 +86,83 @@ struct ClusteredPinView: View {
     var body: some View {
         Button(action: onTap) {
             ZStack {
+                // Main cluster background
                 Circle()
-                    .fill(Color.blue.opacity(0.8))
+                    .fill(
+                        LinearGradient(
+                            colors: [clusterColor, clusterColor.opacity(0.8)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
                     .frame(width: clusterSize, height: clusterSize)
-                    .shadow(color: .black.opacity(0.3), radius: 3, y: 2)
+                    .overlay(
+                        Circle()
+                            .stroke(Color.white, lineWidth: 3)
+                    )
+                    .shadow(color: clusterColor.opacity(0.4), radius: 4, y: 2)
                 
-                Text("\(count)")
-                    .font(.system(size: fontSize, weight: .bold))
-                    .foregroundColor(.white)
+                VStack(spacing: 1) {
+                    // Cluster emoji
+                    Text("🍽️")
+                        .font(.system(size: clusterEmojiSize))
+                    
+                    // Count
+                    Text("\(count)")
+                        .font(.system(size: fontSize, weight: .bold))
+                        .foregroundColor(.white)
+                }
             }
         }
         .buttonStyle(PlainButtonStyle())
+        .scaleEffect(1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: count)
     }
     
     private var clusterSize: CGFloat {
         switch count {
-        case 1...5: return 24
-        case 6...15: return 32
-        case 16...50: return 40
-        default: return 48
+        case 1...5: return 32
+        case 6...15: return 40
+        case 16...50: return 48
+        default: return 56
         }
     }
     
     private var fontSize: CGFloat {
         switch count {
-        case 1...5: return 10
-        case 6...15: return 12
-        case 16...50: return 14
-        default: return 16
+        case 1...5: return 8
+        case 6...15: return 10
+        case 16...50: return 12
+        default: return 14
+        }
+    }
+    
+    private var clusterEmojiSize: CGFloat {
+        switch count {
+        case 1...5: return 12
+        case 6...15: return 14
+        case 16...50: return 16
+        default: return 18
+        }
+    }
+    
+    private var clusterColor: Color {
+        switch count {
+        case 1...5: return .blue
+        case 6...15: return .orange
+        case 16...50: return .purple
+        default: return .red
         }
     }
 }
 
 #Preview {
     VStack(spacing: 32) {
-        HStack(spacing: 32) {
+        Text("Enhanced Restaurant Pins with Emojis")
+            .font(.title2)
+            .fontWeight(.semibold)
+        
+        HStack(spacing: 24) {
             VStack(spacing: 8) {
                 UltraOptimizedPin(
                     restaurant: Restaurant(id: 1, name: "McDonald's", latitude: 0, longitude: 0, address: nil, cuisine: nil, openingHours: nil, phone: nil, website: nil, type: "node"),
@@ -152,32 +170,55 @@ struct ClusteredPinView: View {
                     isSelected: false,
                     onTap: { _ in }
                 )
-                Text("Ultra Optimized")
+                Text("McDonald's")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            VStack(spacing: 8) {
+                UltraOptimizedPin(
+                    restaurant: Restaurant(id: 2, name: "Starbucks", latitude: 0, longitude: 0, address: nil, cuisine: nil, openingHours: nil, phone: nil, website: nil, type: "node"),
+                    hasNutritionData: false,
+                    isSelected: false,
+                    onTap: { _ in }
+                )
+                Text("Starbucks")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             
             VStack(spacing: 8) {
                 RestaurantAnnotationView(
-                    restaurant: Restaurant(id: 2, name: "Sweetgreen", latitude: 0, longitude: 0, address: nil, cuisine: nil, openingHours: nil, phone: nil, website: nil, type: "node"),
-                    hasNutritionData: false,
-                    isSelected: false,
+                    restaurant: Restaurant(id: 3, name: "Sushi Restaurant", latitude: 0, longitude: 0, address: nil, cuisine: "sushi", openingHours: nil, phone: nil, website: nil, type: "node"),
+                    hasNutritionData: true,
+                    isSelected: true,
                     onTap: { _ in }
                 )
-                Text("Optimized")
+                Text("Sushi Place")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
         }
         
-        HStack(spacing: 32) {
+        HStack(spacing: 24) {
             VStack(spacing: 8) {
                 ClusteredPinView(
                     count: 5,
                     coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
                     onTap: { }
                 )
-                Text("Cluster")
+                Text("Small Cluster")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            
+            VStack(spacing: 8) {
+                ClusteredPinView(
+                    count: 25,
+                    coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0),
+                    onTap: { }
+                )
+                Text("Large Cluster")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }

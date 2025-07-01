@@ -49,7 +49,7 @@ struct MapHeaderView: View {
             )
             .padding(.horizontal, 16)
             
-            // Control buttons
+            // Control buttons - UPDATED: Removed fresh button, keeping only home, status, and filter
             HStack(spacing: 16) {
                 Button(action: onDismiss) {
                     HStack(spacing: 8) {
@@ -94,40 +94,6 @@ struct MapHeaderView: View {
                 .cornerRadius(22)
                 .shadow(color: (hasActiveFilters ? Color.orange : Color.gray).opacity(0.3), radius: 8, y: 4)
                 
-                // COMBINED: Refresh location + center location button
-                Button(action: {
-                    debugLog("🔄 User tapped FRESH location refresh - NO CACHING")
-                    LocationManager.shared.refreshCurrentLocation()
-                    
-                    // Wait a moment then refresh restaurants with NO caching
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        if let userLocation = LocationManager.shared.lastLocation?.coordinate {
-                            debugLog("📍 Forcing fresh restaurant data for: \(userLocation)")
-                            viewModel.refreshData(for: userLocation)
-                        }
-                    }
-                    
-                    // Also center the map
-                    onCenterLocation()
-                }) {
-                    VStack(spacing: 2) {
-                        Image(systemName: "location.fill")
-                            .font(.system(size: 14, weight: .medium))
-                        Text("Fresh")
-                            .font(.system(size: 8, weight: .medium))
-                    }
-                    .foregroundColor(.white)
-                }
-                .frame(width: 44, height: 44)
-                .background(
-                    LinearGradient(
-                        colors: [.red, .red.opacity(0.8)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .cornerRadius(22)
-                .shadow(color: .red.opacity(0.3), radius: 8, y: 4)
             }
             .padding(.horizontal, 16)
         }
