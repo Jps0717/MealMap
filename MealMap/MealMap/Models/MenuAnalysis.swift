@@ -144,6 +144,16 @@ struct NutritionRange: Codable {
     let max: Double
     let unit: String // "g", "mg", "kcal"
     
+    // ENHANCED: Safe initializer that ensures min <= max
+    init(min: Double, max: Double, unit: String) {
+        let safeMin = Swift.max(0, min) // Ensure non-negative
+        let safeMax = Swift.max(safeMin, max) // Ensure max >= min
+        
+        self.min = safeMin
+        self.max = safeMax
+        self.unit = unit
+    }
+    
     var average: Double { (min + max) / 2 }
     var displayString: String {
         if min == max {
@@ -256,12 +266,14 @@ enum DietaryTag: String, CaseIterable, Codable {
 enum EstimationTier: String, Codable, CaseIterable {
     case ingredients = "ingredients"    // Tier 1: High confidence from ingredient analysis
     case usda = "usda"                 // Tier 2: Medium confidence from USDA database
+    case openFoodFacts = "openFoodFacts" // Tier 2.5: Medium confidence from Open Food Facts
     case unavailable = "unavailable"   // Tier 3: No estimation available
     
     var displayName: String {
         switch self {
         case .ingredients: return "Ingredient Analysis"
         case .usda: return "USDA Database"
+        case .openFoodFacts: return "Open Food Facts"
         case .unavailable: return "Nutrition Unavailable"
         }
     }
@@ -270,6 +282,7 @@ enum EstimationTier: String, Codable, CaseIterable {
         switch self {
         case .ingredients: return 0.8
         case .usda: return 0.6
+        case .openFoodFacts: return 0.55
         case .unavailable: return 0.0
         }
     }
@@ -278,6 +291,7 @@ enum EstimationTier: String, Codable, CaseIterable {
         switch self {
         case .ingredients: return "🧪"
         case .usda: return "📊"
+        case .openFoodFacts: return "🥫"
         case .unavailable: return "❓"
         }
     }
@@ -286,6 +300,7 @@ enum EstimationTier: String, Codable, CaseIterable {
         switch self {
         case .ingredients: return ""
         case .usda: return "⚠️"
+        case .openFoodFacts: return "⚠️"
         case .unavailable: return "🚫"
         }
     }
@@ -294,6 +309,7 @@ enum EstimationTier: String, Codable, CaseIterable {
         switch self {
         case .ingredients: return "Nutrition estimated from identified ingredients"
         case .usda: return "Estimated from USDA database"
+        case .openFoodFacts: return "Estimated from Open Food Facts database"
         case .unavailable: return "Nutrition information not available"
         }
     }
@@ -302,12 +318,14 @@ enum EstimationTier: String, Codable, CaseIterable {
 enum EstimationSource: String, Codable, CaseIterable {
     case ingredients = "ingredients"
     case usda = "usda"
+    case openFoodFacts = "openFoodFacts"
     case unavailable = "unavailable"
     
     var displayName: String {
         switch self {
         case .ingredients: return "Ingredient Analysis"
         case .usda: return "USDA Database"
+        case .openFoodFacts: return "Open Food Facts"
         case .unavailable: return "Unavailable"
         }
     }
@@ -316,6 +334,7 @@ enum EstimationSource: String, Codable, CaseIterable {
         switch self {
         case .ingredients: return 0.8
         case .usda: return 0.6
+        case .openFoodFacts: return 0.55
         case .unavailable: return 0.0
         }
     }
@@ -324,6 +343,7 @@ enum EstimationSource: String, Codable, CaseIterable {
         switch self {
         case .ingredients: return "🧪"
         case .usda: return "📊"
+        case .openFoodFacts: return "🥫"
         case .unavailable: return "❓"
         }
     }
@@ -421,6 +441,48 @@ extension AnalyzedMenuItem {
         )
     }
     
+    static func createWithOpenFoodFacts(
+        name: String,
+        description: String?,
+        price: String?,
+        offResult: OpenFoodFactsResult, 
+        textBounds: CGRect?
+    ) -> AnalyzedMenuItem {
+        // Convert Open Food Facts nutrition to standard format
+        let servingNutrition = offResult.nutrition.toServingSize(estimatedServingGrams: 100) 
+        
+        let nutritionEstimate = NutritionEstimate(
+            calories: NutritionRange(min: servingNutrition.calories, max: servingNutrition.calories, unit: "kcal"),
+            carbs: NutritionRange(min: servingNutrition.carbs, max: servingNutrition.carbs, unit: "g"),
+            protein: NutritionRange(min: servingNutrition.protein, max: servingNutrition.protein, unit: "g"),
+            fat: NutritionRange(min: servingNutrition.fat, max: servingNutrition.fat, unit: "g"),
+            fiber: servingNutrition.fiber != nil ? NutritionRange(min: servingNutrition.fiber!, max: servingNutrition.fiber!, unit: "g") : nil,
+            sodium: servingNutrition.sodium != nil ? NutritionRange(min: servingNutrition.sodium!, max: servingNutrition.sodium!, unit: "mg") : nil,
+            sugar: servingNutrition.sugar != nil ? NutritionRange(min: servingNutrition.sugar!, max: servingNutrition.sugar!, unit: "g") : nil,
+            confidence: offResult.confidence,
+            estimationSource: .openFoodFacts,
+            sourceDetails: "Open Food Facts match: '\(offResult.matchedProductName)' (confidence: \(Int(offResult.confidence * 100))%)",
+            estimatedPortionSize: "100g serving",
+            portionConfidence: 0.5
+        )
+        
+        let dietaryTags = generateOpenFoodFactsDietaryTags(from: servingNutrition)
+        
+        return AnalyzedMenuItem(
+            name: name,
+            description: description,
+            price: price,
+            ingredients: [], 
+            nutritionEstimate: nutritionEstimate,
+            dietaryTags: dietaryTags,
+            confidence: offResult.confidence,
+            textBounds: textBounds,
+            estimationTier: .openFoodFacts,
+            usdaEstimate: nil,
+            isGeneralizedEstimate: true
+        )
+    }
+    
     static func createUnavailable(
         name: String,
         description: String?,
@@ -457,7 +519,6 @@ extension AnalyzedMenuItem {
         )
     }
     
-    // ENHANCED: Add intelligent USDA convenience initializer
     static func createWithIntelligentUSDA(
         name: String,
         description: String?,
@@ -465,7 +526,6 @@ extension AnalyzedMenuItem {
         intelligentResult: IntelligentNutritionResult,
         textBounds: CGRect?
     ) -> AnalyzedMenuItem {
-        // Convert IntelligentNutritionRange to NutritionRange
         let nutritionEstimate = NutritionEstimate(
             calories: convertToNutritionRange(intelligentResult.estimatedNutrition.calories),
             carbs: convertToNutritionRange(intelligentResult.estimatedNutrition.carbs),
@@ -481,14 +541,13 @@ extension AnalyzedMenuItem {
             portionConfidence: 0.6
         )
         
-        // Generate enhanced dietary tags from intelligent nutrition data
         let dietaryTags = generateIntelligentDietaryTags(from: intelligentResult.estimatedNutrition)
         
         return AnalyzedMenuItem(
             name: name,
             description: description,
             price: price,
-            ingredients: [], // NO INGREDIENTS in USDA-only mode
+            ingredients: [], 
             nutritionEstimate: nutritionEstimate,
             dietaryTags: dietaryTags,
             confidence: intelligentResult.estimatedNutrition.confidence,
@@ -500,23 +559,19 @@ extension AnalyzedMenuItem {
     }
 }
 
-// Helper function to generate dietary tags from USDA data
 private func generateDietaryTagsFromUSDA(_ usdaEstimate: USDANutritionEstimate) -> [DietaryTag] {
     var tags: [DietaryTag] = []
     
-    // High protein check
     if usdaEstimate.protein.average >= MenuAnalysisConfig.highProteinThreshold {
         tags.append(.highProtein)
     }
     
-    // Carb-based tags
     if usdaEstimate.carbs.average <= MenuAnalysisConfig.lowCarbThreshold {
         tags.append(.lowCarb)
     } else if usdaEstimate.carbs.average >= MenuAnalysisConfig.highCarbThreshold {
         tags.append(.highCarb)
     }
     
-    // Health assessment based on calories and sodium
     if usdaEstimate.calories.average <= 400,
        let sodium = usdaEstimate.sodium,
        sodium.average <= MenuAnalysisConfig.lowSodiumThreshold {
@@ -528,11 +583,9 @@ private func generateDietaryTagsFromUSDA(_ usdaEstimate: USDANutritionEstimate) 
     return tags
 }
 
-// Helper functions for intelligent USDA mode
 private func generateIntelligentDietaryTags(from nutrition: EstimatedNutrition) -> [DietaryTag] {
     var tags: [DietaryTag] = []
     
-    // Enhanced macro-based rules with confidence consideration
     if nutrition.protein.average >= 20 && nutrition.confidence > 0.6 {
         tags.append(.highProtein)
     }
@@ -564,7 +617,6 @@ private func generateIntelligentDietaryTags(from nutrition: EstimatedNutrition) 
     return tags
 }
 
-// Helper function to convert between nutrition range types
 private func convertToNutritionRange(_ intelligentRange: IntelligentNutritionRange) -> NutritionRange {
     return NutritionRange(
         min: intelligentRange.min,
@@ -573,7 +625,6 @@ private func convertToNutritionRange(_ intelligentRange: IntelligentNutritionRan
     )
 }
 
-// Convert intelligent result to legacy USDA format
 private func convertIntelligentToLegacyFormat(_ intelligentResult: IntelligentNutritionResult) -> USDANutritionEstimate {
     return USDANutritionEstimate(
         originalItemName: intelligentResult.originalName,
@@ -591,6 +642,42 @@ private func convertIntelligentToLegacyFormat(_ intelligentResult: IntelligentNu
     )
 }
 
+private func generateOpenFoodFactsDietaryTags(from nutrition: OpenFoodFactsNutrition) -> [DietaryTag] {
+    var tags: [DietaryTag] = []
+    
+    if nutrition.protein >= 20 {
+        tags.append(.highProtein)
+    }
+    
+    if nutrition.carbs <= 15 {
+        tags.append(.lowCarb)
+    } else if nutrition.carbs >= 45 {
+        tags.append(.highCarb)
+    }
+    
+    if nutrition.calories <= 400,
+       let sodium = nutrition.sodium,
+       sodium <= 600 {
+        tags.append(.healthy)
+    } else if nutrition.calories > 600 {
+        tags.append(.indulgent)
+    }
+    
+    if let sugar = nutrition.sugar, sugar <= 5 {
+        tags.append(.lowSugar)
+    }
+    
+    if let fiber = nutrition.fiber, fiber >= 5 {
+        tags.append(.highFiber)
+    }
+    
+    if let sodium = nutrition.sodium, sodium <= 600 {
+        tags.append(.lowSodium)
+    }
+    
+    return tags
+}
+
 // MARK: - Analysis Configuration
 struct MenuAnalysisConfig {
     static let minConfidenceThreshold: Double = 0.3
@@ -598,11 +685,13 @@ struct MenuAnalysisConfig {
     static let maxIngredients: Int = 20
     static let defaultPortionSize: String = "1 serving"
     
-    // Nutrition estimation rules
-    static let highProteinThreshold: Double = 20.0 // grams
-    static let lowCarbThreshold: Double = 15.0 // grams
-    static let highCarbThreshold: Double = 45.0 // grams
-    static let ketoFatRatio: Double = 0.70 // 70% calories from fat
-    static let highFiberThreshold: Double = 5.0 // grams
-    static let lowSodiumThreshold: Double = 600.0 // mg
+    static let highProteinThreshold: Double = 20.0 
+    static let lowCarbThreshold: Double = 15.0 
+    static let highCarbThreshold: Double = 45.0 
+    static let ketoFatRatio: Double = 0.70 
+    static let highFiberThreshold: Double = 5.0 
+    static let lowSodiumThreshold: Double = 600.0 
 }
+
+// MARK: - Note: IntelligentNutritionResult, EstimatedNutrition, and IntelligentNutritionRange
+// are defined in USDAIntelligentMatcher.swift - they will be resolved at compile time

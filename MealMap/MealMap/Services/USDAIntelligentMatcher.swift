@@ -6,7 +6,7 @@ class USDAIntelligentMatcher: ObservableObject {
     static let shared = USDAIntelligentMatcher()
     
     private let baseURL = "https://api.nal.usda.gov/fdc/v1"
-    private let apiKey = "DEMO_KEY" // Replace with actual API key
+    private let apiKey = "BGTIHmZZZd6ahuv4YjH0wClxkdY5YIguxouHtifr" // Updated with actual API key
     private let session = URLSession.shared
     private let cache = USDAIntelligentCache()
     private let keywordExtractor = FoodKeywordExtractor()
@@ -602,7 +602,7 @@ enum USDAError: Error, LocalizedError {
 // API Helper
 struct USDAAPIHelper {
     static let baseURL = "https://api.nal.usda.gov/fdc/v1"
-    static let defaultAPIKey = "DEMO_KEY"
+    static let defaultAPIKey = "BGTIHmZZZd6ahuv4YjH0wClxkdY5YIguxouHtifr"
     
     static func createSearchURL(query: String, dataTypes: [String] = ["Foundation", "SR Legacy"], pageSize: Int = 25, apiKey: String = defaultAPIKey) -> URL? {
         let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query

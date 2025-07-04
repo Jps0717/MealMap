@@ -301,6 +301,7 @@ struct EnhancedMenuItemDetailView: View {
         switch item.estimationTier {
         case .ingredients: return "leaf.circle"
         case .usda: return "chart.bar.circle"
+        case .openFoodFacts: return "globe.circle"
         case .unavailable: return "questionmark.circle"
         }
     }
@@ -309,6 +310,7 @@ struct EnhancedMenuItemDetailView: View {
         switch item.estimationTier {
         case .ingredients: return .green
         case .usda: return .blue
+        case .openFoodFacts: return .orange
         case .unavailable: return .gray
         }
     }
