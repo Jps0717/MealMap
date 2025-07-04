@@ -49,18 +49,22 @@ struct MapHeaderView: View {
             )
             .padding(.horizontal, 16)
             
-            // Control buttons - UPDATED: Removed fresh button, keeping only home, status, and filter
+            // ENHANCED: Control buttons with prominent Home button
             HStack(spacing: 16) {
-                Button(action: onDismiss) {
+                // ENHANCED: Prominent Home button that clearly indicates it goes to home screen
+                Button(action: {
+                    debugLog("🏠 Home button tapped - returning to home screen")
+                    onDismiss()
+                }) {
                     HStack(spacing: 8) {
                         Image(systemName: "house.fill")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(.system(size: 18, weight: .semibold))
                         Text("Home")
                             .font(.system(size: 16, weight: .semibold, design: .rounded))
                     }
                     .foregroundColor(.white)
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
                     .background(
                         LinearGradient(
                             colors: [.green, .green.opacity(0.8)],
@@ -68,22 +72,25 @@ struct MapHeaderView: View {
                             endPoint: .bottom
                         )
                     )
-                    .cornerRadius(20)
-                    .shadow(color: .green.opacity(0.3), radius: 8, y: 4)
+                    .cornerRadius(25)
+                    .shadow(color: .green.opacity(0.4), radius: 10, y: 5)
                 }
+                .accessibilityLabel("Return to Home Screen")
+                .accessibilityHint("Tap to go back to the home screen")
                 
                 Spacer()
                 
                 MapStatusIndicators(viewModel: viewModel, isSearching: isSearching)
                 
+                // Filter button
                 Button(action: {
                     showingFilters = true
                 }) {
                     Image(systemName: hasActiveFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.white)
                 }
-                .frame(width: 44, height: 44)
+                .frame(width: 48, height: 48)
                 .background(
                     LinearGradient(
                         colors: hasActiveFilters ? [Color.orange, Color.orange.opacity(0.8)] : [Color.gray, Color.gray.opacity(0.8)],
@@ -91,9 +98,10 @@ struct MapHeaderView: View {
                         endPoint: .bottom
                     )
                 )
-                .cornerRadius(22)
+                .cornerRadius(24)
                 .shadow(color: (hasActiveFilters ? Color.orange : Color.gray).opacity(0.3), radius: 8, y: 4)
-                
+                .accessibilityLabel(hasActiveFilters ? "Active Filters" : "No Filters")
+                .accessibilityHint("Tap to open filter options")
             }
             .padding(.horizontal, 16)
         }
@@ -122,7 +130,7 @@ struct MapStatusIndicators: View {
     
     var body: some View {
         HStack(spacing: 8) {
-            // Search results indicator only (removed Nutrition Only tag)
+            // Search results indicator
             if viewModel.showSearchResults {
                 HStack(spacing: 6) {
                     if isSearching {
@@ -150,6 +158,27 @@ struct MapStatusIndicators: View {
                         )
                 )
             }
+            
+            // ENHANCED: Nutrition data indicator
+            HStack(spacing: 4) {
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 10))
+                    .foregroundColor(.green)
+                
+                Text("Nutrition Data")
+                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .foregroundColor(.green)
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
+            .background(
+                Capsule()
+                    .fill(.green.opacity(0.1))
+                    .overlay(
+                        Capsule()
+                            .stroke(.green.opacity(0.3), lineWidth: 1)
+                    )
+            )
         }
     }
 }

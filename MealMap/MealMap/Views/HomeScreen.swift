@@ -23,6 +23,9 @@ struct HomeScreen: View {
     @State private var searchWorkItem: DispatchWorkItem?
     @State private var showSearchScreen = false
     
+    // ENHANCED: Modal navigation for proper home button functionality
+    @State private var showMapScreen = false
+    
     // Categories mapping string to enum - UPDATED: Only 3 categories + custom
     private let categoryMapping: [String: RestaurantCategory] = [
         "Fast Food": .fastFood,
@@ -49,6 +52,10 @@ struct HomeScreen: View {
                 selectedCategory: nil
             )
             .environmentObject(nutritionManager)
+        }
+        // ENHANCED: Modal map presentation for proper home button navigation
+        .fullScreenCover(isPresented: $showMapScreen) {
+            MapScreen(viewModel: mapViewModel)
         }
     }
     
@@ -165,7 +172,10 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
+                // ENHANCED: Button to show modal map instead of NavigationLink
+                Button(action: {
+                    showMapScreen = true
+                }) {
                     HStack {
                         Image(systemName: "map")
                         Text("Map")
@@ -182,7 +192,6 @@ struct HomeScreen: View {
                     .foregroundColor(.white)
                     .cornerRadius(20)
                 }
-
             }
             
             if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
@@ -251,7 +260,10 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
+                // ENHANCED: Button to show modal map instead of NavigationLink
+                Button(action: {
+                    showMapScreen = true
+                }) {
                     Text("View All")
                         .font(.caption)
                         .foregroundColor(.blue)
@@ -298,7 +310,10 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
+                // ENHANCED: Button to show modal map instead of NavigationLink
+                Button(action: {
+                    showMapScreen = true
+                }) {
                     Text("View All")
                         .font(.caption)
                         .foregroundColor(.blue)
@@ -328,7 +343,10 @@ struct HomeScreen: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: MapScreen(viewModel: mapViewModel)) {
+                // ENHANCED: Button to show modal map instead of NavigationLink
+                Button(action: {
+                    showMapScreen = true
+                }) {
                     Image(systemName: "arrow.right.circle.fill")
                         .foregroundColor(.blue)
                         .font(.title2)

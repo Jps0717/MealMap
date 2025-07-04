@@ -8,158 +8,8 @@ final class RestaurantEmojiService {
     
     /// Returns the most appropriate emoji for a restaurant based on name and cuisine
     func getEmojiForRestaurant(_ restaurant: Restaurant) -> String {
-        let name = restaurant.name.lowercased()
-        let cuisine = restaurant.cuisine?.lowercased() ?? ""
-        
-        // MARK: - Brand-Specific Emojis
-        
-        // Pizza Places
-        if name.contains("pizza") || name.contains("pizzeria") ||
-           ["pizza hut", "domino's", "papa john's", "little caesars", "papa murphy's", 
-            "blaze pizza", "california pizza kitchen", "sbarro", "jet's pizza"].contains(where: { name.contains($0) }) {
-            return "🍕"
-        }
-        
-        // Burger Places
-        if ["mcdonald's", "burger king", "wendy's", "five guys", "in-n-out", "whataburger", 
-            "shake shack", "white castle", "carl's jr", "hardee's", "jack in the box",
-            "sonic", "culver's", "a&w", "fatburger"].contains(where: { name.contains($0) }) ||
-           name.contains("burger") {
-            return "🍔"
-        }
-        
-        // Chicken Places
-        if ["kfc", "chick-fil-a", "popeyes", "church's chicken", "raising cane's", 
-            "bojangles", "el pollo loco", "zaxby's", "dave's hot chicken"].contains(where: { name.contains($0) }) ||
-           name.contains("chicken") && !name.contains("sandwich") {
-            return "🍗"
-        }
-        
-        // Tacos & Mexican
-        if ["taco bell", "chipotle", "qdoba", "del taco", "taco cabana", "el pollo loco",
-            "moe's", "fuzzy's", "torchy's"].contains(where: { name.contains($0) }) ||
-           name.contains("taco") || name.contains("mexican") || cuisine.contains("mexican") {
-            return "🌮"
-        }
-        
-        // Coffee & Cafes
-        if ["starbucks", "dunkin'", "dunkin", "coffee bean", "peet's", "caribou coffee",
-            "tim hortons", "costa coffee", "blue bottle", "intelligentsia"].contains(where: { name.contains($0) }) ||
-           name.contains("coffee") || name.contains("cafe") || name.contains("espresso") ||
-           cuisine.contains("coffee") || restaurant.amenityType == "cafe" {
-            return "☕"
-        }
-        
-        // Donuts & Bakery
-        if ["krispy kreme", "dunkin'", "donut", "bakery"].contains(where: { name.contains($0) }) ||
-           name.contains("donut") || name.contains("doughnut") || cuisine.contains("bakery") {
-            return "🍩"
-        }
-        
-        // Ice Cream
-        if ["dairy queen", "baskin-robbins", "cold stone", "ben & jerry's", "häagen-dazs",
-            "friendly's", "carvel", "tcby"].contains(where: { name.contains($0) }) ||
-           name.contains("ice cream") || name.contains("frozen yogurt") || cuisine.contains("ice cream") {
-            return "🍦"
-        }
-        
-        // Sandwiches & Subs
-        if ["subway", "jimmy john's", "quiznos", "jersey mike's", "firehouse subs",
-            "which wich", "potbelly", "penn station"].contains(where: { name.contains($0) }) ||
-           name.contains("sub") || name.contains("sandwich") || cuisine.contains("sandwich") {
-            return "🥪"
-        }
-        
-        // Asian Cuisine
-        if ["panda express", "pick up stix", "pei wei", "pf chang's", "benihana"].contains(where: { name.contains($0) }) ||
-           name.contains("chinese") || name.contains("asian") || name.contains("sushi") ||
-           cuisine.contains("chinese") || cuisine.contains("japanese") || cuisine.contains("asian") ||
-           cuisine.contains("sushi") || cuisine.contains("thai") || cuisine.contains("vietnamese") {
-            return "🥢"
-        }
-        
-        // Sushi Specific
-        if name.contains("sushi") || cuisine.contains("sushi") {
-            return "🍣"
-        }
-        
-        // Noodles & Pasta
-        if ["olive garden", "noodles & company", "fazoli's"].contains(where: { name.contains($0) }) ||
-           name.contains("noodle") || name.contains("pasta") || cuisine.contains("pasta") ||
-           cuisine.contains("italian") {
-            return "🍝"
-        }
-        
-        // BBQ & Grill
-        if name.contains("bbq") || name.contains("grill") || name.contains("smokehouse") ||
-           name.contains("barbecue") || cuisine.contains("barbecue") || cuisine.contains("grill") {
-            return "🍖"
-        }
-        
-        // Steakhouse
-        if name.contains("steakhouse") || name.contains("steak") || cuisine.contains("steakhouse") {
-            return "🥩"
-        }
-        
-        // Seafood
-        if ["long john silver's", "red lobster", "captain d's"].contains(where: { name.contains($0) }) ||
-           name.contains("seafood") || name.contains("fish") || cuisine.contains("seafood") {
-            return "🐟"
-        }
-        
-        // Salads & Healthy
-        if ["sweetgreen", "chopt", "freshii", "salata", "crisp & green"].contains(where: { name.contains($0) }) ||
-           name.contains("salad") || name.contains("fresh") || name.contains("healthy") ||
-           cuisine.contains("salad") || name.contains("juice") || name.contains("smoothie") {
-            return "🥗"
-        }
-        
-        // Deli
-        if name.contains("deli") || cuisine.contains("deli") {
-            return "🥖"
-        }
-        
-        // Breakfast
-        if ["ihop", "denny's", "waffle house", "cracker barrel", "bob evans",
-            "perkins", "first watch"].contains(where: { name.contains($0) }) ||
-           name.contains("pancake") || name.contains("waffle") || name.contains("breakfast") ||
-           cuisine.contains("breakfast") {
-            return "🥞"
-        }
-        
-        // MARK: - Cuisine-Based Fallbacks
-        
-        switch cuisine {
-        case let c where c.contains("indian"):
-            return "🍛"
-        case let c where c.contains("mediterranean"):
-            return "🫒"
-        case let c where c.contains("greek"):
-            return "🫒"
-        case let c where c.contains("korean"):
-            return "🍜"
-        case let c where c.contains("middle eastern"):
-            return "🥙"
-        case let c where c.contains("vegetarian") || c.contains("vegan"):
-            return "🌱"
-        case let c where c.contains("dessert"):
-            return "🧁"
-        default:
-            break
-        }
-        
-        // MARK: - Amenity Type Fallbacks
-        
-        if restaurant.amenityType == "fast_food" {
-            return "🍔" // Default fast food emoji
-        } else if restaurant.amenityType == "restaurant" {
-            return "🍽️" // Default restaurant emoji
-        } else if restaurant.amenityType == "cafe" {
-            return "☕" // Default cafe emoji
-        }
-        
-        // Ultimate fallback
-        return "🍽️"
+        let emoji = RestaurantEmojiService.emoji(for: restaurant.amenityType, cuisine: restaurant.cuisine?.lowercased())
+        return emoji
     }
     
     /// Gets a color that matches the emoji for better visual consistency
@@ -191,4 +41,191 @@ final class RestaurantEmojiService {
         default: return ("#007AFF", "#FFFFFF") // Default blue
         }
     }
+    
+    // MARK: - Enhanced Emoji Mapping
+    static func emoji(for amenity: String?, cuisine: String?) -> String {
+        // First check cuisine-specific emojis
+        if let cuisine = cuisine?.lowercased() {
+            if let cuisineEmoji = cuisineEmojis[cuisine] {
+                return cuisineEmoji
+            }
+            
+            // Partial matches for cuisine
+            for (key, emoji) in cuisineEmojis {
+                if cuisine.contains(key) {
+                    return emoji
+                }
+            }
+        }
+        
+        // Fallback to amenity-based emojis
+        let amenityKey = amenity?.lowercased() ?? "restaurant"
+        return amenityEmojis[amenityKey] ?? defaultEmoji(for: amenityKey)
+    }
+    
+    // MARK: - Cuisine-Specific Emojis
+    private static let cuisineEmojis: [String: String] = [
+        // Asian
+        "sushi": "🍣",
+        "japanese": "🍱",
+        "chinese": "🥡",
+        "thai": "🍜",
+        "korean": "🍲",
+        "vietnamese": "🍜",
+        "asian": "🥢",
+        "ramen": "🍜",
+        "noodles": "🍜",
+        
+        // European
+        "pizza": "🍕",
+        "italian": "🍝",
+        "french": "🥖",
+        "german": "🥨",
+        "greek": "🫒",
+        "spanish": "🥘",
+        "mediterranean": "🫒",
+        
+        // American
+        "burger": "🍔",
+        "american": "🍔",
+        "bbq": "🍖",
+        "barbecue": "🍖",
+        "steak": "🥩",
+        "sandwich": "🥪",
+        "deli": "🥪",
+        
+        // Mexican/Latin
+        "mexican": "🌮",
+        "taco": "🌮",
+        "burrito": "🌯",
+        "tex-mex": "🌮",
+        "latin": "🌮",
+        
+        // Indian/Middle Eastern
+        "indian": "🍛",
+        "curry": "🍛",
+        "middle_eastern": "🧆",
+        "lebanese": "🧆",
+        "persian": "🍛",
+        "turkish": "🧆",
+        
+        // Vegetarian/Vegan
+        "vegetarian": "🥗",
+        "vegan": "🌱",
+        "salad": "🥗",
+        "healthy": "🥗",
+        
+        // Dessert/Sweets
+        "ice_cream": "🍦",
+        "dessert": "🍰",
+        "bakery": "🥐",
+        "donut": "🍩",
+        "cake": "🧁",
+        
+        // Beverages
+        "coffee": "☕",
+        "tea": "🍵",
+        "juice": "🧃",
+        "smoothie": "🥤",
+        
+        // Seafood
+        "seafood": "🦞",
+        "fish": "🐟",
+        "oyster": "🦪",
+        
+        // Breakfast
+        "breakfast": "🥞",
+        "brunch": "🥞",
+        "pancake": "🥞",
+        
+        // Fast Food Chains
+        "mcdonald": "🍔",
+        "burger_king": "🍔",
+        "subway": "🥪",
+        "kfc": "🍗",
+        "taco_bell": "🌮",
+        "pizza_hut": "🍕",
+        "domino": "🍕",
+        "starbucks": "☕",
+        "dunkin": "🍩"
+    ]
+    
+    // MARK: - Amenity-Based Emojis
+    private static let amenityEmojis: [String: String] = [
+        "restaurant": "🍽️",
+        "fast_food": "🍔",
+        "cafe": "☕",
+        "bar": "🍺",
+        "pub": "🍺",
+        "food_court": "🍽️",
+        "biergarten": "🍺"
+    ]
+    
+    // MARK: - Default Emoji Logic
+    private static func defaultEmoji(for amenity: String) -> String {
+        switch amenity.lowercased() {
+        case "fast_food":
+            return "🍔"
+        case "cafe":
+            return "☕"
+        case "bar", "pub":
+            return "🍺"
+        default:
+            return "🍽️"
+        }
+    }
+    
+    // MARK: - Color Coding Logic
+    static func pinColor(hasNutritionData: Bool, isVegan: Bool = false) -> String {
+        if hasNutritionData {
+            return isVegan ? "#4CAF50" : "#2196F3" // Green for vegan, blue for nutrition
+        } else {
+            return "#9E9E9E" // Gray for no nutrition data
+        }
+    }
+    
+    // MARK: - Enhanced Restaurant Analysis
+    static func analyzeRestaurant(name: String, amenity: String?, cuisine: String?) -> RestaurantAnalysis {
+        let emoji = emoji(for: amenity, cuisine: cuisine)
+        let hasNutritionData = RestaurantData.hasNutritionData(for: name)
+        let isVegan = cuisine?.lowercased().contains("vegan") == true
+        let pinColor = pinColor(hasNutritionData: hasNutritionData, isVegan: isVegan)
+        
+        return RestaurantAnalysis(
+            emoji: emoji,
+            pinColor: pinColor,
+            hasNutritionData: hasNutritionData,
+            isVegan: isVegan,
+            cuisineCategory: categorizeCuisine(cuisine)
+        )
+    }
+    
+    private static func categorizeCuisine(_ cuisine: String?) -> String {
+        guard let cuisine = cuisine?.lowercased() else { return "general" }
+        
+        if ["chinese", "japanese", "korean", "thai", "vietnamese", "asian"].contains(where: cuisine.contains) {
+            return "asian"
+        } else if ["italian", "french", "german", "greek", "spanish", "mediterranean"].contains(where: cuisine.contains) {
+            return "european"
+        } else if ["mexican", "taco", "burrito", "tex-mex", "latin"].contains(where: cuisine.contains) {
+            return "mexican"
+        } else if ["indian", "curry", "middle_eastern", "lebanese", "persian", "turkish"].contains(where: cuisine.contains) {
+            return "middle_eastern"
+        } else if ["vegetarian", "vegan", "salad", "healthy"].contains(where: cuisine.contains) {
+            return "healthy"
+        } else if ["american", "burger", "bbq", "steak"].contains(where: cuisine.contains) {
+            return "american"
+        } else {
+            return "general"
+        }
+    }
+}
+
+// MARK: - Analysis Result
+struct RestaurantAnalysis {
+    let emoji: String
+    let pinColor: String
+    let hasNutritionData: Bool
+    let isVegan: Bool
+    let cuisineCategory: String
 }

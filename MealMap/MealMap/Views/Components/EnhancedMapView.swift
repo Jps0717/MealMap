@@ -125,6 +125,12 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
     @ObservedObject var viewModel: MapViewModel
     let onRestaurantTap: (Restaurant) -> Void
     
+    private let pinHideThreshold: CLLocationDegrees = 0.02  // Hide pins when zoomed out beyond ~22km span
+    private let maxLatitudeDelta: CLLocationDegrees = 0.5  // About 55km max zoom out
+    private let maxLongitudeDelta: CLLocationDegrees = 0.5 // About 55km max zoom out
+    private let minLatitudeDelta: CLLocationDegrees = 0.001 // About 110m min zoom in
+    private let minLongitudeDelta: CLLocationDegrees = 0.001 // About 110m min zoom in
+    
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
@@ -149,28 +155,62 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
     func updateUIView(_ mapView: MKMapView, context: Context) {
         // Only update region if it's significantly different
         let currentRegion = mapView.region
-        let targetRegion = viewModel.region
+        let targetRegion = constrainRegionToZoomLimits(viewModel.region)
         
         let latDiff = abs(currentRegion.center.latitude - targetRegion.center.latitude)
         let lonDiff = abs(currentRegion.center.longitude - targetRegion.center.longitude)
         let spanDiff = abs(currentRegion.span.latitudeDelta - targetRegion.span.latitudeDelta)
         
-        if latDiff > 0.01 || lonDiff > 0.01 || spanDiff > 0.01 {
+        if latDiff > 0.001 || lonDiff > 0.001 || spanDiff > 0.001 {
             mapView.setRegion(targetRegion, animated: false)
         }
         
-        // Show restaurants with nutrition data only
-        let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
+        // ENHANCED: Hide pins when zoomed out too far for cleaner view
+        let currentSpan = mapView.region.span.latitudeDelta
+        let shouldShowPins = currentSpan <= pinHideThreshold
         
-        let newRestaurantAnnotations = restaurantsToShow.map {
-            RestaurantMapAnnotation(restaurant: $0)
+        if shouldShowPins {
+            // Show restaurants with nutrition data only when zoomed in enough
+            let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
+            
+            let newRestaurantAnnotations = restaurantsToShow.map {
+                RestaurantMapAnnotation(restaurant: $0)
+            }
+            
+            // Clear and add annotations
+            mapView.removeAnnotations(mapView.annotations)
+            mapView.addAnnotations(newRestaurantAnnotations)
+            
+            debugLog("🗺️ Showing \(newRestaurantAnnotations.count) nutrition pins (zoom level: \(String(format: "%.3f", currentSpan)))")
+        } else {
+            // Hide all pins when zoomed out too far
+            mapView.removeAnnotations(mapView.annotations)
+            debugLog("🗺️ Hiding all pins - zoomed out too far (zoom level: \(String(format: "%.3f", currentSpan)) > \(pinHideThreshold))")
+        }
+    }
+    
+    private func constrainRegionToZoomLimits(_ region: MKCoordinateRegion) -> MKCoordinateRegion {
+        var constrainedRegion = region
+        
+        // Constrain latitude delta (vertical zoom)
+        if constrainedRegion.span.latitudeDelta > maxLatitudeDelta {
+            constrainedRegion.span.latitudeDelta = maxLatitudeDelta
+            debugLog("🔒 Max zoom out reached - latitude delta constrained to \(maxLatitudeDelta)")
+        } else if constrainedRegion.span.latitudeDelta < minLatitudeDelta {
+            constrainedRegion.span.latitudeDelta = minLatitudeDelta
+            debugLog("🔒 Max zoom in reached - latitude delta constrained to \(minLatitudeDelta)")
         }
         
-        // Clear and add annotations
-        mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations(newRestaurantAnnotations)
+        // Constrain longitude delta (horizontal zoom)
+        if constrainedRegion.span.longitudeDelta > maxLongitudeDelta {
+            constrainedRegion.span.longitudeDelta = maxLongitudeDelta
+            debugLog("🔒 Max zoom out reached - longitude delta constrained to \(maxLongitudeDelta)")
+        } else if constrainedRegion.span.longitudeDelta < minLongitudeDelta {
+            constrainedRegion.span.longitudeDelta = minLongitudeDelta
+            debugLog("🔒 Max zoom in reached - longitude delta constrained to \(minLongitudeDelta)")
+        }
         
-        debugLog("🗺️ Clean map showing \(newRestaurantAnnotations.count) nutrition pins")
+        return constrainedRegion
     }
     
     func makeCoordinator() -> Coordinator {
@@ -185,10 +225,39 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            // Fetch restaurants for the new region
+            // ENHANCED: Apply zoom constraints to new region before processing
+            let constrainedRegion = parent.constrainRegionToZoomLimits(mapView.region)
+            
+            // Update the map if constraints were applied
+            if mapView.region.span.latitudeDelta != constrainedRegion.span.latitudeDelta ||
+               mapView.region.span.longitudeDelta != constrainedRegion.span.longitudeDelta {
+                mapView.setRegion(constrainedRegion, animated: true)
+            }
+            
+            // ENHANCED: Check if we should show/hide pins based on zoom level
+            let currentSpan = mapView.region.span.latitudeDelta
+            let shouldShowPins = currentSpan <= parent.pinHideThreshold
+            
+            if shouldShowPins {
+                // Only fetch restaurants when zoomed in enough to show pins
+                Task.detached(priority: .utility) { [weak self] in
+                    guard let self = self else { return }
+                    await self.parent.viewModel.fetchRestaurantsForMapRegion(mapView.region)
+                }
+            } else {
+                // Clear annotations when zoomed out too far
+                DispatchQueue.main.async {
+                    mapView.removeAnnotations(mapView.annotations)
+                }
+                debugLog("🗺️ Cleared pins - zoom level too high: \(String(format: "%.3f", currentSpan))")
+            }
+            
+            // Update view model region
             Task.detached(priority: .utility) { [weak self] in
                 guard let self = self else { return }
-                await self.parent.viewModel.fetchRestaurantsForMapRegion(mapView.region)
+                await MainActor.run {
+                    self.parent.viewModel.region = constrainedRegion
+                }
             }
         }
         

@@ -35,11 +35,11 @@ class NutritionDataManager: ObservableObject {
     private init() {
         // OPTIMIZED: Configure session for fast, unlimited API access
         let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 15.0 // Reasonable timeout for API calls
-        config.timeoutIntervalForResource = 30.0 // Total timeout for resource
+        config.timeoutIntervalForRequest = 3.0 // FIXED: Aggressive timeout for fast startup
+        config.timeoutIntervalForResource = 5.0 // FIXED: Quick total timeout
         config.requestCachePolicy = .useProtocolCachePolicy // Use normal caching
         config.httpMaximumConnectionsPerHost = 10 // Allow more concurrent requests
-        config.waitsForConnectivity = true // Better handling of network issues
+        config.waitsForConnectivity = false // FIXED: Don't wait for connectivity
         self.session = URLSession(configuration: config)
 
         // Prime in-memory cache from persisted disk cache
@@ -48,23 +48,26 @@ class NutritionDataManager: ObservableObject {
             nutritionCache.store(restaurant: entry)
         }
 
-        debugLog(" NutritionDataManager optimized for unlimited API access (restored \(persisted.count) cached restaurants)")
+        debugLog("⚡ NutritionDataManager optimized for unlimited API access (restored \(persisted.count) cached restaurants)")
     }
     
     // MARK: - Startup Methods - Lightweight Initialization Only
-    // OPTIMIZED: Super fast startup - no blocking API calls
+    // FIXED: Truly fast startup - background API check only
     func initializeIfNeeded() async {
         guard !hasCheckedAPIAvailability else { return }
         hasCheckedAPIAvailability = true
         
         debugLog("⚡ Lightning-fast API initialization...")
         
-        await self.checkAPIAvailability()
+        // FIXED: Fire-and-forget background API check - don't await
+        Task.detached(priority: .background) { [weak self] in
+            await self?.checkAPIAvailability()
+        }
         
-        debugLog("✅ Initialization completed instantly")
+        debugLog("✅ Initialization completed instantly (API check running in background)")
     }
     
-    // OPTIMIZED: Fast API availability check
+    // FIXED: Fast API availability check with aggressive timeout
     private func checkAPIAvailability() async {
         guard availableRestaurantIDs.isEmpty else {
             debugLog("📋 Restaurant IDs already loaded")
@@ -76,25 +79,31 @@ class NutritionDataManager: ObservableObject {
             return
         }
         
-        debugLog("🔍 Quick API availability check...")
+        debugLog("🔍 Background API availability check...")
         
         do {
-            let (data, response) = try await session.data(from: url)
+            // FIXED: Use aggressive timeout
+            let request = URLRequest(url: url, timeoutInterval: 3.0)
+            let (data, response) = try await session.data(for: request)
             
             if let httpResponse = response as? HTTPURLResponse {
                 debugLog("📊 API Status: \(httpResponse.statusCode)")
                 
                 if httpResponse.statusCode == 200 {
                     let restaurantIDs = try JSONDecoder().decode([String].self, from: data)
-                    self.availableRestaurantIDs = restaurantIDs
-                    debugLog("✅ API ready with \(restaurantIDs.count) restaurants")
+                    await MainActor.run {
+                        self.availableRestaurantIDs = restaurantIDs
+                    }
+                    debugLog("✅ API ready with \(restaurantIDs.count) restaurants (background)")
                     return
                 }
             }
         } catch {
-            debugLog("⚠️ API check failed (will use fallback): \(error.localizedDescription)")
+            debugLog("⚠️ API check failed in background (app continues normally): \(error.localizedDescription)")
             // Don't treat this as fatal - app can still work with static data
         }
+        
+        debugLog("📱 App continues with fallback nutrition data")
     }
 
     // MARK: - Optimized API Methods

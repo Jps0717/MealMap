@@ -2,13 +2,16 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-/// Enhanced MapScreen with immediate restaurant detail on pin tap
+/// Enhanced MapScreen with proper modal home button navigation
 struct MapScreen: View {
     // View model and managers
     @ObservedObject var viewModel: MapViewModel
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var networkMonitor = NetworkMonitor.shared
     @StateObject private var searchManager = SearchManager()
+    
+    // ENHANCED: Environment to handle modal dismissal
+    @Environment(\.dismiss) private var dismiss
     
     // UI State
     @State private var searchText = ""
@@ -27,13 +30,17 @@ struct MapScreen: View {
             if showLocationError {
                 LocationErrorView()
             } else {
-                // ENHANCED: Map with immediate restaurant detail handling
+                // ENHANCED: Map with proper home button dismissal handling
                 MapContentView(
                     viewModel: viewModel,
                     searchText: $searchText,
                     isSearching: $isSearching,
                     cachedRestaurants: [],
-                    onDismiss: { },
+                    onDismiss: {
+                        // ENHANCED: Dismiss the modal when home button is tapped
+                        debugLog("🏠 Home button tapped - dismissing map modal")
+                        dismiss()
+                    },
                     onSearch: performSearch,
                     onClearSearch: clearSearch
                 )
@@ -67,6 +74,9 @@ struct MapScreen: View {
             debugLog("📍 Location authorization changed: \(status)")
             handleLocationStatusChange(status)
         }
+        // ENHANCED: Hide navigation bar for clean modal presentation
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
     
     private func handleLocationStatusChange(_ status: CLAuthorizationStatus) {
@@ -88,7 +98,7 @@ struct MapScreen: View {
     }
     
     private func setupMapView() {
-        debugLog("🎯 Setting up enhanced map view...")
+        debugLog("🎯 Setting up enhanced modal map view...")
         
         switch locationManager.authorizationStatus {
         case .notDetermined:
