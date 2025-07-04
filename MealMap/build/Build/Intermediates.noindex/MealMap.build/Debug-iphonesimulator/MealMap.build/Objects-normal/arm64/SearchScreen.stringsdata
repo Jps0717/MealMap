@@ -1,0 +1,80 @@
+{
+  "source": "/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Search/SearchScreen.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Search restaurants...",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Searching...",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "Recent Searches",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "Popular Searches",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 158
+        }
+      },
+      {
+        "comment": "",
+        "key": "Search by Category",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 180
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld result%@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 222
+        }
+      },
+      {
+        "comment": "",
+        "key": "No Results Found",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 256
+        }
+      },
+      {
+        "comment": "",
+        "key": "Try searching for:",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 260
+        }
+      }
+    ]
+  },
+  "version": 1
+}

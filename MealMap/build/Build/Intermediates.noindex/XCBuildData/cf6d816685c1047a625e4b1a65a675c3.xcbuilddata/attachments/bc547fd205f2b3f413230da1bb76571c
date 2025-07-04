@@ -1,0 +1,28 @@
+{
+  "" : {
+    "diagnostics" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests-master.dia",
+    "emit-module-dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests-master-emit-module.dia",
+    "swift-dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests-master.swiftdeps"
+  },
+  "/Users/2026jshell/Documents/MealMap/MealMap/MealMapUITests/MealMapUITests.swift" : {
+    "const-values" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests.swiftconstvalues",
+    "dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests.d",
+    "diagnostics" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests.dia",
+    "index-unit-output-path" : "/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests.o",
+    "llvm-bc" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests.bc",
+    "object" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests.o",
+    "swift-dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests.swiftdeps",
+    "swiftmodule" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITests~partial.swiftmodule"
+  },
+  "/Users/2026jshell/Documents/MealMap/MealMap/MealMapUITests/MealMapUITestsLaunchTests.swift" : {
+    "const-values" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITestsLaunchTests.swiftconstvalues",
+    "dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITestsLaunchTests.d",
+    "diagnostics" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITestsLaunchTests.dia",
+    "index-unit-output-path" : "/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITestsLaunchTests.o",
+    "llvm-bc" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITestsLaunchTests.bc",
+    "object" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITestsLaunchTests.o",
+    "swift-dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITestsLaunchTests.swiftdeps",
+    "swiftmodule" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapUITests.build/Objects-normal/arm64/MealMapUITestsLaunchTests~partial.swiftmodule"
+  }
+}

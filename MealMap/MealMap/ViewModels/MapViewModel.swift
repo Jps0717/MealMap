@@ -364,6 +364,18 @@ final class MapViewModel: ObservableObject {
 
     // MARK: - Location and area management
     func setInitialLocation(_ coordinate: CLLocationCoordinate2D) {
+        // FIXED: Prevent infinite loops by checking if location has significantly changed
+        if let lastCoordinate = cacheLocation {
+            let lastLocation = CLLocation(latitude: lastCoordinate.latitude, longitude: lastCoordinate.longitude)
+            let currentLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            let distance = lastLocation.distance(from: currentLocation)
+            
+            // Only update if moved more than 100 meters
+            if distance < 100 {
+                return
+            }
+        }
+        
         debugLog(" 📍 Setting initial location: \(coordinate)")
         
         DispatchQueue.main.async {
@@ -379,16 +391,23 @@ final class MapViewModel: ObservableObject {
     }
 
     private func setupLocationObserver() {
+        // FIXED: Add hasInitialized check to prevent redundant calls
         locationManager.objectWillChange
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                if let location = self?.locationManager.lastLocation?.coordinate {
-                    self?.setInitialLocation(location)
+                guard let self = self else { return }
+                
+                // Only set initial location if not already initialized or if location changed significantly
+                if let location = self.locationManager.lastLocation?.coordinate {
+                    if !self.hasInitialized {
+                        self.setInitialLocation(location)
+                        self.hasInitialized = true
+                    }
                 }
             }
             .store(in: &cancellables)
     }
-    
+
     // MARK: - FIXED: Reduced geocoding to prevent throttling
     func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) {
         guard shouldPerformGeocoding(for: coordinate) else { return }

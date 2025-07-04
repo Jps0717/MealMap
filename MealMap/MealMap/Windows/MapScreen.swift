@@ -4,9 +4,9 @@ import CoreLocation
 
 /// Enhanced MapScreen with proper modal home button navigation
 struct MapScreen: View {
-    // View model and managers
+    // View model and managers - FIXED: Use only the passed viewModel
     @ObservedObject var viewModel: MapViewModel
-    @StateObject private var locationManager = LocationManager.shared
+    @StateObject private var locationManager = LocationManager()
     @StateObject private var networkMonitor = NetworkMonitor.shared
     @StateObject private var searchManager = SearchManager()
     
@@ -17,6 +17,8 @@ struct MapScreen: View {
     @State private var searchText = ""
     @State private var isSearching = false
     @State private var showLocationError = false
+    @State private var showingSearch = false
+    @State private var showingMenuPhotoCapture = false
     
     // Sheet states
     @State private var selectedRestaurant: Restaurant?
@@ -38,7 +40,7 @@ struct MapScreen: View {
                     cachedRestaurants: [],
                     onDismiss: {
                         // ENHANCED: Dismiss the modal when home button is tapped
-                        debugLog("🏠 Home button tapped - dismissing map modal")
+                        debugLog(" Home button tapped - dismissing map modal")
                         dismiss()
                     },
                     onSearch: performSearch,
@@ -63,15 +65,18 @@ struct MapScreen: View {
                 userLocation: locationManager.lastLocation?.coordinate
             )
         }
+        .sheet(isPresented: $showingMenuPhotoCapture) {
+            MenuPhotoCaptureView()
+        }
         .onAppear {
             setupMapView()
         }
         .onChange(of: viewModel.restaurants) { _, restaurants in
-            debugLog("📍 Restaurants updated: \(restaurants.count) restaurants")
-            debugLog("📍 Nutrition restaurants: \(restaurants.filter { $0.hasNutritionData }.count)")
+            debugLog(" Restaurants updated: \(restaurants.count) restaurants")
+            debugLog(" Nutrition restaurants: \(restaurants.filter { $0.hasNutritionData }.count)")
         }
         .onChange(of: locationManager.authorizationStatus) { _, status in
-            debugLog("📍 Location authorization changed: \(status)")
+            debugLog(" Location authorization changed: \(status)")
             handleLocationStatusChange(status)
         }
         // ENHANCED: Hide navigation bar for clean modal presentation
@@ -89,7 +94,7 @@ struct MapScreen: View {
         case .authorizedWhenInUse, .authorizedAlways:
             showLocationError = false
             if let location = locationManager.lastLocation {
-                debugLog("📍 Location authorized, refreshing data for: \(location.coordinate)")
+                debugLog(" Location authorized, refreshing data for: \(location.coordinate)")
                 viewModel.refreshData(for: location.coordinate)
             }
         @unknown default:
@@ -98,23 +103,23 @@ struct MapScreen: View {
     }
     
     private func setupMapView() {
-        debugLog("🎯 Setting up enhanced modal map view...")
+        debugLog(" Setting up enhanced modal map view...")
         
         switch locationManager.authorizationStatus {
         case .notDetermined:
-            debugLog("📍 Requesting location permission...")
+            debugLog(" Requesting location permission...")
             locationManager.requestLocationPermission()
         case .denied, .restricted:
-            debugLog("📍 Location access denied")
+            debugLog(" Location access denied")
             showLocationError = true
         case .authorizedWhenInUse, .authorizedAlways:
-            debugLog("📍 Location authorized")
+            debugLog(" Location authorized")
             showLocationError = false
             if let loc = locationManager.lastLocation {
-                debugLog("📍 Using existing location: \(loc.coordinate)")
+                debugLog(" Using existing location: \(loc.coordinate)")
                 viewModel.refreshData(for: loc.coordinate)
             } else {
-                debugLog("📍 No location available, using fallback...")
+                debugLog(" No location available, using fallback...")
                 // Fallback to New York
                 let fallbackLocation = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
                 viewModel.refreshData(for: fallbackLocation)
@@ -129,24 +134,44 @@ struct MapScreen: View {
             guard !searchText.isEmpty else { return }
             isSearching = true
             
-            debugLog("🔍 Performing search for: '\(searchText)'")
+            debugLog(" Performing search for: '\(searchText)'")
             await viewModel.performSearch(query: searchText)
             isSearching = false
         }
     }
     
     private func clearSearch() {
-        debugLog("🔍 Clearing search")
+        debugLog(" Clearing search")
         searchText = ""
         viewModel.clearSearch()
         isSearching = false
     }
     
-    // ENHANCED: Method to select restaurant for immediate detail view
     private func selectRestaurant(_ restaurant: Restaurant) {
-        debugLog("🍽️ Restaurant selected: \(restaurant.name)")
+        debugLog(" Restaurant selected: \(restaurant.name)")
         selectedRestaurant = restaurant
         showingRestaurantDetail = true
+    }
+    
+    private func mapHeaderView() -> some View {
+        HStack {
+            Spacer()
+            
+            Button(action: {
+                showingMenuPhotoCapture = true
+            }) {
+                Image(systemName: "camera.metering.center.weighted")
+                    .font(.title2)
+                    .foregroundColor(.blue)
+                    .padding(8)
+                    .background(Color.white)
+                    .clipShape(Circle())
+                    .shadow(radius: 2)
+            }
+            
+            Spacer()
+        }
+        .padding()
     }
 }
 

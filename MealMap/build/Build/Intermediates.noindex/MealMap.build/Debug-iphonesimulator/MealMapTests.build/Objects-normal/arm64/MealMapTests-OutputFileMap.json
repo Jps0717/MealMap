@@ -1,0 +1,18 @@
+{
+  "" : {
+    "diagnostics" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests-master.dia",
+    "emit-module-dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests-master-emit-module.dia",
+    "swift-dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests-master.swiftdeps"
+  },
+  "/Users/2026jshell/Documents/MealMap/MealMap/MealMapTests/MealMapTests.swift" : {
+    "const-values" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests.swiftconstvalues",
+    "dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests.d",
+    "diagnostics" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests.dia",
+    "index-unit-output-path" : "/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests.o",
+    "llvm-bc" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests.bc",
+    "object" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests.o",
+    "swift-dependencies" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests.swiftdeps",
+    "swiftmodule" : "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMapTests.build/Objects-normal/arm64/MealMapTests~partial.swiftmodule"
+  }
+}

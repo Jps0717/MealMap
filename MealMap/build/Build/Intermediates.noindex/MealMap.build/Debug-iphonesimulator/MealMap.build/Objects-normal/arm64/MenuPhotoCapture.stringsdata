@@ -1,0 +1,160 @@
+{
+  "source": "/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Menu/MenuPhotoCapture.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Analyze Menu",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Analyze Menu Photo",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Take a photo or select from your library to get instant nutrition analysis of menu items",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Take Photo",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 86
+        }
+      },
+      {
+        "comment": "",
+        "key": "Choose from Library",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 99
+        }
+      },
+      {
+        "comment": "",
+        "key": "Best results with clear, well-lit photos",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 113
+        }
+      },
+      {
+        "comment": "",
+        "key": "Hold phone steady and avoid shadows",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "Capture the entire menu section",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 115
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 141
+        }
+      },
+      {
+        "comment": "",
+        "key": "Analyzing Menu...",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 149
+        }
+      },
+      {
+        "comment": "",
+        "key": "Analysis Complete!",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 180
+        }
+      },
+      {
+        "comment": "",
+        "key": "Found %lld menu items",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 184
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 198
+        }
+      },
+      {
+        "comment": "",
+        "key": "High Confidence",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 201
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 210
+        }
+      },
+      {
+        "comment": "",
+        "key": "Overall Accuracy",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 213
+        }
+      },
+      {
+        "comment": "",
+        "key": "View Results",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 224
+        }
+      },
+      {
+        "comment": "",
+        "key": "Analyze Another Menu",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 234
+        }
+      }
+    ]
+  },
+  "version": 1
+}

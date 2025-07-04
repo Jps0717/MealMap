@@ -1,0 +1,88 @@
+{
+  "source": "/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Map/MapHeaderView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Search restaurants, cuisines...",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Return to Home Screen",
+        "location": {
+          "startingColumn": 37,
+          "startingLine": 78
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap to go back to the home screen",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "Active Filters",
+        "location": {
+          "startingColumn": 56,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "No Filters",
+        "location": {
+          "startingColumn": 75,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap to open filter options",
+        "location": {
+          "startingColumn": 36,
+          "startingLine": 104
+        }
+      },
+      {
+        "comment": "",
+        "key": "Home",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Searching...",
+        "location": {
+          "startingColumn": 40,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld found",
+        "location": {
+          "startingColumn": 57,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nutrition Data",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 168
+        }
+      }
+    ]
+  },
+  "version": 1
+}

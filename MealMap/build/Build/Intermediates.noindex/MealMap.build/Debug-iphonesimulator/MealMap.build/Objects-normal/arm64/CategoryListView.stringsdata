@@ -1,0 +1,80 @@
+{
+  "source": "/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/CategoryListView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 54
+        }
+      },
+      {
+        "comment": "",
+        "key": "Search %@ restaurants...",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 128
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld restaurants",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 169
+        }
+      },
+      {
+        "comment": "",
+        "key": "• Sorted A-Z",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 174
+        }
+      },
+      {
+        "comment": "",
+        "key": "Searching...",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 164
+        }
+      },
+      {
+        "comment": "",
+        "key": "No matches found",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 203
+        }
+      },
+      {
+        "comment": "",
+        "key": "Try searching for a different restaurant name.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 207
+        }
+      },
+      {
+        "comment": "",
+        "key": "Loading...",
+        "location": {
+          "startingColumn": 53,
+          "startingLine": 313
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nutrition",
+        "location": {
+          "startingColumn": 68,
+          "startingLine": 313
+        }
+      }
+    ]
+  },
+  "version": 1
+}

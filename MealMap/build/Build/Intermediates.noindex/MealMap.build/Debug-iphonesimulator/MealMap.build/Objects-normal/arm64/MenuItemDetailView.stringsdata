@@ -1,0 +1,48 @@
+{
+  "source": "/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Map/MenuItemDetailView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Overview",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 8
+        }
+      },
+      {
+        "comment": "",
+        "key": "Macronutrients",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 18
+        }
+      },
+      {
+        "comment": "",
+        "key": "Sodium",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Calories",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld kcal",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 14
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,160 @@
+{
+  "source": "/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/HomeScreen.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "MealMap",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "MealMap",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 126
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 90
+        }
+      },
+      {
+        "comment": "",
+        "key": "Search restaurants...",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 147
+        }
+      },
+      {
+        "comment": "",
+        "key": "📍 %@",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 202
+        }
+      },
+      {
+        "comment": "",
+        "key": "Welcome to",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 167
+        }
+      },
+      {
+        "comment": "",
+        "key": "MealMap",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 171
+        }
+      },
+      {
+        "comment": "",
+        "key": "Map",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 185
+        }
+      },
+      {
+        "comment": "",
+        "key": "Quick Actions",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 211
+        }
+      },
+      {
+        "comment": "",
+        "key": "Browse by Category",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 249
+        }
+      },
+      {
+        "comment": "",
+        "key": "Popular Chains",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 299
+        }
+      },
+      {
+        "comment": "",
+        "key": "View All",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 309
+        }
+      },
+      {
+        "comment": "",
+        "key": "Nearby Restaurants",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 349
+        }
+      },
+      {
+        "comment": "",
+        "key": "View All",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 359
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ready to explore nearby restaurants",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 377
+        }
+      },
+      {
+        "comment": "",
+        "key": "Tap 'Map' to see restaurants in your area",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 381
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld restaurant%@",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 540
+        }
+      },
+      {
+        "comment": "",
+        "key": "Custom",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 572
+        }
+      },
+      {
+        "comment": "",
+        "key": "Create category",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 577
+        }
+      }
+    ]
+  },
+  "version": 1
+}

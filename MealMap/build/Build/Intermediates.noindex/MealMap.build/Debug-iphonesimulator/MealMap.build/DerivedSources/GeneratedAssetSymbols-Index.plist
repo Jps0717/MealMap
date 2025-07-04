@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>colors</key>
+	<array/>
+	<key>images</key>
+	<array>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameMealMapIcon1X</string>
+			<key>relativePath</key>
+			<string>./meal_map_icon_1x.imageset</string>
+			<key>swiftSymbol</key>
+			<string>mealMapIcon1X</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameMealMapIcon2X</string>
+			<key>relativePath</key>
+			<string>./meal_map_icon_2x.imageset</string>
+			<key>swiftSymbol</key>
+			<string>mealMapIcon2X</string>
+		</dict>
+		<dict>
+			<key>catalogPath</key>
+			<string>/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Assets.xcassets</string>
+			<key>objcSymbol</key>
+			<string>ACImageNameMealMapIcon3X</string>
+			<key>relativePath</key>
+			<string>./meal_map_icon_3x.imageset</string>
+			<key>swiftSymbol</key>
+			<string>mealMapIcon3X</string>
+		</dict>
+	</array>
+	<key>symbols</key>
+	<array/>
+</dict>
+</plist>

@@ -1,0 +1,88 @@
+{
+  "source": "/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Menu/MenuAnalysisResultsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Menu Analysis",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 35
+        }
+      },
+      {
+        "comment": "",
+        "key": "Done",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 39
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld of %lld items match filter",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 80
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld items analyzed",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "Confidence",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 73
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld%%",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "+%lld",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 208
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ingredients:",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 223
+        }
+      },
+      {
+        "comment": "",
+        "key": "+ %lld more",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 232
+        }
+      },
+      {
+        "comment": "",
+        "key": "(%lld)",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 263
+        }
+      }
+    ]
+  },
+  "version": 1
+}

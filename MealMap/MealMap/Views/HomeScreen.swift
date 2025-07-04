@@ -22,9 +22,8 @@ struct HomeScreen: View {
     @State private var selectedRestaurant: Restaurant?
     @State private var searchWorkItem: DispatchWorkItem?
     @State private var showSearchScreen = false
-    
-    // ENHANCED: Modal navigation for proper home button functionality
-    @State private var showMapScreen = false
+    @State private var showingMapScreen = false
+    @State private var showingMenuPhotoCapture = false
     
     // Categories mapping string to enum - UPDATED: Only 3 categories + custom
     private let categoryMapping: [String: RestaurantCategory] = [
@@ -54,8 +53,11 @@ struct HomeScreen: View {
             .environmentObject(nutritionManager)
         }
         // ENHANCED: Modal map presentation for proper home button navigation
-        .fullScreenCover(isPresented: $showMapScreen) {
+        .fullScreenCover(isPresented: $showingMapScreen) {
             MapScreen(viewModel: mapViewModel)
+        }
+        .sheet(isPresented: $showingMenuPhotoCapture) {
+            MenuPhotoCaptureView()
         }
     }
     
@@ -112,6 +114,8 @@ struct HomeScreen: View {
         ScrollView {
             VStack(spacing: 20) {
                 headerView
+                
+                quickActionsSection
                 
                 searchBarView
                 
@@ -174,7 +178,7 @@ struct HomeScreen: View {
                 
                 // ENHANCED: Button to show modal map instead of NavigationLink
                 Button(action: {
-                    showMapScreen = true
+                    showingMapScreen = true
                 }) {
                     HStack {
                         Image(systemName: "map")
@@ -198,6 +202,44 @@ struct HomeScreen: View {
                 Text("📍 \(mapViewModel.currentAreaName)")
                     .font(.caption)
                     .foregroundColor(.gray)
+            }
+        }
+    }
+    
+    private var quickActionsSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Quick Actions")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            HStack(spacing: 12) {
+                QuickActionButton(
+                    icon: "magnifyingglass",
+                    title: "Search",
+                    color: .blue,
+                    action: { showSearchScreen = true }
+                )
+                
+                QuickActionButton(
+                    icon: "map",
+                    title: "Map",
+                    color: .green,
+                    action: { showingMapScreen = true }
+                )
+                
+                QuickActionButton(
+                    icon: "camera.metering.center.weighted",
+                    title: "Scan Menu",
+                    color: .orange,
+                    action: { showingMenuPhotoCapture = true }
+                )
+                
+                QuickActionButton(
+                    icon: "line.3.horizontal.decrease.circle",
+                    title: "Filter",
+                    color: .purple,
+                    action: { /* Filter action */ }
+                )
             }
         }
     }
@@ -262,7 +304,7 @@ struct HomeScreen: View {
                 
                 // ENHANCED: Button to show modal map instead of NavigationLink
                 Button(action: {
-                    showMapScreen = true
+                    showingMapScreen = true
                 }) {
                     Text("View All")
                         .font(.caption)
@@ -312,7 +354,7 @@ struct HomeScreen: View {
                 
                 // ENHANCED: Button to show modal map instead of NavigationLink
                 Button(action: {
-                    showMapScreen = true
+                    showingMapScreen = true
                 }) {
                     Text("View All")
                         .font(.caption)
@@ -345,7 +387,7 @@ struct HomeScreen: View {
                 
                 // ENHANCED: Button to show modal map instead of NavigationLink
                 Button(action: {
-                    showMapScreen = true
+                    showingMapScreen = true
                 }) {
                     Image(systemName: "arrow.right.circle.fill")
                         .foregroundColor(.blue)

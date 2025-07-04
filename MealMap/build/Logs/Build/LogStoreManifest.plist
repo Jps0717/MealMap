@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>11</integer>
+	<key>logs</key>
+	<dict>
+		<key>D67F2CBD-804C-4ACF-9CB8-1935B0052273</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>D67F2CBD-804C-4ACF-9CB8-1935B0052273.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>1</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>13</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>MealMap project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>MealMap</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Testing project MealMap with scheme MealMap</string>
+			<key>timeStartedRecording</key>
+			<real>773288071.89777505</real>
+			<key>timeStoppedRecording</key>
+			<real>773288086.88921595</real>
+			<key>title</key>
+			<string>Testing project MealMap with scheme MealMap</string>
+			<key>uniqueIdentifier</key>
+			<string>D67F2CBD-804C-4ACF-9CB8-1935B0052273</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

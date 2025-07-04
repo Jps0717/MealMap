@@ -1,0 +1,36 @@
+"/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Search/RestaurantSearchView.swift":
+  object: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/RestaurantSearchView.o"
+  diagnostics: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/RestaurantSearchView.dia"
+  dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/RestaurantSearchView.d"
+  const-values: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/RestaurantSearchView.swiftconstvalues"
+  swift-dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/RestaurantSearchView.swiftdeps"
+"/Users/2026jshell/Documents/MealMap/MealMap/MealMap/MealMapApp.swift":
+  dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MealMapApp.d"
+  const-values: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MealMapApp.swiftconstvalues"
+  diagnostics: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MealMapApp.dia"
+  swift-dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MealMapApp.swiftdeps"
+  object: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MealMapApp.o"
+"/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Components/MapLoadingView.swift":
+  dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MapLoadingView.d"
+  object: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MapLoadingView.o"
+  swift-dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MapLoadingView.swiftdeps"
+  const-values: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MapLoadingView.swiftconstvalues"
+  diagnostics: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MapLoadingView.dia"
+"/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Models/MenuAnalysis.swift":
+  diagnostics: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuAnalysis.dia"
+  swift-dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuAnalysis.swiftdeps"
+  object: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuAnalysis.o"
+  dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuAnalysis.d"
+  const-values: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuAnalysis.swiftconstvalues"
+"/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Map/MenuItemDetailView.swift":
+  dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuItemDetailView.d"
+  swift-dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuItemDetailView.swiftdeps"
+  const-values: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuItemDetailView.swiftconstvalues"
+  diagnostics: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuItemDetailView.dia"
+  object: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/MenuItemDetailView.o"
+"/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Services/OverpassDiskCache.swift":
+  object: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/OverpassDiskCache.o"
+  dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/OverpassDiskCache.d"
+  diagnostics: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/OverpassDiskCache.dia"
+  swift-dependencies: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/OverpassDiskCache.swiftdeps"
+  const-values: "/Users/2026jshell/Documents/MealMap/MealMap/build/Build/Intermediates.noindex/MealMap.build/Debug-iphonesimulator/MealMap.build/Objects-normal/arm64/OverpassDiskCache.swiftconstvalues"

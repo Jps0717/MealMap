@@ -1,0 +1,40 @@
+{
+  "source": "/Users/2026jshell/Documents/MealMap/MealMap/MealMap/Views/Components/LocationErrorView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Location Access Needed",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Location",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Settings",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 32
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue with Default Location",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 39
+        }
+      }
+    ]
+  },
+  "version": 1
+}
