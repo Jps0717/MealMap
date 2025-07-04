@@ -410,11 +410,13 @@ struct IngredientDetailView: View {
     }
 }
 
-#Preview {
-    EnhancedMenuItemDetailView(item: AnalyzedMenuItem.createUnavailable(
-        name: "Sample Item",
-        description: "Sample description",
-        price: "$12.99",
-        textBounds: nil
-    ))
+struct EnhancedMenuItemDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        EnhancedMenuItemDetailView(item: AnalyzedMenuItem.createUnavailable(
+            name: "Sample Item",
+            description: "Sample description",
+            price: "$12.99",
+            textBounds: nil
+        ))
+    }
 }

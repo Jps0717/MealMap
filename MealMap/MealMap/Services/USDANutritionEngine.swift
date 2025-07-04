@@ -5,30 +5,24 @@ import Foundation
 class USDANutritionEngine: ObservableObject {
     static let shared = USDANutritionEngine()
     
-    private let baseURL = "https://api.nal.usda.gov/fdc/v1"
-    private let apiKey = "DEMO_KEY" // Replace with actual API key
     private let session = URLSession.shared
-    private let cache = USDAFileCache()
-    private let cleaner = MenuItemCleaner()
-    
-    // Rate limiting
-    private var lastRequestTime: Date = Date.distantPast
-    private let requestInterval: TimeInterval = 1.0 // 1 second between requests
+    private let cache = USDAEngineFileCache()
+    private let cleaner = USDAMenuItemCleaner()
     
     private init() {}
     
     // MARK: - Public API
     
     /// Main entry point: Process raw menu item and return USDA-based nutrition
-    func analyzeMenuItem(_ rawName: String) async throws -> USDAMenuItem {
-        debugLog("🔍 Analyzing menu item: '\(rawName)'")
+    func analyzeMenuItem(_ rawName: String) async throws -> USDAEngineMenuItem {
+        debugLog("Analyzing menu item: '\(rawName)'")
         
         // Step 1: Clean and normalize the menu item name
         let cleanedNames = cleaner.cleanMenuItem(rawName)
         
         guard !cleanedNames.isEmpty else {
-            debugLog("❌ No valid names after cleaning: '\(rawName)'")
-            return USDAMenuItem.unavailable(originalName: rawName)
+            debugLog("No valid names after cleaning: '\(rawName)'")
+            return USDAEngineMenuItem.unavailable(originalName: rawName)
         }
         
         // Step 2: Try USDA lookup for each cleaned name
@@ -38,54 +32,104 @@ class USDANutritionEngine: ObservableObject {
             }
         }
         
-        debugLog("❌ No USDA matches found for: \(cleanedNames)")
-        return USDAMenuItem.unavailable(originalName: rawName)
+        debugLog("No USDA matches found for: \(cleanedNames)")
+        return USDAEngineMenuItem.unavailable(originalName: rawName)
+    }
+    
+    /// Enhanced menu item analysis using intelligent fuzzy matching
+    func analyzeMenuItemIntelligent(_ rawName: String) async throws -> AnalyzedMenuItem {
+        debugLog("Starting intelligent analysis for: '\(rawName)'")
+        
+        // Step 1: Clean and preprocess the menu item name
+        let cleanedNames = cleaner.cleanMenuItem(rawName)
+        
+        guard let primaryName = cleanedNames.first else {
+            debugLog("No valid names after cleaning: '\(rawName)'")
+            return AnalyzedMenuItem.createUnavailable(
+                name: rawName,
+                description: nil,
+                price: nil,
+                textBounds: nil
+            )
+        }
+        
+        // Step 2: Use intelligent matcher for fuzzy USDA matching
+        do {
+            let intelligentResult = try await USDAIntelligentMatcher.shared.findBestNutritionMatch(for: primaryName)
+            
+            if intelligentResult.isAvailable {
+                // Create enhanced item with intelligent matching data
+                return AnalyzedMenuItem.createWithIntelligentUSDA(
+                    name: rawName,
+                    description: nil,
+                    price: nil,
+                    intelligentResult: intelligentResult,
+                    textBounds: nil
+                )
+            } else {
+                // Create unavailable item
+                return AnalyzedMenuItem.createUnavailable(
+                    name: rawName,
+                    description: nil,
+                    price: nil,
+                    textBounds: nil
+                )
+            }
+        } catch {
+            debugLog("Intelligent analysis failed: \(error)")
+            return AnalyzedMenuItem.createUnavailable(
+                name: rawName,
+                description: nil,
+                price: nil,
+                textBounds: nil
+            )
+        }
     }
     
     // MARK: - USDA API Integration
     
-    private func fetchUSDANutrition(cleanedName: String, originalName: String) async throws -> USDAMenuItem {
+    private func fetchUSDANutrition(cleanedName: String, originalName: String) async throws -> USDAEngineMenuItem {
         // Check cache first
         if let cached = await cache.getCachedItem(for: cleanedName) {
-            debugLog("💾 Cache hit for: '\(cleanedName)'")
+            debugLog("Cache hit for: '\(cleanedName)'")
             return cached
         }
         
-        // Rate limiting
-        await enforceRateLimit()
+        // Rate limiting using shared service
+        await USDASharedRateLimit.shared.enforceRateLimit()
         
         // Search USDA database
         let searchResults = try await searchUSDAFoods(query: cleanedName)
         
         guard !searchResults.foods.isEmpty else {
-            let result = USDAMenuItem.unavailable(originalName: originalName)
+            let result = USDAEngineMenuItem.unavailable(originalName: originalName)
             await cache.cacheItem(result, for: cleanedName)
             return result
         }
         
         // Get nutrition for top matches (up to 3)
         let topMatches = Array(searchResults.foods.prefix(3))
-        var nutritionData: [USDAFoodNutritionData] = []
+        var nutritionData: [USDAEngineBasicNutrition] = []
         
         for food in topMatches {
             do {
-                await enforceRateLimit()
+                await USDASharedRateLimit.shared.enforceRateLimit()
                 let nutrition = try await fetchFoodDetails(fdcId: food.fdcId)
                 nutritionData.append(nutrition)
             } catch {
-                debugLog("⚠️ Failed to fetch details for FDC ID \(food.fdcId): \(error)")
+                debugLog("Failed to fetch details for FDC ID \(food.fdcId): \(error)")
                 continue
             }
         }
         
         guard !nutritionData.isEmpty else {
-            let result = USDAMenuItem.unavailable(originalName: originalName)
+            let result = USDAEngineMenuItem.unavailable(originalName: originalName)
             await cache.cacheItem(result, for: cleanedName)
             return result
         }
         
         // Calculate nutrition range
-        let result = createUSDAMenuItem(
+        let result = createUSDAEngineMenuItem(
             from: nutritionData,
             cleanedName: cleanedName,
             originalName: originalName
@@ -94,17 +138,12 @@ class USDANutritionEngine: ObservableObject {
         // Cache the result
         await cache.cacheItem(result, for: cleanedName)
         
-        debugLog("✅ USDA nutrition found for '\(cleanedName)': \(Int(result.nutrition.calories.average))cal")
+        debugLog("USDA nutrition found for '\(cleanedName)': \(Int(result.nutrition.calories.average))cal")
         return result
     }
     
     private func searchUSDAFoods(query: String) async throws -> USDASearchResponse {
-        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
-        
-        // Focus on common foods, not branded products
-        let urlString = "\(baseURL)/foods/search?query=\(encodedQuery)&dataType=Foundation,SR%20Legacy&pageSize=20&api_key=\(apiKey)"
-        
-        guard let url = URL(string: urlString) else {
+        guard let url = USDAAPIHelper.createSearchURL(query: query) else {
             throw USDAError.invalidURL
         }
         
@@ -124,10 +163,8 @@ class USDANutritionEngine: ObservableObject {
         return try JSONDecoder().decode(USDASearchResponse.self, from: data)
     }
     
-    private func fetchFoodDetails(fdcId: Int) async throws -> USDAFoodNutritionData {
-        let urlString = "\(baseURL)/food/\(fdcId)?api_key=\(apiKey)"
-        
-        guard let url = URL(string: urlString) else {
+    private func fetchFoodDetails(fdcId: Int) async throws -> USDAEngineBasicNutrition {
+        guard let url = USDAAPIHelper.createFoodDetailURL(fdcId: fdcId) else {
             throw USDAError.invalidURL
         }
         
@@ -142,10 +179,10 @@ class USDANutritionEngine: ObservableObject {
         }
         
         let foodDetail = try JSONDecoder().decode(USDAFoodDetail.self, from: data)
-        return extractNutritionData(from: foodDetail)
+        return extractBasicNutrition(from: foodDetail)
     }
     
-    private func extractNutritionData(from detail: USDAFoodDetail) -> USDAFoodNutritionData {
+    private func extractBasicNutrition(from detail: USDAFoodDetail) -> USDAEngineBasicNutrition {
         var calories: Double = 0
         var carbs: Double = 0
         var sugar: Double = 0
@@ -163,7 +200,7 @@ class USDANutritionEngine: ObservableObject {
             }
         }
         
-        return USDAFoodNutritionData(
+        return USDAEngineBasicNutrition(
             calories: calories,
             carbs: carbs,
             sugar: sugar,
@@ -172,11 +209,11 @@ class USDANutritionEngine: ObservableObject {
         )
     }
     
-    private func createUSDAMenuItem(
-        from nutritionData: [USDAFoodNutritionData],
+    private func createUSDAEngineMenuItem(
+        from nutritionData: [USDAEngineBasicNutrition],
         cleanedName: String,
         originalName: String
-    ) -> USDAMenuItem {
+    ) -> USDAEngineMenuItem {
         
         let calories = nutritionData.map { $0.calories }
         let carbs = nutritionData.map { $0.carbs }
@@ -184,7 +221,7 @@ class USDANutritionEngine: ObservableObject {
         let protein = nutritionData.map { $0.protein }
         let fat = nutritionData.map { $0.fat }
         
-        let nutrition = USDANutrition(
+        let nutrition = USDAEngineNutrition(
             calories: NutritionRange(min: calories.min() ?? 0, max: calories.max() ?? 0, unit: "kcal"),
             carbs: NutritionRange(min: carbs.min() ?? 0, max: carbs.max() ?? 0, unit: "g"),
             sugar: NutritionRange(min: sugar.min() ?? 0, max: sugar.max() ?? 0, unit: "g"),
@@ -194,7 +231,7 @@ class USDANutritionEngine: ObservableObject {
         
         let confidence = calculateConfidence(matchCount: nutritionData.count, cleanedName: cleanedName)
         
-        return USDAMenuItem(
+        return USDAEngineMenuItem(
             originalName: originalName,
             cleanedName: cleanedName,
             nutrition: nutrition,
@@ -224,19 +261,10 @@ class USDANutritionEngine: ObservableObject {
         
         return min(baseConfidence, 0.8) // Cap at 80%
     }
-    
-    private func enforceRateLimit() async {
-        let timeSinceLastRequest = Date().timeIntervalSince(lastRequestTime)
-        if timeSinceLastRequest < requestInterval {
-            let sleepTime = requestInterval - timeSinceLastRequest
-            try? await Task.sleep(nanoseconds: UInt64(sleepTime * 1_000_000_000))
-        }
-        lastRequestTime = Date()
-    }
 }
 
-// MARK: - Menu Item Cleaner
-class MenuItemCleaner {
+// MARK: - Menu Item Cleaner (Engine-specific)
+class USDAMenuItemCleaner {
     
     private let aliases: [String: String] = [
         // Italian specialties
@@ -260,7 +288,7 @@ class MenuItemCleaner {
     ]
     
     func cleanMenuItem(_ rawName: String) -> [String] {
-        debugLog("🧹 Cleaning menu item: '\(rawName)'")
+        debugLog("Cleaning menu item: '\(rawName)'")
         
         // Step 1: Split composite items
         let splitItems = splitCompositeItems(rawName)
@@ -279,7 +307,7 @@ class MenuItemCleaner {
             return name1.count > name2.count
         }
         
-        debugLog("✅ Cleaned names: \(uniqueNames)")
+        debugLog("Cleaned names: \(uniqueNames)")
         return uniqueNames
     }
     
@@ -316,7 +344,7 @@ class MenuItemCleaner {
         
         // Step 5: Final validation
         guard isValidFoodName(cleaned) else {
-            debugLog("❌ Invalid after cleaning: '\(cleaned)'")
+            debugLog("Invalid after cleaning: '\(cleaned)'")
             return nil
         }
         
@@ -412,23 +440,23 @@ class MenuItemCleaner {
     }
 }
 
-// MARK: - Data Models
+// MARK: - Data Models (Engine-specific)
 
-struct USDAMenuItem: Codable {
+struct USDAEngineMenuItem: Codable {
     let originalName: String
     let cleanedName: String
-    let nutrition: USDANutrition
+    let nutrition: USDAEngineNutrition
     let confidence: Double
     let matchCount: Int
     let isGeneralEstimate: Bool
     let isAvailable: Bool
     let timestamp: Date = Date()
     
-    static func unavailable(originalName: String) -> USDAMenuItem {
-        return USDAMenuItem(
+    static func unavailable(originalName: String) -> USDAEngineMenuItem {
+        return USDAEngineMenuItem(
             originalName: originalName,
             cleanedName: "",
-            nutrition: USDANutrition.empty,
+            nutrition: USDAEngineNutrition.empty,
             confidence: 0.0,
             matchCount: 0,
             isGeneralEstimate: false,
@@ -437,14 +465,14 @@ struct USDAMenuItem: Codable {
     }
 }
 
-struct USDANutrition: Codable {
+struct USDAEngineNutrition: Codable {
     let calories: NutritionRange
     let carbs: NutritionRange
     let sugar: NutritionRange
     let protein: NutritionRange
     let fat: NutritionRange
     
-    static let empty = USDANutrition(
+    static let empty = USDAEngineNutrition(
         calories: NutritionRange(min: 0, max: 0, unit: "kcal"),
         carbs: NutritionRange(min: 0, max: 0, unit: "g"),
         sugar: NutritionRange(min: 0, max: 0, unit: "g"),
@@ -453,7 +481,7 @@ struct USDANutrition: Codable {
     )
 }
 
-struct USDAFoodNutritionData: Codable {
+struct USDAEngineBasicNutrition: Codable {
     let calories: Double
     let carbs: Double
     let sugar: Double
@@ -461,25 +489,25 @@ struct USDAFoodNutritionData: Codable {
     let fat: Double
 }
 
-// MARK: - File-based Cache
-actor USDAFileCache {
+// MARK: - File-based Cache (Engine-specific)
+actor USDAEngineFileCache {
     private let cacheDirectory: URL
     private let cacheExpiry: TimeInterval = 24 * 60 * 60 * 7 // 7 days
     
     init() {
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        cacheDirectory = documentsPath.appendingPathComponent("USDACache")
+        cacheDirectory = documentsPath.appendingPathComponent("USDAEngineCache")
         
         // Create cache directory
         try? FileManager.default.createDirectory(at: cacheDirectory, withIntermediateDirectories: true)
     }
     
-    func getCachedItem(for cleanedName: String) -> USDAMenuItem? {
+    func getCachedItem(for cleanedName: String) -> USDAEngineMenuItem? {
         let fileName = cleanedName.replacingOccurrences(of: " ", with: "_") + ".json"
         let fileURL = cacheDirectory.appendingPathComponent(fileName)
         
         guard let data = try? Data(contentsOf: fileURL) else { return nil }
-        guard let item = try? JSONDecoder().decode(USDAMenuItem.self, from: data) else { return nil }
+        guard let item = try? JSONDecoder().decode(USDAEngineMenuItem.self, from: data) else { return nil }
         
         // Check expiry
         if Date().timeIntervalSince(item.timestamp) > cacheExpiry {
@@ -490,7 +518,7 @@ actor USDAFileCache {
         return item
     }
     
-    func cacheItem(_ item: USDAMenuItem, for cleanedName: String) {
+    func cacheItem(_ item: USDAEngineMenuItem, for cleanedName: String) {
         let fileName = cleanedName.replacingOccurrences(of: " ", with: "_") + ".json"
         let fileURL = cacheDirectory.appendingPathComponent(fileName)
         

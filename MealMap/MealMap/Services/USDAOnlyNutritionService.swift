@@ -5,22 +5,16 @@ import Foundation
 class USDAOnlyNutritionService: ObservableObject {
     static let shared = USDAOnlyNutritionService()
     
-    private let baseURL = "https://api.nal.usda.gov/fdc/v1"
-    private let apiKey = "DEMO_KEY" // Replace with actual API key
     private let session = URLSession.shared
-    private let cache = USDADiskCache()
-    private let aliasMapper = FoodAliasMapper()
-    
-    // Rate limiting
-    private var lastRequestTime: Date = Date.distantPast
-    private let requestInterval: TimeInterval = 1.0 // 1 second between requests
+    private let cache = USDAOnlyServiceDiskCache()
+    private let aliasMapper = USDAOnlyFoodAliasMapper()
     
     private init() {}
     
     // MARK: - Public API
     
     /// Main entry point: Process raw menu item name and return nutrition estimate
-    func estimateNutrition(for rawItemName: String) async throws -> USDANutritionResult {
+    func estimateNutrition(for rawItemName: String) async throws -> USDAOnlyServiceNutritionResult {
         debugLog(" Starting USDA estimation for: '\(rawItemName)'")
         
         // Step 1: Preprocess and clean the menu item name
@@ -28,7 +22,7 @@ class USDAOnlyNutritionService: ObservableObject {
         
         guard !cleanedNames.isEmpty else {
             debugLog(" No valid food names after preprocessing: '\(rawItemName)'")
-            return USDANutritionResult.unavailable(originalName: rawItemName)
+            return USDAOnlyServiceNutritionResult.unavailable(originalName: rawItemName)
         }
         
         // Step 2: Try to get nutrition for the best cleaned name
@@ -39,7 +33,7 @@ class USDAOnlyNutritionService: ObservableObject {
         }
         
         debugLog(" No USDA matches found for any cleaned names: \(cleanedNames)")
-        return USDANutritionResult.unavailable(originalName: rawItemName)
+        return USDAOnlyServiceNutritionResult.unavailable(originalName: rawItemName)
     }
     
     // MARK: - Menu Item Name Preprocessing Pipeline
@@ -192,32 +186,32 @@ class USDAOnlyNutritionService: ObservableObject {
     
     // MARK: - USDA API Integration
     
-    private func fetchNutritionFromUSDA(cleanedName: String, originalName: String) async throws -> USDANutritionResult {
+    private func fetchNutritionFromUSDA(cleanedName: String, originalName: String) async throws -> USDAOnlyServiceNutritionResult {
         // Check cache first
         if let cachedResult = await cache.getCachedResult(for: cleanedName) {
             debugLog(" Cache hit for: '\(cleanedName)'")
             return cachedResult
         }
         
-        // Rate limiting
-        await enforceRateLimit()
+        // Rate limiting using shared service
+        await USDASharedRateLimit.shared.enforceRateLimit()
         
-        // Search USDA database
+        // Search USDA database using shared helper
         let searchResults = try await searchUSDAFoods(query: cleanedName)
         
         guard !searchResults.foods.isEmpty else {
-            let result = USDANutritionResult.unavailable(originalName: originalName)
+            let result = USDAOnlyServiceNutritionResult.unavailable(originalName: originalName)
             await cache.cacheResult(result, for: cleanedName)
             return result
         }
         
         // Get nutrition details for top matches (up to 3)
         let topMatches = Array(searchResults.foods.prefix(3))
-        var nutritionData: [USDAFoodNutrition] = []
+        var nutritionData: [USDAOnlyServiceBasicNutrition] = []
         
         for food in topMatches {
             do {
-                await enforceRateLimit()
+                await USDASharedRateLimit.shared.enforceRateLimit()
                 let nutrition = try await fetchFoodDetails(fdcId: food.fdcId)
                 nutritionData.append(nutrition)
             } catch {
@@ -227,7 +221,7 @@ class USDAOnlyNutritionService: ObservableObject {
         }
         
         guard !nutritionData.isEmpty else {
-            let result = USDANutritionResult.unavailable(originalName: originalName)
+            let result = USDAOnlyServiceNutritionResult.unavailable(originalName: originalName)
             await cache.cacheResult(result, for: cleanedName)
             return result
         }
@@ -248,12 +242,7 @@ class USDAOnlyNutritionService: ObservableObject {
     }
     
     private func searchUSDAFoods(query: String) async throws -> USDASearchResponse {
-        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
-        
-        // Focus on general foods, not branded items
-        let urlString = "\(baseURL)/foods/search?query=\(encodedQuery)&dataType=Foundation,SR%20Legacy&pageSize=25&api_key=\(apiKey)"
-        
-        guard let url = URL(string: urlString) else {
+        guard let url = USDAAPIHelper.createSearchURL(query: query, pageSize: 25) else {
             throw USDAError.invalidURL
         }
         
@@ -279,10 +268,8 @@ class USDAOnlyNutritionService: ObservableObject {
         }
     }
     
-    private func fetchFoodDetails(fdcId: Int) async throws -> USDAFoodNutrition {
-        let urlString = "\(baseURL)/food/\(fdcId)?api_key=\(apiKey)"
-        
-        guard let url = URL(string: urlString) else {
+    private func fetchFoodDetails(fdcId: Int) async throws -> USDAOnlyServiceBasicNutrition {
+        guard let url = USDAAPIHelper.createFoodDetailURL(fdcId: fdcId) else {
             throw USDAError.invalidURL
         }
         
@@ -298,14 +285,14 @@ class USDAOnlyNutritionService: ObservableObject {
         
         do {
             let foodDetail = try JSONDecoder().decode(USDAFoodDetail.self, from: data)
-            return extractNutritionData(from: foodDetail)
+            return extractBasicNutrition(from: foodDetail)
         } catch {
             debugLog(" USDA detail decode error: \(error)")
             throw USDAError.decodingError(error)
         }
     }
     
-    private func extractNutritionData(from detail: USDAFoodDetail) -> USDAFoodNutrition {
+    private func extractBasicNutrition(from detail: USDAFoodDetail) -> USDAOnlyServiceBasicNutrition {
         var calories: Double = 0
         var carbs: Double = 0
         var sugar: Double = 0
@@ -323,7 +310,7 @@ class USDAOnlyNutritionService: ObservableObject {
             }
         }
         
-        return USDAFoodNutrition(
+        return USDAOnlyServiceBasicNutrition(
             calories: calories,
             carbs: carbs,
             sugar: sugar,
@@ -333,11 +320,11 @@ class USDAOnlyNutritionService: ObservableObject {
     }
     
     private func calculateNutritionRange(
-        from nutritionData: [USDAFoodNutrition],
+        from nutritionData: [USDAOnlyServiceBasicNutrition],
         cleanedName: String,
         originalName: String,
         matchCount: Int
-    ) -> USDANutritionResult {
+    ) -> USDAOnlyServiceNutritionResult {
         
         let calories = nutritionData.map { $0.calories }
         let carbs = nutritionData.map { $0.carbs }
@@ -347,7 +334,7 @@ class USDAOnlyNutritionService: ObservableObject {
         
         let confidence = calculateConfidence(from: matchCount, cleanedName: cleanedName)
         
-        return USDANutritionResult(
+        return USDAOnlyServiceNutritionResult(
             originalName: originalName,
             cleanedName: cleanedName,
             calories: NutritionRange(min: calories.min() ?? 0, max: calories.max() ?? 0, unit: "kcal"),
@@ -381,19 +368,10 @@ class USDAOnlyNutritionService: ObservableObject {
         
         return min(baseConfidence, 0.8) // Cap at 80%
     }
-    
-    private func enforceRateLimit() async {
-        let timeSinceLastRequest = Date().timeIntervalSince(lastRequestTime)
-        if timeSinceLastRequest < requestInterval {
-            let sleepTime = requestInterval - timeSinceLastRequest
-            try? await Task.sleep(nanoseconds: UInt64(sleepTime * 1_000_000_000))
-        }
-        lastRequestTime = Date()
-    }
 }
 
-// MARK: - Food Alias Mapper
-class FoodAliasMapper {
+// MARK: - Food Alias Mapper (Service-specific)
+class USDAOnlyFoodAliasMapper {
     private let aliases: [String: String] = [
         // Italian foods
         "crostatine": "tart",
@@ -435,9 +413,9 @@ class FoodAliasMapper {
     }
 }
 
-// MARK: - Data Models
+// MARK: - Data Models (Service-specific to avoid conflicts)
 
-struct USDANutritionResult: Codable {
+struct USDAOnlyServiceNutritionResult: Codable {
     let originalName: String
     let cleanedName: String
     let calories: NutritionRange
@@ -451,8 +429,8 @@ struct USDANutritionResult: Codable {
     let isAvailable: Bool
     let timestamp: Date = Date()
     
-    static func unavailable(originalName: String) -> USDANutritionResult {
-        return USDANutritionResult(
+    static func unavailable(originalName: String) -> USDAOnlyServiceNutritionResult {
+        return USDAOnlyServiceNutritionResult(
             originalName: originalName,
             cleanedName: "",
             calories: NutritionRange(min: 0, max: 0, unit: "kcal"),
@@ -468,7 +446,7 @@ struct USDANutritionResult: Codable {
     }
 }
 
-struct USDAFoodNutrition: Codable {
+struct USDAOnlyServiceBasicNutrition: Codable {
     let calories: Double
     let carbs: Double
     let sugar: Double
@@ -476,25 +454,25 @@ struct USDAFoodNutrition: Codable {
     let fat: Double
 }
 
-// MARK: - Disk Cache
-actor USDADiskCache {
+// MARK: - Disk Cache (Service-specific)
+actor USDAOnlyServiceDiskCache {
     private let cacheDirectory: URL
     private let cacheExpiry: TimeInterval = 24 * 60 * 60 * 7 // 7 days
     
     init() {
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        cacheDirectory = documentsPath.appendingPathComponent("USDACache")
+        cacheDirectory = documentsPath.appendingPathComponent("USDAOnlyServiceCache")
         
         // Create cache directory if needed
         try? FileManager.default.createDirectory(at: cacheDirectory, withIntermediateDirectories: true)
     }
     
-    func getCachedResult(for cleanedName: String) -> USDANutritionResult? {
+    func getCachedResult(for cleanedName: String) -> USDAOnlyServiceNutritionResult? {
         let fileName = cleanedName.replacingOccurrences(of: " ", with: "_") + ".json"
         let fileURL = cacheDirectory.appendingPathComponent(fileName)
         
         guard let data = try? Data(contentsOf: fileURL) else { return nil }
-        guard let result = try? JSONDecoder().decode(USDANutritionResult.self, from: data) else { return nil }
+        guard let result = try? JSONDecoder().decode(USDAOnlyServiceNutritionResult.self, from: data) else { return nil }
         
         // Check expiry
         if Date().timeIntervalSince(result.timestamp) > cacheExpiry {
@@ -505,7 +483,7 @@ actor USDADiskCache {
         return result
     }
     
-    func cacheResult(_ result: USDANutritionResult, for cleanedName: String) {
+    func cacheResult(_ result: USDAOnlyServiceNutritionResult, for cleanedName: String) {
         let fileName = cleanedName.replacingOccurrences(of: " ", with: "_") + ".json"
         let fileURL = cacheDirectory.appendingPathComponent(fileName)
         
@@ -531,5 +509,3 @@ actor USDADiskCache {
         }
     }
 }
-
-// MARK: - Error Handling

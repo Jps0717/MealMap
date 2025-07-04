@@ -304,20 +304,30 @@ class MenuOCRService: ObservableObject {
     private func createUSDAOnlyAnalyzedItem(from rawItem: RawMenuItem) async throws -> AnalyzedMenuItem {
         debugLog("🍽️ Processing menu item: '\(rawItem.name)'")
         
-        // Get USDA-only nutrition analysis 
-        let usdaItem = try await USDANutritionEngine.shared.analyzeMenuItem(rawItem.name)
-        
-        if usdaItem.isAvailable {
-            // Create item with USDA data
-            return AnalyzedMenuItem.createUSDAOnly(
-                name: rawItem.name,
-                description: rawItem.description,
-                price: rawItem.price,
-                usdaItem: usdaItem,
-                textBounds: rawItem.bounds
-            )
-        } else {
-            // Create unavailable item
+        do {
+            let intelligentResult = try await USDAIntelligentMatcher.shared.findBestNutritionMatch(for: rawItem.name)
+            
+            if intelligentResult.isAvailable {
+                // Create item with intelligent USDA data
+                return AnalyzedMenuItem.createWithIntelligentUSDA(
+                    name: rawItem.name,
+                    description: rawItem.description,
+                    price: rawItem.price,
+                    intelligentResult: intelligentResult,
+                    textBounds: rawItem.bounds
+                )
+            } else {
+                // Create unavailable item
+                return AnalyzedMenuItem.createUnavailable(
+                    name: rawItem.name,
+                    description: rawItem.description,
+                    price: rawItem.price,
+                    textBounds: rawItem.bounds
+                )
+            }
+        } catch {
+            debugLog("❌ USDA analysis failed for '\(rawItem.name)': \(error)")
+            // Create unavailable item on error
             return AnalyzedMenuItem.createUnavailable(
                 name: rawItem.name,
                 description: rawItem.description,
@@ -326,9 +336,6 @@ class MenuOCRService: ObservableObject {
             )
         }
     }
-}
-
-extension MenuOCRService {
     
     /// USDA-Only menu analysis - completely removes ingredient analysis
     func analyzeMenuUSDAOnly(image: UIImage) async throws -> MenuAnalysisResult {
@@ -392,6 +399,9 @@ extension MenuOCRService {
         SUCCESS RATE: \(Int(Double(availableCount) / Double(result.totalItems) * 100))%
         """)
     }
+}
+
+extension MenuOCRService {
 }
 
 // MARK: - Supporting Types

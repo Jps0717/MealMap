@@ -457,73 +457,32 @@ extension AnalyzedMenuItem {
         )
     }
     
-    // ENHANCED: Add USDA-only convenience initializer
-    static func createWithUSDAOnly(
+    // ENHANCED: Add intelligent USDA convenience initializer
+    static func createWithIntelligentUSDA(
         name: String,
         description: String?,
         price: String?,
-        usdaResult: USDANutritionResult,
+        intelligentResult: IntelligentNutritionResult,
         textBounds: CGRect?
     ) -> AnalyzedMenuItem {
-        // Convert USDA result to NutritionEstimate format
+        // Convert IntelligentNutritionRange to NutritionRange
         let nutritionEstimate = NutritionEstimate(
-            calories: usdaResult.calories,
-            carbs: usdaResult.carbs,
-            protein: usdaResult.protein,
-            fat: usdaResult.fat,
-            fiber: nil, // Not included in USDA-only mode
-            sodium: nil, // Not included in USDA-only mode
-            sugar: usdaResult.sugar,
-            confidence: usdaResult.confidence,
+            calories: convertToNutritionRange(intelligentResult.estimatedNutrition.calories),
+            carbs: convertToNutritionRange(intelligentResult.estimatedNutrition.carbs),
+            protein: convertToNutritionRange(intelligentResult.estimatedNutrition.protein),
+            fat: convertToNutritionRange(intelligentResult.estimatedNutrition.fat),
+            fiber: intelligentResult.estimatedNutrition.fiber != nil ? convertToNutritionRange(intelligentResult.estimatedNutrition.fiber!) : nil,
+            sodium: intelligentResult.estimatedNutrition.sodium != nil ? convertToNutritionRange(intelligentResult.estimatedNutrition.sodium!) : nil,
+            sugar: intelligentResult.estimatedNutrition.sugar != nil ? convertToNutritionRange(intelligentResult.estimatedNutrition.sugar!) : nil,
+            confidence: intelligentResult.estimatedNutrition.confidence,
             estimationSource: .usda,
-            sourceDetails: "USDA database (\(usdaResult.matchCount) matches) - \(usdaResult.cleanedName)",
+            sourceDetails: "Intelligent USDA match: '\(intelligentResult.bestMatchName)' (score: \(String(format: "%.2f", intelligentResult.bestMatchScore)))",
             estimatedPortionSize: "1 serving",
-            portionConfidence: 0.5
+            portionConfidence: 0.6
         )
         
-        // Generate basic dietary tags from USDA data (simplified)
-        let dietaryTags = generateBasicDietaryTags(from: usdaResult)
-        
-        return AnalyzedMenuItem(
-            name: name,
-            description: description,
-            price: price,
-            ingredients: [], // No ingredients in USDA-only mode
-            nutritionEstimate: nutritionEstimate,
-            dietaryTags: dietaryTags,
-            confidence: usdaResult.confidence,
-            textBounds: textBounds,
-            estimationTier: .usda,
-            usdaEstimate: convertToLegacyFormat(usdaResult),
-            isGeneralizedEstimate: true
-        )
-    }
-    
-    static func createUSDAOnly(
-        name: String,
-        description: String?,
-        price: String?,
-        usdaItem: USDAMenuItem,
-        textBounds: CGRect?
-    ) -> AnalyzedMenuItem {
-        // Convert USDA item to NutritionEstimate format
-        let nutritionEstimate = NutritionEstimate(
-            calories: usdaItem.nutrition.calories,
-            carbs: usdaItem.nutrition.carbs,
-            protein: usdaItem.nutrition.protein,
-            fat: usdaItem.nutrition.fat,
-            fiber: nil, // Not available in USDA-only mode
-            sodium: nil, // Not available in USDA-only mode
-            sugar: usdaItem.nutrition.sugar,
-            confidence: usdaItem.confidence,
-            estimationSource: .usda,
-            sourceDetails: "USDA database (\(usdaItem.matchCount) matches) - cleaned: '\(usdaItem.cleanedName)'",
-            estimatedPortionSize: "1 serving",
-            portionConfidence: 0.5
-        )
-        
-        // Generate simplified dietary tags from USDA macros only
-        let dietaryTags = generateSimpleDietaryTags(from: usdaItem.nutrition)
+        // Generate enhanced dietary tags from intelligent nutrition data
+        let dietaryTags = generateIntelligentDietaryTags(from: intelligentResult.estimatedNutrition)
         
         return AnalyzedMenuItem(
             name: name,
@@ -532,10 +491,10 @@ extension AnalyzedMenuItem {
             ingredients: [], // NO INGREDIENTS in USDA-only mode
             nutritionEstimate: nutritionEstimate,
             dietaryTags: dietaryTags,
-            confidence: usdaItem.confidence,
+            confidence: intelligentResult.estimatedNutrition.confidence,
             textBounds: textBounds,
             estimationTier: .usda,
-            usdaEstimate: convertUSDAItemToLegacyFormat(usdaItem),
+            usdaEstimate: convertIntelligentToLegacyFormat(intelligentResult),
             isGeneralizedEstimate: true
         )
     }
@@ -569,88 +528,65 @@ private func generateDietaryTagsFromUSDA(_ usdaEstimate: USDANutritionEstimate) 
     return tags
 }
 
-// Helper functions for USDA-only mode
-private func generateBasicDietaryTags(from usdaResult: USDANutritionResult) -> [DietaryTag] {
+// Helper functions for intelligent USDA mode
+private func generateIntelligentDietaryTags(from nutrition: EstimatedNutrition) -> [DietaryTag] {
     var tags: [DietaryTag] = []
     
-    // Simple rules based on macros
-    if usdaResult.protein.average >= 20 {
+    // Enhanced macro-based rules with confidence consideration
+    if nutrition.protein.average >= 20 && nutrition.confidence > 0.6 {
         tags.append(.highProtein)
     }
     
-    if usdaResult.carbs.average <= 15 {
+    if nutrition.carbs.average <= 15 && nutrition.confidence > 0.5 {
         tags.append(.lowCarb)
-    } else if usdaResult.carbs.average >= 45 {
+    } else if nutrition.carbs.average >= 45 && nutrition.confidence > 0.5 {
         tags.append(.highCarb)
     }
     
-    if usdaResult.calories.average <= 400 {
+    if nutrition.calories.average <= 400 && nutrition.confidence > 0.6 {
         tags.append(.healthy)
-    } else if usdaResult.calories.average > 600 {
+    } else if nutrition.calories.average > 600 && nutrition.confidence > 0.6 {
         tags.append(.indulgent)
     }
     
-    return tags
-}
-
-// Helper functions for USDA-only mode (NO ingredient analysis)
-private func generateSimpleDietaryTags(from nutrition: USDANutrition) -> [DietaryTag] {
-    var tags: [DietaryTag] = []
-    
-    // Simple macro-based rules only
-    if nutrition.protein.average >= 20 {
-        tags.append(.highProtein)
-    }
-    
-    if nutrition.carbs.average <= 15 {
-        tags.append(.lowCarb)
-    } else if nutrition.carbs.average >= 45 {
-        tags.append(.highCarb)
-    }
-    
-    if nutrition.calories.average <= 400 {
-        tags.append(.healthy)
-    } else if nutrition.calories.average > 600 {
-        tags.append(.indulgent)
-    }
-    
-    if nutrition.sugar.average <= 5 {
+    if let sugar = nutrition.sugar, sugar.average <= 5 && nutrition.confidence > 0.5 {
         tags.append(.lowSugar)
     }
     
+    if let fiber = nutrition.fiber, fiber.average >= 5 && nutrition.confidence > 0.6 {
+        tags.append(.highFiber)
+    }
+    
+    if let sodium = nutrition.sodium, sodium.average <= 600 && nutrition.confidence > 0.6 {
+        tags.append(.lowSodium)
+    }
+    
     return tags
 }
 
-private func convertToLegacyFormat(_ usdaResult: USDANutritionResult) -> USDANutritionEstimate {
-    return USDANutritionEstimate(
-        originalItemName: usdaResult.originalName,
-        calories: usdaResult.calories,
-        carbs: usdaResult.carbs,
-        protein: usdaResult.protein,
-        fat: usdaResult.fat,
-        fiber: nil, // Not included in USDA-only mode
-        sugar: usdaResult.sugar,
-        sodium: nil, // Not included in USDA-only mode
-        confidence: usdaResult.confidence,
-        estimationSource: .usda,
-        matchCount: usdaResult.matchCount,
-        isGeneralizedEstimate: true
+// Helper function to convert between nutrition range types
+private func convertToNutritionRange(_ intelligentRange: IntelligentNutritionRange) -> NutritionRange {
+    return NutritionRange(
+        min: intelligentRange.min,
+        max: intelligentRange.max,
+        unit: intelligentRange.unit
     )
 }
 
-private func convertUSDAItemToLegacyFormat(_ usdaItem: USDAMenuItem) -> USDANutritionEstimate {
+// Convert intelligent result to legacy USDA format
+private func convertIntelligentToLegacyFormat(_ intelligentResult: IntelligentNutritionResult) -> USDANutritionEstimate {
     return USDANutritionEstimate(
-        originalItemName: usdaItem.originalName,
-        calories: usdaItem.nutrition.calories,
-        carbs: usdaItem.nutrition.carbs,
-        protein: usdaItem.nutrition.protein,
-        fat: usdaItem.nutrition.fat,
-        fiber: nil, // Not available in USDA-only
-        sugar: usdaItem.nutrition.sugar,
-        sodium: nil, // Not available in USDA-only
-        confidence: usdaItem.confidence,
+        originalItemName: intelligentResult.originalName,
+        calories: convertToNutritionRange(intelligentResult.estimatedNutrition.calories),
+        carbs: convertToNutritionRange(intelligentResult.estimatedNutrition.carbs),
+        protein: convertToNutritionRange(intelligentResult.estimatedNutrition.protein),
+        fat: convertToNutritionRange(intelligentResult.estimatedNutrition.fat),
+        fiber: intelligentResult.estimatedNutrition.fiber != nil ? convertToNutritionRange(intelligentResult.estimatedNutrition.fiber!) : nil,
+        sugar: intelligentResult.estimatedNutrition.sugar != nil ? convertToNutritionRange(intelligentResult.estimatedNutrition.sugar!) : nil,
+        sodium: intelligentResult.estimatedNutrition.sodium != nil ? convertToNutritionRange(intelligentResult.estimatedNutrition.sodium!) : nil,
+        confidence: intelligentResult.estimatedNutrition.confidence,
         estimationSource: .usda,
-        matchCount: usdaItem.matchCount,
+        matchCount: intelligentResult.matchCount,
         isGeneralizedEstimate: true
     )
 }
