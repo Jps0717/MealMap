@@ -82,18 +82,6 @@ struct MenuPhotoCaptureView: View {
                     Button("Cancel") {
                         dismiss()
                     }
-                    .disabled(processingState.isProcessing)
-                }
-                
-                // NEW: Settings gear icon
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        showingAdvancedSettings = true
-                    }) {
-                        Image(systemName: "gear")
-                            .foregroundColor(.blue)
-                    }
-                    .disabled(processingState.isProcessing)
                 }
             }
             .sheet(isPresented: $showingImagePicker) {
@@ -113,9 +101,6 @@ struct MenuPhotoCaptureView: View {
             }
             .sheet(isPresented: $showingResults) {
                 MenuAnalysisResultsView(validatedItems: validatedItems)
-            }
-            .sheet(isPresented: $showingAdvancedSettings) {
-                AdvancedSettingsView(processingMethod: $processingMethod)
             }
             .onAppear {
                 handleAutoTrigger()
@@ -191,53 +176,62 @@ struct MenuPhotoCaptureView: View {
     }
     
     private var processingStateView: some View {
-        VStack(spacing: 40) {
-            VStack(spacing: 20) {
+        VStack(spacing: 0) {
+            Spacer()
+            
+            // Centered header with breathing room
+            VStack(spacing: 24) {
+                // Icon
                 ProgressView()
-                    .scaleEffect(2)
+                    .scaleEffect(2.5)
                     .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                 
-                VStack(spacing: 8) {
-                    Text(processingStateTitle)
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                // Title only - removed subtitle description
+                Text(processingStateTitle)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+            }
+            
+            Spacer()
+            
+            // Progress section
+            VStack(spacing: 20) {
+                // Progress bar with proper insets
+                VStack(spacing: 12) {
+                    ProgressView(value: ocrService.progress, total: 1.0)
+                        .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                        .scaleEffect(y: 1.5)
+                        .padding(.horizontal, 16)
                     
-                    Text(processingStateSubtitle)
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
+                    Text("\(Int(ocrService.progress * 100))% complete")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.blue)
                 }
-            }
-            
-            VStack(spacing: 8) {
-                ProgressView(value: ocrService.progress, total: 1.0)
-                    .progressViewStyle(LinearProgressViewStyle())
-                    .scaleEffect(y: 2)
                 
-                Text("\(Int(ocrService.progress * 100))% complete")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                // Simplified step indicators
+                VStack(spacing: 8) {
+                    ProcessingStepView(
+                        title: "Extract Text",
+                        isCompleted: ocrService.progress > 0.4,
+                        isActive: ocrService.progress <= 0.4
+                    )
+                    ProcessingStepView(
+                        title: "AI Menu Parsing",
+                        isCompleted: ocrService.progress > 0.6,
+                        isActive: ocrService.progress > 0.4 && ocrService.progress <= 0.6
+                    )
+                    MinimalStepView(
+                        title: validationStepTitle, 
+                        isCompleted: ocrService.progress >= 1.0,
+                        isActive: ocrService.progress > 0.6
+                    )
+                }
+                .padding(.horizontal, 16)
             }
-            .padding(.horizontal)
             
-            VStack(alignment: .leading, spacing: 12) {
-                ProcessingStepView(
-                    title: "Extract Text",
-                    isCompleted: ocrService.progress > 0.4,
-                    isActive: ocrService.progress <= 0.4
-                )
-                ProcessingStepView(
-                    title: processingStepTitle,
-                    isCompleted: ocrService.progress > 0.6,
-                    isActive: ocrService.progress > 0.4 && ocrService.progress <= 0.6
-                )
-                ProcessingStepView(
-                    title: validationStepTitle,
-                    isCompleted: ocrService.progress >= 1.0,
-                    isActive: ocrService.progress > 0.6
-                )
-            }
-            .padding(.horizontal)
+            Spacer()
         }
     }
     
@@ -280,33 +274,67 @@ struct MenuPhotoCaptureView: View {
     }
     
     private var processingStateTitle: String {
-        switch processingState {
-        case .uploading:
-            return "Uploading photo..."
-        case .analyzing:
-            return "AI parsing with Nutritionix..."
-        default:
-            return "Processing..."
-        }
+        return "Scanning Menu"
     }
     
     private var processingStateSubtitle: String {
-        switch processingState {
-        case .uploading:
-            return "Please wait while we upload your image"
-        case .analyzing:
-            return "Using AI to parse menu structure, then Nutritionix API for accurate nutrition analysis"
-        default:
-            return "Please wait..."
-        }
-    }
-    
-    private var processingStepTitle: String {
-        return "AI Menu Parsing"
+        return "Using AI to parse menu structure, then Nutritionix API for accurate nutrition analysis"
     }
     
     private var validationStepTitle: String {
-        return "Nutritionix Analysis"
+        return "MealMap Analysis" // Changed from "Nutritionix Analysis"
+    }
+    
+    struct ProcessingStepView: View {
+        let title: String
+        let isCompleted: Bool
+        let isActive: Bool
+        
+        var body: some View {
+            HStack {
+                Image(systemName: isCompleted ? "checkmark.circle.fill" : (isActive ? "circle.dotted" : "circle"))
+                    .foregroundColor(isCompleted ? .green : (isActive ? .blue : .gray))
+                    .font(.title3)
+                
+                Text(title)
+                    .font(.body)
+                    .foregroundColor(isCompleted ? .primary : (isActive ? .primary : .secondary))
+                
+                Spacer()
+                
+                if isActive && !isCompleted {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                }
+            }
+            .padding(.vertical, 4)
+        }
+    }
+    
+    struct MinimalStepView: View {
+        let title: String
+        let isCompleted: Bool
+        let isActive: Bool
+        
+        var body: some View {
+            HStack {
+                Image(systemName: isCompleted ? "checkmark.circle.fill" : (isActive ? "circle.dotted" : "circle"))
+                    .foregroundColor(isCompleted ? .green : (isActive ? .blue : .gray))
+                    .font(.title3)
+                
+                Text(title)
+                    .font(.body)
+                    .foregroundColor(isCompleted ? .primary : (isActive ? .primary : .secondary))
+                
+                Spacer()
+                
+                if isActive && !isCompleted {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                }
+            }
+            .padding(.vertical, 4)
+        }
     }
     
     private func processImage(_ image: UIImage) {
@@ -330,32 +358,6 @@ struct MenuPhotoCaptureView: View {
                 }
             }
         }
-    }
-}
-
-struct ProcessingStepView: View {
-    let title: String
-    let isCompleted: Bool
-    let isActive: Bool
-    
-    var body: some View {
-        HStack {
-            Image(systemName: isCompleted ? "checkmark.circle.fill" : (isActive ? "circle.dotted" : "circle"))
-                .foregroundColor(isCompleted ? .green : (isActive ? .blue : .gray))
-                .font(.title3)
-            
-            Text(title)
-                .font(.body)
-                .foregroundColor(isCompleted ? .primary : (isActive ? .primary : .secondary))
-            
-            Spacer()
-            
-            if isActive && !isCompleted {
-                ProgressView()
-                    .scaleEffect(0.8)
-            }
-        }
-        .padding(.vertical, 4)
     }
 }
 
