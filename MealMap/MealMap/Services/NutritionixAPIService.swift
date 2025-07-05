@@ -237,7 +237,7 @@ class NutritionixAPIService: ObservableObject {
     private let minimumRequestInterval: TimeInterval = 1.0
     
     // MARK: - Daily Usage Tracking
-    private let dailyLimit = 200
+    private let dailyLimit = 150
     private let usageCountKey = "NutritionixDailyUsageCount"
     private let lastResetDateKey = "NutritionixLastResetDate"
     
@@ -637,7 +637,7 @@ enum NutritionixAPIError: Error, LocalizedError {
         case .invalidAPIKey:
             return "Invalid App ID or API Key combination. Please check both values."
         case .dailyLimitReached:
-            return "Daily limit of 200 nutrition analyses reached. Resets at midnight."
+            return "Daily limit of 150 nutrition analyses reached. Resets at midnight."
         case .noAPIKeyConfigured:
             return "Nutritionix credentials not configured. Please set up your App ID and API key."
         case .invalidAPIKeyFormat:

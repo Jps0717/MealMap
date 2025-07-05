@@ -118,7 +118,7 @@ struct NutritionixAPIKeySetupView: View {
                             instructionStep(
                                 number: "3",
                                 title: "Free Tier Available",
-                                description: "Get 200 nutrition lookups per day for free"
+                                description: "Get 150 nutrition lookups per day for free"
                             )
                         }
                     }
@@ -255,7 +255,7 @@ struct NutritionixHelpView: View {
                         
                         faqItem(
                             question: "Is the Nutritionix API free?",
-                            answer: "Yes! Nutritionix offers 200 free nutrition lookups per day. This is perfect for casual menu scanning. If you need more, they offer paid plans starting at $49/month."
+                            answer: "Yes! Nutritionix offers 150 free nutrition lookups per day. This is perfect for casual menu scanning. If you need more, they offer paid plans starting at $49/month."
                         )
                         
                         faqItem(
@@ -285,7 +285,7 @@ struct NutritionixHelpView: View {
                         
                         faqItem(
                             question: "Why do I need my own API key?",
-                            answer: "Using your own API key ensures you get the full 200 daily requests and keeps your usage separate from other users. It also helps keep the app free!"
+                            answer: "Using your own API key ensures you get the full 150 daily requests and keeps your usage separate from other users. It also helps keep the app free!"
                         )
                     }
                     

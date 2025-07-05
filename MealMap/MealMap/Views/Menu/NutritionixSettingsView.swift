@@ -91,7 +91,7 @@ struct NutritionixSettingsView: View {
                     } header: {
                         Text("Usage Statistics")
                     } footer: {
-                        Text("Daily limits reset at midnight. The free tier includes 200 requests per day.")
+                        Text("Daily limits reset at midnight. The free tier includes 150 requests per day.")
                     }
                 }
                 
