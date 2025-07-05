@@ -29,6 +29,7 @@ struct MenuPhotoCaptureView: View {
     @State private var showingResults = false
     @State private var validatedItems: [ValidatedMenuItem] = []
     @State private var processingMethod: ProcessingMethod = .aiNutritionix // Default to AI + Nutritionix
+    @State private var showingAdvancedSettings = false // NEW: For settings sheet
     
     let autoTriggerCamera: Bool
     let autoTriggerPhotos: Bool
@@ -83,6 +84,17 @@ struct MenuPhotoCaptureView: View {
                     }
                     .disabled(processingState.isProcessing)
                 }
+                
+                // NEW: Settings gear icon
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        showingAdvancedSettings = true
+                    }) {
+                        Image(systemName: "gear")
+                            .foregroundColor(.blue)
+                    }
+                    .disabled(processingState.isProcessing)
+                }
             }
             .sheet(isPresented: $showingImagePicker) {
                 PhotosPicker(
@@ -108,6 +120,9 @@ struct MenuPhotoCaptureView: View {
             .sheet(isPresented: $showingResults) {
                 MenuAnalysisResultsView(validatedItems: validatedItems)
             }
+            .sheet(isPresented: $showingAdvancedSettings) {
+                AdvancedSettingsView(processingMethod: $processingMethod)
+            }
             .onAppear {
                 handleAutoTrigger()
             }
@@ -125,88 +140,60 @@ struct MenuPhotoCaptureView: View {
     }
     
     private var idleStateView: some View {
-        VStack(spacing: 40) {
+        VStack(spacing: 32) {
+            Spacer()
+            
+            // Header with icon and title
             VStack(spacing: 16) {
                 Image(systemName: "camera.metering.center.weighted")
-                    .font(.system(size: 60))
+                    .font(.system(size: 64, weight: .light))
                     .foregroundColor(.blue)
                 
-                Text("Analyze Menu Photo")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                
-                Text("Take a photo or select from your library to get instant nutrition analysis of menu items")
-                    .font(.body)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+                VStack(spacing: 8) {
+                    Text("Scan Menu")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                    
+                    Text("Take or select a clear photo of any menu section")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+                }
             }
             
-            if !autoTriggerCamera && !autoTriggerPhotos {
-                processingOptionsSection
-            }
+            Spacer()
             
+            // Primary CTA
             VStack(spacing: 16) {
                 Button("Take Photo") {
                     showingCamera = true
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
+                .frame(maxWidth: .infinity)
                 
+                // Minimal library link
                 Button("Choose from Library") {
                     showingImagePicker = true
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.large)
+                .font(.subheadline)
+                .foregroundColor(.blue)
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 32)
             
-            VStack(alignment: .leading, spacing: 12) {
-                Label("Best results with clear, well-lit photos", systemImage: "lightbulb")
-                Label("Hold phone steady and avoid shadows", systemImage: "hand.raised")
-                Label("Capture the entire menu section", systemImage: "viewfinder")
+            // Minimal tip
+            HStack(spacing: 6) {
+                Image(systemName: "info.circle")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                
+                Text("Best with well-lit, focused shots")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
-            .font(.caption)
-            .foregroundColor(.secondary)
+            .padding(.bottom, 32)
         }
-    }
-    
-    private var processingOptionsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Processing Method")
-                .font(.headline)
-                .foregroundColor(.primary)
-            
-            VStack(spacing: 8) {
-                ForEach(ProcessingMethod.allCases, id: \.self) { method in
-                    Button(action: { self.processingMethod = method }) {
-                        HStack {
-                            Image(systemName: processingMethod == method ? "checkmark.circle.fill" : "circle")
-                                .foregroundColor(processingMethod == method ? .blue : .gray)
-                            
-                            Text(method.emoji)
-                                .font(.title3)
-                            
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(method.displayName)
-                                    .font(.subheadline)
-                                    .fontWeight(.medium)
-                                Text(method.description)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            Spacer()
-                        }
-                        .padding(.vertical, 4)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-            }
-            .padding(.horizontal, 8)
-        }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
     }
     
     private var processingStateView: some View {
@@ -424,6 +411,78 @@ struct ImagePicker: UIViewControllerRepresentable {
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             parent.dismiss()
+        }
+    }
+}
+
+struct AdvancedSettingsView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Binding var processingMethod: MenuPhotoCaptureView.ProcessingMethod
+    
+    var body: some View {
+        NavigationStack {
+            VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("Processing Method")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                    
+                    VStack(spacing: 12) {
+                        ForEach(MenuPhotoCaptureView.ProcessingMethod.allCases, id: \.self) { method in
+                            Button(action: { processingMethod = method }) {
+                                HStack(spacing: 12) {
+                                    Image(systemName: processingMethod == method ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(processingMethod == method ? .blue : .gray)
+                                        .font(.title3)
+                                    
+                                    Text(method.emoji)
+                                        .font(.title3)
+                                    
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(method.displayName)
+                                            .font(.subheadline)
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.primary)
+                                        Text(method.description)
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    
+                                    Spacer()
+                                }
+                                .padding(.vertical, 8)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                }
+                
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Tips for Best Results")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        Label("Best results with clear, well-lit photos", systemImage: "lightbulb")
+                        Label("Hold phone steady and avoid shadows", systemImage: "hand.raised")
+                        Label("Capture the entire menu section", systemImage: "viewfinder")
+                    }
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+            }
+            .padding(24)
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }

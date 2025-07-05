@@ -32,6 +32,46 @@ struct HomeScreen: View {
         "High Protein": .highProtein
     ]
     
+    private var scanMenuCard: some View {
+        Button(action: {
+            showingMenuPhotoCapture = true
+        }) {
+            HStack(spacing: 16) {
+                Image(systemName: "camera")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .frame(width: 50, height: 50)
+                    .background(Color.blue)
+                    .cornerRadius(12)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Scan Menu")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                    
+                    Text("Analyze nutrition from photos")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.secondary)
+            }
+            .padding(20)
+            .background(Color(.systemBackground))
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color(.systemGray5), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+    
     var body: some View {
         NavigationView {
             if showMainLoadingScreen {
@@ -112,46 +152,37 @@ struct HomeScreen: View {
     
     private var mainContentView: some View {
         ScrollView {
-            VStack(spacing: 20) {
+            VStack(spacing: 32) {
                 headerView
-                
-                quickActionsSection
-                
                 searchBarView
-                
-                contentSectionsView
+                scanMenuCard
+                categoriesView
             }
-            .padding()
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
         }
         .navigationTitle("MealMap")
         .navigationBarHidden(true)
-    }
-    
-    private var contentSectionsView: some View {
-        VStack(spacing: 24) {
-            categoriesView
-            
-            popularChainsView
-            nearbyRestaurantsView
-        }
+        .background(Color(.systemBackground))
     }
     
     private var searchBarView: some View {
         Button {
             showSearchScreen = true
         } label: {
-            HStack {
+            HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
+                    .font(.system(size: 16, weight: .medium))
                 
                 Text("Search restaurants...")
-                    .foregroundColor(.gray)
+                    .foregroundColor(.secondary)
+                    .font(.system(size: 16))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Spacer()
             }
-            .padding()
-            .background(Color.gray.opacity(0.1))
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
+            .background(Color(.systemGray6))
             .cornerRadius(12)
         }
         .buttonStyle(.plain)
@@ -161,104 +192,52 @@ struct HomeScreen: View {
     }
     
     private var headerView: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("Welcome to")
-                        .font(.title2)
-                        .fontWeight(.medium)
-                    
-                    Text("MealMap")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.blue)
-                }
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("MealMap")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
                 
-                Spacer()
-                
-                // ENHANCED: Button to show modal map instead of NavigationLink
-                Button(action: {
-                    showingMapScreen = true
-                }) {
-                    HStack {
-                        Image(systemName: "map")
-                        Text("Map")
-                        
-                        if !hasLoadedInitialData {
-                            ProgressView()
-                                .scaleEffect(0.6)
-                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(20)
+                if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
+                    Text("📍 \(mapViewModel.currentAreaName)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
                 }
             }
             
-            if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
-                Text("📍 \(mapViewModel.currentAreaName)")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-        }
-    }
-    
-    private var quickActionsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Quick Actions")
-                .font(.headline)
-                .fontWeight(.semibold)
+            Spacer()
             
-            HStack(spacing: 12) {
-                QuickActionButton(
-                    icon: "magnifyingglass",
-                    title: "Search",
-                    color: .blue,
-                    action: { showSearchScreen = true }
-                )
-                
-                QuickActionButton(
-                    icon: "map",
-                    title: "Map",
-                    color: .green,
-                    action: { showingMapScreen = true }
-                )
-                
-                QuickActionButton(
-                    icon: "camera.metering.center.weighted",
-                    title: "Scan Menu",
-                    color: .orange,
-                    action: { showingMenuPhotoCapture = true }
-                )
-                
-                QuickActionButton(
-                    icon: "line.3.horizontal.decrease.circle",
-                    title: "Filter",
-                    color: .purple,
-                    action: { /* Filter action */ }
-                )
+            Button(action: {
+                showingMapScreen = true
+            }) {
+                Image(systemName: "map")
+                    .font(.title2)
+                    .foregroundColor(.blue)
+                    .frame(width: 44, height: 44)
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(12)
             }
         }
     }
     
     private var categoriesView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Browse by Category")
-                .font(.headline)
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Categories")
+                .font(.title2)
                 .fontWeight(.semibold)
+                .foregroundColor(.primary)
             
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
                 NavigationLink(destination: CategoryListView(
                     category: .fastFood,
                     restaurants: getFastFoodRestaurants(),
                     isPresented: .constant(true)
                 )) {
-                    CategoryCardView(
-                        category: "Fast Food",
-                        count: getFastFoodRestaurants().count
+                    MinimalCategoryCard(
+                        title: "Fast Food",
+                        count: getFastFoodRestaurants().count,
+                        icon: "🍔"
                     )
                 }
                 
@@ -267,9 +246,10 @@ struct HomeScreen: View {
                     restaurants: getHealthyRestaurants(),
                     isPresented: .constant(true)
                 )) {
-                    CategoryCardView(
-                        category: "Healthy",
-                        count: getHealthyRestaurants().count
+                    MinimalCategoryCard(
+                        title: "Healthy",
+                        count: getHealthyRestaurants().count,
+                        icon: "🥗"
                     )
                 }
                 
@@ -278,125 +258,23 @@ struct HomeScreen: View {
                     restaurants: getHighProteinRestaurants(),
                     isPresented: .constant(true)
                 )) {
-                    CategoryCardView(
-                        category: "High Protein",
-                        count: getHighProteinRestaurants().count
+                    MinimalCategoryCard(
+                        title: "High Protein",
+                        count: getHighProteinRestaurants().count,
+                        icon: "🥩"
                     )
                 }
                 
                 Button(action: {
-                    print("Custom category creation not yet implemented")
+                    showingMapScreen = true // Show map for more options
                 }) {
-                    CustomCategoryCardView()
+                    MinimalCategoryCard(
+                        title: "More",
+                        count: nil,
+                        icon: "•••"
+                    )
                 }
             }
-        }
-    }
-    
-    private var popularChainsView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Popular Chains")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                
-                Spacer()
-                
-                // ENHANCED: Button to show modal map instead of NavigationLink
-                Button(action: {
-                    showingMapScreen = true
-                }) {
-                    Text("View All")
-                        .font(.caption)
-                        .foregroundColor(.blue)
-                }
-            }
-            
-            popularChainsContentView
-        }
-    }
-    
-    private var popularChainsContentView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 12) {
-                ForEach([
-                    "McDonald's", "Subway", "Starbucks", "Burger King", "KFC", "Taco Bell"
-                ], id: \.self) { chainName in
-                    StaticChainCardView(chainName: chainName) {
-                        let placeholderRestaurant = Restaurant(
-                            id: chainName.hashValue,
-                            name: chainName,
-                            latitude: locationManager.lastLocation?.coordinate.latitude ?? 0,
-                            longitude: locationManager.lastLocation?.coordinate.longitude ?? 0,
-                            address: "Location varies",
-                            cuisine: "Fast Food",
-                            openingHours: nil,
-                            phone: nil,
-                            website: nil,
-                            type: "node"
-                        )
-                        selectedRestaurant = placeholderRestaurant
-                    }
-                }
-            }
-            .padding(.horizontal, 4)
-        }
-    }
-    
-    private var nearbyRestaurantsView: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Nearby Restaurants")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                
-                Spacer()
-                
-                // ENHANCED: Button to show modal map instead of NavigationLink
-                Button(action: {
-                    showingMapScreen = true
-                }) {
-                    Text("View All")
-                        .font(.caption)
-                        .foregroundColor(.blue)
-                }
-            }
-            
-            nearbyRestaurantsContentView
-        }
-    }
-    
-    private var nearbyRestaurantsContentView: some View {
-        VStack(spacing: 12) {
-            HStack {
-                Image(systemName: "location.circle")
-                    .foregroundColor(.blue)
-                    .font(.title2)
-                
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Ready to explore nearby restaurants")
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                    
-                    Text("Tap 'Map' to see restaurants in your area")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-                
-                Spacer()
-                
-                // ENHANCED: Button to show modal map instead of NavigationLink
-                Button(action: {
-                    showingMapScreen = true
-                }) {
-                    Image(systemName: "arrow.right.circle.fill")
-                        .foregroundColor(.blue)
-                        .font(.title2)
-                }
-            }
-            .padding()
-            .background(Color.blue.opacity(0.05))
-            .cornerRadius(12)
         }
     }
     
@@ -521,114 +399,122 @@ struct HomeScreen: View {
             }
         }
     }
-}
-
-struct CategoryCardView: View {
-    let category: String
-    let count: Int
     
-    var body: some View {
-        VStack(spacing: 8) {
-            Text(getCategoryIcon(category))
-                .font(.largeTitle)
-            
-            Text(category)
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.primary)
-            
-            Text("\(count) restaurant\(count == 1 ? "" : "s")")
-                .font(.caption)
-                .foregroundColor(.blue)
-                .fontWeight(.medium)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, minHeight: 100)
-        .background(Color.blue.opacity(0.05))
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.blue.opacity(0.2), lineWidth: 1)
-        )
-    }
-    
-    private func getCategoryIcon(_ category: String) -> String {
-        switch category {
-        case "Fast Food": return "🍔"
-        case "Healthy": return "🥗"
-        case "High Protein": return "🥩"
-        default: return "🍽️"
-        }
-    }
-}
-
-struct CustomCategoryCardView: View {
-    var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: "plus.circle.fill")
-                .font(.system(size: 32))
-                .foregroundColor(.gray)
-            
-            Text("Custom")
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.gray)
-            
-            Text("Create category")
-                .font(.caption)
-                .foregroundColor(.gray)
-                .fontWeight(.medium)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, minHeight: 100)
-        .background(Color.gray.opacity(0.05))
-        .cornerRadius(12)
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [5]))
-        )
-    }
-}
-
-struct StaticChainCardView: View {
-    let chainName: String
-    let onTap: () -> Void
-    
-    var body: some View {
-        Button(action: onTap) {
-            VStack(spacing: 8) {
-                Text(getChainEmoji(chainName))
-                    .font(.title2)
-                    .frame(width: 40, height: 40)
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(8)
+    struct MinimalCategoryCard: View {
+        let title: String
+        let count: Int?
+        let icon: String
+        
+        var body: some View {
+            VStack(spacing: 12) {
+                Text(icon)
+                    .font(.system(size: 32))
                 
-                Text(chainName)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                    .lineLimit(2)
-                    .multilineTextAlignment(.center)
+                VStack(spacing: 4) {
+                    Text(title)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                    
+                    if let count = count {
+                        Text("\(count) restaurants")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                            .fontWeight(.medium)
+                    }
+                }
             }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 8)
-            .frame(width: 80)
-            .background(Color.gray.opacity(0.05))
-            .cornerRadius(12)
+            .frame(maxWidth: .infinity)
+            .frame(height: 120)
+            .background(Color(.systemBackground))
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color(.systemGray5), lineWidth: 1)
+            )
         }
-        .buttonStyle(PlainButtonStyle())
     }
-    
-    private func getChainEmoji(_ name: String) -> String {
-        switch name {
-        case "McDonald's": return "🍔"
-        case "Subway": return "🥪"
-        case "Starbucks": return "☕"
-        case "Burger King": return "🍔"
-        case "KFC": return "🍗"
-        case "Taco Bell": return "🌮"
-        default: return "🍽️"
+
+    struct CategoryCardView: View {
+        let category: String
+        let count: Int
+        
+        var body: some View {
+            VStack(spacing: 12) {
+                Text(getCategoryIcon(category))
+                    .font(.system(size: 28))
+                
+                VStack(spacing: 4) {
+                    Text(category)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                    
+                    Text("\(count) restaurants")
+                        .font(.caption)
+                        .foregroundColor(.blue)
+                        .fontWeight(.medium)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 120)
+            .background(Color(.systemBackground))
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color(.systemGray5), lineWidth: 1)
+            )
+        }
+        
+        private func getCategoryIcon(_ category: String) -> String {
+            switch category {
+            case "Fast Food": return "🍔"
+            case "Healthy": return "🥗"
+            case "High Protein": return "🥩"
+            default: return "🍽️"
+            }
+        }
+    }
+
+    struct StaticChainCardView: View {
+        let chainName: String
+        let onTap: () -> Void
+        
+        var body: some View {
+            Button(action: onTap) {
+                VStack(spacing: 8) {
+                    Text(getChainEmoji(chainName))
+                        .font(.title2)
+                        .frame(width: 40, height: 40)
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(8)
+                
+                    Text(chainName)
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.vertical, 12)
+                .padding(.horizontal, 8)
+                .frame(width: 80)
+                .background(Color.gray.opacity(0.05))
+                .cornerRadius(12)
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+        
+        private func getChainEmoji(_ name: String) -> String {
+            switch name {
+            case "McDonald's": return "🍔"
+            case "Subway": return "🥪"
+            case "Starbucks": return "☕"
+            case "Burger King": return "🍔"
+            case "KFC": return "🍗"
+            case "Taco Bell": return "🌮"
+            default: return "🍽️"
+            }
         }
     }
 }
