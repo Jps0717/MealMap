@@ -377,7 +377,7 @@ struct MenuDietaryTagCard: View {
             Spacer()
         }
         .padding()
-        .background(Color(hex: tag.color).opacity(0.1))
+        .background(tag.color.opacity(0.1))
         .cornerRadius(10)
     }
 }
@@ -449,8 +449,8 @@ struct MenuConfidenceRow: View {
             sodium: NutritionRange(min: 800, max: 1200, unit: "mg"),
             sugar: NutritionRange(min: 3, max: 6, unit: "g"),
             confidence: 0.85,
-            estimationSource: .ingredients,
-            sourceDetails: "Based on identified ingredients",
+            estimationSource: .nutritionix,
+            sourceDetails: "Based on AI + Nutritionix analysis",
             estimatedPortionSize: "Large salad",
             portionConfidence: 0.7
         ),

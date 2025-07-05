@@ -330,8 +330,8 @@ class UserCorrectionsManager: ObservableObject {
             sodium: NutritionRange(min: 800, max: 1200, unit: "mg"),
             sugar: NutritionRange(min: 3, max: 6, unit: "g"),
             confidence: 0.85,
-            estimationSource: .ingredients,
-            sourceDetails: "Based on identified ingredients",
+            estimationSource: .nutritionix,
+            sourceDetails: "Based on AI + Nutritionix analysis",
             estimatedPortionSize: "Large salad",
             portionConfidence: 0.7
         ),

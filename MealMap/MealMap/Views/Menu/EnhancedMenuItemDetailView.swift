@@ -131,26 +131,32 @@ struct EnhancedMenuItemDetailView: View {
             .background(getSourceColor().opacity(0.1))
             .cornerRadius(12)
             
-            // USDA-specific information
-            if item.estimationTier == .usda, let usdaEstimate = item.usdaEstimate {
-                usdaDetailsSection(usdaEstimate)
+            // Nutritionix-specific information
+            if item.estimationTier == .nutritionix {
+                nutritionixDetailsSection()
             }
         }
     }
     
-    private func usdaDetailsSection(_ estimate: USDANutritionEstimate) -> some View {
+    private func nutritionixDetailsSection() -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("USDA Database Details")
+            Text("AI + Nutritionix Details")
                 .font(.subheadline)
                 .fontWeight(.semibold)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("• Found \(estimate.matchCount) similar food(s)")
+                if let sourceDetails = item.nutritionEstimate.sourceDetails {
+                    Text("• \(sourceDetails)")
+                        .font(.caption)
+                }
+                Text("• AI-powered menu parsing with Nutritionix nutrition analysis")
                     .font(.caption)
-                Text("• Estimated from USDA database")
+                Text("• High-accuracy nutrition data from natural language analysis")
                     .font(.caption)
-                if estimate.matchCount > 1 {
-                    Text("• Nutrition ranges reflect variation across matches")
+                Text("• Based on comprehensive food and restaurant database")
+                    .font(.caption)
+                if let portionSize = item.nutritionEstimate.estimatedPortionSize {
+                    Text("• Portion size: \(portionSize)")
                         .font(.caption)
                         .foregroundColor(.blue)
                 }
@@ -299,18 +305,14 @@ struct EnhancedMenuItemDetailView: View {
     // Helper methods
     private func getSourceIcon() -> String {
         switch item.estimationTier {
-        case .ingredients: return "leaf.circle"
-        case .usda: return "chart.bar.circle"
-        case .openFoodFacts: return "globe.circle"
+        case .nutritionix: return "brain"
         case .unavailable: return "questionmark.circle"
         }
     }
     
     private func getSourceColor() -> Color {
         switch item.estimationTier {
-        case .ingredients: return .green
-        case .usda: return .blue
-        case .openFoodFacts: return .orange
+        case .nutritionix: return .blue
         case .unavailable: return .gray
         }
     }
@@ -375,7 +377,7 @@ struct DietaryTagDetailView: View {
             Spacer()
         }
         .padding()
-        .background(Color(hex: tag.color).opacity(0.1))
+        .background(tag.color.opacity(0.1))
         .cornerRadius(8)
     }
 }

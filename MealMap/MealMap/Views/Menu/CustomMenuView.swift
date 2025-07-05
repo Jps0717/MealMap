@@ -21,7 +21,7 @@ struct CustomMenuView: View {
                 // Menu items list
                 menuItemsSection
             }
-            .navigationTitle("Custom Menu")
+            .navigationTitle("AI + Nutritionix Menu")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -84,7 +84,7 @@ struct CustomMenuView: View {
                     Text("With Nutrition")
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    Text("\(nutritionAvailableCount)")
+                    Text("\(analysisResult.itemsWithNutrition)")
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(.green)
@@ -94,6 +94,17 @@ struct CustomMenuView: View {
             .padding(.vertical, 12)
             .background(Color.gray.opacity(0.05))
             .cornerRadius(12)
+            .padding(.horizontal)
+            
+            // AI + Nutritionix indicator
+            HStack {
+                Image(systemName: "brain")
+                    .foregroundColor(.purple)
+                Text("Powered by AI + Nutritionix")
+                    .font(.caption)
+                    .foregroundColor(.purple)
+                Spacer()
+            }
             .padding(.horizontal)
         }
         .padding(.top)
@@ -105,7 +116,7 @@ struct CustomMenuView: View {
                 ProgressView()
                     .scaleEffect(0.8)
                 
-                Text("Analyzing menu items...")
+                Text("Analyzing menu items with AI + Nutritionix...")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 
@@ -117,7 +128,7 @@ struct CustomMenuView: View {
                     .foregroundColor(.blue)
             }
             
-            ProgressView(value: analysisProgress, total: 1.0)
+            ProgressView(value: analysisResult.progress, total: 1.0)
                 .progressViewStyle(LinearProgressViewStyle(tint: .blue))
         }
         .padding()
@@ -157,15 +168,6 @@ struct CustomMenuView: View {
             }
             .padding()
         }
-    }
-    
-    private var analysisProgress: Double {
-        guard analysisResult.totalItems > 0 else { return 0.0 }
-        return Double(analysisResult.analyzedItems.count) / Double(analysisResult.totalItems)
-    }
-    
-    private var nutritionAvailableCount: Int {
-        analysisResult.analyzedItems.filter { $0.estimationTier != .unavailable }.count
     }
 }
 
@@ -251,7 +253,7 @@ struct CustomMenuItemRow: View {
                                         .font(.caption2)
                                         .padding(.horizontal, 6)
                                         .padding(.vertical, 2)
-                                        .background(Color(hex: tag.color).opacity(0.2))
+                                        .background(tag.color.opacity(0.2))
                                         .cornerRadius(8)
                                 }
                             }
@@ -287,18 +289,14 @@ struct CustomMenuItemRow: View {
     
     private var sourceIcon: String {
         switch item.estimationTier {
-        case .ingredients: return "leaf.circle"
-        case .usda: return "chart.bar.circle"
-        case .openFoodFacts: return "globe.circle"
+        case .nutritionix: return "brain"
         case .unavailable: return "questionmark.circle"
         }
     }
     
     private var sourceColor: Color {
         switch item.estimationTier {
-        case .ingredients: return .green
-        case .usda: return .blue
-        case .openFoodFacts: return .orange
+        case .nutritionix: return .blue
         case .unavailable: return .gray
         }
     }
@@ -320,41 +318,6 @@ struct CustomMenuItemRow: View {
             return "Med"
         } else {
             return "Low"
-        }
-    }
-}
-
-// MARK: - Menu Analysis Progress Observable Object
-
-class MenuAnalysisProgress: ObservableObject {
-    @Published var totalItems: Int = 0
-    @Published var analyzedItems: [AnalyzedMenuItem] = []
-    @Published var isAnalyzing: Bool = false
-    @Published var analysisError: Error?
-    
-    func startAnalysis(totalItems: Int) {
-        self.totalItems = totalItems
-        self.analyzedItems = []
-        self.isAnalyzing = true
-        self.analysisError = nil
-    }
-    
-    func addAnalyzedItem(_ item: AnalyzedMenuItem) {
-        DispatchQueue.main.async {
-            self.analyzedItems.append(item)
-        }
-    }
-    
-    func completeAnalysis() {
-        DispatchQueue.main.async {
-            self.isAnalyzing = false
-        }
-    }
-    
-    func setError(_ error: Error) {
-        DispatchQueue.main.async {
-            self.analysisError = error
-            self.isAnalyzing = false
         }
     }
 }
