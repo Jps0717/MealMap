@@ -20,17 +20,19 @@ enum ImageProcessingState {
 struct MenuPhotoCaptureView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var ocrService = MenuOCRService()
+    @StateObject private var nutritionixService = NutritionixAPIService.shared // For usage tracking and API key management
     
     @State private var processingState: ImageProcessingState = .idle
     @State private var selectedImage: UIImage?
     @State private var showingImagePicker = false
     @State private var showingCamera = false
-    @State private var showingPhotoLibrary = false // NEW: Separate state for photo library
+    @State private var showingPhotoLibrary = false // Separate state for photo library
     @State private var showingResults = false
     @State private var validatedItems: [ValidatedMenuItem] = []
     @State private var processingMethod: ProcessingMethod = .aiNutritionix // Default to AI + Nutritionix
-    @State private var showingAdvancedSettings = false // NEW: For settings sheet
-    @State private var currentProcessingTask: Task<Void, Never>? // NEW: Track processing task for cancellation
+    @State private var showingAdvancedSettings = false // For settings sheet
+    @State private var showingAPIKeyErrorPopup = false // For custom error popup
+    @State private var currentProcessingTask: Task<Void, Never>? // Track processing task for cancellation
     
     let autoTriggerCamera: Bool
     let autoTriggerPhotos: Bool
@@ -63,71 +65,99 @@ struct MenuPhotoCaptureView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 40) {
-                if case .idle = processingState {
+        NavigationView {
+            Group {
+                switch processingState {
+                case .idle:
                     idleStateView
-                } else if processingState.isProcessing {
+                case .uploading, .analyzing:
                     processingStateView
-                } else if case .error(let message) = processingState {
+                case .error(let message):
                     errorStateView(message: message)
                 }
-                
-                Spacer()
             }
-            .padding()
-            .navigationTitle("Menu Scanner")
+            .navigationTitle("Menu Analysis")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
-                        // Cancel the processing task if it's running
-                        currentProcessingTask?.cancel()
-                        currentProcessingTask = nil
-                        dismiss()
+                        if processingState.isProcessing {
+                            cancelProcessing()
+                        } else {
+                            dismiss()
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if !processingState.isProcessing {
+                        Button(action: {
+                            showingAdvancedSettings = true
+                        }) {
+                            Image(systemName: "gearshape")
+                        }
                     }
                 }
             }
-            .sheet(isPresented: $showingImagePicker) {
-                Text("Image Picker")
+        }
+        .onAppear {
+            // Check if API key is configured, show setup if needed
+            if !nutritionixService.isAPIKeyConfigured {
+                nutritionixService.showAPIKeySetup()
             }
-            .sheet(isPresented: $showingCamera) {
-                ImagePicker(sourceType: .camera) { image in
-                    selectedImage = image
-                    processImage(image)
+            
+            // Auto-trigger based on initialization parameters
+            if autoTriggerCamera {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showingCamera = true
+                }
+            } else if autoTriggerPhotos {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showingPhotoLibrary = true
                 }
             }
-            .sheet(isPresented: $showingPhotoLibrary) {
-                ImagePicker(sourceType: .photoLibrary) { image in
-                    selectedImage = image
-                    processImage(image)
-                }
+        }
+        .sheet(isPresented: $showingCamera) {
+            ImagePicker(sourceType: .camera) { image in
+                selectedImage = image
+                processImage(image)
             }
-            .sheet(isPresented: $showingResults) {
+        }
+        .sheet(isPresented: $showingPhotoLibrary) {
+            ImagePicker(sourceType: .photoLibrary) { image in
+                selectedImage = image
+                processImage(image)
+            }
+        }
+        .sheet(isPresented: $showingAdvancedSettings) {
+            AdvancedSettingsView(processingMethod: $processingMethod)
+        }
+        .sheet(isPresented: $nutritionixService.showingAPIKeySetup) {
+            NutritionixAPIKeySetupView()
+        }
+        .sheet(isPresented: $showingAPIKeyErrorPopup) {
+            CustomAPIKeyErrorPopup(isPresented: $showingAPIKeyErrorPopup) {
+                nutritionixService.showAPIKeySetup()
+            }
+            .presentationBackground(.clear)
+            .presentationDetents([.fraction(0.6)])
+        }
+        .fullScreenCover(isPresented: $showingResults) {
+            if !validatedItems.isEmpty {
                 MenuAnalysisResultsView(validatedItems: validatedItems)
             }
-            .sheet(isPresented: $showingAdvancedSettings) {
-                AdvancedSettingsView(processingMethod: $processingMethod)
-            }
-            .onAppear {
-                handleAutoTrigger()
-            }
-            .onDisappear {
-                // Clean up processing task when view disappears
-                currentProcessingTask?.cancel()
-                currentProcessingTask = nil
+        }
+        .onChange(of: selectedImage) { oldValue, newValue in
+            if let image = newValue {
+                processImage(image)
             }
         }
     }
     
-    private func handleAutoTrigger() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            if autoTriggerCamera {
-                showingCamera = true
-            } else if autoTriggerPhotos {
-                showingPhotoLibrary = true // Changed from showingImagePicker
-            }
-        }
+    private func cancelProcessing() {
+        currentProcessingTask?.cancel()
+        currentProcessingTask = nil
+        processingState = .idle
     }
     
     private var idleStateView: some View {
@@ -158,18 +188,32 @@ struct MenuPhotoCaptureView: View {
             // Primary CTA
             VStack(spacing: 16) {
                 Button("Take Photo") {
-                    showingCamera = true
+                    if !nutritionixService.isAPIKeyConfigured {
+                        showingAPIKeyErrorPopup = true
+                    } else if nutritionixService.hasReachedDailyLimit {
+                        processingState = .error("Daily limit of 200 nutrition analyses reached. Resets at midnight.")
+                    } else {
+                        showingCamera = true
+                    }
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .frame(maxWidth: .infinity)
+                .disabled(!nutritionixService.isAPIKeyConfigured) // Disable button if no API key
                 
                 // Minimal library link
                 Button("Choose from Library") {
-                    showingPhotoLibrary = true // Changed from showingImagePicker
+                    if !nutritionixService.isAPIKeyConfigured {
+                        showingAPIKeyErrorPopup = true
+                    } else if nutritionixService.hasReachedDailyLimit {
+                        processingState = .error("Daily limit of 200 nutrition analyses reached. Resets at midnight.")
+                    } else {
+                        showingPhotoLibrary = true
+                    }
                 }
                 .font(.subheadline)
-                .foregroundColor(.blue)
+                .foregroundColor(nutritionixService.isAPIKeyConfigured ? .blue : .gray) // Gray out if no API key
+                .disabled(!nutritionixService.isAPIKeyConfigured) // Disable button if no API key
             }
             .padding(.horizontal, 32)
             
@@ -182,6 +226,30 @@ struct MenuPhotoCaptureView: View {
                 Text("Best with well-lit, focused shots")
                     .font(.caption)
                     .foregroundColor(.secondary)
+            }
+            .padding(.bottom, 8)
+            
+            // API Key status and daily usage tracker
+            VStack(spacing: 6) {
+                if nutritionixService.isAPIKeyConfigured {
+                    HStack(spacing: 6) {
+                        Image(systemName: "chart.bar")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                        
+                        Text("Daily usage: \(nutritionixService.dailyUsageString)")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                            .fontWeight(.medium)
+                    }
+                } else {
+                    Button("Set up Nutritionix API Key") {
+                        nutritionixService.showAPIKeySetup()
+                    }
+                    .font(.caption)
+                    .foregroundColor(.orange)
+                    .fontWeight(.medium)
+                }
             }
             .padding(.bottom, 32)
         }
@@ -277,7 +345,7 @@ struct MenuPhotoCaptureView: View {
                     processingState = .idle
                     selectedImage = nil
                     validatedItems = []
-                    showingPhotoLibrary = true // Changed from showingImagePicker
+                    showingPhotoLibrary = true 
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.large)
@@ -294,7 +362,7 @@ struct MenuPhotoCaptureView: View {
     }
     
     private var validationStepTitle: String {
-        return "MealMap Analysis" // Changed from "Nutritionix Analysis"
+        return "MealMap Analysis" 
     }
     
     struct ProcessingStepView: View {
@@ -367,8 +435,8 @@ struct MenuPhotoCaptureView: View {
                 
                 // Skip the completion screen and go directly to results
                 validatedItems = result
-                processingState = .idle // Reset state
-                showingResults = true   // Show results immediately
+                processingState = .idle 
+                showingResults = true   
             } catch {
                 // Check if task was cancelled
                 if Task.isCancelled {

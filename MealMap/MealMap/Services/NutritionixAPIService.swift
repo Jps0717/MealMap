@@ -91,7 +91,7 @@ struct NutritionixError: Codable {
     let error_type: String?
 }
 
-// MARK: - Nutritionix Result Models for MenuAnalysis Integration
+// MARK: - Nutritionix Result Models
 
 struct NutritionixNutritionResult {
     let originalQuery: String
@@ -107,12 +107,12 @@ struct NutritionixNutritionResult {
 
 struct NutritionixNutritionData {
     let calories: Double
-    let protein: Double      // grams
-    let carbs: Double        // grams
-    let fat: Double          // grams
-    let fiber: Double?       // grams
-    let sodium: Double       // milligrams
-    let sugar: Double?       // grams
+    let protein: Double
+    let carbs: Double
+    let fat: Double
+    let fiber: Double?
+    let sodium: Double
+    let sugar: Double?
     let saturatedFat: Double?
     let cholesterol: Double?
     let potassium: Double?
@@ -127,9 +127,9 @@ struct NutritionixNutritionData {
 }
 
 enum NutritionixSource: String, CaseIterable {
-    case branded = "branded"        // Branded/packaged foods
-    case common = "common"          // USDA common foods
-    case restaurant = "restaurant"  // Restaurant chain foods
+    case branded = "branded"
+    case common = "common"
+    case restaurant = "restaurant"
     case unknown = "unknown"
     
     var displayName: String {
@@ -160,6 +160,25 @@ enum NutritionixSource: String, CaseIterable {
     }
 }
 
+// MARK: - Validation Models
+
+struct APIKeyValidationResult {
+    let isValid: Bool
+    let errorType: ValidationErrorType?
+    let message: String
+}
+
+enum ValidationErrorType: String {
+    case invalidFormat = "Invalid format"
+    case unauthorized = "Unauthorized"
+    case forbidden = "Forbidden"
+    case rateLimited = "Rate limited"
+    case timeout = "Timeout"
+    case networkError = "Network error"
+    case serverError = "Server error"
+    case unknown = "Unknown"
+}
+
 // MARK: - Nutritionix API Service
 
 @MainActor
@@ -168,34 +187,222 @@ class NutritionixAPIService: ObservableObject {
     
     // MARK: - Configuration
     private let baseURL = "https://trackapi.nutritionix.com/v2"
-    private let appId = "11cb6e30"
-    private let appKey = "7579b8993d3e284557bafdc861c742a0"
+    
+    // MARK: - API Credentials Management
+    private let userDefaults = UserDefaults.standard
+    private let appIdStorageKey = "NutritionixAppID"
+    private let apiKeyStorageKey = "NutritionixAPIKey"
+    
+    var isAPIKeyConfigured: Bool {
+        return isAPICredentialsConfigured
+    }
+    
+    var isAPICredentialsConfigured: Bool {
+        return userAppID != nil && !userAppID!.isEmpty && 
+               userAPIKey != nil && !userAPIKey!.isEmpty
+    }
+    
+    var userAppID: String? {
+        get {
+            return userDefaults.string(forKey: appIdStorageKey)
+        }
+        set {
+            if let newValue = newValue, !newValue.isEmpty {
+                userDefaults.set(newValue, forKey: appIdStorageKey)
+                nutritionixDebugLog("✅ Nutritionix App ID configured and saved")
+            } else {
+                userDefaults.removeObject(forKey: appIdStorageKey)
+                nutritionixDebugLog("🗑️ Nutritionix App ID removed")
+            }
+        }
+    }
+    
+    var userAPIKey: String? {
+        get {
+            return userDefaults.string(forKey: apiKeyStorageKey)
+        }
+        set {
+            if let newValue = newValue, !newValue.isEmpty {
+                userDefaults.set(newValue, forKey: apiKeyStorageKey)
+                nutritionixDebugLog("✅ Nutritionix API key configured and saved")
+            } else {
+                userDefaults.removeObject(forKey: apiKeyStorageKey)
+                nutritionixDebugLog("🗑️ Nutritionix API key removed")
+            }
+        }
+    }
     
     // MARK: - Rate Limiting
     private var lastRequestTime: Date = Date.distantPast
-    private let minimumRequestInterval: TimeInterval = 1.0 // 1 second between requests
+    private let minimumRequestInterval: TimeInterval = 1.0
+    
+    // MARK: - Daily Usage Tracking
+    private let dailyLimit = 200
+    private let usageCountKey = "NutritionixDailyUsageCount"
+    private let lastResetDateKey = "NutritionixLastResetDate"
+    
+    var currentDailyUsage: Int {
+        resetDailyCounterIfNeeded()
+        return userDefaults.integer(forKey: usageCountKey)
+    }
+    
+    var remainingDailyRequests: Int {
+        return max(0, dailyLimit - currentDailyUsage)
+    }
+    
+    var dailyUsageString: String {
+        return "\(currentDailyUsage)/\(dailyLimit)"
+    }
+    
+    var hasReachedDailyLimit: Bool {
+        return currentDailyUsage >= dailyLimit
+    }
     
     // MARK: - Published Properties
     @Published var isLoading = false
     @Published var requestCount = 0
     @Published var lastError: Error?
+    @Published var showingAPIKeySetup = false
     
     private init() {
-        // Validate API credentials on initialization
-        if appKey == "7579b8993d3e284557bafdc861c742a0" && appKey.count > 0 {
-            nutritionixDebugLog("✅ Nutritionix API service initialized with valid credentials")
+        if isAPICredentialsConfigured {
+            nutritionixDebugLog("✅ Nutritionix API service initialized with user-configured credentials")
         } else {
-            nutritionixDebugLog("⚠️ WARNING: Nutritionix API key not configured! Please set your actual API key.")
+            nutritionixDebugLog("⚠️ No Nutritionix API credentials configured. User will need to set up their App ID and API key.")
         }
+    }
+    
+    // MARK: - API Credentials Management
+    
+    func validateAPICredentials(_ appId: String, _ apiKey: String) async throws -> APIKeyValidationResult {
+        nutritionixDebugLog("🔑 Validating API credentials - App ID: \(String(appId.prefix(8))), API Key: \(String(apiKey.prefix(8)))...")
+        
+        // Basic format validation
+        guard !appId.isEmpty && appId.count >= 8 else {
+            return APIKeyValidationResult(isValid: false, errorType: .invalidFormat, message: "App ID must be at least 8 characters long")
+        }
+        
+        guard !apiKey.isEmpty && apiKey.count >= 20 else {
+            return APIKeyValidationResult(isValid: false, errorType: .invalidFormat, message: "API key must be at least 20 characters long")
+        }
+        
+        // Character validation
+        let validCharacterSet = CharacterSet.alphanumerics
+        guard appId.unicodeScalars.allSatisfy({ validCharacterSet.contains($0) }) else {
+            return APIKeyValidationResult(isValid: false, errorType: .invalidFormat, message: "App ID can only contain letters and numbers")
+        }
+        
+        guard apiKey.unicodeScalars.allSatisfy({ validCharacterSet.contains($0) }) else {
+            return APIKeyValidationResult(isValid: false, errorType: .invalidFormat, message: "API key can only contain letters and numbers")
+        }
+        
+        // API validation
+        guard let url = URL(string: "\(baseURL)/natural/nutrients") else {
+            throw NutritionixAPIError.invalidURL
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.addValue(appId, forHTTPHeaderField: "x-app-id")
+        urlRequest.addValue(apiKey, forHTTPHeaderField: "x-app-key")
+        urlRequest.timeoutInterval = 15.0
+        
+        let testRequest = NutritionixRequest(query: "apple")
+        let requestData = try JSONEncoder().encode(testRequest)
+        urlRequest.httpBody = requestData
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200...299:
+                    do {
+                        let nutritionResponse = try JSONDecoder().decode(NutritionixResponse.self, from: data)
+                        if !nutritionResponse.foods.isEmpty {
+                            return APIKeyValidationResult(isValid: true, errorType: nil, message: "API credentials validated successfully")
+                        } else {
+                            return APIKeyValidationResult(isValid: true, errorType: nil, message: "API credentials valid (no test data returned)")
+                        }
+                    } catch {
+                        return APIKeyValidationResult(isValid: true, errorType: nil, message: "API credentials valid (response format changed)")
+                    }
+                case 401:
+                    return APIKeyValidationResult(isValid: false, errorType: .unauthorized, message: "Invalid App ID or API Key combination")
+                case 403:
+                    return APIKeyValidationResult(isValid: false, errorType: .forbidden, message: "API credentials do not have required permissions")
+                case 429:
+                    return APIKeyValidationResult(isValid: false, errorType: .rateLimited, message: "Rate limit exceeded. Please try again in a few minutes")
+                case 500...599:
+                    return APIKeyValidationResult(isValid: false, errorType: .serverError, message: "Nutritionix server temporarily unavailable")
+                default:
+                    return APIKeyValidationResult(isValid: false, errorType: .unknown, message: "Unexpected response from server (Code: \(httpResponse.statusCode))")
+                }
+            }
+        } catch {
+            if error.localizedDescription.contains("timeout") {
+                return APIKeyValidationResult(isValid: false, errorType: .timeout, message: "Request timed out. Please check your internet connection")
+            } else {
+                return APIKeyValidationResult(isValid: false, errorType: .networkError, message: "Network error: \(error)")
+            }
+        }
+        
+        return APIKeyValidationResult(isValid: false, errorType: .unknown, message: "Unknown validation error")
+    }
+    
+    func saveAPICredentials(_ appId: String, _ apiKey: String) async throws {
+        let validationResult = try await validateAPICredentials(appId, apiKey)
+        
+        if validationResult.isValid {
+            userAppID = appId
+            userAPIKey = apiKey
+            showingAPIKeySetup = false
+            nutritionixDebugLog("✅ API credentials validated and saved successfully")
+        } else {
+            switch validationResult.errorType {
+            case .invalidFormat:
+                throw NutritionixAPIError.invalidAPIKeyFormat
+            case .unauthorized:
+                throw NutritionixAPIError.invalidAPIKey
+            case .forbidden:
+                throw NutritionixAPIError.apiKeyForbidden
+            case .rateLimited:
+                throw NutritionixAPIError.rateLimitExceeded
+            case .timeout:
+                throw NutritionixAPIError.validationTimeout
+            case .networkError:
+                throw NutritionixAPIError.networkError
+            case .serverError:
+                throw NutritionixAPIError.serverError
+            default:
+                throw NutritionixAPIError.validationFailed(validationResult.message)
+            }
+        }
+    }
+    
+    func clearAPICredentials() {
+        userAppID = nil
+        userAPIKey = nil
+        nutritionixDebugLog("🗑️ API credentials cleared")
+    }
+    
+    func showAPIKeySetup() {
+        showingAPIKeySetup = true
     }
     
     // MARK: - Public API
     
-    /// Analyze a menu item name using Nutritionix natural language API
     func analyzeMenuItem(_ itemName: String) async throws -> NutritionixNutritionResult {
         nutritionixDebugLog("🥗 Analyzing menu item with Nutritionix: '\(itemName)'")
         
-        // Rate limiting
+        guard isAPICredentialsConfigured else {
+            nutritionixDebugLog("❌ No API credentials configured - showing setup")
+            showingAPIKeySetup = true
+            throw NutritionixAPIError.noAPIKeyConfigured
+        }
+        
+        try checkDailyLimit()
         await enforceRateLimit()
         
         isLoading = true
@@ -205,6 +412,8 @@ class NutritionixAPIService: ObservableObject {
         do {
             let request = NutritionixRequest(query: itemName)
             let response = try await performNutritionixRequest(request)
+            
+            incrementDailyUsage()
             
             if let firstFood = response.foods.first {
                 let result = convertToNutritionResult(
@@ -230,42 +439,12 @@ class NutritionixAPIService: ObservableObject {
         }
     }
     
-    /// Batch analyze multiple menu items with rate limiting
-    func analyzeMenuItems(_ itemNames: [String]) async -> [NutritionixNutritionResult] {
-        nutritionixDebugLog("🥗 Starting batch Nutritionix analysis for \(itemNames.count) items")
-        
-        var results: [NutritionixNutritionResult] = []
-        
-        for (index, itemName) in itemNames.enumerated() {
-            nutritionixDebugLog("🥗 Processing item \(index + 1)/\(itemNames.count): '\(itemName)'")
-            
-            do {
-                let result = try await analyzeMenuItem(itemName)
-                results.append(result)
-            } catch {
-                nutritionixDebugLog("🥗 ⚠️ Failed to analyze '\(itemName)': \(error)")
-                let failureResult = createFailureResult(
-                    originalQuery: itemName,
-                    errorMessage: error.localizedDescription
-                )
-                results.append(failureResult)
-            }
-            
-            // Progress tracking could be added here
-        }
-        
-        let successCount = results.filter { $0.isSuccess }.count
-        nutritionixDebugLog("🥗 Batch analysis complete: \(successCount)/\(itemNames.count) successful")
-        
-        return results
-    }
-    
-    // MARK: - Private API Methods
+    // MARK: - Private Methods
     
     private func performNutritionixRequest(_ request: NutritionixRequest) async throws -> NutritionixResponse {
-        // Check if API key is configured
-        guard appKey == "7579b8993d3e284557bafdc861c742a0" else {
-            throw NutritionixAPIError.invalidAPIKey
+        guard let appId = userAppID, !appId.isEmpty,
+              let apiKey = userAPIKey, !apiKey.isEmpty else {
+            throw NutritionixAPIError.noAPIKeyConfigured
         }
         
         guard let url = URL(string: "\(baseURL)/natural/nutrients") else {
@@ -276,29 +455,21 @@ class NutritionixAPIService: ObservableObject {
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.addValue(appId, forHTTPHeaderField: "x-app-id")
-        urlRequest.addValue(appKey, forHTTPHeaderField: "x-app-key")
+        urlRequest.addValue(apiKey, forHTTPHeaderField: "x-app-key")
         urlRequest.timeoutInterval = 15.0
         
-        // Debug log the headers (without exposing the full API key)
-        nutritionixDebugLog("🔑 Making request with App ID: \(appId) and API Key: \(String(appKey.prefix(8)))...")
+        nutritionixDebugLog("🔑 Making request with App ID: \(String(appId.prefix(8))) and API Key: \(String(apiKey.prefix(8)))...")
         
-        // Encode request body
         let requestData = try JSONEncoder().encode(request)
         urlRequest.httpBody = requestData
         
-        // Debug log the request
-        nutritionixDebugLog("📤 POST \(url.absoluteString)")
-        nutritionixDebugLog("📤 Headers: Content-Type: application/json, x-app-id: \(appId)")
-        
-        // Perform request
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
-        // Check HTTP status
         if let httpResponse = response as? HTTPURLResponse {
             nutritionixDebugLog("📥 Response Status: \(httpResponse.statusCode)")
             
             if httpResponse.statusCode == 401 {
-                nutritionixDebugLog("🚫 401 Unauthorized - Check your Nutritionix API credentials!")
+                nutritionixDebugLog("🚫 401 Unauthorized - API credentials may be invalid!")
                 throw NutritionixAPIError.invalidAPIKey
             }
             
@@ -308,24 +479,17 @@ class NutritionixAPIService: ObservableObject {
                     throw NutritionixAPIError.apiError(errorData.message)
                 } else {
                     nutritionixDebugLog("❌ HTTP Error \(httpResponse.statusCode)")
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        nutritionixDebugLog("❌ Response: \(responseString)")
-                    }
                     throw NutritionixAPIError.httpError(httpResponse.statusCode)
                 }
             }
         }
         
-        // Decode response
         do {
             let nutritionResponse = try JSONDecoder().decode(NutritionixResponse.self, from: data)
             nutritionixDebugLog("✅ Successfully decoded response with \(nutritionResponse.foods.count) foods")
             return nutritionResponse
         } catch {
             nutritionixDebugLog("🥗 JSON decode error: \(error)")
-            if let jsonString = String(data: data, encoding: .utf8) {
-                nutritionixDebugLog("🥗 Raw response: \(jsonString)")
-            }
             throw NutritionixAPIError.decodingError(error)
         }
     }
@@ -350,18 +514,13 @@ class NutritionixAPIService: ObservableObject {
         let source = determineNutritionixSource(nutritionixFood)
         let servingDescription = "\(nutritionixFood.serving_qty) \(nutritionixFood.serving_unit)"
         
-        // Calculate confidence based on source and data completeness
-        let baseConfidence = source.confidence
-        let dataCompletenessBonus = calculateDataCompletenessBonus(nutritionData)
-        let finalConfidence = min(1.0, baseConfidence + dataCompletenessBonus)
-        
         return NutritionixNutritionResult(
             originalQuery: originalQuery,
             matchedFoodName: nutritionixFood.food_name,
             brandName: nutritionixFood.brand_name ?? nutritionixFood.nix_brand_name,
             servingDescription: servingDescription,
             nutrition: nutritionData,
-            confidence: finalConfidence,
+            confidence: source.confidence,
             source: source,
             isSuccess: true,
             errorMessage: nil
@@ -369,38 +528,16 @@ class NutritionixAPIService: ObservableObject {
     }
     
     private func determineNutritionixSource(_ food: NutritionixFood) -> NutritionixSource {
-        // Check for restaurant/chain indicators
         if food.nix_brand_name != nil || food.brand_name != nil {
             return .restaurant
         }
-        
-        // Check for branded food indicators
         if food.upc != nil || food.nix_item_id != nil {
             return .branded
         }
-        
-        // Check for USDA common food indicators
         if food.ndb_no != nil {
             return .common
         }
-        
         return .unknown
-    }
-    
-    private func calculateDataCompletenessBonus(_ nutrition: NutritionixNutritionData) -> Double {
-        var completeness = 0.0
-        let totalFields = 6.0
-        
-        // Core macros (always present)
-        completeness += 3.0 // calories, protein, carbs, fat
-        
-        // Optional but important fields
-        if nutrition.fiber != nil { completeness += 1.0 }
-        if nutrition.sugar != nil { completeness += 1.0 }
-        if nutrition.saturatedFat != nil { completeness += 1.0 }
-        
-        // Bonus for completeness (max 0.15 confidence boost)
-        return (completeness / totalFields) * 0.15
     }
     
     private func createFailureResult(
@@ -408,16 +545,9 @@ class NutritionixAPIService: ObservableObject {
         errorMessage: String
     ) -> NutritionixNutritionResult {
         let emptyNutrition = NutritionixNutritionData(
-            calories: 0,
-            protein: 0,
-            carbs: 0,
-            fat: 0,
-            fiber: nil,
-            sodium: 0,
-            sugar: nil,
-            saturatedFat: nil,
-            cholesterol: nil,
-            potassium: nil
+            calories: 0, protein: 0, carbs: 0, fat: 0,
+            fiber: nil, sodium: 0, sugar: nil,
+            saturatedFat: nil, cholesterol: nil, potassium: nil
         )
         
         return NutritionixNutritionResult(
@@ -439,11 +569,35 @@ class NutritionixAPIService: ObservableObject {
         
         if timeSinceLastRequest < minimumRequestInterval {
             let waitTime = minimumRequestInterval - timeSinceLastRequest
-            nutritionixDebugLog("🥗 Rate limiting: waiting \(String(format: "%.1f", waitTime))s")
             try? await Task.sleep(nanoseconds: UInt64(waitTime * 1_000_000_000))
         }
         
         lastRequestTime = Date()
+    }
+    
+    private func resetDailyCounterIfNeeded() {
+        let today = Calendar.current.startOfDay(for: Date())
+        let lastResetDate = userDefaults.object(forKey: lastResetDateKey) as? Date ?? Date.distantPast
+        let lastResetDay = Calendar.current.startOfDay(for: lastResetDate)
+        
+        if today > lastResetDay {
+            userDefaults.set(0, forKey: usageCountKey)
+            userDefaults.set(today, forKey: lastResetDateKey)
+        }
+    }
+    
+    private func incrementDailyUsage() {
+        resetDailyCounterIfNeeded()
+        let currentCount = userDefaults.integer(forKey: usageCountKey)
+        userDefaults.set(currentCount + 1, forKey: usageCountKey)
+    }
+    
+    private func checkDailyLimit() throws {
+        resetDailyCounterIfNeeded()
+        
+        if hasReachedDailyLimit {
+            throw NutritionixAPIError.dailyLimitReached
+        }
     }
 }
 
@@ -457,7 +611,15 @@ enum NutritionixAPIError: Error, LocalizedError {
     case decodingError(Error)
     case rateLimitExceeded
     case invalidAPIKey
-    
+    case invalidAPIKeyFormat
+    case apiKeyForbidden
+    case noAPIKeyConfigured
+    case dailyLimitReached
+    case validationFailed(String)
+    case validationTimeout
+    case networkError
+    case serverError
+
     var errorDescription: String? {
         switch self {
         case .invalidURL:
@@ -471,17 +633,32 @@ enum NutritionixAPIError: Error, LocalizedError {
         case .decodingError(let error):
             return "Failed to decode Nutritionix response: \(error.localizedDescription)"
         case .rateLimitExceeded:
-            return "Nutritionix API rate limit exceeded"
+            return "Rate limit exceeded. Please try again in a few minutes."
         case .invalidAPIKey:
-            return "Invalid or missing Nutritionix API key. Please configure your API credentials in NutritionixAPIService.swift"
+            return "Invalid App ID or API Key combination. Please check both values."
+        case .dailyLimitReached:
+            return "Daily limit of 200 nutrition analyses reached. Resets at midnight."
+        case .noAPIKeyConfigured:
+            return "Nutritionix credentials not configured. Please set up your App ID and API key."
+        case .invalidAPIKeyFormat:
+            return "API credentials format is invalid. Please check that you copied both values completely."
+        case .apiKeyForbidden:
+            return "API credentials do not have the required permissions for nutrition data access."
+        case .validationTimeout:
+            return "Validation request timed out. Please check your internet connection."
+        case .networkError:
+            return "Network error occurred during validation. Please check your connection."
+        case .serverError:
+            return "Nutritionix server is temporarily unavailable. Please try again later."
+        case .validationFailed(let message):
+            return message
         }
     }
 }
 
-// MARK: - Nutritionix Integration Helpers
+// MARK: - Extensions
 
 extension NutritionixNutritionResult {
-    /// Convert to MenuAnalysis NutritionEstimate format
     func toNutritionEstimate() -> NutritionEstimate {
         return NutritionEstimate(
             calories: NutritionRange(min: nutrition.calories, max: nutrition.calories, unit: "kcal"),

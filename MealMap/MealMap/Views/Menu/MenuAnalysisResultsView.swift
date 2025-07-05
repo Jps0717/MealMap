@@ -327,7 +327,11 @@ struct ValidatedMenuItemRow: View {
             
             // Content
             VStack(alignment: .leading, spacing: 4) {
-                itemTitleRow
+                Text(item.validatedName)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                    .lineLimit(2)
                 
                 if item.originalLine != item.validatedName {
                     Text("From: \(item.originalLine)")
@@ -339,22 +343,7 @@ struct ValidatedMenuItemRow: View {
                 statusBadgeRow
             }
             
-            // Chevron
-            Image(systemName: "chevron.right")
-                .font(.caption)
-                .foregroundColor(.secondary)
-        }
-    }
-    
-    private var itemTitleRow: some View {
-        HStack {
-            Text(item.validatedName)
-                .font(.headline)
-                .foregroundColor(.primary)
-                .lineLimit(2)
-            
-            Spacer()
-            
+            // Source badges
             if item.isValid {
                 HStack(spacing: 4) {
                     Image(systemName: "brain")
@@ -372,6 +361,11 @@ struct ValidatedMenuItemRow: View {
                         .foregroundColor(.green)
                 }
             }
+            
+            // Chevron
+            Image(systemName: "chevron.right")
+                .font(.caption)
+                .foregroundColor(.secondary)
         }
     }
     

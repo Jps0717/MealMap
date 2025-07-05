@@ -24,8 +24,8 @@ struct HomeScreen: View {
     @State private var showSearchScreen = false
     @State private var showingMapScreen = false
     @State private var showingMenuPhotoCapture = false
+    @State private var showingNutritionixSettings = false
     
-    // Categories mapping string to enum - UPDATED: Only 3 categories + custom
     private let categoryMapping: [String: RestaurantCategory] = [
         "Fast Food": .fastFood,
         "Healthy": .healthy,
@@ -92,12 +92,14 @@ struct HomeScreen: View {
             )
             .environmentObject(nutritionManager)
         }
-        // ENHANCED: Modal map presentation for proper home button navigation
         .fullScreenCover(isPresented: $showingMapScreen) {
             MapScreen(viewModel: mapViewModel)
         }
         .sheet(isPresented: $showingMenuPhotoCapture) {
             MenuPhotoCaptureView()
+        }
+        .sheet(isPresented: $showingNutritionixSettings) {
+            NutritionixSettingsView()
         }
     }
     
@@ -166,6 +168,49 @@ struct HomeScreen: View {
         .background(Color(.systemBackground))
     }
     
+    private var headerView: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("MealMap")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+                
+                if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
+                    Text("📍 \(mapViewModel.currentAreaName)")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+            }
+            
+            Spacer()
+            
+            HStack(spacing: 12) {
+                Button(action: {
+                    showingMapScreen = true
+                }) {
+                    Image(systemName: "map")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+                        .frame(width: 44, height: 44)
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(12)
+                }
+                
+                Button(action: {
+                    showingNutritionixSettings = true
+                }) {
+                    Image(systemName: "gearshape")
+                        .font(.title2)
+                        .foregroundColor(.gray)
+                        .frame(width: 44, height: 44)
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(12)
+                }
+            }
+        }
+    }
+    
     private var searchBarView: some View {
         Button {
             showSearchScreen = true
@@ -188,36 +233,6 @@ struct HomeScreen: View {
         .buttonStyle(.plain)
         .sheet(isPresented: $showSearchScreen) {
             SearchScreen(isPresented: $showSearchScreen)
-        }
-    }
-    
-    private var headerView: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("MealMap")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.primary)
-                
-                if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
-                    Text("📍 \(mapViewModel.currentAreaName)")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-            }
-            
-            Spacer()
-            
-            Button(action: {
-                showingMapScreen = true
-            }) {
-                Image(systemName: "map")
-                    .font(.title2)
-                    .foregroundColor(.blue)
-                    .frame(width: 44, height: 44)
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(12)
-            }
         }
     }
     
@@ -517,6 +532,10 @@ struct HomeScreen: View {
             }
         }
     }
+}
+
+enum QuickAction {
+    case scanMenu
 }
 
 extension Optional where Wrapped == String {

@@ -136,6 +136,32 @@ class MenuOCRService: ObservableObject {
         let nutritionixService = NutritionixAPIService.shared
         var results: [NutritionixNutritionResult] = []
         
+        // Check if API key is configured before processing
+        guard nutritionixService.isAPIKeyConfigured else {
+            print("[MenuOCRService] 🤖🥗 ❌ No API key configured - cannot proceed with Nutritionix analysis")
+            
+            // Return failure results for all items
+            for item in aiParsedItems {
+                let failureResult = NutritionixNutritionResult(
+                    originalQuery: item,
+                    matchedFoodName: item,
+                    brandName: nil,
+                    servingDescription: "Unknown",
+                    nutrition: NutritionixNutritionData(
+                        calories: 0, protein: 0, carbs: 0, fat: 0,
+                        fiber: nil, sodium: 0, sugar: nil,
+                        saturatedFat: nil, cholesterol: nil, potassium: nil
+                    ),
+                    confidence: 0.0,
+                    source: .unknown,
+                    isSuccess: false,
+                    errorMessage: "Nutritionix API key not configured"
+                )
+                results.append(failureResult)
+            }
+            return results
+        }
+        
         // Process all AI-parsed items (they should already be clean)
         for (index, item) in aiParsedItems.enumerated() {
             // Check for cancellation before processing each item
