@@ -1,5 +1,4 @@
 import SwiftUI
-import PhotosUI
 
 // MARK: - Image Processing State
 enum ImageProcessingState {
@@ -26,6 +25,7 @@ struct MenuPhotoCaptureView: View {
     @State private var selectedImage: UIImage?
     @State private var showingImagePicker = false
     @State private var showingCamera = false
+    @State private var showingPhotoLibrary = false // NEW: Separate state for photo library
     @State private var showingResults = false
     @State private var validatedItems: [ValidatedMenuItem] = []
     @State private var processingMethod: ProcessingMethod = .aiNutritionix // Default to AI + Nutritionix
@@ -97,22 +97,16 @@ struct MenuPhotoCaptureView: View {
                 }
             }
             .sheet(isPresented: $showingImagePicker) {
-                PhotosPicker(
-                    selection: Binding<PhotosPickerItem?>(
-                        get: { nil },
-                        set: { item in
-                            if let item = item {
-                                loadPhotoFromPicker(item)
-                            }
-                        }
-                    ),
-                    matching: .images
-                ) {
-                    Text("Select Photo")
-                }
+                Text("Image Picker")
             }
             .sheet(isPresented: $showingCamera) {
                 ImagePicker(sourceType: .camera) { image in
+                    selectedImage = image
+                    processImage(image)
+                }
+            }
+            .sheet(isPresented: $showingPhotoLibrary) {
+                ImagePicker(sourceType: .photoLibrary) { image in
                     selectedImage = image
                     processImage(image)
                 }
@@ -134,7 +128,7 @@ struct MenuPhotoCaptureView: View {
             if autoTriggerCamera {
                 showingCamera = true
             } else if autoTriggerPhotos {
-                showingImagePicker = true
+                showingPhotoLibrary = true // Changed from showingImagePicker
             }
         }
     }
@@ -175,7 +169,7 @@ struct MenuPhotoCaptureView: View {
                 
                 // Minimal library link
                 Button("Choose from Library") {
-                    showingImagePicker = true
+                    showingPhotoLibrary = true // Changed from showingImagePicker
                 }
                 .font(.subheadline)
                 .foregroundColor(.blue)
@@ -277,7 +271,7 @@ struct MenuPhotoCaptureView: View {
                     processingState = .idle
                     selectedImage = nil
                     validatedItems = []
-                    showingImagePicker = true
+                    showingPhotoLibrary = true // Changed from showingImagePicker
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.large)
@@ -315,18 +309,6 @@ struct MenuPhotoCaptureView: View {
         return "Nutritionix Analysis"
     }
     
-    private func loadPhotoFromPicker(_ item: PhotosPickerItem) {
-        Task {
-            if let data = try? await item.loadTransferable(type: Data.self),
-               let image = UIImage(data: data) {
-                await MainActor.run {
-                    selectedImage = image
-                    processImage(image)
-                }
-            }
-        }
-    }
-    
     private func processImage(_ image: UIImage) {
         Task {
             await MainActor.run {
@@ -342,7 +324,7 @@ struct MenuPhotoCaptureView: View {
                     showingResults = true   // Show results immediately
                 }
             } catch {
-                debugLog("📸 Image processing failed: \(error)")
+                debugLog(" Image processing failed: \(error)")
                 await MainActor.run {
                     processingState = .error(error.localizedDescription)
                 }
