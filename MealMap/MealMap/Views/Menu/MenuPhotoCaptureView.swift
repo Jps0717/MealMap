@@ -30,6 +30,7 @@ struct MenuPhotoCaptureView: View {
     @State private var validatedItems: [ValidatedMenuItem] = []
     @State private var processingMethod: ProcessingMethod = .aiNutritionix // Default to AI + Nutritionix
     @State private var showingAdvancedSettings = false // NEW: For settings sheet
+    @State private var currentProcessingTask: Task<Void, Never>? // NEW: Track processing task for cancellation
     
     let autoTriggerCamera: Bool
     let autoTriggerPhotos: Bool
@@ -80,6 +81,9 @@ struct MenuPhotoCaptureView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
+                        // Cancel the processing task if it's running
+                        currentProcessingTask?.cancel()
+                        currentProcessingTask = nil
                         dismiss()
                     }
                 }
@@ -102,8 +106,16 @@ struct MenuPhotoCaptureView: View {
             .sheet(isPresented: $showingResults) {
                 MenuAnalysisResultsView(validatedItems: validatedItems)
             }
+            .sheet(isPresented: $showingAdvancedSettings) {
+                AdvancedSettingsView(processingMethod: $processingMethod)
+            }
             .onAppear {
                 handleAutoTrigger()
+            }
+            .onDisappear {
+                // Clean up processing task when view disappears
+                currentProcessingTask?.cancel()
+                currentProcessingTask = nil
             }
         }
     }
@@ -338,24 +350,34 @@ struct MenuPhotoCaptureView: View {
     }
     
     private func processImage(_ image: UIImage) {
-        Task {
-            await MainActor.run {
-                processingState = .analyzing
-            }
+        // Cancel any existing task
+        currentProcessingTask?.cancel()
+        
+        currentProcessingTask = Task { @MainActor in
+            processingState = .analyzing
             
             do {
                 let result = try await ocrService.processMenuImageWithAINutritionix(image)
-                await MainActor.run {
-                    // Skip the completion screen and go directly to results
-                    validatedItems = result
-                    processingState = .idle // Reset state
-                    showingResults = true   // Show results immediately
+                
+                // Check if task was cancelled
+                if Task.isCancelled {
+                    processingState = .idle
+                    return
                 }
+                
+                // Skip the completion screen and go directly to results
+                validatedItems = result
+                processingState = .idle // Reset state
+                showingResults = true   // Show results immediately
             } catch {
-                debugLog(" Image processing failed: \(error)")
-                await MainActor.run {
-                    processingState = .error(error.localizedDescription)
+                // Check if task was cancelled
+                if Task.isCancelled {
+                    processingState = .idle
+                    return
                 }
+                
+                debugLog(" Image processing failed: \(error)")
+                processingState = .error(error.localizedDescription)
             }
         }
     }

@@ -39,6 +39,17 @@ class MenuOCRService: ObservableObject {
     @Published var progress: Double = 0.0
     @Published var lastError: Error?
     
+    // MARK: - Cancellation Support
+    private var currentTask: Task<Void, Never>?
+    
+    /// Cancel the current processing task
+    func cancelCurrentTask() {
+        currentTask?.cancel()
+        currentTask = nil
+        isProcessing = false
+        progress = 0.0
+    }
+    
     // MARK: - Main Pipeline: AI + Nutritionix Only
     
     /// Complete image-to-menu pipeline with AI parsing + Nutritionix API integration
@@ -50,21 +61,27 @@ class MenuOCRService: ObservableObject {
             progress = 1.0
         }
         
+        // Check for cancellation
+        try Task.checkCancellation()
+        
         print("[MenuOCRService] 🤖🥗 Starting AI + Nutritionix pipeline...")
         
         // Step 1: Text Extraction (0-25%)
         progress = 0.0
         let textLines = try await extractTextWithVision(image)
+        try Task.checkCancellation() // Check for cancellation
         progress = 0.25
         
         // Step 2: AI/LLM Menu Parsing (25-60%)
         let rawMenuText = textLines.joined(separator: "\n")
         let llmService = LLMMenuParsingService.shared
         let aiParsedItems = try await llmService.parseMenuText(rawMenuText)
+        try Task.checkCancellation() // Check for cancellation
         progress = 0.6
         
         // Step 3: Nutritionix Analysis (60-95%)
         let nutritionixResults = await analyzeAIParsedItemsWithNutritionix(aiParsedItems)
+        try Task.checkCancellation() // Check for cancellation
         progress = 0.95
         
         // Step 4: Create final result (95-100%)
@@ -121,6 +138,12 @@ class MenuOCRService: ObservableObject {
         
         // Process all AI-parsed items (they should already be clean)
         for (index, item) in aiParsedItems.enumerated() {
+            // Check for cancellation before processing each item
+            if Task.isCancelled {
+                print("[MenuOCRService] 🤖🥗 Analysis cancelled by user")
+                break
+            }
+            
             // Update progress (60-95% range)
             let progressRange = 0.6...0.95
             let itemProgress = Double(index) / Double(aiParsedItems.count)
