@@ -8,6 +8,8 @@ struct MenuAnalysisResultsView: View {
     @State private var showingNutritionDetails = false
     @State private var selectedItem: ValidatedMenuItem?
     @State private var selectedItems: Set<UUID> = [] // Track selected items for meal
+    @State private var showingSaveAlert = false
+    @State private var menuName = ""
     
     var filteredItems: [ValidatedMenuItem] {
         if searchText.isEmpty {
@@ -66,22 +68,28 @@ struct MenuAnalysisResultsView: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Menu {
-                        Button("Export Results") {
-                            exportResults()
-                        }
-                        
-                        Button("Share Summary") {
-                            shareResults()
-                        }
-                    } label: {
-                        Image(systemName: "ellipsis.circle")
+                    Button(action: {
+                        showingSaveAlert = true
+                    }) {
+                        Image(systemName: "square.and.arrow.down")
+                            .font(.title3)
                     }
                 }
             }
             .searchable(text: $searchText, prompt: "Search menu items...")
             .sheet(item: $selectedItem) { item in
                 ValidatedMenuItemDetailView(item: item)
+            }
+            .alert("Save Menu Analysis", isPresented: $showingSaveAlert) {
+                TextField("Menu name", text: $menuName)
+                Button("Save") {
+                    saveMenuAnalysis()
+                }
+                Button("Cancel", role: .cancel) {
+                    menuName = ""
+                }
+            } message: {
+                Text("Enter a name for this menu analysis to save it to your device.")
             }
         }
     }
@@ -225,6 +233,24 @@ struct MenuAnalysisResultsView: View {
         .padding(.top, 8)
     }
     
+    private func saveMenuAnalysis() {
+        guard !menuName.isEmpty else { return }
+        
+        let savedMenu = SavedMenuAnalysis(
+            id: UUID(),
+            name: menuName,
+            dateCreated: Date(),
+            items: validatedItems,
+            selectedItemIds: selectedItems
+        )
+        
+        SavedMenuManager.shared.saveMenu(savedMenu)
+        menuName = ""
+        
+        // Show success feedback
+        print("Menu analysis saved: \(savedMenu.name)")
+    }
+    
     private func exportResults() {
         // Create CSV export of results
         var csvContent = "Menu Item,Original Text,Status,Calories,Protein (g),Carbs (g),Fat (g),Fiber (g),Sodium (mg)\n"
@@ -312,13 +338,20 @@ struct ValidatedMenuItemRow: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            // Selection circle (on the left)
-            Button(action: onToggleSelection) {
-                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(isSelected ? .green : .gray)
-                    .font(.title3)
+            // Selection circle (on the left) - only show if item has nutrition data
+            if item.isValid {
+                Button(action: onToggleSelection) {
+                    Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                        .foregroundColor(isSelected ? .green : .gray)
+                        .font(.title3)
+                }
+                .buttonStyle(PlainButtonStyle())
+            } else {
+                // Empty space for failed items
+                Circle()
+                    .fill(Color.clear)
+                    .frame(width: 24, height: 24)
             }
-            .buttonStyle(PlainButtonStyle())
             
             // Content (tappable for details)
             Button(action: onTap) {
@@ -338,11 +371,6 @@ struct ValidatedMenuItemRow: View {
     
     private var itemHeaderRow: some View {
         HStack(spacing: 12) {
-            // Status Icon
-            Image(systemName: item.isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
-                .foregroundColor(item.isValid ? .green : .red)
-                .font(.caption)
-            
             // Content
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.validatedName)
@@ -351,6 +379,13 @@ struct ValidatedMenuItemRow: View {
                     .foregroundColor(.primary)
                     .lineLimit(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
+                // Show status as text instead of icon
+                if !item.isValid {
+                    Text("No nutrition data")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
             }
             
             // Chevron
