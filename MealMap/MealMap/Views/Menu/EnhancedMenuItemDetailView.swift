@@ -140,7 +140,7 @@ struct EnhancedMenuItemDetailView: View {
     
     private func nutritionixDetailsSection() -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("AI + Nutritionix Details")
+            Text("Analysis Details")
                 .font(.subheadline)
                 .fontWeight(.semibold)
             
@@ -149,11 +149,11 @@ struct EnhancedMenuItemDetailView: View {
                     Text("• \(sourceDetails)")
                         .font(.caption)
                 }
-                Text("• AI-powered menu parsing with Nutritionix nutrition analysis")
+                Text("• AI-powered menu parsing with nutrition analysis")
                     .font(.caption)
                 Text("• High-accuracy nutrition data from natural language analysis")
                     .font(.caption)
-                Text("• Based on comprehensive food and restaurant database")
+                Text("• Based on comprehensive food database")
                     .font(.caption)
                 if let portionSize = item.nutritionEstimate.estimatedPortionSize {
                     Text("• Portion size: \(portionSize)")

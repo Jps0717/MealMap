@@ -6,7 +6,6 @@ struct NutritionixRequest: Codable {
     let query: String
     let timezone: String = "US/Eastern"
     let num_servings: Int = 1
-    let aggregate: String = "1 serving"
     let line_delimited: Bool = false
     let use_raw_foods: Bool = false
     let include_subrecipe: Bool = false
@@ -498,6 +497,9 @@ class NutritionixAPIService: ObservableObject {
         originalQuery: String,
         nutritionixFood: NutritionixFood
     ) -> NutritionixNutritionResult {
+        // Debug: Log the actual food_name from Nutritionix API
+        nutritionixDebugLog("🔍 DEBUG: Nutritionix returned food_name: '\(nutritionixFood.food_name)' for query: '\(originalQuery)'")
+        
         let nutritionData = NutritionixNutritionData(
             calories: nutritionixFood.nf_calories,
             protein: nutritionixFood.nf_protein,
@@ -514,7 +516,7 @@ class NutritionixAPIService: ObservableObject {
         let source = determineNutritionixSource(nutritionixFood)
         let servingDescription = "\(nutritionixFood.serving_qty) \(nutritionixFood.serving_unit)"
         
-        return NutritionixNutritionResult(
+        let result = NutritionixNutritionResult(
             originalQuery: originalQuery,
             matchedFoodName: nutritionixFood.food_name,
             brandName: nutritionixFood.brand_name ?? nutritionixFood.nix_brand_name,
@@ -525,6 +527,11 @@ class NutritionixAPIService: ObservableObject {
             isSuccess: true,
             errorMessage: nil
         )
+        
+        // Debug: Log the final result
+        nutritionixDebugLog("🔍 DEBUG: Final result - matchedFoodName: '\(result.matchedFoodName)' for originalQuery: '\(originalQuery)'")
+        
+        return result
     }
     
     private func determineNutritionixSource(_ food: NutritionixFood) -> NutritionixSource {

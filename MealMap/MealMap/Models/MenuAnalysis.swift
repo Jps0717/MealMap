@@ -283,14 +283,14 @@ enum DietaryTag: String, CaseIterable, Codable {
     }
 }
 
-// Simplified estimation tier system - only AI + Nutritionix
+// Simplified estimation tier system - menu analysis only
 enum EstimationTier: String, Codable, CaseIterable {
-    case nutritionix = "nutritionix"   // AI + Nutritionix API
+    case nutritionix = "nutritionix"   // Menu analysis with nutrition data
     case unavailable = "unavailable"   // No estimation available
     
     var displayName: String {
         switch self {
-        case .nutritionix: return "AI + Nutritionix"
+        case .nutritionix: return "Menu Analysis"
         case .unavailable: return "Nutrition Unavailable"
         }
     }
@@ -304,7 +304,7 @@ enum EstimationTier: String, Codable, CaseIterable {
     
     var emoji: String {
         switch self {
-        case .nutritionix: return "🤖🥗"
+        case .nutritionix: return "📱🍽️"
         case .unavailable: return "❓"
         }
     }
@@ -318,7 +318,7 @@ enum EstimationTier: String, Codable, CaseIterable {
     
     var description: String {
         switch self {
-        case .nutritionix: return "AI-parsed menu items with Nutritionix nutrition analysis"
+        case .nutritionix: return "AI-parsed menu items with nutrition analysis"
         case .unavailable: return "Nutrition information not available"
         }
     }
@@ -330,7 +330,7 @@ enum EstimationSource: String, Codable, CaseIterable {
     
     var displayName: String {
         switch self {
-        case .nutritionix: return "Nutritionix API"
+        case .nutritionix: return "Menu Analysis"
         case .unavailable: return "Unavailable"
         }
     }
@@ -344,7 +344,7 @@ enum EstimationSource: String, Codable, CaseIterable {
     
     var emoji: String {
         switch self {
-        case .nutritionix: return "🥗"
+        case .nutritionix: return "🍽️"
         case .unavailable: return "❓"
         }
     }
@@ -388,7 +388,7 @@ extension AnalyzedMenuItem {
             name: name,
             description: description ?? nutritionixResult.matchedFoodName,
             price: price,
-            ingredients: [], // No ingredients identified from Nutritionix
+            ingredients: [], // No ingredients identified from menu analysis
             nutritionEstimate: nutritionEstimate,
             dietaryTags: dietaryTags,
             confidence: nutritionixResult.confidence,

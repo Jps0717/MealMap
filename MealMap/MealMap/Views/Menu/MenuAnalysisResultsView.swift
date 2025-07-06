@@ -7,6 +7,7 @@ struct MenuAnalysisResultsView: View {
     @State private var searchText = ""
     @State private var showingNutritionDetails = false
     @State private var selectedItem: ValidatedMenuItem?
+    @State private var selectedItems: Set<UUID> = [] // Track selected items for meal
     
     var filteredItems: [ValidatedMenuItem] {
         if searchText.isEmpty {
@@ -17,6 +18,29 @@ struct MenuAnalysisResultsView: View {
                 item.originalLine.localizedCaseInsensitiveContains(searchText)
             }
         }
+    }
+    
+    // Calculate nutrition for selected items only
+    private var selectedItemsNutrition: NutritionInfo? {
+        let selectedValidItems = validatedItems.filter { 
+            selectedItems.contains($0.id) && $0.isValid && $0.nutritionInfo != nil 
+        }
+        guard !selectedValidItems.isEmpty else { return nil }
+        
+        let totalCalories = selectedValidItems.compactMap { $0.nutritionInfo?.calories }.reduce(0, +)
+        let totalProtein = selectedValidItems.compactMap { $0.nutritionInfo?.protein }.reduce(0, +)
+        let totalCarbs = selectedValidItems.compactMap { $0.nutritionInfo?.carbs }.reduce(0, +)
+        let totalFat = selectedValidItems.compactMap { $0.nutritionInfo?.fat }.reduce(0, +)
+        
+        return NutritionInfo(
+            calories: totalCalories,
+            protein: totalProtein,
+            carbs: totalCarbs,
+            fat: totalFat,
+            fiber: nil,
+            sodium: nil,
+            sugar: nil
+        )
     }
     
     var body: some View {
@@ -68,12 +92,8 @@ struct MenuAnalysisResultsView: View {
         VStack(spacing: 16) {
             mainStatsRow
             
-            // Average nutrition stats for valid items
-            if let avgNutrition = calculateAverageNutrition() {
-                averageNutritionSection(avgNutrition)
-            }
-            
-            brandingSection
+            // Always show meal nutrition section
+            mealNutritionSection()
             
             searchStatusSection
         }
@@ -104,40 +124,6 @@ struct MenuAnalysisResultsView: View {
         }
     }
     
-    private func averageNutritionSection(_ avgNutrition: NutritionInfo) -> some View {
-        VStack(spacing: 8) {
-            HStack {
-                Image(systemName: "chart.bar")
-                    .foregroundColor(.purple)
-                Text("Average Nutrition Per Item")
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.purple)
-                Spacer()
-            }
-            
-            HStack(spacing: 16) {
-                NutritionQuickStat(label: "Cal", value: "\(Int(avgNutrition.calories ?? 0))", color: .red)
-                NutritionQuickStat(label: "Protein", value: "\(Int(avgNutrition.protein ?? 0))g", color: .blue)
-                NutritionQuickStat(label: "Carbs", value: "\(Int(avgNutrition.carbs ?? 0))g", color: .orange)
-                NutritionQuickStat(label: "Fat", value: "\(Int(avgNutrition.fat ?? 0))g", color: .green)
-            }
-        }
-        .padding(.top, 8)
-    }
-    
-    private var brandingSection: some View {
-        HStack {
-            Image(systemName: "brain")
-                .foregroundColor(.purple)
-            Text("Powered by AI + Nutritionix")
-                .font(.caption)
-                .foregroundColor(.purple)
-            Spacer()
-        }
-        .padding(.horizontal)
-    }
-    
     private var searchStatusSection: some View {
         Group {
             if !searchText.isEmpty && filteredItems.count != validatedItems.count {
@@ -159,10 +145,21 @@ struct MenuAnalysisResultsView: View {
     private var resultsListView: some View {
         List {
             ForEach(filteredItems) { item in
-                ValidatedMenuItemRow(item: item) {
-                    selectedItem = item
-                    showingNutritionDetails = true
-                }
+                ValidatedMenuItemRow(
+                    item: item, 
+                    isSelected: selectedItems.contains(item.id),
+                    onTap: {
+                        selectedItem = item
+                        showingNutritionDetails = true
+                    },
+                    onToggleSelection: {
+                        if selectedItems.contains(item.id) {
+                            selectedItems.remove(item.id)
+                        } else {
+                            selectedItems.insert(item.id)
+                        }
+                    }
+                )
             }
         }
         .listStyle(PlainListStyle())
@@ -196,26 +193,36 @@ struct MenuAnalysisResultsView: View {
     
     // MARK: - Helper Methods
     
-    private func calculateAverageNutrition() -> NutritionInfo? {
-        let validItems = validatedItems.filter { $0.isValid && $0.nutritionInfo != nil }
-        guard !validItems.isEmpty else { return nil }
-        
-        let totalCalories = validItems.compactMap { $0.nutritionInfo?.calories }.reduce(0, +)
-        let totalProtein = validItems.compactMap { $0.nutritionInfo?.protein }.reduce(0, +)
-        let totalCarbs = validItems.compactMap { $0.nutritionInfo?.carbs }.reduce(0, +)
-        let totalFat = validItems.compactMap { $0.nutritionInfo?.fat }.reduce(0, +)
-        
-        let count = Double(validItems.count)
-        
-        return NutritionInfo(
-            calories: totalCalories / count,
-            protein: totalProtein / count,
-            carbs: totalCarbs / count,
-            fat: totalFat / count,
+    private func mealNutritionSection() -> some View {
+        let mealNutrition = selectedItemsNutrition ?? NutritionInfo(
+            calories: 0,
+            protein: 0,
+            carbs: 0,
+            fat: 0,
             fiber: nil,
             sodium: nil,
             sugar: nil
         )
+        
+        return VStack(spacing: 8) {
+            HStack {
+                Image(systemName: "fork.knife")
+                    .foregroundColor(.purple)
+                Text("Nutrition In Your Meal")
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.purple)
+                Spacer()
+            }
+            
+            HStack(spacing: 16) {
+                NutritionQuickStat(label: "Cal", value: "\(Int(mealNutrition.calories ?? 0))", color: .red)
+                NutritionQuickStat(label: "Protein", value: "\(Int(mealNutrition.protein ?? 0))g", color: .blue)
+                NutritionQuickStat(label: "Carbs", value: "\(Int(mealNutrition.carbs ?? 0))g", color: .orange)
+                NutritionQuickStat(label: "Fat", value: "\(Int(mealNutrition.fat ?? 0))g", color: .green)
+            }
+        }
+        .padding(.top, 8)
     }
     
     private func exportResults() {
@@ -235,7 +242,7 @@ struct MenuAnalysisResultsView: View {
         }
         
         // TODO: Implement actual export to Files app
-        print("[MenuAnalysisResultsView] 📤 Export CSV content prepared: \(csvContent.count) characters")
+        print("[MenuAnalysisResultsView] Export CSV content prepared: \(csvContent.count) characters")
     }
     
     private func shareResults() {
@@ -250,12 +257,10 @@ struct MenuAnalysisResultsView: View {
         • Total items analyzed: \(totalCount)
         • Successful analyses: \(successCount)
         • Success rate: \(Int(Double(successCount) / Double(totalCount) * 100))%
-        
-        🤖 Powered by AI + Nutritionix
         """
         
         // TODO: Implement actual sharing via UIActivityViewController
-        print("[MenuAnalysisResultsView] 📤 Share summary prepared: \(summary)")
+        print("[MenuAnalysisResultsView] Share summary prepared: \(summary)")
     }
 }
 
@@ -301,21 +306,34 @@ struct NutritionQuickStat: View {
 
 struct ValidatedMenuItemRow: View {
     let item: ValidatedMenuItem
+    let isSelected: Bool
     let onTap: () -> Void
+    let onToggleSelection: () -> Void
     
     var body: some View {
-        Button(action: onTap) {
-            VStack(spacing: 12) {
-                itemHeaderRow
-                
-                // Nutrition Preview (if available)
-                if item.isValid, let nutrition = item.nutritionInfo {
-                    nutritionPreviewRow(nutrition)
+        HStack(spacing: 12) {
+            // Selection circle (on the left)
+            Button(action: onToggleSelection) {
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(isSelected ? .green : .gray)
+                    .font(.title3)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            // Content (tappable for details)
+            Button(action: onTap) {
+                VStack(spacing: 8) {
+                    itemHeaderRow
+                    
+                    // Nutrition Preview (if available)
+                    if item.isValid, let nutrition = item.nutritionInfo {
+                        nutritionPreviewRow(nutrition)
+                    }
                 }
             }
-            .padding(.vertical, 8)
+            .buttonStyle(PlainButtonStyle())
         }
-        .buttonStyle(PlainButtonStyle())
+        .padding(.vertical, 8)
     }
     
     private var itemHeaderRow: some View {
@@ -323,7 +341,7 @@ struct ValidatedMenuItemRow: View {
             // Status Icon
             Image(systemName: item.isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
                 .foregroundColor(item.isValid ? .green : .red)
-                .font(.title3)
+                .font(.caption)
             
             // Content
             VStack(alignment: .leading, spacing: 4) {
@@ -332,64 +350,13 @@ struct ValidatedMenuItemRow: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                     .lineLimit(2)
-                
-                if item.originalLine != item.validatedName {
-                    Text("From: \(item.originalLine)")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                }
-                
-                statusBadgeRow
-            }
-            
-            // Source badges
-            if item.isValid {
-                HStack(spacing: 4) {
-                    Image(systemName: "brain")
-                        .foregroundColor(.purple)
-                        .font(.caption2)
-                    Text("AI")
-                        .font(.caption2)
-                        .foregroundColor(.purple)
-                    
-                    Image(systemName: "leaf.fill")
-                        .foregroundColor(.green)
-                        .font(.caption2)
-                    Text("Nutritionix")
-                        .font(.caption2)
-                        .foregroundColor(.green)
-                }
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             
             // Chevron
             Image(systemName: "chevron.right")
                 .font(.caption)
                 .foregroundColor(.secondary)
-        }
-    }
-    
-    private var statusBadgeRow: some View {
-        HStack {
-            if item.isValid {
-                Text("✅ Nutrition Available")
-                    .font(.caption2)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 2)
-                    .background(Color.green.opacity(0.2))
-                    .foregroundColor(.green)
-                    .cornerRadius(4)
-            } else {
-                Text("❌ No Nutrition Data")
-                    .font(.caption2)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 2)
-                    .background(Color.red.opacity(0.2))
-                    .foregroundColor(.red)
-                    .cornerRadius(4)
-            }
-            
-            Spacer()
         }
     }
     
@@ -409,25 +376,7 @@ struct ValidatedMenuItemRow: View {
             }
             Spacer()
         }
-        .padding(.top, 4)
-    }
-}
-
-struct NutritionPreviewItem: View {
-    let label: String
-    let value: String
-    let color: Color
-    
-    var body: some View {
-        VStack(spacing: 2) {
-            Text(value)
-                .font(.caption)
-                .fontWeight(.semibold)
-                .foregroundColor(color)
-            Text(label)
-                .font(.caption2)
-                .foregroundColor(.secondary)
-        }
+        .padding(.leading, 16) // Indent nutrition info
     }
 }
 
@@ -444,7 +393,7 @@ struct ValidatedMenuItemDetailView: View {
                     
                     // Nutrition Information
                     if item.isValid, let nutrition = item.nutritionInfo {
-                        nutritionInfoSection(nutrition: nutrition)
+                        NutritionInfoSectionView(nutrition: nutrition)
                     } else {
                         noNutritionInfoSection
                     }
@@ -500,7 +449,7 @@ struct ValidatedMenuItemDetailView: View {
             // Analysis Status
             HStack {
                 if item.isValid {
-                    Label("Analyzed with AI + Nutritionix", systemImage: "checkmark.circle.fill")
+                    Label("Analysis Complete", systemImage: "checkmark.circle.fill")
                         .font(.caption)
                         .foregroundColor(.green)
                 } else {
@@ -515,78 +464,6 @@ struct ValidatedMenuItemDetailView: View {
             .background(item.isValid ? Color.green.opacity(0.1) : Color.red.opacity(0.1))
             .cornerRadius(8)
         }
-    }
-    
-    private func nutritionInfoSection(nutrition: NutritionInfo) -> some View {
-        VStack(alignment: .leading, spacing: 20) {
-            Text("Nutrition Information")
-                .font(.headline)
-                .fontWeight(.semibold)
-            
-            // Main macros grid
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
-                if let calories = nutrition.calories {
-                    NutritionCard(label: "Calories", value: "\(Int(calories))", unit: "kcal", color: .red, icon: "flame.fill")
-                }
-                if let protein = nutrition.protein {
-                    NutritionCard(label: "Protein", value: String(format: "%.1f", protein), unit: "g", color: .blue, icon: "figure.strengthtraining.traditional")
-                }
-                if let carbs = nutrition.carbs {
-                    NutritionCard(label: "Carbs", value: String(format: "%.1f", carbs), unit: "g", color: .orange, icon: "leaf.fill")
-                }
-                if let fat = nutrition.fat {
-                    NutritionCard(label: "Fat", value: String(format: "%.1f", fat), unit: "g", color: .green, icon: "drop.fill")
-                }
-            }
-            
-            // Additional nutrients (if available)
-            if nutrition.fiber != nil || nutrition.sodium != nil || nutrition.sugar != nil {
-                additionalNutrientsSection(nutrition)
-            }
-            
-            // Source information
-            dataSourceSection
-        }
-    }
-    
-    private func additionalNutrientsSection(_ nutrition: NutritionInfo) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Additional Nutrients")
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .foregroundColor(.secondary)
-            
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 12) {
-                if let fiber = nutrition.fiber {
-                    NutritionMiniCard(label: "Fiber", value: String(format: "%.1f", fiber), unit: "g", color: .purple)
-                }
-                if let sodium = nutrition.sodium {
-                    NutritionMiniCard(label: "Sodium", value: "\(Int(sodium))", unit: "mg", color: .pink)
-                }
-                if let sugar = nutrition.sugar {
-                    NutritionMiniCard(label: "Sugar", value: String(format: "%.1f", sugar), unit: "g", color: .yellow)
-                }
-            }
-        }
-    }
-    
-    private var dataSourceSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Image(systemName: "info.circle")
-                    .foregroundColor(.blue)
-                Text("Data Source")
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-            }
-            
-            Text("This nutrition information was obtained through AI menu parsing combined with Nutritionix's comprehensive food database, providing accurate macro and micronutrient data.")
-                .font(.caption)
-                .foregroundColor(.secondary)
-        }
-        .padding()
-        .background(Color.blue.opacity(0.1))
-        .cornerRadius(8)
     }
     
     private var noNutritionInfoSection: some View {
@@ -604,7 +481,7 @@ struct ValidatedMenuItemDetailView: View {
                     .font(.subheadline)
                     .fontWeight(.medium)
                 
-                Text("This menu item could not be successfully analyzed by the AI + Nutritionix pipeline. This could be due to unclear text recognition, an item not in the Nutritionix database, or API limitations.")
+                Text("This menu item could not be successfully analyzed. This could be due to unclear text recognition, an item not in the database, or processing limitations.")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -693,6 +570,100 @@ struct NutritionMiniCard: View {
         .padding(.vertical, 8)
         .padding(.horizontal, 6)
         .background(color.opacity(0.1))
+        .cornerRadius(8)
+    }
+}
+
+struct NutritionPreviewItem: View {
+    let label: String
+    let value: String
+    let color: Color
+    
+    var body: some View {
+        VStack(spacing: 2) {
+            Text(value)
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundColor(color)
+            Text(label)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+        }
+    }
+}
+
+struct NutritionInfoSectionView: View {
+    let nutrition: NutritionInfo
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text("Nutrition Information")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            // Main macros grid
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 16) {
+                if let calories = nutrition.calories {
+                    NutritionCard(label: "Calories", value: "\(Int(calories))", unit: "kcal", color: .red, icon: "flame.fill")
+                }
+                if let protein = nutrition.protein {
+                    NutritionCard(label: "Protein", value: String(format: "%.1f", protein), unit: "g", color: .blue, icon: "figure.strengthtraining.traditional")
+                }
+                if let carbs = nutrition.carbs {
+                    NutritionCard(label: "Carbs", value: String(format: "%.1f", carbs), unit: "g", color: .orange, icon: "leaf.fill")
+                }
+                if let fat = nutrition.fat {
+                    NutritionCard(label: "Fat", value: String(format: "%.1f", fat), unit: "g", color: .green, icon: "drop.fill")
+                }
+            }
+            
+            // Additional nutrients (if available)
+            if nutrition.fiber != nil || nutrition.sodium != nil || nutrition.sugar != nil {
+                additionalNutrientsSection(nutrition)
+            }
+            
+            // Source information
+            dataSourceSection
+        }
+    }
+    
+    private func additionalNutrientsSection(_ nutrition: NutritionInfo) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Additional Nutrients")
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.secondary)
+            
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 12) {
+                if let fiber = nutrition.fiber {
+                    NutritionMiniCard(label: "Fiber", value: String(format: "%.1f", fiber), unit: "g", color: .purple)
+                }
+                if let sodium = nutrition.sodium {
+                    NutritionMiniCard(label: "Sodium", value: "\(Int(sodium))", unit: "mg", color: .pink)
+                }
+                if let sugar = nutrition.sugar {
+                    NutritionMiniCard(label: "Sugar", value: String(format: "%.1f", sugar), unit: "g", color: .yellow)
+                }
+            }
+        }
+    }
+    
+    private var dataSourceSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: "info.circle")
+                    .foregroundColor(.blue)
+                Text("Data Source")
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+            }
+            
+            Text("This nutrition information was obtained through menu analysis and comprehensive food database lookup, providing accurate macro and micronutrient data.")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .background(Color.blue.opacity(0.1))
         .cornerRadius(8)
     }
 }

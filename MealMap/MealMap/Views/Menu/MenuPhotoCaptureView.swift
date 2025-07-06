@@ -43,23 +43,23 @@ struct MenuPhotoCaptureView: View {
     }
     
     enum ProcessingMethod: String, CaseIterable {
-        case aiNutritionix = "ai_nutritionix"    // Only AI + Nutritionix option
+        case aiNutritionix = "ai_nutritionix"    // Only nutrition analysis option
         
         var displayName: String {
             switch self {
-            case .aiNutritionix: return "AI + Nutritionix"
+            case .aiNutritionix: return "Menu Analysis"
             }
         }
         
         var description: String {
             switch self {
-            case .aiNutritionix: return "AI menu parsing with high-accuracy Nutritionix nutrition data"
+            case .aiNutritionix: return "AI menu parsing with nutrition data analysis"
             }
         }
         
         var emoji: String {
             switch self {
-            case .aiNutritionix: return "🤖🥗"
+            case .aiNutritionix: return "📱🍽️"
             }
         }
     }
@@ -358,11 +358,11 @@ struct MenuPhotoCaptureView: View {
     }
     
     private var processingStateSubtitle: String {
-        return "Using AI to parse menu structure, then Nutritionix API for accurate nutrition analysis"
+        return "Using AI to parse menu structure and analyze nutrition data"
     }
     
     private var validationStepTitle: String {
-        return "MealMap Analysis" 
+        return "Nutrition Analysis" 
     }
     
     struct ProcessingStepView: View {
