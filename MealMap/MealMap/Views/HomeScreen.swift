@@ -6,6 +6,7 @@ struct HomeScreen: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var mapViewModel = MapViewModel()
     @ObservedObject private var nutritionManager = NutritionDataManager.shared
+    @StateObject private var savedMenuManager = SavedMenuManager.shared
     
     @State private var isLoadingRestaurants = false
     @State private var hasLoadedInitialData = false
@@ -25,6 +26,7 @@ struct HomeScreen: View {
     @State private var showingMapScreen = false
     @State private var showingMenuPhotoCapture = false
     @State private var showingNutritionixSettings = false
+    @State private var selectedSavedMenu: SavedMenuAnalysis?
     
     private let categoryMapping: [String: RestaurantCategory] = [
         "Fast Food": .fastFood,
@@ -101,6 +103,9 @@ struct HomeScreen: View {
         .sheet(isPresented: $showingNutritionixSettings) {
             NutritionixSettingsView()
         }
+        .sheet(item: $selectedSavedMenu) { savedMenu in
+            SavedMenuDetailView(savedMenu: savedMenu)
+        }
     }
     
     private func clearFiltersOnHomeScreen() {
@@ -159,6 +164,7 @@ struct HomeScreen: View {
                 searchBarView
                 scanMenuCard
                 categoriesView
+                savedMenusView
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 16)
@@ -291,6 +297,86 @@ struct HomeScreen: View {
                 }
             }
         }
+    }
+    
+    private var savedMenusView: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("Saved Menus")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                if !savedMenuManager.savedMenus.isEmpty {
+                    Text("\(savedMenuManager.savedMenus.count)")
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white)
+                        .frame(width: 20, height: 20)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+            }
+            
+            if savedMenuManager.savedMenus.isEmpty {
+                savedMenusEmptyState
+            } else {
+                savedMenusCarousel
+            }
+        }
+    }
+    
+    private var savedMenusEmptyState: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "square.stack")
+                .font(.system(size: 40))
+                .foregroundColor(.gray)
+            
+            VStack(spacing: 8) {
+                Text("No Saved Menus")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.primary)
+                
+                Text("Scan a menu and save your analysis to see it here")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            
+            Button(action: {
+                showingMenuPhotoCapture = true
+            }) {
+                Text("Scan Your First Menu")
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(Color.blue)
+                    .cornerRadius(20)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 180)
+        .background(Color(.systemGray6))
+        .cornerRadius(16)
+    }
+    
+    private var savedMenusCarousel: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 16) {
+                ForEach(savedMenuManager.savedMenus) { savedMenu in
+                    SavedMenuCard(savedMenu: savedMenu) {
+                        selectedSavedMenu = savedMenu
+                    }
+                }
+            }
+            .padding(.horizontal, 4)
+        }
+        .frame(height: 200)
     }
     
     private func createRestaurantsFromNames(_ names: [String], cuisine: String) -> [Restaurant] {
@@ -530,6 +616,99 @@ struct HomeScreen: View {
             case "Taco Bell": return "🌮"
             default: return "🍽️"
             }
+        }
+    }
+}
+
+// MARK: - Saved Menu Card
+
+struct SavedMenuCard: View {
+    let savedMenu: SavedMenuAnalysis
+    let onTap: () -> Void
+    
+    var body: some View {
+        Button(action: onTap) {
+            VStack(spacing: 0) {
+                // Header with menu name and date
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Text(savedMenu.name)
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Text(savedMenu.formattedDate)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+                .padding(.bottom, 12)
+                
+                // Nutrition summary
+                VStack(spacing: 8) {
+                    HStack(spacing: 16) {
+                        NutritionStat(label: "Cal", value: "\(Int(savedMenu.totalCalories))", color: .red)
+                        NutritionStat(label: "Protein", value: "\(Int(savedMenu.totalProtein))g", color: .blue)
+                        NutritionStat(label: "Carbs", value: "\(Int(savedMenu.totalCarbs))g", color: .orange)
+                        NutritionStat(label: "Fat", value: "\(Int(savedMenu.totalFat))g", color: .green)
+                    }
+                    
+                    Text(savedMenu.displaySummary)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
+                
+                // Bottom accent bar
+                Rectangle()
+                    .fill(
+                        LinearGradient(
+                            colors: [.blue.opacity(0.3), .purple.opacity(0.3)],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .frame(height: 4)
+            }
+        }
+        .buttonStyle(.plain)
+        .frame(width: 200)
+        .background(Color(.systemBackground))
+        .cornerRadius(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color(.systemGray5), lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
+    }
+}
+
+struct NutritionStat: View {
+    let label: String
+    let value: String
+    let color: Color
+    
+    var body: some View {
+        VStack(spacing: 2) {
+            Text(value)
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundColor(color)
+            
+            Text(label)
+                .font(.caption2)
+                .foregroundColor(.secondary)
         }
     }
 }
