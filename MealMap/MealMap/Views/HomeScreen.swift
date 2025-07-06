@@ -27,6 +27,7 @@ struct HomeScreen: View {
     @State private var showingMenuPhotoCapture = false
     @State private var showingNutritionixSettings = false
     @State private var selectedSavedMenu: SavedMenuAnalysis?
+    @State private var isEditingMenus = false
     
     private let categoryMapping: [String: RestaurantCategory] = [
         "Fast Food": .fastFood,
@@ -310,13 +311,16 @@ struct HomeScreen: View {
                 Spacer()
                 
                 if !savedMenuManager.savedMenus.isEmpty {
-                    Text("\(savedMenuManager.savedMenus.count)")
-                        .font(.caption)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .frame(width: 20, height: 20)
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            isEditingMenus.toggle()
+                        }
+                    }) {
+                        Text(isEditingMenus ? "Done" : "Edit")
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundColor(.blue)
+                    }
                 }
             }
             
@@ -369,9 +373,20 @@ struct HomeScreen: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
                 ForEach(savedMenuManager.savedMenus) { savedMenu in
-                    SavedMenuCard(savedMenu: savedMenu) {
-                        selectedSavedMenu = savedMenu
-                    }
+                    SavedMenuCard(
+                        savedMenu: savedMenu,
+                        isEditMode: isEditingMenus,
+                        onTap: {
+                            if !isEditingMenus {
+                                selectedSavedMenu = savedMenu
+                            }
+                        },
+                        onDelete: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                savedMenuManager.deleteMenu(savedMenu)
+                            }
+                        }
+                    )
                 }
             }
             .padding(.horizontal, 4)
@@ -624,65 +639,91 @@ struct HomeScreen: View {
 
 struct SavedMenuCard: View {
     let savedMenu: SavedMenuAnalysis
+    let isEditMode: Bool
     let onTap: () -> Void
+    let onDelete: () -> Void
     
     var body: some View {
-        Button(action: onTap) {
-            VStack(spacing: 0) {
-                // Header with menu name and date
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text(savedMenu.name)
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                            .lineLimit(1)
+        ZStack {
+            // Main card content
+            Button(action: onTap) {
+                VStack(spacing: 0) {
+                    // Header with menu name and date
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text(savedMenu.name)
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.primary)
+                                .lineLimit(1)
+                            
+                            Spacer()
+                            
+                            if !isEditMode {
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
                         
-                        Spacer()
-                        
-                        Image(systemName: "chevron.right")
+                        Text(savedMenu.formattedDate)
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 16)
+                    .padding(.bottom, 12)
                     
-                    Text(savedMenu.formattedDate)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
-                .padding(.bottom, 12)
-                
-                // Nutrition summary
-                VStack(spacing: 8) {
-                    HStack(spacing: 16) {
-                        NutritionStat(label: "Cal", value: "\(Int(savedMenu.totalCalories))", color: .red)
-                        NutritionStat(label: "Protein", value: "\(Int(savedMenu.totalProtein))g", color: .blue)
-                        NutritionStat(label: "Carbs", value: "\(Int(savedMenu.totalCarbs))g", color: .orange)
-                        NutritionStat(label: "Fat", value: "\(Int(savedMenu.totalFat))g", color: .green)
+                    // Nutrition summary
+                    VStack(spacing: 8) {
+                        HStack(spacing: 16) {
+                            NutritionStat(label: "Cal", value: "\(Int(savedMenu.totalCalories))", color: .red)
+                            NutritionStat(label: "Protein", value: "\(Int(savedMenu.totalProtein))g", color: .blue)
+                            NutritionStat(label: "Carbs", value: "\(Int(savedMenu.totalCarbs))g", color: .orange)
+                            NutritionStat(label: "Fat", value: "\(Int(savedMenu.totalFat))g", color: .green)
+                        }
+                        
+                        Text(savedMenu.displaySummary)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
                     
-                    Text(savedMenu.displaySummary)
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
-                
-                // Bottom accent bar
-                Rectangle()
-                    .fill(
-                        LinearGradient(
-                            colors: [.blue.opacity(0.3), .purple.opacity(0.3)],
-                            startPoint: .leading,
-                            endPoint: .trailing
+                    // Bottom accent bar
+                    Rectangle()
+                        .fill(
+                            LinearGradient(
+                                colors: [.blue.opacity(0.3), .purple.opacity(0.3)],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                    )
-                    .frame(height: 4)
+                        .frame(height: 4)
+                }
+            }
+            .buttonStyle(.plain)
+            .disabled(isEditMode)
+            
+            // Delete button overlay (only visible in edit mode)
+            if isEditMode {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: onDelete) {
+                            Image(systemName: "minus.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.red)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                        }
+                        .offset(x: 8, y: -8)
+                    }
+                    Spacer()
+                }
             }
         }
-        .buttonStyle(.plain)
         .frame(width: 200)
         .background(Color(.systemBackground))
         .cornerRadius(16)
