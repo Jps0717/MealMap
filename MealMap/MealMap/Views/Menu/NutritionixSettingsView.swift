@@ -3,13 +3,108 @@ import SwiftUI
 struct NutritionixSettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var nutritionixService = NutritionixAPIService.shared
+    @StateObject private var authManager = AuthenticationManager.shared
     
     @State private var showingAPIKeySetup = false
     @State private var showingDeleteConfirmation = false
+    @State private var showingEditProfile = false
     
     var body: some View {
         NavigationView {
             List {
+                // User Information Section
+                Section {
+                    if let user = authManager.currentUser {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(user.displayName.isEmpty ? "User" : user.displayName)
+                                    .font(.headline)
+                                
+                                Text(user.email)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            
+                            Spacer()
+                            
+                            Image(systemName: "person.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
+                        
+                        if !user.profile.fullName.isEmpty {
+                            HStack {
+                                Text("Full Name")
+                                Spacer()
+                                Text(user.profile.fullName)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        
+                        HStack {
+                            Text("Member Since")
+                            Spacer()
+                            Text(user.createdAt.formatted(date: .abbreviated, time: .omitted))
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        if !user.profile.healthGoals.isEmpty {
+                            HStack {
+                                Text("Health Goals")
+                                Spacer()
+                                Text("\(user.profile.healthGoals.count) selected")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        
+                        if !user.profile.dietaryRestrictions.isEmpty {
+                            HStack {
+                                Text("Dietary Restrictions")
+                                Spacer()
+                                Text("\(user.profile.dietaryRestrictions.count) selected")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        
+                        Button("Edit Profile") {
+                            showingEditProfile = true
+                        }
+                        .foregroundColor(.blue)
+                        
+                        Button("Sign Out") {
+                            authManager.signOut()
+                            dismiss()
+                        }
+                        .foregroundColor(.red)
+                    } else {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Not Signed In")
+                                    .font(.headline)
+                                
+                                Text("Sign in to sync your preferences")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                            
+                            Spacer()
+                            
+                            Image(systemName: "person.circle")
+                                .font(.title2)
+                                .foregroundColor(.gray)
+                        }
+                        
+                        Button("Sign In") {
+                            // Reset onboarding to show auth screen
+                            authManager.resetOnboarding()
+                            dismiss()
+                        }
+                        .foregroundColor(.blue)
+                    }
+                } header: {
+                    Text("Account")
+                }
+                
                 // API Credentials Status Section
                 Section {
                     HStack {
@@ -95,23 +190,6 @@ struct NutritionixSettingsView: View {
                     }
                 }
                 
-                // Account Information Section
-                Section {
-                    Link(destination: URL(string: "https://developer.nutritionix.com/")!) {
-                        Label("Nutritionix Developer Portal", systemImage: "link")
-                    }
-                    
-                    Link(destination: URL(string: "https://www.nutritionix.com/business/api")!) {
-                        Label("View Pricing Plans", systemImage: "creditcard")
-                    }
-                    
-                    Link(destination: URL(string: "https://docs.google.com/document/d/1_q-K-ObMTZvO0qUEAxROrN3bwMujwAN25sLHwJzliK0/edit")!) {
-                        Label("API Documentation", systemImage: "book")
-                    }
-                } header: {
-                    Text("Resources")
-                }
-                
                 // Danger Zone
                 if nutritionixService.isAPICredentialsConfigured {
                     Section {
@@ -126,7 +204,7 @@ struct NutritionixSettingsView: View {
                     }
                 }
             }
-            .navigationTitle("Nutritionix Settings")
+            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -138,18 +216,6 @@ struct NutritionixSettingsView: View {
         }
         .sheet(isPresented: $showingAPIKeySetup) {
             NutritionixAPIKeySetupView()
-        }
-        .confirmationDialog(
-            "Remove API Key",
-            isPresented: $showingDeleteConfirmation,
-            titleVisibility: .visible
-        ) {
-            Button("Remove", role: .destructive) {
-                nutritionixService.clearAPICredentials()
-            }
-            Button("Cancel", role: .cancel) { }
-        } message: {
-            Text("Are you sure you want to remove your Nutritionix credentials? This will disable nutrition analysis until you add new ones.")
         }
     }
 }

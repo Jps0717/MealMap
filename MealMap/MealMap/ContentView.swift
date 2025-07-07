@@ -5,14 +5,18 @@ struct ContentView: View {
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var networkMonitor = NetworkMonitor.shared
     @StateObject private var mapViewModel = MapViewModel()
+    @StateObject private var authManager = AuthenticationManager.shared
 
     private var shouldShowLocationScreens: Bool {
-        if let _ = locationManager.locationError {
-            return true
-        } else if !hasValidLocation {
-            return true
-        } else if !networkMonitor.isConnected {
-            return true
+        // Only show location screens if user is authenticated but has location issues
+        if authManager.isAuthenticated {
+            if let _ = locationManager.locationError {
+                return true
+            } else if !hasValidLocation {
+                return true
+            } else if !networkMonitor.isConnected {
+                return true
+            }
         }
         return false
     }
@@ -25,7 +29,10 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            if shouldShowLocationScreens {
+            if authManager.shouldShowOnboarding {
+                // Show onboarding flow
+                OnboardingCoordinator()
+            } else if shouldShowLocationScreens {
                 // Show location/network error screens
                 if let locationError = locationManager.locationError {
                     NoLocationView(
@@ -56,6 +63,7 @@ struct ContentView: View {
                     )
                 }
             } else {
+                // Show main app
                 HomeScreen()
                     .environmentObject(locationManager)
                     .environmentObject(mapViewModel)
@@ -66,7 +74,6 @@ struct ContentView: View {
         .preferredColorScheme(.light)
     }
 }
-
 
 // Preview
 #Preview {

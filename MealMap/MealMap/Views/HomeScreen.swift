@@ -7,16 +7,19 @@ struct HomeScreen: View {
     @StateObject private var mapViewModel = MapViewModel()
     @ObservedObject private var nutritionManager = NutritionDataManager.shared
     @StateObject private var savedMenuManager = SavedMenuManager.shared
-    
+    @StateObject private var profileCompletionManager = ProfileCompletionManager.shared
+    @StateObject private var authManager = AuthenticationManager.shared
+    @StateObject private var mainCategoryManager = MainCategoryManager.shared
+
     @State private var isLoadingRestaurants = false
     @State private var hasLoadedInitialData = false
     @State private var showMainLoadingScreen = true
-    
+
     // ENHANCED: Loading status tracking
     @State private var loadingStatus = "Setting up MealMap..."
     @State private var loadingSubtitle = "Getting location..."
     @State private var loadingProgress: Double = 0.0
-    
+
     @State private var searchText = ""
     @State private var isSearching = false
     @State private var searchResults: [Restaurant] = []
@@ -26,17 +29,20 @@ struct HomeScreen: View {
     @State private var showingMapScreen = false
     @State private var showingMenuPhotoCapture = false
     @State private var showingNutritionixSettings = false
+    @State private var showingEditProfile = false
+    @State private var showingCustomCategories = false
     @State private var selectedSavedMenu: SavedMenuAnalysis?
     @State private var isEditingMenus = false
-    
+
     private let categoryMapping: [String: RestaurantCategory] = [
         "Fast Food": .fastFood,
         "Healthy": .healthy,
         "High Protein": .highProtein
     ]
-    
+
     private var scanMenuCard: some View {
         Button(action: {
+            HapticService.shared.menuScan()
             showingMenuPhotoCapture = true
         }) {
             HStack(spacing: 16) {
@@ -71,10 +77,11 @@ struct HomeScreen: View {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color(.systemGray5), lineWidth: 1)
             )
+            .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 2)
         }
         .buttonStyle(.plain)
     }
-    
+
     var body: some View {
         NavigationView {
             if showMainLoadingScreen {
@@ -86,6 +93,17 @@ struct HomeScreen: View {
         .onAppear {
             clearFiltersOnHomeScreen()
             startOptimizedLoading()
+            
+            // Check profile completion after a short delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                profileCompletionManager.checkProfileCompletion(for: authManager.currentUser)
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .myCategoriesChanged)) { _ in
+            // Categories will auto-update through @StateObject
+        }
+        .onDisappear {
+            // Clean up any timers when leaving the screen
         }
         .sheet(item: $selectedRestaurant) { restaurant in
             RestaurantDetailView(
@@ -104,11 +122,31 @@ struct HomeScreen: View {
         .sheet(isPresented: $showingNutritionixSettings) {
             NutritionixSettingsView()
         }
+        .sheet(isPresented: $showingEditProfile) {
+            EditProfileView()
+        }
+        .sheet(isPresented: $showingCustomCategories) {
+            CustomCategoriesView()
+        }
         .sheet(item: $selectedSavedMenu) { savedMenu in
             SavedMenuDetailView(savedMenu: savedMenu)
         }
+        .overlay {
+            if profileCompletionManager.shouldShowProfilePrompt {
+                ProfileCompletionPopup(
+                    isPresented: $profileCompletionManager.shouldShowProfilePrompt,
+                    onEditProfile: {
+                        profileCompletionManager.markPromptAsShown()
+                        showingEditProfile = true
+                    },
+                    onSkipForNow: {
+                        profileCompletionManager.dismissPrompt()
+                    }
+                )
+            }
+        }
     }
-    
+
     private func clearFiltersOnHomeScreen() {
         if mapViewModel.currentFilter.hasActiveFilters {
             updateLoadingStatus("Clearing filters", "Preparing clean experience...")
@@ -116,25 +154,25 @@ struct HomeScreen: View {
             mapViewModel.clearFiltersOnHomeScreen()
         }
     }
-    
+
     private var fullScreenLoadingView: some View {
         VStack(spacing: 24) {
             ProgressView(value: loadingProgress, total: 1.0)
                 .progressViewStyle(LinearProgressViewStyle(tint: .blue))
                 .scaleEffect(1.2)
                 .frame(width: 200)
-            
+
             VStack(spacing: 8) {
                 Text(loadingStatus)
                     .font(.headline)
                     .fontWeight(.semibold)
-                
+
                 Text(loadingSubtitle)
                     .font(.caption)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
             }
-            
+
             Text("\(Int(loadingProgress * 100))%")
                 .font(.caption2)
                 .foregroundColor(.blue)
@@ -145,7 +183,7 @@ struct HomeScreen: View {
         .navigationTitle("MealMap")
         .navigationBarHidden(true)
     }
-    
+
     private func updateLoadingStatus(_ status: String, _ subtitle: String, progress: Double? = nil) {
         Task { @MainActor in
             withAnimation(.easeInOut(duration: 0.3)) {
@@ -157,7 +195,7 @@ struct HomeScreen: View {
             }
         }
     }
-    
+
     private var mainContentView: some View {
         ScrollView {
             VStack(spacing: 32) {
@@ -174,7 +212,7 @@ struct HomeScreen: View {
         .navigationBarHidden(true)
         .background(Color(.systemBackground))
     }
-    
+
     private var headerView: some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
@@ -182,18 +220,19 @@ struct HomeScreen: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
-                
+
                 if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
                     Text("📍 \(mapViewModel.currentAreaName)")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
             }
-            
+
             Spacer()
-            
+
             HStack(spacing: 12) {
                 Button(action: {
+                    HapticService.shared.navigate()
                     showingMapScreen = true
                 }) {
                     Image(systemName: "map")
@@ -203,8 +242,9 @@ struct HomeScreen: View {
                         .background(Color.blue.opacity(0.1))
                         .cornerRadius(12)
                 }
-                
+
                 Button(action: {
+                    HapticService.shared.sheetPresent()
                     showingNutritionixSettings = true
                 }) {
                     Image(systemName: "gearshape")
@@ -217,16 +257,17 @@ struct HomeScreen: View {
             }
         }
     }
-    
+
     private var searchBarView: some View {
         Button {
+            HapticService.shared.search()
             showSearchScreen = true
         } label: {
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
                     .font(.system(size: 16, weight: .medium))
-                
+
                 Text("Search restaurants...")
                     .foregroundColor(.secondary)
                     .font(.system(size: 16))
@@ -242,7 +283,7 @@ struct HomeScreen: View {
             SearchScreen(isPresented: $showSearchScreen)
         }
     }
-    
+
     private var categoriesView: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Categories")
@@ -251,44 +292,71 @@ struct HomeScreen: View {
                 .foregroundColor(.primary)
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
-                NavigationLink(destination: CategoryListView(
-                    category: .fastFood,
-                    restaurants: getFastFoodRestaurants(),
-                    isPresented: .constant(true)
-                )) {
-                    MinimalCategoryCard(
-                        title: "Fast Food",
-                        count: getFastFoodRestaurants().count,
-                        icon: "🍔"
-                    )
+                ForEach(mainCategoryManager.myCategories) { category in
+                    if category.id == "fastFood" {
+                        NavigationLink(destination: CategoryListView(
+                            category: .fastFood,
+                            restaurants: getFastFoodRestaurants(),
+                            isPresented: .constant(true)
+                        )) {
+                            MinimalCategoryCard(
+                                title: category.name,
+                                count: nil,
+                                icon: category.icon
+                            )
+                            .onTapGesture {
+                                HapticService.shared.cardTap()
+                            }
+                        }
+                    } else if category.id == "healthy" {
+                        NavigationLink(destination: CategoryListView(
+                            category: .healthy,
+                            restaurants: getHealthyRestaurants(),
+                            isPresented: .constant(true)
+                        )) {
+                            MinimalCategoryCard(
+                                title: category.name,
+                                count: nil,
+                                icon: category.icon
+                            )
+                            .onTapGesture {
+                                HapticService.shared.cardTap()
+                            }
+                        }
+                    } else if category.id == "highProtein" {
+                        NavigationLink(destination: CategoryListView(
+                            category: .highProtein,
+                            restaurants: getHighProteinRestaurants(),
+                            isPresented: .constant(true)
+                        )) {
+                            MinimalCategoryCard(
+                                title: category.name,
+                                count: nil,
+                                icon: category.icon
+                            )
+                            .onTapGesture {
+                                HapticService.shared.cardTap()
+                            }
+                        }
+                    } else {
+                        // Other categories (Additional or Custom)
+                        Button(action: {
+                            HapticService.shared.cardTap()
+                            // Handle other category navigation
+                        }) {
+                            MinimalCategoryCard(
+                                title: category.name,
+                                count: nil,
+                                icon: category.icon
+                            )
+                        }
+                    }
                 }
                 
-                NavigationLink(destination: CategoryListView(
-                    category: .healthy,
-                    restaurants: getHealthyRestaurants(),
-                    isPresented: .constant(true)
-                )) {
-                    MinimalCategoryCard(
-                        title: "Healthy",
-                        count: getHealthyRestaurants().count,
-                        icon: "🥗"
-                    )
-                }
-                
-                NavigationLink(destination: CategoryListView(
-                    category: .highProtein,
-                    restaurants: getHighProteinRestaurants(),
-                    isPresented: .constant(true)
-                )) {
-                    MinimalCategoryCard(
-                        title: "High Protein",
-                        count: getHighProteinRestaurants().count,
-                        icon: "🥩"
-                    )
-                }
-                
+                // Always show "More" button
                 Button(action: {
-                    showingMapScreen = true // Show map for more options
+                    HapticService.shared.buttonPress()
+                    showingCustomCategories = true
                 }) {
                     MinimalCategoryCard(
                         title: "More",
@@ -299,7 +367,7 @@ struct HomeScreen: View {
             }
         }
     }
-    
+
     private var savedMenusView: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
@@ -307,11 +375,12 @@ struct HomeScreen: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
-                
+
                 Spacer()
-                
+
                 if !savedMenuManager.savedMenus.isEmpty {
                     Button(action: {
+                        HapticService.shared.toggle()
                         withAnimation(.easeInOut(duration: 0.2)) {
                             isEditingMenus.toggle()
                         }
@@ -323,7 +392,7 @@ struct HomeScreen: View {
                     }
                 }
             }
-            
+
             if savedMenuManager.savedMenus.isEmpty {
                 savedMenusEmptyState
             } else {
@@ -331,26 +400,27 @@ struct HomeScreen: View {
             }
         }
     }
-    
+
     private var savedMenusEmptyState: some View {
         VStack(spacing: 16) {
             Image(systemName: "square.stack")
                 .font(.system(size: 40))
                 .foregroundColor(.gray)
-            
+
             VStack(spacing: 8) {
                 Text("No Saved Menus")
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
-                
+
                 Text("Scan a menu and save your analysis to see it here")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
             }
-            
+
             Button(action: {
+                HapticService.shared.menuScan()
                 showingMenuPhotoCapture = true
             }) {
                 Text("Scan Your First Menu")
@@ -368,7 +438,7 @@ struct HomeScreen: View {
         .background(Color(.systemGray6))
         .cornerRadius(16)
     }
-    
+
     private var savedMenusCarousel: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 16) {
@@ -393,11 +463,11 @@ struct HomeScreen: View {
         }
         .frame(height: 200)
     }
-    
+
     private func createRestaurantsFromNames(_ names: [String], cuisine: String) -> [Restaurant] {
         let restaurants: [Restaurant] = names.compactMap { name in
             guard RestaurantData.hasNutritionData(for: name) else { return nil }
-            
+
             return Restaurant(
                 id: name.hashValue,
                 name: name,
@@ -411,10 +481,10 @@ struct HomeScreen: View {
                 type: "chain"
             )
         }
-        
+
         return restaurants.sorted { $0.name < $1.name }
     }
-    
+
     private func getFastFoodRestaurants() -> [Restaurant] {
         let fastFoodNames = [
             "7 Eleven",
@@ -450,17 +520,17 @@ struct HomeScreen: View {
 
         return createRestaurantsFromNames(fastFoodNames, cuisine: "Fast Food")
     }
-    
+
     private func getHealthyRestaurants() -> [Restaurant] {
         let healthyNames = [
             "Panera Bread", "Chipotle", "Subway", "Noodles & Company",
             "Panda Express", "Jason's Deli", "Firehouse Subs",
             "Potbelly Sandwich Shop", "Qdoba", "Moe's Southwest Grill"
         ]
-        
+
         return createRestaurantsFromNames(healthyNames, cuisine: "Healthy/Fast Casual")
     }
-    
+
     private func getHighProteinRestaurants() -> [Restaurant] {
         let highProteinNames = [
             "KFC", "Chick-fil-A", "Popeyes", "Chipotle", "Five Guys",
@@ -468,54 +538,54 @@ struct HomeScreen: View {
             "Outback Steakhouse", "LongHorn Steakhouse", "Red Lobster",
             "TGI Friday's", "Applebee's", "Red Robin"
         ]
-        
+
         return createRestaurantsFromNames(highProteinNames, cuisine: "High Protein")
     }
-    
+
     private func startOptimizedLoading() {
         if hasLoadedInitialData {
             showMainLoadingScreen = false
             return
         }
-        
+
         Task { @MainActor in
             updateLoadingStatus("Getting Location", "Requesting location permission...", progress: 0.2)
             locationManager.requestLocationPermission()
-            
+
             updateLoadingStatus("Initializing", "Setting up nutrition database...", progress: 0.4)
-            
+
             await nutritionManager.initializeIfNeeded()
-            
+
             updateLoadingStatus("Finding Location", "Getting your location...", progress: 0.6)
             var attempts = 0
             while locationManager.lastLocation == nil && attempts < 15 {
                 try? await Task.sleep(nanoseconds: 200_000_000)
                 attempts += 1
-                
+
                 let waitProgress = 0.6 + (Double(attempts) / 15.0) * 0.2
                 updateLoadingStatus("Finding Location", "GPS signal: \(attempts * 7)%...", progress: waitProgress)
             }
-            
+
             updateLoadingStatus("Almost Ready", "Finalizing setup...", progress: 0.9)
-            
+
             if let userLocation = locationManager.lastLocation?.coordinate {
                 mapViewModel.region = MKCoordinateRegion(
                     center: userLocation,
                     span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 )
             }
-            
+
             hasLoadedInitialData = true
             updateLoadingStatus("Ready!", "Welcome to MealMap!", progress: 1.0)
-            
+
             try? await Task.sleep(nanoseconds: 300_000_000)
-            
+
             withAnimation(.easeInOut(duration: 0.3)) {
                 showMainLoadingScreen = false
             }
         }
     }
-    
+
     struct MinimalCategoryCard: View {
         let title: String
         let count: Int?
@@ -531,13 +601,6 @@ struct HomeScreen: View {
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
-                    
-                    if let count = count {
-                        Text("\(count) restaurants")
-                            .font(.caption)
-                            .foregroundColor(.blue)
-                            .fontWeight(.medium)
-                    }
                 }
             }
             .frame(maxWidth: .infinity)
@@ -548,24 +611,25 @@ struct HomeScreen: View {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color(.systemGray5), lineWidth: 1)
             )
+            .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 2)
         }
     }
 
     struct CategoryCardView: View {
         let category: String
         let count: Int
-        
+
         var body: some View {
             VStack(spacing: 12) {
                 Text(getCategoryIcon(category))
                     .font(.system(size: 28))
-                
+
                 VStack(spacing: 4) {
                     Text(category)
                         .font(.headline)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
-                    
+
                     Text("\(count) restaurants")
                         .font(.caption)
                         .foregroundColor(.blue)
@@ -581,7 +645,7 @@ struct HomeScreen: View {
                     .stroke(Color(.systemGray5), lineWidth: 1)
             )
         }
-        
+
         private func getCategoryIcon(_ category: String) -> String {
             switch category {
             case "Fast Food": return "🍔"
@@ -595,7 +659,7 @@ struct HomeScreen: View {
     struct StaticChainCardView: View {
         let chainName: String
         let onTap: () -> Void
-        
+
         var body: some View {
             Button(action: onTap) {
                 VStack(spacing: 8) {
@@ -604,7 +668,7 @@ struct HomeScreen: View {
                         .frame(width: 40, height: 40)
                         .background(Color.blue.opacity(0.1))
                         .cornerRadius(8)
-                
+
                     Text(chainName)
                         .font(.caption)
                         .fontWeight(.semibold)
@@ -620,7 +684,7 @@ struct HomeScreen: View {
             }
             .buttonStyle(PlainButtonStyle())
         }
-        
+
         private func getChainEmoji(_ name: String) -> String {
             switch name {
             case "McDonald's": return "🍔"
@@ -642,7 +706,7 @@ struct SavedMenuCard: View {
     let isEditMode: Bool
     let onTap: () -> Void
     let onDelete: () -> Void
-    
+
     var body: some View {
         ZStack {
             // Main card content
@@ -656,16 +720,16 @@ struct SavedMenuCard: View {
                                 .fontWeight(.semibold)
                                 .foregroundColor(.primary)
                                 .lineLimit(1)
-                            
+
                             Spacer()
-                            
+
                             if !isEditMode {
                                 Image(systemName: "chevron.right")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
                         }
-                        
+
                         Text(savedMenu.formattedDate)
                             .font(.caption)
                             .foregroundColor(.secondary)
@@ -673,7 +737,7 @@ struct SavedMenuCard: View {
                     .padding(.horizontal, 16)
                     .padding(.top, 16)
                     .padding(.bottom, 12)
-                    
+
                     // Nutrition summary
                     VStack(spacing: 8) {
                         HStack(spacing: 16) {
@@ -682,7 +746,7 @@ struct SavedMenuCard: View {
                             NutritionStat(label: "Carbs", value: "\(Int(savedMenu.totalCarbs))g", color: .orange)
                             NutritionStat(label: "Fat", value: "\(Int(savedMenu.totalFat))g", color: .green)
                         }
-                        
+
                         Text(savedMenu.displaySummary)
                             .font(.caption2)
                             .foregroundColor(.secondary)
@@ -690,7 +754,7 @@ struct SavedMenuCard: View {
                     }
                     .padding(.horizontal, 16)
                     .padding(.bottom, 16)
-                    
+
                     // Bottom accent bar
                     Rectangle()
                         .fill(
@@ -705,7 +769,7 @@ struct SavedMenuCard: View {
             }
             .buttonStyle(.plain)
             .disabled(isEditMode)
-            
+
             // Delete button overlay (only visible in edit mode)
             if isEditMode {
                 VStack {
@@ -739,14 +803,14 @@ struct NutritionStat: View {
     let label: String
     let value: String
     let color: Color
-    
+
     var body: some View {
         VStack(spacing: 2) {
             Text(value)
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundColor(color)
-            
+
             Text(label)
                 .font(.caption2)
                 .foregroundColor(.secondary)
