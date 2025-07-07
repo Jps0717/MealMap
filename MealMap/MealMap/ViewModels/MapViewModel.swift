@@ -60,31 +60,53 @@ final class MapViewModel: ObservableObject {
         return region.span.latitudeDelta > 0.02 && !showSearchResults
     }
 
-    // ENHANCED: Always show restaurants with nutrition data only
+    // ENHANCED: Show ALL restaurants but prioritize those with nutrition data
     var allAvailableRestaurants: [Restaurant] {
         debugLog(" 🍽️ MapViewModel - allAvailableRestaurants called")
         debugLog(" 🍽️ MapViewModel - Raw restaurants count: \(restaurants.count)")
         
-        // FEATURE: Show only restaurants with nutrition data
-        let nutritionRestaurants = restaurants.filter { restaurant in
-            restaurant.hasNutritionData
-        }
+        // UPDATED: Show ALL restaurants, not just nutrition ones
+        let allRestaurants = restaurants
         
-        debugLog(" 🍽️ MapViewModel - Nutrition restaurants: \(nutritionRestaurants.count)")
+        debugLog(" 🍽️ MapViewModel - All restaurants: \(allRestaurants.count)")
         debugLog(" 🍽️ MapViewModel - Filter active: \(currentFilter.hasActiveFilters)")
         
         if !currentFilter.isEmpty {
-            let filtered = nutritionRestaurants.filter { restaurant in
+            let filtered = allRestaurants.filter { restaurant in
                 currentFilter.matchesRestaurant(restaurant, userLocation: userLocation)
             }
             debugLog(" 🍽️ MapViewModel - Filtered to \(filtered.count) restaurants")
-            return filtered
+            return sortRestaurantsByPriority(filtered)
         }
         
-        debugLog(" 🍽️ MapViewModel - Returning \(nutritionRestaurants.count) nutrition restaurants")
-        return nutritionRestaurants
+        debugLog(" 🍽️ MapViewModel - Returning \(allRestaurants.count) all restaurants (sorted by priority)")
+        return sortRestaurantsByPriority(allRestaurants)
+    }
+    
+    // ENHANCED: Sort restaurants to prioritize nutrition data availability
+    private func sortRestaurantsByPriority(_ restaurants: [Restaurant]) -> [Restaurant] {
+        return restaurants.sorted { restaurant1, restaurant2 in
+            // First priority: Nutrition data availability
+            let hasNutrition1 = restaurant1.hasNutritionData
+            let hasNutrition2 = restaurant2.hasNutritionData
+            
+            if hasNutrition1 != hasNutrition2 {
+                return hasNutrition1 // Nutrition restaurants first
+            }
+            
+            // Second priority: Distance from user (if available)
+            if let userLocation = userLocation {
+                let distance1 = restaurant1.distanceFrom(userLocation)
+                let distance2 = restaurant2.distanceFrom(userLocation)
+                return distance1 < distance2
+            }
+            
+            // Third priority: Alphabetical by name
+            return restaurant1.name < restaurant2.name
+        }
     }
 
+    // NEW: Sort restaurants within search radius to prioritize nutrition data availability
     var restaurantsWithinSearchRadius: [Restaurant] {
         debugLog(" 🍽️ MapViewModel - restaurantsWithinSearchRadius called")
         

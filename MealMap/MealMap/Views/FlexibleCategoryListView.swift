@@ -1,9 +1,8 @@
 import SwiftUI
 import CoreLocation
 
-struct CategoryListView: View {
-    let category: RestaurantCategory
-    let restaurants: [Restaurant]
+struct FlexibleCategoryListView: View {
+    let userCategory: UserCategory
     @Binding var isPresented: Bool
     
     @StateObject private var locationManager = LocationManager.shared
@@ -16,9 +15,9 @@ struct CategoryListView: View {
     @State private var errorMessage: String?
     @State private var showingLoadingDetails = false
     
-    // ENHANCED: Category-specific restaurant filtering
+    // Enhanced: Category-specific restaurant filtering
     private var allCategoryRestaurants: [Restaurant] {
-        let restaurants = fetchedRestaurants.isEmpty ? restaurants : fetchedRestaurants
+        let restaurants = fetchedRestaurants
         
         // Sort by distance from user if location is available
         guard let userLocation = locationManager.lastLocation?.coordinate else {
@@ -64,7 +63,12 @@ struct CategoryListView: View {
                 .ignoresSafeArea()
                 
                 if isLoadingRestaurants {
-                    // Removed CategoryLoadingView - using the one from LoadingView.swift
+                    LoadingView(
+                        title: "Finding \(userCategory.name) Restaurants",
+                        subtitle: "Searching within 5 miles...",
+                        style: .fullScreen
+                    )
+                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
                 } else {
                     mainContent
                         .transition(.opacity.combined(with: .move(edge: .bottom)))
@@ -75,12 +79,18 @@ struct CategoryListView: View {
             .navigationBarHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        isPresented = false
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.primary)
+                    if isLoadingRestaurants {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                            .progressViewStyle(CircularProgressViewStyle(tint: getCategoryColor()))
+                    } else {
+                        Button(action: {
+                            isPresented = false
+                        }) {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.primary)
+                        }
                     }
                 }
             }
@@ -90,7 +100,7 @@ struct CategoryListView: View {
                 RestaurantDetailView(
                     restaurant: restaurant,
                     isPresented: $showingRestaurantDetail,
-                    selectedCategory: category
+                    selectedCategory: mapUserCategoryToRestaurantCategory()
                 )
                 .preferredColorScheme(.light)
             }
@@ -103,26 +113,23 @@ struct CategoryListView: View {
     // MARK: - Fetch Category-Specific Restaurants
     private func fetchCategoryRestaurants() {
         guard let userLocation = locationManager.lastLocation?.coordinate else {
-            print("❌ CategoryListView: No user location available")
-            // Use provided restaurants if no location
+            print("❌ FlexibleCategoryListView: No user location available")
             isLoadingRestaurants = false
             return
         }
         
-        print("🍽️ CategoryListView: Fetching \(category.displayName) restaurants near \(userLocation)")
+        print("🍽️ FlexibleCategoryListView: Fetching \(userCategory.name) restaurants near \(userLocation)")
         
         Task {
             do {
                 showingLoadingDetails = true
                 
-                // ENHANCED: Support for both RestaurantCategory and UserCategory
-                let dietTag = getDietTagForCategory() ?? getDietTagForUserCategory("vegan")
-                
                 // ENHANCED: Use diet-specific search for categories with good OSM coverage
                 let allRestaurants: [Restaurant]
                 let searchMethod: String
                 
-                if let dietTag = dietTag {
+                if let dietTag = getDietTagForCategory() {
+                    print("🎯 FlexibleCategoryListView: Using diet:\(dietTag) search for \(userCategory.name)")
                     allRestaurants = try await overpassService.fetchRestaurantsByDiet(
                         diet: dietTag,
                         near: userLocation,
@@ -130,14 +137,15 @@ struct CategoryListView: View {
                     )
                     searchMethod = "diet:\(dietTag)"
                 } else {
+                    print("🍽️ FlexibleCategoryListView: Using general restaurant search for \(userCategory.name)")
                     allRestaurants = try await overpassService.fetchAllNearbyRestaurants(
                         near: userLocation, 
                         radius: 5.0
                     )
-                    searchMethod = "amenity filtering"
+                    searchMethod = "general filtering"
                 }
                 
-                print("🍽️ CategoryListView: Received \(allRestaurants.count) total restaurants from API")
+                print("🍽️ FlexibleCategoryListView: Received \(allRestaurants.count) total restaurants from API")
                 
                 await MainActor.run {
                     let finalRestaurants: [Restaurant]
@@ -145,19 +153,13 @@ struct CategoryListView: View {
                     if searchMethod.starts(with: "diet:") {
                         // For diet-based searches, show ALL results (already filtered by API)
                         finalRestaurants = Array(allRestaurants.prefix(100))
-                        print("🎯 CategoryListView: Showing all \(finalRestaurants.count) \(searchMethod) restaurants")
+                        print("🎯 FlexibleCategoryListView: Showing all \(finalRestaurants.count) \(searchMethod) restaurants")
                     } else {
-                        // For other categories, apply filtering
-                        print("🍽️ CategoryListView: Filtering restaurants for \(category.displayName)...")
-                        let categoryRestaurants = filterRestaurantsByCategory(allRestaurants)
+                        // For other categories, apply manual filtering
+                        print("🍽️ FlexibleCategoryListView: Filtering restaurants for \(userCategory.name)...")
+                        let categoryRestaurants = filterRestaurantsByUserCategory(allRestaurants)
                         finalRestaurants = Array(categoryRestaurants.prefix(100))
-                        print("🍽️ CategoryListView: After filtering: \(finalRestaurants.count) restaurants match category")
-                    }
-                    
-                    // Show first few restaurant names for debugging
-                    if !finalRestaurants.isEmpty {
-                        let sampleNames = finalRestaurants.prefix(3).map { "\($0.name) (\($0.amenityType ?? "unknown"))" }
-                        print("🍽️ CategoryListView: Sample restaurants: \(sampleNames)")
+                        print("🍽️ FlexibleCategoryListView: After filtering: \(finalRestaurants.count) restaurants match category")
                     }
                     
                     fetchedRestaurants = finalRestaurants
@@ -165,26 +167,14 @@ struct CategoryListView: View {
                     showingLoadingDetails = false
                     errorMessage = nil
                     
-                    print("🍽️ CategoryListView: Final results - \(finalRestaurants.count) restaurants for \(category.displayName)")
+                    print("🍽️ FlexibleCategoryListView: Final results - \(finalRestaurants.count) restaurants for \(userCategory.name)")
                     print("🍽️ With nutrition: \(nutritionRestaurants.count)")
                     print("🍽️ Without nutrition: \(nonNutritionRestaurants.count)")
-                    
-                    // Enhanced debugging for the split
-                    if finalRestaurants.count > 0 {
-                        let nutritionCount = finalRestaurants.filter { RestaurantData.hasNutritionData(for: $0.name) }.count
-                        let nonNutritionCount = finalRestaurants.count - nutritionCount
-                        print("🍽️ SPLIT DEBUG: \(nutritionCount) with nutrition, \(nonNutritionCount) without nutrition")
-                        
-                        if nonNutritionCount > 0 {
-                            let sampleNonNutrition = finalRestaurants.filter { !RestaurantData.hasNutritionData(for: $0.name) }.prefix(3).map { $0.name }
-                            print("🍽️ Sample non-nutrition restaurants: \(sampleNonNutrition)")
-                        }
-                    }
                 }
                 
             } catch {
                 await MainActor.run {
-                    print("❌ CategoryListView: Error fetching restaurants: \(error.localizedDescription)")
+                    print("❌ FlexibleCategoryListView: Error fetching restaurants: \(error.localizedDescription)")
                     errorMessage = error.localizedDescription
                     isLoadingRestaurants = false
                     showingLoadingDetails = false
@@ -195,30 +185,19 @@ struct CategoryListView: View {
     
     // Helper to get diet tag for any category
     private func getDietTagForCategory() -> String? {
-        // First check if it's a main RestaurantCategory
-        switch category {
-        case .highProtein:
+        switch userCategory.id {
+        case "highProtein":
             return "meat"
-        case .healthy:
+        case "healthy":
             return "vegetarian"
-        case .fastFood:
-            return nil // Use traditional filtering
-        }
-    }
-    
-    // Helper to get diet tag for UserCategory (additional categories)
-    private func getDietTagForUserCategory(_ categoryId: String) -> String? {
-        switch categoryId {
         case "vegan":
             return "vegan"
         case "glutenFree":
             return "gluten_free"
-        case "lowCarb":
-            return "meat" // Low carb often means meat-focused
-        case "keto":
-            return "meat" // Keto is typically meat + fat focused
+        case "lowCarb", "keto":
+            return "meat" // Low carb and keto are often meat-focused
         default:
-            return nil
+            return nil // Use traditional filtering
         }
     }
     
@@ -231,103 +210,59 @@ struct CategoryListView: View {
         }
     }
     
-    // ENHANCED: Comprehensive category-based restaurant filtering
-    private func filterRestaurantsByCategory(_ restaurants: [Restaurant]) -> [Restaurant] {
-        print(" FilterRestaurants: Starting with \(restaurants.count) restaurants for \(category.displayName)")
-        
-        let filtered = restaurants.filter { restaurant in
-            switch category {
-            case .fastFood:
-                // Include all fast food + nutrition chains + specific fast food terms
-                let name = restaurant.name.lowercased()
-                return RestaurantData.hasNutritionData(for: restaurant.name) ||
-                       restaurant.amenityType == "fast_food" ||
-                       name.contains("burger") ||
-                       name.contains("pizza") ||
-                       name.contains("taco") ||
-                       name.contains("chicken") ||
-                       name.contains("mcdonald") ||
-                       name.contains("kfc") ||
-                       name.contains("subway") ||
-                       name.contains("drive")
-                
-            case .healthy:
-                // Include most restaurants except clearly unhealthy ones
-                let name = restaurant.name.lowercased()
+    // Helper to get category color
+    private func getCategoryColor() -> Color {
+        switch userCategory.id {
+        case "fastFood":
+            return .orange
+        case "healthy":
+            return .green
+        case "highProtein":
+            return .red
+        case "vegan":
+            return .green
+        case "glutenFree":
+            return .orange
+        case "lowCarb", "keto":
+            return .purple
+        default:
+            return .blue
+        }
+    }
+    
+    // Map UserCategory to RestaurantCategory for RestaurantDetailView
+    private func mapUserCategoryToRestaurantCategory() -> RestaurantCategory? {
+        switch userCategory.id {
+        case "fastFood":
+            return .fastFood
+        case "healthy":
+            return .healthy
+        case "highProtein":
+            return .highProtein
+        default:
+            return nil // Additional categories don't map to RestaurantCategory
+        }
+    }
+    
+    // Traditional filtering for categories without diet tags
+    private func filterRestaurantsByUserCategory(_ restaurants: [Restaurant]) -> [Restaurant] {
+        switch userCategory.id {
+        case "fastFood":
+            return restaurants.filter { restaurant in
+                RestaurantData.hasNutritionData(for: restaurant.name) ||
+                restaurant.amenityType == "fast_food" ||
+                restaurant.name.lowercased().contains("burger") ||
+                restaurant.name.lowercased().contains("pizza") ||
+                restaurant.name.lowercased().contains("taco") ||
+                restaurant.name.lowercased().contains("chicken")
+            }
+        default:
+            // For custom categories, include most restaurants
+            return restaurants.filter { restaurant in
                 let amenity = restaurant.amenityType ?? ""
-                
-                let excludeUnhealthy = name.contains("donut") ||
-                                      name.contains("candy") ||
-                                      amenity == "ice_cream"
-                
-                return !excludeUnhealthy
-                
-            case .highProtein:
-                // COMPREHENSIVE: Include ALL restaurants that could have high protein options
-                let name = restaurant.name.lowercased()
-                let cuisine = restaurant.cuisine?.lowercased() ?? ""
-                let amenity = restaurant.amenityType ?? ""
-                
-                // Include ALL restaurants and fast food by default
-                let includeByType = amenity == "restaurant" ||
-                                   amenity == "fast_food" ||
-                                   amenity == "cafe" ||
-                                   amenity == "pub" ||
-                                   amenity == "bar"
-                
-                // Include specific high protein cuisines and terms
-                let includeByKeywords = name.contains("grill") ||
-                                       name.contains("steakhouse") ||
-                                       name.contains("bbq") ||
-                                       name.contains("barbecue") ||
-                                       name.contains("chicken") ||
-                                       name.contains("beef") ||
-                                       name.contains("steak") ||
-                                       name.contains("wings") ||
-                                       name.contains("burger") ||
-                                       name.contains("meat") ||
-                                       name.contains("seafood") ||
-                                       name.contains("fish") ||
-                                       name.contains("salmon") ||
-                                       name.contains("crab") ||
-                                       name.contains("lobster") ||
-                                       cuisine.contains("steak") ||
-                                       cuisine.contains("barbecue") ||
-                                       cuisine.contains("grill") ||
-                                       cuisine.contains("american") ||
-                                       cuisine.contains("seafood") ||
-                                       cuisine.contains("mexican") ||
-                                       cuisine.contains("tex-mex") ||
-                                       cuisine.contains("indian") ||
-                                       cuisine.contains("chinese") ||
-                                       cuisine.contains("italian") ||
-                                       cuisine.contains("burger")
-                
-                // Include all nutrition chains (they likely have protein options)
-                let includeNutritionChains = RestaurantData.hasNutritionData(for: restaurant.name)
-                
-                // Only exclude places that clearly don't serve substantial protein
-                let excludeNonProtein = amenity == "ice_cream" ||
-                                       amenity == "bakery" ||
-                                       name.contains("ice cream") ||
-                                       name.contains("donut") ||
-                                       name.contains("candy") ||
-                                       name.contains("juice bar") ||
-                                       name.contains("smoothie bar") ||
-                                       cuisine.contains("ice_cream") ||
-                                       cuisine.contains("dessert")
-                
-                return (includeByType || includeByKeywords || includeNutritionChains) && !excludeNonProtein
+                return amenity == "restaurant" || amenity == "fast_food" || amenity == "cafe"
             }
         }
-        
-        print(" FilterRestaurants: After filtering \(category.displayName): \(filtered.count) restaurants")
-        if !filtered.isEmpty {
-            let sampleNames = filtered.prefix(3).map { "\($0.name) (\($0.amenityType ?? "unknown"))" }
-            print(" FilterRestaurants: Sample results: \(sampleNames)")
-        }
-        
-        return filtered
     }
     
     // MARK: - Main Content
@@ -354,7 +289,7 @@ struct CategoryListView: View {
                     .foregroundColor(.secondary)
                     .font(.system(size: 16))
                 
-                TextField("Search \(category.displayName.lowercased()) restaurants...", text: $searchText)
+                TextField("Search \(userCategory.name.lowercased()) restaurants...", text: $searchText)
                     .font(.system(size: 16))
                 
                 if !searchText.isEmpty {
@@ -438,9 +373,9 @@ struct CategoryListView: View {
             if !filteredNutritionRestaurants.isEmpty {
                 Section {
                     ForEach(filteredNutritionRestaurants, id: \.id) { restaurant in
-                        CategoryRestaurantRow(
+                        FlexibleCategoryRestaurantRow(
                             restaurant: restaurant,
-                            category: category,
+                            userCategory: userCategory,
                             hasNutrition: true,
                             onTap: {
                                 selectedRestaurant = restaurant
@@ -465,9 +400,9 @@ struct CategoryListView: View {
             if !filteredNonNutritionRestaurants.isEmpty {
                 Section {
                     ForEach(filteredNonNutritionRestaurants, id: \.id) { restaurant in
-                        CategoryRestaurantRow(
+                        FlexibleCategoryRestaurantRow(
                             restaurant: restaurant,
-                            category: category,
+                            userCategory: userCategory,
                             hasNutrition: false,
                             onTap: {
                                 selectedRestaurant = restaurant
@@ -480,7 +415,7 @@ struct CategoryListView: View {
                         Image(systemName: "location.fill")
                             .foregroundColor(.blue)
                             .font(.system(size: 14))
-                        Text("Nearby \(category.displayName) Restaurants")
+                        Text("Nearby \(userCategory.name) Restaurants")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.primary)
                     }
@@ -523,7 +458,7 @@ struct CategoryListView: View {
                     .foregroundColor(.white)
                     .padding(.horizontal, 24)
                     .padding(.vertical, 12)
-                    .background(category.color)
+                    .background(getCategoryColor())
                     .cornerRadius(8)
             }
             
@@ -537,11 +472,11 @@ struct CategoryListView: View {
         VStack(spacing: 20) {
             Spacer()
             
-            Text(category.emoji)
+            Text(userCategory.icon)
                 .font(.system(size: 64))
             
             VStack(spacing: 8) {
-                Text("No \(category.displayName) Restaurants Found")
+                Text("No \(userCategory.name) Restaurants Found")
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.primary)
                 
@@ -559,7 +494,7 @@ struct CategoryListView: View {
                     .foregroundColor(.white)
                     .padding(.horizontal, 24)
                     .padding(.vertical, 12)
-                    .background(category.color)
+                    .background(getCategoryColor())
                     .cornerRadius(8)
             }
             
@@ -569,14 +504,33 @@ struct CategoryListView: View {
     }
 }
 
-// MARK: - Category Restaurant Row
-struct CategoryRestaurantRow: View {
+// MARK: - Flexible Category Restaurant Row
+struct FlexibleCategoryRestaurantRow: View {
     let restaurant: Restaurant
-    let category: RestaurantCategory
+    let userCategory: UserCategory
     let hasNutrition: Bool
     let onTap: () -> Void
     
     @State private var isPressed = false
+    
+    private var categoryColor: Color {
+        switch userCategory.id {
+        case "fastFood":
+            return .orange
+        case "healthy":
+            return .green
+        case "highProtein":
+            return .red
+        case "vegan":
+            return .green
+        case "glutenFree":
+            return .orange
+        case "lowCarb", "keto":
+            return .purple
+        default:
+            return .blue
+        }
+    }
     
     var body: some View {
         Button(action: onTap) {
@@ -584,7 +538,7 @@ struct CategoryRestaurantRow: View {
                 // Restaurant icon with nutrition indicator
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(hasNutrition ? Color.green.opacity(0.1) : category.color.opacity(0.1))
+                        .fill(hasNutrition ? Color.green.opacity(0.1) : categoryColor.opacity(0.1))
                         .frame(width: 60, height: 60)
                     
                     VStack(spacing: 4) {
@@ -604,7 +558,7 @@ struct CategoryRestaurantRow: View {
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(hasNutrition ? Color.green : category.color, lineWidth: 2)
+                        .stroke(hasNutrition ? Color.green : categoryColor, lineWidth: 2)
                 )
                 
                 // Restaurant details
@@ -685,7 +639,7 @@ struct CategoryRestaurantRow: View {
             .overlay(
                 HStack {
                     RoundedRectangle(cornerRadius: 2)
-                        .fill(hasNutrition ? Color.green : category.color)
+                        .fill(hasNutrition ? Color.green : categoryColor)
                         .frame(width: 4)
                     Spacer()
                 }
@@ -704,35 +658,9 @@ struct CategoryRestaurantRow: View {
     }
 }
 
-// MARK: - Restaurant Category Extensions
-extension RestaurantCategory {
-    var displayName: String {
-        switch self {
-        case .fastFood:
-            return "Fast Food"
-        case .healthy:
-            return "Healthy"
-        case .highProtein:
-            return "High Protein"
-        }
-    }
-    
-    var emoji: String {
-        switch self {
-        case .fastFood:
-            return "🍔"
-        case .healthy:
-            return "🥗"
-        case .highProtein:
-            return "🥩"
-        }
-    }
-}
-
 #Preview {
-    CategoryListView(
-        category: .fastFood,
-        restaurants: [],
+    FlexibleCategoryListView(
+        userCategory: UserCategory(id: "vegan", name: "Vegan", icon: "🌱", type: .additional, order: 0),
         isPresented: .constant(true)
     )
 }

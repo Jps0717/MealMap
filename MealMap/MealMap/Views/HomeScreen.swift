@@ -290,81 +290,51 @@ struct HomeScreen: View {
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.primary)
-            
+
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
-                ForEach(mainCategoryManager.myCategories) { category in
-                    if category.id == "fastFood" {
-                        NavigationLink(destination: CategoryListView(
-                            category: .fastFood,
-                            restaurants: getFastFoodRestaurants(),
-                            isPresented: .constant(true)
-                        )) {
-                            MinimalCategoryCard(
-                                title: category.name,
-                                count: nil,
-                                icon: category.icon
-                            )
-                            .onTapGesture {
-                                HapticService.shared.cardTap()
-                            }
-                        }
-                    } else if category.id == "healthy" {
-                        NavigationLink(destination: CategoryListView(
-                            category: .healthy,
-                            restaurants: getHealthyRestaurants(),
-                            isPresented: .constant(true)
-                        )) {
-                            MinimalCategoryCard(
-                                title: category.name,
-                                count: nil,
-                                icon: category.icon
-                            )
-                            .onTapGesture {
-                                HapticService.shared.cardTap()
-                            }
-                        }
-                    } else if category.id == "highProtein" {
-                        NavigationLink(destination: CategoryListView(
-                            category: .highProtein,
-                            restaurants: getHighProteinRestaurants(),
-                            isPresented: .constant(true)
-                        )) {
-                            MinimalCategoryCard(
-                                title: category.name,
-                                count: nil,
-                                icon: category.icon
-                            )
-                            .onTapGesture {
-                                HapticService.shared.cardTap()
-                            }
-                        }
-                    } else {
-                        // Other categories (Additional or Custom)
-                        Button(action: {
-                            HapticService.shared.cardTap()
-                            // Handle other category navigation
-                        }) {
-                            MinimalCategoryCard(
-                                title: category.name,
-                                count: nil,
-                                icon: category.icon
-                            )
-                        }
+                // Dynamic categories from MainCategoryManager
+                ForEach(mainCategoryManager.myCategories.prefix(3), id: \.id) { userCategory in
+                    // FIXED: Navigate to FlexibleCategoryListView for ALL categories
+                    NavigationLink(destination: FlexibleCategoryListView(
+                        userCategory: userCategory,
+                        isPresented: .constant(true)
+                    )) {
+                        MinimalCategoryCard(
+                            title: userCategory.name,
+                            count: nil,
+                            icon: userCategory.icon
+                        )
                     }
                 }
                 
-                // Always show "More" button
-                Button(action: {
-                    HapticService.shared.buttonPress()
-                    showingCustomCategories = true
-                }) {
-                    MinimalCategoryCard(
-                        title: "More",
-                        count: nil,
-                        icon: "•••"
-                    )
+                // Add "More" button if we have less than maximum categories or available categories to add
+                if mainCategoryManager.myCategories.count < 3 || !mainCategoryManager.getAvailableCategoriesNotInMy().isEmpty {
+                    Button(action: {
+                        showingCustomCategories = true
+                    }) {
+                        MinimalCategoryCard(
+                            title: "More",
+                            count: nil,
+                            icon: "•••"
+                        )
+                    }
                 }
             }
+        }
+    }
+    
+    // Helper function to map UserCategory to RestaurantCategory
+    private func mapUserCategoryToRestaurantCategory(_ userCategory: UserCategory) -> RestaurantCategory? {
+        switch userCategory.id {
+        case "fastFood":
+            return .fastFood
+        case "healthy":
+            return .healthy
+        case "highProtein":
+            return .highProtein
+        default:
+            // Custom categories or additional categories that don't map directly
+            return nil
         }
     }
 
