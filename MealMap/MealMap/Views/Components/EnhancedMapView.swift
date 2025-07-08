@@ -99,19 +99,64 @@ struct EnhancedMapView: View {
                 Spacer()
             }
             
-            // Bottom right buttons - Loading indicator and Fresh button
+            // Loading indicator - CENTERED
+            if viewModel.isLoadingRestaurants {
+                VStack {
+                    Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        
+                        VStack(spacing: 16) {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .scaleEffect(1.5)
+                            
+                            VStack(spacing: 8) {
+                                Text("Loading restaurants...")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(.primary)
+                                
+                                // Beta disclaimer
+                                HStack(spacing: 6) {
+                                    Text("BETA")
+                                        .font(.system(size: 10, weight: .bold))
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 3)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 4)
+                                                .fill(Color.orange)
+                                        )
+                                    
+                                    Text("Not all restaurants available")
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 20)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color(.systemBackground))
+                                .shadow(color: Color.black.opacity(0.1), radius: 8, y: 4)
+                        )
+                        
+                        Spacer()
+                    }
+                    
+                    Spacer()
+                }
+                .transition(.opacity.combined(with: .scale(scale: 0.9)))
+            }
+
+            // Bottom right buttons - Fresh button only
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
                     VStack(spacing: 16) {
-                        // Loading indicator
-                        if viewModel.isLoadingRestaurants {
-                            ProgressView()
-                                .progressViewStyle(CircularProgressViewStyle())
-                                .scaleEffect(1.2)
-                        }
-                        
                         // Fresh/Refresh button
                         Button(action: {
                             debugLog(" User tapped FRESH location refresh")
@@ -226,20 +271,17 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
     let onZoomLevelChange: (CLLocationDegrees) -> Void
     let onRestaurantTap: (Restaurant) -> Void
     
-    private let pinHideThreshold: CLLocationDegrees = 0.02  // Hide pins when zoomed out beyond ~22km span
-    private let maxLatitudeDelta: CLLocationDegrees = 0.5  // About 55km max zoom out
-    private let maxLongitudeDelta: CLLocationDegrees = 0.5 // About 55km max zoom out
-    private let minLatitudeDelta: CLLocationDegrees = 0.001 // About 110m min zoom in
-    private let minLongitudeDelta: CLLocationDegrees = 0.001 // About 110m min zoom in
-    
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
-        mapView.showsUserLocation = false
-        mapView.userTrackingMode = .none
         mapView.mapType = .standard
+        mapView.showsUserLocation = true  // Enable built-in user location
+        mapView.userTrackingMode = .none
         
-        // Disable expensive features for better performance
+        // DISABLE ALL APPLE MAPS POINTS OF INTEREST
+        mapView.pointOfInterestFilter = .excludingAll
+        
+        // Disable unnecessary features for performance
         mapView.showsBuildings = false
         mapView.showsTraffic = false
         mapView.showsCompass = false
@@ -247,88 +289,44 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
         mapView.isRotateEnabled = false
         mapView.isPitchEnabled = false
         
-        mapView.showsPointsOfInterest = false
-        mapView.pointOfInterestFilter = .excludingAll
+        // Set initial region
+        mapView.setRegion(viewModel.region, animated: false)
         
         return mapView
     }
     
     func updateUIView(_ mapView: MKMapView, context: Context) {
-        // Only update region if it's significantly different
+        // Update region if needed
         let currentRegion = mapView.region
-        let targetRegion = constrainRegionToZoomLimits(viewModel.region)
+        let newRegion = viewModel.region
         
-        let latDiff = abs(currentRegion.center.latitude - targetRegion.center.latitude)
-        let lonDiff = abs(currentRegion.center.longitude - targetRegion.center.longitude)
-        let spanDiff = abs(currentRegion.span.latitudeDelta - targetRegion.span.latitudeDelta)
-        
-        if latDiff > 0.001 || lonDiff > 0.001 || spanDiff > 0.001 {
-            mapView.setRegion(targetRegion, animated: false)
+        // Only update if there's a significant change (increased threshold)
+        if abs(currentRegion.center.latitude - newRegion.center.latitude) > 0.005 ||
+           abs(currentRegion.center.longitude - newRegion.center.longitude) > 0.005 ||
+           abs(currentRegion.span.latitudeDelta - newRegion.span.latitudeDelta) > 0.005 {
+            mapView.setRegion(newRegion, animated: true)
         }
         
-        // ENHANCED: Hide pins when zoomed out too far for cleaner view
-        let currentSpan = mapView.region.span.latitudeDelta
-        let shouldShowPins = currentSpan <= pinHideThreshold
-        
-        if shouldShowPins {
-            // Show restaurants with nutrition data only when zoomed in enough
-            let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
-            
-            // FIXED: Only add NEW pins, don't remove existing ones
-            let currentAnnotationIds = Set(mapView.annotations.compactMap { annotation in
-                (annotation as? RestaurantMapAnnotation)?.restaurant.id
-            })
-            
-            let newRestaurants = restaurantsToShow.filter { restaurant in
-                !currentAnnotationIds.contains(restaurant.id)
-            }
-            
-            if !newRestaurants.isEmpty {
-                let newAnnotations = newRestaurants.map { RestaurantMapAnnotation(restaurant: $0) }
-                mapView.addAnnotations(newAnnotations)
-                debugLog(" Showing \(newAnnotations.count) NEW pins to existing \(currentAnnotationIds.count) pins (zoom level: \(String(format: "%.3f", currentSpan)))")
-            }
-            
-            // Only remove pins that are no longer in the current restaurant list
-            let currentRestaurantIds = Set(restaurantsToShow.map { $0.id })
-            let annotationsToRemove = mapView.annotations.compactMap { annotation -> RestaurantMapAnnotation? in
-                guard let restaurantAnnotation = annotation as? RestaurantMapAnnotation else { return nil }
-                return currentRestaurantIds.contains(restaurantAnnotation.restaurant.id) ? nil : restaurantAnnotation
-            }
-            
-            if !annotationsToRemove.isEmpty {
-                mapView.removeAnnotations(annotationsToRemove)
-                debugLog(" REMOVED \(annotationsToRemove.count) outdated pins")
-            }
-            
-        } else {
-            // Hide all pins when zoomed out too far
-            mapView.removeAnnotations(mapView.annotations)
-            debugLog(" Hiding all pins - zoomed out too far (zoom level: \(String(format: "%.3f", currentSpan)) > \(pinHideThreshold))")
-        }
-        // Notify about zoom level changes
-        onZoomLevelChange(currentSpan)
+        // Update annotations using the correct property
+        let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
+        context.coordinator.updateAnnotations(mapView: mapView, restaurants: restaurantsToShow)
     }
     
     private func constrainRegionToZoomLimits(_ region: MKCoordinateRegion) -> MKCoordinateRegion {
         var constrainedRegion = region
         
         // Constrain latitude delta (vertical zoom)
-        if constrainedRegion.span.latitudeDelta > maxLatitudeDelta {
-            constrainedRegion.span.latitudeDelta = maxLatitudeDelta
-            debugLog(" Max zoom out reached - latitude delta constrained to \(maxLatitudeDelta)")
-        } else if constrainedRegion.span.latitudeDelta < minLatitudeDelta {
-            constrainedRegion.span.latitudeDelta = minLatitudeDelta
-            debugLog(" Max zoom in reached - latitude delta constrained to \(minLatitudeDelta)")
+        if constrainedRegion.span.latitudeDelta > 0.5 {
+            constrainedRegion.span.latitudeDelta = 0.5
+        } else if constrainedRegion.span.latitudeDelta < 0.001 {
+            constrainedRegion.span.latitudeDelta = 0.001
         }
         
         // Constrain longitude delta (horizontal zoom)
-        if constrainedRegion.span.longitudeDelta > maxLongitudeDelta {
-            constrainedRegion.span.longitudeDelta = maxLongitudeDelta
-            debugLog(" Max zoom out reached - longitude delta constrained to \(maxLongitudeDelta)")
-        } else if constrainedRegion.span.longitudeDelta < minLongitudeDelta {
-            constrainedRegion.span.longitudeDelta = minLongitudeDelta
-            debugLog(" Max zoom in reached - longitude delta constrained to \(minLongitudeDelta)")
+        if constrainedRegion.span.longitudeDelta > 0.5 {
+            constrainedRegion.span.longitudeDelta = 0.5
+        } else if constrainedRegion.span.longitudeDelta < 0.001 {
+            constrainedRegion.span.longitudeDelta = 0.001
         }
         
         return constrainedRegion
@@ -368,7 +366,7 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                 guard let self = self else { return }
                 
                 // ENHANCED: Check if we should show/hide pins based on zoom level
-                let shouldShowPins = currentSpan <= self.parent.pinHideThreshold
+                let shouldShowPins = currentSpan <= 0.02
                 
                 if shouldShowPins {
                     // Only fetch restaurants when zoomed in enough to show pins
@@ -376,12 +374,6 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                         guard let self = self else { return }
                         await self.parent.viewModel.fetchRestaurantsForMapRegion(mapView.region)
                     }
-                } else {
-                    // Clear annotations when zoomed out too far
-                    DispatchQueue.main.async {
-                        mapView.removeAnnotations(mapView.annotations)
-                    }
-                    debugLog(" Cleared pins - zoom level too high: \(String(format: "%.3f", currentSpan))")
                 }
             }
             
@@ -396,39 +388,61 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
         
         // ENHANCED: Create tappable pins without callouts
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            if let restaurantAnnotation = annotation as? RestaurantMapAnnotation {
-                return createTappableRestaurantView(for: restaurantAnnotation, in: mapView)
+            if annotation is MKUserLocation {
+                return nil // Use default user location view
             }
-            return nil
+            
+            if let restaurantAnnotation = annotation as? RestaurantMapAnnotation {
+                return createCustomRestaurantView(for: restaurantAnnotation, in: mapView)
+            }
+            
+            // Hide all other annotations (Apple Maps POIs)
+            return MKAnnotationView()
         }
         
-        private func createTappableRestaurantView(for annotation: RestaurantMapAnnotation, in mapView: MKMapView) -> MKAnnotationView {
+        private func createCustomRestaurantView(for annotation: RestaurantMapAnnotation, in mapView: MKMapView) -> MKAnnotationView {
             let restaurant = annotation.restaurant
-            let identifier = "TappableRestaurant_\(restaurant.hasNutritionData ? "Nutrition" : "Basic")"
+            let identifier = "CustomRestaurant_\(restaurant.hasNutritionData ? "Nutrition" : "Basic")"
             
-            let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView ??
-                      MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
-            // Enhanced visual styling
-            view.glyphText = restaurant.emoji
-            view.markerTintColor = UIColor(restaurant.pinColor)
-            view.glyphTintColor = .white
-            
-            // DISABLED: No callout - direct tap interaction
-            view.canShowCallout = false
-            
-            // Enhanced priority for nutrition restaurants
-            view.displayPriority = restaurant.hasNutritionData ? .required : .defaultLow
-            
-            // Enhanced visual feedback
-            if restaurant.hasNutritionData {
-                view.layer.shadowColor = UIColor.green.cgColor
-                view.layer.shadowOffset = CGSize(width: 0, height: 2)
-                view.layer.shadowRadius = 4
-                view.layer.shadowOpacity = 0.3
+            if view == nil {
+                view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                
+                // Create SwiftUI view and convert to UIView
+                let restaurantPin = RestaurantPin(
+                    restaurant: restaurant,
+                    isSelected: false,
+                    onTap: {
+                        // Handle tap through the coordinator
+                        self.parent.onRestaurantTap(restaurant)
+                    }
+                )
+                
+                let hostingController = UIHostingController(rootView: restaurantPin)
+                hostingController.view.backgroundColor = UIColor.clear
+                
+                // Set the size to match your custom pin size
+                hostingController.view.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
+                
+                // Add to annotation view
+                view?.addSubview(hostingController.view)
+                
+                // Center the pin
+                view?.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
+                view?.centerOffset = CGPoint(x: 0, y: -18) // Offset to point to the location
+                
+                // DISABLED: No callout - direct tap interaction
+                view?.canShowCallout = false
+                
+                // Enhanced priority for nutrition restaurants
+                view?.displayPriority = restaurant.hasNutritionData ? .required : .defaultLow
+            } else {
+                // Update existing view with new annotation
+                view?.annotation = annotation
             }
             
-            return view
+            return view!
         }
         
         // ENHANCED: Immediate detail view on pin tap
@@ -440,6 +454,41 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
             if let restaurantAnnotation = view.annotation as? RestaurantMapAnnotation {
                 debugLog(" IMMEDIATE TAP: \(restaurantAnnotation.restaurant.name)")
                 parent.onRestaurantTap(restaurantAnnotation.restaurant)
+            }
+        }
+        
+        func updateAnnotations(mapView: MKMapView, restaurants: [Restaurant]) {
+            // Get current restaurant annotations (excluding user location)
+            let currentRestaurantAnnotations = mapView.annotations.compactMap { $0 as? RestaurantMapAnnotation }
+            let currentRestaurantIds = Set(currentRestaurantAnnotations.map { $0.restaurant.id })
+            
+            // Get new restaurant IDs
+            let newRestaurantIds = Set(restaurants.map { $0.id })
+            
+            // Find annotations to remove (restaurants that are no longer in the list)
+            let annotationsToRemove = currentRestaurantAnnotations.filter { annotation in
+                !newRestaurantIds.contains(annotation.restaurant.id)
+            }
+            
+            // Find restaurants to add (new restaurants not currently shown)
+            let restaurantsToAdd = restaurants.filter { restaurant in
+                !currentRestaurantIds.contains(restaurant.id)
+            }
+            
+            // Only update if there are actual changes
+            if !annotationsToRemove.isEmpty || !restaurantsToAdd.isEmpty {
+                // Remove outdated annotations
+                if !annotationsToRemove.isEmpty {
+                    mapView.removeAnnotations(annotationsToRemove)
+                }
+                
+                // Add new annotations
+                if !restaurantsToAdd.isEmpty {
+                    let newAnnotations = restaurantsToAdd.map { RestaurantMapAnnotation(restaurant: $0) }
+                    mapView.addAnnotations(newAnnotations)
+                }
+                
+                debugLog("🗺️ Updated annotations: removed \(annotationsToRemove.count), added \(restaurantsToAdd.count)")
             }
         }
         

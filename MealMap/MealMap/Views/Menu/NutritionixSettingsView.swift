@@ -206,8 +206,9 @@ struct NutritionixSettingsView: View {
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(false)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Done") {
                         dismiss()
                     }
@@ -216,6 +217,17 @@ struct NutritionixSettingsView: View {
         }
         .sheet(isPresented: $showingAPIKeySetup) {
             NutritionixAPIKeySetupView()
+        }
+        .sheet(isPresented: $showingEditProfile) {
+            EditProfileView()
+        }
+        .alert("Remove API Credentials", isPresented: $showingDeleteConfirmation) {
+            Button("Cancel", role: .cancel) { }
+            Button("Remove", role: .destructive) {
+                nutritionixService.clearAPICredentials()
+            }
+        } message: {
+            Text("Are you sure you want to remove your Nutritionix API credentials? This will disable nutrition analysis until you add new credentials.")
         }
     }
 }

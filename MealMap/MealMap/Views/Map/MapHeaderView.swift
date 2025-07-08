@@ -82,7 +82,8 @@ struct MapHeaderView: View {
                 
                 MapStatusIndicators(viewModel: viewModel, isSearching: isSearching)
                 
-                // Filter button
+                // HIDDEN: Filter button - commented out
+                /*
                 Button(action: {
                     showingFilters = true
                 }) {
@@ -102,6 +103,7 @@ struct MapHeaderView: View {
                 .shadow(color: (hasActiveFilters ? Color.orange : Color.gray).opacity(0.3), radius: 8, y: 4)
                 .accessibilityLabel(hasActiveFilters ? "Active Filters" : "No Filters")
                 .accessibilityHint("Tap to open filter options")
+                */
             }
             .padding(.horizontal, 16)
         }
