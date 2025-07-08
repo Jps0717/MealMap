@@ -11,7 +11,8 @@ struct RestaurantDetailView: View {
     @ObservedObject private var nutritionManager = NutritionDataManager.shared
     @State private var viewState: ViewState = .initializing
     @State private var searchText = ""
-    @State private var selectedMenuCategory: MenuCategory = .all 
+    @State private var selectedMenuCategory: MenuCategory = .all
+    @State private var showingMenuScanner = false
 
     enum MenuCategory: String, CaseIterable {
         case all = "All"
@@ -207,28 +208,81 @@ struct RestaurantDetailView: View {
                 .foregroundColor(.secondary)
                 .padding(.horizontal, 40)
 
+            // ENHANCED: Add Scan Menu button
             VStack(spacing: 16) {
-                if let address = restaurant.address {
-                    HStack {
-                        Image(systemName: "location.fill")
-                        Text(address)
+                Button {
+                    showingMenuScanner = true
+                } label: {
+                    HStack(spacing: 12) {
+                        Image(systemName: "camera.fill")
+                            .font(.system(size: 18, weight: .medium))
+                            .foregroundColor(.white)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Scan Menu")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.white)
+                            Text("Take a photo to analyze nutrition")
+                                .font(.system(size: 12))
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                        
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.white.opacity(0.8))
                     }
                     .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
+                    .background(
+                        LinearGradient(
+                            colors: [Color.blue, Color.blue.opacity(0.8)], 
+                            startPoint: .leading, 
+                            endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(12)
+                    .shadow(color: .blue.opacity(0.3), radius: 6, y: 3)
                 }
-                if let phone = restaurant.phone {
-                    HStack {
-                        Image(systemName: "phone.fill")
-                        Text(phone)
-                        Spacer()
+                .buttonStyle(.plain)
+                
+                Text("✨ Get instant nutrition analysis for any menu item")
+                    .font(.caption)
+                    .foregroundColor(.blue)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 16)
+                
+                // Restaurant info cards
+                VStack(spacing: 12) {
+                    if let address = restaurant.address {
+                        HStack {
+                            Image(systemName: "location.fill")
+                                .foregroundColor(.blue)
+                            Text(address)
+                                .foregroundColor(.primary)
+                            Spacer()
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
                     }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
+                    if let phone = restaurant.phone {
+                        HStack {
+                            Image(systemName: "phone.fill")
+                                .foregroundColor(.green)
+                            Text(phone)
+                                .foregroundColor(.primary)
+                            Spacer()
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
+                    }
                 }
             }
             .padding(.horizontal, 20)
             Spacer()
+        }
+        .sheet(isPresented: $showingMenuScanner) {
+            MenuPhotoCaptureView()
         }
     }
 
@@ -348,6 +402,7 @@ struct RestaurantDetailView: View {
         case .fastFood: return items
         case .healthy: return items.filter { $0.sodium <= 600 && $0.fiber >= 3 && $0.calories <= 500 }
         case .highProtein: return items.filter { $0.protein >= 20 }
+        case .lowCarb: return items.filter { $0.carbs <= 15 }
         }
     }
 }

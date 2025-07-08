@@ -192,6 +192,72 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
             return proteinTerms.contains { term in
                 name.contains(term) || cuisine.contains(term)
             }
+            
+        case .lowCarb:
+            let restaurant = self
+            let name = restaurant.name.lowercased()
+            let cuisine = restaurant.cuisine?.lowercased() ?? ""
+            let amenity = restaurant.amenityType ?? ""
+            
+            let includeByType = amenity == "restaurant" ||
+                               amenity == "fast_food" ||
+                               amenity == "cafe"
+            
+            let includeByKeywords = 
+                name.contains("grill") ||
+                name.contains("steakhouse") ||
+                name.contains("bbq") ||
+                name.contains("barbecue") ||
+                name.contains("burger") ||
+                name.contains("chicken") ||
+                name.contains("seafood") ||
+                name.contains("steak") ||
+                cuisine.contains("steak") ||
+                cuisine.contains("seafood") ||
+                cuisine.contains("grill") ||
+                cuisine.contains("barbecue") ||
+                cuisine.contains("american") ||
+                
+                name.contains("salad") ||
+                name.contains("bowl") ||
+                name.contains("fresh") ||
+                name.contains("organic") ||
+                name.contains("vegetarian") ||
+                name.contains("vegan") ||
+                cuisine.contains("vegetarian") ||
+                cuisine.contains("vegan") ||
+                cuisine.contains("mediterranean") ||
+                
+                name.contains("gluten") ||
+                name.contains("celiac") ||
+                name.contains("paleo") ||
+                
+                name.contains("keto") ||
+                name.contains("atkins") ||
+                name.contains("bunless") ||
+                name.contains("lettuce wrap") ||
+                
+                name.contains("chipotle") ||
+                name.contains("five guys") ||
+                name.contains("in-n-out") ||
+                name.contains("chick-fil-a")
+            
+            let includeNutritionChains = RestaurantData.hasNutritionData(for: restaurant.name)
+            
+            let excludeHighCarb = amenity == "bakery" ||
+                                 name.contains("donut") ||
+                                 name.contains("doughnut") ||
+                                 name.contains("ice cream") ||
+                                 name.contains("pizza") ||
+                                 name.contains("pasta") ||
+                                 name.contains("noodle") ||
+                                 name.contains("bread") ||
+                                 name.contains("bagel") ||
+                                 cuisine.contains("pizza") ||
+                                 cuisine.contains("dessert") ||
+                                 cuisine.contains("bakery")
+            
+            return (includeByType || includeByKeywords || includeNutritionChains) && !excludeHighCarb
         }
     }
     
@@ -199,6 +265,59 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
         let name = self.name.lowercased()
         return type.searchTerms.contains { term in
             name.contains(term)
+        }
+    }
+}
+
+// MARK: - Low Carb Diet Types
+enum LowCarbDietType: String, CaseIterable {
+    case vegetarian = "Vegetarian Low Carb"
+    case vegan = "Vegan Low Carb" 
+    case glutenFree = "Gluten-Free Low Carb"
+    case meat = "Meat-Based Low Carb"
+    
+    var dietTag: String {
+        switch self {
+        case .vegetarian: return "diet:vegetarian"
+        case .vegan: return "diet:vegan"
+        case .glutenFree: return "diet:gluten_free"
+        case .meat: return "diet:meat"
+        }
+    }
+    
+    var cuisineFilter: String {
+        switch self {
+        case .vegetarian: return "vegetarian|mediterranean|indian|thai"
+        case .vegan: return "vegan|vegetarian|raw_food"
+        case .glutenFree: return "gluten_free|seafood|steak|grill"
+        case .meat: return "steak|barbecue|grill|american|brazilian"
+        }
+    }
+    
+    var nameFilter: String {
+        switch self {
+        case .vegetarian: return "vegetarian|veggie|garden|green|fresh"
+        case .vegan: return "vegan|plant|raw|green|juice"
+        case .glutenFree: return "gluten.free|gf|celiac|paleo|keto"
+        case .meat: return "steak|grill|bbq|barbecue|meat|carnivore"
+        }
+    }
+    
+    var emoji: String {
+        switch self {
+        case .vegetarian: return "🥗"
+        case .vegan: return "🌱"
+        case .glutenFree: return "🚫🌾"
+        case .meat: return "🥩"
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .vegetarian: return "Plant-based proteins, dairy, eggs"
+        case .vegan: return "Plant-based only, no animal products"
+        case .glutenFree: return "No wheat, barley, rye, or gluten"
+        case .meat: return "Focus on meat, poultry, seafood"
         }
     }
 }
@@ -299,6 +418,44 @@ final class OverpassAPIService: ObservableObject {
         return try await fetchAllNearbyRestaurants(near: coordinate, radius: 5.0)
     }
     
+    /// Fetch restaurants with specific diet tags for low carb options
+    func fetchLowCarbRestaurants(dietType: LowCarbDietType, near coordinate: CLLocationCoordinate2D, radius: Double = 5.0) async throws -> [Restaurant] {
+        print("🥗 LOW CARB FETCH: Searching for \(dietType.rawValue) near \(coordinate)")
+        
+        await MainActor.run {
+            isLoading = true
+            errorMessage = nil
+        }
+        
+        defer {
+            Task { @MainActor in
+                isLoading = false
+            }
+        }
+        
+        // Convert to bounding box
+        let radiusInDegrees = radius / 69.0
+        let minLat = coordinate.latitude - radiusInDegrees
+        let maxLat = coordinate.latitude + radiusInDegrees
+        let minLon = coordinate.longitude - radiusInDegrees
+        let maxLon = coordinate.longitude + radiusInDegrees
+        
+        // Create diet-specific query for low carb
+        let query = createLowCarbDietQuery(dietType: dietType, minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
+        
+        let restaurants = try await executeQuery(query)
+        
+        // Sort by distance from user
+        let sortedRestaurants = restaurants.sorted { restaurant1, restaurant2 in
+            let distance1 = restaurant1.distanceFrom(coordinate)
+            let distance2 = restaurant2.distanceFrom(coordinate)
+            return distance1 < distance2
+        }
+        
+        print("🥗 SUCCESS: Found \(sortedRestaurants.count) \(dietType.rawValue) low carb restaurants")
+        return sortedRestaurants
+    }
+    
     /// Fetch restaurants with specific diet tags (e.g., diet:meat for high protein)
     func fetchRestaurantsByDiet(diet: String, near coordinate: CLLocationCoordinate2D, radius: Double = 5.0) async throws -> [Restaurant] {
         print("🥩 DIET FETCH: Searching for diet:\(diet) near \(coordinate)")
@@ -335,6 +492,40 @@ final class OverpassAPIService: ObservableObject {
         
         print("🥩 SUCCESS: Found \(sortedRestaurants.count) restaurants with diet:\(diet)")
         return sortedRestaurants
+    }
+    
+    /// Create low carb diet-specific Overpass query
+    private func createLowCarbDietQuery(dietType: LowCarbDietType, minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
+        let dietTag = dietType.dietTag
+        let cuisineFilter = dietType.cuisineFilter
+        let nameFilter = dietType.nameFilter
+        
+        return """
+        [out:json][timeout:15][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
+        (
+          // Restaurants with specific diet tag
+          node["amenity"="restaurant"]["\(dietTag)"~"yes|only"];
+          
+          // Fast food with specific diet tag
+          node["amenity"="fast_food"]["\(dietTag)"~"yes|only"];
+          
+          // Cafes with specific diet tag
+          node["amenity"="cafe"]["\(dietTag)"~"yes|only"];
+          
+          // Cuisine-based filtering
+          node["amenity"="restaurant"]["cuisine"~"\(cuisineFilter)"];
+          
+          // Name-based filtering for specific diet types
+          node["amenity"~"restaurant|fast_food|cafe"]["name"~"\(nameFilter)",i];
+          
+          // Steakhouses and grills (good for all low carb diets)
+          node["amenity"="restaurant"]["cuisine"~"steak|grill|barbecue"];
+          
+          // Seafood restaurants (good for all low carb diets)
+          node["amenity"="restaurant"]["cuisine"~"seafood|fish"];
+        );
+        out;
+        """
     }
     
     /// Create diet-specific Overpass query
@@ -422,6 +613,56 @@ final class OverpassAPIService: ObservableObject {
               
               // High protein chains
               node["name"~"KFC|Popeyes|Outback|LongHorn|Texas Roadhouse",i]["amenity"="restaurant"];
+            );
+            out;
+            """
+            
+        case .lowCarb:
+            return """
+            [out:json][timeout:20][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
+            (
+              // ALL DIET TYPES FOR LOW CARB
+              
+              // Vegetarian diet restaurants
+              node["amenity"="restaurant"]["diet:vegetarian"~"yes|only"];
+              node["amenity"="fast_food"]["diet:vegetarian"~"yes|only"];
+              node["amenity"="cafe"]["diet:vegetarian"~"yes|only"];
+              
+              // Vegan diet restaurants  
+              node["amenity"="restaurant"]["diet:vegan"~"yes|only"];
+              node["amenity"="fast_food"]["diet:vegan"~"yes|only"];
+              node["amenity"="cafe"]["diet:vegan"~"yes|only"];
+              
+              // Gluten-free diet restaurants
+              node["amenity"="restaurant"]["diet:gluten_free"~"yes|only"];
+              node["amenity"="fast_food"]["diet:gluten_free"~"yes|only"];
+              node["amenity"="cafe"]["diet:gluten_free"~"yes|only"];
+              
+              // Meat-based diet restaurants
+              node["amenity"="restaurant"]["diet:meat"~"yes|only"];
+              node["amenity"="fast_food"]["diet:meat"~"yes|only"];
+              node["amenity"="cafe"]["diet:meat"~"yes|only"];
+              
+              // Low carb friendly chains (all diet types)
+              node["name"~"Chipotle|Five Guys|In-N-Out|Chick-fil-A|Outback|LongHorn",i]["amenity"~"restaurant|fast_food"];
+              
+              // Steakhouses and grills (meat-based low carb)
+              node["amenity"="restaurant"]["cuisine"~"steak|grill|barbecue|american"];
+              
+              // Seafood restaurants (all diet types except vegan)
+              node["amenity"="restaurant"]["cuisine"~"seafood|fish"];
+              
+              // Mediterranean restaurants (vegetarian/vegan friendly)
+              node["amenity"="restaurant"]["cuisine"~"mediterranean"];
+              
+              // Vegetarian/Vegan cuisine restaurants
+              node["amenity"="restaurant"]["cuisine"~"vegetarian|vegan"];
+              
+              // Salad-focused restaurants (all diet types)
+              node["amenity"="restaurant"]["name"~"salad|fresh|bowl|grill",i];
+              
+              // Additional low carb keywords
+              node["amenity"~"restaurant|fast_food"]["name"~"keto|paleo|atkins|bunless|lettuce.wrap",i];
             );
             out;
             """

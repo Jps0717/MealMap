@@ -219,6 +219,7 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
     
     class Coordinator: NSObject, MKMapViewDelegate {
         let parent: SimplifiedRealTimeMapView
+        private var debounceTimer: Timer?
         
         init(_ parent: SimplifiedRealTimeMapView) {
             self.parent = parent
@@ -234,25 +235,31 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                 mapView.setRegion(constrainedRegion, animated: true)
             }
             
-            // ENHANCED: Check if we should show/hide pins based on zoom level
-            let currentSpan = mapView.region.span.latitudeDelta
-            let shouldShowPins = currentSpan <= parent.pinHideThreshold
-            
-            if shouldShowPins {
-                // Only fetch restaurants when zoomed in enough to show pins
-                Task.detached(priority: .utility) { [weak self] in
-                    guard let self = self else { return }
-                    await self.parent.viewModel.fetchRestaurantsForMapRegion(mapView.region)
+            // FIXED: Debounce map region changes to prevent constant refreshing
+            debounceTimer?.invalidate()
+            debounceTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self] _ in
+                guard let self = self else { return }
+                
+                // ENHANCED: Check if we should show/hide pins based on zoom level
+                let currentSpan = mapView.region.span.latitudeDelta
+                let shouldShowPins = currentSpan <= self.parent.pinHideThreshold
+                
+                if shouldShowPins {
+                    // Only fetch restaurants when zoomed in enough to show pins
+                    Task.detached(priority: .utility) { [weak self] in
+                        guard let self = self else { return }
+                        await self.parent.viewModel.fetchRestaurantsForMapRegion(mapView.region)
+                    }
+                } else {
+                    // Clear annotations when zoomed out too far
+                    DispatchQueue.main.async {
+                        mapView.removeAnnotations(mapView.annotations)
+                    }
+                    debugLog("🗺️ Cleared pins - zoom level too high: \(String(format: "%.3f", currentSpan))")
                 }
-            } else {
-                // Clear annotations when zoomed out too far
-                DispatchQueue.main.async {
-                    mapView.removeAnnotations(mapView.annotations)
-                }
-                debugLog("🗺️ Cleared pins - zoom level too high: \(String(format: "%.3f", currentSpan))")
             }
             
-            // Update view model region
+            // Update view model region immediately for UI consistency
             Task.detached(priority: .utility) { [weak self] in
                 guard let self = self else { return }
                 await MainActor.run {
@@ -308,6 +315,10 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                 debugLog("🍽️ IMMEDIATE TAP: \(restaurantAnnotation.restaurant.name)")
                 parent.onRestaurantTap(restaurantAnnotation.restaurant)
             }
+        }
+        
+        deinit {
+            debounceTimer?.invalidate()
         }
     }
 }

@@ -38,6 +38,9 @@ final class MapViewModel: ObservableObject {
     private var cacheTimestamp: Date?
     private let cacheExpiryMinutes: Double = 15.0
     
+    private var lastUpdateTime: Date = Date.distantPast
+    private var updateDebounceTimer: Timer?
+    
     // State tracking
     var hasInitialized = false
     var userLocation: CLLocationCoordinate2D? {
@@ -232,7 +235,40 @@ final class MapViewModel: ObservableObject {
     }
     
     func fetchRestaurantsForMapRegion(_ mapRegion: MKCoordinateRegion) async {
-        await fetchRestaurantsWithCaching(for: mapRegion.center)
+        // FIXED: Prevent excessive API calls - debounce updates
+        let now = Date()
+        guard now.timeIntervalSince(lastUpdateTime) > 2.0 else {
+            debugLog("🔒 RATE LIMITED: Skipping fetch, too soon after last update")
+            return
+        }
+        lastUpdateTime = now
+        
+        let currentSpan = mapRegion.span.latitudeDelta
+        let shouldFetch = currentSpan <= 0.02 // Only fetch when zoomed in enough
+        
+        guard shouldFetch else {
+            debugLog("🗺️ SKIPPED: Zoom level too high for fetching: \(String(format: "%.3f", currentSpan))")
+            return
+        }
+        
+        await MainActor.run {
+            isLoadingRestaurants = true
+        }
+        
+        let coordinate = mapRegion.center
+        await refreshData(for: coordinate)
+        
+        await MainActor.run {
+            isLoadingRestaurants = false
+        }
+    }
+
+    func fetchRestaurantsForZoomLevel(_ center: CLLocationCoordinate2D, zoomLevel: ZoomLevel) async {
+        await fetchRestaurantsForMapCenter(center)
+    }
+
+    func updateZoomLevel(for region: MKCoordinateRegion) {
+        // No-op for simplicity
     }
 
     // MARK: - Enhanced data refresh
@@ -329,14 +365,6 @@ final class MapViewModel: ObservableObject {
     
     func fetchRestaurantsForCurrentRegion() async {
         await fetchRestaurantsForMapRegion(region)
-    }
-    
-    func fetchRestaurantsForZoomLevel(_ center: CLLocationCoordinate2D, zoomLevel: ZoomLevel) async {
-        await fetchRestaurantsForMapCenter(center)
-    }
-    
-    func updateZoomLevel(for region: MKCoordinateRegion) {
-        // No-op for simplicity
     }
 
     // MARK: - Search functionality

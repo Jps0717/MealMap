@@ -21,6 +21,7 @@ struct MenuPhotoCaptureView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var ocrService = MenuOCRService()
     @StateObject private var nutritionixService = NutritionixAPIService.shared // For usage tracking and API key management
+    @StateObject private var savedMenuManager = SavedMenuManager.shared // Add saved menu manager
     
     @State private var processingState: ImageProcessingState = .idle
     @State private var selectedImage: UIImage?
@@ -33,7 +34,8 @@ struct MenuPhotoCaptureView: View {
     @State private var showingAdvancedSettings = false // For settings sheet
     @State private var showingAPIKeyErrorPopup = false // For custom error popup
     @State private var currentProcessingTask: Task<Void, Never>? // Track processing task for cancellation
-    
+    @State private var selectedSavedMenu: SavedMenuAnalysis? = nil // For saved menu detail view
+
     let autoTriggerCamera: Bool
     let autoTriggerPhotos: Bool
     
@@ -152,6 +154,9 @@ struct MenuPhotoCaptureView: View {
                 processImage(image)
             }
         }
+        .sheet(item: $selectedSavedMenu) { menu in
+            SavedMenuDetailView(savedMenu: menu)
+        }
     }
     
     private func cancelProcessing() {
@@ -161,97 +166,165 @@ struct MenuPhotoCaptureView: View {
     }
     
     private var idleStateView: some View {
-        VStack(spacing: 32) {
-            Spacer()
-            
-            // Header with icon and title
-            VStack(spacing: 16) {
-                Image(systemName: "camera.metering.center.weighted")
-                    .font(.system(size: 64, weight: .light))
-                    .foregroundColor(.blue)
-                
-                VStack(spacing: 8) {
-                    Text("Scan Menu")
-                        .font(.title)
-                        .fontWeight(.semibold)
+        ScrollView {
+            VStack(spacing: 24) {
+                // Header with icon and title
+                VStack(spacing: 16) {
+                    Image(systemName: "camera.metering.center.weighted")
+                        .font(.system(size: 48, weight: .light))
+                        .foregroundColor(.blue)
                     
-                    Text("Take or select a clear photo of any menu section")
-                        .font(.body)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
-                }
-            }
-            
-            Spacer()
-            
-            // Primary CTA
-            VStack(spacing: 16) {
-                Button("Take Photo") {
-                    if !nutritionixService.isAPIKeyConfigured {
-                        showingAPIKeyErrorPopup = true
-                    } else if nutritionixService.hasReachedDailyLimit {
-                        processingState = .error("Daily limit of 200 nutrition analyses reached. Resets at midnight.")
-                    } else {
-                        showingCamera = true
-                    }
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-                .frame(maxWidth: .infinity)
-                .disabled(!nutritionixService.isAPIKeyConfigured) // Disable button if no API key
-                
-                // Minimal library link
-                Button("Choose from Library") {
-                    if !nutritionixService.isAPIKeyConfigured {
-                        showingAPIKeyErrorPopup = true
-                    } else if nutritionixService.hasReachedDailyLimit {
-                        processingState = .error("Daily limit of 200 nutrition analyses reached. Resets at midnight.")
-                    } else {
-                        showingPhotoLibrary = true
-                    }
-                }
-                .font(.subheadline)
-                .foregroundColor(nutritionixService.isAPIKeyConfigured ? .blue : .gray) // Gray out if no API key
-                .disabled(!nutritionixService.isAPIKeyConfigured) // Disable button if no API key
-            }
-            .padding(.horizontal, 32)
-            
-            // Minimal tip
-            HStack(spacing: 6) {
-                Image(systemName: "info.circle")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                
-                Text("Best with well-lit, focused shots")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            .padding(.bottom, 8)
-            
-            // API Key status and daily usage tracker
-            VStack(spacing: 6) {
-                if nutritionixService.isAPIKeyConfigured {
-                    HStack(spacing: 6) {
-                        Image(systemName: "chart.bar")
-                            .font(.caption)
-                            .foregroundColor(.blue)
+                    VStack(spacing: 8) {
+                        Text("Scan Menu")
+                            .font(.title2)
+                            .fontWeight(.semibold)
                         
-                        Text("Daily usage: \(nutritionixService.dailyUsageString)")
+                        Text("Take or select a clear photo of any menu section")
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 32)
+                    }
+                }
+                
+                // Photo capture buttons - MOVED UP
+                VStack(spacing: 16) {
+                    Button("Take Photo") {
+                        if !nutritionixService.isAPIKeyConfigured {
+                            showingAPIKeyErrorPopup = true
+                        } else if nutritionixService.hasReachedDailyLimit {
+                            processingState = .error("Daily limit of 200 nutrition analyses reached. Resets at midnight.")
+                        } else {
+                            showingCamera = true
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                    .frame(maxWidth: .infinity)
+                    .disabled(!nutritionixService.isAPIKeyConfigured) // Disable button if no API key
+                    
+                    // Minimal library link
+                    Button("Choose from Library") {
+                        if !nutritionixService.isAPIKeyConfigured {
+                            showingAPIKeyErrorPopup = true
+                        } else if nutritionixService.hasReachedDailyLimit {
+                            processingState = .error("Daily limit of 200 nutrition analyses reached. Resets at midnight.")
+                        } else {
+                            showingPhotoLibrary = true
+                        }
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(nutritionixService.isAPIKeyConfigured ? .blue : .gray) // Gray out if no API key
+                    .disabled(!nutritionixService.isAPIKeyConfigured) // Disable button if no API key
+                }
+                .padding(.horizontal, 32)
+                
+                // Minimal tip
+                HStack(spacing: 6) {
+                    Image(systemName: "info.circle")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    
+                    Text("Best with well-lit, focused shots")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                // API Key status and daily usage tracker
+                VStack(spacing: 6) {
+                    if nutritionixService.isAPIKeyConfigured {
+                        HStack(spacing: 6) {
+                            Image(systemName: "chart.bar")
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                            
+                            Text("Daily usage: \(nutritionixService.dailyUsageString)")
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                                .fontWeight(.medium)
+                        }
+                    } else {
+                        Button("Set up Nutritionix API Key") {
+                            nutritionixService.showAPIKeySetup()
+                        }
+                        .font(.caption)
+                        .foregroundColor(.orange)
+                        .fontWeight(.medium)
+                    }
+                }
+                
+                VStack(alignment: .leading, spacing: 16) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Saved Menus")
+                                .font(.title2)
+                                .fontWeight(.semibold)
+                            if !savedMenuManager.savedMenus.isEmpty {
+                                Text("\(savedMenuManager.savedMenus.count) saved analyses")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        Spacer()
+                        
+                        if !savedMenuManager.savedMenus.isEmpty {
+                            Button("View All") {
+                                // Could add a dedicated saved menus view here
+                            }
                             .font(.caption)
                             .foregroundColor(.blue)
-                            .fontWeight(.medium)
+                        }
                     }
-                } else {
-                    Button("Set up Nutritionix API Key") {
-                        nutritionixService.showAPIKeySetup()
+                    .padding(.horizontal, 32)
+                    
+                    if savedMenuManager.savedMenus.isEmpty {
+                        // Empty state
+                        VStack(spacing: 12) {
+                            Image(systemName: "tray")
+                                .font(.system(size: 40))
+                                .foregroundColor(.gray.opacity(0.6))
+                            
+                            Text("No Saved Menus")
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                                .foregroundColor(.secondary)
+                            
+                            Text("Scan your first menu to get started")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 32)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(.systemGray6))
+                        )
+                        .padding(.horizontal, 32)
+                    } else {
+                        // Saved menus list
+                        LazyVStack(spacing: 8) {
+                            ForEach(savedMenuManager.savedMenus.prefix(3)) { menu in
+                                SavedMenuRowView(menu: menu) {
+                                    selectedSavedMenu = menu
+                                }
+                            }
+                            
+                            if savedMenuManager.savedMenus.count > 3 {
+                                Button("View \(savedMenuManager.savedMenus.count - 3) more") {
+                                    // Could expand or navigate to full list
+                                }
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                                .padding(.top, 8)
+                            }
+                        }
+                        .padding(.horizontal, 32)
                     }
-                    .font(.caption)
-                    .foregroundColor(.orange)
-                    .fontWeight(.medium)
                 }
+                
+                Spacer(minLength: 32)
             }
-            .padding(.bottom, 32)
+            .padding(.vertical, 16)
         }
     }
     
@@ -558,6 +631,72 @@ struct AdvancedSettingsView: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - Saved Menu Row View
+struct SavedMenuRowView: View {
+    let menu: SavedMenuAnalysis
+    let onTap: () -> Void
+    
+    var body: some View {
+        Button(action: onTap) {
+            HStack(spacing: 12) {
+                // Menu icon
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.blue.opacity(0.1))
+                        .frame(width: 40, height: 40)
+                    
+                    Image(systemName: "doc.text.fill")
+                        .font(.system(size: 16))
+                        .foregroundColor(.blue)
+                }
+                
+                // Menu details
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(menu.name)
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                    
+                    Text(menu.displaySummary)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                    
+                    Text(menu.formattedDate)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+                
+                // Success rate indicator
+                VStack(spacing: 2) {
+                    Text("\(menu.successRate)%")
+                        .font(.caption)
+                        .fontWeight(.semibold)
+                        .foregroundColor(menu.successRate > 80 ? .green : menu.successRate > 50 ? .orange : .red)
+                    Text("success")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color(.systemBackground))
+                    .shadow(color: .black.opacity(0.05), radius: 2, y: 1)
+            )
+        }
+        .buttonStyle(.plain)
     }
 }
 

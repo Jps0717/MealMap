@@ -211,6 +211,16 @@ struct SearchScreen: View {
                     searchText = "high protein"
                     performCategorySearch(.highProtein)
                 }
+                
+                CategorySearchButton(
+                    title: "Low Carb",
+                    subtitle: "Keto-friendly, low carb options",
+                    icon: "🥗",
+                    color: .blue
+                ) {
+                    searchText = "low carb"
+                    performCategorySearch(.lowCarb)
+                }
             }
         }
     }
@@ -412,6 +422,15 @@ struct SearchScreen: View {
                 categoryRestaurants = ["Panera Bread", "Chipotle", "Subway", "Sweetgreen"]
             case .highProtein:
                 categoryRestaurants = ["KFC", "Chick-fil-A", "Popeyes", "Chipotle", "Subway"]
+            case .lowCarb:
+                categoryRestaurants = [
+                    // Meat-based low carb chains
+                    "Outback Steakhouse", "LongHorn Steakhouse", "Five Guys", "In-N-Out Burger",
+                    // Customizable low carb options
+                    "Chipotle", "Chick-fil-A", "Subway",
+                    // Vegetarian/Vegan friendly
+                    "Panera Bread", "Sweetgreen"
+                ]
             }
             
             let staticResults = categoryRestaurants.compactMap { name -> Restaurant? in
@@ -442,7 +461,7 @@ struct SearchScreen: View {
                             near: userLocation,
                             radius: 5.0
                         )
-                    case .healthy, .highProtein:
+                    case .healthy, .highProtein, .lowCarb:
                         nearbyRestaurants = try await overpassService.fetchAllNearbyRestaurants(
                             near: userLocation,
                             zoomLevel: ZoomLevel.medium

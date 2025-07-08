@@ -5,14 +5,16 @@ import SwiftUI
 // MARK: - Restaurant Category Enum (updated to remove vegan and lowCarb)
 enum RestaurantCategory: String, CaseIterable, Equatable {
     case fastFood = "Fast Food"
-    case healthy = "Healthy"
+    case healthy = "Healthy" 
     case highProtein = "High Protein"
+    case lowCarb = "Low Carb"
     
     var icon: String {
         switch self {
         case .fastFood: return "takeoutbag.and.cup.and.straw"
         case .healthy: return "leaf.fill"
         case .highProtein: return "dumbbell.fill"
+        case .lowCarb: return "minus.circle.fill"
         }
     }
     
@@ -21,6 +23,7 @@ enum RestaurantCategory: String, CaseIterable, Equatable {
         case .fastFood: return .orange
         case .healthy: return .green
         case .highProtein: return .red
+        case .lowCarb: return .blue
         }
     }
 }

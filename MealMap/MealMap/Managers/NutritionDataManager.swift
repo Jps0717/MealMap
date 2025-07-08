@@ -183,7 +183,6 @@ class NutritionDataManager: ObservableObject {
         
         // Fast path: Check cache first
         if let cachedData = nutritionCache.getRestaurant(named: restaurantName) {
-            debugLog("✅ NUTRITION SUCCESS (CACHE): '\(restaurantName)' -> \(cachedData.items.count) items from cache")
             isLoading = false
             currentRestaurantData = cachedData
             errorMessage = nil
@@ -191,16 +190,19 @@ class NutritionDataManager: ObservableObject {
             return
         }
         
+        // FIXED: Check if already loading to prevent duplicate requests
+        if loadingTasks[cacheKey] != nil {
+            debugLog("⏳ NUTRITION LOADING: '\(restaurantName)' -> Already in progress, skipping duplicate request")
+            return
+        }
+        
         // Check if we have an ID mapping
         guard let validRestaurantId = restaurantId else {
-            debugLog("❌ NUTRITION FAILED: '\(restaurantName)' -> No ID mapping found")
             isLoading = false
             errorMessage = "Restaurant '\(restaurantName)' not found in our nutrition database"
             return
         }
         
-        // Cancel any existing task
-        loadingTasks[cacheKey]?.cancel()
         isLoading = true
         errorMessage = nil
         cacheMisses += 1
@@ -215,12 +217,10 @@ class NutritionDataManager: ObservableObject {
                 self.isLoading = false
                 
                 if let result = result {
-                    debugLog("✅ NUTRITION SUCCESS (API): '\(restaurantName)' -> \(result.items.count) items loaded from API")
                     self.currentRestaurantData = result
                     self.nutritionCache.store(restaurant: result)
                     self.diskCache.store(result)
                 } else {
-                    debugLog("❌ NUTRITION FAILED (API): '\(restaurantName)' -> API returned no data")
                     self.errorMessage = "Unable to load nutrition data for \(restaurantName). Please try again."
                 }
                 self.loadingTasks.removeValue(forKey: cacheKey)

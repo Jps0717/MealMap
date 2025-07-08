@@ -203,6 +203,8 @@ struct CategoryListView: View {
             return "vegetarian"
         case .fastFood:
             return nil // Use traditional filtering
+        case .lowCarb:
+            return nil // Use comprehensive filtering instead of single diet tag
         }
     }
     
@@ -318,7 +320,47 @@ struct CategoryListView: View {
                                        cuisine.contains("dessert")
                 
                 return (includeByType || includeByKeywords || includeNutritionChains) && !excludeNonProtein
+                
+            case .lowCarb:
+                // Include restaurants that serve low carb options
+                let name = restaurant.name.lowercased()
+                let cuisine = restaurant.cuisine?.lowercased() ?? ""
+                let amenity = restaurant.amenityType ?? ""
+                
+                // Include restaurants that typically have low carb options
+                let includeByType = amenity == "restaurant" ||
+                                   amenity == "fast_food" ||
+                                   amenity == "cafe"
+                
+                // Include specific low carb friendly terms
+                let includeByKeywords = name.contains("grill") ||
+                                       name.contains("steakhouse") ||
+                                       name.contains("seafood") ||
+                                       name.contains("salad") ||
+                                       name.contains("keto") ||
+                                       name.contains("burger") ||
+                                       name.contains("chipotle") ||
+                                       name.contains("five guys") ||
+                                       cuisine.contains("steak") ||
+                                       cuisine.contains("seafood") ||
+                                       cuisine.contains("grill") ||
+                                       cuisine.contains("mediterranean")
+                
+                // Include nutrition chains that offer low carb options
+                let includeNutritionChains = RestaurantData.hasNutritionData(for: restaurant.name)
+                
+                // Exclude clearly high-carb places
+                let excludeHighCarb = amenity == "bakery" ||
+                                     name.contains("donut") ||
+                                     name.contains("ice cream") ||
+                                     name.contains("pizza") ||
+                                     name.contains("pasta") ||
+                                     cuisine.contains("pizza") ||
+                                     cuisine.contains("dessert")
+                
+                return (includeByType || includeByKeywords || includeNutritionChains) && !excludeHighCarb
             }
+
         }
         
         print(" FilterRestaurants: After filtering \(category.displayName): \(filtered.count) restaurants")
@@ -584,7 +626,7 @@ struct CategoryRestaurantRow: View {
                 // Restaurant icon with nutrition indicator
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(hasNutrition ? Color.green.opacity(0.1) : category.color.opacity(0.1))
+                        .fill(hasNutrition ? Color.green.opacity(0.1) : Color.red.opacity(0.1))
                         .frame(width: 60, height: 60)
                     
                     VStack(spacing: 4) {
@@ -604,7 +646,7 @@ struct CategoryRestaurantRow: View {
                 }
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(hasNutrition ? Color.green : category.color, lineWidth: 2)
+                        .stroke(hasNutrition ? Color.green : Color.red, lineWidth: 2)
                 )
                 
                 // Restaurant details
@@ -685,7 +727,7 @@ struct CategoryRestaurantRow: View {
             .overlay(
                 HStack {
                     RoundedRectangle(cornerRadius: 2)
-                        .fill(hasNutrition ? Color.green : category.color)
+                        .fill(hasNutrition ? Color.green : Color.red)
                         .frame(width: 4)
                     Spacer()
                 }
@@ -714,6 +756,8 @@ extension RestaurantCategory {
             return "Healthy"
         case .highProtein:
             return "High Protein"
+        case .lowCarb:
+            return "Low Carb"
         }
     }
     
@@ -725,6 +769,8 @@ extension RestaurantCategory {
             return "🥗"
         case .highProtein:
             return "🥩"
+        case .lowCarb:
+            return "🥑"
         }
     }
 }

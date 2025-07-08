@@ -117,7 +117,7 @@ struct HomeScreen: View {
             MapScreen(viewModel: mapViewModel)
         }
         .sheet(isPresented: $showingMenuPhotoCapture) {
-            MenuPhotoCaptureView()
+            MenuPhotoCaptureView(autoTriggerCamera: true)
         }
         .sheet(isPresented: $showingNutritionixSettings) {
             NutritionixSettingsView()

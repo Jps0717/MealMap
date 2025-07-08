@@ -38,6 +38,10 @@ struct NutritionMenuView: View {
             return items.filter { item in
                 item.protein >= 20
             }
+        case .lowCarb:
+            return items.filter { item in
+                item.carbs <= 15
+            }
         }
     }
     
