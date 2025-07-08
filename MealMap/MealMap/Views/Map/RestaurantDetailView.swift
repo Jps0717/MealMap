@@ -13,6 +13,8 @@ struct RestaurantDetailView: View {
     @State private var searchText = ""
     @State private var selectedMenuCategory: MenuCategory = .all
     @State private var showingMenuScanner = false
+    @State private var showSlowLoadingTip = false
+    @State private var slowLoadingTimer: Timer?
 
     enum MenuCategory: String, CaseIterable {
         case all = "All"
@@ -21,7 +23,7 @@ struct RestaurantDetailView: View {
         case desserts = "Desserts"
     }
 
-    enum ViewState {
+    enum ViewState: Equatable {
         case initializing
         case loading
         case loaded
@@ -65,25 +67,51 @@ struct RestaurantDetailView: View {
                         .font(.system(size: 18, weight: .bold))
                         .lineLimit(1)
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if let website = restaurant.website, let url = URL(string: website) {
+                        Button {
+                            UIApplication.shared.open(url)
+                        } label: {
+                            Image(systemName: "globe")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.blue)
+                        }
+                    }
+                }
             }
         }
-        .onAppear { setupView() }
-        .onChange(of: nutritionManager.isLoading) { _, _ in updateViewState() }
-        .onChange(of: nutritionManager.currentRestaurantData) { _, _ in updateViewState() }
-        .onChange(of: nutritionManager.errorMessage) { _, _ in updateViewState() }
+        .onAppear { 
+            setupView() 
+        }
+        .onDisappear { cleanup() }
+        .onChange(of: nutritionManager.currentRestaurantData) { _, newData in 
+            debugLog("📊 DATA CHANGE: \(newData?.restaurantName ?? "nil")")
+            updateViewStateBasedOnData()
+        }
+        .onChange(of: nutritionManager.errorMessage) { _, newError in 
+            if let error = newError {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    viewState = .error(error)
+                    stopSlowLoadingTimer()
+                }
+            }
+        }
+        .onChange(of: nutritionManager.isLoading) { _, isLoading in
+            if isLoading && viewState != .loading {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    viewState = .loading
+                    startSlowLoadingTimer()
+                }
+            }
+        }
     }
 
     @ViewBuilder
     private var contentView: some View {
         switch viewState {
         case .initializing, .loading:
-            LoadingView(
-                title: "Loading Menu...",
-                subtitle: "Getting nutrition data for \(restaurant.name)",
-                progress: nil,
-                style: .fullScreen
-            )
-            .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            enhancedLoadingView
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
 
         case .loaded:
             if let restaurantData = nutritionManager.currentRestaurantData {
@@ -101,14 +129,204 @@ struct RestaurantDetailView: View {
         }
     }
 
+    // MARK: - Enhanced Loading View
+    @ViewBuilder
+    private var enhancedLoadingView: some View {
+        VStack(spacing: 20) {
+            Spacer()
+            
+            // Loading indicator with tier information
+            VStack(spacing: 16) {
+                ZStack {
+                    Circle()
+                        .stroke(Color.blue.opacity(0.3), lineWidth: 4)
+                        .frame(width: 60, height: 60)
+                    
+                    Circle()
+                        .trim(from: 0, to: 0.7)
+                        .stroke(
+                            LinearGradient(
+                                colors: [Color.blue, Color.blue.opacity(0.6)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            style: StrokeStyle(lineWidth: 4, lineCap: .round)
+                        )
+                        .frame(width: 60, height: 60)
+                        .rotationEffect(.degrees(-90))
+                        .animation(.linear(duration: 1).repeatForever(autoreverses: false), value: animateIn)
+                }
+                
+                VStack(spacing: 8) {
+                    Text(loadingTitle)
+                        .font(.system(size: 18, weight: .semibold))
+                    
+                    Text(loadingSubtitle)
+                        .font(.system(size: 14))
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
+                    
+                    // Loading tier indicator
+                    HStack(spacing: 8) {
+                        loadingTierIcon
+                        Text(loadingTierText)
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(20)
+                }
+            }
+            
+            // Slow loading tip
+            if showSlowLoadingTip {
+                VStack(spacing: 12) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "lightbulb.fill")
+                            .font(.system(size: 16))
+                            .foregroundColor(.orange)
+                        
+                        Text("Taking longer than expected?")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.orange)
+                    }
+                    
+                    Text("Our system is checking multiple sources for the best nutrition data")
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                    
+                    Button {
+                        isPresented = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            isPresented = true
+                        }
+                    } label: {
+                        Text("Close and reopen for faster loading")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(.blue)
+                    }
+                }
+                .padding(16)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.orange.opacity(0.1))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.orange.opacity(0.3), lineWidth: 1)
+                        )
+                )
+                .padding(.horizontal, 20)
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+            }
+            
+            Spacer()
+        }
+        .onAppear {
+            startSlowLoadingTimer()
+        }
+    }
+
+    // MARK: - Loading State Helpers
+    private var loadingTitle: String {
+        switch nutritionManager.loadingState {
+        case .checkingCache:
+            return "Checking Cache..."
+        case .loadingFromAPI:
+            return "Loading from API..."
+        case .retryingAPI:
+            return "Retrying..."
+        case .loadingFromStatic:
+            return "Loading Fallback Data..."
+        case .loadingFromNutritionix:
+            return "Loading from Nutritionix..."
+        default:
+            return "Loading Menu..."
+        }
+    }
+    
+    private var loadingSubtitle: String {
+        switch nutritionManager.loadingState {
+        case .checkingCache:
+            return "Looking for cached nutrition data"
+        case .loadingFromAPI:
+            return "Fetching fresh nutrition data"
+        case .retryingAPI:
+            return "Trying again with backup servers"
+        case .loadingFromStatic:
+            return "Using emergency nutrition database"
+        case .loadingFromNutritionix:
+            return "Fetching from alternative nutrition source"
+        default:
+            return "Getting nutrition data for \(restaurant.name)"
+        }
+    }
+    
+    @ViewBuilder
+    private var loadingTierIcon: some View {
+        switch nutritionManager.loadingState {
+        case .checkingCache:
+            Image(systemName: "bolt.circle.fill")
+                .foregroundColor(.green)
+        case .loadingFromAPI:
+            Image(systemName: "globe.americas.fill")
+                .foregroundColor(.blue)
+        case .retryingAPI:
+            Image(systemName: "arrow.clockwise.circle.fill")
+                .foregroundColor(.orange)
+        case .loadingFromStatic:
+            Image(systemName: "database.fill")
+                .foregroundColor(.purple)
+        case .loadingFromNutritionix:
+            Image(systemName: "network")
+                .foregroundColor(.indigo)
+        default:
+            Image(systemName: "circle.fill")
+                .foregroundColor(.gray)
+        }
+    }
+    
+    private var loadingTierText: String {
+        switch nutritionManager.loadingState {
+        case .checkingCache:
+            return "TIER 1: Cache"
+        case .loadingFromAPI:
+            return "TIER 2: Primary API"
+        case .retryingAPI:
+            return "TIER 3: Retry Logic"
+        case .loadingFromStatic:
+            return "TIER 4: Static Data"
+        case .loadingFromNutritionix:
+            return "TIER 5: Nutritionix"
+        default:
+            return "Loading..."
+        }
+    }
+
+    // MARK: - Setup and State Management
     private func setupView() {
-        hasNutritionData = RestaurantData.restaurantsWithNutritionData.contains(restaurant.name)
+        hasNutritionData = nutritionManager.hasNutritionData(for: restaurant.name)
         debugLog("🍽️ Opening '\(restaurant.name)' – has nutrition: \(hasNutritionData)")
 
         if hasNutritionData {
-            viewState = .loading
-            debugLog("🔄 Loading nutrition for \(restaurant.name)")
-            nutritionManager.loadNutritionData(for: restaurant.name)
+            // Check if data is already loaded
+            if let existingData = nutritionManager.currentRestaurantData,
+               existingData.restaurantName.lowercased() == restaurant.name.lowercased() {
+                debugLog("✅ Data already loaded for \(restaurant.name), showing menu immediately")
+                viewState = .loaded
+            } else {
+                viewState = .loading
+                debugLog("🔄 Loading nutrition for \(restaurant.name)")
+                nutritionManager.loadNutritionData(for: restaurant.name)
+                
+                // Set up a timeout to check for data loading issues
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    self.updateViewStateBasedOnData()
+                }
+            }
         } else {
             viewState = .noData
         }
@@ -118,22 +336,84 @@ struct RestaurantDetailView: View {
         }
     }
 
-    private func updateViewState() {
-        withAnimation(.easeInOut(duration: 0.3)) {
-            if let error = nutritionManager.errorMessage {
-                viewState = .error(error)
-            } else if nutritionManager.isLoading {
-                viewState = .loading
-            } else if nutritionManager.currentRestaurantData != nil {
-                viewState = .loaded
-            } else if hasNutritionData {
-                viewState = .loading
+    // Simplified state management
+    private func updateViewStateBasedOnData() {
+        // Check current nutrition manager state
+        if let data = nutritionManager.currentRestaurantData {
+            // Data exists - check if it's for this restaurant
+            if data.restaurantName.lowercased().contains(restaurant.name.lowercased()) ||
+               restaurant.name.lowercased().contains(data.restaurantName.lowercased()) {
+                debugLog("✅ UI SUCCESS: Menu loaded for '\(restaurant.name)' with \(data.items.count) items")
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    viewState = .loaded
+                }
+                stopSlowLoadingTimer()
+                return
             } else {
+                debugLog("⚠️ Data mismatch: Expected '\(restaurant.name)', got '\(data.restaurantName)'")
+            }
+        }
+        
+        // Check for errors
+        if let error = nutritionManager.errorMessage {
+            debugLog("❌ Error state: \(error)")
+            withAnimation(.easeInOut(duration: 0.3)) {
+                viewState = .error(error)
+            }
+            stopSlowLoadingTimer()
+            return
+        }
+        
+        // Check if still loading
+        if nutritionManager.isLoading && hasNutritionData {
+            debugLog("⏳ Still loading...")
+            if case .loading = viewState {
+                // Already in loading state
+            } else {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    viewState = .loading
+                }
+                startSlowLoadingTimer()
+            }
+            return
+        }
+        
+        // Not loading and no data - determine final state
+        if hasNutritionData {
+            debugLog("⚠️ Should have data but loading failed")
+            withAnimation(.easeInOut(duration: 0.3)) {
+                viewState = .error("Failed to load nutrition data for \(restaurant.name)")
+            }
+            stopSlowLoadingTimer()
+        } else {
+            debugLog("ℹ️ No nutrition data available")
+            withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .noData
             }
         }
     }
 
+    // MARK: - Slow Loading Timer
+    private func startSlowLoadingTimer() {
+        slowLoadingTimer?.invalidate()
+        slowLoadingTimer = Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { _ in
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
+                showSlowLoadingTip = true
+            }
+        }
+    }
+    
+    private func stopSlowLoadingTimer() {
+        slowLoadingTimer?.invalidate()
+        slowLoadingTimer = nil
+        showSlowLoadingTip = false
+    }
+    
+    private func cleanup() {
+        stopSlowLoadingTimer()
+    }
+
+    // MARK: - Restaurant Header
     private var restaurantHeader: some View {
         VStack(spacing: 16) {
             HStack {
@@ -158,12 +438,13 @@ struct RestaurantDetailView: View {
                             .foregroundColor(.secondary)
                     }
 
+                    // Enhanced nutrition data indicator
                     HStack(spacing: 6) {
                         if hasNutritionData {
                             Image(systemName: "checkmark.circle.fill")
                                 .font(.system(size: 12))
                                 .foregroundColor(.green)
-                            Text("Nutrition data available")
+                            Text("Multi-tier nutrition data")
                                 .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.green)
                         } else {
@@ -178,6 +459,9 @@ struct RestaurantDetailView: View {
                 }
                 Spacer()
             }
+
+            // Restaurant contact and website information
+            restaurantInfoSection
 
             if let category = selectedCategory {
                 HStack {
@@ -194,6 +478,79 @@ struct RestaurantDetailView: View {
         }
     }
 
+    // MARK: - Restaurant Info Section
+    private var restaurantInfoSection: some View {
+        VStack(spacing: 8) {
+            // Address
+            if let address = restaurant.address {
+                RestaurantInfoRow(
+                    icon: "location.fill",
+                    iconColor: .blue,
+                    text: address,
+                    action: {
+                        openInMaps()
+                    }
+                )
+            }
+            
+            // Phone
+            if let phone = restaurant.phone {
+                RestaurantInfoRow(
+                    icon: "phone.fill",
+                    iconColor: .green,
+                    text: phone,
+                    action: {
+                        if let phoneURL = URL(string: "tel:\(phone.replacingOccurrences(of: " ", with: ""))") {
+                            UIApplication.shared.open(phoneURL)
+                        }
+                    }
+                )
+            }
+            
+            // Website
+            if let website = restaurant.website {
+                RestaurantInfoRow(
+                    icon: "globe",
+                    iconColor: .orange,
+                    text: formatWebsiteDisplay(website),
+                    action: {
+                        if let url = URL(string: website) {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+                )
+            }
+            
+            // Opening Hours
+            if let hours = restaurant.openingHours {
+                RestaurantInfoRow(
+                    icon: "clock.fill",
+                    iconColor: .purple,
+                    text: hours,
+                    action: nil
+                )
+            }
+        }
+    }
+
+    // MARK: - Helper Methods
+    private func formatWebsiteDisplay(_ website: String) -> String {
+        // Remove http/https prefix for cleaner display
+        return website
+            .replacingOccurrences(of: "https://", with: "")
+            .replacingOccurrences(of: "http://", with: "")
+            .replacingOccurrences(of: "www.", with: "")
+    }
+
+    private func openInMaps() {
+        let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = restaurant.name
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+
+    // MARK: - Enhanced No Data View
     private var noDataView: some View {
         VStack(spacing: 24) {
             Spacer()
@@ -201,14 +558,25 @@ struct RestaurantDetailView: View {
                 .font(.system(size: 50))
                 .foregroundColor(.orange)
 
-            Text("No Nutrition Data")
-                .font(.system(size: 24, weight: .bold))
-            Text("We don't have detailed nutrition for \(restaurant.name).")
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
-                .padding(.horizontal, 40)
+            VStack(spacing: 12) {
+                Text("No Nutrition Data")
+                    .font(.system(size: 24, weight: .bold))
+                
+                Text("We don't have detailed nutrition for \(restaurant.name), but you can scan their menu!")
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 40)
+                
+                // Performance stats (if available)
+                if let stats = getPerformanceStatsText() {
+                    Text(stats)
+                        .font(.system(size: 12))
+                        .foregroundColor(.blue)
+                        .padding(.horizontal, 40)
+                }
+            }
 
-            // ENHANCED: Add Scan Menu button
+            // Enhanced Scan Menu button
             VStack(spacing: 16) {
                 Button {
                     showingMenuScanner = true
@@ -252,30 +620,12 @@ struct RestaurantDetailView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 16)
                 
-                // Restaurant info cards
-                VStack(spacing: 12) {
-                    if let address = restaurant.address {
-                        HStack {
-                            Image(systemName: "location.fill")
-                                .foregroundColor(.blue)
-                            Text(address)
-                                .foregroundColor(.primary)
-                            Spacer()
-                        }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
-                    }
-                    if let phone = restaurant.phone {
-                        HStack {
-                            Image(systemName: "phone.fill")
-                                .foregroundColor(.green)
-                            Text(phone)
-                                .foregroundColor(.primary)
-                            Spacer()
-                        }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 12).fill(Color(.systemGray6)))
-                    }
+                // Restaurant info cards (moved to header)
+                if restaurant.address == nil && restaurant.phone == nil && restaurant.website == nil {
+                    Text("No additional restaurant information available")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 40)
                 }
             }
             .padding(.horizontal, 20)
@@ -286,6 +636,7 @@ struct RestaurantDetailView: View {
         }
     }
 
+    // MARK: - Enhanced Error View
     private func errorView(message: String) -> some View {
         VStack(spacing: 24) {
             Spacer()
@@ -293,30 +644,74 @@ struct RestaurantDetailView: View {
                 .font(.system(size: 50))
                 .foregroundColor(.red)
 
-            Text("Unable to Load Menu")
-                .font(.system(size: 24, weight: .bold))
-            Text(message)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
-                .padding(.horizontal, 40)
-
-            Button {
-                viewState = .loading
-                nutritionManager.loadNutritionData(for: restaurant.name)
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.clockwise")
-                    Text("Try Again")
+            VStack(spacing: 12) {
+                Text("Unable to Load Menu")
+                    .font(.system(size: 24, weight: .bold))
+                
+                Text(message)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 40)
+                
+                // Performance stats
+                if let stats = getPerformanceStatsText() {
+                    Text(stats)
+                        .font(.system(size: 12))
+                        .foregroundColor(.blue)
+                        .padding(.horizontal, 40)
                 }
-                .padding()
-                .background(LinearGradient(colors: [.blue, .blue.opacity(0.8)], startPoint: .top, endPoint: .bottom))
-                .foregroundColor(.white)
-                .cornerRadius(12)
+            }
+
+            VStack(spacing: 16) {
+                Button {
+                    debugLog("🔄 Manual retry for \(restaurant.name)")
+                    nutritionManager.clearData()
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        viewState = .loading
+                    }
+                    nutritionManager.loadNutritionData(for: restaurant.name)
+                    startSlowLoadingTimer()
+                } label: {
+                    HStack {
+                        Image(systemName: "arrow.clockwise")
+                        Text("Try Again")
+                    }
+                    .padding()
+                    .background(LinearGradient(colors: [.blue, .blue.opacity(0.8)], startPoint: .top, endPoint: .bottom))
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+                }
+                
+                Button {
+                    showingMenuScanner = true
+                } label: {
+                    HStack {
+                        Image(systemName: "camera.fill")
+                        Text("Scan Menu Instead")
+                    }
+                    .padding()
+                    .background(Color.gray.opacity(0.2))
+                    .foregroundColor(.primary)
+                    .cornerRadius(12)
+                }
             }
             Spacer()
         }
+        .sheet(isPresented: $showingMenuScanner) {
+            MenuPhotoCaptureView()
+        }
     }
 
+    // MARK: - Performance Stats Helper
+    private func getPerformanceStatsText() -> String? {
+        let stats = nutritionManager.getPerformanceStats()
+        if stats.cacheHits + stats.cacheMisses + stats.apiSuccesses + stats.apiFailures > 0 {
+            return "Cache: \(Int(stats.hitRate * 100))% • API: \(stats.apiSuccesses) success, \(stats.apiFailures) failed"
+        }
+        return nil
+    }
+
+    // MARK: - Menu Content 
     private func fullMenuContent(_ data: RestaurantNutritionData) -> some View {
         VStack(spacing: 0) {
             VStack(spacing: 12) {
@@ -407,7 +802,53 @@ struct RestaurantDetailView: View {
     }
 }
 
-// MARK: - Menu Item Card
+// MARK: - Restaurant Info Row Component
+struct RestaurantInfoRow: View {
+    let icon: String
+    let iconColor: Color
+    let text: String
+    let action: (() -> Void)?
+    
+    var body: some View {
+        Group {
+            if let action = action {
+                Button(action: action) {
+                    rowContent
+                }
+                .buttonStyle(.plain)
+            } else {
+                rowContent
+            }
+        }
+    }
+    
+    private var rowContent: some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .foregroundColor(iconColor)
+                .frame(width: 20)
+            
+            Text(text)
+                .font(.system(size: 14))
+                .foregroundColor(.primary)
+                .lineLimit(2)
+            
+            Spacer()
+            
+            if action != nil {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(.vertical, 8)
+        .padding(.horizontal, 12)
+        .background(Color(.systemGray6))
+        .cornerRadius(8)
+    }
+}
+
+// MARK: - Menu Item Card 
 
 struct MenuItemCard: View {
     let item: NutritionData
@@ -460,7 +901,7 @@ struct MenuItemCard: View {
     }
 }
 
-// MARK: - Nutrition Badge
+// MARK: - Nutrition Badge 
 
 struct NutritionBadge: View {
     let value: String

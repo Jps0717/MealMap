@@ -13,13 +13,9 @@ struct OnboardingCoordinator: View {
     
     var body: some View {
         ZStack {
-            // Background gradient
-            LinearGradient(
-                colors: [Color.blue.opacity(0.1), Color.green.opacity(0.1)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            // Clean white background
+            Color(.systemBackground)
+                .ignoresSafeArea()
             
             // Content
             switch currentStep {
@@ -56,30 +52,43 @@ struct OnboardingCoordinator: View {
 // MARK: - Welcome Screen
 struct WelcomeScreen: View {
     let onContinue: () -> Void
-    @State private var showSwipeHint = true
+    @State private var animateIcon = false
     
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
             
-            // App Icon/Logo
-            VStack(spacing: 24) {
-                Circle()
-                    .fill(LinearGradient(
-                        colors: [.blue, .green],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ))
-                    .frame(width: 120, height: 120)
-                    .overlay(
-                        Text("🍽️")
-                            .font(.system(size: 60))
-                    )
-                    .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
+            // App Logo - Clean map symbol only
+            VStack(spacing: 32) {
+                ZStack {
+                    // Background circle with gradient
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.blue, Color.green],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 140, height: 140)
+                        .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
+                        .scaleEffect(animateIcon ? 1.05 : 1.0)
+                        .animation(
+                            Animation.easeInOut(duration: 2.0)
+                                .repeatForever(autoreverses: true),
+                            value: animateIcon
+                        )
+                    
+                    // Simple map symbol
+                    Image(systemName: "map.fill")
+                        .font(.system(size: 48, weight: .medium))
+                        .foregroundColor(.white)
+                }
                 
-                VStack(spacing: 12) {
+                VStack(spacing: 16) {
                     Text("Welcome to")
                         .font(.title2)
+                        .fontWeight(.medium)
                         .foregroundColor(.secondary)
                     
                     Text("MealMap")
@@ -92,62 +101,51 @@ struct WelcomeScreen: View {
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .lineSpacing(4)
+                        .padding(.horizontal, 32)
                 }
             }
             
             Spacer()
             
-            // Swipe hint
-            VStack(spacing: 16) {
-                if showSwipeHint {
-                    HStack(spacing: 8) {
-                        Text("Swipe right to begin")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        Image(systemName: "arrow.right")
-                            .font(.subheadline)
-                            .foregroundColor(.blue)
-                            .offset(x: showSwipeHint ? 0 : 10)
-                            .animation(
-                                Animation.easeInOut(duration: 1.0)
-                                    .repeatForever(autoreverses: true),
-                                value: showSwipeHint
-                            )
-                    }
-                }
-                
-                Button(action: onContinue) {
+            // Get Started button only (removed swipe hint)
+            VStack(spacing: 20) {
+                Button(action: {
+                    HapticService.shared.buttonPress()
+                    onContinue()
+                }) {
                     Text("Get Started")
                         .font(.headline)
+                        .fontWeight(.semibold)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 56)
-                        .background(Color.blue)
+                        .background(
+                            LinearGradient(
+                                colors: [Color.blue, Color.blue.opacity(0.8)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
                         .cornerRadius(16)
+                        .shadow(color: .blue.opacity(0.3), radius: 8, x: 0, y: 4)
                 }
-                .onTapGesture {
-                    HapticService.shared.buttonPress()
-                }
+                .buttonStyle(.plain)
                 .padding(.horizontal, 40)
             }
-            .padding(.bottom, 50)
+            .padding(.bottom, 60)
         }
+        .background(Color(.systemBackground))
         .gesture(
             DragGesture()
                 .onEnded { value in
                     if value.translation.width > 100 {
+                        HapticService.shared.navigate()
                         onContinue()
                     }
                 }
         )
         .onAppear {
-            // Hide swipe hint after 3 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                withAnimation(.easeOut(duration: 0.5)) {
-                    showSwipeHint = false
-                }
-            }
+            animateIcon = true
         }
     }
 }
@@ -169,45 +167,46 @@ struct AuthenticationScreen: View {
             // Content
             ScrollView {
                 VStack(spacing: 32) {
-                    Spacer(minLength: 60)
+                    Spacer(minLength: 80)
                     
-                    // Header
+                    // Header - consistent with app style
                     VStack(spacing: 16) {
                         Text(isSignUp ? "Create Account" : "Welcome Back")
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(.primary)
                         
-                        Text(isSignUp ? "Join MealMap to enjoy meals with ease" : "Sign in to continue your journey")
+                        Text(isSignUp ? "Join MealMap to track your nutrition journey" : "Sign in to continue your nutrition journey")
                             .font(.body)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
+                            .padding(.horizontal, 24)
                     }
                     
-                    // Form
+                    // Form using consistent styling
                     VStack(spacing: 20) {
                         if isSignUp {
-                            FloatingTextField(
+                            EnhancedTextField(
                                 title: "Display Name",
                                 text: $displayName,
                                 keyboardType: .default
                             )
                         }
                         
-                        FloatingTextField(
+                        EnhancedTextField(
                             title: "Email",
                             text: $email,
                             keyboardType: .emailAddress
                         )
                         
-                        FloatingTextField(
+                        EnhancedTextField(
                             title: "Password",
                             text: $password,
                             isSecure: true
                         )
                         
                         if isSignUp {
-                            FloatingTextField(
+                            EnhancedTextField(
                                 title: "Confirm Password",
                                 text: $confirmPassword,
                                 isSecure: true
@@ -222,10 +221,17 @@ struct AuthenticationScreen: View {
                             .font(.caption)
                             .foregroundColor(.red)
                             .padding(.horizontal, 24)
+                            .padding(.vertical, 8)
+                            .background(Color.red.opacity(0.1))
+                            .cornerRadius(8)
+                            .padding(.horizontal, 24)
                     }
                     
-                    // Action button
-                    Button(action: handleAuthAction) {
+                    // Action button using app style
+                    Button(action: {
+                        HapticService.shared.buttonPress()
+                        handleAuthAction()
+                    }) {
                         HStack {
                             if authManager.isLoading {
                                 ProgressView()
@@ -235,22 +241,28 @@ struct AuthenticationScreen: View {
                             
                             Text(isSignUp ? "Create Account" : "Sign In")
                                 .font(.headline)
+                                .fontWeight(.semibold)
                                 .foregroundColor(.white)
                         }
                         .frame(maxWidth: .infinity)
                         .frame(height: 56)
-                        .background(Color.blue)
+                        .background(
+                            LinearGradient(
+                                colors: authManager.isLoading ? [Color.gray, Color.gray.opacity(0.8)] : [Color.blue, Color.blue.opacity(0.8)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
                         .cornerRadius(16)
+                        .shadow(color: authManager.isLoading ? .clear : .blue.opacity(0.3), radius: 8, x: 0, y: 4)
                         .disabled(authManager.isLoading)
                     }
+                    .buttonStyle(.plain)
                     .padding(.horizontal, 24)
-                    .onTapGesture {
-                        HapticService.shared.buttonPress()
-                    }
                     
                     // Toggle auth mode
                     Button(action: {
-                        HapticsManager.shared.toggleChange()
+                        HapticService.shared.toggle()
                         withAnimation(.easeInOut(duration: 0.3)) {
                             isSignUp.toggle()
                             authManager.errorMessage = nil
@@ -258,16 +270,16 @@ struct AuthenticationScreen: View {
                     }) {
                         Text(isSignUp ? "Already have an account? Sign In" : "Need an account? Sign Up")
                             .font(.subheadline)
+                            .fontWeight(.medium)
                             .foregroundColor(.blue)
                     }
-                    .onTapGesture {
-                        HapticService.shared.toggle()
-                    }
+                    .buttonStyle(.plain)
                     
                     Spacer(minLength: 100)
                 }
             }
         }
+        .background(Color(.systemBackground))
         .onChange(of: authManager.isAuthenticated) { _, newValue in
             if newValue {
                 if isSignUp {
@@ -294,8 +306,8 @@ struct AuthenticationScreen: View {
     }
 }
 
-// MARK: - Floating Text Field
-struct FloatingTextField: View {
+// MARK: - Enhanced Text Field (updated to match app style)
+struct EnhancedTextField: View {
     let title: String
     @Binding var text: String
     var keyboardType: UIKeyboardType = .default
@@ -304,10 +316,11 @@ struct FloatingTextField: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
             if !text.isEmpty || isFocused {
                 Text(title)
                     .font(.caption)
+                    .fontWeight(.medium)
                     .foregroundColor(.blue)
                     .animation(.easeInOut(duration: 0.2), value: isFocused)
             }
@@ -324,11 +337,32 @@ struct FloatingTextField: View {
             .padding(.horizontal, 16)
             .background(Color(.systemGray6))
             .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(isFocused ? Color.blue : Color.clear, lineWidth: 2)
+            )
             .keyboardType(keyboardType)
             .focused($isFocused)
             .autocapitalization(.none)
             .disableAutocorrection(true)
         }
+    }
+}
+
+// MARK: - Floating Text Field (legacy compatibility)
+struct FloatingTextField: View {
+    let title: String
+    @Binding var text: String
+    var keyboardType: UIKeyboardType = .default
+    var isSecure: Bool = false
+    
+    var body: some View {
+        EnhancedTextField(
+            title: title,
+            text: $text,
+            keyboardType: keyboardType,
+            isSecure: isSecure
+        )
     }
 }
 

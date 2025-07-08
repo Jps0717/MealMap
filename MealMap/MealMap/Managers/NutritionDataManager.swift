@@ -1,11 +1,13 @@
 import Foundation
 import UIKit
 
+/// Enhanced nutrition data manager with comprehensive fallback system
 @MainActor
 class NutritionDataManager: ObservableObject {
     @Published var isLoading = false
     @Published var currentRestaurantData: RestaurantNutritionData?
     @Published var errorMessage: String?
+    @Published var loadingState: LoadingState = .idle
     
     // ENHANCED: Batch loading tracking
     @Published var isBatchLoading = false
@@ -19,27 +21,56 @@ class NutritionDataManager: ObservableObject {
     private let baseURL = "https://meal-map-api.onrender.com"
     private let session: URLSession
     
-    // MARK: - Enhanced Cache
+    // MARK: - Enhanced Cache System
     private var nutritionCache = NutritionCache()
     private let diskCache = NutritionDiskCache()
     private var loadingTasks: [String: Task<RestaurantNutritionData?, Never>] = [:]
     private var availableRestaurantIDs: [String] = []
     
-    // MARK: - API Connection Status
-    private var hasCheckedAPIAvailability = false
+    // MARK: - Fallback System
+    private var apiHealth: APIHealthStatus = .unknown
+    private var lastAPICheck: Date = .distantPast
+    private let apiHealthCheckInterval: TimeInterval = 300 // 5 minutes
+    
+    // MARK: - Retry Logic
+    private var retryAttempts: [String: Int] = [:]
+    private let maxRetries = 3
+    private let retryDelays: [TimeInterval] = [1.0, 2.0, 5.0] // Exponential backoff
     
     // MARK: - Performance Tracking
     private var cacheHits = 0
     private var cacheMisses = 0
+    private var apiSuccesses = 0
+    private var apiFailures = 0
+    private var staticFallbacks = 0
+    
+    // MARK: - Loading States
+    enum LoadingState {
+        case idle
+        case checkingCache
+        case loadingFromAPI
+        case retryingAPI
+        case loadingFromStatic
+        case loadingFromNutritionix
+        case failed
+        case success
+    }
+    
+    enum APIHealthStatus {
+        case unknown
+        case healthy
+        case degraded
+        case offline
+    }
     
     private init() {
-        // OPTIMIZED: Configure session for fast, unlimited API access
+        // OPTIMIZED: Configure session for reliable API access with fallbacks
         let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 3.0 // FIXED: Aggressive timeout for fast startup
-        config.timeoutIntervalForResource = 5.0 // FIXED: Quick total timeout
-        config.requestCachePolicy = .useProtocolCachePolicy // Use normal caching
-        config.httpMaximumConnectionsPerHost = 10 // Allow more concurrent requests
-        config.waitsForConnectivity = false // FIXED: Don't wait for connectivity
+        config.timeoutIntervalForRequest = 8.0 // Longer timeout for reliability
+        config.timeoutIntervalForResource = 15.0 // Allow time for retries
+        config.requestCachePolicy = .useProtocolCachePolicy
+        config.httpMaximumConnectionsPerHost = 5
+        config.waitsForConnectivity = true // Wait briefly for connectivity
         self.session = URLSession(configuration: config)
 
         // Prime in-memory cache from persisted disk cache
@@ -48,81 +79,231 @@ class NutritionDataManager: ObservableObject {
             nutritionCache.store(restaurant: entry)
         }
 
-        debugLog("⚡ NutritionDataManager optimized for unlimited API access (restored \(persisted.count) cached restaurants)")
+        debugLog(" NutritionDataManager initialized with robust fallback system (restored \(persisted.count) cached restaurants)")
     }
     
-    // MARK: - Startup Methods - Lightweight Initialization Only
-    // FIXED: Truly fast startup - background API check only
+    // MARK: - Enhanced Startup Methods
     func initializeIfNeeded() async {
-        guard !hasCheckedAPIAvailability else { return }
-        hasCheckedAPIAvailability = true
+        debugLog(" Initializing nutrition system with fallback support...")
         
-        debugLog("⚡ Lightning-fast API initialization...")
-        
-        // FIXED: Fire-and-forget background API check - don't await
+        // Background API health check
         Task.detached(priority: .background) { [weak self] in
-            await self?.checkAPIAvailability()
+            await self?.checkAPIHealth()
         }
         
-        debugLog("✅ Initialization completed instantly (API check running in background)")
+        // Preload popular restaurants in background
+        Task.detached(priority: .background) { [weak self] in
+            await self?.preloadPopularRestaurants()
+        }
+        
+        debugLog(" Nutrition system initialized with fallback support")
     }
     
-    // FIXED: Fast API availability check with aggressive timeout
-    private func checkAPIAvailability() async {
-        guard availableRestaurantIDs.isEmpty else {
-            debugLog("📋 Restaurant IDs already loaded")
+    // MARK: - API Health Monitoring
+    private func checkAPIHealth() async {
+        let now = Date()
+        guard now.timeIntervalSince(lastAPICheck) > apiHealthCheckInterval else {
             return
         }
+        lastAPICheck = now
         
         guard let url = URL(string: "\(baseURL)/restaurants") else {
-            debugLog("❌ Invalid API URL")
+            await MainActor.run {
+                self.apiHealth = .offline
+            }
             return
         }
         
-        debugLog("🔍 Background API availability check...")
+        debugLog(" Checking API health...")
         
         do {
-            // FIXED: Use aggressive timeout
-            let request = URLRequest(url: url, timeoutInterval: 3.0)
+            let request = URLRequest(url: url, timeoutInterval: 5.0)
             let (data, response) = try await session.data(for: request)
             
             if let httpResponse = response as? HTTPURLResponse {
-                debugLog("📊 API Status: \(httpResponse.statusCode)")
+                await MainActor.run {
+                    switch httpResponse.statusCode {
+                    case 200...299:
+                        self.apiHealth = .healthy
+                        debugLog(" API is healthy")
+                    case 500...599:
+                        self.apiHealth = .degraded
+                        debugLog(" API is degraded")
+                    default:
+                        self.apiHealth = .offline
+                        debugLog(" API is offline")
+                    }
+                }
                 
                 if httpResponse.statusCode == 200 {
                     let restaurantIDs = try JSONDecoder().decode([String].self, from: data)
                     await MainActor.run {
                         self.availableRestaurantIDs = restaurantIDs
                     }
-                    debugLog("✅ API ready with \(restaurantIDs.count) restaurants (background)")
-                    return
                 }
             }
         } catch {
-            debugLog("⚠️ API check failed in background (app continues normally): \(error.localizedDescription)")
-            // Don't treat this as fatal - app can still work with static data
+            await MainActor.run {
+                self.apiHealth = .offline
+            }
+            debugLog(" API health check failed: \(error.localizedDescription)")
+        }
+    }
+    
+    // MARK: - Enhanced Load Method with Comprehensive Fallback
+    func loadNutritionData(for restaurantName: String) {
+        let cacheKey = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        debugLog(" ENHANCED LOAD: '\(restaurantName)' starting comprehensive load process")
+        
+        // Prevent duplicate requests
+        if loadingTasks[cacheKey] != nil {
+            debugLog(" Already loading '\(restaurantName)', skipping duplicate request")
+            return
         }
         
-        debugLog("📱 App continues with fallback nutrition data")
+        // Reset state
+        errorMessage = nil
+        retryAttempts[cacheKey] = 0
+        
+        let task = Task<RestaurantNutritionData?, Never> { [weak self] in
+            guard let self = self else { return nil }
+            
+            // TIER 1: Memory Cache (Fastest)
+            await MainActor.run { self.loadingState = .checkingCache }
+            if let cachedData = self.nutritionCache.getRestaurant(named: restaurantName) {
+                await MainActor.run {
+                    self.currentRestaurantData = cachedData
+                    self.loadingState = .success
+                    self.cacheHits += 1
+                }
+                debugLog(" TIER 1 SUCCESS: '\(restaurantName)' loaded from memory cache")
+                return cachedData
+            }
+            
+            // TIER 2: Disk Cache (Fast)
+            if let diskData = self.diskCache.get(restaurantName) {
+                await MainActor.run {
+                    self.currentRestaurantData = diskData
+                    self.nutritionCache.store(restaurant: diskData)
+                    self.loadingState = .success
+                    self.cacheHits += 1
+                }
+                debugLog(" TIER 2 SUCCESS: '\(restaurantName)' loaded from disk cache")
+                return diskData
+            }
+            
+            // TIER 3: API with Retry Logic (Reliable)
+            let apiData = await self.loadFromAPIWithRetry(restaurantName: restaurantName)
+            if let apiData = apiData {
+                await MainActor.run {
+                    self.currentRestaurantData = apiData
+                    self.nutritionCache.store(restaurant: apiData)
+                    self.diskCache.store(apiData)
+                    self.loadingState = .success
+                    self.apiSuccesses += 1
+                }
+                debugLog(" TIER 3 SUCCESS: '\(restaurantName)' loaded from API")
+                return apiData
+            }
+            
+            // TIER 4: Static Fallback Data (Emergency)
+            await MainActor.run { self.loadingState = .loadingFromStatic }
+            if let staticData = StaticNutritionData.getStaticNutritionData(for: restaurantName) {
+                await MainActor.run {
+                    self.currentRestaurantData = staticData
+                    self.nutritionCache.store(restaurant: staticData)
+                    self.loadingState = .success
+                    self.staticFallbacks += 1
+                }
+                debugLog(" TIER 4 SUCCESS: '\(restaurantName)' loaded from static fallback")
+                return staticData
+            }
+            
+            // TIER 5: Nutritionix API (Last Resort)
+            await MainActor.run { self.loadingState = .loadingFromNutritionix }
+            if let nutritionixData = await self.loadFromNutritionixFallback(restaurantName: restaurantName) {
+                await MainActor.run {
+                    self.currentRestaurantData = nutritionixData
+                    self.nutritionCache.store(restaurant: nutritionixData)
+                    self.loadingState = .success
+                }
+                debugLog(" TIER 5 SUCCESS: '\(restaurantName)' loaded from Nutritionix fallback")
+                return nutritionixData
+            }
+            
+            // ALL TIERS FAILED
+            await MainActor.run {
+                self.loadingState = .failed
+                self.errorMessage = self.generateFallbackErrorMessage(for: restaurantName)
+                self.apiFailures += 1
+            }
+            debugLog(" ALL TIERS FAILED: '\(restaurantName)' could not be loaded from any source")
+            return nil
+        }
+        
+        isLoading = true
+        loadingTasks[cacheKey] = task
+        
+        Task {
+            _ = await task.value
+            await MainActor.run {
+                self.isLoading = false
+                self.loadingTasks.removeValue(forKey: cacheKey)
+            }
+        }
     }
-
-    // MARK: - Optimized API Methods
-    // OPTIMIZED: Fast API call with better error handling
-    private func fetchRestaurantFromAPI(restaurantId: String) async -> RestaurantNutritionData? {
+    
+    // MARK: - Enhanced API Loading with Retry Logic
+    private func loadFromAPIWithRetry(restaurantName: String) async -> RestaurantNutritionData? {
+        let cacheKey = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        for attempt in 0..<maxRetries {
+            await MainActor.run {
+                self.loadingState = attempt == 0 ? .loadingFromAPI : .retryingAPI
+            }
+            
+            debugLog(" API ATTEMPT \(attempt + 1)/\(maxRetries): '\(restaurantName)'")
+            
+            if let data = await loadFromAPI(restaurantName: restaurantName) {
+                retryAttempts[cacheKey] = 0
+                return data
+            }
+            
+            // Wait before retry (exponential backoff)
+            if attempt < maxRetries - 1 {
+                let delay = retryDelays[min(attempt, retryDelays.count - 1)]
+                debugLog(" Waiting \(delay)s before retry for '\(restaurantName)'")
+                try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+            }
+        }
+        
+        retryAttempts[cacheKey] = maxRetries
+        debugLog(" API EXHAUSTED: '\(restaurantName)' failed after \(maxRetries) attempts")
+        return nil
+    }
+    
+    // MARK: - Original API Method (Enhanced)
+    private func loadFromAPI(restaurantName: String) async -> RestaurantNutritionData? {
+        guard let restaurantId = RestaurantData.getRestaurantID(for: restaurantName) else {
+            debugLog(" No restaurant ID found for '\(restaurantName)'")
+            return nil
+        }
+        
         guard let url = URL(string: "\(baseURL)/restaurants/\(restaurantId)") else {
-            debugLog("❌ API ERROR: Invalid URL for \(restaurantId)")
+            debugLog(" Invalid URL for '\(restaurantName)' (\(restaurantId))")
             return nil
         }
         
         do {
-            debugLog("🌐 API CALL: Requesting \(restaurantId) from \(baseURL)")
+            debugLog(" API REQUEST: '\(restaurantName)' -> \(restaurantId)")
             let (data, response) = try await session.data(from: url)
             
             if let httpResponse = response as? HTTPURLResponse {
-                debugLog("📊 API RESPONSE: \(httpResponse.statusCode) for \(restaurantId)")
+                debugLog(" API RESPONSE: \(httpResponse.statusCode) for '\(restaurantName)'")
                 
-                if httpResponse.statusCode != 200 {
-                    debugLog("⚠️ API ERROR: Non-200 status \(httpResponse.statusCode) for \(restaurantId)")
+                guard httpResponse.statusCode == 200 else {
+                    debugLog(" API ERROR: Non-200 status \(httpResponse.statusCode) for '\(restaurantName)'")
                     return nil
                 }
             }
@@ -144,144 +325,110 @@ class NutritionDataManager: ObservableObject {
                 )
             }
             
-            debugLog("✅ API SUCCESS: \(restaurantJSON.restaurant_name) -> \(nutritionItems.count) menu items parsed")
+            debugLog(" API SUCCESS: '\(restaurantName)' -> \(nutritionItems.count) menu items")
             
             return RestaurantNutritionData(
                 restaurantName: restaurantJSON.restaurant_name,
                 items: nutritionItems
             )
         } catch {
-            debugLog("🔥 API ERROR: \(restaurantId) failed with error: \(error.localizedDescription)")
+            debugLog(" API ERROR: '\(restaurantName)' failed with: \(error.localizedDescription)")
             return nil
         }
     }
     
-    private func loadFromAPI(restaurantName: String) async -> RestaurantNutritionData? {
-        if let restaurantId = findRestaurantIdForName(restaurantName) {
-            debugLog("📡 API REQUEST: '\(restaurantName)' -> Fetching \(restaurantId)")
-            let result = await fetchRestaurantFromAPI(restaurantId: restaurantId)
-            
-            if result != nil {
-                debugLog("✅ API SUCCESS: '\(restaurantName)' -> \(restaurantId) returned data")
-            } else {
-                debugLog("❌ API FAILED: '\(restaurantName)' -> \(restaurantId) returned no data")
-            }
-            
-            return result
-        } else {
-            debugLog("❌ API SKIPPED: '\(restaurantName)' -> No ID mapping found")
-            return nil
-        }
+    // MARK: - Nutritionix Fallback
+    private func loadFromNutritionixFallback(restaurantName: String) async -> RestaurantNutritionData? {
+        debugLog(" Nutritionix fallback not yet implemented for '\(restaurantName)'")
+        return nil
     }
     
-    func loadNutritionData(for restaurantName: String) {
-        let cacheKey = restaurantName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        let restaurantId = findRestaurantIdForName(restaurantName)
+    // MARK: - Background Preloading
+    private func preloadPopularRestaurants() async {
+        let popularRestaurants = ["McDonald's", "Subway", "Starbucks", "Taco Bell", "Chipotle"]
         
-        // LOG: Initial attempt
-        debugLog("🍽️ NUTRITION LOAD ATTEMPT: '\(restaurantName)' -> ID: \(restaurantId ?? "NOT_FOUND")")
-        
-        // Fast path: Check cache first
-        if let cachedData = nutritionCache.getRestaurant(named: restaurantName) {
-            isLoading = false
-            currentRestaurantData = cachedData
-            errorMessage = nil
-            cacheHits += 1
-            return
-        }
-        
-        // FIXED: Check if already loading to prevent duplicate requests
-        if loadingTasks[cacheKey] != nil {
-            debugLog("⏳ NUTRITION LOADING: '\(restaurantName)' -> Already in progress, skipping duplicate request")
-            return
-        }
-        
-        // Check if we have an ID mapping
-        guard let validRestaurantId = restaurantId else {
-            isLoading = false
-            errorMessage = "Restaurant '\(restaurantName)' not found in our nutrition database"
-            return
-        }
-        
-        isLoading = true
-        errorMessage = nil
-        cacheMisses += 1
-        
-        debugLog("🌐 NUTRITION API CALL: '\(restaurantName)' -> Calling API with ID: \(validRestaurantId)")
-        
-        let task = Task<RestaurantNutritionData?, Never> { [weak self] in
-            guard let self = self else { return nil }
-            let result = await self.loadFromAPI(restaurantName: restaurantName)
-            
-            await MainActor.run {
-                self.isLoading = false
+        for restaurant in popularRestaurants {
+            if !nutritionCache.contains(restaurantName: restaurant) && diskCache.get(restaurant) == nil {
+                debugLog(" Preloading '\(restaurant)' in background")
+                _ = await loadFromAPI(restaurantName: restaurant)
                 
-                if let result = result {
-                    self.currentRestaurantData = result
-                    self.nutritionCache.store(restaurant: result)
-                    self.diskCache.store(result)
-                } else {
-                    self.errorMessage = "Unable to load nutrition data for \(restaurantName). Please try again."
-                }
-                self.loadingTasks.removeValue(forKey: cacheKey)
+                try? await Task.sleep(nanoseconds: 500_000_000)
             }
-            return result
         }
         
-        loadingTasks[cacheKey] = task
+        debugLog(" Background preloading completed")
     }
     
-    private func findRestaurantIdForName(_ restaurantName: String) -> String? {
-        // Use the centralized helper from RestaurantData
-        return RestaurantData.getRestaurantID(for: restaurantName)
+    // MARK: - Error Message Generation
+    private func generateFallbackErrorMessage(for restaurantName: String) -> String {
+        switch apiHealth {
+        case .healthy, .unknown:
+            return "Unable to load nutrition data for \(restaurantName). Please check your internet connection and try again."
+        case .degraded:
+            return "Our nutrition service is experiencing issues. Please try again in a few minutes."
+        case .offline:
+            return "Nutrition service is temporarily unavailable. Please try again later."
+        }
+    }
+    
+    // MARK: - Public Helper Methods
+    func hasNutritionData(for restaurantName: String) -> Bool {
+        return nutritionCache.contains(restaurantName: restaurantName) ||
+               diskCache.get(restaurantName) != nil ||
+               RestaurantData.hasNutritionData(for: restaurantName) ||
+               StaticNutritionData.hasStaticData(for: restaurantName)
     }
     
     func getAvailableRestaurants() -> [String] {
-        return nutritionCache.restaurantNames.sorted()
-    }
-    
-    // ENHANCED: Efficient nutrition data availability check
-    func hasNutritionData(for restaurantName: String) -> Bool {
-        // First check if already in cache
-        if nutritionCache.contains(restaurantName: restaurantName) {
-            return true
-        }
+        let cached = nutritionCache.restaurantNames
+        let staticRestaurants = StaticNutritionData.availableRestaurants
+        let known = RestaurantData.restaurantsWithNutritionData
         
-        // Use the centralized helper from RestaurantData
-        return RestaurantData.hasNutritionData(for: restaurantName)
+        return Array(Set(cached + staticRestaurants + known)).sorted()
     }
     
     func clearData() {
         currentRestaurantData = nil
         errorMessage = nil
+        loadingState = .idle
+        retryAttempts.removeAll()
     }
     
-    func getCacheStats() -> (hits: Int, misses: Int, hitRate: Double) {
+    // MARK: - Performance Analytics
+    func getPerformanceStats() -> (cacheHits: Int, cacheMisses: Int, apiSuccesses: Int, apiFailures: Int, staticFallbacks: Int, hitRate: Double) {
         let total = cacheHits + cacheMisses
         let hitRate = total > 0 ? Double(cacheHits) / Double(total) : 0.0
-        return (cacheHits, cacheMisses, hitRate)
+        return (cacheHits, cacheMisses, apiSuccesses, apiFailures, staticFallbacks, hitRate)
     }
     
     func printPerformanceStats() {
-        let stats = getCacheStats()
+        let stats = getPerformanceStats()
         debugLog(" NutritionDataManager Performance:")
-        debugLog("   Cache Hits: \(stats.hits)")
-        debugLog("   Cache Misses: \(stats.misses)")
-        debugLog("   Hit Rate: \(stats.hitRate)")
-        debugLog("   Available Restaurants: \(availableRestaurantIDs.count)")
-        debugLog("   API Restaurant IDs: \(nutritionCache.restaurantNames.count)")
+        debugLog("   Cache Hits: \(stats.cacheHits)")
+        debugLog("   Cache Misses: \(stats.cacheMisses)")
+        debugLog("   API Successes: \(stats.apiSuccesses)")
+        debugLog("   API Failures: \(stats.apiFailures)")
+        debugLog("   Static Fallbacks: \(stats.staticFallbacks)")
+        debugLog("   Hit Rate: \(String(format: "%.1f", stats.hitRate * 100))%")
+        debugLog("   API Health: \(apiHealth)")
     }
     
+    // MARK: - Debug Logging
+    private func debugLog(_ message: String) {
+        print("[NutritionDataManager] \(message)")
+    }
+    
+    // MARK: - Cleanup
     deinit {
         for (_, task) in loadingTasks {
             task.cancel()
         }
         loadingTasks.removeAll()
-        debugLog(" NutritionDataManager deinitalized")
+        print("[NutritionDataManager] NutritionDataManager cleanup completed")
     }
 }
 
-// MARK: - JSON Data Models
+// MARK: - Enhanced JSON Data Models
 struct RestaurantJSON: Codable {
     let restaurant_id: String
     let restaurant_name: String

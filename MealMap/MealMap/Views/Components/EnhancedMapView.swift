@@ -48,47 +48,48 @@ struct EnhancedMapView: View {
                 Spacer()
             }
             
-            // Zoom In Notification Popup
+            // Zoom In Notification Popup - CENTERED AND SQUARE
             VStack {
+                Spacer()
+                
                 if showZoomInNotification {
-                    HStack(spacing: 12) {
-                        Image(systemName: "magnifyingglass")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.blue)
-                        
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Zoom in to see restaurants")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.primary)
-                            Text("Pinch to zoom or double-tap for restaurant pins")
-                                .font(.system(size: 12))
-                                .foregroundColor(.secondary)
+                    VStack(spacing: 16) {
+                        HStack(spacing: 12) {
+                            Image(systemName: "magnifyingglass")
+                                .font(.system(size: 20, weight: .medium))
+                                .foregroundColor(.blue)
+                            
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Zoom in to see restaurants")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                Text("Pinch to zoom or double-tap for restaurant pins")
+                                    .font(.system(size: 13))
+                                    .foregroundColor(.secondary)
+                            }
                         }
-                        
-                        Spacer()
                         
                         Button(action: {
                             centerOnUserLocation()
                             dismissNotification()
                         }) {
                             Text("Zoom In")
-                                .font(.system(size: 12, weight: .medium))
+                                .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.blue)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 10)
                                 .background(Color.blue.opacity(0.1))
                                 .cornerRadius(8)
                         }
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 24)
                     .background(
-                        RoundedRectangle(cornerRadius: 12)
+                        RoundedRectangle(cornerRadius: 16)
                             .fill(Color(.systemBackground))
                             .shadow(color: .black.opacity(0.1), radius: 8, y: 4)
                     )
-                    .padding(.horizontal, 20)
-                    .padding(.top, 100) // Below the header
+                    .padding(.horizontal, 40)
                     .transition(.asymmetric(
                         insertion: .move(edge: .top).combined(with: .opacity),
                         removal: .move(edge: .top).combined(with: .opacity)
