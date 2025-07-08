@@ -2,10 +2,10 @@ import SwiftUI
 import CoreLocation
 
 struct ContentView: View {
-    @StateObject private var locationManager = LocationManager.shared
-    @StateObject private var networkMonitor = NetworkMonitor.shared
+    @ObservedObject private var locationManager = LocationManager.shared
+    @ObservedObject private var networkMonitor = NetworkMonitor.shared
     @StateObject private var mapViewModel = MapViewModel()
-    @StateObject private var authManager = AuthenticationManager.shared
+    @ObservedObject private var authManager = AuthenticationManager.shared
 
     private var shouldShowLocationScreens: Bool {
         // Only show location screens if user is authenticated but has location issues

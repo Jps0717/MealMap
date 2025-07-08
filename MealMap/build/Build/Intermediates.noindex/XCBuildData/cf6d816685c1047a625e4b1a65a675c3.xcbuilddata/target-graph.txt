@@ -1,6 +1,0 @@
-Target dependency graph (3 targets)
-Target 'MealMapTests' in project 'MealMap'
-➜ Explicit dependency on target 'MealMap' in project 'MealMap'
-Target 'MealMapUITests' in project 'MealMap'
-➜ Explicit dependency on target 'MealMap' in project 'MealMap'
-Target 'MealMap' in project 'MealMap' (no dependencies)

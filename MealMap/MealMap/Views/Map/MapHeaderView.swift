@@ -105,7 +105,7 @@ struct MapHeaderView: View {
             }
             .padding(.horizontal, 16)
         }
-        .padding(.top, 40)
+        .padding(.top, 70) 
         .sheet(isPresented: $showingFilters) {
             RestaurantFilterView(
                 filter: Binding(

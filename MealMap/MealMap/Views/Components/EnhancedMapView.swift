@@ -15,11 +15,19 @@ struct EnhancedMapView: View {
     
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
-    
+    @State private var showZoomInNotification = false
+    @State private var currentZoomLevel: CLLocationDegrees = 0.01
+    @State private var notificationTimer: Timer?
+
     var body: some View {
         ZStack {
             // Enhanced map with immediate detail view on pin tap
-            SimplifiedRealTimeMapView(viewModel: viewModel) { restaurant in
+            SimplifiedRealTimeMapView(viewModel: viewModel, onZoomLevelChange: { zoomLevel in
+                // FIXED: Defer state changes to avoid "modifying state during view update"
+                DispatchQueue.main.async {
+                    handleZoomLevelChange(zoomLevel)
+                }
+            }) { restaurant in
                 selectRestaurant(restaurant)
             }
             .ignoresSafeArea()
@@ -40,6 +48,56 @@ struct EnhancedMapView: View {
                 Spacer()
             }
             
+            // Zoom In Notification Popup
+            VStack {
+                if showZoomInNotification {
+                    HStack(spacing: 12) {
+                        Image(systemName: "magnifyingglass")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.blue)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Zoom in to see restaurants")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.primary)
+                            Text("Pinch to zoom or double-tap for restaurant pins")
+                                .font(.system(size: 12))
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            centerOnUserLocation()
+                            dismissNotification()
+                        }) {
+                            Text("Zoom In")
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.blue.opacity(0.1))
+                                .cornerRadius(8)
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color(.systemBackground))
+                            .shadow(color: .black.opacity(0.1), radius: 8, y: 4)
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.top, 100) // Below the header
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .top).combined(with: .opacity),
+                        removal: .move(edge: .top).combined(with: .opacity)
+                    ))
+                }
+                
+                Spacer()
+            }
+            
             // Bottom right buttons - Loading indicator and Fresh button
             VStack {
                 Spacer()
@@ -55,13 +113,13 @@ struct EnhancedMapView: View {
                         
                         // Fresh/Refresh button
                         Button(action: {
-                            debugLog("🔄 User tapped FRESH location refresh")
+                            debugLog(" User tapped FRESH location refresh")
                             LocationManager.shared.refreshCurrentLocation()
                             
                             // Wait a moment then refresh restaurants
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                 if let userLocation = LocationManager.shared.lastLocation?.coordinate {
-                                    debugLog("📍 Forcing fresh restaurant data for: \(userLocation)")
+                                    debugLog(" Forcing fresh restaurant data for: \(userLocation)")
                                     Task {
                                         await viewModel.fetchRestaurantsForCurrentRegion()
                                     }
@@ -100,10 +158,51 @@ struct EnhancedMapView: View {
                 )
             }
         }
+        .onDisappear {
+            // Clean up timer when view disappears
+            notificationTimer?.invalidate()
+            notificationTimer = nil
+        }
+    }
+    
+    // FIXED: Separate function to handle zoom level changes safely
+    private func handleZoomLevelChange(_ zoomLevel: CLLocationDegrees) {
+        currentZoomLevel = zoomLevel
+        
+        let isZoomedOutTooFar = zoomLevel > 0.02
+        
+        if isZoomedOutTooFar && !showZoomInNotification {
+            showNotification()
+        } else if !isZoomedOutTooFar && showZoomInNotification {
+            dismissNotification()
+        }
+    }
+    
+    private func showNotification() {
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
+            showZoomInNotification = true
+        }
+        
+        // Cancel any existing timer
+        notificationTimer?.invalidate()
+        
+        // Auto-hide after 4 seconds
+        notificationTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false) { _ in
+            dismissNotification()
+        }
+    }
+    
+    private func dismissNotification() {
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
+            showZoomInNotification = false
+        }
+        
+        notificationTimer?.invalidate()
+        notificationTimer = nil
     }
     
     private func selectRestaurant(_ restaurant: Restaurant) {
-        debugLog("🍽️ Pin tapped: \(restaurant.name) - Opening detail view immediately")
+        debugLog(" Pin tapped: \(restaurant.name) - Opening detail view immediately")
         selectedRestaurant = restaurant
         showingRestaurantDetail = true
     }
@@ -123,6 +222,7 @@ struct EnhancedMapView: View {
 // MARK: - Enhanced Real-Time Map with Immediate Pin Tap Response
 struct SimplifiedRealTimeMapView: UIViewRepresentable {
     @ObservedObject var viewModel: MapViewModel
+    let onZoomLevelChange: (CLLocationDegrees) -> Void
     let onRestaurantTap: (Restaurant) -> Void
     
     private let pinHideThreshold: CLLocationDegrees = 0.02  // Hide pins when zoomed out beyond ~22km span
@@ -173,20 +273,40 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
             // Show restaurants with nutrition data only when zoomed in enough
             let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
             
-            let newRestaurantAnnotations = restaurantsToShow.map {
-                RestaurantMapAnnotation(restaurant: $0)
+            // FIXED: Only add NEW pins, don't remove existing ones
+            let currentAnnotationIds = Set(mapView.annotations.compactMap { annotation in
+                (annotation as? RestaurantMapAnnotation)?.restaurant.id
+            })
+            
+            let newRestaurants = restaurantsToShow.filter { restaurant in
+                !currentAnnotationIds.contains(restaurant.id)
             }
             
-            // Clear and add annotations
-            mapView.removeAnnotations(mapView.annotations)
-            mapView.addAnnotations(newRestaurantAnnotations)
+            if !newRestaurants.isEmpty {
+                let newAnnotations = newRestaurants.map { RestaurantMapAnnotation(restaurant: $0) }
+                mapView.addAnnotations(newAnnotations)
+                debugLog(" Showing \(newAnnotations.count) NEW pins to existing \(currentAnnotationIds.count) pins (zoom level: \(String(format: "%.3f", currentSpan)))")
+            }
             
-            debugLog("🗺️ Showing \(newRestaurantAnnotations.count) nutrition pins (zoom level: \(String(format: "%.3f", currentSpan)))")
+            // Only remove pins that are no longer in the current restaurant list
+            let currentRestaurantIds = Set(restaurantsToShow.map { $0.id })
+            let annotationsToRemove = mapView.annotations.compactMap { annotation -> RestaurantMapAnnotation? in
+                guard let restaurantAnnotation = annotation as? RestaurantMapAnnotation else { return nil }
+                return currentRestaurantIds.contains(restaurantAnnotation.restaurant.id) ? nil : restaurantAnnotation
+            }
+            
+            if !annotationsToRemove.isEmpty {
+                mapView.removeAnnotations(annotationsToRemove)
+                debugLog(" REMOVED \(annotationsToRemove.count) outdated pins")
+            }
+            
         } else {
             // Hide all pins when zoomed out too far
             mapView.removeAnnotations(mapView.annotations)
-            debugLog("🗺️ Hiding all pins - zoomed out too far (zoom level: \(String(format: "%.3f", currentSpan)) > \(pinHideThreshold))")
+            debugLog(" Hiding all pins - zoomed out too far (zoom level: \(String(format: "%.3f", currentSpan)) > \(pinHideThreshold))")
         }
+        // Notify about zoom level changes
+        onZoomLevelChange(currentSpan)
     }
     
     private func constrainRegionToZoomLimits(_ region: MKCoordinateRegion) -> MKCoordinateRegion {
@@ -195,19 +315,19 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
         // Constrain latitude delta (vertical zoom)
         if constrainedRegion.span.latitudeDelta > maxLatitudeDelta {
             constrainedRegion.span.latitudeDelta = maxLatitudeDelta
-            debugLog("🔒 Max zoom out reached - latitude delta constrained to \(maxLatitudeDelta)")
+            debugLog(" Max zoom out reached - latitude delta constrained to \(maxLatitudeDelta)")
         } else if constrainedRegion.span.latitudeDelta < minLatitudeDelta {
             constrainedRegion.span.latitudeDelta = minLatitudeDelta
-            debugLog("🔒 Max zoom in reached - latitude delta constrained to \(minLatitudeDelta)")
+            debugLog(" Max zoom in reached - latitude delta constrained to \(minLatitudeDelta)")
         }
         
         // Constrain longitude delta (horizontal zoom)
         if constrainedRegion.span.longitudeDelta > maxLongitudeDelta {
             constrainedRegion.span.longitudeDelta = maxLongitudeDelta
-            debugLog("🔒 Max zoom out reached - longitude delta constrained to \(maxLongitudeDelta)")
+            debugLog(" Max zoom out reached - longitude delta constrained to \(maxLongitudeDelta)")
         } else if constrainedRegion.span.longitudeDelta < minLongitudeDelta {
             constrainedRegion.span.longitudeDelta = minLongitudeDelta
-            debugLog("🔒 Max zoom in reached - longitude delta constrained to \(minLongitudeDelta)")
+            debugLog(" Max zoom in reached - longitude delta constrained to \(minLongitudeDelta)")
         }
         
         return constrainedRegion
@@ -235,13 +355,18 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                 mapView.setRegion(constrainedRegion, animated: true)
             }
             
+            // FIXED: Defer zoom level change notification to avoid state modification during view update
+            let currentSpan = constrainedRegion.span.latitudeDelta
+            DispatchQueue.main.async { [weak self] in
+                self?.parent.onZoomLevelChange(currentSpan)
+            }
+            
             // FIXED: Debounce map region changes to prevent constant refreshing
             debounceTimer?.invalidate()
             debounceTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self] _ in
                 guard let self = self else { return }
                 
                 // ENHANCED: Check if we should show/hide pins based on zoom level
-                let currentSpan = mapView.region.span.latitudeDelta
                 let shouldShowPins = currentSpan <= self.parent.pinHideThreshold
                 
                 if shouldShowPins {
@@ -255,7 +380,7 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                     DispatchQueue.main.async {
                         mapView.removeAnnotations(mapView.annotations)
                     }
-                    debugLog("🗺️ Cleared pins - zoom level too high: \(String(format: "%.3f", currentSpan))")
+                    debugLog(" Cleared pins - zoom level too high: \(String(format: "%.3f", currentSpan))")
                 }
             }
             
@@ -312,7 +437,7 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
             
             // Open restaurant detail immediately
             if let restaurantAnnotation = view.annotation as? RestaurantMapAnnotation {
-                debugLog("🍽️ IMMEDIATE TAP: \(restaurantAnnotation.restaurant.name)")
+                debugLog(" IMMEDIATE TAP: \(restaurantAnnotation.restaurant.name)")
                 parent.onRestaurantTap(restaurantAnnotation.restaurant)
             }
         }
