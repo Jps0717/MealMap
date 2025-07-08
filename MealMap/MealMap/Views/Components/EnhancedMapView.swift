@@ -63,7 +63,7 @@ struct EnhancedMapView: View {
                                 Text("Zoom in to see restaurants")
                                     .font(.system(size: 16, weight: .semibold))
                                     .foregroundColor(.primary)
-                                Text("Pinch to zoom or double-tap for restaurant pins")
+                                Text("Pinch to zoom or double-tap to see restaurant pins")
                                     .font(.system(size: 13))
                                     .foregroundColor(.secondary)
                             }
@@ -194,6 +194,29 @@ struct EnhancedMapView: View {
                     .padding(.bottom, 20)
                 }
             }
+            
+            // Bottom left BETA tag
+            VStack {
+                Spacer()
+                HStack {
+                    VStack {
+                        Text("BETA")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.orange)
+                            )
+                            .shadow(color: .orange.opacity(0.3), radius: 4, y: 2)
+                    }
+                    .padding(.leading, 20)
+                    .padding(.bottom, 20)
+                    
+                    Spacer()
+                }
+            }
         }
         .sheet(isPresented: $showingRestaurantDetail) {
             if let restaurant = selectedRestaurant {
@@ -215,6 +238,7 @@ struct EnhancedMapView: View {
     private func handleZoomLevelChange(_ zoomLevel: CLLocationDegrees) {
         currentZoomLevel = zoomLevel
         
+        // Show notification when zoomed out too far (no pins visible)
         let isZoomedOutTooFar = zoomLevel > 0.02
         
         if isZoomedOutTooFar && !showZoomInNotification {
@@ -307,9 +331,18 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
             mapView.setRegion(newRegion, animated: true)
         }
         
-        // Update annotations using the correct property
-        let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
-        context.coordinator.updateAnnotations(mapView: mapView, restaurants: restaurantsToShow)
+        // Check zoom level to show/hide pins
+        let currentSpan = mapView.region.span.latitudeDelta
+        let shouldShowPins = currentSpan <= 0.02 // Show pins when zoomed in enough
+        
+        if shouldShowPins {
+            // Update annotations using the correct property when zoomed in
+            let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
+            context.coordinator.updateAnnotations(mapView: mapView, restaurants: restaurantsToShow)
+        } else {
+            // Hide all pins when zoomed out
+            context.coordinator.updateAnnotations(mapView: mapView, restaurants: [])
+        }
     }
     
     private func constrainRegionToZoomLimits(_ region: MKCoordinateRegion) -> MKCoordinateRegion {
@@ -409,28 +442,45 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
             if view == nil {
                 view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 
-                // Create SwiftUI view and convert to UIView
-                let restaurantPin = RestaurantPin(
-                    restaurant: restaurant,
-                    isSelected: false,
-                    onTap: {
-                        // Handle tap through the coordinator
-                        self.parent.onRestaurantTap(restaurant)
-                    }
-                )
+                // Create SwiftUI view with pin above and name below
+                let pinWithLabel = VStack(spacing: 2) {
+                    RestaurantPin(
+                        restaurant: restaurant,
+                        isSelected: false,
+                        onTap: {
+                            // Handle tap through the coordinator
+                            self.parent.onRestaurantTap(restaurant)
+                        }
+                    )
+                    
+                    // Restaurant name label below pin
+                    Text(restaurant.name)
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
+                        .frame(maxWidth: 80) // Limit width to prevent very long names
+                        .onTapGesture {
+                            // Also handle tap on label
+                            self.parent.onRestaurantTap(restaurant)
+                        }
+                }
                 
-                let hostingController = UIHostingController(rootView: restaurantPin)
+                let hostingController = UIHostingController(rootView: pinWithLabel)
                 hostingController.view.backgroundColor = UIColor.clear
                 
-                // Set the size to match your custom pin size
-                hostingController.view.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
+                // Set frame size to accommodate pin + text
+                hostingController.view.frame = CGRect(x: 0, y: 0, width: 80, height: 50)
                 
                 // Add to annotation view
                 view?.addSubview(hostingController.view)
                 
-                // Center the pin
-                view?.frame = CGRect(x: 0, y: 0, width: 36, height: 36)
-                view?.centerOffset = CGPoint(x: 0, y: -18) // Offset to point to the location
+                // Set annotation view size
+                view?.frame = CGRect(x: 0, y: 0, width: 80, height: 50)
+                
+                // Center the PIN on the location (not the entire view)
+                // The pin is at the top of our VStack, so we offset by the pin's center position
+                view?.centerOffset = CGPoint(x: 0, y: -25) // Half of total height to center the pin
                 
                 // DISABLED: No callout - direct tap interaction
                 view?.canShowCallout = false

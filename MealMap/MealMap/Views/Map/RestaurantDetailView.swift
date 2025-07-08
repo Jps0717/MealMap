@@ -70,6 +70,7 @@ struct RestaurantDetailView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if let website = restaurant.website, let url = URL(string: website) {
                         Button {
+                            trackWebsiteClick(restaurantName: restaurant.name, website: website)
                             UIApplication.shared.open(url)
                         } label: {
                             Image(systemName: "globe")
@@ -85,7 +86,7 @@ struct RestaurantDetailView: View {
         }
         .onDisappear { cleanup() }
         .onChange(of: nutritionManager.currentRestaurantData) { _, newData in 
-            debugLog("📊 DATA CHANGE: \(newData?.restaurantName ?? "nil")")
+            debugLog(" DATA CHANGE: \(newData?.restaurantName ?? "nil")")
             updateViewStateBasedOnData()
         }
         .onChange(of: nutritionManager.errorMessage) { _, newError in 
@@ -129,13 +130,11 @@ struct RestaurantDetailView: View {
         }
     }
 
-    // MARK: - Enhanced Loading View
     @ViewBuilder
     private var enhancedLoadingView: some View {
         VStack(spacing: 20) {
             Spacer()
             
-            // Loading indicator with tier information
             VStack(spacing: 16) {
                 ZStack {
                     Circle()
@@ -167,7 +166,6 @@ struct RestaurantDetailView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 40)
                     
-                    // Loading tier indicator
                     HStack(spacing: 8) {
                         loadingTierIcon
                         Text(loadingTierText)
@@ -181,7 +179,6 @@ struct RestaurantDetailView: View {
                 }
             }
             
-            // Slow loading tip
             if showSlowLoadingTip {
                 VStack(spacing: 12) {
                     HStack(spacing: 8) {
@@ -230,7 +227,6 @@ struct RestaurantDetailView: View {
         }
     }
 
-    // MARK: - Loading State Helpers
     private var loadingTitle: String {
         switch nutritionManager.loadingState {
         case .checkingCache:
@@ -306,23 +302,27 @@ struct RestaurantDetailView: View {
         }
     }
 
-    // MARK: - Setup and State Management
     private func setupView() {
         hasNutritionData = nutritionManager.hasNutritionData(for: restaurant.name)
-        debugLog("🍽️ Opening '\(restaurant.name)' – has nutrition: \(hasNutritionData)")
+        debugLog(" Opening '\(restaurant.name)' – has nutrition: \(hasNutritionData)")
+
+        AnalyticsService.shared.trackRestaurantView(
+            restaurantName: restaurant.name,
+            source: "restaurant_detail_view",
+            hasNutritionData: hasNutritionData,
+            cuisine: restaurant.cuisine
+        )
 
         if hasNutritionData {
-            // Check if data is already loaded
             if let existingData = nutritionManager.currentRestaurantData,
                existingData.restaurantName.lowercased() == restaurant.name.lowercased() {
-                debugLog("✅ Data already loaded for \(restaurant.name), showing menu immediately")
+                debugLog(" Data already loaded for \(restaurant.name), showing menu immediately")
                 viewState = .loaded
             } else {
                 viewState = .loading
-                debugLog("🔄 Loading nutrition for \(restaurant.name)")
+                debugLog(" Loading nutrition for \(restaurant.name)")
                 nutritionManager.loadNutritionData(for: restaurant.name)
                 
-                // Set up a timeout to check for data loading issues
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     self.updateViewStateBasedOnData()
                 }
@@ -336,27 +336,23 @@ struct RestaurantDetailView: View {
         }
     }
 
-    // Simplified state management
     private func updateViewStateBasedOnData() {
-        // Check current nutrition manager state
         if let data = nutritionManager.currentRestaurantData {
-            // Data exists - check if it's for this restaurant
             if data.restaurantName.lowercased().contains(restaurant.name.lowercased()) ||
                restaurant.name.lowercased().contains(data.restaurantName.lowercased()) {
-                debugLog("✅ UI SUCCESS: Menu loaded for '\(restaurant.name)' with \(data.items.count) items")
+                debugLog(" UI SUCCESS: Menu loaded for '\(restaurant.name)' with \(data.items.count) items")
                 withAnimation(.easeInOut(duration: 0.3)) {
                     viewState = .loaded
                 }
                 stopSlowLoadingTimer()
                 return
             } else {
-                debugLog("⚠️ Data mismatch: Expected '\(restaurant.name)', got '\(data.restaurantName)'")
+                debugLog(" Data mismatch: Expected '\(restaurant.name)', got '\(data.restaurantName)'")
             }
         }
         
-        // Check for errors
         if let error = nutritionManager.errorMessage {
-            debugLog("❌ Error state: \(error)")
+            debugLog(" Error state: \(error)")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .error(error)
             }
@@ -364,11 +360,9 @@ struct RestaurantDetailView: View {
             return
         }
         
-        // Check if still loading
         if nutritionManager.isLoading && hasNutritionData {
-            debugLog("⏳ Still loading...")
+            debugLog(" Still loading...")
             if case .loading = viewState {
-                // Already in loading state
             } else {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     viewState = .loading
@@ -378,22 +372,20 @@ struct RestaurantDetailView: View {
             return
         }
         
-        // Not loading and no data - determine final state
         if hasNutritionData {
-            debugLog("⚠️ Should have data but loading failed")
+            debugLog(" Should have data but loading failed")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .error("Failed to load nutrition data for \(restaurant.name)")
             }
             stopSlowLoadingTimer()
         } else {
-            debugLog("ℹ️ No nutrition data available")
+            debugLog(" No nutrition data available")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .noData
             }
         }
     }
 
-    // MARK: - Slow Loading Timer
     private func startSlowLoadingTimer() {
         slowLoadingTimer?.invalidate()
         slowLoadingTimer = Timer.scheduledTimer(withTimeInterval: 6.0, repeats: false) { _ in
@@ -413,7 +405,6 @@ struct RestaurantDetailView: View {
         stopSlowLoadingTimer()
     }
 
-    // MARK: - Restaurant Header
     private var restaurantHeader: some View {
         VStack(spacing: 16) {
             HStack {
@@ -438,7 +429,6 @@ struct RestaurantDetailView: View {
                             .foregroundColor(.secondary)
                     }
 
-                    // Enhanced nutrition data indicator
                     HStack(spacing: 6) {
                         if hasNutritionData {
                             Image(systemName: "checkmark.circle.fill")
@@ -460,7 +450,6 @@ struct RestaurantDetailView: View {
                 Spacer()
             }
 
-            // Restaurant contact and website information
             restaurantInfoSection
 
             if let category = selectedCategory {
@@ -478,10 +467,8 @@ struct RestaurantDetailView: View {
         }
     }
 
-    // MARK: - Restaurant Info Section
     private var restaurantInfoSection: some View {
         VStack(spacing: 8) {
-            // Address
             if let address = restaurant.address {
                 RestaurantInfoRow(
                     icon: "location.fill",
@@ -500,6 +487,11 @@ struct RestaurantDetailView: View {
                     iconColor: .green,
                     text: phone,
                     action: {
+                        AnalyticsService.shared.trackPhoneCall(
+                            restaurantName: restaurant.name,
+                            phoneNumber: phone
+                        )
+                        
                         if let phoneURL = URL(string: "tel:\(phone.replacingOccurrences(of: " ", with: ""))") {
                             UIApplication.shared.open(phoneURL)
                         }
@@ -507,13 +499,13 @@ struct RestaurantDetailView: View {
                 )
             }
             
-            // Website
             if let website = restaurant.website {
                 RestaurantInfoRow(
                     icon: "globe",
                     iconColor: .orange,
                     text: formatWebsiteDisplay(website),
                     action: {
+                        trackWebsiteClick(restaurantName: restaurant.name, website: website)
                         if let url = URL(string: website) {
                             UIApplication.shared.open(url)
                         }
@@ -521,7 +513,6 @@ struct RestaurantDetailView: View {
                 )
             }
             
-            // Opening Hours
             if let hours = restaurant.openingHours {
                 RestaurantInfoRow(
                     icon: "clock.fill",
@@ -533,9 +524,7 @@ struct RestaurantDetailView: View {
         }
     }
 
-    // MARK: - Helper Methods
     private func formatWebsiteDisplay(_ website: String) -> String {
-        // Remove http/https prefix for cleaner display
         return website
             .replacingOccurrences(of: "https://", with: "")
             .replacingOccurrences(of: "http://", with: "")
@@ -543,6 +532,11 @@ struct RestaurantDetailView: View {
     }
 
     private func openInMaps() {
+        AnalyticsService.shared.trackDirections(
+            restaurantName: restaurant.name,
+            address: restaurant.address ?? "Unknown address"
+        )
+        
         let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
         let placemark = MKPlacemark(coordinate: coordinate)
         let mapItem = MKMapItem(placemark: placemark)
@@ -550,7 +544,6 @@ struct RestaurantDetailView: View {
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
 
-    // MARK: - Enhanced No Data View
     private var noDataView: some View {
         VStack(spacing: 24) {
             Spacer()
@@ -567,17 +560,6 @@ struct RestaurantDetailView: View {
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 40)
                 
-                // Performance stats (if available)
-                if let stats = getPerformanceStatsText() {
-                    Text(stats)
-                        .font(.system(size: 12))
-                        .foregroundColor(.blue)
-                        .padding(.horizontal, 40)
-                }
-            }
-
-            // Enhanced Scan Menu button
-            VStack(spacing: 16) {
                 Button {
                     showingMenuScanner = true
                 } label: {
@@ -614,13 +596,12 @@ struct RestaurantDetailView: View {
                 }
                 .buttonStyle(.plain)
                 
-                Text("✨ Get instant nutrition analysis for any menu item")
+                Text(" Get instant nutrition analysis for any menu item")
                     .font(.caption)
                     .foregroundColor(.blue)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 16)
                 
-                // Restaurant info cards (moved to header)
                 if restaurant.address == nil && restaurant.phone == nil && restaurant.website == nil {
                     Text("No additional restaurant information available")
                         .font(.caption)
@@ -636,7 +617,6 @@ struct RestaurantDetailView: View {
         }
     }
 
-    // MARK: - Enhanced Error View
     private func errorView(message: String) -> some View {
         VStack(spacing: 24) {
             Spacer()
@@ -653,18 +633,8 @@ struct RestaurantDetailView: View {
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 40)
                 
-                // Performance stats
-                if let stats = getPerformanceStatsText() {
-                    Text(stats)
-                        .font(.system(size: 12))
-                        .foregroundColor(.blue)
-                        .padding(.horizontal, 40)
-                }
-            }
-
-            VStack(spacing: 16) {
                 Button {
-                    debugLog("🔄 Manual retry for \(restaurant.name)")
+                    debugLog(" Manual retry for \(restaurant.name)")
                     nutritionManager.clearData()
                     withAnimation(.easeInOut(duration: 0.3)) {
                         viewState = .loading
@@ -702,16 +672,16 @@ struct RestaurantDetailView: View {
         }
     }
 
-    // MARK: - Performance Stats Helper
-    private func getPerformanceStatsText() -> String? {
-        let stats = nutritionManager.getPerformanceStats()
-        if stats.cacheHits + stats.cacheMisses + stats.apiSuccesses + stats.apiFailures > 0 {
-            return "Cache: \(Int(stats.hitRate * 100))% • API: \(stats.apiSuccesses) success, \(stats.apiFailures) failed"
-        }
-        return nil
+    private func trackWebsiteClick(restaurantName: String, website: String) {
+        AnalyticsService.shared.trackRestaurantWebsiteClick(
+            restaurantName: restaurantName,
+            website: website,
+            source: "restaurant_detail_view",
+            hasNutritionData: hasNutritionData,
+            cuisine: restaurant.cuisine
+        )
     }
 
-    // MARK: - Menu Content 
     private func fullMenuContent(_ data: RestaurantNutritionData) -> some View {
         VStack(spacing: 0) {
             VStack(spacing: 12) {
@@ -800,9 +770,9 @@ struct RestaurantDetailView: View {
         case .lowCarb: return items.filter { $0.carbs <= 15 }
         }
     }
+
 }
 
-// MARK: - Restaurant Info Row Component
 struct RestaurantInfoRow: View {
     let icon: String
     let iconColor: Color
@@ -847,8 +817,6 @@ struct RestaurantInfoRow: View {
         .cornerRadius(8)
     }
 }
-
-// MARK: - Menu Item Card 
 
 struct MenuItemCard: View {
     let item: NutritionData
@@ -901,8 +869,6 @@ struct MenuItemCard: View {
     }
 }
 
-// MARK: - Nutrition Badge 
-
 struct NutritionBadge: View {
     let value: String
     let highlighted: Bool
@@ -923,23 +889,23 @@ struct NutritionBadge: View {
     }
 }
 
-// MARK: - Preview
-
-#Preview {
-    RestaurantDetailView(
-        restaurant: Restaurant(
-            id: 1,
-            name: "Krispy Kreme",
-            latitude: 37.7749,
-            longitude: -122.4194,
-            address: "123 Main St",
-            cuisine: "Donut",
-            openingHours: "6:00 AM - 11:00 PM",
-            phone: "+1-555-123-4567",
-            website: "https://krispykreme.com",
-            type: "node"
-        ),
-        isPresented: .constant(true),
-        selectedCategory: .fastFood
-    )
+struct RestaurantDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        RestaurantDetailView(
+            restaurant: Restaurant(
+                id: 1,
+                name: "Krispy Kreme",
+                latitude: 37.7749,
+                longitude: -122.4194,
+                address: "123 Main St",
+                cuisine: "Donut",
+                openingHours: "6:00 AM - 11:00 PM",
+                phone: "+1-555-123-4567",
+                website: "https://krispykreme.com",
+                type: "node"
+            ),
+            isPresented: .constant(true),
+            selectedCategory: .fastFood
+        )
+    }
 }

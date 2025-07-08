@@ -161,7 +161,7 @@ struct MapStatusIndicators: View {
                 )
             }
             
-            // ENHANCED: Nutrition data indicator
+            /*
             HStack(spacing: 4) {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 10))
@@ -181,6 +181,7 @@ struct MapStatusIndicators: View {
                             .stroke(.green.opacity(0.3), lineWidth: 1)
                     )
             )
+            */
         }
     }
 }
