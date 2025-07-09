@@ -43,6 +43,15 @@ struct HomeScreen: View {
     private var scanMenuCard: some View {
         Button(action: {
             HapticService.shared.menuScan()
+            
+            // Track menu scanner usage from home screen
+            AnalyticsService.shared.trackMenuScannerUsage(
+                restaurantName: nil,
+                source: "home_screen",
+                hasNutritionData: false,
+                cuisine: nil
+            )
+            
             showingMenuPhotoCapture = true
         }) {
             HStack(spacing: 16) {
@@ -391,6 +400,15 @@ struct HomeScreen: View {
 
             Button(action: {
                 HapticService.shared.menuScan()
+                
+                // Track menu scanner usage from saved menus empty state
+                AnalyticsService.shared.trackMenuScannerUsage(
+                    restaurantName: nil,
+                    source: "saved_menus_empty_state",
+                    hasNutritionData: false,
+                    cuisine: nil
+                )
+                
                 showingMenuPhotoCapture = true
             }) {
                 Text("Scan Your First Menu")

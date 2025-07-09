@@ -17,7 +17,7 @@ class AnalyticsService {
     
     private init() {
         logger.info("📊 AnalyticsService initialized with Firebase REST API")
-        logger.info("📊 Measurement ID: \(measurementId)")
+        logger.info("📊 Measurement ID: \(self.measurementId)")
     }
     
     // MARK: - Restaurant Website Tracking
@@ -38,15 +38,8 @@ class AnalyticsService {
             "timestamp": Int(Date().timeIntervalSince1970)
         ]
         
-        // Send multiple events for comprehensive tracking
+        // Send only the main restaurant website click event
         sendEventToFirebase("restaurant_website_click", parameters: parameters)
-        sendEventToFirebase("select_content", parameters: [
-            "content_type": "restaurant_website",
-            "item_id": restaurantName.lowercased().replacingOccurrences(of: " ", with: "_"),
-            "item_name": restaurantName,
-            "item_category": cuisine ?? "restaurant",
-            "timestamp": Int(Date().timeIntervalSince1970)
-        ])
         
         // Track conversion event
         sendEventToFirebase("conversion", parameters: [
@@ -134,14 +127,78 @@ class AnalyticsService {
         sendEventToFirebase("menu_item_view", parameters: parameters)
     }
     
-    func trackMenuScan(restaurantName: String, source: String) {
-        let parameters: [String: Any] = [
-            "restaurant_name": restaurantName,
+    func trackMenuScannerUsage(
+        restaurantName: String? = nil,
+        source: String,
+        hasNutritionData: Bool = false,
+        cuisine: String? = nil
+    ) {
+        var parameters: [String: Any] = [
             "source": source,
-            "timestamp": Int(Date().timeIntervalSince1970)
+            "timestamp": Int(Date().timeIntervalSince1970),
+            "session_id": generateSessionId()
         ]
         
-        sendEventToFirebase("menu_scan_initiated", parameters: parameters)
+        // Add restaurant context if available
+        if let restaurant = restaurantName {
+            parameters["restaurant_name"] = restaurant
+            parameters["restaurant_has_nutrition"] = hasNutritionData
+            parameters["restaurant_cuisine"] = cuisine ?? "unknown"
+        }
+        
+        sendEventToFirebase("menu_scanner_usage", parameters: parameters)
+        
+        // Track as high-value engagement
+        sendEventToFirebase("engagement", parameters: [
+            "engagement_type": "menu_scanner_usage",
+            "restaurant_name": restaurantName ?? "unknown",
+            "source": source,
+            "session_id": generateSessionId()
+        ])
+        
+        logger.info("📊 Menu scanner usage tracked: \(restaurantName ?? "home_screen") from \(source)")
+    }
+    
+    // MARK: - Nutrition Data Usage Tracking
+    func trackNutritionDataUsage(
+        restaurantName: String,
+        source: String,
+        itemCount: Int? = nil,
+        cuisine: String? = nil
+    ) {
+        var parameters: [String: Any] = [
+            "restaurant_name": restaurantName,
+            "source": source,
+            "cuisine": cuisine ?? "unknown",
+            "timestamp": Int(Date().timeIntervalSince1970),
+            "session_id": generateSessionId()
+        ]
+        
+        if let count = itemCount {
+            parameters["menu_item_count"] = count
+        }
+        
+        sendEventToFirebase("nutrition_data_usage", parameters: parameters)
+        
+        // Track as valuable engagement
+        sendEventToFirebase("engagement", parameters: [
+            "engagement_type": "nutrition_data_usage",
+            "restaurant_name": restaurantName,
+            "source": source,
+            "session_id": generateSessionId()
+        ])
+        
+        logger.info("📊 Nutrition data usage tracked: \(restaurantName) from \(source)")
+    }
+    
+    // MARK: - Deprecated - Use trackMenuScannerUsage instead
+    func trackMenuScan(restaurantName: String, source: String) {
+        // Redirect to new enhanced tracking
+        trackMenuScannerUsage(
+            restaurantName: restaurantName,
+            source: source,
+            hasNutritionData: false
+        )
     }
     
     // MARK: - User Behavior Analytics
@@ -205,7 +262,7 @@ class AnalyticsService {
         lastEventTime = Date()
         
         // Log to console for debugging
-        logger.info("📊 Event #\(eventCount): \(eventName)")
+        logger.info("📊 Event #\(self.eventCount): \(eventName)")
         for (key, value) in parameters {
             logger.info("   \(key): \(String(describing: value))")
         }
@@ -316,7 +373,7 @@ class AnalyticsService {
         logger.info("📊 Website click analytics are being tracked via Firebase REST API")
         logger.info("📊 Firebase Measurement ID: \(self.measurementId)")
         logger.info("📊 API Secret configured: ✅")
-        logger.info("📊 Events sent this session: \(eventCount)")
+        logger.info("📊 Events sent this session: \(self.eventCount)")
     }
 }
 
@@ -347,8 +404,48 @@ extension AnalyticsService {
             }
         case "website_click":
             quickTrackWebsiteClick(restaurant: restaurant, source: source)
+        case "menu_scanner":
+            trackMenuScannerUsage(
+                restaurantName: restaurant.name,
+                source: source,
+                hasNutritionData: restaurant.hasNutritionData,
+                cuisine: restaurant.cuisine
+            )
+        case "nutrition_data":
+            trackNutritionDataUsage(
+                restaurantName: restaurant.name,
+                source: source,
+                cuisine: restaurant.cuisine
+            )
         default:
             trackUserJourney(step: action, restaurantName: restaurant.name)
         }
+    }
+    
+    // MARK: - Analytics Summary
+    func getNewAnalyticsSummary() -> String {
+        return """
+        📊 Enhanced Analytics Tracking:
+        
+        🔍 Menu Scanner Usage:
+        - Tracks restaurant context when used from restaurant detail
+        - Tracks home screen usage vs restaurant-specific usage
+        - Parameters: restaurant_name, source, has_nutrition_data, cuisine
+        
+        📈 Nutrition Data Usage:
+        - Tracks which restaurants users view nutrition for most
+        - Tracks successful vs failed nutrition loading
+        - Parameters: restaurant_name, source, item_count, cuisine
+        
+        🌐 Website Clicks:
+        - Removed select_content duplicate tracking
+        - Clean single-event tracking with full context
+        - Parameters: restaurant_name, website_url, source, has_nutrition_data, cuisine
+        
+        📱 User Journey:
+        - All events include session_id for path analysis
+        - Engagement events track high-value actions
+        - Session duration and frequency tracking
+        """
     }
 }

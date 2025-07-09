@@ -317,6 +317,15 @@ struct RestaurantDetailView: View {
             if let existingData = nutritionManager.currentRestaurantData,
                existingData.restaurantName.lowercased() == restaurant.name.lowercased() {
                 debugLog(" Data already loaded for \(restaurant.name), showing menu immediately")
+                
+                // Track nutrition data usage
+                AnalyticsService.shared.trackNutritionDataUsage(
+                    restaurantName: restaurant.name,
+                    source: "restaurant_detail_cached",
+                    itemCount: existingData.items.count,
+                    cuisine: restaurant.cuisine
+                )
+                
                 viewState = .loaded
             } else {
                 viewState = .loading
@@ -341,6 +350,15 @@ struct RestaurantDetailView: View {
             if data.restaurantName.lowercased().contains(restaurant.name.lowercased()) ||
                restaurant.name.lowercased().contains(data.restaurantName.lowercased()) {
                 debugLog(" UI SUCCESS: Menu loaded for '\(restaurant.name)' with \(data.items.count) items")
+                
+                // Track nutrition data usage when successfully loaded
+                AnalyticsService.shared.trackNutritionDataUsage(
+                    restaurantName: restaurant.name,
+                    source: "restaurant_detail_loaded",
+                    itemCount: data.items.count,
+                    cuisine: restaurant.cuisine
+                )
+                
                 withAnimation(.easeInOut(duration: 0.3)) {
                     viewState = .loaded
                 }
@@ -450,7 +468,8 @@ struct RestaurantDetailView: View {
                 Spacer()
             }
 
-            restaurantInfoSection
+            // Compact restaurant info squares
+            restaurantInfoSquares
 
             if let category = selectedCategory {
                 HStack {
@@ -467,61 +486,68 @@ struct RestaurantDetailView: View {
         }
     }
 
-    private var restaurantInfoSection: some View {
-        VStack(spacing: 8) {
-            if let address = restaurant.address {
-                RestaurantInfoRow(
-                    icon: "location.fill",
-                    iconColor: .blue,
-                    text: address,
-                    action: {
-                        openInMaps()
-                    }
-                )
-            }
-            
-            // Phone
-            if let phone = restaurant.phone {
-                RestaurantInfoRow(
-                    icon: "phone.fill",
-                    iconColor: .green,
-                    text: phone,
-                    action: {
-                        AnalyticsService.shared.trackPhoneCall(
-                            restaurantName: restaurant.name,
-                            phoneNumber: phone
-                        )
-                        
-                        if let phoneURL = URL(string: "tel:\(phone.replacingOccurrences(of: " ", with: ""))") {
-                            UIApplication.shared.open(phoneURL)
+    private var restaurantInfoSquares: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 12) {
+                // Website square
+                if let website = restaurant.website {
+                    RestaurantInfoSquare(
+                        icon: "globe",
+                        iconColor: .blue,
+                        text: formatWebsiteDisplay(website),
+                        action: {
+                            trackWebsiteClick(restaurantName: restaurant.name, website: website)
+                            if let url = URL(string: website) {
+                                UIApplication.shared.open(url)
+                            }
                         }
-                    }
-                )
-            }
-            
-            if let website = restaurant.website {
-                RestaurantInfoRow(
-                    icon: "globe",
-                    iconColor: .orange,
-                    text: formatWebsiteDisplay(website),
-                    action: {
-                        trackWebsiteClick(restaurantName: restaurant.name, website: website)
-                        if let url = URL(string: website) {
-                            UIApplication.shared.open(url)
+                    )
+                }
+                
+                // Address square
+                if let address = restaurant.address {
+                    RestaurantInfoSquare(
+                        icon: "location.fill",
+                        iconColor: .red,
+                        text: formatAddressDisplay(address),
+                        action: {
+                            openInMaps()
                         }
-                    }
-                )
+                    )
+                }
+                
+                // Phone square
+                if let phone = restaurant.phone {
+                    RestaurantInfoSquare(
+                        icon: "phone.fill",
+                        iconColor: .green,
+                        text: formatPhoneDisplay(phone),
+                        action: {
+                            AnalyticsService.shared.trackPhoneCall(
+                                restaurantName: restaurant.name,
+                                phoneNumber: phone
+                            )
+                            
+                            if let phoneURL = URL(string: "tel:\(phone.replacingOccurrences(of: " ", with: ""))") {
+                                UIApplication.shared.open(phoneURL)
+                            }
+                        }
+                    )
+                }
+                
+                // Hours square
+                if let hours = restaurant.openingHours {
+                    RestaurantInfoSquare(
+                        icon: "clock.fill",
+                        iconColor: .orange,
+                        text: formatHoursDisplay(hours),
+                        action: nil
+                    )
+                }
             }
-            
-            if let hours = restaurant.openingHours {
-                RestaurantInfoRow(
-                    icon: "clock.fill",
-                    iconColor: .purple,
-                    text: hours,
-                    action: nil
-                )
-            }
+            .padding(.horizontal, 20)
         }
+        .padding(.horizontal, -20)
     }
 
     private func formatWebsiteDisplay(_ website: String) -> String {
@@ -529,19 +555,39 @@ struct RestaurantDetailView: View {
             .replacingOccurrences(of: "https://", with: "")
             .replacingOccurrences(of: "http://", with: "")
             .replacingOccurrences(of: "www.", with: "")
+            .components(separatedBy: "/").first ?? website
     }
 
-    private func openInMaps() {
-        AnalyticsService.shared.trackDirections(
-            restaurantName: restaurant.name,
-            address: restaurant.address ?? "Unknown address"
+    private func formatAddressDisplay(_ address: String) -> String {
+        let components = address.components(separatedBy: ",")
+        if components.count >= 2 {
+            return components[0].trimmingCharacters(in: .whitespaces)
+        }
+        return address
+    }
+
+    private func formatPhoneDisplay(_ phone: String) -> String {
+        return phone
+    }
+
+    private func formatHoursDisplay(_ hours: String) -> String {
+        // Simplify hours display for the square
+        if hours.contains("24/7") || hours.contains("24 hours") {
+            return "24/7"
+        } else if hours.contains("AM") && hours.contains("PM") {
+            return "Open"
+        }
+        return hours
+    }
+
+    private func trackWebsiteClick(restaurantName: String, website: String) {
+        AnalyticsService.shared.trackRestaurantWebsiteClick(
+            restaurantName: restaurantName,
+            website: website,
+            source: "restaurant_detail_view",
+            hasNutritionData: hasNutritionData,
+            cuisine: restaurant.cuisine
         )
-        
-        let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
-        let placemark = MKPlacemark(coordinate: coordinate)
-        let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = restaurant.name
-        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
 
     private var noDataView: some View {
@@ -561,6 +607,14 @@ struct RestaurantDetailView: View {
                     .padding(.horizontal, 40)
                 
                 Button {
+                    // Track menu scanner usage from restaurant context
+                    AnalyticsService.shared.trackMenuScannerUsage(
+                        restaurantName: restaurant.name,
+                        source: "restaurant_detail_no_nutrition",
+                        hasNutritionData: false,
+                        cuisine: restaurant.cuisine
+                    )
+                    
                     showingMenuScanner = true
                 } label: {
                     HStack(spacing: 12) {
@@ -653,6 +707,14 @@ struct RestaurantDetailView: View {
                 }
                 
                 Button {
+                    // Track menu scanner usage from error recovery
+                    AnalyticsService.shared.trackMenuScannerUsage(
+                        restaurantName: restaurant.name,
+                        source: "restaurant_detail_error_recovery",
+                        hasNutritionData: hasNutritionData,
+                        cuisine: restaurant.cuisine
+                    )
+                    
                     showingMenuScanner = true
                 } label: {
                     HStack {
@@ -672,14 +734,17 @@ struct RestaurantDetailView: View {
         }
     }
 
-    private func trackWebsiteClick(restaurantName: String, website: String) {
-        AnalyticsService.shared.trackRestaurantWebsiteClick(
-            restaurantName: restaurantName,
-            website: website,
-            source: "restaurant_detail_view",
-            hasNutritionData: hasNutritionData,
-            cuisine: restaurant.cuisine
+    private func openInMaps() {
+        AnalyticsService.shared.trackDirections(
+            restaurantName: restaurant.name,
+            address: restaurant.address ?? "Unknown address"
         )
+        
+        let coordinate = CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = restaurant.name
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
 
     private func fullMenuContent(_ data: RestaurantNutritionData) -> some View {
@@ -773,7 +838,7 @@ struct RestaurantDetailView: View {
 
 }
 
-struct RestaurantInfoRow: View {
+struct RestaurantInfoSquare: View {
     let icon: String
     let iconColor: Color
     let text: String
@@ -783,38 +848,43 @@ struct RestaurantInfoRow: View {
         Group {
             if let action = action {
                 Button(action: action) {
-                    rowContent
+                    squareContent
                 }
                 .buttonStyle(.plain)
             } else {
-                rowContent
+                squareContent
             }
         }
     }
     
-    private var rowContent: some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .foregroundColor(iconColor)
-                .frame(width: 20)
+    private var squareContent: some View {
+        VStack(spacing: 8) {
+            ZStack {
+                Circle()
+                    .fill(iconColor.opacity(0.1))
+                    .frame(width: 40, height: 40)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundColor(iconColor)
+            }
             
             Text(text)
-                .font(.system(size: 14))
+                .font(.system(size: 12, weight: .medium))
                 .foregroundColor(.primary)
                 .lineLimit(2)
-            
-            Spacer()
-            
-            if action != nil {
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.secondary)
-            }
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: 80)
         }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 12)
-        .background(Color(.systemGray6))
-        .cornerRadius(8)
+        .frame(width: 90, height: 80)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(.systemGray6))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(action != nil ? iconColor.opacity(0.3) : Color.clear, lineWidth: 1)
+                )
+        )
     }
 }
 

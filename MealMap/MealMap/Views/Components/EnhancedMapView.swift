@@ -18,7 +18,8 @@ struct EnhancedMapView: View {
     @State private var showZoomInNotification = false
     @State private var currentZoomLevel: CLLocationDegrees = 0.01
     @State private var notificationTimer: Timer?
-
+    @State private var lastNotificationTime: Date = .distantPast
+    
     var body: some View {
         ZStack {
             // Enhanced map with immediate detail view on pin tap
@@ -249,6 +250,17 @@ struct EnhancedMapView: View {
     }
     
     private func showNotification() {
+        // Check cooldown period - don't show notification if less than 15 seconds since last one
+        let now = Date()
+        let timeSinceLastNotification = now.timeIntervalSince(lastNotificationTime)
+        
+        if timeSinceLastNotification < 15.0 {
+            return // Skip showing notification due to cooldown
+        }
+        
+        // Update last notification time
+        lastNotificationTime = now
+        
         withAnimation(.spring(response: 0.5, dampingFraction: 0.8)) {
             showZoomInNotification = true
         }
@@ -256,8 +268,8 @@ struct EnhancedMapView: View {
         // Cancel any existing timer
         notificationTimer?.invalidate()
         
-        // Auto-hide after 4 seconds
-        notificationTimer = Timer.scheduledTimer(withTimeInterval: 4.0, repeats: false) { _ in
+        // Auto-hide after 2 seconds (reduced from 4 seconds)
+        notificationTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
             dismissNotification()
         }
     }
