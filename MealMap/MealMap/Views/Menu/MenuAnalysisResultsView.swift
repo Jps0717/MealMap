@@ -3,6 +3,7 @@ import SwiftUI
 struct MenuAnalysisResultsView: View {
     @Environment(\.dismiss) private var dismiss
     let validatedItems: [ValidatedMenuItem]
+    @StateObject private var authManager = AuthenticationManager.shared
     
     @State private var searchText = ""
     @State private var showingNutritionDetails = false
@@ -335,6 +336,38 @@ struct ValidatedMenuItemRow: View {
     let isSelected: Bool
     let onTap: () -> Void
     let onToggleSelection: () -> Void
+    @StateObject private var authManager = AuthenticationManager.shared
+    
+    // Convert ValidatedMenuItem to AnalyzedMenuItem for scoring
+    private var analyzedMenuItem: AnalyzedMenuItem? {
+        guard item.isValid, let nutrition = item.nutritionInfo else { return nil }
+        
+        let nutritionEstimate = NutritionEstimate(
+            calories: NutritionRange(min: nutrition.calories ?? 0, max: nutrition.calories ?? 0, unit: "kcal"),
+            carbs: NutritionRange(min: nutrition.carbs ?? 0, max: nutrition.carbs ?? 0, unit: "g"),
+            protein: NutritionRange(min: nutrition.protein ?? 0, max: nutrition.protein ?? 0, unit: "g"),
+            fat: NutritionRange(min: nutrition.fat ?? 0, max: nutrition.fat ?? 0, unit: "g"),
+            fiber: NutritionRange(min: nutrition.fiber ?? 0, max: nutrition.fiber ?? 0, unit: "g"),
+            sodium: NutritionRange(min: nutrition.sodium ?? 0, max: nutrition.sodium ?? 0, unit: "mg"),
+            sugar: NutritionRange(min: nutrition.sugar ?? 0, max: nutrition.sugar ?? 0, unit: "g"),
+            confidence: 0.85,
+            estimationSource: .nutritionix,
+            sourceDetails: "Menu Analysis",
+            estimatedPortionSize: "1 serving",
+            portionConfidence: 0.8
+        )
+        
+        return AnalyzedMenuItem(
+            name: item.validatedName,
+            description: nil,
+            price: nil,
+            ingredients: [],
+            nutritionEstimate: nutritionEstimate,
+            dietaryTags: [],
+            confidence: 0.85,
+            textBounds: nil
+        )
+    }
     
     var body: some View {
         HStack(spacing: 12) {
@@ -361,6 +394,13 @@ struct ValidatedMenuItemRow: View {
                     // Nutrition Preview (if available)
                     if item.isValid, let nutrition = item.nutritionInfo {
                         nutritionPreviewRow(nutrition)
+                    }
+                    
+                    // Dietary Score (if user is authenticated and item is valid)
+                    if authManager.isAuthenticated, 
+                       let user = authManager.currentUser,
+                       let analyzedItem = analyzedMenuItem {
+                        dietaryScoreRow(item: analyzedItem, user: user)
                     }
                 }
             }
@@ -413,11 +453,84 @@ struct ValidatedMenuItemRow: View {
         }
         .padding(.leading, 16) // Indent nutrition info
     }
+    
+    private func dietaryScoreRow(item: AnalyzedMenuItem, user: User) -> some View {
+        let score = MenuItemScoringService.scoreMenuItem(item, for: user)
+        
+        return HStack(spacing: 8) {
+            // Score indicator
+            Circle()
+                .fill(colorForMatchLevel(score.matchLevel))
+                .frame(width: 12, height: 12)
+            
+            Text(score.matchLevel.rawValue)
+                .font(.caption)
+                .fontWeight(.medium)
+                .foregroundColor(colorForMatchLevel(score.matchLevel))
+            
+            Text("(\(Int(score.overallScore))%)")
+                .font(.caption)
+                .foregroundColor(.secondary)
+            
+            Spacer()
+            
+            // Quick violation indicator
+            if !score.violations.isEmpty {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.caption)
+                    .foregroundColor(.orange)
+            }
+        }
+        .padding(.leading, 16)
+        .padding(.top, 4)
+    }
+    
+    private func colorForMatchLevel(_ level: MenuItemScoringService.MatchLevel) -> Color {
+        switch level {
+        case .excellent: return .green
+        case .good: return .blue
+        case .fair: return .yellow
+        case .poor: return .orange
+        case .avoid: return .red
+        }
+    }
 }
 
 struct ValidatedMenuItemDetailView: View {
     @Environment(\.dismiss) private var dismiss
     let item: ValidatedMenuItem
+    @StateObject private var authManager = AuthenticationManager.shared
+    
+    // Convert ValidatedMenuItem to AnalyzedMenuItem for scoring
+    private var analyzedMenuItem: AnalyzedMenuItem? {
+        guard item.isValid, let nutrition = item.nutritionInfo else { return nil }
+        
+        let nutritionEstimate = NutritionEstimate(
+            calories: NutritionRange(min: nutrition.calories ?? 0, max: nutrition.calories ?? 0, unit: "kcal"),
+            carbs: NutritionRange(min: nutrition.carbs ?? 0, max: nutrition.carbs ?? 0, unit: "g"),
+            protein: NutritionRange(min: nutrition.protein ?? 0, max: nutrition.protein ?? 0, unit: "g"),
+            fat: NutritionRange(min: nutrition.fat ?? 0, max: nutrition.fat ?? 0, unit: "g"),
+            fiber: NutritionRange(min: nutrition.fiber ?? 0, max: nutrition.fiber ?? 0, unit: "g"),
+            sodium: NutritionRange(min: nutrition.sodium ?? 0, max: nutrition.sodium ?? 0, unit: "mg"),
+            sugar: NutritionRange(min: nutrition.sugar ?? 0, max: nutrition.sugar ?? 0, unit: "g"),
+            confidence: 0.85,
+            estimationSource: .nutritionix,
+            sourceDetails: "Menu Analysis",
+            estimatedPortionSize: "1 serving",
+            portionConfidence: 0.8
+        )
+        
+        return AnalyzedMenuItem(
+            name: item.validatedName,
+            description: nil,
+            price: nil,
+            ingredients: [],
+            nutritionEstimate: nutritionEstimate,
+            dietaryTags: [],
+            confidence: 0.85,
+            textBounds: nil
+        )
+    }
     
     var body: some View {
         NavigationStack {
@@ -425,6 +538,14 @@ struct ValidatedMenuItemDetailView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     // Header
                     itemHeaderSection
+                    
+                    // Dietary Score (if user is authenticated and item is valid)
+                    if authManager.isAuthenticated, 
+                       let user = authManager.currentUser,
+                       let analyzedItem = analyzedMenuItem {
+                        let score = MenuItemScoringService.scoreMenuItem(analyzedItem, for: user)
+                        MenuItemScoreView(score: score, item: analyzedItem)
+                    }
                     
                     // Nutrition Information
                     if item.isValid, let nutrition = item.nutritionInfo {
@@ -702,6 +823,7 @@ struct NutritionInfoSectionView: View {
         .cornerRadius(8)
     }
 }
+
 
 #Preview {
     MenuAnalysisResultsView(validatedItems: [

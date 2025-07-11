@@ -3,6 +3,7 @@ import SwiftUI
 struct AnalyzedMenuItemView: View {
     let item: AnalyzedMenuItem
     @State private var showingUserCorrections = false
+    @StateObject private var authManager = AuthenticationManager.shared
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -11,6 +12,12 @@ struct AnalyzedMenuItemView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     // Header
                     headerSection
+                    
+                    // Dietary Score (if user is authenticated)
+                    if authManager.isAuthenticated, let user = authManager.currentUser {
+                        let score = MenuItemScoringService.scoreMenuItem(item, for: user)
+                        MenuItemScoreView(score: score, item: item)
+                    }
                     
                     // Nutrition Overview
                     nutritionOverviewSection

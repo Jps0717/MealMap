@@ -12,6 +12,8 @@ struct MapHeaderView: View {
     let onCenterLocation: () -> Void
     
     @State private var showingFilters = false
+    @State private var showingLegend = false
+    @StateObject private var authManager = AuthenticationManager.shared
     
     var body: some View {
         VStack(spacing: 12) {
@@ -82,30 +84,33 @@ struct MapHeaderView: View {
                 
                 MapStatusIndicators(viewModel: viewModel, isSearching: isSearching)
                 
-                // HIDDEN: Filter button - commented out
-                /*
+                // Rating Legend Button
                 Button(action: {
-                    showingFilters = true
+                    showingLegend = true
                 }) {
-                    Image(systemName: hasActiveFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-                        .font(.system(size: 18, weight: .medium))
+                    Image(systemName: "info.circle.fill")
+                        .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white)
                 }
                 .frame(width: 48, height: 48)
                 .background(
                     LinearGradient(
-                        colors: hasActiveFilters ? [Color.orange, Color.orange.opacity(0.8)] : [Color.gray, Color.gray.opacity(0.8)],
+                        colors: [.purple, .purple.opacity(0.8)],
                         startPoint: .top,
                         endPoint: .bottom
                     )
                 )
                 .cornerRadius(24)
-                .shadow(color: (hasActiveFilters ? Color.orange : Color.gray).opacity(0.3), radius: 8, y: 4)
-                .accessibilityLabel(hasActiveFilters ? "Active Filters" : "No Filters")
-                .accessibilityHint("Tap to open filter options")
-                */
+                .shadow(color: .purple.opacity(0.3), radius: 8, y: 4)
+                .accessibilityLabel("Rating Guide")
+                .accessibilityHint("Tap to see how dietary ratings work")
             }
             .padding(.horizontal, 16)
+            
+            // Quick Legend for non-authenticated users
+            if !authManager.isAuthenticated {
+                quickLegendView
+            }
         }
         .padding(.top, 70) 
         .sheet(isPresented: $showingFilters) {
@@ -119,10 +124,57 @@ struct MapHeaderView: View {
                 userLocation: viewModel.userLocation
             )
         }
+        .sheet(isPresented: $showingLegend) {
+            DietaryRatingLegendView()
+        }
+    }
+    
+    private var quickLegendView: some View {
+        VStack(spacing: 8) {
+            Text("Sign in to see personalized dietary ratings")
+                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .foregroundColor(.blue)
+            
+            HStack(spacing: 12) {
+                QuickLegendDot(color: .green, label: "Excellent")
+                QuickLegendDot(color: .blue, label: "Good")
+                QuickLegendDot(color: .yellow, label: "Fair")
+                QuickLegendDot(color: .orange, label: "Poor")
+                QuickLegendDot(color: .red, label: "Avoid")
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.blue.opacity(0.1))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                )
+        )
+        .padding(.horizontal, 16)
     }
     
     private var hasActiveFilters: Bool {
         !viewModel.currentFilter.isEmpty
+    }
+}
+
+struct QuickLegendDot: View {
+    let color: Color
+    let label: String
+    
+    var body: some View {
+        VStack(spacing: 4) {
+            Circle()
+                .fill(color)
+                .frame(width: 12, height: 12)
+            
+            Text(label)
+                .font(.system(size: 10, weight: .medium, design: .rounded))
+                .foregroundColor(.secondary)
+        }
     }
 }
 
@@ -160,28 +212,6 @@ struct MapStatusIndicators: View {
                         )
                 )
             }
-            
-            /*
-            HStack(spacing: 4) {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 10))
-                    .foregroundColor(.green)
-                
-                Text("Nutrition Data")
-                    .font(.system(size: 10, weight: .medium, design: .rounded))
-                    .foregroundColor(.green)
-            }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 6)
-            .background(
-                Capsule()
-                    .fill(.green.opacity(0.1))
-                    .overlay(
-                        Capsule()
-                            .stroke(.green.opacity(0.3), lineWidth: 1)
-                    )
-            )
-            */
         }
     }
 }

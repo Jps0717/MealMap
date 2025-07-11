@@ -15,11 +15,12 @@ struct EnhancedMapView: View {
     
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
+    @State private var showingLegend = false
     @State private var showZoomInNotification = false
     @State private var currentZoomLevel: CLLocationDegrees = 0.01
     @State private var notificationTimer: Timer?
     @State private var lastNotificationTime: Date = .distantPast
-    
+
     var body: some View {
         ZStack {
             // Enhanced map with immediate detail view on pin tap
@@ -152,12 +153,33 @@ struct EnhancedMapView: View {
                 .transition(.opacity.combined(with: .scale(scale: 0.9)))
             }
 
-            // Bottom right buttons - Fresh button only
+            // Bottom right buttons - Fresh button and Legend button
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
                     VStack(spacing: 16) {
+                        // Legend button - only show if user is authenticated
+                        if AuthenticationManager.shared.isAuthenticated {
+                            Button(action: {
+                                showingLegend = true
+                            }) {
+                                Image(systemName: "info.circle.fill")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .foregroundColor(.white)
+                            }
+                            .frame(width: 44, height: 44)
+                            .background(
+                                LinearGradient(
+                                    colors: [.purple, .purple.opacity(0.8)],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                )
+                            )
+                            .cornerRadius(22)
+                            .shadow(color: .purple.opacity(0.3), radius: 8, y: 4)
+                        }
+                        
                         // Fresh/Refresh button
                         Button(action: {
                             debugLog(" User tapped FRESH location refresh")
@@ -227,6 +249,9 @@ struct EnhancedMapView: View {
                     selectedCategory: nil
                 )
             }
+        }
+        .sheet(isPresented: $showingLegend) {
+            DietaryRatingLegendView()
         }
         .onDisappear {
             // Clean up timer when view disappears
