@@ -1,9 +1,9 @@
 import SwiftUI
-import CoreLocation
+import Combine
 import MapKit
 
 struct HomeScreen: View {
-    @StateObject private var locationManager = LocationManager()
+    @StateObject private var locationManager = LocationManager.shared
     @StateObject private var mapViewModel = MapViewModel()
     @ObservedObject private var nutritionManager = NutritionDataManager.shared
     @StateObject private var savedMenuManager = SavedMenuManager.shared
@@ -32,6 +32,10 @@ struct HomeScreen: View {
     @State private var showingNutritionixSettings = false
     @State private var showingEditProfile = false
     @State private var showingCustomCategories = false
+    @State private var showingDietaryChat = false
+    @State private var showingCarouselMapScreen = false
+    @State private var showingCarouselMenuCapture = false
+    @State private var showingCarouselDietaryChat = false
     @State private var selectedSavedMenu: SavedMenuAnalysis?
     @State private var isEditingMenus = false
     
@@ -44,54 +48,11 @@ struct HomeScreen: View {
     ]
 
     private var scanMenuCard: some View {
-        Button(action: {
-            HapticService.shared.menuScan()
-            
-            // Track menu scanner usage from home screen
-            AnalyticsService.shared.trackMenuScannerUsage(
-                restaurantName: nil,
-                source: "home_screen",
-                hasNutritionData: false,
-                cuisine: nil
-            )
-            
-            showingMenuPhotoCapture = true
-        }) {
-            HStack(spacing: 16) {
-                Image(systemName: "camera")
-                    .font(.title2)
-                    .foregroundColor(.white)
-                    .frame(width: 50, height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(12)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Scan Menu")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                    
-                    Text("Analyze nutrition from photos")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                
-                Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.secondary)
-            }
-            .padding(20)
-            .background(Color(.systemBackground))
-            .cornerRadius(16)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(.systemGray5), lineWidth: 1)
-            )
-            .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 2)
-        }
-        .buttonStyle(.plain)
+        AutoSlidingCarousel(
+            showingMenuPhotoCapture: $showingCarouselMenuCapture,
+            showingMapScreen: $showingCarouselMapScreen,
+            showingDietaryChat: $showingCarouselDietaryChat
+        )
     }
 
     var body: some View {
@@ -128,8 +89,14 @@ struct HomeScreen: View {
         .fullScreenCover(isPresented: $showingMapScreen) {
             MapScreen(viewModel: mapViewModel)
         }
+        .fullScreenCover(isPresented: $showingCarouselMapScreen) {
+            MapScreen(viewModel: mapViewModel)
+        }
         .sheet(isPresented: $showingMenuPhotoCapture) {
             MenuPhotoCaptureView(autoTriggerCamera: true)
+        }
+        .sheet(isPresented: $showingCarouselMenuCapture) {
+            MenuPhotoCaptureView(autoTriggerCamera: false)
         }
         .sheet(isPresented: $showingNutritionixSettings) {
             NutritionixSettingsView()
@@ -139,6 +106,12 @@ struct HomeScreen: View {
         }
         .sheet(isPresented: $showingCustomCategories) {
             CustomCategoriesView()
+        }
+        .sheet(isPresented: $showingDietaryChat) {
+            DietaryChatView()
+        }
+        .sheet(isPresented: $showingCarouselDietaryChat) {
+            DietaryChatView()
         }
         .sheet(item: $selectedSavedMenu) { savedMenu in
             SavedMenuDetailView(savedMenu: savedMenu)
@@ -266,6 +239,19 @@ struct HomeScreen: View {
                         .foregroundColor(.blue)
                         .frame(width: 44, height: 44)
                         .background(Color.blue.opacity(0.1))
+                        .cornerRadius(12)
+                }
+                
+                // Dietary Chat Button
+                Button(action: {
+                    HapticService.shared.sheetPresent()
+                    showingDietaryChat = true
+                }) {
+                    Image(systemName: "message.circle")
+                        .font(.title2)
+                        .foregroundColor(.purple)
+                        .frame(width: 44, height: 44)
+                        .background(Color.purple.opacity(0.1))
                         .cornerRadius(12)
                 }
 
@@ -891,7 +877,7 @@ struct HomeScreen: View {
                 .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(.primary)
-
+            
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
                 // Dynamic categories from MainCategoryManager
                 ForEach(mainCategoryManager.myCategories.prefix(3), id: \.id) { userCategory in
@@ -1350,12 +1336,183 @@ struct CuisineSearchButton: View {
     }
 }
 
+// MARK: - Auto Sliding Carousel
+struct AutoSlidingCarousel: View {
+    @Binding var showingMenuPhotoCapture: Bool
+    @Binding var showingMapScreen: Bool
+    @Binding var showingDietaryChat: Bool
+    @State private var currentIndex = 0
+    @State private var timer: Timer?
+    
+    private let autoSlideInterval: TimeInterval = 3.0 // 3 seconds
+    
+    var carouselItems: [CarouselItem] {
+        [
+            CarouselItem(
+                id: 0,
+                title: "Scan Menu",
+                subtitle: "Analyze nutrition from photos",
+                icon: "camera.fill",
+                iconColor: .blue,
+                backgroundColor: Color.blue.opacity(0.1),
+                action: {
+                    HapticService.shared.menuScan()
+                    showingMenuPhotoCapture = true
+                }
+            ),
+            CarouselItem(
+                id: 1,
+                title: "MealMap",
+                subtitle: "Find restaurants near you",
+                icon: "map.fill",
+                iconColor: .green,
+                backgroundColor: Color.green.opacity(0.1),
+                action: {
+                    HapticService.shared.navigate()
+                    showingMapScreen = true
+                }
+            ),
+            CarouselItem(
+                id: 2,
+                title: "Meal Chat",
+                subtitle: "Get personalized nutrition advice",
+                icon: "message.circle.fill",
+                iconColor: .purple,
+                backgroundColor: Color.purple.opacity(0.1),
+                action: {
+                    HapticService.shared.sheetPresent()
+                    showingDietaryChat = true
+                }
+            )
+        ]
+    }
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            // Carousel Container
+            TabView(selection: $currentIndex) {
+                ForEach(carouselItems, id: \.id) { item in
+                    CarouselItemView(item: item)
+                        .tag(item.id)
+                }
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .frame(height: 100)
+            .clipped()
+            .onChange(of: currentIndex) { oldValue, newValue in
+                // Handle manual swipe - restart timer from new position
+                if oldValue != newValue {
+                    restartTimer()
+                }
+            }
+            
+            // Custom Page Indicators
+            HStack(spacing: 8) {
+                ForEach(0..<carouselItems.count, id: \.self) { index in
+                    Circle()
+                        .fill(index == currentIndex ? Color.blue : Color.gray.opacity(0.3))
+                        .frame(width: 8, height: 8)
+                        .scaleEffect(index == currentIndex ? 1.2 : 1.0)
+                        .animation(.easeInOut(duration: 0.3), value: currentIndex)
+                }
+            }
+            .padding(.top, 12)
+        }
+        .onAppear {
+            startAutoSlide()
+        }
+        .onDisappear {
+            stopAutoSlide()
+        }
+    }
+    
+    private func startAutoSlide() {
+        timer = Timer.scheduledTimer(withTimeInterval: autoSlideInterval, repeats: true) { _ in
+            withAnimation(.easeInOut(duration: 0.5)) {
+                moveToNextIndex()
+            }
+        }
+    }
+    
+    private func stopAutoSlide() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    private func restartTimer() {
+        stopAutoSlide()
+        startAutoSlide()
+    }
+    
+    private func moveToNextIndex() {
+        currentIndex = (currentIndex + 1) % carouselItems.count
+    }
+}
+
+struct CarouselItem {
+    let id: Int
+    let title: String
+    let subtitle: String
+    let icon: String
+    let iconColor: Color
+    let backgroundColor: Color
+    let action: () -> Void
+}
+
+struct CarouselItemView: View {
+    let item: CarouselItem
+    
+    var body: some View {
+        Button(action: item.action) {
+            HStack(spacing: 16) {
+                // Icon Container
+                ZStack {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(item.backgroundColor)
+                        .frame(width: 60, height: 60)
+                    
+                    Image(systemName: item.icon)
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(item.iconColor)
+                }
+                
+                // Content
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.title)
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                    
+                    Text(item.subtitle)
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundColor(.secondary)
+                        .lineLimit(2)
+                }
+                
+                Spacer()
+                
+                // Arrow
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.gray)
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(.systemBackground))
+                    .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+            )
+            .padding(.horizontal, 16)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 // MARK: - Food Type Carousel Component
 
 struct FoodTypeCarousel: View {
     @ObservedObject var mapViewModel: MapViewModel
-    @StateObject private var overpassService = OverpassAPIService()
-    @StateObject private var locationManager = LocationManager()
     
     let foodTypes: [FoodType] = [
         FoodType(name: "Pizza", emoji: "🍕", searchTerms: ["pizza"]),
@@ -1435,8 +1592,6 @@ struct FoodTypeCard: View {
 struct FoodTypeCategoryView: View {
     let foodType: FoodType
     @ObservedObject var mapViewModel: MapViewModel
-    @StateObject private var overpassService = OverpassAPIService()
-    @StateObject private var locationManager = LocationManager()
     
     @State private var restaurants: [Restaurant] = []
     @State private var isLoading = false
@@ -1549,7 +1704,7 @@ struct FoodTypeCategoryView: View {
     }
     
     private func loadRestaurants() {
-        guard let userLocation = locationManager.lastLocation?.coordinate else {
+        guard let userLocation = LocationManager().lastLocation?.coordinate else {
             errorMessage = "Location not available"
             return
         }
@@ -1560,7 +1715,7 @@ struct FoodTypeCategoryView: View {
         Task {
             do {
                 // Get all nearby restaurants
-                let allRestaurants = try await overpassService.fetchAllNearbyRestaurants(
+                let allRestaurants = try await OverpassAPIService().fetchAllNearbyRestaurants(
                     near: userLocation,
                     radius: 5.0
                 )
@@ -1773,10 +1928,4 @@ struct NutritionStat: View {
 
 enum QuickAction {
     case scanMenu
-}
-
-extension Optional where Wrapped == String {
-    var isNilOrEmpty: Bool {
-        return self?.isEmpty ?? true
-    }
 }

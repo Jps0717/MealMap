@@ -22,6 +22,7 @@ struct MenuPhotoCaptureView: View {
     @StateObject private var ocrService = MenuOCRService()
     @StateObject private var nutritionixService = NutritionixAPIService.shared // For usage tracking and API key management
     @StateObject private var savedMenuManager = SavedMenuManager.shared // Add saved menu manager
+    @StateObject private var authManager = AuthenticationManager.shared // Add authentication manager
     
     @State private var processingState: ImageProcessingState = .idle
     @State private var selectedImage: UIImage?
@@ -69,13 +70,19 @@ struct MenuPhotoCaptureView: View {
     var body: some View {
         NavigationView {
             Group {
-                switch processingState {
-                case .idle:
-                    idleStateView
-                case .uploading, .analyzing:
-                    processingStateView
-                case .error(let message):
-                    errorStateView(message: message)
+                // Check authentication first
+                if !authManager.isAuthenticated {
+                    authenticationRequiredView
+                } else {
+                    // Show normal states if authenticated
+                    switch processingState {
+                    case .idle:
+                        idleStateView
+                    case .uploading, .analyzing:
+                        processingStateView
+                    case .error(let message):
+                        errorStateView(message: message)
+                    }
                 }
             }
             .navigationTitle("Menu Analysis")
@@ -91,31 +98,37 @@ struct MenuPhotoCaptureView: View {
                     }
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if !processingState.isProcessing {
-                        Button(action: {
-                            showingAdvancedSettings = true
-                        }) {
-                            Image(systemName: "gearshape")
+                // Only show settings if authenticated
+                if authManager.isAuthenticated {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if !processingState.isProcessing {
+                            Button(action: {
+                                showingAdvancedSettings = true
+                            }) {
+                                Image(systemName: "gearshape")
+                            }
                         }
                     }
                 }
             }
         }
         .onAppear {
-            // Check if API key is configured, show setup if needed
-            if !nutritionixService.isAPIKeyConfigured {
-                nutritionixService.showAPIKeySetup()
-            }
-            
-            // Auto-trigger based on initialization parameters
-            if autoTriggerCamera {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    showingCamera = true
+            // Only check API key if user is authenticated
+            if authManager.isAuthenticated {
+                // Check if API key is configured, show setup if needed
+                if !nutritionixService.isAPIKeyConfigured {
+                    nutritionixService.showAPIKeySetup()
                 }
-            } else if autoTriggerPhotos {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    showingPhotoLibrary = true
+                
+                // Auto-trigger based on initialization parameters
+                if autoTriggerCamera {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showingCamera = true
+                    }
+                } else if autoTriggerPhotos {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showingPhotoLibrary = true
+                    }
                 }
             }
         }
@@ -163,6 +176,76 @@ struct MenuPhotoCaptureView: View {
         currentProcessingTask?.cancel()
         currentProcessingTask = nil
         processingState = .idle
+    }
+    
+    // MARK: - Authentication Required View
+    private var authenticationRequiredView: some View {
+        VStack(spacing: 32) {
+            Spacer()
+            
+            // Icon
+            ZStack {
+                Circle()
+                    .fill(Color.blue.opacity(0.1))
+                    .frame(width: 120, height: 120)
+                
+                Image(systemName: "person.crop.circle.badge.exclamationmark")
+                    .font(.system(size: 48, weight: .medium))
+                    .foregroundColor(.blue)
+            }
+            
+            VStack(spacing: 16) {
+                Text("Sign In Required")
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.primary)
+                
+                Text("Please sign in to your account to scan menus and access nutrition analysis features.")
+                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 40)
+            }
+            
+            VStack(spacing: 12) {
+                Button("Sign In") {
+                    // Close this view and let user sign in from main app
+                    dismiss()
+                }
+                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                .foregroundColor(.white)
+                .padding(.horizontal, 32)
+                .padding(.vertical, 16)
+                .background(
+                    LinearGradient(
+                        colors: [.blue, .blue.opacity(0.8)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .cornerRadius(25)
+                
+                Button("Cancel") {
+                    dismiss()
+                }
+                .font(.system(size: 14, weight: .medium, design: .rounded))
+                .foregroundColor(.blue)
+                .padding(.horizontal, 24)
+                .padding(.vertical, 12)
+                .background(Color.blue.opacity(0.1))
+                .cornerRadius(20)
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .background(
+            LinearGradient(
+                colors: [Color(.systemBackground), Color(.systemGray6)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
     }
     
     private var idleStateView: some View {

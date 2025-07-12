@@ -4,6 +4,7 @@ struct AnalyzedMenuItemView: View {
     let item: AnalyzedMenuItem
     @State private var showingUserCorrections = false
     @State private var showingScoreLegend = false
+    @State private var showingDietaryChat = false
     @Environment(\.dismiss) private var dismiss
     
     // Access user data for scoring
@@ -60,6 +61,10 @@ struct AnalyzedMenuItemView: View {
                                 showingScoreLegend = true
                             }
                         }
+                        
+                        Button("Chat About This Item") {
+                            showingDietaryChat = true
+                        }
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
@@ -74,6 +79,17 @@ struct AnalyzedMenuItemView: View {
         }
         .sheet(isPresented: $showingScoreLegend) {
             DietaryRatingLegendView()
+        }
+        .sheet(isPresented: $showingDietaryChat) {
+            DietaryChatView()
+                .onAppear {
+                    // Pre-fill chat with item context
+                    Task {
+                        if let user = authService.currentUser {
+                            await ChatGPTDietaryService.shared.chatAboutMenuItem(item, user: user)
+                        }
+                    }
+                }
         }
     }
     

@@ -7,18 +7,23 @@ struct ContentView: View {
     @StateObject private var mapViewModel = MapViewModel()
     @ObservedObject private var authManager = AuthenticationManager.shared
 
-    private var shouldShowLocationScreens: Bool {
-        // Only show location screens if user is authenticated but has location issues
-        if authManager.isAuthenticated {
-            if let _ = locationManager.locationError {
-                return true
-            } else if !hasValidLocation {
-                return true
-            } else if !networkMonitor.isConnected {
-                return true
-            }
-        }
-        return false
+    // MARK: - Universal Access Checks (regardless of authentication)
+    private var shouldShowNetworkError: Bool {
+        !networkMonitor.isConnected
+    }
+    
+    private var shouldShowLocationError: Bool {
+        // Don't show location error if we already have network error
+        guard networkMonitor.isConnected else { return false }
+        
+        // Show location error if:
+        // 1. Location access is denied/restricted
+        // 2. We have a location error
+        // 3. We don't have a valid location and not using fallback
+        return locationManager.authorizationStatus == .denied ||
+               locationManager.authorizationStatus == .restricted ||
+               locationManager.locationError != nil ||
+               (!hasValidLocation && !locationManager.usingFallbackLocation)
     }
 
     private var hasValidLocation: Bool {
@@ -29,41 +34,18 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            if authManager.shouldShowOnboarding {
-                // Show onboarding flow
+            // MARK: - Universal Error Checks (Priority Order)
+            if shouldShowNetworkError {
+                // 1. Network Error (Highest Priority)
+                noNetworkView
+            } else if shouldShowLocationError {
+                // 2. Location Error (Second Priority)
+                locationErrorView
+            } else if authManager.shouldShowOnboarding {
+                // 3. Onboarding (After basic requirements are met)
                 OnboardingCoordinator()
-            } else if shouldShowLocationScreens {
-                // Show location/network error screens
-                if let locationError = locationManager.locationError {
-                    NoLocationView(
-                        title: "Location Access Required",
-                        subtitle: locationError,
-                        buttonText: "Enable Location",
-                        onRetry: {
-                            locationManager.requestLocationPermission()
-                        }
-                    )
-                } else if !hasValidLocation {
-                    NoLocationView(
-                        title: "No Location Found",
-                        subtitle: "MealMap needs your location to find restaurants near you.",
-                        buttonText: "Request Location",
-                        onRetry: {
-                            locationManager.requestLocationPermission()
-                        }
-                    )
-                } else if !networkMonitor.isConnected {
-                    NoLocationView(
-                        title: "No Network Connection",
-                        subtitle: "Please check your internet connection and try again.",
-                        buttonText: "Try Again",
-                        onRetry: {
-                            locationManager.restart()
-                        }
-                    )
-                }
             } else {
-                // Show main app
+                // 4. Main App (All requirements satisfied)
                 HomeScreen()
                     .environmentObject(locationManager)
                     .environmentObject(mapViewModel)
@@ -72,6 +54,208 @@ struct ContentView: View {
         .ignoresSafeArea()
         // FORCED: Always use light appearance at the app level
         .preferredColorScheme(.light)
+    }
+    
+    // MARK: - Network Error View
+    private var noNetworkView: some View {
+        VStack(spacing: 32) {
+            Spacer()
+            
+            // Network Error Icon
+            ZStack {
+                Circle()
+                    .fill(Color.red.opacity(0.1))
+                    .frame(width: 120, height: 120)
+                
+                Image(systemName: "wifi.slash")
+                    .font(.system(size: 48, weight: .medium))
+                    .foregroundColor(.red)
+            }
+            
+            VStack(spacing: 16) {
+                Text("No Internet Connection")
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.primary)
+                
+                Text("MealMap requires an internet connection to find restaurants and provide nutrition information.")
+                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 40)
+            }
+            
+            Button(action: {
+                // Trigger a network check - NetworkMonitor will auto-update
+                HapticService.shared.buttonPress()
+            }) {
+                Text("Try Again")
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 16)
+                    .background(
+                        LinearGradient(
+                            colors: [.blue, .blue.opacity(0.8)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .cornerRadius(25)
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .background(
+            LinearGradient(
+                colors: [Color(.systemBackground), Color(.systemGray6)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+    }
+    
+    // MARK: - Location Error View
+    private var locationErrorView: some View {
+        VStack(spacing: 32) {
+            Spacer()
+            
+            // Location Error Icon
+            ZStack {
+                Circle()
+                    .fill(Color.blue.opacity(0.1))
+                    .frame(width: 120, height: 120)
+                
+                Image(systemName: locationErrorIconName)
+                    .font(.system(size: 48, weight: .medium))
+                    .foregroundColor(.blue)
+            }
+            
+            VStack(spacing: 16) {
+                Text(locationErrorTitle)
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.primary)
+                
+                Text(locationErrorMessage)
+                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal, 40)
+            }
+            
+            // Primary Action Button only
+            Button(action: primaryLocationAction) {
+                Text(primaryLocationButtonText)
+                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 16)
+                    .background(
+                        LinearGradient(
+                            colors: [.blue, .blue.opacity(0.8)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .cornerRadius(25)
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .background(
+            LinearGradient(
+                colors: [Color(.systemBackground), Color(.systemGray6)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+    }
+
+    // MARK: - Location Error Computed Properties
+    private var locationErrorIconName: String {
+        switch locationManager.authorizationStatus {
+        case .denied, .restricted:
+            return "location.slash.fill"
+        case .notDetermined:
+            return "location.circle"
+        default:
+            return "location.slash"
+        }
+    }
+    
+    private var locationErrorTitle: String {
+        switch locationManager.authorizationStatus {
+        case .denied:
+            return "Location Access Denied"
+        case .restricted:
+            return "Location Access Restricted"
+        case .notDetermined:
+            return "Location Access Required"
+        default:
+            if locationManager.locationError != nil {
+                return "Location Error"
+            }
+            return "Unable to Get Location"
+        }
+    }
+    
+    private var locationErrorMessage: String {
+        switch locationManager.authorizationStatus {
+        case .denied:
+            return "MealMap needs access to your location to find restaurants near you. Please enable location access in Settings."
+        case .restricted:
+            return "Location access is restricted on this device. Please check your device settings and parental controls."
+        case .notDetermined:
+            return "MealMap uses your location to find the best restaurants and dining options near you."
+        default:
+            if let error = locationManager.locationError {
+                return error
+            }
+            return "We're having trouble getting your current location. Please make sure location services are enabled."
+        }
+    }
+    
+    private var primaryLocationButtonText: String {
+        switch locationManager.authorizationStatus {
+        case .denied, .restricted:
+            return "Open Settings"
+        case .notDetermined:
+            return "Enable Location"
+        default:
+            return "Try Again"
+        }
+    }
+    
+    private var showSecondaryLocationAction: Bool {
+        // Removed secondary action - always false
+        false
+    }
+    
+    // MARK: - Location Action Functions
+    private func primaryLocationAction() {
+        HapticService.shared.buttonPress()
+        
+        switch locationManager.authorizationStatus {
+        case .denied, .restricted:
+            openSettings()
+        case .notDetermined:
+            locationManager.requestLocationPermission()
+        default:
+            locationManager.restart()
+        }
+    }
+    
+    private func secondaryLocationAction() {
+        // Removed - no longer used
+    }
+    
+    private func openSettings() {
+        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(settingsURL)
+        }
     }
 }
 

@@ -367,7 +367,8 @@ struct MenuAnalysisResultsView: View {
                         } else {
                             selectedItems.insert(item.id)
                         }
-                    }
+                    },
+                    convertToAnalyzed: convertToAnalyzedMenuItem
                 )
             }
         }
@@ -476,7 +477,6 @@ struct MenuAnalysisResultsView: View {
     }
 }
 
-// MARK: - Score Stat View
 struct ScoreStatView: View {
     let title: String
     let score: Double
@@ -556,6 +556,9 @@ struct ValidatedMenuItemRow: View {
     let isSelected: Bool
     let onTap: () -> Void
     let onToggleSelection: () -> Void
+    let convertToAnalyzed: (ValidatedMenuItem) -> AnalyzedMenuItem
+    
+    @State private var showingDietaryChat = false
     
     var body: some View {
         HStack(spacing: 12) {
@@ -586,28 +589,6 @@ struct ValidatedMenuItemRow: View {
                 }
             }
             .buttonStyle(PlainButtonStyle())
-        }
-        .padding(.vertical, 8)
-    }
-    
-    private var itemHeaderRow: some View {
-        HStack(spacing: 12) {
-            // Content
-            VStack(alignment: .leading, spacing: 4) {
-                Text(item.validatedName)
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                    .lineLimit(2)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                // Show status as text instead of icon
-                if !item.isValid {
-                    Text("No nutrition data")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-            }
             
             // Score badge (if available)
             if let score = itemScore {
@@ -627,10 +608,42 @@ struct ValidatedMenuItemRow: View {
                 .cornerRadius(8)
             }
             
+            // Chat button
+            Button(action: {
+                showingDietaryChat = true
+            }) {
+                Image(systemName: "message.circle")
+                    .font(.caption)
+                    .foregroundColor(.blue)
+            }
+            .sheet(isPresented: $showingDietaryChat) {
+                let analyzedItem = convertToAnalyzed(item)
+                DietaryChatView(initialItem: analyzedItem)
+            }
+            
             // Chevron
             Image(systemName: "chevron.right")
                 .font(.caption)
                 .foregroundColor(.secondary)
+        }
+        .padding(.vertical, 8)
+    }
+    
+    private var itemHeaderRow: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(item.validatedName)
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.primary)
+                .lineLimit(2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            // Show status as text instead of icon
+            if !item.isValid {
+                Text("No nutrition data")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
     }
     
@@ -668,7 +681,7 @@ struct ValidatedMenuItemDetailView: View {
                     
                     // Score section (if available)
                     if let score = itemScore {
-                        MenuItemScoreCard(score: score, compact: false)
+                        // Removed MenuItemScoreView definition
                     }
                     
                     // Nutrition Information
@@ -706,6 +719,36 @@ struct ValidatedMenuItemDetailView: View {
                 }
             }
         }
+    }
+    
+    private func convertToAnalyzedMenuItem(_ item: ValidatedMenuItem) -> AnalyzedMenuItem {
+        // This is a simplified conversion for the score view
+        // The main view has a more detailed one
+        let nutritionEstimate = NutritionEstimate(
+            calories: NutritionRange(min: item.nutritionInfo?.calories ?? 0, max: item.nutritionInfo?.calories ?? 0, unit: "kcal"),
+            carbs: NutritionRange(min: item.nutritionInfo?.carbs ?? 0, max: item.nutritionInfo?.carbs ?? 0, unit: "g"),
+            protein: NutritionRange(min: item.nutritionInfo?.protein ?? 0, max: item.nutritionInfo?.protein ?? 0, unit: "g"),
+            fat: NutritionRange(min: item.nutritionInfo?.fat ?? 0, max: item.nutritionInfo?.fat ?? 0, unit: "g"),
+            fiber: nil,
+            sodium: nil,
+            sugar: nil,
+            confidence: 0.8,
+            estimationSource: .nutritionix,
+            sourceDetails: "Menu Analysis",
+            estimatedPortionSize: "1 serving",
+            portionConfidence: 0.8
+        )
+        
+        return AnalyzedMenuItem(
+            name: item.validatedName,
+            description: nil,
+            price: nil,
+            ingredients: [],
+            nutritionEstimate: nutritionEstimate,
+            dietaryTags: [],
+            confidence: 0.8,
+            textBounds: nil
+        )
     }
     
     private var itemHeaderSection: some View {
@@ -948,47 +991,50 @@ struct NutritionInfoSectionView: View {
     }
 }
 
-#Preview {
-    MenuAnalysisResultsView(validatedItems: [
-        ValidatedMenuItem(
-            originalLine: "grilled chicken",
-            validatedName: "Grilled Chicken Breast",
-            spoonacularId: 0,
-            imageUrl: nil,
-            nutritionInfo: NutritionInfo(
-                calories: 231,
-                protein: 43.5,
-                carbs: 0,
-                fat: 5.0,
-                fiber: 0,
-                sodium: 104,
-                sugar: 0
+// MARK: - Preview
+struct MenuAnalysisResultsView_Previews: PreviewProvider {
+    static var previews: some View {
+        MenuAnalysisResultsView(validatedItems: [
+            ValidatedMenuItem(
+                originalLine: "grilled chicken",
+                validatedName: "Grilled Chicken Breast",
+                spoonacularId: 0,
+                imageUrl: nil,
+                nutritionInfo: NutritionInfo(
+                    calories: 231,
+                    protein: 43.5,
+                    carbs: 0,
+                    fat: 5.0,
+                    fiber: 0,
+                    sodium: 104,
+                    sugar: 0
+                ),
+                isValid: true
             ),
-            isValid: true
-        ),
-        ValidatedMenuItem(
-            originalLine: "caesar salad",
-            validatedName: "Caesar Salad",
-            spoonacularId: 0,
-            imageUrl: nil,
-            nutritionInfo: NutritionInfo(
-                calories: 470,
-                protein: 13.4,
-                carbs: 25.5,
-                fat: 35.2,
-                fiber: 4.1,
-                sodium: 1456,
-                sugar: 6.3
+            ValidatedMenuItem(
+                originalLine: "caesar salad",
+                validatedName: "Caesar Salad",
+                spoonacularId: 0,
+                imageUrl: nil,
+                nutritionInfo: NutritionInfo(
+                    calories: 470,
+                    protein: 13.4,
+                    carbs: 25.5,
+                    fat: 35.2,
+                    fiber: 4.1,
+                    sodium: 1456,
+                    sugar: 6.3
+                ),
+                isValid: true
             ),
-            isValid: true
-        ),
-        ValidatedMenuItem(
-            originalLine: "unknown item",
-            validatedName: "Unknown Item",
-            spoonacularId: 0,
-            imageUrl: nil,
-            nutritionInfo: nil,
-            isValid: false
-        )
-    ])
+            ValidatedMenuItem(
+                originalLine: "unknown item",
+                validatedName: "Unknown Item",
+                spoonacularId: 0,
+                imageUrl: nil,
+                nutritionInfo: nil,
+                isValid: false
+            )
+        ])
+    }
 }
