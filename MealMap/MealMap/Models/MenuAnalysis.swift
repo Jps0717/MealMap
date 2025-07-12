@@ -84,6 +84,37 @@ struct MenuAnalysisResult: Identifiable, Codable {
     var highConfidenceItems: Int { 
         menuItems.filter { $0.confidence > 0.7 }.count 
     }
+    
+    // MARK: - Scoring Data
+    var menuItemScores: [String: MenuItemScore] = [:]
+    var lastScoredFor: String? // User ID
+    var scoringEnabled: Bool = true
+    
+    // MARK: - Scoring Helpers
+    var scoredItems: [AnalyzedMenuItem] {
+        menuItems.filter { $0.hasValidScore }
+    }
+    
+    var highlyRatedItems: [AnalyzedMenuItem] {
+        menuItems.filter { $0.isHighlyRated }
+    }
+    
+    var averageScore: Double {
+        let validScores = menuItems.compactMap { $0.menuItemScore?.overallScore }
+        return validScores.isEmpty ? 0 : validScores.reduce(0, +) / Double(validScores.count)
+    }
+    
+    var topRatedItems: [AnalyzedMenuItem] {
+        menuItems
+            .filter { $0.hasValidScore }
+            .sorted { ($0.menuItemScore?.overallScore ?? 0) > ($1.menuItemScore?.overallScore ?? 0) }
+            .prefix(3)
+            .map { $0 }
+    }
+    
+    var shouldShowScoring: Bool {
+        scoringEnabled && confidence > 0.3
+    }
 }
 
 struct AnalyzedMenuItem: Identifiable, Codable {
@@ -106,6 +137,11 @@ struct AnalyzedMenuItem: Identifiable, Codable {
     var userCorrectedIngredients: [String]?
     var userDietaryFlags: [DietaryTag]?
     var userMarkedIncorrect: Bool = false
+    
+    // MARK: - Scoring Data
+    var menuItemScore: MenuItemScore?
+    var lastScoredFor: String? // User ID
+    var scoringEnabled: Bool = true
     
     // Default initializer
     init(
@@ -130,6 +166,20 @@ struct AnalyzedMenuItem: Identifiable, Codable {
         self.textBounds = textBounds
         self.estimationTier = estimationTier
         self.isGeneralizedEstimate = isGeneralizedEstimate
+    }
+    
+    // MARK: - Scoring Helpers
+    var hasValidScore: Bool {
+        menuItemScore != nil && menuItemScore!.confidence > 0.5
+    }
+    
+    var isHighlyRated: Bool {
+        guard let score = menuItemScore else { return false }
+        return score.overallScore >= 80
+    }
+    
+    var shouldShowScoring: Bool {
+        scoringEnabled && nutritionEstimate.confidence > 0.3
     }
 }
 

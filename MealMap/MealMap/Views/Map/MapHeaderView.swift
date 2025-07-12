@@ -12,8 +12,7 @@ struct MapHeaderView: View {
     let onCenterLocation: () -> Void
     
     @State private var showingFilters = false
-    @State private var showingLegend = false
-    @StateObject private var authManager = AuthenticationManager.shared
+    @State private var showingScoringLegend = false
     
     var body: some View {
         VStack(spacing: 12) {
@@ -84,33 +83,33 @@ struct MapHeaderView: View {
                 
                 MapStatusIndicators(viewModel: viewModel, isSearching: isSearching)
                 
-                // Rating Legend Button
                 Button(action: {
-                    showingLegend = true
+                    showingFilters = true
                 }) {
-                    Image(systemName: "info.circle.fill")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.white)
+                    Image(systemName: "line.3.horizontal.decrease.circle")
+                        .foregroundColor(.primary)
+                        .frame(width: 36, height: 36)
+                        .background(Color(.systemBackground))
+                        .clipShape(Circle())
+                        .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                 }
-                .frame(width: 48, height: 48)
-                .background(
-                    LinearGradient(
-                        colors: [.purple, .purple.opacity(0.8)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .cornerRadius(24)
-                .shadow(color: .purple.opacity(0.3), radius: 8, y: 4)
-                .accessibilityLabel("Rating Guide")
-                .accessibilityHint("Tap to see how dietary ratings work")
+                
+                // ENHANCED: Scoring Legend Button
+                if viewModel.restaurants.contains(where: { $0.hasNutritionData }) {
+                    Button(action: {
+                        showingScoringLegend = true
+                    }) {
+                        Image(systemName: "chart.bar.fill")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundColor(.blue)
+                            .frame(width: 36, height: 36)
+                            .background(Color(.systemBackground))
+                            .clipShape(Circle())
+                            .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                    }
+                }
             }
             .padding(.horizontal, 16)
-            
-            // Quick Legend for non-authenticated users
-            if !authManager.isAuthenticated {
-                quickLegendView
-            }
         }
         .padding(.top, 70) 
         .sheet(isPresented: $showingFilters) {
@@ -124,57 +123,13 @@ struct MapHeaderView: View {
                 userLocation: viewModel.userLocation
             )
         }
-        .sheet(isPresented: $showingLegend) {
-            DietaryRatingLegendView()
+        .sheet(isPresented: $showingScoringLegend) {
+            RestaurantScoringLegendView()
         }
-    }
-    
-    private var quickLegendView: some View {
-        VStack(spacing: 8) {
-            Text("Sign in to see personalized dietary ratings")
-                .font(.system(size: 12, weight: .medium, design: .rounded))
-                .foregroundColor(.blue)
-            
-            HStack(spacing: 12) {
-                QuickLegendDot(color: .green, label: "Excellent")
-                QuickLegendDot(color: .blue, label: "Good")
-                QuickLegendDot(color: .yellow, label: "Fair")
-                QuickLegendDot(color: .orange, label: "Poor")
-                QuickLegendDot(color: .red, label: "Avoid")
-            }
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.blue.opacity(0.1))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                )
-        )
-        .padding(.horizontal, 16)
     }
     
     private var hasActiveFilters: Bool {
         !viewModel.currentFilter.isEmpty
-    }
-}
-
-struct QuickLegendDot: View {
-    let color: Color
-    let label: String
-    
-    var body: some View {
-        VStack(spacing: 4) {
-            Circle()
-                .fill(color)
-                .frame(width: 12, height: 12)
-            
-            Text(label)
-                .font(.system(size: 10, weight: .medium, design: .rounded))
-                .foregroundColor(.secondary)
-        }
     }
 }
 

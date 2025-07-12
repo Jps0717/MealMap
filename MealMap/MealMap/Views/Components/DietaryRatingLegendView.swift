@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct DietaryRatingLegendView: View {
-    @StateObject private var authManager = AuthenticationManager.shared
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -11,21 +10,21 @@ struct DietaryRatingLegendView: View {
                     // Header
                     headerSection
                     
-                    // Rating Scale
-                    ratingScaleSection
+                    // Score Grades
+                    scoreGradesSection
                     
-                    // What Gets Scored
-                    whatGetsScoredSection
+                    // Scoring Categories
+                    scoringCategoriesSection
                     
-                    // Nutrition Color Guide
-                    nutritionColorGuideSection
+                    // Personalization
+                    personalizationSection
                     
-                    // How to Get Ratings
-                    howToGetRatingsSection
+                    // Tips
+                    tipsSection
                 }
                 .padding()
             }
-            .navigationTitle("Dietary Rating Guide")
+            .navigationTitle("Nutrition Scoring")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -38,350 +37,268 @@ struct DietaryRatingLegendView: View {
     }
     
     private var headerSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Image(systemName: "star.fill")
-                    .font(.title2)
-                    .foregroundColor(.yellow)
-                Text("Dietary Rating System")
-                    .font(.title2)
-                    .fontWeight(.bold)
-            }
+        VStack(alignment: .leading, spacing: 16) {
+            Text("How Menu Items Are Scored")
+                .font(.title2)
+                .fontWeight(.bold)
             
-            Text("Menu items are scored based on how well they match your personal dietary goals and restrictions.")
+            Text("Our scoring system evaluates menu items based on established nutrition guidelines (USDA, WHO) and your personal dietary goals. Each item receives a score from 0-100 with personalized recommendations.")
                 .font(.body)
                 .foregroundColor(.secondary)
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
     }
     
-    private var ratingScaleSection: some View {
+    private var scoreGradesSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Rating Scale")
+            Text("Score Ranges")
                 .font(.headline)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
             
             VStack(spacing: 12) {
-                RatingScaleRow(
-                    level: "Excellent Match",
-                    range: "90-100%",
-                    color: .green,
-                    description: "Perfect for your goals"
+                ForEach(ScoreGrade.allCases, id: \.self) { grade in
+                    ScoreGradeLegendRow(grade: grade)
+                }
+            }
+        }
+    }
+    
+    private var scoringCategoriesSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Scoring Categories")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            VStack(spacing: 12) {
+                ScoringCategoryCard(
+                    category: .nutrition,
+                    weight: "35%",
+                    description: "Evaluates calories, macronutrients (protein, carbs, fat), and micronutrients (fiber, sodium, sugar) against recommended daily values."
                 )
                 
-                RatingScaleRow(
-                    level: "Good Match",
-                    range: "75-89%",
-                    color: .blue,
-                    description: "Great choice, minor issues"
+                ScoringCategoryCard(
+                    category: .goals,
+                    weight: "30%",
+                    description: "Assesses how well the item aligns with your health goals (weight loss, muscle building, general health, etc.)."
                 )
                 
-                RatingScaleRow(
-                    level: "Fair Match",
-                    range: "60-74%",
-                    color: .yellow,
-                    description: "Okay choice, some concerns"
+                ScoringCategoryCard(
+                    category: .restrictions,
+                    weight: "25%",
+                    description: "Checks compliance with your dietary restrictions (vegan, gluten-free, low-carb, etc.). Violations result in significant point deductions."
                 )
                 
-                RatingScaleRow(
-                    level: "Poor Match",
-                    range: "30-59%",
-                    color: .orange,
-                    description: "Not ideal for your goals"
-                )
-                
-                RatingScaleRow(
-                    level: "Avoid",
-                    range: "0-29%",
-                    color: .red,
-                    description: "Violates dietary restrictions"
+                ScoringCategoryCard(
+                    category: .portion,
+                    weight: "10%",
+                    description: "Evaluates if the portion size is appropriate for your daily caloric goals and activity level."
                 )
             }
         }
     }
     
-    private var whatGetsScoredSection: some View {
+    private var personalizationSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("What Gets Scored")
+            Text("Personalization")
                 .font(.headline)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
             
             VStack(spacing: 12) {
-                ScoringCategoryRow(
-                    icon: "scale.3d",
-                    title: "Macro Goals",
-                    weight: "40%",
-                    description: "Protein, carbs, fat alignment with your daily targets",
-                    color: .blue
+                PersonalizationCard(
+                    title: "Health Goals",
+                    description: "Scores are adjusted based on your specific goals like weight loss, muscle building, or general health improvement.",
+                    icon: "target",
+                    color: .green
                 )
                 
-                ScoringCategoryRow(
-                    icon: "heart.fill",
-                    title: "Health Goals",
-                    weight: "30%",
-                    description: "Supports weight loss, muscle building, health improvement",
+                PersonalizationCard(
+                    title: "Dietary Restrictions",
+                    description: "Items that violate your dietary restrictions receive lower scores or zero points for safety.",
+                    icon: "exclamationmark.shield.fill",
                     color: .red
                 )
                 
-                ScoringCategoryRow(
-                    icon: "star.fill",
-                    title: "Nutritional Quality",
-                    weight: "20%",
-                    description: "Fiber content, sodium levels, sugar content",
-                    color: .yellow
+                PersonalizationCard(
+                    title: "Daily Targets",
+                    description: "Nutrition scores consider your daily calorie, protein, and other nutrient targets.",
+                    icon: "chart.bar.fill",
+                    color: .blue
                 )
-                
-                ScoringCategoryRow(
-                    icon: "flame.fill",
-                    title: "Calorie Alignment",
-                    weight: "10%",
-                    description: "Fits within your daily calorie goals",
-                    color: .orange
-                )
-            }
-            
-            // Hard Constraints
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Hard Constraints")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.red)
-                
-                HStack(spacing: 8) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.red)
-                        .font(.caption)
-                    
-                    Text("Items that violate dietary restrictions (vegetarian, vegan, gluten-free, etc.) automatically receive a score of 0")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-            }
-            .padding()
-            .background(Color.red.opacity(0.1))
-            .cornerRadius(8)
-        }
-    }
-    
-    private var nutritionColorGuideSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Nutrition Color Guide")
-                .font(.headline)
-                .fontWeight(.bold)
-            
-            Text("In nutrition breakdowns, each macro has its own color:")
-                .font(.body)
-                .foregroundColor(.secondary)
-            
-            VStack(spacing: 8) {
-                NutritionColorRow(color: .orange, nutrient: "Calories", icon: "flame.fill")
-                NutritionColorRow(color: .red, nutrient: "Protein", icon: "bolt.fill")
-                NutritionColorRow(color: .blue, nutrient: "Carbohydrates", icon: "leaf.fill")
-                NutritionColorRow(color: .purple, nutrient: "Fat", icon: "drop.fill")
             }
         }
     }
     
-    private var howToGetRatingsSection: some View {
+    private var tipsSection: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("How to Get Ratings")
+            Text("Tips for Better Scores")
                 .font(.headline)
-                .fontWeight(.bold)
+                .fontWeight(.semibold)
             
             VStack(spacing: 12) {
-                RequirementRow(
-                    icon: "person.crop.circle.fill",
-                    title: "Create Account",
-                    description: "Sign up and log in to get personalized ratings",
-                    isCompleted: authManager.isAuthenticated
+                TipCard(
+                    tip: "Look for items with high protein content (≥20g) if you're building muscle",
+                    emoji: "💪"
                 )
                 
-                RequirementRow(
-                    icon: "slider.horizontal.3",
-                    title: "Set Dietary Preferences",
-                    description: "Configure your health goals and dietary restrictions",
-                    isCompleted: authManager.isAuthenticated && authManager.currentUser?.profile.healthGoals.isEmpty == false
+                TipCard(
+                    tip: "Choose items with moderate calories (400-600) for balanced nutrition",
+                    emoji: "⚖️"
                 )
                 
-                RequirementRow(
-                    icon: "camera.fill",
-                    title: "Analyze Menus",
-                    description: "Take photos of menus to get nutrition data and ratings",
-                    isCompleted: false
+                TipCard(
+                    tip: "Avoid items with high sodium (>1500mg) for heart health",
+                    emoji: "❤️"
                 )
-            }
-            
-            if !authManager.isAuthenticated {
-                VStack(spacing: 12) {
-                    Text("Get started by creating an account to unlock personalized dietary ratings!")
-                        .font(.body)
-                        .foregroundColor(.blue)
-                        .multilineTextAlignment(.center)
-                    
-                    Button("Create Account") {
-                        // This would typically navigate to sign up
-                        // For now, just dismiss
-                        dismiss()
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(12)
-                }
-                .padding()
-                .background(Color.blue.opacity(0.1))
-                .cornerRadius(12)
+                
+                TipCard(
+                    tip: "Prioritize items with high fiber (≥5g) for digestive health",
+                    emoji: "🌾"
+                )
+                
+                TipCard(
+                    tip: "Check that items comply with your dietary restrictions",
+                    emoji: "✅"
+                )
             }
         }
     }
 }
 
-struct RatingScaleRow: View {
-    let level: String
-    let range: String
-    let color: Color
-    let description: String
+// MARK: - Supporting Views
+struct ScoreGradeLegendRow: View {
+    let grade: ScoreGrade
     
     var body: some View {
-        HStack(spacing: 12) {
-            // Color indicator
-            Circle()
-                .fill(color)
-                .frame(width: 16, height: 16)
+        HStack {
+            Text(grade.emoji)
+                .font(.title2)
             
-            // Content
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    Text(level)
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.primary)
-                    
-                    Spacer()
-                    
-                    Text(range)
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundColor(color)
-                }
+            VStack(alignment: .leading, spacing: 2) {
+                Text(grade.rawValue)
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .foregroundColor(grade.color)
                 
-                Text(description)
-                    .font(.system(size: 13))
+                Text(scoreRangeText(for: grade))
+                    .font(.caption)
                     .foregroundColor(.secondary)
             }
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(Color(.systemGray6))
-        .cornerRadius(8)
-    }
-}
-
-struct ScoringCategoryRow: View {
-    let icon: String
-    let title: String
-    let weight: String
-    let description: String
-    let color: Color
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.system(size: 16))
-                .foregroundColor(color)
-                .frame(width: 24)
-            
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
-                    Text(title)
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.primary)
-                    
-                    Spacer()
-                    
-                    Text(weight)
-                        .font(.system(size: 13, weight: .bold))
-                        .foregroundColor(color)
-                }
-                
-                Text(description)
-                    .font(.system(size: 13))
-                    .foregroundColor(.secondary)
-            }
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
-        .background(Color(.systemGray6))
-        .cornerRadius(8)
-    }
-}
-
-struct NutritionColorRow: View {
-    let color: Color
-    let nutrient: String
-    let icon: String
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.system(size: 14))
-                .foregroundColor(color)
-                .frame(width: 20)
-            
-            Text(nutrient)
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.primary)
             
             Spacer()
             
-            Rectangle()
-                .fill(color)
-                .frame(width: 30, height: 4)
-                .cornerRadius(2)
+            Text(descriptionText(for: grade))
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.trailing)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
-        .background(Color(.systemGray6))
-        .cornerRadius(6)
+        .padding()
+        .background(grade.color.opacity(0.1))
+        .cornerRadius(10)
+    }
+    
+    private func scoreRangeText(for grade: ScoreGrade) -> String {
+        switch grade {
+        case .excellent: return "90-100 points"
+        case .veryGood: return "80-89 points"
+        case .good: return "70-79 points"
+        case .fair: return "60-69 points"
+        case .poor: return "50-59 points"
+        case .veryPoor: return "0-49 points"
+        }
+    }
+    
+    private func descriptionText(for grade: ScoreGrade) -> String {
+        switch grade {
+        case .excellent: return "Outstanding choice"
+        case .veryGood: return "Very good choice"
+        case .good: return "Good choice"
+        case .fair: return "Acceptable choice"
+        case .poor: return "Poor choice"
+        case .veryPoor: return "Avoid if possible"
+        }
     }
 }
 
-struct RequirementRow: View {
-    let icon: String
-    let title: String
+struct ScoringCategoryCard: View {
+    let category: ScoreCategory
+    let weight: String
     let description: String
-    let isCompleted: Bool
     
     var body: some View {
-        HStack(spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: category.icon)
+                    .foregroundColor(category.color)
+                
+                Text(category.rawValue)
+                    .font(.body)
+                    .fontWeight(.medium)
+                
+                Spacer()
+                
+                Text(weight)
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(category.color)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(category.color.opacity(0.2))
+                    .cornerRadius(4)
+            }
+            
+            Text(description)
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .background(category.color.opacity(0.05))
+        .cornerRadius(10)
+    }
+}
+
+struct PersonalizationCard: View {
+    let title: String
+    let description: String
+    let icon: String
+    let color: Color
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
             Image(systemName: icon)
-                .font(.system(size: 16))
-                .foregroundColor(isCompleted ? .green : .gray)
-                .frame(width: 24)
+                .foregroundColor(color)
+                .font(.title3)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.system(size: 15, weight: .semibold))
-                    .foregroundColor(.primary)
+                    .font(.body)
+                    .fontWeight(.medium)
+                    .foregroundColor(color)
                 
                 Text(description)
-                    .font(.system(size: 13))
+                    .font(.caption)
                     .foregroundColor(.secondary)
             }
-            
-            Spacer()
-            
-            if isCompleted {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 18))
-                    .foregroundColor(.green)
-            }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
-        .background(Color(.systemGray6))
+        .padding()
+        .background(color.opacity(0.05))
+        .cornerRadius(10)
+    }
+}
+
+struct TipCard: View {
+    let tip: String
+    let emoji: String
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Text(emoji)
+                .font(.title2)
+            
+            Text(tip)
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .background(Color.gray.opacity(0.05))
         .cornerRadius(8)
     }
 }

@@ -3,8 +3,13 @@ import SwiftUI
 struct AnalyzedMenuItemView: View {
     let item: AnalyzedMenuItem
     @State private var showingUserCorrections = false
-    @StateObject private var authManager = AuthenticationManager.shared
+    @State private var showingScoreLegend = false
     @Environment(\.dismiss) private var dismiss
+    
+    // Access user data for scoring
+    @StateObject private var authService = FirebaseAuthService.shared
+    @State private var menuItemScore: MenuItemScore?
+    @State private var isCalculatingScore = false
     
     var body: some View {
         NavigationView {
@@ -13,10 +18,9 @@ struct AnalyzedMenuItemView: View {
                     // Header
                     headerSection
                     
-                    // Dietary Score (if user is authenticated)
-                    if authManager.isAuthenticated, let user = authManager.currentUser {
-                        let score = MenuItemScoringService.scoreMenuItem(item, for: user)
-                        MenuItemScoreView(score: score, item: item)
+                    // Scoring Section (if available)
+                    if shouldShowScoring {
+                        scoringSection
                     }
                     
                     // Nutrition Overview
@@ -46,16 +50,128 @@ struct AnalyzedMenuItemView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Correct") {
-                        showingUserCorrections = true
+                    Menu {
+                        Button("Correct Information") {
+                            showingUserCorrections = true
+                        }
+                        
+                        if shouldShowScoring {
+                            Button("Scoring Guide") {
+                                showingScoreLegend = true
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
                     }
-                    .foregroundColor(.blue)
                 }
+            }
+            .onAppear {
+                calculateScoreIfNeeded()
             }
         }
         .sheet(isPresented: $showingUserCorrections) {
             UserCorrectionsView(item: item)
         }
+        .sheet(isPresented: $showingScoreLegend) {
+            DietaryRatingLegendView()
+        }
+    }
+    
+    private var shouldShowScoring: Bool {
+        item.shouldShowScoring && (authService.isAuthenticated || menuItemScore != nil)
+    }
+    
+    private func calculateScoreIfNeeded() {
+        guard shouldShowScoring && menuItemScore == nil && !isCalculatingScore else { return }
+        
+        isCalculatingScore = true
+        
+        // Get current user if authenticated
+        let currentUser = authService.currentUser
+        
+        // Calculate score
+        let score = MenuItemScoringService.shared.calculatePersonalizedScore(
+            for: item,
+            user: currentUser
+        )
+        
+        menuItemScore = score
+        isCalculatingScore = false
+    }
+    
+    private var scoringSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("Nutrition Score")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                
+                Spacer()
+                
+                Button("Learn More") {
+                    showingScoreLegend = true
+                }
+                .font(.caption)
+                .foregroundColor(.blue)
+            }
+            
+            if isCalculatingScore {
+                HStack {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                    
+                    Text("Calculating personalized score...")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
+                .background(Color.gray.opacity(0.05))
+                .cornerRadius(12)
+            } else if let score = menuItemScore {
+                MenuItemScoreCard(score: score, compact: false)
+            } else if !authService.isAuthenticated {
+                authPromptView
+            }
+        }
+    }
+    
+    private var authPromptView: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Image(systemName: "person.crop.circle.badge.plus")
+                    .foregroundColor(.blue)
+                    .font(.title2)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Get Personalized Scores")
+                        .font(.body)
+                        .fontWeight(.medium)
+                    
+                    Text("Sign in to get nutrition scores based on your goals and dietary restrictions")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+            }
+            
+            Button("Sign In") {
+                // Navigate to sign in
+            }
+            .font(.caption)
+            .foregroundColor(.white)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(Color.blue)
+            .cornerRadius(8)
+        }
+        .padding()
+        .background(Color.blue.opacity(0.05))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+        )
     }
     
     private var headerSection: some View {
@@ -252,7 +368,7 @@ struct AnalyzedMenuItemView: View {
             .background(Color.gray.opacity(0.05))
             .cornerRadius(12)
             
-            Text("See something wrong? Tap 'Correct' to help improve accuracy.")
+            Text("See something wrong? Tap the menu button to correct this information.")
                 .font(.caption)
                 .foregroundColor(.blue)
                 .multilineTextAlignment(.center)

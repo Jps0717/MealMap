@@ -15,12 +15,13 @@ struct EnhancedMapView: View {
     
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
-    @State private var showingLegend = false
     @State private var showZoomInNotification = false
     @State private var currentZoomLevel: CLLocationDegrees = 0.01
     @State private var notificationTimer: Timer?
     @State private var lastNotificationTime: Date = .distantPast
-
+    
+    @StateObject private var scoringService = RestaurantMapScoringService.shared
+    
     var body: some View {
         ZStack {
             // Enhanced map with immediate detail view on pin tap
@@ -47,6 +48,13 @@ struct EnhancedMapView: View {
                         centerOnUserLocation()
                     }
                 )
+                
+                // ENHANCED: Scoring Status Bar
+                if scoringService.isCalculatingScores {
+                    ScoringStatusBar()
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                }
+                
                 Spacer()
             }
             
@@ -153,33 +161,12 @@ struct EnhancedMapView: View {
                 .transition(.opacity.combined(with: .scale(scale: 0.9)))
             }
 
-            // Bottom right buttons - Fresh button and Legend button
+            // Bottom right buttons - Fresh button only
             VStack {
                 Spacer()
                 HStack {
                     Spacer()
                     VStack(spacing: 16) {
-                        // Legend button - only show if user is authenticated
-                        if AuthenticationManager.shared.isAuthenticated {
-                            Button(action: {
-                                showingLegend = true
-                            }) {
-                                Image(systemName: "info.circle.fill")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(.white)
-                            }
-                            .frame(width: 44, height: 44)
-                            .background(
-                                LinearGradient(
-                                    colors: [.purple, .purple.opacity(0.8)],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .cornerRadius(22)
-                            .shadow(color: .purple.opacity(0.3), radius: 8, y: 4)
-                        }
-                        
                         // Fresh/Refresh button
                         Button(action: {
                             debugLog(" User tapped FRESH location refresh")
@@ -250,13 +237,14 @@ struct EnhancedMapView: View {
                 )
             }
         }
-        .sheet(isPresented: $showingLegend) {
-            DietaryRatingLegendView()
-        }
         .onDisappear {
             // Clean up timer when view disappears
             notificationTimer?.invalidate()
             notificationTimer = nil
+        }
+        .onAppear {
+            // Trigger scoring calculation for visible restaurants
+            triggerScoringCalculation()
         }
     }
     
@@ -321,6 +309,15 @@ struct EnhancedMapView: View {
                     center: userLocation,
                     span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 )
+            }
+        }
+    }
+    
+    private func triggerScoringCalculation() {
+        Task.detached(priority: .utility) {
+            let nutritionRestaurants = viewModel.restaurants.filter { $0.hasNutritionData }
+            if !nutritionRestaurants.isEmpty {
+                await scoringService.calculateScoresForRestaurants(nutritionRestaurants)
             }
         }
     }
@@ -463,23 +460,23 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
             }
             
             if let restaurantAnnotation = annotation as? RestaurantMapAnnotation {
-                return createCustomRestaurantView(for: restaurantAnnotation, in: mapView)
+                return createScoringAwareRestaurantView(for: restaurantAnnotation, in: mapView)
             }
             
             // Hide all other annotations (Apple Maps POIs)
             return MKAnnotationView()
         }
         
-        private func createCustomRestaurantView(for annotation: RestaurantMapAnnotation, in mapView: MKMapView) -> MKAnnotationView {
+        private func createScoringAwareRestaurantView(for annotation: RestaurantMapAnnotation, in mapView: MKMapView) -> MKAnnotationView {
             let restaurant = annotation.restaurant
-            let identifier = "CustomRestaurant_\(restaurant.hasNutritionData ? "Nutrition" : "Basic")"
+            let identifier = "ScoringRestaurant_\(restaurant.hasNutritionData ? "Nutrition" : "Basic")"
             
             var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
             if view == nil {
                 view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 
-                // Create SwiftUI view with pin above and name below
+                // Create SwiftUI view with enhanced pin that shows scoring
                 let pinWithLabel = VStack(spacing: 2) {
                     RestaurantPin(
                         restaurant: restaurant,
@@ -490,13 +487,29 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                         }
                     )
                     
+                    // Optional score label for nutrition restaurants
+                    if restaurant.hasNutritionData, let score = restaurant.mapScore {
+                        Text(score.scoreGrade.rawValue)
+                            .font(.system(size: 8, weight: .semibold))
+                            .foregroundColor(score.scoreColor)
+                            .padding(.horizontal, 4)
+                            .padding(.vertical, 2)
+                            .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(score.scoreColor.opacity(0.1))
+                            )
+                            .onTapGesture {
+                                self.parent.onRestaurantTap(restaurant)
+                            }
+                    }
+                    
                     // Restaurant name label below pin
                     Text(restaurant.name)
-                        .font(.system(size: 10, weight: .medium))
+                        .font(.system(size: 9, weight: .medium))
                         .foregroundColor(.primary)
                         .lineLimit(1)
                         .truncationMode(.tail)
-                        .frame(maxWidth: 80) // Limit width to prevent very long names
+                        .frame(maxWidth: 90) // Slightly wider for score labels
                         .onTapGesture {
                             // Also handle tap on label
                             self.parent.onRestaurantTap(restaurant)
@@ -506,24 +519,29 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                 let hostingController = UIHostingController(rootView: pinWithLabel)
                 hostingController.view.backgroundColor = UIColor.clear
                 
-                // Set frame size to accommodate pin + text
-                hostingController.view.frame = CGRect(x: 0, y: 0, width: 80, height: 50)
+                // Set frame size to accommodate pin + text + score label
+                hostingController.view.frame = CGRect(x: 0, y: 0, width: 90, height: 60)
                 
                 // Add to annotation view
                 view?.addSubview(hostingController.view)
                 
                 // Set annotation view size
-                view?.frame = CGRect(x: 0, y: 0, width: 80, height: 50)
+                view?.frame = CGRect(x: 0, y: 0, width: 90, height: 60)
                 
-                // Center the PIN on the location (not the entire view)
-                // The pin is at the top of our VStack, so we offset by the pin's center position
-                view?.centerOffset = CGPoint(x: 0, y: -25) // Half of total height to center the pin
+                // Center the PIN on the location
+                view?.centerOffset = CGPoint(x: 0, y: -30) // Half of total height to center the pin
                 
                 // DISABLED: No callout - direct tap interaction
                 view?.canShowCallout = false
                 
-                // Enhanced priority for nutrition restaurants
-                view?.displayPriority = restaurant.hasNutritionData ? .required : .defaultLow
+                // Enhanced priority for scored restaurants
+                if restaurant.mapScore != nil {
+                    view?.displayPriority = .required
+                } else if restaurant.hasNutritionData {
+                    view?.displayPriority = .defaultHigh
+                } else {
+                    view?.displayPriority = .defaultLow
+                }
             } else {
                 // Update existing view with new annotation
                 view?.annotation = annotation
@@ -607,5 +625,30 @@ class RestaurantMapAnnotation: NSObject, MKAnnotation {
     
     init(restaurant: Restaurant) {
         self.restaurant = restaurant
+    }
+}
+
+// MARK: - Scoring Status Bar
+struct ScoringStatusBar: View {
+    var body: some View {
+        HStack(spacing: 8) {
+            ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                .scaleEffect(0.8)
+            
+            Text("Calculating nutrition scores...")
+                .font(.system(size: 12, weight: .medium))
+                .foregroundColor(.primary)
+            
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(.systemBackground))
+                .shadow(color: .black.opacity(0.1), radius: 2, y: 1)
+        )
+        .padding(.horizontal, 16)
     }
 }

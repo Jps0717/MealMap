@@ -3,14 +3,19 @@ import SwiftUI
 struct MenuAnalysisResultsView: View {
     @Environment(\.dismiss) private var dismiss
     let validatedItems: [ValidatedMenuItem]
-    @StateObject private var authManager = AuthenticationManager.shared
     
     @State private var searchText = ""
     @State private var showingNutritionDetails = false
     @State private var selectedItem: ValidatedMenuItem?
     @State private var selectedItems: Set<UUID> = [] // Track selected items for meal
     @State private var showingSaveAlert = false
+    @State private var showingScoreLegend = false
     @State private var menuName = ""
+    
+    // Scoring functionality
+    @StateObject private var authService = FirebaseAuthService.shared
+    @State private var itemScores: [UUID: MenuItemScore] = [:]
+    @State private var isCalculatingScores = false
     
     var filteredItems: [ValidatedMenuItem] {
         if searchText.isEmpty {
@@ -46,6 +51,17 @@ struct MenuAnalysisResultsView: View {
         )
     }
     
+    // Calculate average score for selected items
+    private var selectedItemsScore: Double {
+        let selectedValidItems = validatedItems.filter { 
+            selectedItems.contains($0.id) && $0.isValid 
+        }
+        guard !selectedValidItems.isEmpty else { return 0 }
+        
+        let scores = selectedValidItems.compactMap { itemScores[$0.id]?.overallScore }
+        return scores.isEmpty ? 0 : scores.reduce(0, +) / Double(scores.count)
+    }
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -69,17 +85,27 @@ struct MenuAnalysisResultsView: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        showingSaveAlert = true
-                    }) {
-                        Image(systemName: "square.and.arrow.down")
-                            .font(.title3)
+                    Menu {
+                        Button("Save Analysis") {
+                            showingSaveAlert = true
+                        }
+                        
+                        if shouldShowScoring {
+                            Button("Scoring Guide") {
+                                showingScoreLegend = true
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
                     }
                 }
             }
             .searchable(text: $searchText, prompt: "Search menu items...")
             .sheet(item: $selectedItem) { item in
-                ValidatedMenuItemDetailView(item: item)
+                ValidatedMenuItemDetailView(item: item, itemScore: itemScores[item.id])
+            }
+            .sheet(isPresented: $showingScoreLegend) {
+                DietaryRatingLegendView()
             }
             .alert("Save Menu Analysis", isPresented: $showingSaveAlert) {
                 TextField("Menu name", text: $menuName)
@@ -92,7 +118,115 @@ struct MenuAnalysisResultsView: View {
             } message: {
                 Text("Enter a name for this menu analysis to save it to your device.")
             }
+            .onAppear {
+                calculateScoresIfNeeded()
+            }
         }
+    }
+    
+    private var shouldShowScoring: Bool {
+        authService.isAuthenticated && !validatedItems.filter { $0.isValid }.isEmpty
+    }
+    
+    private func calculateScoresIfNeeded() {
+        guard shouldShowScoring && itemScores.isEmpty && !isCalculatingScores else { return }
+        
+        isCalculatingScores = true
+        
+        // Get current user
+        let currentUser = authService.currentUser
+        
+        // Calculate scores for all valid items
+        Task {
+            var scores: [UUID: MenuItemScore] = [:]
+            
+            for item in validatedItems.filter({ $0.isValid }) {
+                // Convert ValidatedMenuItem to AnalyzedMenuItem for scoring
+                let analyzedItem = convertToAnalyzedMenuItem(item)
+                let score = MenuItemScoringService.shared.calculatePersonalizedScore(
+                    for: analyzedItem,
+                    user: currentUser
+                )
+                scores[item.id] = score
+            }
+            
+            await MainActor.run {
+                itemScores = scores
+                isCalculatingScores = false
+            }
+        }
+    }
+    
+    private func convertToAnalyzedMenuItem(_ item: ValidatedMenuItem) -> AnalyzedMenuItem {
+        // Convert ValidatedMenuItem to AnalyzedMenuItem for scoring
+        let nutritionEstimate = NutritionEstimate(
+            calories: NutritionRange(min: item.nutritionInfo?.calories ?? 0, max: item.nutritionInfo?.calories ?? 0, unit: "kcal"),
+            carbs: NutritionRange(min: item.nutritionInfo?.carbs ?? 0, max: item.nutritionInfo?.carbs ?? 0, unit: "g"),
+            protein: NutritionRange(min: item.nutritionInfo?.protein ?? 0, max: item.nutritionInfo?.protein ?? 0, unit: "g"),
+            fat: NutritionRange(min: item.nutritionInfo?.fat ?? 0, max: item.nutritionInfo?.fat ?? 0, unit: "g"),
+            fiber: item.nutritionInfo?.fiber != nil ? NutritionRange(min: item.nutritionInfo!.fiber!, max: item.nutritionInfo!.fiber!, unit: "g") : nil,
+            sodium: item.nutritionInfo?.sodium != nil ? NutritionRange(min: item.nutritionInfo!.sodium!, max: item.nutritionInfo!.sodium!, unit: "mg") : nil,
+            sugar: item.nutritionInfo?.sugar != nil ? NutritionRange(min: item.nutritionInfo!.sugar!, max: item.nutritionInfo!.sugar!, unit: "g") : nil,
+            confidence: 0.85,
+            estimationSource: .nutritionix,
+            sourceDetails: "Menu analysis",
+            estimatedPortionSize: "1 serving",
+            portionConfidence: 0.8
+        )
+        
+        return AnalyzedMenuItem(
+            name: item.validatedName,
+            description: item.originalLine,
+            price: nil,
+            ingredients: [],
+            nutritionEstimate: nutritionEstimate,
+            dietaryTags: generateDietaryTags(for: item),
+            confidence: 0.85,
+            textBounds: nil,
+            estimationTier: .nutritionix,
+            isGeneralizedEstimate: false
+        )
+    }
+    
+    private func generateDietaryTags(for item: ValidatedMenuItem) -> [DietaryTag] {
+        guard let nutrition = item.nutritionInfo else { return [] }
+        
+        var tags: [DietaryTag] = []
+        
+        // High protein
+        if let protein = nutrition.protein, protein >= 20 {
+            tags.append(.highProtein)
+        }
+        
+        // Low carb
+        if let carbs = nutrition.carbs, carbs <= 15 {
+            tags.append(.lowCarb)
+        }
+        
+        // High carb
+        if let carbs = nutrition.carbs, carbs >= 45 {
+            tags.append(.highCarb)
+        }
+        
+        // Low sodium
+        if let sodium = nutrition.sodium, sodium <= 600 {
+            tags.append(.lowSodium)
+        }
+        
+        // High fiber
+        if let fiber = nutrition.fiber, fiber >= 5 {
+            tags.append(.highFiber)
+        }
+        
+        // Healthy (based on overall nutrition profile)
+        if let calories = nutrition.calories, 
+           let protein = nutrition.protein,
+           let sodium = nutrition.sodium,
+           calories <= 500 && protein >= 15 && sodium <= 800 {
+            tags.append(.healthy)
+        }
+        
+        return tags
     }
     
     // MARK: - Header Stats View
@@ -101,6 +235,11 @@ struct MenuAnalysisResultsView: View {
         VStack(spacing: 16) {
             mainStatsRow
             
+            // Scoring section (if available)
+            if shouldShowScoring {
+                scoringSection
+            }
+            
             // Always show meal nutrition section
             mealNutritionSection()
             
@@ -108,6 +247,66 @@ struct MenuAnalysisResultsView: View {
         }
         .padding()
         .background(Color(.systemGray6))
+    }
+    
+    private var scoringSection: some View {
+        VStack(spacing: 12) {
+            HStack {
+                Image(systemName: "star.fill")
+                    .foregroundColor(.yellow)
+                Text("Personalized Nutrition Scores")
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                Button("Guide") {
+                    showingScoreLegend = true
+                }
+                .font(.caption)
+                .foregroundColor(.blue)
+            }
+            
+            if isCalculatingScores {
+                HStack {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                    Text("Calculating scores...")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            } else {
+                HStack(spacing: 16) {
+                    let avgScore = calculateAverageScore()
+                    let selectedScore = selectedItemsScore
+                    
+                    ScoreStatView(
+                        title: "Menu Average",
+                        score: avgScore,
+                        subtitle: "\(itemScores.count) items"
+                    )
+                    
+                    if selectedScore > 0 {
+                        ScoreStatView(
+                            title: "Selected Items",
+                            score: selectedScore,
+                            subtitle: "\(selectedItems.count) items"
+                        )
+                    }
+                    
+                    Spacer()
+                }
+            }
+        }
+        .padding()
+        .background(Color.yellow.opacity(0.1))
+        .cornerRadius(12)
+    }
+    
+    private func calculateAverageScore() -> Double {
+        let scores = itemScores.values.map { $0.overallScore }
+        return scores.isEmpty ? 0 : scores.reduce(0, +) / Double(scores.count)
     }
     
     private var mainStatsRow: some View {
@@ -155,7 +354,8 @@ struct MenuAnalysisResultsView: View {
         List {
             ForEach(filteredItems) { item in
                 ValidatedMenuItemRow(
-                    item: item, 
+                    item: item,
+                    itemScore: itemScores[item.id],
                     isSelected: selectedItems.contains(item.id),
                     onTap: {
                         selectedItem = item
@@ -229,9 +429,32 @@ struct MenuAnalysisResultsView: View {
                 NutritionQuickStat(label: "Protein", value: "\(Int(mealNutrition.protein ?? 0))g", color: .blue)
                 NutritionQuickStat(label: "Carbs", value: "\(Int(mealNutrition.carbs ?? 0))g", color: .orange)
                 NutritionQuickStat(label: "Fat", value: "\(Int(mealNutrition.fat ?? 0))g", color: .green)
+                
+                // Show meal score if available
+                if selectedItemsScore > 0 {
+                    VStack(spacing: 2) {
+                        Text("\(Int(selectedItemsScore))")
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(getScoreColor(selectedItemsScore))
+                        Text("Score")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
         }
         .padding(.top, 8)
+    }
+    
+    private func getScoreColor(_ score: Double) -> Color {
+        switch score {
+        case 90...: return .green
+        case 80..<90: return Color(red: 0.6, green: 0.8, blue: 0.2)
+        case 70..<80: return .blue
+        case 60..<70: return .orange
+        default: return .red
+        }
     }
     
     private func saveMenuAnalysis() {
@@ -251,43 +474,39 @@ struct MenuAnalysisResultsView: View {
         // Show success feedback
         print("Menu analysis saved: \(savedMenu.name)")
     }
+}
+
+// MARK: - Score Stat View
+struct ScoreStatView: View {
+    let title: String
+    let score: Double
+    let subtitle: String
     
-    private func exportResults() {
-        // Create CSV export of results
-        var csvContent = "Menu Item,Original Text,Status,Calories,Protein (g),Carbs (g),Fat (g),Fiber (g),Sodium (mg)\n"
-        
-        for item in validatedItems {
-            let calories = item.nutritionInfo?.calories?.description ?? "N/A"
-            let protein = item.nutritionInfo?.protein?.description ?? "N/A"
-            let carbs = item.nutritionInfo?.carbs?.description ?? "N/A"
-            let fat = item.nutritionInfo?.fat?.description ?? "N/A"
-            let fiber = item.nutritionInfo?.fiber?.description ?? "N/A"
-            let sodium = item.nutritionInfo?.sodium?.description ?? "N/A"
-            let status = item.isValid ? "Success" : "Failed"
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.secondary)
             
-            csvContent += "\"\(item.validatedName)\",\"\(item.originalLine)\",\(status),\(calories),\(protein),\(carbs),\(fat),\(fiber),\(sodium)\n"
+            Text("\(Int(score))")
+                .font(.title3)
+                .fontWeight(.bold)
+                .foregroundColor(getScoreColor(score))
+            
+            Text(subtitle)
+                .font(.caption2)
+                .foregroundColor(.secondary)
         }
-        
-        // TODO: Implement actual export to Files app
-        print("[MenuAnalysisResultsView] Export CSV content prepared: \(csvContent.count) characters")
     }
     
-    private func shareResults() {
-        // Create summary for sharing
-        let successCount = validatedItems.filter { $0.isValid }.count
-        let totalCount = validatedItems.count
-        
-        let summary = """
-        Menu Analysis Results
-        
-        📊 Summary:
-        • Total items analyzed: \(totalCount)
-        • Successful analyses: \(successCount)
-        • Success rate: \(Int(Double(successCount) / Double(totalCount) * 100))%
-        """
-        
-        // TODO: Implement actual sharing via UIActivityViewController
-        print("[MenuAnalysisResultsView] Share summary prepared: \(summary)")
+    private func getScoreColor(_ score: Double) -> Color {
+        switch score {
+        case 90...: return .green
+        case 80..<90: return Color(red: 0.6, green: 0.8, blue: 0.2)
+        case 70..<80: return .blue
+        case 60..<70: return .orange
+        default: return .red
+        }
     }
 }
 
@@ -333,41 +552,10 @@ struct NutritionQuickStat: View {
 
 struct ValidatedMenuItemRow: View {
     let item: ValidatedMenuItem
+    let itemScore: MenuItemScore?
     let isSelected: Bool
     let onTap: () -> Void
     let onToggleSelection: () -> Void
-    @StateObject private var authManager = AuthenticationManager.shared
-    
-    // Convert ValidatedMenuItem to AnalyzedMenuItem for scoring
-    private var analyzedMenuItem: AnalyzedMenuItem? {
-        guard item.isValid, let nutrition = item.nutritionInfo else { return nil }
-        
-        let nutritionEstimate = NutritionEstimate(
-            calories: NutritionRange(min: nutrition.calories ?? 0, max: nutrition.calories ?? 0, unit: "kcal"),
-            carbs: NutritionRange(min: nutrition.carbs ?? 0, max: nutrition.carbs ?? 0, unit: "g"),
-            protein: NutritionRange(min: nutrition.protein ?? 0, max: nutrition.protein ?? 0, unit: "g"),
-            fat: NutritionRange(min: nutrition.fat ?? 0, max: nutrition.fat ?? 0, unit: "g"),
-            fiber: NutritionRange(min: nutrition.fiber ?? 0, max: nutrition.fiber ?? 0, unit: "g"),
-            sodium: NutritionRange(min: nutrition.sodium ?? 0, max: nutrition.sodium ?? 0, unit: "mg"),
-            sugar: NutritionRange(min: nutrition.sugar ?? 0, max: nutrition.sugar ?? 0, unit: "g"),
-            confidence: 0.85,
-            estimationSource: .nutritionix,
-            sourceDetails: "Menu Analysis",
-            estimatedPortionSize: "1 serving",
-            portionConfidence: 0.8
-        )
-        
-        return AnalyzedMenuItem(
-            name: item.validatedName,
-            description: nil,
-            price: nil,
-            ingredients: [],
-            nutritionEstimate: nutritionEstimate,
-            dietaryTags: [],
-            confidence: 0.85,
-            textBounds: nil
-        )
-    }
     
     var body: some View {
         HStack(spacing: 12) {
@@ -395,13 +583,6 @@ struct ValidatedMenuItemRow: View {
                     if item.isValid, let nutrition = item.nutritionInfo {
                         nutritionPreviewRow(nutrition)
                     }
-                    
-                    // Dietary Score (if user is authenticated and item is valid)
-                    if authManager.isAuthenticated, 
-                       let user = authManager.currentUser,
-                       let analyzedItem = analyzedMenuItem {
-                        dietaryScoreRow(item: analyzedItem, user: user)
-                    }
                 }
             }
             .buttonStyle(PlainButtonStyle())
@@ -426,6 +607,24 @@ struct ValidatedMenuItemRow: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
+            }
+            
+            // Score badge (if available)
+            if let score = itemScore {
+                VStack(spacing: 2) {
+                    Text("\(Int(score.overallScore))")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(score.scoreColor)
+                    
+                    Circle()
+                        .fill(score.scoreColor)
+                        .frame(width: 8, height: 8)
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(score.scoreColor.opacity(0.1))
+                .cornerRadius(8)
             }
             
             // Chevron
@@ -453,84 +652,12 @@ struct ValidatedMenuItemRow: View {
         }
         .padding(.leading, 16) // Indent nutrition info
     }
-    
-    private func dietaryScoreRow(item: AnalyzedMenuItem, user: User) -> some View {
-        let score = MenuItemScoringService.scoreMenuItem(item, for: user)
-        
-        return HStack(spacing: 8) {
-            // Score indicator
-            Circle()
-                .fill(colorForMatchLevel(score.matchLevel))
-                .frame(width: 12, height: 12)
-            
-            Text(score.matchLevel.rawValue)
-                .font(.caption)
-                .fontWeight(.medium)
-                .foregroundColor(colorForMatchLevel(score.matchLevel))
-            
-            Text("(\(Int(score.overallScore))%)")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            Spacer()
-            
-            // Quick violation indicator
-            if !score.violations.isEmpty {
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .font(.caption)
-                    .foregroundColor(.orange)
-            }
-        }
-        .padding(.leading, 16)
-        .padding(.top, 4)
-    }
-    
-    private func colorForMatchLevel(_ level: MenuItemScoringService.MatchLevel) -> Color {
-        switch level {
-        case .excellent: return .green
-        case .good: return .blue
-        case .fair: return .yellow
-        case .poor: return .orange
-        case .avoid: return .red
-        }
-    }
 }
 
 struct ValidatedMenuItemDetailView: View {
     @Environment(\.dismiss) private var dismiss
     let item: ValidatedMenuItem
-    @StateObject private var authManager = AuthenticationManager.shared
-    
-    // Convert ValidatedMenuItem to AnalyzedMenuItem for scoring
-    private var analyzedMenuItem: AnalyzedMenuItem? {
-        guard item.isValid, let nutrition = item.nutritionInfo else { return nil }
-        
-        let nutritionEstimate = NutritionEstimate(
-            calories: NutritionRange(min: nutrition.calories ?? 0, max: nutrition.calories ?? 0, unit: "kcal"),
-            carbs: NutritionRange(min: nutrition.carbs ?? 0, max: nutrition.carbs ?? 0, unit: "g"),
-            protein: NutritionRange(min: nutrition.protein ?? 0, max: nutrition.protein ?? 0, unit: "g"),
-            fat: NutritionRange(min: nutrition.fat ?? 0, max: nutrition.fat ?? 0, unit: "g"),
-            fiber: NutritionRange(min: nutrition.fiber ?? 0, max: nutrition.fiber ?? 0, unit: "g"),
-            sodium: NutritionRange(min: nutrition.sodium ?? 0, max: nutrition.sodium ?? 0, unit: "mg"),
-            sugar: NutritionRange(min: nutrition.sugar ?? 0, max: nutrition.sugar ?? 0, unit: "g"),
-            confidence: 0.85,
-            estimationSource: .nutritionix,
-            sourceDetails: "Menu Analysis",
-            estimatedPortionSize: "1 serving",
-            portionConfidence: 0.8
-        )
-        
-        return AnalyzedMenuItem(
-            name: item.validatedName,
-            description: nil,
-            price: nil,
-            ingredients: [],
-            nutritionEstimate: nutritionEstimate,
-            dietaryTags: [],
-            confidence: 0.85,
-            textBounds: nil
-        )
-    }
+    let itemScore: MenuItemScore?
     
     var body: some View {
         NavigationStack {
@@ -539,12 +666,9 @@ struct ValidatedMenuItemDetailView: View {
                     // Header
                     itemHeaderSection
                     
-                    // Dietary Score (if user is authenticated and item is valid)
-                    if authManager.isAuthenticated, 
-                       let user = authManager.currentUser,
-                       let analyzedItem = analyzedMenuItem {
-                        let score = MenuItemScoringService.scoreMenuItem(analyzedItem, for: user)
-                        MenuItemScoreView(score: score, item: analyzedItem)
+                    // Score section (if available)
+                    if let score = itemScore {
+                        MenuItemScoreCard(score: score, compact: false)
                     }
                     
                     // Nutrition Information
@@ -823,7 +947,6 @@ struct NutritionInfoSectionView: View {
         .cornerRadius(8)
     }
 }
-
 
 #Preview {
     MenuAnalysisResultsView(validatedItems: [

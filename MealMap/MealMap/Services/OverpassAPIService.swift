@@ -269,6 +269,70 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
     }
 }
 
+extension Restaurant {
+    /// Get the current map score for this restaurant
+    var mapScore: RestaurantMapScore? {
+        return RestaurantMapScoringService.shared.getScoreForRestaurant(self)
+    }
+    
+    /// Enhanced pin color that includes scoring information
+    var enhancedPinColor: Color {
+        // Priority: Show scoring color if available
+        if let score = mapScore {
+            return score.scoreColor
+        }
+        
+        // Fallback to nutrition data indication
+        if hasNutritionData {
+            return .green
+        }
+        
+        // Default color by amenity type
+        switch amenityType {
+        case "fast_food":
+            return .orange
+        case "restaurant":
+            return .blue
+        case "cafe":
+            return .brown
+        case "bar", "pub":
+            return .purple
+        case "bakery":
+            return .pink
+        case "ice_cream":
+            return .cyan
+        case "food_court":
+            return .indigo
+        default:
+            return .gray
+        }
+    }
+    
+    /// Enhanced emoji that includes scoring information
+    var enhancedEmoji: String {
+        // Priority: Show score emoji if available
+        if let score = mapScore {
+            return score.scoreEmoji
+        }
+        
+        // Fallback to restaurant emoji
+        return emoji
+    }
+    
+    /// Pin subtitle for scoring information
+    var scoringSubtitle: String? {
+        if let score = mapScore {
+            return score.shortDescription
+        }
+        
+        if hasNutritionData {
+            return "Nutrition data available"
+        }
+        
+        return amenityType?.capitalized ?? "Restaurant"
+    }
+}
+
 // MARK: - Low Carb Diet Types
 enum LowCarbDietType: String, CaseIterable {
     case vegetarian = "Vegetarian Low Carb"

@@ -1,340 +1,266 @@
 import SwiftUI
 
-struct MenuItemScoreView: View {
-    let score: MenuItemScoringService.MenuItemScore
-    let item: AnalyzedMenuItem
+// MARK: - Score Card Component
+struct MenuItemScoreCard: View {
+    let score: MenuItemScore
+    let compact: Bool
     @State private var showingDetails = false
     
+    init(score: MenuItemScore, compact: Bool = false) {
+        self.score = score
+        self.compact = compact
+    }
+    
     var body: some View {
-        VStack(spacing: 12) {
-            // Overall Score Header
+        if compact {
+            compactScoreView
+        } else {
+            fullScoreView
+        }
+    }
+    
+    private var compactScoreView: some View {
+        HStack(spacing: 8) {
+            // Score circle
+            ZStack {
+                Circle()
+                    .stroke(score.scoreColor.opacity(0.3), lineWidth: 2)
+                    .frame(width: 40, height: 40)
+                
+                Circle()
+                    .trim(from: 0, to: score.overallScore / 100)
+                    .stroke(score.scoreColor, lineWidth: 2)
+                    .frame(width: 40, height: 40)
+                    .rotationEffect(.degrees(-90))
+                    .animation(.easeInOut(duration: 0.8), value: score.overallScore)
+                
+                Text("\(Int(score.overallScore))")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(score.scoreColor)
+            }
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(score.scoreGrade.rawValue)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(score.scoreColor)
+                
+                if score.isPersonalized {
+                    Text("Personalized")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+            }
+            
+            Spacer()
+            
+            Text(score.scoreGrade.emoji)
+                .font(.title3)
+        }
+        .padding(8)
+        .background(score.scoreColor.opacity(0.1))
+        .cornerRadius(8)
+        .onTapGesture {
+            showingDetails = true
+        }
+        .sheet(isPresented: $showingDetails) {
+            MenuItemScoreDetailView(score: score)
+        }
+    }
+    
+    private var fullScoreView: some View {
+        VStack(spacing: 16) {
+            // Header
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Dietary Match")
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .foregroundColor(.secondary)
+                    Text("Nutrition Score")
+                        .font(.headline)
+                        .fontWeight(.semibold)
                     
-                    Text(score.matchLevel.rawValue)
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundColor(colorForMatchLevel(score.matchLevel))
+                    if score.isPersonalized {
+                        Text("Personalized for your goals")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
                 
                 Spacer()
                 
-                // Score Circle
+                Button("Details") {
+                    showingDetails = true
+                }
+                .font(.caption)
+                .foregroundColor(.blue)
+            }
+            
+            // Main score display
+            HStack(spacing: 20) {
+                // Overall score circle
                 ZStack {
                     Circle()
-                        .stroke(Color.gray.opacity(0.3), lineWidth: 4)
-                        .frame(width: 50, height: 50)
+                        .stroke(score.scoreColor.opacity(0.3), lineWidth: 6)
+                        .frame(width: 80, height: 80)
                     
                     Circle()
                         .trim(from: 0, to: score.overallScore / 100)
-                        .stroke(colorForMatchLevel(score.matchLevel), style: StrokeStyle(lineWidth: 4, lineCap: .round))
-                        .frame(width: 50, height: 50)
+                        .stroke(score.scoreColor, lineWidth: 6)
+                        .frame(width: 80, height: 80)
                         .rotationEffect(.degrees(-90))
                         .animation(.easeInOut(duration: 1.0), value: score.overallScore)
                     
-                    Text("\(Int(score.overallScore))")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundColor(colorForMatchLevel(score.matchLevel))
+                    VStack(spacing: 2) {
+                        Text("\(Int(score.overallScore))")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(score.scoreColor)
+                        
+                        Text("/ 100")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
                 }
+                
+                // Score breakdown
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(score.scoreGrade.rawValue)
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(score.scoreColor)
+                    
+                    Text(score.scoreGrade.emoji)
+                        .font(.title)
+                    
+                    if score.isPersonalized {
+                        Label("Personalized", systemImage: "person.crop.circle.badge.checkmark")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                    }
+                }
+                
+                Spacer()
             }
             
-            // Quick Score Breakdown
-            if !score.categoryScores.isEmpty {
+            // Quick breakdown
+            if !compact {
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 8) {
-                    ForEach(score.categoryScores.sorted(by: { $0.key < $1.key }), id: \.key) { category, categoryScore in
-                        CategoryScoreRow(category: category, score: categoryScore)
-                    }
-                }
-            }
-            
-            // Violations (if any)
-            if !score.violations.isEmpty {
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundColor(.orange)
-                            .font(.system(size: 12))
-                        Text("Considerations")
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundColor(.orange)
-                    }
+                    ScoreBreakdownItem(
+                        label: "Nutrition",
+                        score: score.nutritionScore,
+                        color: .blue,
+                        icon: "chart.bar.fill"
+                    )
                     
-                    ForEach(Array(score.violations.prefix(2)), id: \.self) { violation in
-                        HStack(alignment: .top, spacing: 8) {
-                            Image(systemName: "minus")
-                                .foregroundColor(.orange)
-                                .font(.system(size: 10))
-                                .padding(.top, 2)
-                            
-                            Text(violation)
-                                .font(.system(size: 11, design: .rounded))
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.leading)
-                        }
-                    }
+                    ScoreBreakdownItem(
+                        label: "Goals",
+                        score: score.goalAlignmentScore,
+                        color: .green,
+                        icon: "target"
+                    )
                     
-                    if score.violations.count > 2 {
-                        Button("View all \(score.violations.count) considerations") {
-                            showingDetails = true
-                        }
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
-                        .foregroundColor(.blue)
-                    }
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.orange.opacity(0.1))
-                .cornerRadius(8)
-            }
-            
-            // Recommendations (if any)
-            if !score.recommendations.isEmpty {
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack {
-                        Image(systemName: "lightbulb.fill")
-                            .foregroundColor(.blue)
-                            .font(.system(size: 12))
-                        Text("Recommendations")
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
-                            .foregroundColor(.blue)
-                    }
+                    ScoreBreakdownItem(
+                        label: "Restrictions",
+                        score: score.restrictionScore,
+                        color: .red,
+                        icon: "exclamationmark.shield.fill"
+                    )
                     
-                    ForEach(Array(score.recommendations.prefix(2)), id: \.self) { recommendation in
-                        HStack(alignment: .top, spacing: 8) {
-                            Image(systemName: "plus")
-                                .foregroundColor(.blue)
-                                .font(.system(size: 10))
-                                .padding(.top, 2)
-                            
-                            Text(recommendation)
-                                .font(.system(size: 11, design: .rounded))
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.leading)
-                        }
-                    }
-                    
-                    if score.recommendations.count > 2 {
-                        Button("View all \(score.recommendations.count) recommendations") {
-                            showingDetails = true
-                        }
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
-                        .foregroundColor(.blue)
-                    }
+                    ScoreBreakdownItem(
+                        label: "Portion",
+                        score: score.portionScore,
+                        color: .orange,
+                        icon: "scalemass.fill"
+                    )
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(Color.blue.opacity(0.1))
-                .cornerRadius(8)
-            }
-            
-            // Detail Button
-            Button(action: { showingDetails = true }) {
-                HStack {
-                    Image(systemName: "chart.bar.fill")
-                        .font(.system(size: 12))
-                    Text("View Detailed Analysis")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                }
-                .foregroundColor(.primary)
-                .padding(.vertical, 8)
-                .padding(.horizontal, 12)
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(8)
             }
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(score.scoreColor.opacity(0.05))
         .cornerRadius(12)
-        .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(score.scoreColor.opacity(0.3), lineWidth: 1)
+        )
         .sheet(isPresented: $showingDetails) {
-            MenuItemScoreDetailView(score: score, item: item)
-        }
-    }
-    
-    private func colorForMatchLevel(_ level: MenuItemScoringService.MatchLevel) -> Color {
-        switch level {
-        case .excellent: return .green
-        case .good: return .blue
-        case .fair: return .yellow
-        case .poor: return .orange
-        case .avoid: return .red
+            MenuItemScoreDetailView(score: score)
         }
     }
 }
 
-struct CategoryScoreRow: View {
-    let category: String
+// MARK: - Score Breakdown Item
+struct ScoreBreakdownItem: View {
+    let label: String
     let score: Double
+    let color: Color
+    let icon: String
     
     var body: some View {
-        HStack(spacing: 8) {
-            Image(systemName: iconForCategory(category))
-                .font(.system(size: 12))
-                .foregroundColor(colorForScore(score))
-                .frame(width: 16)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(displayNameForCategory(category))
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
-                    .foregroundColor(.primary)
+        VStack(spacing: 4) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundColor(color)
+                    .font(.caption)
                 
-                // Score bar
-                GeometryReader { geometry in
-                    ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(Color.gray.opacity(0.2))
-                            .frame(height: 4)
-                        
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(colorForScore(score))
-                            .frame(width: geometry.size.width * (score / 100), height: 4)
-                            .animation(.easeInOut(duration: 0.5), value: score)
-                    }
-                }
-                .frame(height: 4)
+                Text(label)
+                    .font(.caption)
+                    .fontWeight(.medium)
+                
+                Spacer()
             }
             
-            Text("\(Int(score))")
-                .font(.system(size: 10, weight: .bold, design: .rounded))
-                .foregroundColor(colorForScore(score))
+            HStack {
+                Text("\(Int(score))")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(color)
+                
+                Spacer()
+                
+                // Mini progress bar
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        Rectangle()
+                            .fill(color.opacity(0.2))
+                            .frame(height: 2)
+                        
+                        Rectangle()
+                            .fill(color)
+                            .frame(width: geometry.size.width * (score / 100), height: 2)
+                    }
+                }
+                .frame(height: 2)
+            }
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
-        .background(Color.gray.opacity(0.05))
+        .padding(8)
+        .background(color.opacity(0.1))
         .cornerRadius(6)
-    }
-    
-    private func iconForCategory(_ category: String) -> String {
-        switch category {
-        case "macros": return "scale.3d"
-        case "health": return "heart.fill"
-        case "quality": return "star.fill"
-        case "calories": return "flame.fill"
-        case "restrictions": return "checkmark.shield.fill"
-        default: return "circle.fill"
-        }
-    }
-    
-    private func displayNameForCategory(_ category: String) -> String {
-        switch category {
-        case "macros": return "Macros"
-        case "health": return "Health Goals"
-        case "quality": return "Quality"
-        case "calories": return "Calories"
-        case "restrictions": return "Restrictions"
-        default: return category.capitalized
-        }
-    }
-    
-    private func colorForScore(_ score: Double) -> Color {
-        switch score {
-        case 90...100: return .green
-        case 75..<90: return .blue
-        case 60..<75: return .yellow
-        case 30..<60: return .orange
-        default: return .red
-        }
     }
 }
 
+// MARK: - Score Detail View
 struct MenuItemScoreDetailView: View {
-    let score: MenuItemScoringService.MenuItemScore
-    let item: AnalyzedMenuItem
+    let score: MenuItemScore
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 24) {
                     // Header
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(item.name)
-                            .font(.system(.title2, design: .rounded, weight: .bold))
-                        
-                        HStack {
-                            Text(score.matchLevel.rawValue)
-                                .font(.system(size: 16, weight: .semibold, design: .rounded))
-                                .foregroundColor(colorForMatchLevel(score.matchLevel))
-                            
-                            Spacer()
-                            
-                            Text("\(Int(score.overallScore))/100")
-                                .font(.system(size: 20, weight: .bold, design: .rounded))
-                                .foregroundColor(colorForMatchLevel(score.matchLevel))
-                        }
-                    }
+                    headerSection
                     
-                    Divider()
+                    // Score Breakdown
+                    scoreBreakdownSection
                     
-                    // Category Breakdown
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text("Score Breakdown")
-                            .font(.system(.headline, design: .rounded, weight: .bold))
-                        
-                        ForEach(score.categoryScores.sorted(by: { $0.key < $1.key }), id: \.key) { category, categoryScore in
-                            CategoryDetailRow(category: category, score: categoryScore)
-                        }
-                    }
+                    // Explanations
+                    explanationsSection
                     
-                    if !score.violations.isEmpty {
-                        Divider()
-                        
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Considerations")
-                                .font(.system(.headline, design: .rounded, weight: .bold))
-                                .foregroundColor(.orange)
-                            
-                            ForEach(score.violations, id: \.self) { violation in
-                                HStack(alignment: .top, spacing: 12) {
-                                    Image(systemName: "exclamationmark.triangle.fill")
-                                        .foregroundColor(.orange)
-                                        .font(.system(size: 14))
-                                    
-                                    Text(violation)
-                                        .font(.system(size: 14, design: .rounded))
-                                        .foregroundColor(.primary)
-                                }
-                            }
-                        }
-                    }
-                    
-                    if !score.recommendations.isEmpty {
-                        Divider()
-                        
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("Recommendations")
-                                .font(.system(.headline, design: .rounded, weight: .bold))
-                                .foregroundColor(.blue)
-                            
-                            ForEach(score.recommendations, id: \.self) { recommendation in
-                                HStack(alignment: .top, spacing: 12) {
-                                    Image(systemName: "lightbulb.fill")
-                                        .foregroundColor(.blue)
-                                        .font(.system(size: 14))
-                                    
-                                    Text(recommendation)
-                                        .font(.system(size: 14, design: .rounded))
-                                        .foregroundColor(.primary)
-                                }
-                            }
-                        }
-                    }
-                    
-                    // Nutrition Summary
-                    Divider()
-                    
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Nutrition Summary")
-                            .font(.system(.headline, design: .rounded, weight: .bold))
-                        
-                        NutritionSummaryGrid(nutrition: item.nutritionEstimate)
-                    }
+                    // Scoring Legend
+                    scoringLegendSection
                 }
                 .padding()
             }
-            .navigationTitle("Dietary Analysis")
+            .navigationTitle("Score Details")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -346,155 +272,264 @@ struct MenuItemScoreDetailView: View {
         }
     }
     
-    private func colorForMatchLevel(_ level: MenuItemScoringService.MatchLevel) -> Color {
-        switch level {
-        case .excellent: return .green
-        case .good: return .blue
-        case .fair: return .yellow
-        case .poor: return .orange
-        case .avoid: return .red
+    private var headerSection: some View {
+        VStack(spacing: 16) {
+            // Overall score
+            HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Overall Score")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    
+                    HStack {
+                        Text("\(Int(score.overallScore))")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(score.scoreColor)
+                        
+                        Text("/ 100")
+                            .font(.title2)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Text(score.scoreGrade.rawValue)
+                        .font(.title3)
+                        .foregroundColor(score.scoreColor)
+                }
+                
+                Spacer()
+                
+                VStack {
+                    Text(score.scoreGrade.emoji)
+                        .font(.system(size: 60))
+                    
+                    if score.isPersonalized {
+                        Label("Personalized", systemImage: "person.crop.circle.badge.checkmark")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
+            .padding()
+            .background(score.scoreColor.opacity(0.1))
+            .cornerRadius(12)
+        }
+    }
+    
+    private var scoreBreakdownSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Score Breakdown")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            VStack(spacing: 12) {
+                ScoreBreakdownRow(
+                    category: "Nutrition",
+                    score: score.nutritionScore,
+                    color: .blue,
+                    icon: "chart.bar.fill",
+                    description: "Calories, macros, and micronutrients"
+                )
+                
+                ScoreBreakdownRow(
+                    category: "Goal Alignment",
+                    score: score.goalAlignmentScore,
+                    color: .green,
+                    icon: "target",
+                    description: "How well this fits your health goals"
+                )
+                
+                ScoreBreakdownRow(
+                    category: "Dietary Restrictions",
+                    score: score.restrictionScore,
+                    color: .red,
+                    icon: "exclamationmark.shield.fill",
+                    description: "Compliance with your dietary restrictions"
+                )
+                
+                ScoreBreakdownRow(
+                    category: "Portion Size",
+                    score: score.portionScore,
+                    color: .orange,
+                    icon: "scalemass.fill",
+                    description: "Appropriate portion for your daily goals"
+                )
+            }
+        }
+    }
+    
+    private var explanationsSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Why This Score?")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            LazyVStack(spacing: 8) {
+                ForEach(score.explanations) { explanation in
+                    ScoreExplanationRow(explanation: explanation)
+                }
+            }
+        }
+    }
+    
+    private var scoringLegendSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Scoring Guide")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            VStack(spacing: 8) {
+                ForEach(ScoreGrade.allCases, id: \.self) { grade in
+                    HStack {
+                        Text(grade.emoji)
+                            .font(.title3)
+                        
+                        Text(grade.rawValue)
+                            .font(.body)
+                            .fontWeight(.medium)
+                            .foregroundColor(grade.color)
+                        
+                        Spacer()
+                        
+                        Text(scoreRangeText(for: grade))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            .padding()
+            .background(Color.gray.opacity(0.05))
+            .cornerRadius(12)
+        }
+    }
+    
+    private func scoreRangeText(for grade: ScoreGrade) -> String {
+        switch grade {
+        case .excellent: return "90-100"
+        case .veryGood: return "80-89"
+        case .good: return "70-79"
+        case .fair: return "60-69"
+        case .poor: return "50-59"
+        case .veryPoor: return "0-49"
         }
     }
 }
 
-struct CategoryDetailRow: View {
+// MARK: - Score Breakdown Row
+struct ScoreBreakdownRow: View {
     let category: String
     let score: Double
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(displayNameForCategory(category))
-                    .font(.system(size: 16, weight: .medium, design: .rounded))
-                
-                ProgressView(value: score, total: 100)
-                    .progressViewStyle(LinearProgressViewStyle(tint: colorForScore(score)))
-            }
-            
-            Spacer()
-            
-            Text("\(Int(score))")
-                .font(.system(size: 16, weight: .bold, design: .rounded))
-                .foregroundColor(colorForScore(score))
-        }
-        .padding(.vertical, 4)
-    }
-    
-    private func displayNameForCategory(_ category: String) -> String {
-        switch category {
-        case "macros": return "Macro Goals Alignment"
-        case "health": return "Health Goals Support"
-        case "quality": return "Nutritional Quality"
-        case "calories": return "Calorie Alignment"
-        case "restrictions": return "Dietary Restrictions"
-        default: return category.capitalized
-        }
-    }
-    
-    private func colorForScore(_ score: Double) -> Color {
-        switch score {
-        case 90...100: return .green
-        case 75..<90: return .blue
-        case 60..<75: return .yellow
-        case 30..<60: return .orange
-        default: return .red
-        }
-    }
-}
-
-struct NutritionSummaryGrid: View {
-    let nutrition: NutritionEstimate
-    
-    var body: some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
-            NutritionFactRow(label: "Calories", value: nutrition.calories.displayString, icon: "flame.fill")
-            NutritionFactRow(label: "Protein", value: nutrition.protein.displayString, icon: "scalemass.fill")
-            NutritionFactRow(label: "Carbs", value: nutrition.carbs.displayString, icon: "leaf.fill")
-            NutritionFactRow(label: "Fat", value: nutrition.fat.displayString, icon: "drop.fill")
-            
-            if let fiber = nutrition.fiber {
-                NutritionFactRow(label: "Fiber", value: fiber.displayString, icon: "leaf.arrow.circlepath")
-            }
-            
-            if let sodium = nutrition.sodium {
-                NutritionFactRow(label: "Sodium", value: sodium.displayString, icon: "saltshaker.fill")
-            }
-        }
-    }
-}
-
-struct NutritionFactRow: View {
-    let label: String
-    let value: String
+    let color: Color
     let icon: String
+    let description: String
     
     var body: some View {
-        HStack(spacing: 8) {
-            Image(systemName: icon)
-                .font(.system(size: 12))
-                .foregroundColor(.blue)
-                .frame(width: 16)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(label)
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
-                    .foregroundColor(.secondary)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundColor(color)
                 
-                Text(value)
-                    .font(.system(size: 12, weight: .semibold, design: .rounded))
-                    .foregroundColor(.primary)
+                Text(category)
+                    .font(.body)
+                    .fontWeight(.medium)
+                
+                Spacer()
+                
+                Text("\(Int(score))")
+                    .font(.body)
+                    .fontWeight(.bold)
+                    .foregroundColor(color)
             }
             
-            Spacer()
+            // Progress bar
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .fill(color.opacity(0.2))
+                        .frame(height: 6)
+                        .cornerRadius(3)
+                    
+                    Rectangle()
+                        .fill(color)
+                        .frame(width: geometry.size.width * (score / 100), height: 6)
+                        .cornerRadius(3)
+                        .animation(.easeInOut(duration: 0.8), value: score)
+                }
+            }
+            .frame(height: 6)
+            
+            Text(description)
+                .font(.caption)
+                .foregroundColor(.secondary)
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
-        .background(Color.gray.opacity(0.05))
-        .cornerRadius(6)
+        .padding()
+        .background(color.opacity(0.05))
+        .cornerRadius(10)
+    }
+}
+
+// MARK: - Score Explanation Row
+struct ScoreExplanationRow: View {
+    let explanation: ScoreExplanation
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: explanation.impact.icon)
+                .foregroundColor(explanation.impact.color)
+                .font(.caption)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text(explanation.category.rawValue)
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundColor(explanation.category.color)
+                    
+                    Spacer()
+                    
+                    Text("\(explanation.points > 0 ? "+" : "")\(explanation.points)")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(explanation.impact.color)
+                }
+                
+                Text(explanation.reason)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding()
+        .background(explanation.impact.color.opacity(0.05))
+        .cornerRadius(8)
     }
 }
 
 #Preview {
-    // Create sample data for preview
-    let sampleNutrition = NutritionEstimate(
-        calories: NutritionRange(min: 350, max: 400, unit: "kcal"),
-        carbs: NutritionRange(min: 45, max: 55, unit: "g"),
-        protein: NutritionRange(min: 25, max: 30, unit: "g"),
-        fat: NutritionRange(min: 12, max: 18, unit: "g"),
-        fiber: NutritionRange(min: 5, max: 8, unit: "g"),
-        sodium: NutritionRange(min: 650, max: 800, unit: "mg"),
-        sugar: NutritionRange(min: 8, max: 12, unit: "g"),
-        confidence: 0.85,
-        estimationSource: .nutritionix,
-        sourceDetails: "Nutritionix API",
-        estimatedPortionSize: "1 serving",
-        portionConfidence: 0.8
+    MenuItemScoreCard(
+        score: MenuItemScore(
+            overallScore: 85,
+            nutritionScore: 80,
+            goalAlignmentScore: 90,
+            restrictionScore: 100,
+            portionScore: 75,
+            explanations: [
+                ScoreExplanation(
+                    category: .nutrition,
+                    impact: .positive,
+                    points: 15,
+                    reason: "High protein content supports muscle building goals"
+                ),
+                ScoreExplanation(
+                    category: .restrictions,
+                    impact: .positive,
+                    points: 0,
+                    reason: "Meets all dietary restrictions"
+                )
+            ],
+            personalizedFor: nil,
+            confidence: 0.85,
+            calculatedAt: Date()
+        )
     )
-    
-    let sampleItem = AnalyzedMenuItem(
-        name: "Grilled Chicken Salad",
-        description: "Mixed greens with grilled chicken breast, cherry tomatoes, and balsamic vinaigrette",
-        price: "$12.99",
-        ingredients: [],
-        nutritionEstimate: sampleNutrition,
-        dietaryTags: [.highProtein, .lowCarb],
-        confidence: 0.85,
-        textBounds: nil
-    )
-    
-    let sampleScore = MenuItemScoringService.MenuItemScore(
-        overallScore: 85,
-        categoryScores: [
-            "macros": 90,
-            "health": 85,
-            "quality": 80,
-            "calories": 85
-        ],
-        violations: ["High sodium content"],
-        recommendations: ["Great protein source for muscle building"],
-        matchLevel: .good
-    )
-    
-    MenuItemScoreView(score: sampleScore, item: sampleItem)
-        .padding()
 }

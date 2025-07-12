@@ -18,11 +18,14 @@ final class MapViewModel: ObservableObject {
     @Published var currentAreaName: String = "Loading location..."
     @Published var loadingProgress: Double = 0.0
     
+    // MARK: - Scoring Integration
+    private let scoringService = RestaurantMapScoringService.shared
+    
     // Filter management
     @Published var currentFilter = RestaurantFilter() {
         didSet {
             objectWillChange.send()
-            debugLog("🔄 Filter updated: \(currentFilter.hasActiveFilters ? "active" : "none")")
+            debugLog(" Filter updated: \(currentFilter.hasActiveFilters ? "active" : "none")")
         }
     }
 
@@ -105,9 +108,42 @@ final class MapViewModel: ObservableObject {
         return filteredByRadius
     }
 
+    var restaurantsSortedByScore: [Restaurant] {
+        return allAvailableRestaurants.sorted { restaurant1, restaurant2 in
+            // Prioritize restaurants with scores
+            let score1 = restaurant1.mapScore?.overallScore ?? 0
+            let score2 = restaurant2.mapScore?.overallScore ?? 0
+            
+            if score1 != score2 {
+                return score1 > score2
+            }
+            
+            // Secondary sort by nutrition data availability
+            if restaurant1.hasNutritionData != restaurant2.hasNutritionData {
+                return restaurant1.hasNutritionData
+            }
+            
+            // Tertiary sort by distance
+            if let userLocation = userLocation {
+                let distance1 = restaurant1.distanceFrom(userLocation)
+                let distance2 = restaurant2.distanceFrom(userLocation)
+                return distance1 < distance2
+            }
+            
+            return restaurant1.name < restaurant2.name
+        }
+    }
+    
+    var topScoredRestaurants: [Restaurant] {
+        return restaurantsSortedByScore
+            .filter { $0.mapScore != nil }
+            .prefix(10)
+            .compactMap { $0 }
+    }
+    
     init() {
         setupLocationObserver()
-        debugLog("🍽️ MapViewModel initialized - Smart pin caching enabled")
+        debugLog(" MapViewModel initialized - Smart pin caching enabled")
     }
 
     // MARK: - Private Methods
@@ -133,7 +169,7 @@ final class MapViewModel: ObservableObject {
     // MARK: - Smart pin caching system
     func fetchRestaurantsWithCaching(for coordinate: CLLocationCoordinate2D) async {
         if let cachedData = getRestaurantsForRegion(coordinate) {
-            debugLog("📍 REGION CACHED: Using existing data for \(coordinate)")
+            debugLog(" REGION CACHED: Using existing data for \(coordinate)")
             await MainActor.run {
                 let newRestaurants = cachedData.filter { restaurant in
                     !self.displayedPinIds.contains(restaurant.id)
@@ -142,7 +178,7 @@ final class MapViewModel: ObservableObject {
                 if !newRestaurants.isEmpty {
                     self.restaurants.append(contentsOf: newRestaurants)
                     self.displayedPinIds.formUnion(Set(newRestaurants.map { $0.id }))
-                    debugLog("📍 ADDED \(newRestaurants.count) new pins to existing \(self.restaurants.count) pins")
+                    debugLog(" ADDED \(newRestaurants.count) new pins to existing \(self.restaurants.count) pins")
                 }
                 self.isLoadingRestaurants = false
             }
@@ -150,11 +186,11 @@ final class MapViewModel: ObservableObject {
         }
         
         if !shouldFetchNewData(for: coordinate) {
-            debugLog("📍 MOVEMENT TOO SMALL: Skipping fetch for \(coordinate)")
+            debugLog(" MOVEMENT TOO SMALL: Skipping fetch for \(coordinate)")
             return
         }
         
-        debugLog("📍 FETCHING NEW REGION: \(coordinate)")
+        debugLog(" FETCHING NEW REGION: \(coordinate)")
         await fetchRestaurantsForNewRegion(coordinate)
     }
     
@@ -218,26 +254,45 @@ final class MapViewModel: ObservableObject {
                 self.cacheTimestamp = Date()
                 
                 self.isLoadingRestaurants = false
-                debugLog("📍 LOADED \(trulyNewRestaurants.count) new restaurants. Total: \(self.restaurants.count)")
+                debugLog(" LOADED \(trulyNewRestaurants.count) new restaurants. Total: \(self.restaurants.count)")
             }
             
             await preloadOnlyNutritionAvailability(for: newRestaurants)
             
+            // ENHANCED: Calculate scores for nutrition restaurants
+            await calculateScoresForNutritionRestaurants(newRestaurants)
+            
         } catch {
             await MainActor.run {
                 self.isLoadingRestaurants = false
-                debugLog("❌ Error fetching restaurants: \(error)")
+                debugLog(" Error fetching restaurants: \(error)")
             }
+        }
+    }
+    
+    /// Calculate scores for restaurants with nutrition data
+    private func calculateScoresForNutritionRestaurants(_ restaurants: [Restaurant]) async {
+        let nutritionRestaurants = restaurants.filter { $0.hasNutritionData }
+        
+        guard !nutritionRestaurants.isEmpty else {
+            return
+        }
+        
+        debugLog(" Starting scoring calculation for \(nutritionRestaurants.count) nutrition restaurants")
+        
+        // Calculate scores in background
+        Task.detached(priority: .utility) {
+            await self.scoringService.calculateScoresForRestaurants(nutritionRestaurants)
         }
     }
     
     private func preloadOnlyNutritionAvailability(for restaurants: [Restaurant]) async {
         let nutritionRestaurants = restaurants.filter { $0.hasNutritionData }
-        debugLog("🍽️ NUTRITION CHECK: \(nutritionRestaurants.count) restaurants have nutrition data (no menu loading)")
+        debugLog(" NUTRITION CHECK: \(nutritionRestaurants.count) restaurants have nutrition data (no menu loading)")
         
         for restaurant in nutritionRestaurants.prefix(5) {
             if await nutritionManager.hasNutritionData(for: restaurant.name) {
-                debugLog("✅ \(restaurant.name) - nutrition available")
+                debugLog(" \(restaurant.name) - nutrition available")
             }
         }
     }
@@ -254,7 +309,7 @@ final class MapViewModel: ObservableObject {
     
     private func smartRegionUpdate(for coordinate: CLLocationCoordinate2D) async {
         if getRestaurantsForRegion(coordinate) != nil {
-            debugLog("📍 REGION KNOWN: No fetch needed for \(coordinate)")
+            debugLog(" REGION KNOWN: No fetch needed for \(coordinate)")
             return
         }
         
@@ -264,7 +319,7 @@ final class MapViewModel: ObservableObject {
     func fetchRestaurantsForMapRegion(_ mapRegion: MKCoordinateRegion) async {
         let now = Date()
         guard now.timeIntervalSince(lastUpdateTime) > 3.0 else {
-            debugLog("🔒 RATE LIMITED: Skipping fetch, too soon after last update")
+            debugLog(" RATE LIMITED: Skipping fetch, too soon after last update")
             return
         }
         
@@ -272,7 +327,7 @@ final class MapViewModel: ObservableObject {
         let shouldFetch = currentSpan <= 0.02
         
         guard shouldFetch else {
-            debugLog("🗺️ SKIPPED: Zoom level too high for fetching: \(String(format: "%.3f", currentSpan))")
+            debugLog(" SKIPPED: Zoom level too high for fetching: \(String(format: "%.3f", currentSpan))")
             return
         }
         
@@ -294,7 +349,7 @@ final class MapViewModel: ObservableObject {
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !isLoadingRestaurants else { return }
         
-        debugLog("🔄 MANUAL REFRESH: Force clearing cache and fetching fresh data")
+        debugLog(" MANUAL REFRESH: Force clearing cache and fetching fresh data")
         
         clearAllCachedData()
         
@@ -322,7 +377,7 @@ final class MapViewModel: ObservableObject {
             await MainActor.run {
                 self.loadingProgress = 1.0
                 self.hasInitialized = true
-                debugLog("🔄 MANUAL REFRESH COMPLETE: \(self.restaurants.count) restaurants")
+                debugLog(" MANUAL REFRESH COMPLETE: \(self.restaurants.count) restaurants")
             }
         }
     }
@@ -333,7 +388,7 @@ final class MapViewModel: ObservableObject {
         loadedRegions.removeAll()
         cacheLocation = nil
         cacheTimestamp = nil
-        debugLog("🗑️ CACHE CLEARED: All pin and region data cleared")
+        debugLog(" CACHE CLEARED: All pin and region data cleared")
     }
     
     // MARK: - Backward compatibility methods
@@ -382,14 +437,14 @@ final class MapViewModel: ObservableObject {
             self.filteredRestaurants = Array(sortedResults.prefix(50))
             self.showSearchResults = true
             self.isLoadingRestaurants = false
-            debugLog("🔍 Search completed: \(self.filteredRestaurants.count) results for '\(query)'")
+            debugLog(" Search completed: \(self.filteredRestaurants.count) results for '\(query)'")
         }
     }
     
     func clearSearch() {
         showSearchResults = false
         filteredRestaurants = []
-        debugLog("🔍 Search cleared")
+        debugLog(" Search cleared")
     }
 
     // MARK: - Location and area management
@@ -404,7 +459,7 @@ final class MapViewModel: ObservableObject {
             }
         }
         
-        debugLog("📍 Setting initial location: \(coordinate)")
+        debugLog(" Setting initial location: \(coordinate)")
         
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(
@@ -457,13 +512,13 @@ final class MapViewModel: ObservableObject {
                 
                 await MainActor.run {
                     self.currentAreaName = areaName
-                    debugLog("📍 Updated area name: \(areaName)")
+                    debugLog(" Updated area name: \(areaName)")
                 }
             }
         } catch {
             await MainActor.run {
                 self.currentAreaName = "Unknown Location"
-                debugLog("❌ Geocoding failed: \(error)")
+                debugLog(" Geocoding failed: \(error)")
             }
         }
     }
@@ -487,7 +542,7 @@ final class MapViewModel: ObservableObject {
     }
     
     private func createFallbackRestaurants(for coordinate: CLLocationCoordinate2D) -> [Restaurant] {
-        debugLog("🆘 Using fallback nutrition restaurants for location: \(coordinate)")
+        debugLog(" Using fallback nutrition restaurants for location: \(coordinate)")
         
         return [
             Restaurant(
@@ -552,12 +607,18 @@ final class MapViewModel: ObservableObject {
             )
         ]
     }
+    
+    func recalculateScores() {
+        Task.detached(priority: .utility) {
+            await self.scoringService.calculateScoresForRestaurants(self.restaurants)
+        }
+    }
 }
 
 // MARK: - Filter clearing extension
 extension MapViewModel {
     func clearFiltersOnHomeScreen() {
-        debugLog("🏠 Clearing filters for home screen")
+        debugLog(" Clearing filters for home screen")
         currentFilter = RestaurantFilter()
     }
     
