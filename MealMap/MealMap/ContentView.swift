@@ -7,23 +7,19 @@ struct ContentView: View {
     @StateObject private var mapViewModel = MapViewModel()
     @ObservedObject private var authManager = AuthenticationManager.shared
 
-    // MARK: - Universal Access Checks (regardless of authentication)
+    // MARK: - Simplified Access Checks to prevent blocking auth
     private var shouldShowNetworkError: Bool {
-        !networkMonitor.isConnected
+        // Only show network error for authenticated users trying to use features
+        authManager.isAuthenticated && !networkMonitor.isConnected
     }
     
     private var shouldShowLocationError: Bool {
-        // Don't show location error if we already have network error
-        guard networkMonitor.isConnected else { return false }
+        // Only show location error for authenticated users trying to use features
+        guard authManager.isAuthenticated && networkMonitor.isConnected else { return false }
         
-        // Show location error if:
-        // 1. Location access is denied/restricted
-        // 2. We have a location error
-        // 3. We don't have a valid location and not using fallback
         return locationManager.authorizationStatus == .denied ||
                locationManager.authorizationStatus == .restricted ||
-               locationManager.locationError != nil ||
-               (!hasValidLocation && !locationManager.usingFallbackLocation)
+               (locationManager.locationError != nil && !locationManager.usingFallbackLocation)
     }
 
     private var hasValidLocation: Bool {
@@ -34,18 +30,18 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            // MARK: - Universal Error Checks (Priority Order)
-            if shouldShowNetworkError {
-                // 1. Network Error (Highest Priority)
+            // MARK: - Prioritize Authentication Flow
+            if authManager.shouldShowOnboarding {
+                // 1. Onboarding (First Priority - don't block with network/location)
+                OnboardingCoordinator()
+            } else if shouldShowNetworkError {
+                // 2. Network Error (Only for authenticated users)
                 noNetworkView
             } else if shouldShowLocationError {
-                // 2. Location Error (Second Priority)
+                // 3. Location Error (Only for authenticated users)
                 locationErrorView
-            } else if authManager.shouldShowOnboarding {
-                // 3. Onboarding (After basic requirements are met)
-                OnboardingCoordinator()
             } else {
-                // 4. Main App (All requirements satisfied)
+                // 4. Main App (All requirements satisfied or user not authenticated yet)
                 HomeScreen()
                     .environmentObject(locationManager)
                     .environmentObject(mapViewModel)

@@ -1292,50 +1292,6 @@ struct HomeScreen: View {
     }
 }
 
-// MARK: - Supporting Models and Views
-
-struct CuisineCategory {
-    let name: String
-    let count: Int
-    let emoji: String
-    let searchTerms: [String]
-}
-
-struct CuisineSearchButton: View {
-    let cuisine: CuisineCategory
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 8) {
-                Text(cuisine.emoji)
-                    .font(.title3)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(cuisine.name)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    if cuisine.count > 0 {
-                        Text("\(cuisine.count) nearby")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                    }
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-            .background(Color(.systemBackground))
-            .cornerRadius(8)
-        }
-        .buttonStyle(.plain)
-    }
-}
-
 // MARK: - Auto Sliding Carousel
 struct AutoSlidingCarousel: View {
     @Binding var showingMenuPhotoCapture: Bool
@@ -1343,6 +1299,7 @@ struct AutoSlidingCarousel: View {
     @Binding var showingDietaryChat: Bool
     @State private var currentIndex = 0
     @State private var timer: Timer?
+    @State private var isActive = true // Track if view is active
     
     private let autoSlideInterval: TimeInterval = 3.0 // 3 seconds
     
@@ -1401,7 +1358,7 @@ struct AutoSlidingCarousel: View {
             .clipped()
             .onChange(of: currentIndex) { oldValue, newValue in
                 // Handle manual swipe - restart timer from new position
-                if oldValue != newValue {
+                if oldValue != newValue && isActive {
                     restartTimer()
                 }
             }
@@ -1419,15 +1376,34 @@ struct AutoSlidingCarousel: View {
             .padding(.top, 12)
         }
         .onAppear {
+            isActive = true
             startAutoSlide()
         }
         .onDisappear {
+            isActive = false
             stopAutoSlide()
+        }
+        // Add additional safety for when app goes to background
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+            stopAutoSlide()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            if isActive {
+                startAutoSlide()
+            }
         }
     }
     
     private func startAutoSlide() {
+        // Ensure we don't have multiple timers
+        stopAutoSlide()
+        
         timer = Timer.scheduledTimer(withTimeInterval: autoSlideInterval, repeats: true) { _ in
+            guard isActive else {
+                stopAutoSlide()
+                return
+            }
+            
             withAnimation(.easeInOut(duration: 0.5)) {
                 moveToNextIndex()
             }
@@ -1440,12 +1416,61 @@ struct AutoSlidingCarousel: View {
     }
     
     private func restartTimer() {
+        guard isActive else { return }
         stopAutoSlide()
-        startAutoSlide()
+        // Add small delay to prevent immediate restart
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if self.isActive {
+                self.startAutoSlide()
+            }
+        }
     }
     
     private func moveToNextIndex() {
         currentIndex = (currentIndex + 1) % carouselItems.count
+    }
+}
+
+// MARK: - Supporting Models and Views
+struct CuisineCategory {
+    let name: String
+    let count: Int
+    let emoji: String
+    let searchTerms: [String]
+}
+
+struct CuisineSearchButton: View {
+    let cuisine: CuisineCategory
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Text(cuisine.emoji)
+                    .font(.title3)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(cuisine.name)
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    if cuisine.count > 0 {
+                        Text("\(cuisine.count) nearby")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(Color(.systemBackground))
+            .cornerRadius(8)
+        }
+        .buttonStyle(.plain)
     }
 }
 
@@ -1924,8 +1949,4 @@ struct NutritionStat: View {
                 .foregroundColor(.secondary)
         }
     }
-}
-
-enum QuickAction {
-    case scanMenu
 }
