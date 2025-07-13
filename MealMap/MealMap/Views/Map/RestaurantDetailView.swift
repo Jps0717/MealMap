@@ -15,11 +15,13 @@ struct RestaurantDetailView: View {
     @State private var showingMenuScanner = false
     @State private var showSlowLoadingTip = false
     @State private var slowLoadingTimer: Timer?
-    
+
     @StateObject private var authService = FirebaseAuthService.shared
-    @State private var menuItemScores: [String: MenuItemScore] = [:]
-    @State private var restaurantScore: RestaurantScore?
-    @State private var isCalculatingScores = false
+    
+    // SIMPLIFIED: Use RestaurantMapScoringService for on-demand scoring
+    @StateObject private var scoringService = RestaurantMapScoringService.shared
+    @State private var restaurantMapScore: RestaurantMapScore?
+    @State private var isCalculatingScore = false
     @State private var showingScoreLegend = false
 
     enum MenuCategory: String, CaseIterable {
@@ -83,7 +85,7 @@ struct RestaurantDetailView: View {
                                 Label("Visit Website", systemImage: "globe")
                             }
                         }
-                        
+
                         if shouldShowScoring {
                             Button {
                                 showingScoreLegend = true
@@ -107,7 +109,7 @@ struct RestaurantDetailView: View {
         }
         .onDisappear { cleanup() }
         .onChange(of: nutritionManager.currentRestaurantData) { _, newData in 
-            debugLog(" DATA CHANGE: \(newData?.restaurantName ?? "nil")")
+            debugLog("🍽️ DATA CHANGE: \(newData?.restaurantName ?? "nil")")
             updateViewStateBasedOnData()
         }
         .onChange(of: nutritionManager.errorMessage) { _, newError in 
@@ -129,125 +131,25 @@ struct RestaurantDetailView: View {
     }
     
     private var shouldShowScoring: Bool {
-        hasNutritionData && (authService.isAuthenticated || !menuItemScores.isEmpty)
+        hasNutritionData && (restaurantMapScore != nil || isCalculatingScore)
     }
     
-    private func calculateScoresIfNeeded() {
-        guard shouldShowScoring && menuItemScores.isEmpty && !isCalculatingScores else { return }
-        guard let restaurantData = nutritionManager.currentRestaurantData else { return }
+    // SIMPLIFIED: Calculate restaurant score on-demand using existing service
+    private func calculateRestaurantScore() {
+        guard hasNutritionData && restaurantMapScore == nil && !isCalculatingScore else { return }
         
-        isCalculatingScores = true
-        
-        let currentUser = authService.currentUser
+        debugLog("📊 Calculating on-demand score for \(restaurant.name)")
+        isCalculatingScore = true
         
         Task {
-            var scores: [String: MenuItemScore] = [:]
-            var itemScores: [Double] = []
-            
-            for item in restaurantData.items {
-                let analyzedItem = convertToAnalyzedMenuItem(item)
-                let score = MenuItemScoringService.shared.calculatePersonalizedScore(
-                    for: analyzedItem,
-                    user: currentUser
-                )
-                scores[item.item] = score
-                itemScores.append(score.overallScore)
-            }
-            
-            let avgScore = itemScores.isEmpty ? 0 : itemScores.reduce(0, +) / Double(itemScores.count)
-            let restaurantScore = RestaurantScore(
-                overallScore: avgScore,
-                menuItemCount: restaurantData.items.count,
-                scoredItemCount: itemScores.count,
-                topRatedItems: getTopRatedItems(scores, from: restaurantData.items),
-                calculatedAt: Date()
-            )
+            let score = await scoringService.calculateScoreForRestaurant(restaurant)
             
             await MainActor.run {
-                self.menuItemScores = scores
-                self.restaurantScore = restaurantScore
-                self.isCalculatingScores = false
+                self.restaurantMapScore = score
+                self.isCalculatingScore = false
+                debugLog("📊 Score calculated: \(score?.overallScore ?? 0)")
             }
         }
-    }
-    
-    private func convertToAnalyzedMenuItem(_ item: NutritionData) -> AnalyzedMenuItem {
-        let nutritionEstimate = NutritionEstimate(
-            calories: NutritionRange(min: item.calories, max: item.calories, unit: "kcal"),
-            carbs: NutritionRange(min: item.carbs, max: item.carbs, unit: "g"),
-            protein: NutritionRange(min: item.protein, max: item.protein, unit: "g"),
-            fat: NutritionRange(min: item.fat, max: item.fat, unit: "g"),
-            fiber: NutritionRange(min: item.fiber, max: item.fiber, unit: "g"),
-            sodium: NutritionRange(min: item.sodium, max: item.sodium, unit: "mg"),
-            sugar: NutritionRange(min: item.sugar, max: item.sugar, unit: "g"),
-            confidence: 0.95,
-            estimationSource: .nutritionix,
-            sourceDetails: "Restaurant nutrition database",
-            estimatedPortionSize: "1 serving",
-            portionConfidence: 0.9
-        )
-        
-        return AnalyzedMenuItem(
-            name: item.item,
-            description: nil,
-            price: nil,
-            ingredients: [],
-            nutritionEstimate: nutritionEstimate,
-            dietaryTags: generateDietaryTags(for: item),
-            confidence: 0.95,
-            textBounds: nil,
-            estimationTier: .nutritionix,
-            isGeneralizedEstimate: false
-        )
-    }
-    
-    private func generateDietaryTags(for item: NutritionData) -> [DietaryTag] {
-        var tags: [DietaryTag] = []
-        
-        if item.protein >= 20 {
-            tags.append(.highProtein)
-        }
-        
-        if item.carbs <= 15 {
-            tags.append(.lowCarb)
-        }
-        
-        if item.carbs >= 45 {
-            tags.append(.highCarb)
-        }
-        
-        if item.sodium <= 600 {
-            tags.append(.lowSodium)
-        }
-        
-        if item.fiber >= 5 {
-            tags.append(.highFiber)
-        }
-        
-        if item.calories <= 500 && item.protein >= 15 && item.sodium <= 800 && item.saturatedFat <= 10 {
-            tags.append(.healthy)
-        }
-        
-        if item.calories >= 800 || item.fat >= 30 || item.sugar >= 25 {
-            tags.append(.indulgent)
-        }
-        
-        return tags
-    }
-    
-    private func getTopRatedItems(_ scores: [String: MenuItemScore], from items: [NutritionData]) -> [String] {
-        return items
-            .compactMap { item -> (String, Double)? in
-                guard let score = scores[item.item] else { return nil }
-                return (item.item, score.overallScore)
-            }
-            .sorted { (first: (String, Double), second: (String, Double)) -> Bool in
-                return first.1 > second.1
-            }
-            .prefix(3)
-            .map { (item: (String, Double)) -> String in
-                return item.0
-            }
     }
 
     @ViewBuilder
@@ -262,7 +164,8 @@ struct RestaurantDetailView: View {
                 fullMenuContent(restaurantData)
                     .transition(.opacity.combined(with: .move(edge: .bottom)))
                     .onAppear {
-                        calculateScoresIfNeeded()
+                        // Calculate restaurant score when menu loads
+                        calculateRestaurantScore()
                     }
             }
 
@@ -476,7 +379,7 @@ struct RestaurantDetailView: View {
                             Image(systemName: "checkmark.circle.fill")
                                 .font(.system(size: 12))
                                 .foregroundColor(.green)
-                            Text("Multi-tier nutrition data")
+                            Text("Nutrition data available")
                                 .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(.green)
                         } else {
@@ -492,6 +395,7 @@ struct RestaurantDetailView: View {
                 Spacer()
             }
             
+            // SIMPLIFIED: Restaurant scoring section
             if shouldShowScoring {
                 restaurantScoringSection
             }
@@ -513,6 +417,7 @@ struct RestaurantDetailView: View {
         }
     }
     
+    // SIMPLIFIED: Restaurant scoring section using RestaurantMapScore
     private var restaurantScoringSection: some View {
         VStack(spacing: 12) {
             HStack {
@@ -531,19 +436,19 @@ struct RestaurantDetailView: View {
                 .foregroundColor(.blue)
             }
             
-            if isCalculatingScores {
+            if isCalculatingScore {
                 HStack {
                     ProgressView()
                         .scaleEffect(0.8)
-                    Text("Calculating scores...")
+                    Text("Calculating restaurant score...")
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
                 .padding()
                 .background(Color.gray.opacity(0.05))
                 .cornerRadius(12)
-            } else if let score = restaurantScore {
-                RestaurantScoreCard(score: score)
+            } else if let score = restaurantMapScore {
+                SimpleRestaurantScoreCard(score: score)
             } else if !authService.isAuthenticated {
                 authPromptView
             }
@@ -574,6 +479,7 @@ struct RestaurantDetailView: View {
             }
             
             Button("Sign In") {
+                // Sign in action
             }
             .font(.caption)
             .foregroundColor(.white)
@@ -692,7 +598,7 @@ struct RestaurantDetailView: View {
 
     private func setupView() {
         hasNutritionData = nutritionManager.hasNutritionData(for: restaurant.name)
-        debugLog(" Opening '\(restaurant.name)' – has nutrition: \(hasNutritionData)")
+        debugLog("🍽️ Opening '\(restaurant.name)' – has nutrition: \(hasNutritionData)")
 
         AnalyticsService.shared.trackRestaurantView(
             restaurantName: restaurant.name,
@@ -704,7 +610,7 @@ struct RestaurantDetailView: View {
         if hasNutritionData {
             if let existingData = nutritionManager.currentRestaurantData,
                existingData.restaurantName.lowercased() == restaurant.name.lowercased() {
-                debugLog(" Data already loaded for \(restaurant.name), showing menu immediately")
+                debugLog("🍽️ Data already loaded for \(restaurant.name), showing menu immediately")
                 
                 AnalyticsService.shared.trackNutritionDataUsage(
                     restaurantName: restaurant.name,
@@ -714,9 +620,11 @@ struct RestaurantDetailView: View {
                 )
                 
                 viewState = .loaded
+                // Calculate score immediately if data is already loaded
+                calculateRestaurantScore()
             } else {
                 viewState = .loading
-                debugLog(" Loading nutrition for \(restaurant.name)")
+                debugLog("🍽️ Loading nutrition for \(restaurant.name)")
                 nutritionManager.loadNutritionData(for: restaurant.name)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -736,7 +644,7 @@ struct RestaurantDetailView: View {
         if let data = nutritionManager.currentRestaurantData {
             if data.restaurantName.lowercased().contains(restaurant.name.lowercased()) ||
                restaurant.name.lowercased().contains(data.restaurantName.lowercased()) {
-                debugLog(" UI SUCCESS: Menu loaded for '\(restaurant.name)' with \(data.items.count) items")
+                debugLog("🍽️ UI SUCCESS: Menu loaded for '\(restaurant.name)' with \(data.items.count) items")
                 
                 AnalyticsService.shared.trackNutritionDataUsage(
                     restaurantName: restaurant.name,
@@ -751,12 +659,12 @@ struct RestaurantDetailView: View {
                 stopSlowLoadingTimer()
                 return
             } else {
-                debugLog(" Data mismatch: Expected '\(restaurant.name)', got '\(data.restaurantName)'")
+                debugLog("🍽️ Data mismatch: Expected '\(restaurant.name)', got '\(data.restaurantName)'")
             }
         }
         
         if let error = nutritionManager.errorMessage {
-            debugLog(" Error state: \(error)")
+            debugLog("🍽️ Error state: \(error)")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .error(error)
             }
@@ -765,7 +673,7 @@ struct RestaurantDetailView: View {
         }
         
         if nutritionManager.isLoading && hasNutritionData {
-            debugLog(" Still loading...")
+            debugLog("🍽️ Still loading...")
             if case .loading = viewState {
             } else {
                 withAnimation(.easeInOut(duration: 0.3)) {
@@ -777,13 +685,13 @@ struct RestaurantDetailView: View {
         }
         
         if hasNutritionData {
-            debugLog(" Should have data but loading failed")
+            debugLog("🍽️ Should have data but loading failed")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .error("Failed to load nutrition data for \(restaurant.name)")
             }
             stopSlowLoadingTimer()
         } else {
-            debugLog(" No nutrition data available")
+            debugLog("🍽️ No nutrition data available")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .noData
             }
@@ -837,8 +745,7 @@ struct RestaurantDetailView: View {
                 } label: {
                     MenuItemCard(
                         item: item,
-                        category: selectedCategory,
-                        score: menuItemScores[item.item]
+                        category: selectedCategory
                     )
                     .padding(.vertical, 4)
                 }
@@ -961,7 +868,7 @@ struct RestaurantDetailView: View {
                 }
                 .buttonStyle(.plain)
                 
-                Text(" Get instant nutrition analysis for any menu item")
+                Text("📊 Get instant nutrition analysis for any menu item")
                     .font(.caption)
                     .foregroundColor(.blue)
                     .multilineTextAlignment(.center)
@@ -999,7 +906,7 @@ struct RestaurantDetailView: View {
                     .padding(.horizontal, 40)
                 
                 Button {
-                    debugLog(" Manual retry for \(restaurant.name)")
+                    debugLog("🍽️ Manual retry for \(restaurant.name)")
                     nutritionManager.clearData()
                     withAnimation(.easeInOut(duration: 0.3)) {
                         viewState = .loading
@@ -1058,24 +965,9 @@ struct RestaurantDetailView: View {
     }
 }
 
-struct RestaurantScore {
-    let overallScore: Double
-    let menuItemCount: Int
-    let scoredItemCount: Int
-    let topRatedItems: [String]
-    let calculatedAt: Date
-    
-    var scoreGrade: ScoreGrade {
-        ScoreGrade.fromScore(overallScore)
-    }
-    
-    var scoreColor: Color {
-        scoreGrade.color
-    }
-}
-
-struct RestaurantScoreCard: View {
-    let score: RestaurantScore
+// SIMPLIFIED: Restaurant score card using RestaurantMapScore from RestaurantMapScoringService
+struct SimpleRestaurantScoreCard: View {
+    let score: RestaurantMapScore
     
     var body: some View {
         HStack(spacing: 16) {
@@ -1106,6 +998,12 @@ struct RestaurantScoreCard: View {
                     
                     Text(score.scoreGrade.emoji)
                         .font(.subheadline)
+                    
+                    if score.isChainScore {
+                        Text("(Chain)")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
                 }
                 
                 Text("\(score.scoredItemCount) of \(score.menuItemCount) items scored")
@@ -1128,44 +1026,10 @@ struct RestaurantScoreCard: View {
     }
 }
 
-struct MenuItemScoreView: View {
-    let score: MenuItemScore
-    let compact: Bool
-    
-    var body: some View {
-        if compact {
-            HStack(spacing: 12) {
-                Text("Score: \(Int(score.overallScore))")
-                    .font(.system(size: 12, weight: .semibold))
-                Text(score.scoreGrade.rawValue)
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(score.scoreGrade.color)
-            }
-        } else {
-            VStack(spacing: 16) {
-                Text("Nutrition Score: \(Int(score.overallScore))")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                
-                Text(score.scoreGrade.rawValue)
-                    .font(.headline)
-                    .foregroundColor(score.scoreGrade.color)
-                
-                Text("This item falls into the \(score.scoreGrade.rawValue) score grade")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            .padding()
-            .background(Color.gray.opacity(0.05))
-            .cornerRadius(12)
-        }
-    }
-}
-
+// SIMPLIFIED: Remove complex MenuItemScore integration
 struct MenuItemCard: View {
     let item: NutritionData
     let category: RestaurantCategory?
-    let score: MenuItemScore?
     
     private var isHighCalories: Bool { item.calories > 800 }
     private var isHighSodium:  Bool { item.sodium  > 1000 }

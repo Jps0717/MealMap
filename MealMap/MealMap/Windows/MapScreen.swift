@@ -2,7 +2,7 @@ import SwiftUI
 import MapKit
 import CoreLocation
 
-/// Enhanced MapScreen with proper modal home button navigation
+/// Enhanced MapScreen with proper modal home button navigation - NO FILTERS
 struct MapScreen: View {
     // View model and managers - FIXED: Use only the passed viewModel
     @ObservedObject var viewModel: MapViewModel
@@ -23,7 +23,6 @@ struct MapScreen: View {
     // Sheet states
     @State private var selectedRestaurant: Restaurant?
     @State private var showingRestaurantDetail = false
-    @State private var showingFilters = false
     
     var body: some View {
         ZStack {
@@ -56,14 +55,6 @@ struct MapScreen: View {
                     selectedCategory: nil
                 )
             }
-        }
-        .sheet(isPresented: $showingFilters) {
-            RestaurantFilterView(
-                filter: $viewModel.currentFilter,
-                isPresented: $showingFilters,
-                availableRestaurants: viewModel.restaurants,
-                userLocation: locationManager.lastLocation?.coordinate
-            )
         }
         .sheet(isPresented: $showingMenuPhotoCapture) {
             MenuPhotoCaptureView()

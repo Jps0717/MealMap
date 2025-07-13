@@ -438,18 +438,109 @@ final class OverpassAPIService: ObservableObject {
         return categoryRestaurants
     }
     
-    /// Direct map viewport fetch optimized for nutrition chains
+    /// Direct map viewport fetch optimized for speed - NO CACHING
     func fetchRestaurants(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) async throws -> [Restaurant] {
-        print("🗺️ DIRECT FETCH: Getting restaurants for map viewport")
-        print("🗺️ Bounds: (\(minLat), \(minLon)) to (\(maxLat), \(maxLon))")
+        debugLog("🗺️ FAST VIEWPORT FETCH: (\(minLat), \(minLon)) to (\(maxLat), \(maxLon))")
         
-        // ENHANCED: Query optimized for nutrition chains
-        let query = createNutritionOptimizedQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
+        // ENHANCED: Optimized query for speed - focus on essential restaurants only
+        let query = createFastViewportQuery(minLat: minLat, minLon: minLon, maxLat: maxLat, maxLon: maxLon)
         
-        let restaurants = try await executeQuery(query)
+        let restaurants = try await executeQueryWithTimeout(query, timeout: 8.0)  // 8 second timeout
         
-        print("🗺️ SUCCESS: Found \(restaurants.count) restaurants for map viewport")
+        debugLog("🗺️ FAST SUCCESS: Found \(restaurants.count) restaurants for viewport")
         return restaurants
+    }
+    
+    /// FAST viewport query - prioritize nutrition chains and fast food for speed
+    private func createFastViewportQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
+        return """
+        [out:json][timeout:8][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
+        (
+          // PRIORITY 1: Known nutrition chains (fast loading)
+          node["name"~"McDonald's|Burger King|KFC|Taco Bell|Wendy's|Subway|Pizza Hut|Domino's|Chick-fil-A|Starbucks|Dunkin'|Panera|Chipotle",i]["amenity"~"restaurant|fast_food|cafe"];
+          
+          // PRIORITY 2: Fast food establishments (medium loading)
+          node["amenity"="fast_food"];
+          
+          // PRIORITY 3: Regular restaurants (slower loading, limited)
+          node["amenity"="restaurant"];
+          
+          // PRIORITY 4: Cafes (quick loading)
+          node["amenity"="cafe"];
+        );
+        out center;
+        """
+    }
+    
+    /// Execute query with custom timeout for viewport fetching
+    private func executeQueryWithTimeout(_ query: String, timeout: TimeInterval) async throws -> [Restaurant] {
+        guard let url = URL(string: baseURLs[currentURLIndex]) else {
+            throw URLError(.badURL)
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpBody = query.data(using: .utf8)
+        request.timeoutInterval = timeout
+        
+        debugLog("🌐 FAST Query: \(baseURLs[currentURLIndex]) (timeout: \(timeout)s)")
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+                debugLog("❌ HTTP Error: \(statusCode)")
+                
+                await MainActor.run {
+                    errorMessage = "Server error (\(statusCode)). Please try again."
+                }
+                
+                throw URLError(.badServerResponse)
+            }
+            
+            let restaurants = try parseRestaurantsFromData(data)
+            
+            // PRIORITY SORTING: Nutrition chains first, then by distance
+            let sortedRestaurants = restaurants.sorted { r1, r2 in
+                // Primary: Nutrition data availability
+                if r1.hasNutritionData != r2.hasNutritionData {
+                    return r1.hasNutritionData
+                }
+                
+                // Secondary: Fast food over regular restaurants
+                if r1.amenityType == "fast_food" && r2.amenityType != "fast_food" {
+                    return true
+                } else if r1.amenityType != "fast_food" && r2.amenityType == "fast_food" {
+                    return false
+                }
+                
+                // Tertiary: Alphabetical
+                return r1.name < r2.name
+            }
+            
+            debugLog("🍽️ FAST RESULT: \(sortedRestaurants.count) restaurants prioritized")
+            return sortedRestaurants
+            
+        } catch {
+            debugLog("❌ Fast query failed: \(error.localizedDescription)")
+            
+            await MainActor.run {
+                errorMessage = error.localizedDescription
+            }
+            
+            // Try next server
+            currentURLIndex = (currentURLIndex + 1) % baseURLs.count
+            
+            // Retry once with next server
+            if currentURLIndex != 0 {
+                debugLog("🔄 Retrying fast query with: \(baseURLs[currentURLIndex])")
+                return try await executeQueryWithTimeout(query, timeout: timeout)
+            } else {
+                throw error
+            }
+        }
     }
     
     /// BACKWARD COMPATIBILITY: Support existing methods
@@ -733,31 +824,18 @@ final class OverpassAPIService: ObservableObject {
         }
     }
     
-    /// ENHANCED: Query to get ALL restaurants in the area
+    /// ENHANCED: Query to get ALL restaurants in the area (not just nutrition chains)
     private func createNutritionOptimizedQuery(minLat: Double, minLon: Double, maxLat: Double, maxLon: Double) -> String {
-        // Get known nutrition chain names for targeted querying
-        let knownChains = ["McDonald's", "Subway", "Starbucks", "Burger King", "Taco Bell", 
-                          "Chipotle", "Panera", "KFC", "Wendy's", "Domino's", "Pizza Hut",
-                          "Dunkin", "Five Guys", "Chick-fil-A", "Popeyes"]
-        
-        // Create targeted queries for known chains
-        let chainQueries = knownChains.map { chain in
-            "node[\"name\"~\"\(chain)\",i][\"amenity\"~\"restaurant|fast_food|cafe\"]"
-        }.joined(separator: ";\n  ")
-        
         return """
         [out:json][timeout:12][bbox:\(minLat),\(minLon),\(maxLat),\(maxLon)];
         (
-          // Known nutrition chains (highest priority)
-          \(chainQueries);
-          
-          // All fast food establishments
-          node["amenity"="fast_food"];
-          
-          // All restaurants (including local ones)
+          // ALL restaurants (including local ones)
           node["amenity"="restaurant"];
           
-          // All cafes
+          // ALL fast food establishments
+          node["amenity"="fast_food"];
+          
+          // ALL cafes
           node["amenity"="cafe"];
           
           // Additional food establishments
@@ -801,19 +879,17 @@ final class OverpassAPIService: ObservableObject {
             
             let restaurants = try parseRestaurantsFromData(data)
             
-            // UPDATED: Include ALL restaurants but sort by priority
+            // UPDATED: Return ALL restaurants (both nutrition and non-nutrition)
             let nutritionRestaurants = restaurants.filter { $0.hasNutritionData }
-            let otherRestaurants = restaurants.filter { !$0.hasNutritionData }
+            let localRestaurants = restaurants.filter { !$0.hasNutritionData }
             
             print("🍽️ Nutrition restaurants: \(nutritionRestaurants.count)")
-            print("🍽️ Other restaurants: \(otherRestaurants.count)")
+            print("🍽️ Local restaurants: \(localRestaurants.count)")
             print("🍽️ Total restaurants: \(restaurants.count)")
             
-            // Return ALL restaurants (nutrition ones first, then others up to a reasonable limit)
-            let combinedResults = nutritionRestaurants + Array(otherRestaurants.prefix(200))
-            
-            print("🍽️ Returning \(combinedResults.count) total restaurants")
-            return combinedResults
+            // Return ALL restaurants (nutrition ones will be prioritized by sorting in MapViewModel)
+            print("🍽️ Returning \(restaurants.count) total restaurants (showing ALL)")
+            return restaurants
             
         } catch {
             print("❌ Query failed: \(error.localizedDescription)")
@@ -885,7 +961,16 @@ final class OverpassAPIService: ObservableObject {
             restaurants.append(restaurant)
         }
         
+        // ENHANCED: Log the mix of restaurants we're returning
+        let nutritionCount = restaurants.filter { $0.hasNutritionData }.count
+        let localCount = restaurants.count - nutritionCount
+        let amenityBreakdown = Dictionary(grouping: restaurants, by: { $0.amenityType ?? "unknown" })
+            .mapValues { $0.count }
+        
         print("✅ Parsed: \(restaurants.count) unique food locations")
+        print("📊 Nutrition chains: \(nutritionCount), Local restaurants: \(localCount)")
+        print("🏪 Amenity breakdown: \(amenityBreakdown)")
+        
         return restaurants
     }
 }

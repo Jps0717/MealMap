@@ -133,11 +133,8 @@ struct HomeScreen: View {
     }
 
     private func clearFiltersOnHomeScreen() {
-        if mapViewModel.currentFilter.hasActiveFilters {
-            updateLoadingStatus("Clearing filters", "Preparing clean experience...")
-            // FIXED: Use the correct method name
-            mapViewModel.clearFiltersOnHomeScreen()
-        }
+        // UPDATED: No more filters to clear - map shows all restaurants
+        debugLog("🗺️ No filters to clear - map shows all restaurants")
     }
 
     private var fullScreenLoadingView: some View {
@@ -1228,16 +1225,15 @@ struct HomeScreen: View {
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .foregroundColor(.primary)
-                        
                         Text(subtitle)
-                            .font(.caption)
+                            .font(.subheadline)
                             .foregroundColor(.secondary)
                     }
                     
                     Spacer()
                     
                     Image(systemName: "arrow.right")
-                        .font(.caption)
+                        .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 .padding(.horizontal, 12)
@@ -1263,7 +1259,7 @@ struct HomeScreen: View {
                         .cornerRadius(8)
 
                     Text(chainName)
-                        .font(.caption)
+                        .font(.subheadline)
                         .fontWeight(.semibold)
                         .foregroundColor(.primary)
                         .lineLimit(2)

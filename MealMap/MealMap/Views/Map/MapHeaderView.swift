@@ -11,7 +11,6 @@ struct MapHeaderView: View {
     let onDismiss: () -> Void
     let onCenterLocation: () -> Void
     
-    @State private var showingFilters = false
     @State private var showingScoringLegend = false
     
     var body: some View {
@@ -50,9 +49,9 @@ struct MapHeaderView: View {
             )
             .padding(.horizontal, 16)
             
-            // ENHANCED: Control buttons with prominent Home button
+            // SIMPLIFIED: Control buttons without filters
             HStack(spacing: 16) {
-                // ENHANCED: Prominent Home button that clearly indicates it goes to home screen
+                // Home button
                 Button(action: {
                     debugLog("🏠 Home button tapped - returning to home screen")
                     onDismiss()
@@ -83,18 +82,7 @@ struct MapHeaderView: View {
                 
                 MapStatusIndicators(viewModel: viewModel, isSearching: isSearching)
                 
-                Button(action: {
-                    showingFilters = true
-                }) {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                        .foregroundColor(.primary)
-                        .frame(width: 36, height: 36)
-                        .background(Color(.systemBackground))
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
-                }
-                
-                // ENHANCED: Scoring Legend Button
+                // Scoring Legend Button
                 if viewModel.restaurants.contains(where: { $0.hasNutritionData }) {
                     Button(action: {
                         showingScoringLegend = true
@@ -108,28 +96,24 @@ struct MapHeaderView: View {
                             .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
                     }
                 }
+                
+                // Center on location button
+                Button(action: onCenterLocation) {
+                    Image(systemName: "location.fill")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.blue)
+                        .frame(width: 36, height: 36)
+                        .background(Color(.systemBackground))
+                        .clipShape(Circle())
+                        .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
+                }
             }
             .padding(.horizontal, 16)
         }
         .padding(.top, 70) 
-        .sheet(isPresented: $showingFilters) {
-            RestaurantFilterView(
-                filter: Binding(
-                    get: { viewModel.currentFilter },
-                    set: { viewModel.currentFilter = $0 }
-                ),
-                isPresented: $showingFilters,
-                availableRestaurants: viewModel.restaurants,
-                userLocation: viewModel.userLocation
-            )
-        }
         .sheet(isPresented: $showingScoringLegend) {
             RestaurantScoringLegendView()
         }
-    }
-    
-    private var hasActiveFilters: Bool {
-        !viewModel.currentFilter.isEmpty
     }
 }
 
@@ -139,6 +123,37 @@ struct MapStatusIndicators: View {
     
     var body: some View {
         HStack(spacing: 8) {
+            // Restaurant count indicator (simplified)
+            if !viewModel.restaurants.isEmpty {
+                HStack(spacing: 6) {
+                    Image(systemName: "mappin.and.ellipse")
+                        .font(.system(size: 12))
+                    
+                    let totalCount = viewModel.restaurants.count
+                    let nutritionCount = viewModel.restaurants.filter { $0.hasNutritionData }.count
+                    
+                    Text("\(totalCount) restaurants")
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                    
+                    if nutritionCount > 0 {
+                        Text("• \(nutritionCount) with nutrition")
+                            .font(.system(size: 11, weight: .medium, design: .rounded))
+                            .foregroundColor(.green)
+                    }
+                }
+                .foregroundColor(.primary)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(
+                    Capsule()
+                        .fill(Color(.systemBackground).opacity(0.9))
+                        .overlay(
+                            Capsule()
+                                .stroke(.gray.opacity(0.3), lineWidth: 1)
+                        )
+                )
+            }
+            
             // Search results indicator
             if viewModel.showSearchResults {
                 HStack(spacing: 6) {
@@ -151,8 +166,8 @@ struct MapStatusIndicators: View {
                             .font(.system(size: 12))
                     }
                     
-                    let totalCount = viewModel.restaurantsWithinSearchRadius.count
-                    Text(isSearching ? "Searching..." : "\(totalCount) found")
+                    let searchCount = viewModel.filteredRestaurants.count
+                    Text(isSearching ? "Searching..." : "\(searchCount) found")
                         .font(.system(size: 12, weight: .medium, design: .rounded))
                 }
                 .foregroundColor(.blue)

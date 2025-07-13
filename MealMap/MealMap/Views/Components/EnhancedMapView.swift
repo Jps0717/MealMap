@@ -370,8 +370,11 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
         let shouldShowPins = currentSpan <= 0.02 // Show pins when zoomed in enough
         
         if shouldShowPins {
-            // Update annotations using the correct property when zoomed in
-            let restaurantsToShow = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.allAvailableRestaurants
+            // VIEWPORT-ONLY: Show restaurants currently in viewport, limited to 50
+            let restaurantsToShow = viewModel.showSearchResults ? 
+                Array(viewModel.filteredRestaurants.prefix(25)) : 
+                Array(viewModel.allAvailableRestaurants.prefix(50))  // HARD LIMIT: 50 pins max
+            
             context.coordinator.updateAnnotations(mapView: mapView, restaurants: restaurantsToShow)
         } else {
             // Hide all pins when zoomed out
@@ -427,19 +430,27 @@ struct SimplifiedRealTimeMapView: UIViewRepresentable {
                 self?.parent.onZoomLevelChange(currentSpan)
             }
             
-            // FIXED: Debounce map region changes to prevent constant refreshing
+            // ENHANCED: Longer debounce for viewport fetching (3 seconds to prevent API spam)
             debounceTimer?.invalidate()
-            debounceTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self] _ in
+            debounceTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { [weak self] _ in
                 guard let self = self else { return }
                 
                 // ENHANCED: Check if we should show/hide pins based on zoom level
                 let shouldShowPins = currentSpan <= 0.02
                 
                 if shouldShowPins {
-                    // Only fetch restaurants when zoomed in enough to show pins
+                    // VIEWPORT-BASED: Fetch restaurants for current map viewport only
                     Task.detached(priority: .utility) { [weak self] in
                         guard let self = self else { return }
-                        await self.parent.viewModel.fetchRestaurantsForMapRegion(mapView.region)
+                        await self.parent.viewModel.fetchRestaurantsForViewport(mapView.region)
+                    }
+                } else {
+                    // Clear restaurants when zoomed out too far
+                    Task.detached(priority: .utility) { [weak self] in
+                        guard let self = self else { return }
+                        await MainActor.run {
+                            self.parent.viewModel.restaurants = []
+                        }
                     }
                 }
             }

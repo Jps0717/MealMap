@@ -3,7 +3,7 @@ import MapKit
 import Combine
 import CoreLocation
 
-/// Enhanced MapViewModel with smart pin caching and minimal reloading
+/// ULTRA-FAST MapViewModel - Viewport-only, No Caching, Minimal Pins
 final class MapViewModel: ObservableObject {
     // MARK: - Published Properties
     @Published var restaurants: [Restaurant] = []
@@ -13,56 +13,22 @@ final class MapViewModel: ObservableObject {
     @Published var searchRadius: Double = 5.0
     @Published var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
     @Published var currentAreaName: String = "Loading location..."
     @Published var loadingProgress: Double = 0.0
     
-    // MARK: - Scoring Integration
-    private let scoringService = RestaurantMapScoringService.shared
+    // MARK: - REMOVED: All caching services and complex dependencies
     
-    // Filter management
-    @Published var currentFilter = RestaurantFilter() {
-        didSet {
-            objectWillChange.send()
-            debugLog(" Filter updated: \(currentFilter.hasActiveFilters ? "active" : "none")")
-        }
-    }
-
     // MARK: - Private Properties
-    private let _overpassService = OverpassAPIService()
+    private let overpassService = OverpassAPIService()
     private let locationManager = LocationManager.shared
     private let nutritionManager = NutritionDataManager.shared
     
-    // ENHANCED: Smart pin caching system
-    private var displayedPinIds: Set<Int> = []
-    private var loadedRegions: [CachedRegion] = []
-    private var cacheLocation: CLLocationCoordinate2D?
-    private var cacheRadius: Double = 3.0
-    private var cacheTimestamp: Date?
-    private let cacheExpiryMinutes: Double = 30.0
-    
+    // SIMPLIFIED: Basic debouncing only - no complex movement tracking
     private var lastUpdateTime: Date = Date.distantPast
-    private var updateDebounceTimer: Timer?
-    private let minimumMovementThreshold: Double = 500.0
-    
-    // MARK: - Cached Region Tracking
-    struct CachedRegion {
-        let center: CLLocationCoordinate2D
-        let radius: Double
-        let timestamp: Date
-        let restaurantIds: Set<Int>
-        
-        func contains(_ coordinate: CLLocationCoordinate2D) -> Bool {
-            let centerLocation = CLLocation(latitude: center.latitude, longitude: center.longitude)
-            let targetLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            return centerLocation.distance(from: targetLocation) <= radius
-        }
-        
-        var isExpired: Bool {
-            Date().timeIntervalSince(timestamp) > 1800
-        }
-    }
+    private let debounceInterval: TimeInterval = 2.0  // 2 second debounce
+    private let maxPinsInViewport = 50  // HARD LIMIT: Maximum pins to show
     
     // State tracking
     var hasInitialized = false
@@ -86,13 +52,6 @@ final class MapViewModel: ObservableObject {
     }
 
     var allAvailableRestaurants: [Restaurant] {
-        if !currentFilter.isEmpty {
-            let filtered = restaurants.filter { restaurant in
-                currentFilter.matchesRestaurant(restaurant, userLocation: userLocation)
-            }
-            return sortRestaurantsByPriority(filtered)
-        }
-        
         return sortRestaurantsByPriority(restaurants)
     }
     
@@ -108,22 +67,15 @@ final class MapViewModel: ObservableObject {
         return filteredByRadius
     }
 
+    // SIMPLIFIED: Basic sorting without complex scoring
     var restaurantsSortedByScore: [Restaurant] {
         return allAvailableRestaurants.sorted { restaurant1, restaurant2 in
-            // Prioritize restaurants with scores
-            let score1 = restaurant1.mapScore?.overallScore ?? 0
-            let score2 = restaurant2.mapScore?.overallScore ?? 0
-            
-            if score1 != score2 {
-                return score1 > score2
-            }
-            
-            // Secondary sort by nutrition data availability
+            // Primary sort by nutrition data availability
             if restaurant1.hasNutritionData != restaurant2.hasNutritionData {
                 return restaurant1.hasNutritionData
             }
             
-            // Tertiary sort by distance
+            // Secondary sort by distance
             if let userLocation = userLocation {
                 let distance1 = restaurant1.distanceFrom(userLocation)
                 let distance2 = restaurant2.distanceFrom(userLocation)
@@ -134,16 +86,17 @@ final class MapViewModel: ObservableObject {
         }
     }
     
+    // SIMPLIFIED: No complex scoring
     var topScoredRestaurants: [Restaurant] {
         return restaurantsSortedByScore
-            .filter { $0.mapScore != nil }
+            .filter { $0.hasNutritionData }
             .prefix(10)
             .compactMap { $0 }
     }
     
     init() {
         setupLocationObserver()
-        debugLog(" MapViewModel initialized - Smart pin caching enabled")
+        debugLog("🗺️ MapViewModel initialized - VIEWPORT-ONLY VERSION")
     }
 
     // MARK: - Private Methods
@@ -166,192 +119,104 @@ final class MapViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Smart pin caching system
-    func fetchRestaurantsWithCaching(for coordinate: CLLocationCoordinate2D) async {
-        if let cachedData = getRestaurantsForRegion(coordinate) {
-            debugLog(" REGION CACHED: Using existing data for \(coordinate)")
-            await MainActor.run {
-                let newRestaurants = cachedData.filter { restaurant in
-                    !self.displayedPinIds.contains(restaurant.id)
-                }
-                
-                if !newRestaurants.isEmpty {
-                    self.restaurants.append(contentsOf: newRestaurants)
-                    self.displayedPinIds.formUnion(Set(newRestaurants.map { $0.id }))
-                    debugLog(" ADDED \(newRestaurants.count) new pins to existing \(self.restaurants.count) pins")
-                }
-                self.isLoadingRestaurants = false
-            }
+    // MARK: - NEW: Viewport-Based Restaurant Fetching
+    
+    func fetchRestaurantsForViewport(_ mapRegion: MKCoordinateRegion) async {
+        // ENHANCED: Strict debouncing to prevent API spam
+        let now = Date()
+        guard now.timeIntervalSince(lastUpdateTime) >= debounceInterval else {
+            debugLog("🗺️ DEBOUNCED: Skipping fetch (too soon)")
             return
         }
+        lastUpdateTime = now
         
-        if !shouldFetchNewData(for: coordinate) {
-            debugLog(" MOVEMENT TOO SMALL: Skipping fetch for \(coordinate)")
-            return
-        }
+        // Calculate viewport bounds
+        let center = mapRegion.center
+        let span = mapRegion.span
         
-        debugLog(" FETCHING NEW REGION: \(coordinate)")
-        await fetchRestaurantsForNewRegion(coordinate)
-    }
-    
-    private func getRestaurantsForRegion(_ coordinate: CLLocationCoordinate2D) -> [Restaurant]? {
-        loadedRegions.removeAll { $0.isExpired }
+        let minLat = center.latitude - (span.latitudeDelta / 2)
+        let maxLat = center.latitude + (span.latitudeDelta / 2)
+        let minLon = center.longitude - (span.longitudeDelta / 2)
+        let maxLon = center.longitude + (span.longitudeDelta / 2)
         
-        for region in loadedRegions {
-            if region.contains(coordinate) {
-                let regionRestaurants = restaurants.filter { restaurant in
-                    region.restaurantIds.contains(restaurant.id)
-                }
-                if !regionRestaurants.isEmpty {
-                    return regionRestaurants
-                }
-            }
-        }
-        
-        return nil
-    }
-    
-    private func shouldFetchNewData(for coordinate: CLLocationCoordinate2D) -> Bool {
-        guard let lastLocation = cacheLocation else { return true }
-        
-        let lastLocationCL = CLLocation(latitude: lastLocation.latitude, longitude: lastLocation.longitude)
-        let currentLocationCL = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        let distance = lastLocationCL.distance(from: currentLocationCL)
-        
-        return distance >= minimumMovementThreshold
-    }
-    
-    private func fetchRestaurantsForNewRegion(_ coordinate: CLLocationCoordinate2D) async {
         await MainActor.run {
-            self.isLoadingRestaurants = true
+            isLoadingRestaurants = true
         }
+        
+        debugLog("🗺️ VIEWPORT FETCH: (\(minLat), \(minLon)) to (\(maxLat), \(maxLon))")
         
         do {
-            let newRestaurants = try await _overpassService.fetchAllNearbyRestaurants(
-                near: coordinate,
-                radius: cacheRadius
+            // DIRECT API call using viewport bounds - NO CACHING
+            let allRestaurants = try await overpassService.fetchRestaurants(
+                minLat: minLat,
+                minLon: minLon, 
+                maxLat: maxLat,
+                maxLon: maxLon
             )
             
+            // HARD LIMIT: Only show top 50 restaurants in viewport
+            let sortedRestaurants = sortRestaurantsByPriority(allRestaurants)
+            let limitedRestaurants = Array(sortedRestaurants.prefix(maxPinsInViewport))
+            
             await MainActor.run {
-                let trulyNewRestaurants = newRestaurants.filter { restaurant in
-                    !self.displayedPinIds.contains(restaurant.id)
-                }
-                
-                if !trulyNewRestaurants.isEmpty {
-                    self.restaurants.append(contentsOf: trulyNewRestaurants)
-                    self.displayedPinIds.formUnion(Set(trulyNewRestaurants.map { $0.id }))
-                }
-                
-                let cachedRegion = CachedRegion(
-                    center: coordinate,
-                    radius: self.cacheRadius * 1609.34,
-                    timestamp: Date(),
-                    restaurantIds: Set(newRestaurants.map { $0.id })
-                )
-                self.loadedRegions.append(cachedRegion)
-                
-                self.cacheLocation = coordinate
-                self.cacheTimestamp = Date()
-                
+                self.restaurants = limitedRestaurants
                 self.isLoadingRestaurants = false
-                debugLog(" LOADED \(trulyNewRestaurants.count) new restaurants. Total: \(self.restaurants.count)")
+                
+                let nutritionCount = limitedRestaurants.filter { $0.hasNutritionData }.count
+                debugLog("🗺️ VIEWPORT: Loaded \(limitedRestaurants.count)/\(allRestaurants.count) restaurants (\(nutritionCount) with nutrition)")
             }
-            
-            await preloadOnlyNutritionAvailability(for: newRestaurants)
-            
-            // ENHANCED: Calculate scores for nutrition restaurants
-            await calculateScoresForNutritionRestaurants(newRestaurants)
-            
         } catch {
             await MainActor.run {
                 self.isLoadingRestaurants = false
-                debugLog(" Error fetching restaurants: \(error)")
+                debugLog("🗺️ Error fetching restaurants: \(error)")
             }
         }
     }
     
-    /// Calculate scores for restaurants with nutrition data
-    private func calculateScoresForNutritionRestaurants(_ restaurants: [Restaurant]) async {
-        let nutritionRestaurants = restaurants.filter { $0.hasNutritionData }
-        
-        guard !nutritionRestaurants.isEmpty else {
-            return
-        }
-        
-        debugLog(" Starting scoring calculation for \(nutritionRestaurants.count) nutrition restaurants")
-        
-        // Calculate scores in background
-        Task.detached(priority: .utility) {
-            await self.scoringService.calculateScoresForRestaurants(nutritionRestaurants)
-        }
-    }
-    
-    private func preloadOnlyNutritionAvailability(for restaurants: [Restaurant]) async {
-        let nutritionRestaurants = restaurants.filter { $0.hasNutritionData }
-        debugLog(" NUTRITION CHECK: \(nutritionRestaurants.count) restaurants have nutrition data (no menu loading)")
-        
-        for restaurant in nutritionRestaurants.prefix(5) {
-            if await nutritionManager.hasNutritionData(for: restaurant.name) {
-                debugLog(" \(restaurant.name) - nutrition available")
-            }
-        }
-    }
-
     // MARK: - Map Region Updates
     func updateMapRegion(_ newRegion: MKCoordinateRegion) {
         region = newRegion
         updateAreaNameDebounced(for: newRegion.center)
         
+        // IMMEDIATE: Fetch restaurants for new viewport
         Task {
-            await smartRegionUpdate(for: newRegion.center)
+            await fetchRestaurantsForViewport(newRegion)
         }
-    }
-    
-    private func smartRegionUpdate(for coordinate: CLLocationCoordinate2D) async {
-        if getRestaurantsForRegion(coordinate) != nil {
-            debugLog(" REGION KNOWN: No fetch needed for \(coordinate)")
-            return
-        }
-        
-        await fetchRestaurantsWithCaching(for: coordinate)
     }
     
     func fetchRestaurantsForMapRegion(_ mapRegion: MKCoordinateRegion) async {
-        let now = Date()
-        guard now.timeIntervalSince(lastUpdateTime) > 3.0 else {
-            debugLog(" RATE LIMITED: Skipping fetch, too soon after last update")
-            return
-        }
-        
-        let currentSpan = mapRegion.span.latitudeDelta
-        let shouldFetch = currentSpan <= 0.02
-        
-        guard shouldFetch else {
-            debugLog(" SKIPPED: Zoom level too high for fetching: \(String(format: "%.3f", currentSpan))")
-            return
-        }
-        
-        lastUpdateTime = now
-        
-        let coordinate = mapRegion.center
-        await fetchRestaurantsWithCaching(for: coordinate)
+        await fetchRestaurantsForViewport(mapRegion)
     }
 
     func fetchRestaurantsForZoomLevel(_ center: CLLocationCoordinate2D, zoomLevel: ZoomLevel) async {
-        await fetchRestaurantsForMapCenter(center)
+        let region = MKCoordinateRegion(
+            center: center,
+            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        )
+        await fetchRestaurantsForViewport(region)
     }
 
     func updateZoomLevel(for region: MKCoordinateRegion) {
-        // No-op for simplicity
+        // No-op - viewport fetching handles this automatically
     }
 
-    // MARK: - Data refresh
+    // MARK: - DEPRECATED: Legacy methods for backward compatibility
+    func fetchRestaurantsSimple(for coordinate: CLLocationCoordinate2D) async {
+        // Convert to region and use viewport method
+        let region = MKCoordinateRegion(
+            center: coordinate,
+            span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        )
+        await fetchRestaurantsForViewport(region)
+    }
+
     func refreshData(for coordinate: CLLocationCoordinate2D) {
         guard !isLoadingRestaurants else { return }
         
-        debugLog(" MANUAL REFRESH: Force clearing cache and fetching fresh data")
+        debugLog("🗺️ MANUAL REFRESH")
         
-        clearAllCachedData()
+        restaurants.removeAll()
+        lastUpdateTime = Date.distantPast  // Force refresh
         
         locationManager.refreshCurrentLocation()
         
@@ -365,30 +230,14 @@ final class MapViewModel: ObservableObject {
             )
         }
         
-        Task.detached(priority: .utility) { [weak self] in
-            guard let self = self else { return }
-            
-            await MainActor.run {
-                self.loadingProgress = 0.2
-            }
-            
-            await self.fetchRestaurantsForNewRegion(coordinate)
+        Task {
+            await self.fetchRestaurantsForViewport(self.region)
             
             await MainActor.run {
                 self.loadingProgress = 1.0
                 self.hasInitialized = true
-                debugLog(" MANUAL REFRESH COMPLETE: \(self.restaurants.count) restaurants")
             }
         }
-    }
-    
-    private func clearAllCachedData() {
-        restaurants.removeAll()
-        displayedPinIds.removeAll()
-        loadedRegions.removeAll()
-        cacheLocation = nil
-        cacheTimestamp = nil
-        debugLog(" CACHE CLEARED: All pin and region data cleared")
     }
     
     // MARK: - Backward compatibility methods
@@ -401,7 +250,7 @@ final class MapViewModel: ObservableObject {
     }
     
     func fetchRestaurantsForMapCenter(_ center: CLLocationCoordinate2D) async {
-        await fetchRestaurantsWithCaching(for: center)
+        await fetchRestaurantsSimple(for: center)
     }
     
     func fetchRestaurantsForCurrentRegion() async {
@@ -434,32 +283,20 @@ final class MapViewModel: ObservableObject {
         }
         
         await MainActor.run {
-            self.filteredRestaurants = Array(sortedResults.prefix(50))
+            self.filteredRestaurants = Array(sortedResults.prefix(25))  // Limit search results too
             self.showSearchResults = true
             self.isLoadingRestaurants = false
-            debugLog(" Search completed: \(self.filteredRestaurants.count) results for '\(query)'")
         }
     }
     
     func clearSearch() {
         showSearchResults = false
         filteredRestaurants = []
-        debugLog(" Search cleared")
     }
 
-    // MARK: - Location and area management
+    // MARK: - Location management
     func setInitialLocation(_ coordinate: CLLocationCoordinate2D) {
-        if let lastCoordinate = cacheLocation {
-            let lastLocation = CLLocation(latitude: lastCoordinate.latitude, longitude: lastCoordinate.longitude)
-            let currentLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            let distance = lastLocation.distance(from: currentLocation)
-            
-            if distance < 100 {
-                return
-            }
-        }
-        
-        debugLog(" Setting initial location: \(coordinate)")
+        debugLog("🗺️ Setting initial location: \(coordinate)")
         
         DispatchQueue.main.async {
             self.region = MKCoordinateRegion(
@@ -468,8 +305,8 @@ final class MapViewModel: ObservableObject {
             )
         }
         
-        Task.detached(priority: .utility) { [weak self] in
-            await self?.updateAreaName(for: coordinate)
+        Task {
+            await updateAreaName(for: coordinate)
         }
     }
 
@@ -492,9 +329,9 @@ final class MapViewModel: ObservableObject {
     func updateAreaNameDebounced(for coordinate: CLLocationCoordinate2D) {
         guard shouldPerformGeocoding(for: coordinate) else { return }
         
-        Task.detached(priority: .utility) { [weak self] in
+        Task {
             try? await Task.sleep(nanoseconds: 3_000_000_000)
-            await self?.updateAreaName(for: coordinate)
+            await updateAreaName(for: coordinate)
         }
     }
 
@@ -512,13 +349,11 @@ final class MapViewModel: ObservableObject {
                 
                 await MainActor.run {
                     self.currentAreaName = areaName
-                    debugLog(" Updated area name: \(areaName)")
                 }
             }
         } catch {
             await MainActor.run {
                 self.currentAreaName = "Unknown Location"
-                debugLog(" Geocoding failed: \(error)")
             }
         }
     }
@@ -541,96 +376,21 @@ final class MapViewModel: ObservableObject {
         return true
     }
     
-    private func createFallbackRestaurants(for coordinate: CLLocationCoordinate2D) -> [Restaurant] {
-        debugLog(" Using fallback nutrition restaurants for location: \(coordinate)")
-        
-        return [
-            Restaurant(
-                id: 999991,
-                name: "McDonald's",
-                latitude: coordinate.latitude + 0.001,
-                longitude: coordinate.longitude + 0.001,
-                address: "123 Main St",
-                cuisine: "Fast Food",
-                openingHours: "24/7",
-                phone: nil,
-                website: nil,
-                type: "node"
-            ),
-            Restaurant(
-                id: 999992,
-                name: "Starbucks",
-                latitude: coordinate.latitude - 0.001,
-                longitude: coordinate.longitude + 0.001,
-                address: "456 Coffee Ave",
-                cuisine: "Cafe",
-                openingHours: "6 AM - 10 PM",
-                phone: nil,
-                website: nil,
-                type: "node"
-            ),
-            Restaurant(
-                id: 999993,
-                name: "Subway",
-                latitude: coordinate.latitude + 0.001,
-                longitude: coordinate.longitude - 0.001,
-                address: "789 Sandwich Blvd",
-                cuisine: "Sandwiches",
-                openingHours: "10 AM - 10 PM",
-                phone: nil,
-                website: nil,
-                type: "node"
-            ),
-            Restaurant(
-                id: 999994,
-                name: "Chipotle",
-                latitude: coordinate.latitude - 0.001,
-                longitude: coordinate.longitude - 0.001,
-                address: "321 Burrito Lane",
-                cuisine: "Mexican",
-                openingHours: "11 AM - 10 PM",
-                phone: nil,
-                website: nil,
-                type: "node"
-            ),
-            Restaurant(
-                id: 999995,
-                name: "Panera Bread",
-                latitude: coordinate.latitude + 0.002,
-                longitude: coordinate.longitude,
-                address: "555 Bread St",
-                cuisine: "Bakery",
-                openingHours: "6 AM - 9 PM",
-                phone: nil,
-                website: nil,
-                type: "node"
-            )
-        ]
-    }
+    // MARK: - REMOVED: All complex scoring and caching methods
     
     func recalculateScores() {
-        Task.detached(priority: .utility) {
-            await self.scoringService.calculateScoresForRestaurants(self.restaurants)
-        }
+        // No-op: Scores calculated on-demand in RestaurantDetailView
     }
-}
 
-// MARK: - Filter clearing extension
-extension MapViewModel {
     func clearFiltersOnHomeScreen() {
-        debugLog(" Clearing filters for home screen")
-        currentFilter = RestaurantFilter()
+        // No-op: No filters to clear in simplified version
     }
     
     func createCleanMapViewModel() -> MapViewModel {
         let cleanViewModel = MapViewModel()
-        cleanViewModel.restaurants = self.restaurants
-        cleanViewModel.loadedRegions = self.loadedRegions
         cleanViewModel.region = self.region
         cleanViewModel.currentAreaName = self.currentAreaName
         cleanViewModel.hasInitialized = self.hasInitialized
-        cleanViewModel.cacheLocation = self.cacheLocation
-        cleanViewModel.cacheTimestamp = self.cacheTimestamp
         return cleanViewModel
     }
 }
