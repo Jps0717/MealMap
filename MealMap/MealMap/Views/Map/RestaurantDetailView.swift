@@ -15,14 +15,16 @@ struct RestaurantDetailView: View {
     @State private var showingMenuScanner = false
     @State private var showSlowLoadingTip = false
     @State private var slowLoadingTimer: Timer?
+    @State private var showingSignIn = false
 
-    @StateObject private var authService = FirebaseAuthService.shared
+    @StateObject private var authService = AuthenticationManager.shared
     
     // SIMPLIFIED: Use RestaurantMapScoringService for on-demand scoring
     @StateObject private var scoringService = RestaurantMapScoringService.shared
     @State private var restaurantMapScore: RestaurantMapScore?
     @State private var isCalculatingScore = false
     @State private var showingScoreLegend = false
+    @Environment(\.dismiss) private var dismiss
 
     enum MenuCategory: String, CaseIterable {
         case all = "All"
@@ -63,7 +65,8 @@ struct RestaurantDetailView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
-                        isPresented = false
+                        HapticService.shared.buttonPress()
+                        dismiss()
                     } label: {
                         Image(systemName: "xmark")
                             .font(.system(size: 16, weight: .semibold))
@@ -109,7 +112,7 @@ struct RestaurantDetailView: View {
         }
         .onDisappear { cleanup() }
         .onChange(of: nutritionManager.currentRestaurantData) { _, newData in 
-            debugLog("🍽️ DATA CHANGE: \(newData?.restaurantName ?? "nil")")
+            debugLog(" DATA CHANGE: \(newData?.restaurantName ?? "nil")")
             updateViewStateBasedOnData()
         }
         .onChange(of: nutritionManager.errorMessage) { _, newError in 
@@ -131,14 +134,15 @@ struct RestaurantDetailView: View {
     }
     
     private var shouldShowScoring: Bool {
-        hasNutritionData && (restaurantMapScore != nil || isCalculatingScore)
+        // Always show scoring section if restaurant has nutrition data (to encourage sign-up)
+        return hasNutritionData
     }
     
     // SIMPLIFIED: Calculate restaurant score on-demand using existing service
     private func calculateRestaurantScore() {
         guard hasNutritionData && restaurantMapScore == nil && !isCalculatingScore else { return }
         
-        debugLog("📊 Calculating on-demand score for \(restaurant.name)")
+        debugLog(" Calculating on-demand score for \(restaurant.name)")
         isCalculatingScore = true
         
         Task {
@@ -147,7 +151,7 @@ struct RestaurantDetailView: View {
             await MainActor.run {
                 self.restaurantMapScore = score
                 self.isCalculatingScore = false
-                debugLog("📊 Score calculated: \(score?.overallScore ?? 0)")
+                debugLog(" Score calculated: \(score?.overallScore ?? 0)")
             }
         }
     }
@@ -245,7 +249,7 @@ struct RestaurantDetailView: View {
                         .multilineTextAlignment(.center)
                     
                     Button {
-                        isPresented = false
+                        dismiss()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             isPresented = true
                         }
@@ -429,14 +433,19 @@ struct RestaurantDetailView: View {
                 
                 Spacer()
                 
-                Button("Guide") {
-                    showingScoreLegend = true
+                if authService.isAuthenticated {
+                    Button("Guide") {
+                        showingScoreLegend = true
+                    }
+                    .font(.caption)
+                    .foregroundColor(.blue)
                 }
-                .font(.caption)
-                .foregroundColor(.blue)
             }
             
-            if isCalculatingScore {
+            if !authService.isAuthenticated {
+                // Show blurred/locked state when not authenticated
+                restaurantScoreLockedView
+            } else if isCalculatingScore {
                 HStack {
                     ProgressView()
                         .scaleEffect(0.8)
@@ -449,8 +458,6 @@ struct RestaurantDetailView: View {
                 .cornerRadius(12)
             } else if let score = restaurantMapScore {
                 SimpleRestaurantScoreCard(score: score)
-            } else if !authService.isAuthenticated {
-                authPromptView
             }
         }
         .padding()
@@ -458,35 +465,81 @@ struct RestaurantDetailView: View {
         .cornerRadius(12)
     }
     
-    private var authPromptView: some View {
-        VStack(spacing: 12) {
-            HStack {
-                Image(systemName: "person.crop.circle.badge.plus")
+    private var restaurantScoreLockedView: some View {
+        HStack(spacing: 16) {
+            // Blurred score circle with realistic-looking data
+            ZStack {
+                Circle()
+                    .stroke(Color.blue.opacity(0.3), lineWidth: 4)
+                    .frame(width: 50, height: 50)
+                
+                Circle()
+                    .trim(from: 0, to: 0.75) // Show as if it's a "Good" score
+                    .stroke(Color.blue, lineWidth: 4)
+                    .frame(width: 50, height: 50)
+                    .rotationEffect(.degrees(-90))
+                    .blur(radius: 2)
+                
+                Text("••")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
                     .foregroundColor(.blue)
-                    .font(.title2)
+                    .blur(radius: 1)
                 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Get Personalized Scores")
-                        .font(.body)
-                        .fontWeight(.medium)
-                    
-                    Text("Sign in to get nutrition scores for all menu items")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                // Lock overlay
+                VStack(spacing: 2) {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 16))
+                        .foregroundColor(.gray)
+                        .background(Circle().fill(Color.white).frame(width: 24, height: 24))
                 }
-                
-                Spacer()
             }
             
-            Button("Sign In") {
-                // Sign in action
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("••••")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.blue)
+                        .blur(radius: 1.5)
+                    
+                    Text("👍")
+                        .font(.subheadline)
+                        .blur(radius: 1)
+                    
+                    Text("🔒")
+                        .font(.subheadline)
+                }
+                
+                Text("••• of ••• items scored")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .blur(radius: 1)
+                
+                Text("Sign in to view personalized restaurant scoring")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
             }
-            .font(.caption)
-            .foregroundColor(.white)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(Color.blue)
-            .cornerRadius(8)
+            
+            Spacer()
+            
+            VStack(spacing: 4) {
+                Button("Sign In") {
+                    HapticService.shared.buttonPress()
+                    showingSignIn = true
+                }
+                .font(.caption)
+                .foregroundColor(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(Color.blue)
+                .cornerRadius(8)
+                
+                Text("Unlock")
+                    .font(.caption2)
+                    .foregroundColor(.blue)
+            }
         }
         .padding()
         .background(Color.blue.opacity(0.05))
@@ -495,6 +548,16 @@ struct RestaurantDetailView: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.blue.opacity(0.3), lineWidth: 1)
         )
+        .sheet(isPresented: $showingSignIn) {
+            AuthenticationScreen(
+                onSignUpSuccess: {
+                    showingSignIn = false
+                },
+                onSignInSuccess: {
+                    showingSignIn = false
+                }
+            )
+        }
     }
 
     private var restaurantInfoSquares: some View {
@@ -598,7 +661,7 @@ struct RestaurantDetailView: View {
 
     private func setupView() {
         hasNutritionData = nutritionManager.hasNutritionData(for: restaurant.name)
-        debugLog("🍽️ Opening '\(restaurant.name)' – has nutrition: \(hasNutritionData)")
+        debugLog(" Opening '\(restaurant.name)' – has nutrition: \(hasNutritionData)")
 
         AnalyticsService.shared.trackRestaurantView(
             restaurantName: restaurant.name,
@@ -610,7 +673,7 @@ struct RestaurantDetailView: View {
         if hasNutritionData {
             if let existingData = nutritionManager.currentRestaurantData,
                existingData.restaurantName.lowercased() == restaurant.name.lowercased() {
-                debugLog("🍽️ Data already loaded for \(restaurant.name), showing menu immediately")
+                debugLog(" Data already loaded for \(restaurant.name), showing menu immediately")
                 
                 AnalyticsService.shared.trackNutritionDataUsage(
                     restaurantName: restaurant.name,
@@ -624,7 +687,7 @@ struct RestaurantDetailView: View {
                 calculateRestaurantScore()
             } else {
                 viewState = .loading
-                debugLog("🍽️ Loading nutrition for \(restaurant.name)")
+                debugLog(" Loading nutrition for \(restaurant.name)")
                 nutritionManager.loadNutritionData(for: restaurant.name)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -644,7 +707,7 @@ struct RestaurantDetailView: View {
         if let data = nutritionManager.currentRestaurantData {
             if data.restaurantName.lowercased().contains(restaurant.name.lowercased()) ||
                restaurant.name.lowercased().contains(data.restaurantName.lowercased()) {
-                debugLog("🍽️ UI SUCCESS: Menu loaded for '\(restaurant.name)' with \(data.items.count) items")
+                debugLog(" UI SUCCESS: Menu loaded for '\(restaurant.name)' with \(data.items.count) items")
                 
                 AnalyticsService.shared.trackNutritionDataUsage(
                     restaurantName: restaurant.name,
@@ -659,12 +722,12 @@ struct RestaurantDetailView: View {
                 stopSlowLoadingTimer()
                 return
             } else {
-                debugLog("🍽️ Data mismatch: Expected '\(restaurant.name)', got '\(data.restaurantName)'")
+                debugLog(" Data mismatch: Expected '\(restaurant.name)', got '\(data.restaurantName)'")
             }
         }
         
         if let error = nutritionManager.errorMessage {
-            debugLog("🍽️ Error state: \(error)")
+            debugLog(" Error state: \(error)")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .error(error)
             }
@@ -673,7 +736,7 @@ struct RestaurantDetailView: View {
         }
         
         if nutritionManager.isLoading && hasNutritionData {
-            debugLog("🍽️ Still loading...")
+            debugLog(" Still loading...")
             if case .loading = viewState {
             } else {
                 withAnimation(.easeInOut(duration: 0.3)) {
@@ -685,13 +748,13 @@ struct RestaurantDetailView: View {
         }
         
         if hasNutritionData {
-            debugLog("🍽️ Should have data but loading failed")
+            debugLog(" Should have data but loading failed")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .error("Failed to load nutrition data for \(restaurant.name)")
             }
             stopSlowLoadingTimer()
         } else {
-            debugLog("🍽️ No nutrition data available")
+            debugLog(" No nutrition data available")
             withAnimation(.easeInOut(duration: 0.3)) {
                 viewState = .noData
             }
@@ -906,7 +969,7 @@ struct RestaurantDetailView: View {
                     .padding(.horizontal, 40)
                 
                 Button {
-                    debugLog("🍽️ Manual retry for \(restaurant.name)")
+                    debugLog(" Manual retry for \(restaurant.name)")
                     nutritionManager.clearData()
                     withAnimation(.easeInOut(duration: 0.3)) {
                         viewState = .loading

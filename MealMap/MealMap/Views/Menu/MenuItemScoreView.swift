@@ -5,6 +5,7 @@ struct MenuItemScoreCard: View {
     let score: MenuItemScore
     let compact: Bool
     @State private var showingDetails = false
+    @ObservedObject private var authManager = AuthenticationManager.shared
     
     init(score: MenuItemScore, compact: Bool = false) {
         self.score = score
@@ -12,10 +13,155 @@ struct MenuItemScoreCard: View {
     }
     
     var body: some View {
-        if compact {
-            compactScoreView
+        if !authManager.isAuthenticated {
+            // Show blurred/locked state when not authenticated
+            if compact {
+                compactLockedView
+            } else {
+                fullLockedView
+            }
         } else {
-            fullScoreView
+            // Show normal score when authenticated
+            if compact {
+                compactScoreView
+            } else {
+                fullScoreView
+            }
+        }
+    }
+    
+    private var compactLockedView: some View {
+        HStack(spacing: 8) {
+            // Locked score circle
+            ZStack {
+                Circle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(width: 40, height: 40)
+                    .blur(radius: 2)
+                
+                Image(systemName: "lock.fill")
+                    .font(.system(size: 16))
+                    .foregroundColor(.gray)
+            }
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Sign In")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.blue)
+                
+                Text("View Score")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            
+            Text("🔒")
+                .font(.title3)
+        }
+        .padding(8)
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+        )
+        .onTapGesture {
+            // Could trigger sign in flow here
+            showingDetails = true
+        }
+        .sheet(isPresented: $showingDetails) {
+            SignInPromptView()
+        }
+    }
+    
+    private var fullLockedView: some View {
+        VStack(spacing: 16) {
+            // Header
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Nutrition Score")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                    
+                    Text("Sign in to view personalized scores")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+                
+                Button("Sign In") {
+                    showingDetails = true
+                }
+                .font(.caption)
+                .foregroundColor(.blue)
+            }
+            
+            // Blurred/locked score display
+            HStack(spacing: 20) {
+                // Locked score circle
+                ZStack {
+                    Circle()
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width: 80, height: 80)
+                        .blur(radius: 3)
+                    
+                    VStack(spacing: 4) {
+                        Image(systemName: "lock.fill")
+                            .font(.title2)
+                            .foregroundColor(.gray)
+                        
+                        Text("Sign In")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                    }
+                }
+                
+                // Locked breakdown
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Text("•••")
+                            .font(.title3)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.gray)
+                            .blur(radius: 1)
+                        
+                        Spacer()
+                        
+                        Text("🔒")
+                            .font(.title2)
+                    }
+                    
+                    Text("Unlock personalized nutrition scoring")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                Spacer()
+            }
+            
+            // Locked breakdown grid
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 8) {
+                LockedScoreBreakdownItem(label: "Nutrition", icon: "chart.bar.fill")
+                LockedScoreBreakdownItem(label: "Goals", icon: "target")
+                LockedScoreBreakdownItem(label: "Restrictions", icon: "exclamationmark.shield.fill")
+                LockedScoreBreakdownItem(label: "Portion", icon: "scalemass.fill")
+            }
+        }
+        .padding()
+        .background(Color.gray.opacity(0.05))
+        .cornerRadius(12)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+        )
+        .onTapGesture {
+            showingDetails = true
+        }
+        .sheet(isPresented: $showingDetails) {
+            SignInPromptView()
         }
     }
     
@@ -61,6 +207,10 @@ struct MenuItemScoreCard: View {
         .padding(8)
         .background(score.scoreColor.opacity(0.1))
         .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+        )
         .onTapGesture {
             showingDetails = true
         }
@@ -183,6 +333,135 @@ struct MenuItemScoreCard: View {
         )
         .sheet(isPresented: $showingDetails) {
             MenuItemScoreDetailView(score: score)
+        }
+    }
+}
+
+// MARK: - Locked Score Breakdown Item
+struct LockedScoreBreakdownItem: View {
+    let label: String
+    let icon: String
+    
+    var body: some View {
+        VStack(spacing: 4) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundColor(.gray)
+                    .font(.caption)
+                
+                Text(label)
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(.gray)
+                
+                Spacer()
+            }
+            
+            HStack {
+                Text("•••")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(.gray)
+                    .blur(radius: 1)
+                
+                Spacer()
+                
+                // Blurred progress bar
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(height: 2)
+                    .blur(radius: 1)
+            }
+        }
+        .padding(8)
+        .background(Color.gray.opacity(0.1))
+        .cornerRadius(6)
+    }
+}
+
+// MARK: - Sign In Prompt View
+struct SignInPromptView: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 24) {
+                // Header
+                VStack(spacing: 16) {
+                    Image(systemName: "lock.circle.fill")
+                        .font(.system(size: 60))
+                        .foregroundColor(.blue)
+                    
+                    Text("Sign In Required")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                    
+                    Text("Sign in to unlock personalized nutrition scoring based on your health goals and dietary preferences.")
+                        .font(.body)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
+                }
+                
+                // Benefits
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("With MealMap scoring, you get:")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                    
+                    BenefitRow(icon: "target", text: "Personalized scores based on your goals")
+                    BenefitRow(icon: "heart.circle", text: "Dietary restriction compliance")
+                    BenefitRow(icon: "chart.bar.fill", text: "Detailed nutrition breakdown")
+                    BenefitRow(icon: "person.crop.circle.badge.checkmark", text: "Recommendations tailored to you")
+                }
+                .padding()
+                .background(Color.blue.opacity(0.1))
+                .cornerRadius(12)
+                
+                Spacer()
+                
+                // Sign in button
+                Button("Sign In to MealMap") {
+                    // Navigate to sign in or trigger authentication
+                    dismiss()
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
+                .background(Color.blue)
+                .cornerRadius(12)
+            }
+            .padding()
+            .navigationTitle("Nutrition Scoring")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Benefit Row
+struct BenefitRow: View {
+    let icon: String
+    let text: String
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .foregroundColor(.blue)
+                .font(.system(size: 16))
+                .frame(width: 20)
+            
+            Text(text)
+                .font(.body)
+                .foregroundColor(.primary)
+            
+            Spacer()
         }
     }
 }
@@ -466,6 +745,10 @@ struct ScoreBreakdownRow: View {
         .padding()
         .background(color.opacity(0.05))
         .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+        )
     }
 }
 
@@ -502,34 +785,41 @@ struct ScoreExplanationRow: View {
         .padding()
         .background(explanation.impact.color.opacity(0.05))
         .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+        )
     }
 }
 
-#Preview {
-    MenuItemScoreCard(
-        score: MenuItemScore(
-            overallScore: 85,
-            nutritionScore: 80,
-            goalAlignmentScore: 90,
-            restrictionScore: 100,
-            portionScore: 75,
-            explanations: [
-                ScoreExplanation(
-                    category: .nutrition,
-                    impact: .positive,
-                    points: 15,
-                    reason: "High protein content supports muscle building goals"
-                ),
-                ScoreExplanation(
-                    category: .restrictions,
-                    impact: .positive,
-                    points: 0,
-                    reason: "Meets all dietary restrictions"
-                )
-            ],
-            personalizedFor: nil,
-            confidence: 0.85,
-            calculatedAt: Date()
+// Preview
+struct MenuItemScoreCard_Previews: PreviewProvider {
+    static var previews: some View {
+        MenuItemScoreCard(
+            score: MenuItemScore(
+                overallScore: 85,
+                nutritionScore: 80,
+                goalAlignmentScore: 90,
+                restrictionScore: 100,
+                portionScore: 75,
+                explanations: [
+                    ScoreExplanation(
+                        category: .nutrition,
+                        impact: .positive,
+                        points: 15,
+                        reason: "High protein content supports muscle building goals"
+                    ),
+                    ScoreExplanation(
+                        category: .restrictions,
+                        impact: .positive,
+                        points: 0,
+                        reason: "Meets all dietary restrictions"
+                    )
+                ],
+                personalizedFor: nil,
+                confidence: 0.85,
+                calculatedAt: Date()
+            )
         )
-    )
+    }
 }

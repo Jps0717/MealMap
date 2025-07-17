@@ -81,10 +81,12 @@ struct HomeScreen: View {
         .sheet(item: $selectedRestaurant) { restaurant in
             RestaurantDetailView(
                 restaurant: restaurant,
-                isPresented: .constant(true),
+                isPresented: Binding(
+                    get: { selectedRestaurant != nil },
+                    set: { if !$0 { selectedRestaurant = nil } }
+                ),
                 selectedCategory: nil
             )
-            .environmentObject(nutritionManager)
         }
         .fullScreenCover(isPresented: $showingMapScreen) {
             MapScreen(viewModel: mapViewModel)
@@ -952,7 +954,7 @@ struct HomeScreen: View {
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
-
+                
                 Text("Scan a menu and save your analysis to see it here")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
@@ -1309,18 +1311,20 @@ struct AutoSlidingCarousel: View {
                 iconColor: .blue,
                 backgroundColor: Color.blue.opacity(0.1),
                 action: {
+                    print("🎯 Scan Menu action triggered")
                     HapticService.shared.menuScan()
                     showingMenuPhotoCapture = true
                 }
             ),
             CarouselItem(
                 id: 1,
-                title: "MealMap",
+                title: "Meal Map",
                 subtitle: "Find restaurants near you",
                 icon: "map.fill",
                 iconColor: .green,
                 backgroundColor: Color.green.opacity(0.1),
                 action: {
+                    print("🎯 Meal Map action triggered")
                     HapticService.shared.navigate()
                     showingMapScreen = true
                 }
@@ -1333,6 +1337,7 @@ struct AutoSlidingCarousel: View {
                 iconColor: .purple,
                 backgroundColor: Color.purple.opacity(0.1),
                 action: {
+                    print("🎯 Meal Chat action triggered")
                     HapticService.shared.sheetPresent()
                     showingDietaryChat = true
                 }
@@ -1343,30 +1348,39 @@ struct AutoSlidingCarousel: View {
     var body: some View {
         VStack(spacing: 0) {
             // Carousel Container
-            TabView(selection: $currentIndex) {
-                ForEach(carouselItems, id: \.id) { item in
-                    CarouselItemView(item: item)
-                        .tag(item.id)
+            ZStack {
+                TabView(selection: $currentIndex) {
+                    ForEach(carouselItems, id: \.id) { item in
+                        CarouselItemView(item: item)
+                            .tag(item.id)
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                .frame(height: 100)
+                .onChange(of: currentIndex) { oldValue, newValue in
+                    // Handle manual swipe - restart timer from new position
+                    if oldValue != newValue && isActive {
+                        restartTimer()
+                    }
                 }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(height: 100)
             .clipped()
-            .onChange(of: currentIndex) { oldValue, newValue in
-                // Handle manual swipe - restart timer from new position
-                if oldValue != newValue && isActive {
-                    restartTimer()
-                }
-            }
             
             // Custom Page Indicators
             HStack(spacing: 8) {
                 ForEach(0..<carouselItems.count, id: \.self) { index in
-                    Circle()
-                        .fill(index == currentIndex ? Color.blue : Color.gray.opacity(0.3))
-                        .frame(width: 8, height: 8)
-                        .scaleEffect(index == currentIndex ? 1.2 : 1.0)
-                        .animation(.easeInOut(duration: 0.3), value: currentIndex)
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            currentIndex = index
+                        }
+                        restartTimer()
+                    }) {
+                        Circle()
+                            .fill(index == currentIndex ? Color.blue : Color.gray.opacity(0.3))
+                            .frame(width: 8, height: 8)
+                            .scaleEffect(index == currentIndex ? 1.2 : 1.0)
+                            .animation(.easeInOut(duration: 0.3), value: currentIndex)
+                    }
                 }
             }
             .padding(.top, 12)
@@ -1427,6 +1441,71 @@ struct AutoSlidingCarousel: View {
     }
 }
 
+struct CarouselItemView: View {
+    let item: CarouselItem
+    
+    var body: some View {
+        Button(action: {
+            // Add debug print to verify tap is registered
+            print("🎯 Carousel item tapped: \(item.title)")
+            HapticService.shared.lightImpact()
+            item.action()
+        }) {
+            HStack(spacing: 16) {
+                // Icon Container
+                ZStack {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(item.backgroundColor)
+                        .frame(width: 60, height: 60)
+                    
+                    Image(systemName: item.icon)
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundColor(item.iconColor)
+                }
+                
+                // Content
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.title)
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundColor(.primary)
+                        .lineLimit(1)
+                    
+                    Text(item.subtitle)
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundColor(.secondary)
+                        .lineLimit(2)
+                }
+                
+                Spacer()
+                
+                // Arrow
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.gray)
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(.systemBackground))
+                    .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+            )
+            .padding(.horizontal, 16)
+        }
+        .buttonStyle(.plain)
+        .contentShape(Rectangle())
+        .simultaneousGesture(
+            TapGesture()
+                .onEnded { _ in
+                    // Additional fallback tap handling
+                    print("🎯 Fallback tap detected for: \(item.title)")
+                    HapticService.shared.lightImpact()
+                    item.action()
+                }
+        )
+    }
+}
+
 // MARK: - Supporting Models and Views
 struct CuisineCategory {
     let name: String
@@ -1479,58 +1558,6 @@ struct CarouselItem {
     let backgroundColor: Color
     let action: () -> Void
 }
-
-struct CarouselItemView: View {
-    let item: CarouselItem
-    
-    var body: some View {
-        Button(action: item.action) {
-            HStack(spacing: 16) {
-                // Icon Container
-                ZStack {
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(item.backgroundColor)
-                        .frame(width: 60, height: 60)
-                    
-                    Image(systemName: item.icon)
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundColor(item.iconColor)
-                }
-                
-                // Content
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(item.title)
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.primary)
-                        .lineLimit(1)
-                    
-                    Text(item.subtitle)
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .foregroundColor(.secondary)
-                        .lineLimit(2)
-                }
-                
-                Spacer()
-                
-                // Arrow
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.gray)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color(.systemBackground))
-                    .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
-            )
-            .padding(.horizontal, 16)
-        }
-        .buttonStyle(.plain)
-    }
-}
-
-// MARK: - Food Type Carousel Component
 
 struct FoodTypeCarousel: View {
     @ObservedObject var mapViewModel: MapViewModel
@@ -1614,10 +1641,12 @@ struct FoodTypeCategoryView: View {
     let foodType: FoodType
     @ObservedObject var mapViewModel: MapViewModel
     
+    @StateObject private var locationManager = LocationManager.shared
     @State private var restaurants: [Restaurant] = []
     @State private var isLoading = false
     @State private var errorMessage: String?
     @State private var selectedRestaurant: Restaurant?
+    @State private var hasAttemptedInitialLoad = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -1690,6 +1719,11 @@ struct FoodTypeCategoryView: View {
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
+                    
+                    Button("Search Again") {
+                        loadRestaurants()
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -1713,7 +1747,30 @@ struct FoodTypeCategoryView: View {
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(.systemGroupedBackground))
         .onAppear {
-            loadRestaurants()
+            // Auto-load restaurants when view appears
+            if !hasAttemptedInitialLoad {
+                hasAttemptedInitialLoad = true
+                loadRestaurants()
+            }
+        }
+        .onReceive(locationManager.$lastLocation) { location in
+            // Auto-retry when location becomes available
+            if location != nil && restaurants.isEmpty && !isLoading {
+                loadRestaurants()
+            }
+        }
+        .onReceive(locationManager.$authorizationStatus) { status in
+            // Handle location permission changes
+            switch status {
+            case .authorizedWhenInUse, .authorizedAlways:
+                if restaurants.isEmpty && !isLoading {
+                    loadRestaurants()
+                }
+            case .denied, .restricted:
+                errorMessage = "Location access is required to find restaurants near you. Please enable it in Settings."
+            default:
+                break
+            }
         }
         .sheet(item: $selectedRestaurant) { restaurant in
             RestaurantDetailView(
@@ -1725,14 +1782,51 @@ struct FoodTypeCategoryView: View {
     }
     
     private func loadRestaurants() {
-        guard let userLocation = LocationManager().lastLocation?.coordinate else {
-            errorMessage = "Location not available"
+        errorMessage = nil
+        isLoading = true
+        
+        // Check location authorization first
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            // Request permission and wait for response
+            locationManager.requestLocationPermission()
+            // Set a timeout to show error if permission takes too long
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                if self.isLoading && self.locationManager.authorizationStatus == .notDetermined {
+                    self.errorMessage = "Location permission required. Please allow location access to find restaurants."
+                    self.isLoading = false
+                }
+            }
+            return
+        case .denied, .restricted:
+            errorMessage = "Location access is required to find restaurants near you. Please enable it in Settings."
+            isLoading = false
+            return
+        case .authorizedWhenInUse, .authorizedAlways:
+            // We have permission, continue
+            break
+        @unknown default:
+            errorMessage = "Unknown location authorization status."
+            isLoading = false
             return
         }
         
-        isLoading = true
-        errorMessage = nil
+        // Check if we have a location
+        guard let userLocation = locationManager.lastLocation?.coordinate else {
+            // Request a fresh location update
+            locationManager.refreshCurrentLocation()
+            
+            // Set a timeout to show error if location takes too long
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                if self.isLoading && self.locationManager.lastLocation == nil {
+                    self.errorMessage = "Unable to get your location. Please make sure location services are enabled and try again."
+                    self.isLoading = false
+                }
+            }
+            return
+        }
         
+        // We have location, proceed with restaurant search
         Task {
             do {
                 // Get all nearby restaurants
@@ -1761,11 +1855,12 @@ struct FoodTypeCategoryView: View {
                 await MainActor.run {
                     self.restaurants = Array(sortedRestaurants.prefix(50))
                     self.isLoading = false
+                    self.errorMessage = nil
                 }
                 
             } catch {
                 await MainActor.run {
-                    self.errorMessage = error.localizedDescription
+                    self.errorMessage = "Failed to load restaurants: \(error.localizedDescription)"
                     self.isLoading = false
                 }
             }
@@ -1777,7 +1872,7 @@ struct RestaurantRowView: View {
     let restaurant: Restaurant
     
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 12) {
             // Restaurant emoji/icon
             Text(restaurant.emoji)
                 .font(.title2)
@@ -1788,47 +1883,39 @@ struct RestaurantRowView: View {
             // Restaurant info
             VStack(alignment: .leading, spacing: 4) {
                 Text(restaurant.name)
-                    .font(.headline)
+                    .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
                     .lineLimit(1)
                 
-                if let cuisine = restaurant.cuisine {
-                    Text(cuisine)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                }
-                
-                if let address = restaurant.address {
-                    Text(address)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
+                HStack {
+                    if let cuisine = restaurant.cuisine {
+                        Text(cuisine)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    if restaurant.hasNutritionData {
+                        Text("• Nutrition Available")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                    }
                 }
             }
             
             Spacer()
             
-            // Nutrition badge
-            if restaurant.hasNutritionData {
-                Text("📊")
-                    .font(.caption)
-            }
-            
-            // Distance (if available)
-            if let userLocation = LocationManager().lastLocation?.coordinate {
-                let distance = restaurant.distanceFrom(userLocation)
-                Text(String(format: "%.1f mi", distance))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
+            // Only show navigation arrow
+            Image(systemName: "chevron.right")
+                .font(.caption)
+                .foregroundColor(.secondary)
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, 8)
+        .padding(.horizontal, 16)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
     }
 }
-
-// MARK: - Saved Menu Card
 
 struct SavedMenuCard: View {
     let savedMenu: SavedMenuAnalysis

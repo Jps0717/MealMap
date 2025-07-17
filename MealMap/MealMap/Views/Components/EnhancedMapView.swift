@@ -19,7 +19,6 @@ struct EnhancedMapView: View {
     @State private var currentZoomLevel: CLLocationDegrees = 0.01
     @State private var notificationTimer: Timer?
     @State private var lastNotificationTime: Date = .distantPast
-    
     @StateObject private var scoringService = RestaurantMapScoringService.shared
     
     var body: some View {

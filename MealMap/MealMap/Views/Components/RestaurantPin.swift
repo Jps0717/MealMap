@@ -10,11 +10,11 @@ struct RestaurantPin: View {
     var body: some View {
         Button(action: onTap) {
             ZStack {
-                // Enhanced background with scoring-aware color
+                // Enhanced background without scoring colors
                 Circle()
                     .fill(
                         LinearGradient(
-                            colors: [restaurant.enhancedPinColor, restaurant.enhancedPinColor.opacity(0.8)],
+                            colors: [restaurant.pinBackgroundColor, restaurant.pinBackgroundColor.opacity(0.8)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
@@ -24,28 +24,16 @@ struct RestaurantPin: View {
                         Circle()
                             .stroke(Color.white, lineWidth: isSelected ? 3 : 2)
                     )
-                    .shadow(color: restaurant.enhancedPinColor.opacity(0.4), radius: isSelected ? 6 : 3, y: isSelected ? 3 : 2)
+                    .shadow(color: restaurant.pinBackgroundColor.opacity(0.4), radius: isSelected ? 6 : 3, y: isSelected ? 3 : 2)
                 
                 VStack(spacing: 1) {
-                    // Enhanced emoji (shows scoring emoji if available)
-                    Text(restaurant.enhancedEmoji)
+                    // Restaurant emoji (using basic emoji, not scoring-enhanced)
+                    Text(restaurant.emoji)
                         .font(.system(size: isSelected ? 16 : 12))
                         .scaleEffect(isSelected ? 1.1 : 1.0)
                     
-                    // Scoring indicator
-                    if let score = restaurant.mapScore {
-                        // Score grade indicator
-                        Text(String(Int(score.overallScore)))
-                            .font(.system(size: isSelected ? 8 : 6, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(2)
-                            .background(
-                                Circle()
-                                    .fill(score.scoreColor)
-                                    .frame(width: isSelected ? 16 : 12, height: isSelected ? 16 : 12)
-                            )
-                    } else if restaurant.hasNutritionData {
-                        // Nutrition data indicator (when no score calculated yet)
+                    // Simple nutrition data indicator (no score display)
+                    if restaurant.hasNutritionData {
                         Circle()
                             .fill(Color.white)
                             .frame(width: isSelected ? 4 : 3, height: isSelected ? 4 : 3)
@@ -62,6 +50,7 @@ struct RestaurantPin: View {
         .scaleEffect(isSelected ? 1.15 : 1.0)
         .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)
         .onAppear {
+            // Run a timer that runs every 60 seconds
             // Trigger scoring calculation when pin appears
             if restaurant.hasNutritionData && restaurant.mapScore == nil {
                 Task {
@@ -74,7 +63,7 @@ struct RestaurantPin: View {
 
 #Preview {
     VStack(spacing: 32) {
-        Text("Enhanced Restaurant Pins with Scoring")
+        Text("Restaurant Pins Without Scoring")
             .font(.title2)
             .fontWeight(.semibold)
         
@@ -114,43 +103,22 @@ struct RestaurantPin: View {
         }
         
         VStack(spacing: 16) {
-            Text("Scoring Legend")
+            Text("Pin Legend")
                 .font(.headline)
             
             VStack(spacing: 8) {
                 HStack {
-                    Text("🌟 Excellent (90-100)")
+                    Text("🍔 Has Nutrition Data")
                         .font(.caption)
                     Spacer()
                     Circle().fill(Color.green).frame(width: 12, height: 12)
                 }
                 
                 HStack {
-                    Text("✅ Very Good (80-89)")
+                    Text("🏪 No Nutrition Data")
                         .font(.caption)
                     Spacer()
-                    Circle().fill(Color.green).frame(width: 12, height: 12)
-                }
-                
-                HStack {
-                    Text("👍 Good (70-79)")
-                        .font(.caption)
-                    Spacer()
-                    Circle().fill(Color.blue).frame(width: 12, height: 12)
-                }
-                
-                HStack {
-                    Text("😐 Fair (60-69)")
-                        .font(.caption)
-                    Spacer()
-                    Circle().fill(Color.orange).frame(width: 12, height: 12)
-                }
-                
-                HStack {
-                    Text("👎 Poor (50-59)")
-                        .font(.caption)
-                    Spacer()
-                    Circle().fill(Color.red).frame(width: 12, height: 12)
+                    Circle().fill(Color.gray).frame(width: 12, height: 12)
                 }
             }
         }

@@ -1,10 +1,10 @@
 import SwiftUI
 import MapKit
 
-// MARK: - Enhanced Pin View with Emojis and Colors
+// MARK: - Enhanced Pin View with Emojis and Colors (No Scoring)
 struct UltraOptimizedPin: View {
     let restaurant: Restaurant
-    let hasNutritionData: Bool // Keep for backward compatibility but not used
+    let hasNutritionData: Bool
     let isSelected: Bool
     let onTap: (Restaurant) -> Void
     
@@ -19,7 +19,7 @@ struct UltraOptimizedPin: View {
                         Circle()
                             .stroke(Color.white, lineWidth: isSelected ? 3 : 2)
                     )
-                    .shadow(color: restaurant.pinColor.opacity(0.4), radius: isSelected ? 4 : 2, y: isSelected ? 2 : 1)
+                    .shadow(color: restaurant.pinBackgroundColor.opacity(0.4), radius: isSelected ? 4 : 2, y: isSelected ? 2 : 1)
                 
                 // Restaurant emoji
                 Text(restaurant.emoji)
@@ -33,10 +33,10 @@ struct UltraOptimizedPin: View {
     }
 }
 
-// MARK: - Enhanced Restaurant Annotation with Rich Visual Design
+// MARK: - Enhanced Restaurant Annotation without Scoring
 struct RestaurantAnnotationView: View {
     let restaurant: Restaurant
-    let hasNutritionData: Bool // Keep for backward compatibility but not used
+    let hasNutritionData: Bool
     let isSelected: Bool
     let onTap: (Restaurant) -> Void
     
@@ -51,14 +51,14 @@ struct RestaurantAnnotationView: View {
                         RoundedRectangle(cornerRadius: isSelected ? 16 : 12)
                             .stroke(Color.white, lineWidth: isSelected ? 3 : 2)
                     )
-                    .shadow(color: restaurant.pinColor.opacity(0.5), radius: isSelected ? 6 : 3, y: isSelected ? 3 : 2)
+                    .shadow(color: restaurant.pinBackgroundColor.opacity(0.5), radius: isSelected ? 6 : 3, y: isSelected ? 3 : 2)
                 
                 VStack(spacing: 2) {
                     // Restaurant emoji
                     Text(restaurant.emoji)
                         .font(.system(size: isSelected ? 16 : 12))
                     
-                    // Optional nutrition indicator
+                    // Simple nutrition indicator
                     if restaurant.hasNutritionData {
                         Circle()
                             .fill(Color.green)
@@ -158,7 +158,7 @@ struct ClusteredPinView: View {
 
 #Preview {
     VStack(spacing: 32) {
-        Text("Enhanced Restaurant Pins with Emojis")
+        Text("Restaurant Pins Without Scoring")
             .font(.title2)
             .fontWeight(.semibold)
         
@@ -221,6 +221,32 @@ struct ClusteredPinView: View {
                 Text("Large Cluster")
                     .font(.caption)
                     .foregroundColor(.secondary)
+            }
+        }
+        
+        VStack(spacing: 16) {
+            Text("Pin Legend")
+                .font(.headline)
+            
+            VStack(spacing: 8) {
+                HStack {
+                    Text("🍔 Has Nutrition Data")
+                        .font(.caption)
+                    Spacer()
+                    Circle().fill(Color.green).frame(width: 8, height: 8)
+                }
+                
+                HStack {
+                    Text("🏪 No Nutrition Data")
+                        .font(.caption)
+                    Spacer()
+                    Circle().fill(Color.gray).frame(width: 8, height: 8)
+                }
+                
+                Text("Scores are available in the detailed restaurant view")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
             }
         }
     }
