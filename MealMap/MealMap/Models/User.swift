@@ -45,6 +45,11 @@ struct UserPreferences: Codable {
     var dailyFiberGoal: Int = 25 // grams
     var dailySodiumLimit: Int = 2300 // mg
     
+    // Dietary Restriction Thresholds
+    var lowCarbThreshold: Double = 30     // grams (default)
+    var lowSodiumThreshold: Double = 500  // mg (default)
+    var diabeticFriendlyCarbThreshold: Double = 30 // grams (default)
+    
     // App Preferences
     var enableNotifications: Bool = true
     var enableLocationTracking: Bool = true

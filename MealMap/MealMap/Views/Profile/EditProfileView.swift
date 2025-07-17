@@ -10,7 +10,6 @@ struct EditProfileView: View {
     @State private var displayName: String = ""
     
     // Health & Activity
-    @State private var selectedHealthGoals: [HealthGoal] = []
     @State private var selectedDietaryRestrictions: [DietaryRestriction] = []
     @State private var activityLevel: ActivityLevel = .moderate
     
@@ -18,6 +17,8 @@ struct EditProfileView: View {
     @State private var isLoading = false
     @State private var showingSuccessAlert = false
     @State private var hasUnsavedChanges = false
+    
+    @State private var userPreferences: UserPreferences = UserPreferences()
     
     var body: some View {
         NavigationView {
@@ -28,9 +29,6 @@ struct EditProfileView: View {
                     
                     // Basic Information
                     basicInformationSection
-                    
-                    // Health Goals
-                    healthGoalsSection
                     
                     // Dietary Restrictions
                     dietaryRestrictionsSection
@@ -77,7 +75,6 @@ struct EditProfileView: View {
         .onChange(of: firstName) { _, _ in hasUnsavedChanges = true }
         .onChange(of: lastName) { _, _ in hasUnsavedChanges = true }
         .onChange(of: displayName) { _, _ in hasUnsavedChanges = true }
-        .onChange(of: selectedHealthGoals) { _, _ in hasUnsavedChanges = true }
         .onChange(of: selectedDietaryRestrictions) { _, _ in hasUnsavedChanges = true }
         .onChange(of: activityLevel) { _, _ in hasUnsavedChanges = true }
         .alert("Profile Updated", isPresented: $showingSuccessAlert) {
@@ -152,35 +149,6 @@ struct EditProfileView: View {
         }
     }
     
-    // MARK: - Health Goals Section
-    private var healthGoalsSection: some View {
-        ProfileCardSection(title: "Health Goals", icon: "target") {
-            VStack(spacing: 12) {
-                Text("Select your primary health and fitness goals")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 12) {
-                    ForEach(HealthGoal.allCases, id: \.self) { goal in
-                        SelectableGoalCard(
-                            goal: goal,
-                            isSelected: selectedHealthGoals.contains(goal)
-                        ) {
-                            HapticService.shared.toggle()
-                            if selectedHealthGoals.contains(goal) {
-                                selectedHealthGoals.removeAll { $0 == goal }
-                            } else {
-                                selectedHealthGoals.append(goal)
-                            }
-                            hasUnsavedChanges = true
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     // MARK: - Dietary Restrictions Section
     private var dietaryRestrictionsSection: some View {
         ProfileCardSection(title: "Dietary Restrictions", icon: "leaf.fill") {
@@ -192,17 +160,57 @@ struct EditProfileView: View {
                 
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 1), spacing: 8) {
                     ForEach(DietaryRestriction.allCases, id: \.self) { restriction in
-                        SelectableDietaryCard(
-                            restriction: restriction,
-                            isSelected: selectedDietaryRestrictions.contains(restriction)
-                        ) {
-                            HapticService.shared.toggle()
-                            if selectedDietaryRestrictions.contains(restriction) {
-                                selectedDietaryRestrictions.removeAll { $0 == restriction }
-                            } else {
-                                selectedDietaryRestrictions.append(restriction)
+                        VStack(spacing: 8) {
+                            SelectableDietaryCard(
+                                restriction: restriction,
+                                isSelected: selectedDietaryRestrictions.contains(restriction)
+                            ) {
+                                HapticService.shared.toggle()
+                                if selectedDietaryRestrictions.contains(restriction) {
+                                    selectedDietaryRestrictions.removeAll { $0 == restriction }
+                                } else {
+                                    selectedDietaryRestrictions.append(restriction)
+                                }
+                                hasUnsavedChanges = true
                             }
-                            hasUnsavedChanges = true
+                            if selectedDietaryRestrictions.contains(restriction) {
+                                if restriction == .lowCarb {
+                                    HStack {
+                                        Text("Low Carb ≤")
+                                            .font(.caption)
+                                        Stepper(value: $userPreferences.lowCarbThreshold, in: 5...100, step: 1) {
+                                            Text("\(Int(userPreferences.lowCarbThreshold))g")
+                                                .font(.caption)
+                                                .foregroundColor(.blue)
+                                        }
+                                    }
+                                    .padding(.leading, 44)
+                                }
+                                if restriction == .lowSodium {
+                                    HStack {
+                                        Text("Low Sodium ≤")
+                                            .font(.caption)
+                                        Stepper(value: $userPreferences.lowSodiumThreshold, in: 50...2000, step: 10) {
+                                            Text("\(Int(userPreferences.lowSodiumThreshold))mg")
+                                                .font(.caption)
+                                                .foregroundColor(.blue)
+                                        }
+                                    }
+                                    .padding(.leading, 44)
+                                }
+                                if restriction == .diabetic {
+                                    HStack {
+                                        Text("Diabetic-Friendly Carb ≤")
+                                            .font(.caption)
+                                        Stepper(value: $userPreferences.diabeticFriendlyCarbThreshold, in: 5...100, step: 1) {
+                                            Text("\(Int(userPreferences.diabeticFriendlyCarbThreshold))g")
+                                                .font(.caption)
+                                                .foregroundColor(.blue)
+                                        }
+                                    }
+                                    .padding(.leading, 44)
+                                }
+                            }
                         }
                     }
                 }
@@ -291,8 +299,8 @@ struct EditProfileView: View {
         firstName = user.profile.firstName
         lastName = user.profile.lastName
         displayName = user.displayName
-        selectedHealthGoals = user.profile.healthGoals
         selectedDietaryRestrictions = user.profile.dietaryRestrictions
+        userPreferences = user.preferences
         
         hasUnsavedChanges = false
     }
@@ -303,10 +311,9 @@ struct EditProfileView: View {
         var updatedProfile = authManager.currentUser?.profile ?? UserProfile()
         updatedProfile.firstName = firstName
         updatedProfile.lastName = lastName
-        updatedProfile.healthGoals = selectedHealthGoals
         updatedProfile.dietaryRestrictions = selectedDietaryRestrictions
         
-        let updatedPreferences = authManager.currentUser?.preferences ?? UserPreferences()
+        var updatedPreferences = userPreferences
         
         Task {
             await authManager.updateUserProfile(updatedProfile, preferences: updatedPreferences)
@@ -314,11 +321,9 @@ struct EditProfileView: View {
                 isLoading = false
                 hasUnsavedChanges = false
                 
-                // Check if profile is now complete
-                let hasHealthGoals = !selectedHealthGoals.isEmpty
                 let hasDietaryInfo = !selectedDietaryRestrictions.isEmpty
                 
-                if hasHealthGoals && hasDietaryInfo {
+                if hasDietaryInfo {
                     ProfileCompletionManager.shared.markProfileAsCompleted()
                     HapticService.shared.success()
                 }
@@ -386,36 +391,6 @@ struct ProfileTextField: View {
                 .background(Color(.systemGray6))
                 .cornerRadius(12)
         }
-    }
-}
-
-struct SelectableGoalCard: View {
-    let goal: HealthGoal
-    let isSelected: Bool
-    let onTap: () -> Void
-    
-    var body: some View {
-        Button(action: onTap) {
-            VStack(spacing: 8) {
-                Text(goal.emoji)
-                    .font(.title2)
-                
-                Text(goal.rawValue)
-                    .font(.caption)
-                    .fontWeight(.medium)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(isSelected ? .blue : .primary)
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 80)
-            .background(isSelected ? Color.blue.opacity(0.1) : Color(.systemGray6))
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
-            )
-        }
-        .buttonStyle(.plain)
     }
 }
 

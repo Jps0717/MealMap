@@ -405,7 +405,7 @@ struct RestaurantDetailView: View {
             }
 
             restaurantInfoSquares
-
+            
             if let category = selectedCategory {
                 HStack {
                     Image(systemName: category.icon)
@@ -1104,8 +1104,6 @@ struct MenuItemCard: View {
                     Text(item.item)
                         .font(.system(size: 16, weight: .semibold))
                         .lineLimit(2)
-                    Text("\(Int(item.calories)) calories")
-                        .foregroundColor(isHighCalories ? .red : .secondary)
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 2) {
