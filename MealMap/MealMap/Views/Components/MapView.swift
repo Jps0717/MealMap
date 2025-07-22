@@ -10,6 +10,18 @@ struct MapView: View {
     let selectedRestaurant: Restaurant?
     let onRestaurantTap: (Restaurant) -> Void
     
+    @State private var mapPosition: MapCameraPosition
+    
+    // Initialize map position based on region
+    init(region: Binding<MKCoordinateRegion>, restaurants: [Restaurant], userLocation: CLLocationCoordinate2D?, selectedRestaurant: Restaurant?, onRestaurantTap: @escaping (Restaurant) -> Void) {
+        self._region = region
+        self.restaurants = restaurants
+        self.userLocation = userLocation
+        self.selectedRestaurant = selectedRestaurant
+        self.onRestaurantTap = onRestaurantTap
+        self._mapPosition = State(initialValue: .region(region.wrappedValue))
+    }
+    
     // SIMPLIFIED: Just show all restaurants without any filtering or clustering
     private var displayedRestaurants: [Restaurant] {
         debugLog("🔍 MapView - Total restaurants to display: \(restaurants.count)")
@@ -21,57 +33,25 @@ struct MapView: View {
         
         return restaurants // Show ALL restaurants
     }
-    
-    private var mapAnnotationItems: [MapItem] {
-        var items: [MapItem] = []
-        
-        // Add user location
-        if let userLoc = userLocation {
-            items.append(.userLocation(userLoc))
-            debugLog("🔍 MapView - Added user location pin at (\(userLoc.latitude), \(userLoc.longitude))")
-        }
-        
-        // Add ALL restaurant pins without any clustering or filtering
-        let restaurantItems = displayedRestaurants.map { MapItem.restaurant($0) }
-        items.append(contentsOf: restaurantItems)
-        debugLog("🔍 MapView - Added \(restaurantItems.count) restaurant pins")
-        
-        debugLog("🔍 MapView - Total map items: \(items.count)")
-        return items
-    }
 
     var body: some View {
-        Map(
-            coordinateRegion: $region,
-            interactionModes: .all,
-            showsUserLocation: false,
-            annotationItems: mapAnnotationItems,
-            annotationContent: { item in
-                MapAnnotation(coordinate: item.coordinate) {
-                    switch item {
-                    case .userLocation:
-                        UserLocationAnnotationView()
-
-                    case .restaurant(let restaurant):
-                        // SIMPLIFIED: Pin for all restaurants (no nutrition data needed)
-                        UltraOptimizedPin(
-                            restaurant: restaurant,
-                            hasNutritionData: false, // Not used anymore since we show all restaurants
-                            isSelected: selectedRestaurant?.id == restaurant.id,
-                            onTap: { _ in 
-                                debugLog("🔍 MapView - Restaurant pin tapped: \(restaurant.name)")
-                                onRestaurantTap(restaurant) 
-                            }
-                        )
-                        
-                    case .cluster:
-                        // No clustering - this case shouldn't happen
-                        EmptyView()
-                    }
+        ZStack {
+            // Use the simple Map API
+            Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, annotationItems: displayedRestaurants) { restaurant in
+                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
+                    UltraOptimizedPin(
+                        restaurant: restaurant,
+                        hasNutritionData: restaurant.hasNutritionData,
+                        isSelected: selectedRestaurant?.id == restaurant.id,
+                        onTap: { _ in 
+                            debugLog("🔍 MapView - Restaurant pin tapped: \(restaurant.name)")
+                            onRestaurantTap(restaurant) 
+                        }
+                    )
                 }
             }
-        )
-        .mapStyle(.standard(pointsOfInterest: []))
+            .mapStyle(.standard(pointsOfInterest: []))
+        }
         .onAppear {
             debugLog("🔍 MapView - OnAppear: \(restaurants.count) restaurants available")
         }

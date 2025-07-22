@@ -4,11 +4,6 @@ struct OpenAIAPIKeySetupView: View {
     @StateObject private var chatService = ChatGPTDietaryService.shared
     @Environment(\.dismiss) private var dismiss
     
-    @State private var apiKey = ""
-    @State private var isValidating = false
-    @State private var validationMessage = ""
-    @State private var showingInstructions = false
-    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -16,51 +11,41 @@ struct OpenAIAPIKeySetupView: View {
                     // Header
                     headerSection
                     
-                    // API Key Input
-                    apiKeyInputSection
+                    // Service Status
+                    serviceStatusSection
                     
-                    // Instructions
-                    instructionsSection
+                    // Usage Information
+                    usageSection
                     
-                    // Current Status
-                    statusSection
+                    // Features
+                    featuresSection
                 }
                 .padding()
             }
-            .navigationTitle("OpenAI API Setup")
+            .navigationTitle("Chat Service")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
                         dismiss()
                     }
                 }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        saveAPIKey()
-                    }
-                    .disabled(apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                }
             }
-        }
-        .onAppear {
-            apiKey = chatService.userAPIKey ?? ""
         }
     }
     
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Image(systemName: "key.fill")
+                Image(systemName: "bubble.left.and.bubble.right.fill")
                     .font(.title2)
                     .foregroundColor(.green)
-                Text("OpenAI API Configuration")
+                Text("AI Dietary Assistant")
                     .font(.title2)
                     .fontWeight(.bold)
             }
             
-            Text("Configure your OpenAI API key to enable personalized dietary chat powered by ChatGPT-3.5.")
+            Text("Your personalized nutrition expert powered by ChatGPT-4o is ready to help you make smarter food choices.")
                 .font(.body)
                 .foregroundColor(.secondary)
         }
@@ -69,138 +54,33 @@ struct OpenAIAPIKeySetupView: View {
         .cornerRadius(12)
     }
     
-    private var apiKeyInputSection: some View {
+    private var serviceStatusSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("API Key")
-                .font(.headline)
-                .fontWeight(.semibold)
-            
-            VStack(spacing: 8) {
-                SecureField("sk-proj-...", text: $apiKey)
-                    .textFieldStyle(.roundedBorder)
-                    .font(.system(.body, design: .monospaced))
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-                
-                HStack {
-                    Text("Enter your OpenAI API key starting with 'sk-proj-' or 'sk-'")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    
-                    Spacer()
-                    
-                    if isValidating {
-                        ProgressView()
-                            .scaleEffect(0.8)
-                    }
-                }
-            }
-            
-            if !validationMessage.isEmpty {
-                Text(validationMessage)
-                    .font(.caption)
-                    .foregroundColor(validationMessage.contains("✅") ? .green : .red)
-                    .padding(.top, 4)
-            }
-        }
-    }
-    
-    private var instructionsSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Button(action: {
-                showingInstructions.toggle()
-            }) {
-                HStack {
-                    Text("How to get an OpenAI API Key")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.blue)
-                    
-                    Spacer()
-                    
-                    Image(systemName: showingInstructions ? "chevron.up" : "chevron.down")
-                        .foregroundColor(.blue)
-                }
-            }
-            
-            if showingInstructions {
-                VStack(alignment: .leading, spacing: 12) {
-                    InstructionStep(
-                        number: 1,
-                        title: "Create OpenAI Account",
-                        description: "Go to platform.openai.com and create an account or sign in"
-                    )
-                    
-                    InstructionStep(
-                        number: 2,
-                        title: "Navigate to API Keys",
-                        description: "Click on your profile → 'View API keys' or go to platform.openai.com/api-keys"
-                    )
-                    
-                    InstructionStep(
-                        number: 3,
-                        title: "Create New Key",
-                        description: "Click '+ Create new secret key', name it (e.g., 'MealMap'), and copy the key"
-                    )
-                    
-                    InstructionStep(
-                        number: 4,
-                        title: "Add Billing Information",
-                        description: "Add payment method in Billing settings. ChatGPT-3.5 is very affordable (~$0.002 per request)"
-                    )
-                    
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("💡 Cost Information:")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.blue)
-                        
-                        Text("• ChatGPT-3.5-turbo: ~$0.002 per message\n• Daily limit: 10,000 tokens (~$0.02/day)\n• Monthly cost: <$1 for typical usage")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding()
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(8)
-                }
-                .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-        }
-        .animation(.easeInOut(duration: 0.3), value: showingInstructions)
-    }
-    
-    private var statusSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Current Status")
+            Text("Service Status")
                 .font(.headline)
                 .fontWeight(.semibold)
             
             HStack {
-                Image(systemName: chatService.isAPIKeyConfigured ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundColor(chatService.isAPIKeyConfigured ? .green : .red)
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(.green)
+                    .font(.title3)
                 
-                Text(chatService.isAPIKeyConfigured ? "API Key Configured" : "No API Key")
-                    .font(.body)
-                    .foregroundColor(chatService.isAPIKeyConfigured ? .green : .red)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Ready to Chat")
+                        .font(.body)
+                        .fontWeight(.medium)
+                        .foregroundColor(.green)
+                    
+                    Text("AI assistant is configured and ready")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
                 
                 Spacer()
-            }
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Token Usage Today: \(chatService.dailyTokenUsage)/10,000")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
                 
-                ProgressView(value: Double(chatService.dailyTokenUsage), total: 10000)
-                    .progressViewStyle(LinearProgressViewStyle(tint: .blue))
-            }
-            
-            if chatService.isAPIKeyConfigured {
-                Button("Clear API Key") {
-                    clearAPIKey()
-                }
-                .foregroundColor(.red)
-                .font(.caption)
+                Image(systemName: "sparkles")
+                    .foregroundColor(.blue)
+                    .font(.title3)
             }
         }
         .padding()
@@ -208,47 +88,84 @@ struct OpenAIAPIKeySetupView: View {
         .cornerRadius(12)
     }
     
-    private func saveAPIKey() {
-        let trimmedKey = apiKey.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        guard !trimmedKey.isEmpty else {
-            validationMessage = "❌ Please enter an API key"
-            return
+    private var usageSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Usage Today")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("Tokens Used:")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                    
+                    Spacer()
+                    
+                    Text("\(chatService.dailyTokenUsage) / 50,000")
+                        .font(.body)
+                        .fontWeight(.medium)
+                }
+                
+                ProgressView(value: Double(chatService.dailyTokenUsage), total: 50000)
+                    .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                
+                Text("Generous daily limit for unlimited conversations")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
-        
-        guard trimmedKey.hasPrefix("sk-") else {
-            validationMessage = "❌ API key should start with 'sk-'"
-            return
-        }
-        
-        chatService.saveAPIKey(trimmedKey)
-        validationMessage = "✅ API key saved successfully"
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            dismiss()
-        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
     }
     
-    private func clearAPIKey() {
-        chatService.clearAPIKey()
-        apiKey = ""
-        validationMessage = "API key cleared"
+    private var featuresSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("What I Can Help With")
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            VStack(spacing: 12) {
+                FeatureRow(
+                    icon: "fork.knife.circle.fill",
+                    title: "Menu Analysis",
+                    description: "Get personalized recommendations for any restaurant menu item"
+                )
+                
+                FeatureRow(
+                    icon: "chart.bar.fill",
+                    title: "Nutrition Tracking",
+                    description: "Track calories, macros, and nutrients against your daily goals"
+                )
+                
+                FeatureRow(
+                    icon: "heart.fill",
+                    title: "Dietary Guidance",
+                    description: "Personalized advice based on your health goals and restrictions"
+                )
+                
+                FeatureRow(
+                    icon: "location.fill",
+                    title: "Restaurant Suggestions",
+                    description: "Find the best dining options that match your nutritional needs"
+                )
+            }
+        }
     }
 }
 
-struct InstructionStep: View {
-    let number: Int
+struct FeatureRow: View {
+    let icon: String
     let title: String
     let description: String
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            Text("\(number)")
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .frame(width: 20, height: 20)
-                .background(Circle().fill(Color.blue))
+            Image(systemName: icon)
+                .foregroundColor(.blue)
+                .font(.title3)
+                .frame(width: 24, height: 24)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
@@ -258,10 +175,14 @@ struct InstructionStep: View {
                 Text(description)
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             
             Spacer()
         }
+        .padding()
+        .background(Color.blue.opacity(0.1))
+        .cornerRadius(8)
     }
 }
 

@@ -96,7 +96,7 @@ struct WelcomeScreen: View {
                         .fontWeight(.bold)
                         .foregroundColor(.primary)
                     
-                    Text("Discover nutrition information\nfor restaurants near you")
+                    Text("Navigate meals with ease")
                         .font(.body)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)

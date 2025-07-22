@@ -3,6 +3,7 @@ import SwiftUI
 import Combine
 
 /// Service for calculating restaurant scores on the map for restaurants with nutrition data
+@MainActor
 class RestaurantMapScoringService: ObservableObject {
     static let shared = RestaurantMapScoringService()
     
@@ -42,9 +43,7 @@ class RestaurantMapScoringService: ObservableObject {
             return
         }
         
-        await MainActor.run {
-            isCalculatingScores = true
-        }
+        isCalculatingScores = true
         
         debugLog("📊 Calculating scores for \(nutritionRestaurants.count) restaurants")
         
@@ -63,9 +62,7 @@ class RestaurantMapScoringService: ObservableObject {
             try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 seconds
         }
         
-        await MainActor.run {
-            isCalculatingScores = false
-        }
+        isCalculatingScores = false
         
         debugLog("📊 Finished calculating scores. Chains: \(chainScores.count), Individual: \(restaurantScores.count)")
     }
@@ -170,9 +167,7 @@ class RestaurantMapScoringService: ObservableObject {
         let chainScore = calculateChainScore(from: menuScores, chainName: chainName)
         
         // Store the chain score
-        await MainActor.run {
-            chainScores[chainName] = chainScore
-        }
+        chainScores[chainName] = chainScore
         
         debugLog("📊 Calculated chain score for \(chainName): \(Int(chainScore.overallScore))")
         

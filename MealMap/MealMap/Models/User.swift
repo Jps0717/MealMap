@@ -17,6 +17,44 @@ struct User: Identifiable, Codable {
         self.preferences = UserPreferences()
         self.createdAt = Date()
     }
+    
+    init(id: String, profile: UserProfile, preferences: UserPreferences) {
+        self.id = id
+        self.email = ""
+        self.displayName = ""
+        self.profile = profile
+        self.preferences = preferences
+        self.createdAt = Date()
+    }
+}
+
+extension User {
+    /// Creates a default user for guests who aren't signed in
+    static func defaultUser() -> User {
+        let defaultProfile = UserProfile(
+            fullName: "Guest User",
+            height: 68, // 5'8"
+            weight: 150,
+            activityLevel: .moderate,
+            dietaryRestrictions: [],
+            healthGoals: [.maintainWeight]
+        )
+        
+        let defaultPreferences = UserPreferences(
+            dailyCalorieGoal: 2000,
+            dailyProteinGoal: 100,
+            dailyCarbGoal: 250,
+            dailyFatGoal: 67,
+            dailyFiberGoal: 25,
+            dailySodiumLimit: 2300
+        )
+        
+        return User(
+            id: "guest-user",
+            profile: defaultProfile,
+            preferences: defaultPreferences
+        )
+    }
 }
 
 // MARK: - User Profile
@@ -32,6 +70,30 @@ struct UserProfile: Codable {
     
     var fullName: String {
         return "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
+    }
+    
+    init(
+        fullName: String = "",
+        height: Int? = nil,
+        weight: Int? = nil,
+        activityLevel: ActivityLevel = .moderate,
+        dietaryRestrictions: [DietaryRestriction] = [],
+        healthGoals: [HealthGoal] = []
+    ) {
+        let names = fullName.components(separatedBy: " ")
+        if names.count >= 2 {
+            self.firstName = names.first ?? ""
+            self.lastName = names.last ?? ""
+        } else {
+            self.firstName = fullName
+            self.lastName = ""
+        }
+        
+        self.height = height
+        self.weight = weight
+        self.activityLevel = activityLevel
+        self.healthGoals = healthGoals
+        self.dietaryRestrictions = dietaryRestrictions
     }
 }
 
@@ -59,6 +121,34 @@ struct UserPreferences: Codable {
     // Privacy
     var shareDataWithFriends: Bool = false
     var allowAnalytics: Bool = true
+    
+    init(
+        dailyCalorieGoal: Int = 2000,
+        dailyProteinGoal: Int = 150,
+        dailyCarbGoal: Int = 250,
+        dailyFatGoal: Int = 65,
+        dailyFiberGoal: Int = 25,
+        dailySodiumLimit: Int = 2300
+    ) {
+        self.dailyCalorieGoal = dailyCalorieGoal
+        self.dailyProteinGoal = dailyProteinGoal
+        self.dailyCarbGoal = dailyCarbGoal
+        self.dailyFatGoal = dailyFatGoal
+        self.dailyFiberGoal = dailyFiberGoal
+        self.dailySodiumLimit = dailySodiumLimit
+    }
+}
+
+enum MeasurementUnit: String, Codable {
+    case imperial = "Imperial"
+    case metric = "Metric"
+}
+
+struct UserNotificationSettings: Codable {
+    var enablePushNotifications: Bool = true
+    var enableEmailNotifications: Bool = false
+    
+    init() {}
 }
 
 // MARK: - Supporting Enums
@@ -120,15 +210,10 @@ enum DietaryRestriction: String, CaseIterable, Codable {
         case .dairyFree: return "🥛"
         case .nutFree: return "🥜"
         case .lowCarb: return "🥩"
-        case .keto: return "🥑"
+        case .keto: return "🧈"
         case .paleo: return "🦴"
         case .lowSodium: return "🧂"
-        case .diabetic: return "🩺"
+        case .diabetic: return "🍎"
         }
     }
-}
-
-enum MeasurementUnit: String, CaseIterable, Codable {
-    case imperial = "Imperial"
-    case metric = "Metric"
 }

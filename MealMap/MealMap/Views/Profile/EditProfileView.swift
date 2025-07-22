@@ -30,6 +30,9 @@ struct EditProfileView: View {
                     // Basic Information
                     basicInformationSection
                     
+                    // NEW: Add the nutrition goals section
+                    nutritionGoalsSection
+                    
                     // Dietary Restrictions
                     dietaryRestrictionsSection
                     
@@ -77,6 +80,12 @@ struct EditProfileView: View {
         .onChange(of: displayName) { _, _ in hasUnsavedChanges = true }
         .onChange(of: selectedDietaryRestrictions) { _, _ in hasUnsavedChanges = true }
         .onChange(of: activityLevel) { _, _ in hasUnsavedChanges = true }
+        .onChange(of: userPreferences.dailyCalorieGoal) { _, _ in hasUnsavedChanges = true }
+        .onChange(of: userPreferences.dailyProteinGoal) { _, _ in hasUnsavedChanges = true }
+        .onChange(of: userPreferences.dailyCarbGoal) { _, _ in hasUnsavedChanges = true }
+        .onChange(of: userPreferences.dailyFatGoal) { _, _ in hasUnsavedChanges = true }
+        .onChange(of: userPreferences.dailyFiberGoal) { _, _ in hasUnsavedChanges = true }
+        .onChange(of: userPreferences.dailySodiumLimit) { _, _ in hasUnsavedChanges = true }
         .alert("Profile Updated", isPresented: $showingSuccessAlert) {
             Button("OK") {
                 dismiss()
@@ -218,6 +227,109 @@ struct EditProfileView: View {
         }
     }
     
+    // MARK: - Nutrition Goals Section
+    private var nutritionGoalsSection: some View {
+        ProfileCardSection(title: "Daily Nutrition Goals", icon: "chart.bar.fill") {
+            VStack(spacing: 16) {
+                Text("Set your personalized daily nutrition targets for AI recommendations")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                VStack(spacing: 20) {
+                    // Calories
+                    NutritionGoalRow(
+                        icon: "flame.fill",
+                        color: .orange,
+                        title: "Daily Calories",
+                        value: $userPreferences.dailyCalorieGoal,
+                        unit: "kcal",
+                        range: 1000...5000,
+                        step: 50
+                    )
+                    
+                    // Protein
+                    NutritionGoalRow(
+                        icon: "fish.fill",
+                        color: .red,
+                        title: "Protein Goal",
+                        value: $userPreferences.dailyProteinGoal,
+                        unit: "g",
+                        range: 50...300,
+                        step: 10
+                    )
+                    
+                    // Carbohydrates
+                    NutritionGoalRow(
+                        icon: "leaf.fill",
+                        color: .green,
+                        title: "Carbohydrate Goal",
+                        value: $userPreferences.dailyCarbGoal,
+                        unit: "g",
+                        range: 50...500,
+                        step: 10
+                    )
+                    
+                    // Fat
+                    NutritionGoalRow(
+                        icon: "drop.fill",
+                        color: .yellow,
+                        title: "Fat Goal",
+                        value: $userPreferences.dailyFatGoal,
+                        unit: "g",
+                        range: 20...200,
+                        step: 5
+                    )
+                    
+                    // Fiber
+                    NutritionGoalRow(
+                        icon: "scissors",
+                        color: .brown,
+                        title: "Fiber Goal",
+                        value: $userPreferences.dailyFiberGoal,
+                        unit: "g",
+                        range: 10...60,
+                        step: 5
+                    )
+                    
+                    // Sodium Limit
+                    NutritionGoalRow(
+                        icon: "saltshaker.fill",
+                        color: .gray,
+                        title: "Sodium Limit",
+                        value: $userPreferences.dailySodiumLimit,
+                        unit: "mg",
+                        range: 500...4000,
+                        step: 100
+                    )
+                }
+                
+                // Quick Presets
+                VStack(spacing: 12) {
+                    Text("Quick Presets")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    HStack(spacing: 8) {
+                        NutritionPresetButton(title: "Weight Loss", icon: "minus.circle.fill", color: .blue) {
+                            setWeightLossPreset()
+                        }
+                        
+                        NutritionPresetButton(title: "Maintenance", icon: "equal.circle.fill", color: .green) {
+                            setMaintenancePreset()
+                        }
+                        
+                        NutritionPresetButton(title: "Muscle Gain", icon: "plus.circle.fill", color: .orange) {
+                            setMuscleGainPreset()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - Activity Level Section
     private var activityLevelSection: some View {
         ProfileCardSection(title: "Activity Level", icon: "figure.run") {
@@ -312,11 +424,26 @@ struct EditProfileView: View {
         updatedProfile.firstName = firstName
         updatedProfile.lastName = lastName
         updatedProfile.dietaryRestrictions = selectedDietaryRestrictions
+        updatedProfile.activityLevel = activityLevel
         
         var updatedPreferences = userPreferences
         
         Task {
             await authManager.updateUserProfile(updatedProfile, preferences: updatedPreferences)
+            
+            // Update AI memory with new user data
+            let updatedUser = User(
+                id: authManager.currentUser?.id ?? "guest",
+                email: authManager.currentUser?.email ?? "",
+                displayName: displayName
+            )
+            var userWithUpdatedData = updatedUser
+            userWithUpdatedData.profile = updatedProfile
+            userWithUpdatedData.preferences = updatedPreferences
+            
+            // Update ChatGPT service memory
+            ChatGPTDietaryService.shared.initializeForUser(userWithUpdatedData)
+            
             await MainActor.run {
                 isLoading = false
                 hasUnsavedChanges = false
@@ -331,6 +458,40 @@ struct EditProfileView: View {
                 showingSuccessAlert = true
             }
         }
+    }
+    
+    // MARK: - Nutrition Preset Methods
+    private func setWeightLossPreset() {
+        userPreferences.dailyCalorieGoal = 1500
+        userPreferences.dailyProteinGoal = 120
+        userPreferences.dailyCarbGoal = 150
+        userPreferences.dailyFatGoal = 50
+        userPreferences.dailyFiberGoal = 30
+        userPreferences.dailySodiumLimit = 2000
+        hasUnsavedChanges = true
+        HapticService.shared.buttonPress()
+    }
+    
+    private func setMaintenancePreset() {
+        userPreferences.dailyCalorieGoal = 2000
+        userPreferences.dailyProteinGoal = 150
+        userPreferences.dailyCarbGoal = 250
+        userPreferences.dailyFatGoal = 67
+        userPreferences.dailyFiberGoal = 25
+        userPreferences.dailySodiumLimit = 2300
+        hasUnsavedChanges = true
+        HapticService.shared.buttonPress()
+    }
+    
+    private func setMuscleGainPreset() {
+        userPreferences.dailyCalorieGoal = 2500
+        userPreferences.dailyProteinGoal = 200
+        userPreferences.dailyCarbGoal = 300
+        userPreferences.dailyFatGoal = 80
+        userPreferences.dailyFiberGoal = 35
+        userPreferences.dailySodiumLimit = 2500
+        hasUnsavedChanges = true
+        HapticService.shared.buttonPress()
     }
 }
 
@@ -459,6 +620,114 @@ struct ActivityLevelRow: View {
             .padding(.vertical, 12)
             .background(isSelected ? Color.blue.opacity(0.1) : Color(.systemGray6))
             .cornerRadius(12)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - NEW: Nutrition Goal Row Component
+struct NutritionGoalRow: View {
+    let icon: String
+    let color: Color
+    let title: String
+    @Binding var value: Int
+    let unit: String
+    let range: ClosedRange<Int>
+    let step: Int
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            // Icon
+            ZStack {
+                Circle()
+                    .fill(color.opacity(0.2))
+                    .frame(width: 40, height: 40)
+                
+                Image(systemName: icon)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(color)
+            }
+            
+            // Title and Value
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.primary)
+                
+                HStack(spacing: 8) {
+                    Button("-") {
+                        let newValue = max(range.lowerBound, value - step)
+                        if newValue != value {
+                            value = newValue
+                            HapticService.shared.buttonPress()
+                        }
+                    }
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(width: 32, height: 32)
+                    .background(Circle().fill(color))
+                    .disabled(value <= range.lowerBound)
+                    
+                    Text("\(value) \(unit)")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                        .foregroundColor(color)
+                        .frame(minWidth: 80)
+                        .multilineTextAlignment(.center)
+                    
+                    Button("+") {
+                        let newValue = min(range.upperBound, value + step)
+                        if newValue != value {
+                            value = newValue
+                            HapticService.shared.buttonPress()
+                        }
+                    }
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(width: 32, height: 32)
+                    .background(Circle().fill(color))
+                    .disabled(value >= range.upperBound)
+                }
+            }
+            
+            Spacer()
+        }
+        .padding(.vertical, 8)
+    }
+}
+
+// MARK: - NEW: Nutrition Preset Button
+struct NutritionPresetButton: View {
+    let title: String
+    let icon: String
+    let color: Color
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.title3)
+                    .foregroundColor(color)
+                
+                Text(title)
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .padding(.horizontal, 8)
+            .background(color.opacity(0.1))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(color.opacity(0.3), lineWidth: 1)
+            )
         }
         .buttonStyle(.plain)
     }

@@ -11,17 +11,15 @@ struct MapHeaderView: View {
     let onDismiss: () -> Void
     let onCenterLocation: () -> Void
     
-    @State private var showingScoringLegend = false
-    
     var body: some View {
         VStack(spacing: 12) {
-            // Search bar
+            // ENHANCED: Search bar with updated placeholder
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
                     .font(.system(size: 18))
 
-                TextField("Search restaurants, cuisines...", text: $searchText)
+                TextField("Search restaurants, pizza, burgers, sushi...", text: $searchText)
                     .font(.system(size: 16, design: .rounded))
                     .disableAutocorrection(true)
                     .onSubmit {
@@ -49,7 +47,7 @@ struct MapHeaderView: View {
             )
             .padding(.horizontal, 16)
             
-            // SIMPLIFIED: Control buttons without filters
+            // SIMPLIFIED: Only Home button and restaurant count (no search results indicator)
             HStack(spacing: 16) {
                 // Home button
                 Button(action: {
@@ -80,40 +78,12 @@ struct MapHeaderView: View {
                 
                 Spacer()
                 
+                // UPDATED: Only show restaurant count, not search results
                 MapStatusIndicators(viewModel: viewModel, isSearching: isSearching)
-                
-                // Scoring Legend Button
-                if viewModel.restaurants.contains(where: { $0.hasNutritionData }) {
-                    Button(action: {
-                        showingScoringLegend = true
-                    }) {
-                        Image(systemName: "chart.bar.fill")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.blue)
-                            .frame(width: 36, height: 36)
-                            .background(Color(.systemBackground))
-                            .clipShape(Circle())
-                            .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
-                    }
-                }
-                
-                // Center on location button
-                Button(action: onCenterLocation) {
-                    Image(systemName: "location.fill")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.blue)
-                        .frame(width: 36, height: 36)
-                        .background(Color(.systemBackground))
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.1), radius: 4, y: 2)
-                }
             }
             .padding(.horizontal, 16)
         }
         .padding(.top, 70) 
-        .sheet(isPresented: $showingScoringLegend) {
-            RestaurantScoringLegendView()
-        }
     }
 }
 
@@ -123,17 +93,25 @@ struct MapStatusIndicators: View {
     
     var body: some View {
         HStack(spacing: 8) {
-            // Restaurant count indicator (simplified)
-            if !viewModel.restaurants.isEmpty {
+            // UPDATED: Restaurant count indicator (works for both regular view and search results)
+            if !viewModel.restaurants.isEmpty || viewModel.showSearchResults {
                 HStack(spacing: 6) {
                     Image(systemName: "mappin.and.ellipse")
                         .font(.system(size: 12))
                     
-                    let totalCount = viewModel.restaurants.count
-                    let nutritionCount = viewModel.restaurants.filter { $0.hasNutritionData }.count
+                    // ENHANCED: Show appropriate count based on search state
+                    let displayedRestaurants = viewModel.showSearchResults ? viewModel.filteredRestaurants : viewModel.restaurants
+                    let totalCount = displayedRestaurants.count
+                    let nutritionCount = displayedRestaurants.filter { $0.hasNutritionData }.count
                     
-                    Text("\(totalCount) restaurants")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                    if viewModel.showSearchResults {
+                        Text("\(totalCount) found")
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundColor(.blue)
+                    } else {
+                        Text("\(totalCount) restaurants")
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                    }
                     
                     if nutritionCount > 0 {
                         Text("• \(nutritionCount) with nutrition")
@@ -141,44 +119,15 @@ struct MapStatusIndicators: View {
                             .foregroundColor(.green)
                     }
                 }
-                .foregroundColor(.primary)
+                .foregroundColor(viewModel.showSearchResults ? .blue : .primary)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
                 .background(
                     Capsule()
-                        .fill(Color(.systemBackground).opacity(0.9))
+                        .fill(viewModel.showSearchResults ? .blue.opacity(0.1) : Color(.systemBackground).opacity(0.9))
                         .overlay(
                             Capsule()
-                                .stroke(.gray.opacity(0.3), lineWidth: 1)
-                        )
-                )
-            }
-            
-            // Search results indicator
-            if viewModel.showSearchResults {
-                HStack(spacing: 6) {
-                    if isSearching {
-                        ProgressView()
-                            .scaleEffect(0.7)
-                            .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-                    } else {
-                        Image(systemName: "magnifyingglass")
-                            .font(.system(size: 12))
-                    }
-                    
-                    let searchCount = viewModel.filteredRestaurants.count
-                    Text(isSearching ? "Searching..." : "\(searchCount) found")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                }
-                .foregroundColor(.blue)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(
-                    Capsule()
-                        .fill(.blue.opacity(0.1))
-                        .overlay(
-                            Capsule()
-                                .stroke(.blue.opacity(0.3), lineWidth: 1)
+                                .stroke(viewModel.showSearchResults ? .blue.opacity(0.3) : .gray.opacity(0.3), lineWidth: 1)
                         )
                 )
             }

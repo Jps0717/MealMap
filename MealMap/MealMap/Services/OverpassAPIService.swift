@@ -106,41 +106,9 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
         }
     }
     
-    // ENHANCED: Color based on nutrition data availability
-    var pinColor: Color {
-        // Priority: Nutrition data gets distinctive colors
-        if hasNutritionData {
-            return .green // Nutrition data available - bright green
-        }
-        
-        // Fallback color by amenity type
-        switch amenityType {
-        case "fast_food":
-            return .orange
-        case "restaurant":
-            return .blue
-        case "cafe":
-            return .brown
-        case "bar", "pub":
-            return .purple
-        case "bakery":
-            return .pink
-        case "ice_cream":
-            return .cyan
-        case "food_court":
-            return .indigo
-        default:
-            return .gray
-        }
-    }
-    
-    // Background color for contrast
-    var pinBackgroundColor: Color {
-        return pinColor.opacity(0.9)
-    }
-    
     // ENHANCED: Category matching logic for better filtering
     func matchesCategory(_ category: RestaurantCategory) -> Bool {
+
         let name = self.name.lowercased()
         let cuisine = self.cuisine?.lowercased() ?? ""
         
@@ -267,22 +235,45 @@ struct Restaurant: Identifiable, Equatable, Hashable, Codable {
             name.contains(term)
         }
     }
+    
+    // ENHANCED: Color based on nutrition data availability
+    var pinColor: Color {
+        // Priority: Nutrition data gets distinctive colors
+        if hasNutritionData {
+            return .green // Nutrition data available - bright green
+        }
+        
+        // Fallback color by amenity type
+        switch amenityType {
+        case "fast_food":
+            return .orange
+        case "restaurant":
+            return .blue
+        case "cafe":
+            return .brown
+        case "bar", "pub":
+            return .purple
+        case "bakery":
+            return .pink
+        case "ice_cream":
+            return .cyan
+        case "food_court":
+            return .indigo
+        default:
+            return .gray
+        }
+    }
+    
+    // Background color for contrast
+    var pinBackgroundColor: Color {
+        return pinColor.opacity(0.9)
+    }
 }
 
 extension Restaurant {
-    /// Get the current map score for this restaurant
-    var mapScore: RestaurantMapScore? {
-        return RestaurantMapScoringService.shared.getScoreForRestaurant(self)
-    }
-    
-    /// Enhanced pin color that includes scoring information
-    var enhancedPinColor: Color {
-        // Priority: Show scoring color if available
-        if let score = mapScore {
-            return score.scoreColor
-        }
-        
-        // Fallback to nutrition data indication
+    /// Enhanced pin color that includes nutrition data indication
+    var enhancedPinColor: Color {        
+        // Show nutrition data indication
         if hasNutritionData {
             return .green
         }
@@ -308,29 +299,26 @@ extension Restaurant {
         }
     }
     
-    /// Enhanced emoji that includes scoring information
+    /// Enhanced emoji 
     var enhancedEmoji: String {
-        // Priority: Show score emoji if available
-        if let score = mapScore {
-            return score.scoreEmoji
-        }
-        
-        // Fallback to restaurant emoji
+        // Use the regular restaurant emoji
         return emoji
     }
     
-    /// Pin subtitle for scoring information
+    /// Pin subtitle with nutrition information
     var scoringSubtitle: String? {
-        if let score = mapScore {
-            return score.shortDescription
-        }
-        
         if hasNutritionData {
             return "Nutrition data available"
         }
         
         return amenityType?.capitalized ?? "Restaurant"
     }
+    
+    /// Get map score - placeholder for compatibility
+    var mapScore: RestaurantMapScore? {
+        return nil // Simplified for now
+    }
+    
 }
 
 // MARK: - Low Carb Diet Types

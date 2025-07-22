@@ -10,45 +10,34 @@ struct RestaurantPin: View {
     var body: some View {
         Button(action: onTap) {
             ZStack {
-                // Enhanced background without scoring colors
+                // OPTIMIZED: Simple background without expensive gradients
                 Circle()
-                    .fill(
-                        LinearGradient(
-                            colors: [restaurant.pinBackgroundColor, restaurant.pinBackgroundColor.opacity(0.8)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                    .fill(restaurant.hasNutritionData ? Color.green : Color.blue)
                     .frame(width: isSelected ? 40 : 32, height: isSelected ? 40 : 32)
                     .overlay(
                         Circle()
                             .stroke(Color.white, lineWidth: isSelected ? 3 : 2)
                     )
-                    .shadow(color: restaurant.pinBackgroundColor.opacity(0.4), radius: isSelected ? 6 : 3, y: isSelected ? 3 : 2)
+                    .shadow(color: .black.opacity(0.2), radius: isSelected ? 3 : 2, y: 1)
                 
                 VStack(spacing: 1) {
-                    // Restaurant emoji (using basic emoji, not scoring-enhanced)
+                    // OPTIMIZED: Simple restaurant emoji
                     Text(restaurant.emoji)
                         .font(.system(size: isSelected ? 16 : 12))
                         .scaleEffect(isSelected ? 1.1 : 1.0)
                     
-                    // Simple nutrition data indicator (no score display)
+                    // OPTIMIZED: Simple nutrition data indicator (no score calculation)
                     if restaurant.hasNutritionData {
                         Circle()
                             .fill(Color.white)
                             .frame(width: isSelected ? 4 : 3, height: isSelected ? 4 : 3)
-                            .overlay(
-                                Circle()
-                                    .fill(Color.green)
-                                    .frame(width: isSelected ? 3 : 2, height: isSelected ? 3 : 2)
-                            )
                     }
                 }
             }
         }
         .buttonStyle(PlainButtonStyle())
-        .scaleEffect(isSelected ? 1.15 : 1.0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isSelected)
+        .scaleEffect(isSelected ? 1.1 : 1.0)
+        .animation(.easeInOut(duration: 0.2), value: isSelected)
         .onAppear {
             // Run a timer that runs every 60 seconds
             // Trigger scoring calculation when pin appears
@@ -63,7 +52,7 @@ struct RestaurantPin: View {
 
 #Preview {
     VStack(spacing: 32) {
-        Text("Restaurant Pins Without Scoring")
+        Text("Optimized Restaurant Pins")
             .font(.title2)
             .fontWeight(.semibold)
         
@@ -118,7 +107,7 @@ struct RestaurantPin: View {
                     Text("🏪 No Nutrition Data")
                         .font(.caption)
                     Spacer()
-                    Circle().fill(Color.gray).frame(width: 12, height: 12)
+                    Circle().fill(Color.blue).frame(width: 12, height: 12)
                 }
             }
         }

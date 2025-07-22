@@ -72,7 +72,7 @@ class CrashReportingService {
         let crashLogURL = documentsPath.appendingPathComponent("crash_logs.txt")
         
         do {
-            let existingContent = (try? String(contentsOf: crashLogURL)) ?? ""
+            let existingContent = (try? String(contentsOf: crashLogURL, encoding: .utf8)) ?? ""
             let newContent = existingContent + "\n" + report
             try newContent.write(to: crashLogURL, atomically: true, encoding: .utf8)
         } catch {
@@ -84,7 +84,7 @@ class CrashReportingService {
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let crashLogURL = documentsPath.appendingPathComponent("crash_logs.txt")
         
-        return (try? String(contentsOf: crashLogURL)) ?? "No crash reports found"
+        return (try? String(contentsOf: crashLogURL, encoding: .utf8)) ?? "No crash reports found"
     }
     
     func clearCrashReports() {

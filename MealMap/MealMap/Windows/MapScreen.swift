@@ -30,6 +30,28 @@ struct MapScreen: View {
             
             if showLocationError {
                 LocationErrorView()
+            } else if !networkMonitor.isConnected {
+                // Show network error view
+                VStack(spacing: 20) {
+                    Image(systemName: "wifi.slash")
+                        .font(.system(size: 50))
+                        .foregroundColor(.gray)
+                    
+                    Text("No Internet Connection")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                    
+                    Text("Please check your internet connection and try again.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                    
+                    Button("Retry") {
+                        setupMapView()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                .padding()
             } else {
                 // ENHANCED: Map with proper home button dismissal handling
                 MapContentView(
@@ -43,7 +65,7 @@ struct MapScreen: View {
                         dismiss()
                     },
                     onSearch: performSearch,
-                    onClearSearch: clearSearch
+                    onClearSearch: { clearSearch() }
                 )
             }
         }
@@ -69,6 +91,12 @@ struct MapScreen: View {
         .onChange(of: locationManager.authorizationStatus) { _, status in
             debugLog(" Location authorization changed: \(status)")
             handleLocationStatusChange(status)
+        }
+        .onChange(of: networkMonitor.isConnected) { _, isConnected in
+            debugLog(" Network status changed: \(isConnected)")
+            if isConnected {
+                setupMapView()
+            }
         }
         // ENHANCED: Hide navigation bar for clean modal presentation
         .navigationBarHidden(true)
@@ -96,6 +124,13 @@ struct MapScreen: View {
     private func setupMapView() {
         debugLog(" Setting up enhanced modal map view...")
         
+        // Check network connectivity first
+        guard networkMonitor.isConnected else {
+            debugLog(" No network connection available")
+            showLocationError = true
+            return
+        }
+        
         switch locationManager.authorizationStatus {
         case .notDetermined:
             debugLog(" Requesting location permission...")
@@ -108,12 +143,30 @@ struct MapScreen: View {
             showLocationError = false
             if let loc = locationManager.lastLocation {
                 debugLog(" Using existing location: \(loc.coordinate)")
-                viewModel.refreshData(for: loc.coordinate)
+                Task {
+                    do {
+                        viewModel.refreshData(for: loc.coordinate)
+                    } catch {
+                        debugLog(" Error refreshing data: \(error.localizedDescription)")
+                        await MainActor.run {
+                            showLocationError = true
+                        }
+                    }
+                }
             } else {
                 debugLog(" No location available, using fallback...")
                 // Fallback to New York
                 let fallbackLocation = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
-                viewModel.refreshData(for: fallbackLocation)
+                Task {
+                    do {
+                        viewModel.refreshData(for: fallbackLocation)
+                    } catch {
+                        debugLog(" Error with fallback location: \(error.localizedDescription)")
+                        await MainActor.run {
+                            showLocationError = true
+                        }
+                    }
+                }
             }
         @unknown default:
             showLocationError = true

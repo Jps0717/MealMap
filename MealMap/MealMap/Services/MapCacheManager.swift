@@ -55,8 +55,6 @@ class MapCacheManager: ObservableObject {
     
     /// Get restaurants for a location, using cache when available
     func getRestaurants(for coordinate: CLLocationCoordinate2D, using apiService: OverpassAPIService) async -> [Restaurant] {
-        let cacheKey = generateSimpleKey(for: coordinate)
-        
         // Check memory cache first
         if let cachedRegion = getCachedRestaurants(for: coordinate) {
             await MainActor.run {
@@ -65,7 +63,7 @@ class MapCacheManager: ObservableObject {
             debugLog(" Cache HIT for \(coordinate) - returning \(cachedRegion.count) restaurants")
             return cachedRegion
         }
-        
+
         await MainActor.run {
             self.isLoading = true
         }
@@ -103,11 +101,11 @@ class MapCacheManager: ObservableObject {
     func preloadNearbyAreas(around coordinate: CLLocationCoordinate2D, using apiService: OverpassAPIService) {
         Task.detached(priority: .background) {
             let preloadRadius = 1.0 // 1 mile preload radius
-            let preloadCoordinates = await self.generatePreloadCoordinates(around: coordinate, radius: preloadRadius)
+            let preloadCoordinates = self.generatePreloadCoordinates(around: coordinate, radius: preloadRadius)
             
             for preloadCoord in preloadCoordinates {
                 // Only preload if not already cached
-                if await self.getCachedRestaurants(for: preloadCoord) == nil {
+                if self.getCachedRestaurants(for: preloadCoord) == nil {
                     debugLog(" Preloading area: \(preloadCoord)")
                     let _ = await self.getRestaurants(for: preloadCoord, using: apiService)
                     
