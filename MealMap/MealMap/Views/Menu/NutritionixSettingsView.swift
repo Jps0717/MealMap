@@ -14,7 +14,7 @@ struct NutritionixSettingsView: View {
             List {
                 // User Information Section
                 Section {
-                    if let user = authManager.currentUser {
+                    if let user = authManager.currentUser, authManager.isAuthenticated {
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(user.displayName.isEmpty ? "User" : user.displayName)
@@ -77,12 +77,13 @@ struct NutritionixSettingsView: View {
                         }
                         .foregroundColor(.red)
                     } else {
+                        // Simplified Guest View
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Not Signed In")
+                                Text("Guest User")
                                     .font(.headline)
                                 
-                                Text("Sign in to sync your preferences")
+                                Text("Sign in to sync your preferences and unlock all features.")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
@@ -94,7 +95,7 @@ struct NutritionixSettingsView: View {
                                 .foregroundColor(.gray)
                         }
                         
-                        Button("Sign In") {
+                        Button("Sign In or Sign Up") {
                             // Reset onboarding to show auth screen
                             authManager.resetOnboarding()
                             dismiss()

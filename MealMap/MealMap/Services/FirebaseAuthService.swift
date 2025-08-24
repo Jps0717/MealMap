@@ -51,11 +51,6 @@ class FirebaseAuthService: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "firebase_refresh_token")
         UserDefaults.standard.removeObject(forKey: "current_user")
         UserDefaults.standard.removeObject(forKey: "is_authenticated")
-        
-        idToken = nil
-        refreshToken = nil
-        currentUser = nil
-        isAuthenticated = false
     }
     
     // MARK: - Sign Up
@@ -156,7 +151,11 @@ class FirebaseAuthService: ObservableObject {
     func signOut() {
         Task {
             await MainActor.run {
-                clearAuthenticationState()
+                self.idToken = nil
+                self.refreshToken = nil
+                self.currentUser = nil
+                self.isAuthenticated = false
+                clearAuthenticationState() // Also clear from UserDefaults
             }
         }
     }

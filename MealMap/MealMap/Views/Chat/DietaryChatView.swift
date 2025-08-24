@@ -1,15 +1,16 @@
 import SwiftUI
 
-/// ENHANCED: Full-featured dietary chat with Custom GPT integration
 struct DietaryChatView: View {
     let initialItem: AnalyzedMenuItem?
     
     @StateObject private var chatService = ChatGPTDietaryService.shared
-    @StateObject private var authService = FirebaseAuthService.shared
+    @StateObject private var authManager = AuthenticationManager.shared
     
     @State private var messageText = ""
     @State private var showingQuickActions = false
     @FocusState private var isTextFieldFocused: Bool
+    
+    private let maxCharacterLimit = 150
     
     init(initialItem: AnalyzedMenuItem? = nil) {
         self.initialItem = initialItem
@@ -17,34 +18,15 @@ struct DietaryChatView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // Always show chat content - no sign-in required
+            headerView
+            
             if let conversation = chatService.currentConversation {
                 chatMessagesView(conversation: conversation)
             } else {
                 welcomeView
             }
             
-            // Input Area - always available
             inputSection
-        }
-        .navigationTitle("Meal Map AI")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    Button("Quick Test Actions") {
-                        showingQuickActions = true
-                    }
-                    
-                    if chatService.currentConversation != nil {
-                        Button("New Conversation", role: .destructive) {
-                            startNewConversation()
-                        }
-                    }
-                } label: {
-                    Image(systemName: "ellipsis.circle")
-                }
-            }
         }
         .sheet(isPresented: $showingQuickActions) {
             QuickTestActionsView()
@@ -54,184 +36,85 @@ struct DietaryChatView: View {
         }
     }
     
-    // MARK: - Welcome View
-    private var welcomeView: some View {
-        ScrollView {
-            VStack(spacing: 32) {
-                Spacer(minLength: 20)
-                
-                // Hero Section with improved design
-                VStack(spacing: 24) {
-                    // Animated AI Logo with better gradients
-                    ZStack {
-                        // Outer glow effect
-                        Circle()
-                            .fill(
-                                LinearGradient(
-                                    colors: [.purple.opacity(0.3), .blue.opacity(0.3)],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .frame(width: 100, height: 100)
-                            .blur(radius: 10)
-                        
-                        // Main circle
-                        Circle()
-                            .fill(
-                                LinearGradient(
-                                    colors: [.purple, .blue, .cyan],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .frame(width: 85, height: 85)
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
-                            )
-                        
-                        Image(systemName: "brain.head.profile")
-                            .font(.system(size: 36, weight: .medium))
-                            .foregroundStyle(.white)
-                            .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
-                    }
-                    
-                    VStack(spacing: 16) {
-                        Text("Meal Map AI")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [.primary, .secondary],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                        
-                        Text("Your intelligent nutrition companion")
-                            .font(.title3)
-                            .fontWeight(.medium)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                    }
+    private var headerView: some View {
+        HStack {
+            Spacer()
+            Text("Meal Map AI")
+                .font(.headline)
+                .fontWeight(.semibold)
+            Spacer()
+        }
+        .padding()
+        .background(Color(.systemBackground))
+        .overlay(alignment: .trailing) {
+            Menu {
+                Button("Quick Test Actions") { showingQuickActions = true }
+                if chatService.currentConversation != nil {
+                    Button("New Conversation", role: .destructive) { startNewConversation() }
                 }
-                
-                // Enhanced Features Grid
-                LazyVGrid(columns: [
-                    GridItem(.flexible()),
-                    GridItem(.flexible())
-                ], spacing: 16) {
-                    FeatureCard(
-                        icon: "restaurant.fill",
-                        title: "Restaurant Guide",
-                        description: "Smart menu recommendations",
-                        color: .orange
-                    )
-                    
-                    FeatureCard(
-                        icon: "chart.bar.fill",
-                        title: "Nutrition Insights",
-                        description: "Detailed macro analysis",
-                        color: .green
-                    )
-                    
-                    FeatureCard(
-                        icon: "person.crop.circle.fill",
-                        title: "Personal Coach",
-                        description: "Tailored to your goals",
-                        color: .purple
-                    )
-                    
-                    FeatureCard(
-                        icon: "lightbulb.fill",
-                        title: "Smart Tips",
-                        description: "Healthier alternatives",
-                        color: .blue
-                    )
-                }
-                .padding(.horizontal)
-                
-                // Enhanced Quick Start Section
-                VStack(spacing: 20) {
-                    VStack(spacing: 8) {
-                        Text("✨ Try asking me:")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                        
-                        Text("Tap any suggestion below to get started")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    VStack(spacing: 12) {
-                        QuickStartButton(
-                            text: "What's healthy at McDonald's?",
-                            icon: "fork.knife",
-                            color: .red
-                        ) {
-                            sendMessage("What's the healthiest thing I can order at McDonald's that fits my goals?")
-                        }
-                        
-                        QuickStartButton(
-                            text: "I have 500 calories left for dinner",
-                            icon: "speedometer",
-                            color: .orange
-                        ) {
-                            sendMessage("I have 500 calories left in my daily budget for dinner. What are some good restaurant options?")
-                        }
-                        
-                        QuickStartButton(
-                            text: "Help me find vegetarian protein",
-                            icon: "leaf.fill",
-                            color: .green
-                        ) {
-                            sendMessage("I'm vegetarian and trying to get more protein. What restaurants and menu items should I look for?")
-                        }
-                        
-                        QuickStartButton(
-                            text: "Low carb options near me",
-                            icon: "minus.circle",
-                            color: .blue
-                        ) {
-                            sendMessage("I'm following a low-carb diet. What are some good restaurant options with low-carb meals?")
-                        }
-                    }
-                }
-                .padding(.horizontal)
-                
-                Spacer(minLength: 20)
+            } label: {
+                Image(systemName: "ellipsis.circle")
+                    .font(.title2)
+                    .padding()
             }
         }
-        .background(
-            LinearGradient(
-                colors: [Color(.systemBackground), Color(.systemGray6).opacity(0.3)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-        )
     }
     
-    // MARK: - Chat Messages View
+    private var welcomeView: some View {
+        VStack(spacing: 24) {
+            Spacer()
+            Image(systemName: "brain.head.profile")
+                .font(.system(size: 60))
+                .foregroundColor(.accentColor)
+            
+            Text("Welcome to Meal Map AI")
+                .font(.title)
+                .fontWeight(.bold)
+            
+            Text("Your intelligent nutrition companion. Ask anything about menus, restaurants, or your diet.")
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            Text("Limited to 150 characters per message")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
+            
+            Spacer()
+            
+            Button("Start a New Chat") {
+                startNewConversation()
+            }
+            .buttonStyle(.borderedProminent)
+            .padding()
+        }
+    }
+    
     private func chatMessagesView(conversation: DietaryConversation) -> some View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(spacing: 12) {
+                    // Welcome message for first-time conversations
+                    if conversation.messages.isEmpty {
+                        welcomeMessageView
+                    }
+                    
                     ForEach(conversation.messages) { message in
                         ChatMessageBubble(message: message)
                             .id(message.id)
                     }
-                    
                     if chatService.isLoading {
-                        ChatLoadingIndicator()
+                        ProgressView()
+                            .padding()
                     }
                 }
                 .padding()
             }
-            .onChange(of: conversation.messages.count) { _, _ in
+            .onChange(of: conversation.messages.count) {
                 if let lastMessage = conversation.messages.last {
-                    withAnimation(.easeOut(duration: 0.5)) {
+                    withAnimation {
                         proxy.scrollTo(lastMessage.id, anchor: .bottom)
                     }
                 }
@@ -239,168 +122,103 @@ struct DietaryChatView: View {
         }
     }
     
-    // MARK: - Input Section
+    private var welcomeMessageView: some View {
+        let currentUser = authManager.currentUser ?? User.defaultUser()
+        let isGuest = !authManager.isAuthenticated
+        
+        let profileName = currentUser.profile.fullName.trimmingCharacters(in: .whitespaces)
+        let displayNameFromUser = currentUser.displayName.trimmingCharacters(in: .whitespaces)
+
+        var finalName = "User" // Default
+        if isGuest {
+            finalName = "Guest"
+        } else {
+            if !profileName.isEmpty {
+                finalName = profileName
+            } else if !displayNameFromUser.isEmpty {
+                finalName = displayNameFromUser
+            }
+        }
+        
+        return VStack {
+            Text("Hey, \(finalName)!")
+                .font(.title2)
+                .fontWeight(.medium)
+            
+            Text(isGuest ? "You're using Meal Map as a guest." : "Welcome back!")
+                .font(.subheadline)
+            
+            Text("Limited to 150 characters per message")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .foregroundColor(.secondary)
+        .frame(maxWidth: .infinity, alignment: .center)
+        .padding(.vertical)
+    }
+    
     private var inputSection: some View {
         VStack(spacing: 0) {
-            // Enhanced divider with gradient
-            Rectangle()
-                .fill(
-                    LinearGradient(
-                        colors: [Color.clear, Color(.systemGray4), Color.clear],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .frame(height: 0.5)
+            Divider()
             
             if let errorMessage = chatService.errorMessage {
-                HStack(spacing: 12) {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.orange)
-                        .font(.subheadline)
-                    
-                    Text(errorMessage)
-                        .font(.subheadline)
-                        .foregroundColor(.primary)
-                    
+                Text(errorMessage)
+                    .font(.caption)
+                    .foregroundColor(.red)
+                    .padding()
+            }
+            
+            if !messageText.isEmpty {
+                HStack {
                     Spacer()
-                    
-                    Button("Dismiss") {
-                        withAnimation(.easeOut(duration: 0.2)) {
-                            chatService.errorMessage = nil
-                        }
-                    }
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(.blue)
+                    Text("\(messageText.count)/\(maxCharacterLimit)")
+                        .font(.caption)
+                        .foregroundColor(messageText.count > maxCharacterLimit ? .red : .secondary)
                 }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.orange.opacity(0.1))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.orange.opacity(0.3), lineWidth: 1)
-                        )
-                )
                 .padding(.horizontal)
-                .padding(.top, 8)
-                .transition(.move(edge: .top).combined(with: .opacity))
             }
             
             HStack(spacing: 12) {
-                // Enhanced Text Input
-                HStack(spacing: 8) {
-                    TextField("Ask about nutrition, restaurants, or menu items...", text: $messageText, axis: .vertical)
-                        .font(.body)
-                        .lineLimit(1...4)
-                        .focused($isTextFieldFocused)
-                        .onSubmit {
-                            sendCurrentMessage()
+                TextField("Ask about nutrition (max 150 chars)...", text: $messageText, axis: .vertical)
+                    .textFieldStyle(.roundedBorder)
+                    .lineLimit(1...4)
+                    .onChange(of: messageText) { _, newValue in
+                        if newValue.count > maxCharacterLimit {
+                            messageText = String(newValue.prefix(maxCharacterLimit))
                         }
-                    
-                    if !messageText.isEmpty {
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                messageText = ""
-                            }
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.title3)
-                                .foregroundColor(.gray)
-                        }
-                        .transition(.scale.combined(with: .opacity))
                     }
-                }
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .background(
-                    RoundedRectangle(cornerRadius: 22)
-                        .fill(Color(.systemGray6))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 22)
-                                .stroke(
-                                    isTextFieldFocused ? Color.blue.opacity(0.5) : Color.clear,
-                                    lineWidth: 2
-                                )
-                        )
-                )
-                .animation(.easeInOut(duration: 0.2), value: isTextFieldFocused)
                 
-                // Enhanced Send Button
                 Button(action: sendCurrentMessage) {
-                    ZStack {
-                        let isEmpty = messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                        let buttonColor: Color = isEmpty ? .gray : .blue
-                        
-                        Circle()
-                            .fill(buttonColor)
-                            .frame(width: 44, height: 44)
-                            .shadow(
-                                color: isEmpty ? Color.clear : Color.blue.opacity(0.3),
-                                radius: 4,
-                                x: 0,
-                                y: 2
-                            )
-                        
-                        Image(systemName: chatService.isLoading ? "stop.fill" : "arrow.up")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .rotationEffect(.degrees(chatService.isLoading ? 0 : 0))
-                            .animation(.easeInOut(duration: 0.2), value: chatService.isLoading)
-                    }
+                    Image(systemName: "arrow.up.circle.fill")
+                        .font(.title)
                 }
-                .disabled(messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                .scaleEffect(messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.9 : 1.0)
-                .animation(.spring(response: 0.3, dampingFraction: 0.7), value: messageText.isEmpty)
+                .disabled(messageText.isEmpty || chatService.isLoading || messageText.count > maxCharacterLimit)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(
-                Color(.systemBackground)
-                    .shadow(color: Color.black.opacity(0.05), radius: 8, x: 0, y: -2)
-            )
+            .padding()
         }
+        .background(Color(.systemBackground))
     }
     
-    // MARK: - Actions
     private func setupInitialChat() {
-        // Create a default user if not signed in
-        let currentUser = authService.currentUser ?? User.defaultUser()
-        
-        // Always start a new conversation since API is always available
-        if chatService.currentConversation == nil {
-            _ = chatService.startNewConversation(for: currentUser, title: "Meal Map Chat")
-        }
-        
-        // Handle initial menu item if provided
         if let item = initialItem {
+            let currentUser = authManager.currentUser ?? User.defaultUser()
             Task {
                 await chatService.chatAboutMenuItem(item, user: currentUser)
             }
+        } else if chatService.currentConversation == nil {
+            startNewConversation()
         }
     }
     
     private func sendCurrentMessage() {
-        if chatService.isLoading {
-            // Stop current request (if needed)
-            return
-        }
-        
         let message = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !message.isEmpty else { return }
+        if message.isEmpty || message.count > maxCharacterLimit { return }
         
         sendMessage(message)
     }
     
     private func sendMessage(_ message: String) {
-        let currentUser = authService.currentUser ?? User.defaultUser()
-        
-        if chatService.currentConversation == nil {
-            _ = chatService.startNewConversation(for: currentUser)
-        }
+        let currentUser = authManager.currentUser ?? User.defaultUser()
         
         messageText = ""
         isTextFieldFocused = false
@@ -411,7 +229,7 @@ struct DietaryChatView: View {
     }
     
     private func startNewConversation() {
-        let currentUser = authService.currentUser ?? User.defaultUser()
+        let currentUser = authManager.currentUser ?? User.defaultUser()
         _ = chatService.startNewConversation(for: currentUser)
     }
 }
@@ -530,6 +348,36 @@ struct QuickStartButton: View {
         .buttonStyle(.plain)
         .scaleEffect(1.0)
         .animation(.easeInOut(duration: 0.1), value: false)
+    }
+}
+
+struct QuickActionChip: View {
+    let text: String
+    let icon: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.callout)
+                    .foregroundColor(.accentColor)
+                
+                Text(text)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(.primary)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(Color(.systemGray6))
+            .clipShape(Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(Color(.systemGray4), lineWidth: 0.5)
+            )
+        }
+        .buttonStyle(.plain)
     }
 }
 
@@ -667,84 +515,25 @@ struct ChatLoadingIndicator: View {
 // MARK: - Quick Test Actions Sheet
 struct QuickTestActionsView: View {
     @StateObject private var chatService = ChatGPTDietaryService.shared
-    @StateObject private var authService = FirebaseAuthService.shared
+    @StateObject private var authManager = AuthenticationManager.shared
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
-                VStack(spacing: 16) {
-                    Text("🧪 Test Meal Map AI")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    Text("Try these pre-built test messages to see how your AI assistant responds")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-                
-                ScrollView {
-                    LazyVStack(spacing: 12) {
-                        ForEach(TestMessageType.allCases, id: \.self) { testType in
-                            TestActionButton(testType: testType) {
-                                Task {
-                                    let currentUser = authService.currentUser ?? User.defaultUser()
-                                    
-                                    // Ensure we have a conversation started
-                                    if chatService.currentConversation == nil {
-                                        chatService.startNewConversation(for: currentUser, title: "Test Chat")
-                                    }
-                                    
-                                    await chatService.sendMessage(testType.message, user: currentUser)
-                                    dismiss()
-                                }
-                            }
+            List(TestMessageType.allCases, id: \.self) { testType in
+                Button(testType.title) {
+                    Task {
+                        let currentUser = authManager.currentUser ?? User.defaultUser()
+                        if chatService.currentConversation == nil {
+                            chatService.startNewConversation(for: currentUser)
                         }
-                    }
-                    .padding()
-                }
-            }
-            .navigationTitle("Quick Tests")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                        await chatService.sendMessage(testType.message, user: currentUser)
                         dismiss()
                     }
                 }
             }
+            .navigationTitle("Quick Tests")
         }
-    }
-}
-
-struct TestActionButton: View {
-    let testType: TestMessageType
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text(testType.title)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                    Spacer()
-                    Image(systemName: "arrow.right")
-                        .font(.caption)
-                        .foregroundColor(.blue)
-                }
-                
-                Text(testType.message)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.leading)
-            }
-            .padding()
-            .background(Color(.systemGray6))
-            .cornerRadius(12)
-        }
-        .buttonStyle(.plain)
     }
 }
 

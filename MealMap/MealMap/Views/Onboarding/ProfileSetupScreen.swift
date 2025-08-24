@@ -128,8 +128,13 @@ struct ProfileSetupScreen: View {
     }
     
     private func completeSetup() {
+        guard var user = authManager.currentUser else { return }
+        
+        user.profile = profile
+        user.preferences = preferences
+        
         Task {
-            await authManager.updateUserProfile(profile, preferences: preferences)
+            await authManager.updateUserProfile(user)
             onComplete()
         }
     }

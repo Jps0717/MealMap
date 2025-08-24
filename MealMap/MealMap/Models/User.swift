@@ -4,7 +4,7 @@ import Foundation
 struct User: Identifiable, Codable {
     let id: String
     let email: String
-    let displayName: String
+    var displayName: String
     var profile: UserProfile
     var preferences: UserPreferences
     let createdAt: Date

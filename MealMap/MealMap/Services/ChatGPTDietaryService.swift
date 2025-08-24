@@ -356,37 +356,68 @@ class ChatGPTDietaryService: ObservableObject {
         // Update memory with latest user data
         aiMemory.updateUserData(user)
         
+        // Determine if user is a guest based on the user ID
+        let isGuestUser = user.id == "guest-user"
+        
+        // Determine user display name based on authentication status
+        let displayName = isGuestUser ? "Guest User" : (user.profile.fullName.isEmpty ? "User" : user.profile.fullName)
+        
         var prompt = """
-        You are the Meal Map AI assistant - a specialized nutritionist and dietary advisor with PERFECT MEMORY of this user.
+        You are the Meal Map AI assistant - a specialized nutritionist and dietary advisor.
+        
+        USER STATUS: \(isGuestUser ? "Guest Mode - No personal information available" : "Signed-in User")
+        USER NAME: \(displayName)
         
         MEAL MAP CONTEXT:
         - You are integrated into a restaurant discovery app that shows nearby restaurants with nutrition data
         - Users can ask about restaurant nutrition facts, healthy menu suggestions, or meal options
         - You help with counting calories, managing dietary needs, and making informed food choices
-        - You remember EVERYTHING about this user from previous conversations
         """
         
-        // Add the user's memory context
-        prompt += aiMemory.generateMemoryContext()
+        if isGuestUser {
+            prompt += """
+            
+            GUEST USER INSTRUCTIONS:
+            - No personal profile, preferences, or history are available
+            - Provide general nutrition advice without referencing personal data
+            - Focus on restaurant-specific information and general healthy eating principles
+            - Do not make assumptions about dietary restrictions or health goals
+            - Keep responses concise and focused on the immediate question
+            """
+        } else {
+            prompt += """
+            
+            PERSONAL MEMORY CONTEXT:
+            - You have PERFECT MEMORY of this user's preferences, history, and goals
+            """
+            
+            // Add the user's memory context only for signed-in users
+            prompt += aiMemory.generateMemoryContext()
+            
+            prompt += """
+            
+            MEMORY INSTRUCTIONS:
+            - Reference previous conversations naturally ("Last time we talked about...")
+            - Remember their preferences, restrictions, and goals
+            - Build on previous recommendations
+            - Track their progress toward goals
+            - Suggest restaurants and meals based on their history
+            - Be encouraging about their journey
+            """
+        }
         
         prompt += """
         
-        MEMORY INSTRUCTIONS:
-        - Reference previous conversations naturally ("Last time we talked about...")
-        - Remember their preferences, restrictions, and goals
-        - Build on previous recommendations
-        - Track their progress toward goals
-        - Suggest restaurants and meals based on their history
-        - Be encouraging about their journey
-        
         RESPONSE STYLE:
         - Personal and conversational (use their name when appropriate)
-        - Reference their specific situation and history
         - Provide actionable, restaurant-specific advice
         - Keep responses 150-250 words for mobile readability
-        - Always consider their current goals and restrictions
+        - Always consider any known dietary needs or restrictions
+        """
         
-        Remember: You have a perfect memory of this user's journey, preferences, and our entire conversation history.
+        prompt += """
+        
+        Remember: Provide helpful nutrition advice based on available information.
         """
         
         return prompt
@@ -432,9 +463,9 @@ class ChatGPTDietaryService: ObservableObject {
     }
     
     private func sendMessageWithMemory(_ message: String, user: User, conversation: DietaryConversation) async {
-        let apiKey = "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"
+        let apiKey = OpenAIConfiguration.sharedAPIKey
         
-        guard let url = URL(string: "https://api.openai.com/v1/chat/completions") else {
+        guard let url = URL(string: OpenAIConfiguration.baseURL) else {
             await MainActor.run {
                 self.errorMessage = "Invalid API URL"
             }
@@ -464,10 +495,10 @@ class ChatGPTDietaryService: ObservableObject {
         }
         
         let requestBody = [
-            "model": "gpt-3.5-turbo",
+            "model": OpenAIConfiguration.model,
             "messages": messages,
-            "max_tokens": 600,
-            "temperature": 0.7
+            "max_tokens": OpenAIConfiguration.maxTokens,
+            "temperature": OpenAIConfiguration.temperature
         ] as [String: Any]
         
         do {

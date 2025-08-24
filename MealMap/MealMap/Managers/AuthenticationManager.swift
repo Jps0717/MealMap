@@ -1,5 +1,6 @@
 import SwiftUI
 import Foundation
+import Combine
 
 // MARK: - Authentication Manager with Firebase REST API
 @MainActor
@@ -29,11 +30,26 @@ class AuthenticationManager: ObservableObject {
         return !isAuthenticated && !hasSeenOnboarding
     }
     
+    private var cancellables = Set<AnyCancellable>()
+    
     private init() {
-        // Use a safer initialization approach
-        Task {
-            await checkExistingAuthSafely()
-        }
+        // Observe changes from FirebaseAuthService
+        authService.$isAuthenticated
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAuthenticated in
+                self?.isAuthenticated = isAuthenticated
+                if !isAuthenticated {
+                    self?.currentUser = nil
+                }
+            }
+            .store(in: &cancellables)
+            
+        authService.$currentUser
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] user in
+                self?.currentUser = user
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Safer authentication checking
@@ -84,6 +100,29 @@ class AuthenticationManager: ObservableObject {
     }
     
     struct TimeoutError: Error {}
+    
+    // MARK: - Sign In Anonymously (Guest)
+    func signInAnonymously() async {
+        guard !isLoading else { return } // Prevent multiple simultaneous requests
+        
+        isLoading = true
+        errorMessage = nil
+        
+        // For guest mode, we create a local-only user session.
+        // No network call to Firebase is made.
+        
+        // Clear any previously stored real user credentials
+        clearStoredAuth()
+        
+        // Set the current user to the default guest user
+        self.currentUser = User.defaultUser()
+        
+        // A guest is not a real authenticated user
+        self.isAuthenticated = false
+        self.hasSeenOnboarding = true
+        
+        isLoading = false
+    }
     
     // MARK: - Sign Up with Firebase
     func signUp(email: String, password: String, displayName: String) async {
@@ -179,16 +218,12 @@ class AuthenticationManager: ObservableObject {
     }
     
     // MARK: - Update User Profile with Firebase
-    func updateUserProfile(_ profile: UserProfile, preferences: UserPreferences) async {
-        guard var user = currentUser,
-              let token = userDefaults.string(forKey: firebaseTokenKey) else { return }
+    func updateUserProfile(_ user: User) async {
+        guard let token = userDefaults.string(forKey: firebaseTokenKey) else { return }
         
         guard !isLoading else { return } // Prevent multiple simultaneous requests
         
         isLoading = true
-        
-        user.profile = profile
-        user.preferences = preferences
         
         do {
             // Update in Firestore with timeout
@@ -211,9 +246,7 @@ class AuthenticationManager: ObservableObject {
     
     // MARK: - Sign Out
     func signOut() {
-        currentUser = nil
-        isAuthenticated = false
-        clearStoredAuth()
+        authService.signOut() // This will now trigger the publisher updates
     }
     
     // MARK: - Reset (for testing)

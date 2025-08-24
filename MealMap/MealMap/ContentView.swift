@@ -9,13 +9,14 @@ struct ContentView: View {
 
     // MARK: - Simplified Access Checks to prevent blocking auth
     private var shouldShowNetworkError: Bool {
-        // Only show network error for authenticated users trying to use features
-        authManager.isAuthenticated && !networkMonitor.isConnected
+        // Show network error if user is past onboarding
+        guard !authManager.shouldShowOnboarding else { return false }
+        return !networkMonitor.isConnected
     }
     
     private var shouldShowLocationError: Bool {
-        // Only show location error for authenticated users trying to use features
-        guard authManager.isAuthenticated && networkMonitor.isConnected else { return false }
+        // Show location error if user is past onboarding and network is connected
+        guard !authManager.shouldShowOnboarding && networkMonitor.isConnected else { return false }
         
         return locationManager.authorizationStatus == .denied ||
                locationManager.authorizationStatus == .restricted ||
@@ -25,7 +26,8 @@ struct ContentView: View {
     private var hasValidLocation: Bool {
         locationManager.lastLocation != nil &&
         (locationManager.authorizationStatus == .authorizedWhenInUse ||
-         locationManager.authorizationStatus == .authorizedAlways)
+         locationManager.authorizationStatus == .authorizedAlways) &&
+        locationManager.locationError == nil
     }
 
     var body: some View {
@@ -37,11 +39,12 @@ struct ContentView: View {
             } else if shouldShowNetworkError {
                 // 2. Network Error (Only for authenticated users)
                 noNetworkView
-            } else if shouldShowLocationError {
+            } else if shouldShowLocationError || !hasValidLocation {
                 // 3. Location Error (Only for authenticated users)
+                // ENHANCED: Also prevent access when there's no valid location, regardless of error state
                 locationErrorView
             } else {
-                // 4. Main App (All requirements satisfied or user not authenticated yet)
+                // 4. Main App (All requirements satisfied and user authenticated)
                 HomeScreen()
                     .environmentObject(locationManager)
                     .environmentObject(mapViewModel)
@@ -253,9 +256,4 @@ struct ContentView: View {
             UIApplication.shared.open(settingsURL)
         }
     }
-}
-
-// Preview
-#Preview {
-    ContentView()
 }

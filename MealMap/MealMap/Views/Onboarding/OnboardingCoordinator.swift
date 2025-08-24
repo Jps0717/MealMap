@@ -275,6 +275,39 @@ struct AuthenticationScreen: View {
                     }
                     .buttonStyle(.plain)
                     
+                    // Continue as Guest Button
+                    Button(action: {
+                        HapticService.shared.buttonPress()
+                        handleGuestSignIn()
+                    }) {
+                        HStack {
+                            if authManager.isLoading && isGuestSignIn {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                                    .scaleEffect(0.8)
+                            }
+                            
+                            Text("Continue as Guest")
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+                                .foregroundColor(.blue)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(isGuestSignIn && authManager.isLoading ? Color.clear : Color.blue, lineWidth: 2)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(Color.blue.opacity(0.1))
+                                        .opacity(isGuestSignIn && authManager.isLoading ? 0.7 : 1.0)
+                                )
+                        )
+                        .disabled(authManager.isLoading)
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 24)
+                    
                     Spacer(minLength: 100)
                 }
             }
@@ -282,7 +315,9 @@ struct AuthenticationScreen: View {
         .background(Color(.systemBackground))
         .onChange(of: authManager.isAuthenticated) { _, newValue in
             if newValue {
-                if isSignUp {
+                if isGuestSignIn {
+                    onSignInSuccess()
+                } else if isSignUp {
                     onSignUpSuccess()
                 } else {
                     onSignInSuccess()
@@ -291,6 +326,9 @@ struct AuthenticationScreen: View {
         }
     }
     
+    // MARK: - State for guest sign in
+    @State private var isGuestSignIn = false
+    
     private func handleAuthAction() {
         Task {
             if isSignUp {
@@ -298,10 +336,19 @@ struct AuthenticationScreen: View {
                     authManager.errorMessage = "Passwords don't match"
                     return
                 }
+                isGuestSignIn = false
                 await authManager.signUp(email: email, password: password, displayName: displayName)
             } else {
+                isGuestSignIn = false
                 await authManager.signIn(email: email, password: password)
             }
+        }
+    }
+    
+    private func handleGuestSignIn() {
+        Task {
+            isGuestSignIn = true
+            await authManager.signInAnonymously()
         }
     }
 }

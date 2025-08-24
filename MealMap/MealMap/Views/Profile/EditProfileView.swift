@@ -420,29 +420,25 @@ struct EditProfileView: View {
     private func saveProfile() {
         isLoading = true
         
-        var updatedProfile = authManager.currentUser?.profile ?? UserProfile()
-        updatedProfile.firstName = firstName
-        updatedProfile.lastName = lastName
-        updatedProfile.dietaryRestrictions = selectedDietaryRestrictions
-        updatedProfile.activityLevel = activityLevel
+        guard var updatedUser = authManager.currentUser else {
+            isLoading = false
+            return
+        }
         
-        var updatedPreferences = userPreferences
+        // Update the user object with the latest data from the form
+        updatedUser.profile.firstName = firstName
+        updatedUser.profile.lastName = lastName
+        updatedUser.displayName = displayName
+        updatedUser.profile.dietaryRestrictions = selectedDietaryRestrictions
+        updatedUser.profile.activityLevel = activityLevel
+        updatedUser.preferences = userPreferences
         
         Task {
-            await authManager.updateUserProfile(updatedProfile, preferences: updatedPreferences)
+            // Use the updated user object for the update call
+            await authManager.updateUserProfile(updatedUser)
             
             // Update AI memory with new user data
-            let updatedUser = User(
-                id: authManager.currentUser?.id ?? "guest",
-                email: authManager.currentUser?.email ?? "",
-                displayName: displayName
-            )
-            var userWithUpdatedData = updatedUser
-            userWithUpdatedData.profile = updatedProfile
-            userWithUpdatedData.preferences = updatedPreferences
-            
-            // Update ChatGPT service memory
-            ChatGPTDietaryService.shared.initializeForUser(userWithUpdatedData)
+            ChatGPTDietaryService.shared.initializeForUser(updatedUser)
             
             await MainActor.run {
                 isLoading = false
