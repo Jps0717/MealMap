@@ -4,11 +4,10 @@ struct AnalyzedMenuItemView: View {
     let item: AnalyzedMenuItem
     @State private var showingUserCorrections = false
     @State private var showingScoreLegend = false
-    @State private var showingDietaryChat = false
     @Environment(\.dismiss) private var dismiss
     
     // Access user data for scoring
-    @StateObject private var authService = FirebaseAuthService.shared
+    @StateObject private var authManager = AuthenticationManager.shared
     @State private var menuItemScore: MenuItemScore?
     @State private var isCalculatingScore = false
     
@@ -61,10 +60,6 @@ struct AnalyzedMenuItemView: View {
                                 showingScoreLegend = true
                             }
                         }
-                        
-                        Button("Chat About This Item") {
-                            showingDietaryChat = true
-                        }
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
@@ -80,21 +75,10 @@ struct AnalyzedMenuItemView: View {
         .sheet(isPresented: $showingScoreLegend) {
             DietaryRatingLegendView()
         }
-        .sheet(isPresented: $showingDietaryChat) {
-            DietaryChatView()
-                .onAppear {
-                    // Pre-fill chat with item context
-                    Task {
-                        if let user = authService.currentUser {
-                            await ChatGPTDietaryService.shared.chatAboutMenuItem(item, user: user)
-                        }
-                    }
-                }
-        }
     }
     
     private var shouldShowScoring: Bool {
-        item.shouldShowScoring && (authService.isAuthenticated || menuItemScore != nil)
+        item.shouldShowScoring && (authManager.isAuthenticated || menuItemScore != nil)
     }
     
     private func calculateScoreIfNeeded() {
@@ -103,7 +87,7 @@ struct AnalyzedMenuItemView: View {
         isCalculatingScore = true
         
         // Get current user if authenticated
-        let currentUser = authService.currentUser
+        let currentUser = authManager.currentUser
         
         // Calculate score
         let score = MenuItemScoringService.shared.calculatePersonalizedScore(
@@ -145,7 +129,7 @@ struct AnalyzedMenuItemView: View {
                 .cornerRadius(12)
             } else if let score = menuItemScore {
                 MenuItemScoreCard(score: score, compact: false)
-            } else if !authService.isAuthenticated {
+            } else if !authManager.isAuthenticated {
                 authPromptView
             }
         }

@@ -15,7 +15,6 @@ struct RestaurantDetailView: View {
     @State private var showingMenuScanner = false
     @State private var showSlowLoadingTip = false
     @State private var slowLoadingTimer: Timer?
-    @State private var showingSignIn = false
 
     @StateObject private var authService = AuthenticationManager.shared
     
@@ -527,7 +526,6 @@ struct RestaurantDetailView: View {
             VStack(spacing: 4) {
                 Button("Sign In") {
                     HapticService.shared.buttonPress()
-                    showingSignIn = true
                 }
                 .font(.caption)
                 .foregroundColor(.white)
@@ -548,16 +546,6 @@ struct RestaurantDetailView: View {
             RoundedRectangle(cornerRadius: 12)
                 .stroke(Color.blue.opacity(0.3), lineWidth: 1)
         )
-        .sheet(isPresented: $showingSignIn) {
-            AuthenticationScreen(
-                onSignUpSuccess: {
-                    showingSignIn = false
-                },
-                onSignInSuccess: {
-                    showingSignIn = false
-                }
-            )
-        }
     }
 
     private var restaurantInfoSquares: some View {

@@ -35,16 +35,6 @@
 			path = MealMap;
 			sourceTree = "<group>";
 		};
-		C4A8656A2DF1257100D5A4AF /* MealMapTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MealMapTests;
-			sourceTree = "<group>";
-		};
-		C4A865742DF1257100D5A4AF /* MealMapUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MealMapUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				C4A8655C2DF1257000D5A4AF /* MealMap */,
-				C4A8656A2DF1257100D5A4AF /* MealMapTests */,
-				C4A865742DF1257100D5A4AF /* MealMapUITests */,
 				C4A8655B2DF1257000D5A4AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,9 +118,6 @@
 			dependencies = (
 				C4A865692DF1257100D5A4AF /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				C4A8656A2DF1257100D5A4AF /* MealMapTests */,
-			);
 			name = MealMapTests;
 			packageProductDependencies = (
 			);
@@ -152,9 +137,6 @@
 			);
 			dependencies = (
 				C4A865732DF1257100D5A4AF /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				C4A865742DF1257100D5A4AF /* MealMapUITests */,
 			);
 			name = MealMapUITests;
 			packageProductDependencies = (
@@ -464,7 +446,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 45KVN5LZ9K;
+				DEVELOPMENT_TEAM = M3BN8ND45P;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;
@@ -483,7 +465,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 45KVN5LZ9K;
+				DEVELOPMENT_TEAM = M3BN8ND45P;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MARKETING_VERSION = 1.0;

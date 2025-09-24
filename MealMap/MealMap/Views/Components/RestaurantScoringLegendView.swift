@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RestaurantScoringLegendView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var authService = FirebaseAuthService.shared
+    @StateObject private var authManager = AuthenticationManager.shared
     
     var body: some View {
         NavigationView {
@@ -73,7 +73,7 @@ struct RestaurantScoringLegendView: View {
                             .font(.headline)
                             .fontWeight(.semibold)
                         
-                        if authService.isAuthenticated {
+                        if authManager.isAuthenticated {
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Image(systemName: "person.crop.circle.fill")

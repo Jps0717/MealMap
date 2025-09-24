@@ -1,11 +1,10 @@
 import SwiftUI
-// import FirebaseCore // Will add when Firebase package is installed
-// import FirebaseAnalytics
 
 @main
 struct MealMapApp: App {
+    @StateObject private var authManager = AuthenticationManager.shared
+
     init() {
-        // FirebaseApp.configure() // Will uncomment when Firebase is added
         debugLog("🚀 MealMap app initialized")
         
         // Initialize crash reporting first
@@ -17,11 +16,14 @@ struct MealMapApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
-                    // Track when app goes to background
-                    AnalyticsService.shared.trackAppBackground()
-                }
+            if authManager.isAuthenticated {
+                ContentView()
+                    .environmentObject(authManager)
+            } else {
+                // In a real app, you might show a loading screen
+                // For now, we'll just show a simple text view
+                Text("Loading...")
+            }
         }
     }
 }

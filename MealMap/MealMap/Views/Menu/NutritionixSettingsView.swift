@@ -15,91 +15,94 @@ struct NutritionixSettingsView: View {
                 // User Information Section
                 Section {
                     if let user = authManager.currentUser {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(user.displayName.isEmpty ? "User" : user.displayName)
-                                    .font(.headline)
+                        Group {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(user.displayName.isEmpty ? "Guest" : user.displayName)
+                                        .font(.headline)
+                                    
+                                    Text(user.email)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
                                 
-                                Text(user.email)
-                                    .font(.subheadline)
+                                Spacer()
+                                
+                                Image(systemName: "person.circle.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.blue)
+                            }
+                            
+                            if !user.profile.fullName.isEmpty {
+                                HStack {
+                                    Text("Full Name")
+                                    Spacer()
+                                    Text(user.profile.fullName)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            
+                            HStack {
+                                Text("Member Since")
+                                Spacer()
+                                Text(user.createdAt.formatted(date: .abbreviated, time: .omitted))
                                     .foregroundColor(.secondary)
                             }
                             
-                            Spacer()
+                            if !user.profile.healthGoals.isEmpty {
+                                HStack {
+                                    Text("Health Goals")
+                                    Spacer()
+                                    Text("\(user.profile.healthGoals.count) selected")
+                                        .foregroundColor(.secondary)
+                                }
+                            }
                             
-                            Image(systemName: "person.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(.blue)
-                        }
-                        
-                        if !user.profile.fullName.isEmpty {
-                            HStack {
-                                Text("Full Name")
-                                Spacer()
-                                Text(user.profile.fullName)
-                                    .foregroundColor(.secondary)
+                            if !user.profile.dietaryRestrictions.isEmpty {
+                                HStack {
+                                    Text("Dietary Restrictions")
+                                    Spacer()
+                                    Text("\(user.profile.dietaryRestrictions.count) selected")
+                                        .foregroundColor(.secondary)
+                                }
                             }
-                        }
-                        
-                        HStack {
-                            Text("Member Since")
-                            Spacer()
-                            Text(user.createdAt.formatted(date: .abbreviated, time: .omitted))
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        if !user.profile.healthGoals.isEmpty {
-                            HStack {
-                                Text("Health Goals")
-                                Spacer()
-                                Text("\(user.profile.healthGoals.count) selected")
-                                    .foregroundColor(.secondary)
+                            
+                            Button("Edit Profile") {
+                                showingEditProfile = true
                             }
-                        }
-                        
-                        if !user.profile.dietaryRestrictions.isEmpty {
-                            HStack {
-                                Text("Dietary Restrictions")
-                                Spacer()
-                                Text("\(user.profile.dietaryRestrictions.count) selected")
-                                    .foregroundColor(.secondary)
+                            .foregroundColor(.blue)
+                            
+                            Button("Sign Out") {
+                                authManager.signOut()
+                                dismiss()
                             }
+                            .foregroundColor(.red)
                         }
-                        
-                        Button("Edit Profile") {
-                            showingEditProfile = true
-                        }
-                        .foregroundColor(.blue)
-                        
-                        Button("Sign Out") {
-                            authManager.signOut()
-                            dismiss()
-                        }
-                        .foregroundColor(.red)
                     } else {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Not Signed In")
-                                    .font(.headline)
+                        // This case should ideally not be reached with the guest user setup
+                        Group {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Not Signed In")
+                                        .font(.headline)
+                                    
+                                    Text("Sign in to sync your preferences")
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
                                 
-                                Text("Sign in to sync your preferences")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
+                                Spacer()
+                                
+                                Image(systemName: "person.circle")
+                                    .font(.title2)
+                                    .foregroundColor(.gray)
                             }
                             
-                            Spacer()
-                            
-                            Image(systemName: "person.circle")
-                                .font(.title2)
-                                .foregroundColor(.gray)
+                            Button("Sign In") {
+                                // This button is now defunct
+                            }
+                            .foregroundColor(.blue)
                         }
-                        
-                        Button("Sign In") {
-                            // Reset onboarding to show auth screen
-                            authManager.resetOnboarding()
-                            dismiss()
-                        }
-                        .foregroundColor(.blue)
                     }
                 } header: {
                     Text("Account")

@@ -13,7 +13,7 @@ struct MenuAnalysisResultsView: View {
     @State private var menuName = ""
     
     // Scoring functionality
-    @StateObject private var authService = FirebaseAuthService.shared
+    @StateObject private var authManager = AuthenticationManager.shared
     @State private var itemScores: [UUID: MenuItemScore] = [:]
     @State private var isCalculatingScores = false
     
@@ -125,7 +125,7 @@ struct MenuAnalysisResultsView: View {
     }
     
     private var shouldShowScoring: Bool {
-        authService.isAuthenticated && !validatedItems.filter { $0.isValid }.isEmpty
+        authManager.isAuthenticated && !validatedItems.filter { $0.isValid }.isEmpty
     }
     
     private func calculateScoresIfNeeded() {
@@ -134,7 +134,7 @@ struct MenuAnalysisResultsView: View {
         isCalculatingScores = true
         
         // Get current user
-        let currentUser = authService.currentUser
+        let currentUser = authManager.currentUser
         
         // Calculate scores for all valid items
         Task {
@@ -558,8 +558,6 @@ struct ValidatedMenuItemRow: View {
     let onToggleSelection: () -> Void
     let convertToAnalyzed: (ValidatedMenuItem) -> AnalyzedMenuItem
     
-    @State private var showingDietaryChat = false
-    
     var body: some View {
         HStack(spacing: 12) {
             // Selection circle (on the left) - only show if item has nutrition data
@@ -606,19 +604,6 @@ struct ValidatedMenuItemRow: View {
                 .padding(.vertical, 4)
                 .background(score.scoreColor.opacity(0.1))
                 .cornerRadius(8)
-            }
-            
-            // Chat button
-            Button(action: {
-                showingDietaryChat = true
-            }) {
-                Image(systemName: "message.circle")
-                    .font(.caption)
-                    .foregroundColor(.blue)
-            }
-            .sheet(isPresented: $showingDietaryChat) {
-                let analyzedItem = convertToAnalyzed(item)
-                DietaryChatView(initialItem: analyzedItem)
             }
             
             // Chevron

@@ -2,53 +2,36 @@ import SwiftUI
 import CoreLocation
 
 struct ContentView: View {
-    @ObservedObject private var locationManager = LocationManager.shared
-    @ObservedObject private var networkMonitor = NetworkMonitor.shared
+    @EnvironmentObject var authManager: AuthenticationManager
+    @StateObject private var locationManager = LocationManager.shared
+    @StateObject private var networkMonitor = NetworkMonitor.shared
     @StateObject private var mapViewModel = MapViewModel()
-    @ObservedObject private var authManager = AuthenticationManager.shared
 
-    // MARK: - Simplified Access Checks to prevent blocking auth
     private var shouldShowNetworkError: Bool {
-        // Only show network error for authenticated users trying to use features
-        authManager.isAuthenticated && !networkMonitor.isConnected
+        !networkMonitor.isConnected
     }
     
     private var shouldShowLocationError: Bool {
-        // Only show location error for authenticated users trying to use features
-        guard authManager.isAuthenticated && networkMonitor.isConnected else { return false }
+        guard networkMonitor.isConnected else { return false }
         
         return locationManager.authorizationStatus == .denied ||
                locationManager.authorizationStatus == .restricted ||
                (locationManager.locationError != nil && !locationManager.usingFallbackLocation)
     }
 
-    private var hasValidLocation: Bool {
-        locationManager.lastLocation != nil &&
-        (locationManager.authorizationStatus == .authorizedWhenInUse ||
-         locationManager.authorizationStatus == .authorizedAlways)
-    }
-
     var body: some View {
         ZStack {
-            // MARK: - Prioritize Authentication Flow
-            if authManager.shouldShowOnboarding {
-                // 1. Onboarding (First Priority - don't block with network/location)
-                OnboardingCoordinator()
-            } else if shouldShowNetworkError {
-                // 2. Network Error (Only for authenticated users)
+            if shouldShowNetworkError {
                 noNetworkView
             } else if shouldShowLocationError {
-                // 3. Location Error (Only for authenticated users)
                 locationErrorView
             } else {
-                // 4. Main App (All requirements satisfied or user not authenticated yet)
                 HomeScreen()
                     .environmentObject(locationManager)
                     .environmentObject(mapViewModel)
             }
         }
         .ignoresSafeArea()
-        // FORCED: Always use light appearance at the app level
         .preferredColorScheme(.light)
     }
     
@@ -82,7 +65,6 @@ struct ContentView: View {
             }
             
             Button(action: {
-                // Trigger a network check - NetworkMonitor will auto-update
                 HapticService.shared.buttonPress()
             }) {
                 Text("Try Again")
@@ -141,7 +123,6 @@ struct ContentView: View {
                     .padding(.horizontal, 40)
             }
             
-            // Primary Action Button only
             Button(action: primaryLocationAction) {
                 Text(primaryLocationButtonText)
                     .font(.system(size: 16, weight: .semibold, design: .rounded))
@@ -225,11 +206,6 @@ struct ContentView: View {
         }
     }
     
-    private var showSecondaryLocationAction: Bool {
-        // Removed secondary action - always false
-        false
-    }
-    
     // MARK: - Location Action Functions
     private func primaryLocationAction() {
         HapticService.shared.buttonPress()
@@ -244,10 +220,6 @@ struct ContentView: View {
         }
     }
     
-    private func secondaryLocationAction() {
-        // Removed - no longer used
-    }
-    
     private func openSettings() {
         if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
             UIApplication.shared.open(settingsURL)
@@ -255,7 +227,7 @@ struct ContentView: View {
     }
 }
 
-// Preview
 #Preview {
     ContentView()
+        .environmentObject(AuthenticationManager.shared)
 }

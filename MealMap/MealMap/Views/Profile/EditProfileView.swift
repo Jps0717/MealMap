@@ -7,7 +7,6 @@ struct EditProfileView: View {
     // Basic Information
     @State private var firstName: String = ""
     @State private var lastName: String = ""
-    @State private var displayName: String = ""
     
     // Health & Activity
     @State private var selectedDietaryRestrictions: [DietaryRestriction] = []
@@ -77,7 +76,6 @@ struct EditProfileView: View {
         }
         .onChange(of: firstName) { _, _ in hasUnsavedChanges = true }
         .onChange(of: lastName) { _, _ in hasUnsavedChanges = true }
-        .onChange(of: displayName) { _, _ in hasUnsavedChanges = true }
         .onChange(of: selectedDietaryRestrictions) { _, _ in hasUnsavedChanges = true }
         .onChange(of: activityLevel) { _, _ in hasUnsavedChanges = true }
         .onChange(of: userPreferences.dailyCalorieGoal) { _, _ in hasUnsavedChanges = true }
@@ -116,7 +114,7 @@ struct EditProfileView: View {
             }
             
             VStack(spacing: 4) {
-                Text(displayName.isEmpty ? "Your Name" : displayName)
+                Text(fullName.isEmpty ? "Your Name" : fullName)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.primary)
@@ -135,12 +133,6 @@ struct EditProfileView: View {
     private var basicInformationSection: some View {
         ProfileCardSection(title: "Basic Information", icon: "person.fill") {
             VStack(spacing: 16) {
-                ProfileTextField(
-                    title: "Display Name",
-                    text: $displayName,
-                    placeholder: "How you'd like to be known"
-                )
-                
                 HStack(spacing: 12) {
                     ProfileTextField(
                         title: "First Name",
@@ -392,8 +384,12 @@ struct EditProfileView: View {
     }
     
     // MARK: - Helper Methods
+    private var fullName: String {
+        "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
+    }
+
     private func getInitials() -> String {
-        let first = firstName.isEmpty ? displayName.first : firstName.first
+        let first = firstName.first
         let last = lastName.first
         
         if let first = first, let last = last {
@@ -410,7 +406,6 @@ struct EditProfileView: View {
         
         firstName = user.profile.firstName
         lastName = user.profile.lastName
-        displayName = user.displayName
         selectedDietaryRestrictions = user.profile.dietaryRestrictions
         userPreferences = user.preferences
         
@@ -431,18 +426,13 @@ struct EditProfileView: View {
         Task {
             await authManager.updateUserProfile(updatedProfile, preferences: updatedPreferences)
             
-            // Update AI memory with new user data
+            // This part is now redundant since we are not using displayName
+            // but we'll keep the structure for now.
             let updatedUser = User(
                 id: authManager.currentUser?.id ?? "guest",
-                email: authManager.currentUser?.email ?? "",
-                displayName: displayName
+                profile: updatedProfile,
+                preferences: updatedPreferences
             )
-            var userWithUpdatedData = updatedUser
-            userWithUpdatedData.profile = updatedProfile
-            userWithUpdatedData.preferences = updatedPreferences
-            
-            // Update ChatGPT service memory
-            ChatGPTDietaryService.shared.initializeForUser(userWithUpdatedData)
             
             await MainActor.run {
                 isLoading = false

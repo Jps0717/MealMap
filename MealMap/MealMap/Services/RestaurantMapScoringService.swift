@@ -13,7 +13,7 @@ class RestaurantMapScoringService: ObservableObject {
     
     private let nutritionManager = NutritionDataManager.shared
     private let menuItemScoringService = MenuItemScoringService.shared
-    private let authService = FirebaseAuthService.shared
+    private let authManager = AuthenticationManager.shared
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -23,7 +23,7 @@ class RestaurantMapScoringService: ObservableObject {
     
     // MARK: - Authentication Observer
     private func setupAuthObserver() {
-        authService.$currentUser
+        authManager.$currentUser
             .dropFirst()
             .sink { [weak self] _ in
                 // Clear scores when user changes (different preferences)
@@ -206,7 +206,7 @@ class RestaurantMapScoringService: ObservableObject {
                 averageScore: 0,
                 topRatedItems: [],
                 scoreGrade: ScoreGrade.fromScore(0),
-                isPersonalized: authService.currentUser != nil,
+                isPersonalized: authManager.currentUser != nil,
                 calculatedAt: Date()
             )
         }
@@ -222,7 +222,7 @@ class RestaurantMapScoringService: ObservableObject {
             averageScore: averageScore,
             topRatedItems: topRatedItems,
             scoreGrade: ScoreGrade.fromScore(averageScore),
-            isPersonalized: authService.currentUser != nil,
+            isPersonalized: authManager.currentUser != nil,
             calculatedAt: Date()
         )
     }
@@ -259,7 +259,7 @@ class RestaurantMapScoringService: ObservableObject {
     
     private func calculateMenuItemScores(from restaurantData: RestaurantNutritionData) -> [String: MenuItemScore] {
         var scores: [String: MenuItemScore] = [:]
-        let currentUser = authService.currentUser
+        let currentUser = authManager.currentUser
         
         for item in restaurantData.items {
             let analyzedItem = convertNutritionDataToAnalyzedMenuItem(item)
