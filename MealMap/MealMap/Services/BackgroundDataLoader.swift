@@ -173,7 +173,7 @@ private extension BackgroundDataLoader {
     
     func getCachedRestaurants(for location: CLLocationCoordinate2D) -> CachedRestaurantData? {
         return cacheQueue.sync {
-            for cachedData in restaurantCache.values {
+            for cachedData in self.restaurantCache.values {
                 if !cachedData.isExpired && cachedData.contains(location) {
                     return cachedData
                 }
@@ -198,9 +198,9 @@ private extension BackgroundDataLoader {
             )
             
             let cacheKey = "\(location.latitude)_\(location.longitude)"
-            self.restaurantCache[cacheKey] = cachedData
             
             Task { @MainActor in
+                self.restaurantCache[cacheKey] = cachedData
                 self.cacheStats.totalCachedAreas = self.restaurantCache.count
                 self.cacheStats.lastCacheUpdate = Date()
             }
@@ -303,15 +303,15 @@ extension BackgroundDataLoader {
         cacheQueue.async { [weak self] in
             guard let self = self else { return }
             
-            let initialCount = self.restaurantCache.count
-            self.restaurantCache = self.restaurantCache.filter { !$0.value.isExpired }
-            
-            let removedCount = initialCount - self.restaurantCache.count
-            if removedCount > 0 {
-                debugLog("🧹 Cleaned up \(removedCount) expired cache entries")
-            }
-            
             Task { @MainActor in
+                let initialCount = self.restaurantCache.count
+                self.restaurantCache = self.restaurantCache.filter { !$0.value.isExpired }
+                
+                let removedCount = initialCount - self.restaurantCache.count
+                if removedCount > 0 {
+                    debugLog("🧹 Cleaned up \(removedCount) expired cache entries")
+                }
+                
                 self.cacheStats.totalCachedAreas = self.restaurantCache.count
             }
         }
@@ -319,9 +319,7 @@ extension BackgroundDataLoader {
     
     /// Get current cache status for debugging
     func getCacheStatus() -> String {
-        return cacheQueue.sync {
-            let validCaches = restaurantCache.values.filter { !$0.isExpired }
-            return "Cache: \(validCaches.count) areas, \(activeBackgroundTasks.count) background tasks"
-        }
+        let validCaches = self.restaurantCache.values.filter { !$0.isExpired }
+        return "Cache: \(validCaches.count) areas, \(self.activeBackgroundTasks.count) background tasks"
     }
 }

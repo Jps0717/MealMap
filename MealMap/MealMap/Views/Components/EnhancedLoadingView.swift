@@ -48,8 +48,6 @@ struct EnhancedLoadingView: View {
             return "Retrying..."
         case .loadingFromStatic:
             return "Loading Backup Data"
-        case .loadingFromNutritionix:
-            return "Alternative Source"
         case .failed:
             return "Failed to Load"
         case .success:
@@ -69,8 +67,6 @@ struct EnhancedLoadingView: View {
             return "Connection issue detected, trying again"
         case .loadingFromStatic:
             return "Using backup nutrition data"
-        case .loadingFromNutritionix:
-            return "Trying alternative nutrition source"
         case .failed:
             return "Unable to load data from any source"
         case .success:
@@ -80,7 +76,7 @@ struct EnhancedLoadingView: View {
     
     private var showProgressBar: Bool {
         switch loadingState {
-        case .retryingAPI, .loadingFromStatic, .loadingFromNutritionix:
+        case .retryingAPI, .loadingFromStatic:
             return true
         default:
             return false
@@ -97,8 +93,6 @@ struct EnhancedLoadingView: View {
             return 0.6
         case .loadingFromStatic:
             return 0.8
-        case .loadingFromNutritionix:
-            return 0.9
         case .success:
             return 1.0
         default:
@@ -192,9 +186,6 @@ struct DataSourceIndicator: View {
             case .loadingFromStatic:
                 Image(systemName: "archivebox")
                     .foregroundColor(.purple)
-            case .loadingFromNutritionix:
-                Image(systemName: "globe")
-                    .foregroundColor(.red)
             case .success:
                 Image(systemName: "checkmark.circle")
                     .foregroundColor(.green)
@@ -216,8 +207,6 @@ struct DataSourceIndicator: View {
             return "Retrying"
         case .loadingFromStatic:
             return "Backup Data"
-        case .loadingFromNutritionix:
-            return "Alternative"
         case .success:
             return "Loaded"
         default:

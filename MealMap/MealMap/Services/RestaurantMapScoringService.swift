@@ -231,7 +231,7 @@ class RestaurantMapScoringService: ObservableObject {
     
     private func loadNutritionData(for restaurant: Restaurant) async -> RestaurantNutritionData? {
         // Try to get existing data first
-        if let existingData = await nutritionManager.currentRestaurantData,
+        if let existingData = nutritionManager.currentRestaurantData,
            existingData.restaurantName.lowercased() == restaurant.name.lowercased() {
             return existingData
         }
@@ -240,11 +240,11 @@ class RestaurantMapScoringService: ObservableObject {
         return await withCheckedContinuation { continuation in
             Task {
                 // Load nutrition data on background thread
-                await nutritionManager.loadNutritionData(for: restaurant.name)
+                nutritionManager.loadNutritionData(for: restaurant.name)
                 
                 // Wait for data to load (with timeout)
                 for _ in 0..<20 { // 2 second timeout
-                    if let data = await nutritionManager.currentRestaurantData,
+                    if let data = nutritionManager.currentRestaurantData,
                        data.restaurantName.lowercased().contains(restaurant.name.lowercased()) {
                         continuation.resume(returning: data)
                         return
@@ -283,7 +283,7 @@ class RestaurantMapScoringService: ObservableObject {
             sodium: NutritionRange(min: item.sodium, max: item.sodium, unit: "mg"),
             sugar: NutritionRange(min: item.sugar, max: item.sugar, unit: "g"),
             confidence: 0.95,
-            estimationSource: .nutritionix,
+            estimationSource: .database,
             sourceDetails: "Restaurant nutrition database",
             estimatedPortionSize: "1 serving",
             portionConfidence: 0.9
@@ -298,7 +298,7 @@ class RestaurantMapScoringService: ObservableObject {
             dietaryTags: generateDietaryTags(for: item),
             confidence: 0.95,
             textBounds: nil,
-            estimationTier: .nutritionix,
+            estimationTier: .database,
             isGeneralizedEstimate: false
         )
     }

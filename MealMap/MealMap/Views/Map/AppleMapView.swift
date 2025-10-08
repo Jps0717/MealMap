@@ -111,85 +111,46 @@ struct AppleMapContentView: View {
     @Binding var selectedRestaurant: AppleMapRestaurant?
     let onRestaurantTap: (AppleMapRestaurant) -> Void
     
-    @State private var region: MKCoordinateRegion = MKCoordinateRegion()
+    @State private var position: MapCameraPosition = .automatic
     
     var body: some View {
-        Map(
-            coordinateRegion: $region,
-            interactionModes: .all,
-            showsUserLocation: false,
-            annotationItems: mapAnnotationItems,
-            annotationContent: { item in
-                MapAnnotation(coordinate: item.coordinate) {
-                    switch item {
-                    case .userLocation:
-                        UserLocationAnnotationView()
-                    case .restaurant(let restaurant):
-                        Button(action: {
-                            // Convert Restaurant to AppleMapRestaurant for callback
-                            let appleRestaurant = AppleMapRestaurant(
-                                id: "\(restaurant.id)",
-                                name: restaurant.name,
-                                coordinate: restaurant.coordinate,
-                                category: restaurant.amenityType ?? "restaurant",
-                                phoneNumber: restaurant.phone,
-                                url: URL(string: restaurant.website ?? ""),
-                                mapItem: nil
-                            )
-                            onRestaurantTap(appleRestaurant)
-                        }) {
-                            Image(systemName: "fork.knife.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(restaurant.hasNutritionData ? .green : .orange)
-                        }
-                    case .cluster:
-                        // Simple cluster view
-                        Circle()
-                            .fill(Color.purple)
-                            .frame(width: 30, height: 30)
+        Map(position: $position) {
+            // Show user location
+            if let userLocation = LocationManager.shared.lastLocation?.coordinate {
+                Annotation("Your Location", coordinate: userLocation) {
+                    Circle()
+                        .fill(Color.blue)
+                        .frame(width: 12, height: 12)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white, lineWidth: 2)
+                        )
+                }
+            }
+            
+            // Show restaurant annotations
+            ForEach(controller.visibleRestaurants, id: \.id) { restaurant in
+                Annotation(restaurant.name, coordinate: restaurant.coordinate) {
+                    Button(action: {
+                        onRestaurantTap(restaurant)
+                    }) {
+                        Image(systemName: "fork.knife.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(restaurant.hasNutritionData ? .green : .orange)
                     }
                 }
             }
-        )
+        }
         .mapStyle(.standard(pointsOfInterest: []))
         .onAppear {
             if let location = LocationManager.shared.lastLocation?.coordinate {
                 controller.setInitialRegion(center: location)
+                position = .region(controller.currentRegion)
             }
-            region = controller.currentRegion
         }
         .onReceive(controller.$currentRegion) { newRegion in
-            region = newRegion
+            position = .region(newRegion)
         }
-    }
-    
-    private var mapAnnotationItems: [MapItem] {
-        var items: [MapItem] = []
-        
-        // Add user location
-        if let userLocation = LocationManager.shared.lastLocation?.coordinate {
-            items.append(.userLocation(userLocation))
-        }
-        
-        // Convert AppleMapRestaurant to Restaurant for MapItem compatibility
-        let restaurantItems = controller.visibleRestaurants.map { appleRestaurant in
-            let restaurant = Restaurant(
-                id: Int(appleRestaurant.id.hashValue),
-                name: appleRestaurant.name,
-                latitude: appleRestaurant.coordinate.latitude,
-                longitude: appleRestaurant.coordinate.longitude,
-                address: nil,
-                cuisine: appleRestaurant.category,
-                openingHours: nil,
-                phone: appleRestaurant.phoneNumber,
-                website: appleRestaurant.url?.absoluteString,
-                type: "node"
-            )
-            return MapItem.restaurant(restaurant)
-        }
-        items.append(contentsOf: restaurantItems)
-        
-        return items
     }
 }
 

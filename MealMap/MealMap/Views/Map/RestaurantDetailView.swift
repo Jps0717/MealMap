@@ -12,7 +12,6 @@ struct RestaurantDetailView: View {
     @State private var viewState: ViewState = .initializing
     @State private var searchText = ""
     @State private var selectedMenuCategory: MenuCategory = .all
-    @State private var showingMenuScanner = false
     @State private var showSlowLoadingTip = false
     @State private var slowLoadingTimer: Timer?
 
@@ -288,8 +287,6 @@ struct RestaurantDetailView: View {
             return "Retrying..."
         case .loadingFromStatic:
             return "Loading Fallback Data..."
-        case .loadingFromNutritionix:
-            return "Loading from Nutritionix..."
         default:
             return "Loading Menu..."
         }
@@ -305,8 +302,6 @@ struct RestaurantDetailView: View {
             return "Trying again with backup servers"
         case .loadingFromStatic:
             return "Using emergency nutrition database"
-        case .loadingFromNutritionix:
-            return "Fetching from alternative nutrition source"
         default:
             return "Getting nutrition data for \(restaurant.name)"
         }
@@ -327,9 +322,6 @@ struct RestaurantDetailView: View {
         case .loadingFromStatic:
             Image(systemName: "database.fill")
                 .foregroundColor(.purple)
-        case .loadingFromNutritionix:
-            Image(systemName: "network")
-                .foregroundColor(.indigo)
         default:
             Image(systemName: "circle.fill")
                 .foregroundColor(.gray)
@@ -346,8 +338,6 @@ struct RestaurantDetailView: View {
             return "TIER 3: Retry Logic"
         case .loadingFromStatic:
             return "TIER 4: Static Data"
-        case .loadingFromNutritionix:
-            return "TIER 5: Nutritionix"
         default:
             return "Loading..."
         }
@@ -871,59 +861,10 @@ struct RestaurantDetailView: View {
                 Text("No Nutrition Data")
                     .font(.system(size: 24, weight: .bold))
                 
-                Text("We don't have detailed nutrition for \(restaurant.name), but you can scan their menu!")
+                Text("We don't have detailed nutrition data available for \(restaurant.name) yet.")
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 40)
-                
-                Button {
-                    AnalyticsService.shared.trackMenuScannerUsage(
-                        restaurantName: restaurant.name,
-                        source: "restaurant_detail_no_nutrition",
-                        hasNutritionData: false,
-                        cuisine: restaurant.cuisine
-                    )
-                    
-                    showingMenuScanner = true
-                } label: {
-                    HStack(spacing: 12) {
-                        Image(systemName: "camera.fill")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.white)
-                        
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Scan Menu")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.white)
-                            Text("Take a photo to analyze nutrition")
-                                .font(.system(size: 12))
-                                .foregroundColor(.white.opacity(0.8))
-                        }
-                        
-                        Spacer()
-                        
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                    .padding()
-                    .background(
-                        LinearGradient(
-                            colors: [Color.blue, Color.blue.opacity(0.8)], 
-                            startPoint: .leading, 
-                            endPoint: .trailing
-                        )
-                    )
-                    .cornerRadius(12)
-                    .shadow(color: Color.blue.opacity(0.3), radius: 6, y: 3)
-                }
-                .buttonStyle(.plain)
-                
-                Text("📊 Get instant nutrition analysis for any menu item")
-                    .font(.caption)
-                    .foregroundColor(.blue)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 16)
                 
                 if restaurant.address == nil && restaurant.phone == nil && restaurant.website == nil {
                     Text("No additional restaurant information available")
@@ -934,9 +875,6 @@ struct RestaurantDetailView: View {
             }
             .padding(.horizontal, 20)
             Spacer()
-        }
-        .sheet(isPresented: $showingMenuScanner) {
-            MenuPhotoCaptureView()
         }
     }
 
@@ -974,31 +912,8 @@ struct RestaurantDetailView: View {
                     .foregroundColor(.white)
                     .cornerRadius(12)
                 }
-                
-                Button {
-                    AnalyticsService.shared.trackMenuScannerUsage(
-                        restaurantName: restaurant.name,
-                        source: "restaurant_detail_error_recovery",
-                        hasNutritionData: hasNutritionData,
-                        cuisine: restaurant.cuisine
-                    )
-                    
-                    showingMenuScanner = true
-                } label: {
-                    HStack {
-                        Image(systemName: "camera.fill")
-                        Text("Scan Menu Instead")
-                    }
-                    .padding()
-                    .background(Color.gray.opacity(0.2))
-                    .foregroundColor(.primary)
-                    .cornerRadius(12)
-                }
             }
             Spacer()
-        }
-        .sheet(isPresented: $showingMenuScanner) {
-            MenuPhotoCaptureView()
         }
     }
 

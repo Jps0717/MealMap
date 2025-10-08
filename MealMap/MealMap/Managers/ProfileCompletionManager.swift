@@ -22,7 +22,6 @@ class ProfileCompletionManager: ObservableObject {
         
         let hasHealthGoals = !user.profile.healthGoals.isEmpty
         let hasDietaryRestrictions = !user.profile.dietaryRestrictions.isEmpty
-        let hasBasicInfo = !user.profile.firstName.isEmpty || !user.profile.lastName.isEmpty
         
         let isProfileComplete = hasHealthGoals && hasDietaryRestrictions
         

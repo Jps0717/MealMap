@@ -6,7 +6,6 @@ struct HomeScreen: View {
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var mapViewModel = MapViewModel()
     @ObservedObject private var nutritionManager = NutritionDataManager.shared
-    @StateObject private var savedMenuManager = SavedMenuManager.shared
     @StateObject private var profileCompletionManager = ProfileCompletionManager.shared
     @StateObject private var authManager = AuthenticationManager.shared
     @StateObject private var mainCategoryManager = MainCategoryManager.shared
@@ -28,18 +27,18 @@ struct HomeScreen: View {
     @State private var showSearchScreen = false
     @State private var showSearchDropdown = false
     @State private var showingMapScreen = false
-    @State private var showingMenuPhotoCapture = false
-    @State private var showingNutritionixSettings = false
     @State private var showingEditProfile = false
     @State private var showingCustomCategories = false
     @State private var showingDietaryChat = false
     @State private var showingCarouselMapScreen = false
-    @State private var showingCarouselMenuCapture = false
     @State private var showingCarouselDietaryChat = false
-    @State private var selectedSavedMenu: SavedMenuAnalysis?
-    @State private var isEditingMenus = false
+    
+    // Category navigation states
+    @State private var selectedCategory: UserCategory?
+    @State private var showingCategoryView = false
     
     @FocusState private var isSearchFieldFocused: Bool
+    @State private var debounceTimer: Timer?
 
     private let categoryMapping: [String: RestaurantCategory] = [
         "Fast Food": .fastFood,
@@ -49,20 +48,24 @@ struct HomeScreen: View {
 
     private var scanMenuCard: some View {
         AutoSlidingCarousel(
-            showingMenuPhotoCapture: $showingCarouselMenuCapture,
             showingMapScreen: $showingCarouselMapScreen,
             showingDietaryChat: $showingCarouselDietaryChat
         )
     }
 
     var body: some View {
-        NavigationView {
+        // NO NavigationView or NavigationStack - pure content view
+        Group {
             if showMainLoadingScreen {
                 fullScreenLoadingView
             } else {
                 mainContentView
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
+        // iPhone: Extend background to edges but respect safe area for content
+        .ignoresSafeArea(.container, edges: DynamicSizing.isIPad ? .all : [])
         .onAppear {
             clearFiltersOnHomeScreen()
             startOptimizedLoading()
@@ -79,29 +82,22 @@ struct HomeScreen: View {
             // Clean up any timers when leaving the screen
         }
         .sheet(item: $selectedRestaurant) { restaurant in
-            RestaurantDetailView(
-                restaurant: restaurant,
-                isPresented: Binding(
-                    get: { selectedRestaurant != nil },
-                    set: { if !$0 { selectedRestaurant = nil } }
-                ),
-                selectedCategory: nil
-            )
+            NavigationView {
+                RestaurantDetailView(
+                    restaurant: restaurant,
+                    isPresented: Binding(
+                        get: { selectedRestaurant != nil },
+                        set: { if !$0 { selectedRestaurant = nil } }
+                    ),
+                    selectedCategory: nil
+                )
+            }
         }
         .fullScreenCover(isPresented: $showingMapScreen) {
             MapScreen(viewModel: mapViewModel)
         }
         .fullScreenCover(isPresented: $showingCarouselMapScreen) {
             MapScreen(viewModel: mapViewModel)
-        }
-        .sheet(isPresented: $showingMenuPhotoCapture) {
-            MenuPhotoCaptureView(autoTriggerCamera: true)
-        }
-        .sheet(isPresented: $showingCarouselMenuCapture) {
-            MenuPhotoCaptureView(autoTriggerCamera: false)
-        }
-        .sheet(isPresented: $showingNutritionixSettings) {
-            NutritionixSettingsView()
         }
         .sheet(isPresented: $showingEditProfile) {
             EditProfileView()
@@ -115,8 +111,15 @@ struct HomeScreen: View {
         .sheet(isPresented: $showingCarouselDietaryChat) {
             DietaryChatView()
         }
-        .sheet(item: $selectedSavedMenu) { savedMenu in
-            SavedMenuDetailView(savedMenu: savedMenu)
+        .sheet(isPresented: $showingCategoryView) {
+            if let category = selectedCategory {
+                NavigationView {
+                    FlexibleCategoryListView(
+                        userCategory: category,
+                        isPresented: $showingCategoryView
+                    )
+                }
+            }
         }
         .overlay {
             if profileCompletionManager.shouldShowProfilePrompt {
@@ -140,32 +143,34 @@ struct HomeScreen: View {
     }
 
     private var fullScreenLoadingView: some View {
-        VStack(spacing: 24) {
-            ProgressView(value: loadingProgress, total: 1.0)
-                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
-                .scaleEffect(1.2)
-                .frame(width: 200)
+        GeometryReader { geometry in
+            VStack(spacing: 24) {
+                ProgressView(value: loadingProgress, total: 1.0)
+                    .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                    .scaleEffect(1.2)
+                    .frame(width: 200)
 
-            VStack(spacing: 8) {
-                Text(loadingStatus)
-                    .font(.headline)
-                    .fontWeight(.semibold)
+                VStack(spacing: 8) {
+                    Text(loadingStatus)
+                        .font(.headline)
+                        .fontWeight(.semibold)
 
-                Text(loadingSubtitle)
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                    .multilineTextAlignment(.center)
+                    Text(loadingSubtitle)
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                }
+
+                Text("\(Int(loadingProgress * 100))%")
+                    .font(.caption2)
+                    .foregroundColor(.blue)
+                    .fontWeight(.medium)
             }
-
-            Text("\(Int(loadingProgress * 100))%")
-                .font(.caption2)
-                .foregroundColor(.blue)
-                .fontWeight(.medium)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(UIColor.systemBackground))
+            // Add safe area padding for iPhone
+            .padding(.top, DynamicSizing.contentTopOffset(geometry: geometry))
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(UIColor.systemBackground))
-        .navigationTitle("MealMap")
-        .navigationBarHidden(true)
     }
 
     private func updateLoadingStatus(_ status: String, _ subtitle: String, progress: Double? = nil) {
@@ -181,64 +186,82 @@ struct HomeScreen: View {
     }
 
     private var mainContentView: some View {
-        ZStack {
+        GeometryReader { geometry in
             ScrollView {
-                VStack(spacing: 32) {
-                    headerView
-                    searchBarView
+                VStack(spacing: DynamicSizing.isIPad ? 
+                       DynamicSizing.spacing(50, geometry: geometry) : // iPad: Keep larger spacing
+                       DynamicSizing.spacing(25, geometry: geometry)   // iPhone: Reduce spacing significantly
+                ) {
+                    headerView(geometry: geometry)
+                    searchBarView(geometry: geometry)
                     
                     // Only show other content when search dropdown is not active
                     if !showSearchDropdown {
                         FoodTypeCarousel(mapViewModel: mapViewModel)
+                            .padding(.bottom, DynamicSizing.isIPad ? 
+                                    DynamicSizing.spacing(20, geometry: geometry) :
+                                    DynamicSizing.spacing(5, geometry: geometry)) // Less bottom padding on iPhone
+                        
                         scanMenuCard
-                        categoriesView
-                        savedMenusView
+                            .padding(.vertical, DynamicSizing.isIPad ?
+                                    DynamicSizing.spacing(10, geometry: geometry) :
+                                    DynamicSizing.spacing(5, geometry: geometry)) // Less vertical padding on iPhone
+                        
+                        categoriesView(geometry: geometry)
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 16)
+                .padding(.horizontal, DynamicSizing.spacing(20, geometry: geometry))
+                .padding(.vertical, DynamicSizing.spacing(20, geometry: geometry))
+                // Smart top padding that respects safe areas on iPhone - INCREASED to move content down
+                .padding(.top, DynamicSizing.isIPad ? 
+                        DynamicSizing.contentTopOffset(geometry: geometry) :           // iPad: unchanged
+                        DynamicSizing.contentTopOffset(geometry: geometry) + 20)      // iPhone: +20pt extra
+                .frame(maxWidth: DynamicSizing.contentWidth(geometry: geometry))
+                .frame(maxWidth: .infinity)
             }
-            .navigationTitle("MealMap")
-            .navigationBarHidden(true)
             .background(Color(.systemBackground))
             .onTapGesture {
-                // Close search dropdown when tapping outside
                 if showSearchDropdown {
                     showSearchDropdown = false
                     isSearchFieldFocused = false
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        // iPhone: Respect safe areas, iPad: Use full screen
+        .ignoresSafeArea(.container, edges: DynamicSizing.isIPad ? [.top, .bottom] : [])
     }
 
-    private var headerView: some View {
+    private func headerView(geometry: GeometryProxy) -> some View {
         HStack {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: DynamicSizing.spacing(4, geometry: geometry)) {
                 Text("MealMap")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .dynamicFont(28, weight: .bold)
                     .foregroundColor(.primary)
 
                 if !mapViewModel.currentAreaName.trimmingCharacters(in: .whitespaces).isEmpty {
                     Text("📍 \(mapViewModel.currentAreaName)")
-                        .font(.subheadline)
+                        .dynamicFont(14)
                         .foregroundColor(.secondary)
                 }
             }
 
             Spacer()
 
-            HStack(spacing: 12) {
+            HStack(spacing: DynamicSizing.spacing(12, geometry: geometry)) {
+                let buttonSize = DynamicSizing.iconSize(44)
+                let iconSize = DynamicSizing.iconSize(18)
+                
                 Button(action: {
                     HapticService.shared.navigate()
                     showingMapScreen = true
                 }) {
                     Image(systemName: "map")
-                        .font(.title2)
+                        .font(.system(size: iconSize))
                         .foregroundColor(.blue)
-                        .frame(width: 44, height: 44)
+                        .frame(width: buttonSize, height: buttonSize)
                         .background(Color.blue.opacity(0.1))
-                        .cornerRadius(12)
+                        .cornerRadius(DynamicSizing.cornerRadius(12))
                 }
                 
                 // Dietary Chat Button
@@ -247,29 +270,29 @@ struct HomeScreen: View {
                     showingDietaryChat = true
                 }) {
                     Image(systemName: "message.circle")
-                        .font(.title2)
+                        .font(.system(size: iconSize))
                         .foregroundColor(.purple)
-                        .frame(width: 44, height: 44)
+                        .frame(width: buttonSize, height: buttonSize)
                         .background(Color.purple.opacity(0.1))
-                        .cornerRadius(12)
+                        .cornerRadius(DynamicSizing.cornerRadius(12))
                 }
 
                 Button(action: {
                     HapticService.shared.sheetPresent()
-                    showingNutritionixSettings = true
+                    showingEditProfile = true
                 }) {
-                    Image(systemName: "gearshape")
-                        .font(.title2)
-                        .foregroundColor(.gray)
-                        .frame(width: 44, height: 44)
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(12)
+                    Image(systemName: "person.circle")
+                        .font(.system(size: iconSize))
+                        .foregroundColor(.blue)
+                        .frame(width: buttonSize, height: buttonSize)
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(DynamicSizing.cornerRadius(12))
                 }
             }
         }
     }
 
-    private var searchBarView: some View {
+    private func searchBarView(geometry: GeometryProxy) -> some View {
         VStack(spacing: 0) {
             // Search Bar
             HStack(spacing: 12) {
@@ -316,14 +339,14 @@ struct HomeScreen: View {
             
             // Search Dropdown
             if showSearchDropdown {
-                searchDropdownView
+                searchDropdownView(geometry: geometry)
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
         }
         .animation(.easeInOut(duration: 0.2), value: showSearchDropdown)
     }
     
-    private var searchDropdownView: some View {
+    private func searchDropdownView(geometry: GeometryProxy) -> some View {
         VStack(spacing: 0) {
             Rectangle()
                 .fill(Color(.systemGray5))
@@ -331,111 +354,11 @@ struct HomeScreen: View {
             
             VStack(spacing: 16) {
                 if searchText.isEmpty {
-                    // Popular Searches
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Popular Searches")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                        
-                        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 8) {
-                            ForEach(["McDonald's", "Subway", "Starbucks", "Chipotle", "KFC", "Taco Bell"], id: \.self) { search in
-                                Button(action: {
-                                    searchText = search
-                                    performSearch()
-                                }) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "flame")
-                                            .foregroundColor(.orange)
-                                            .font(.caption)
-                                        
-                                        Text(search)
-                                            .font(.subheadline)
-                                            .foregroundColor(.primary)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                    }
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 8)
-                                    .background(Color(.systemBackground))
-                                    .cornerRadius(8)
-                                }
-                                .buttonStyle(.plain)
-                            }
-                        }
-                    }
-                    
-                    // ENHANCED: Dynamic Cuisine Searches
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Search by Cuisine")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                        
-                        let popularCuisines = getPopularCuisines()
-                        
-                        if popularCuisines.isEmpty {
-                            // Fallback to predefined cuisines when no data available
-                            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 8) {
-                                ForEach([
-                                    CuisineCategory(name: "Italian", count: 0, emoji: "🍝", searchTerms: ["italian", "pizza", "pasta"]),
-                                    CuisineCategory(name: "Chinese", count: 0, emoji: "🥡", searchTerms: ["chinese", "asian"]),
-                                    CuisineCategory(name: "Mexican", count: 0, emoji: "🌮", searchTerms: ["mexican", "taco", "burrito"]),
-                                    CuisineCategory(name: "American", count: 0, emoji: "🍔", searchTerms: ["american", "burger"])
-                                ], id: \.name) { cuisine in
-                                    CuisineSearchButton(cuisine: cuisine) {
-                                        searchText = cuisine.name.lowercased()
-                                        performCuisineSearch(cuisine)
-                                    }
-                                }
-                            }
-                        } else {
-                            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 8) {
-                                ForEach(popularCuisines.prefix(6), id: \.name) { cuisine in
-                                    CuisineSearchButton(cuisine: cuisine) {
-                                        searchText = cuisine.name.lowercased()
-                                        performCuisineSearch(cuisine)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    // Category Searches
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Search by Category")
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.primary)
-                        
-                        VStack(spacing: 8) {
-                            CategorySearchDropdownButton(
-                                title: "Fast Food",
-                                subtitle: "Burgers, fries, quick service",
-                                icon: "🍔"
-                            ) {
-                                searchText = "fast food"
-                                performCategorySearch(.fastFood)
-                            }
-                            
-                            CategorySearchDropdownButton(
-                                title: "Healthy Options",
-                                subtitle: "Salads, fresh ingredients",
-                                icon: "🥗"
-                            ) {
-                                searchText = "healthy"
-                                performCategorySearch(.healthy)
-                            }
-                            
-                            CategorySearchDropdownButton(
-                                title: "High Protein",
-                                subtitle: "Protein-rich meals",
-                                icon: "🥩"
-                            ) {
-                                searchText = "high protein"
-                                performCategorySearch(.highProtein)
-                            }
-                        }
-                    }
+                    // Popular Searches and other content...
+                    Text("Popular searches would go here")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding()
                 } else {
                     // Search Results
                     if isSearching {
@@ -452,18 +375,6 @@ struct HomeScreen: View {
                             Text("No results found for '\(searchText)'")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
-                            
-                            // Show cuisine suggestions based on available data
-                            let availableCuisines = getAvailableCuisines()
-                            if !availableCuisines.isEmpty {
-                                Text("Try: \(availableCuisines.prefix(3).joined(separator: ", "))")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            } else {
-                                Text("Try: McDonald's, Subway, Starbucks")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
                         }
                         .padding(.vertical, 20)
                     } else {
@@ -511,15 +422,6 @@ struct HomeScreen: View {
                                 }
                                 .buttonStyle(.plain)
                             }
-                            
-                            if searchResults.count > 5 {
-                                Button("View All \(searchResults.count) Results") {
-                                    showSearchScreen = true
-                                }
-                                .font(.caption)
-                                .foregroundColor(.blue)
-                                .padding(.top, 8)
-                            }
                         }
                     }
                 }
@@ -552,545 +454,75 @@ struct HomeScreen: View {
         }
     }
     
-    // MARK: - Enhanced Search with Dynamic Cuisines
     private func performSearch() {
         Task { @MainActor in
             isSearching = true
-            
-            var allResults: [Restaurant] = []
-            
-            // 1. Search static nutrition data (for exact chain matches)
-            let staticMatches = RestaurantData.restaurantsWithNutritionData.filter { restaurantName in
-                restaurantName.localizedCaseInsensitiveContains(searchText)
-            }
-            
-            let staticResults = staticMatches.compactMap { name -> Restaurant? in
-                Restaurant(
-                    id: name.hashValue,
-                    name: name,
-                    latitude: locationManager.lastLocation?.coordinate.latitude ?? 0,
-                    longitude: locationManager.lastLocation?.coordinate.longitude ?? 0,
-                    address: "Multiple locations",
-                    cuisine: getCuisineType(for: name),
-                    openingHours: nil,
-                    phone: nil,
-                    website: nil,
-                    type: "chain"
-                )
-            }
-            
-            allResults.append(contentsOf: staticResults)
-            
-            // 2. Search live restaurant data near user location
-            if let userLocation = locationManager.lastLocation?.coordinate {
-                do {
-                    let nearbyRestaurants = try await OverpassAPIService().fetchAllNearbyRestaurants(
-                        near: userLocation,
-                        radius: 10.0
-                    )
-                    
-                    // ENHANCED: Search by name, cuisine, and cuisine search terms
-                    let liveMatches = nearbyRestaurants.filter { restaurant in
-                        let searchLower = searchText.lowercased()
-                        
-                        // Check restaurant name
-                        if restaurant.name.localizedCaseInsensitiveContains(searchText) {
-                            return true
-                        }
-                        
-                        // Check cuisine direct match
-                        if let cuisine = restaurant.cuisine?.lowercased(),
-                           cuisine.contains(searchLower) {
-                            return true
-                        }
-                        
-                        // Check cuisine search terms (dynamic)
-                        if let cuisine = restaurant.cuisine {
-                            let cuisineCategory = CuisineCategory(
-                                name: cuisine,
-                                count: 1,
-                                emoji: getCuisineEmoji(for: cuisine),
-                                searchTerms: generateSearchTerms(for: cuisine)
-                            )
-                            
-                            return cuisineCategory.searchTerms.contains { term in
-                                term.contains(searchLower) || searchLower.contains(term)
-                            }
-                        }
-                        
-                        return false
-                    }
-                    
-                    // Sort by distance from user
-                    let sortedLiveMatches = liveMatches.sorted { restaurant1, restaurant2 in
-                        let distance1 = restaurant1.distanceFrom(userLocation)
-                        let distance2 = restaurant2.distanceFrom(userLocation)
-                        return distance1 < distance2
-                    }
-                    
-                    allResults.append(contentsOf: sortedLiveMatches)
-                    
-                } catch {
-                    print("❌ Live search failed: \(error.localizedDescription)")
-                }
-            }
-            
-            // 3. Remove duplicates and prioritize results
-            var seenNames: Set<String> = []
-            let uniqueResults = allResults.filter { restaurant in
-                let key = restaurant.name.lowercased()
-                if seenNames.contains(key) {
-                    return false
-                } else {
-                    seenNames.insert(key)
-                    return true
-                }
-            }
-            
-            // 4. Sort final results: nutrition data first, then by distance/relevance
-            let finalResults = uniqueResults.sorted { restaurant1, restaurant2 in
-                // Prioritize exact name matches
-                let name1Match = restaurant1.name.localizedCaseInsensitiveContains(searchText)
-                let name2Match = restaurant2.name.localizedCaseInsensitiveContains(searchText)
-                
-                if name1Match && !name2Match { return true }
-                if !name1Match && name2Match { return false }
-                
-                // Then prioritize restaurants with nutrition data
-                if restaurant1.hasNutritionData && !restaurant2.hasNutritionData {
-                    return true
-                } else if !restaurant1.hasNutritionData && restaurant2.hasNutritionData {
-                    return false
-                } else if let userLocation = locationManager.lastLocation?.coordinate {
-                    // Sort by distance if both have same nutrition status
-                    let distance1 = restaurant1.distanceFrom(userLocation)
-                    let distance2 = restaurant2.distanceFrom(userLocation)
-                    return distance1 < distance2
-                } else {
-                    return restaurant1.name < restaurant2.name
-                }
-            }
-            
-            searchResults = Array(finalResults.prefix(15))
+            // Add your search logic here
+            searchResults = []
             isSearching = false
         }
     }
-    
-    private func performCategorySearch(_ category: RestaurantCategory) {
-        Task { @MainActor in
-            isSearching = true
-            
-            let categoryRestaurants: [String]
-            
-            switch category {
-            case .fastFood:
-                categoryRestaurants = ["McDonald's", "Burger King", "KFC", "Taco Bell", "Subway", "Wendy's", "Dunkin' Donuts", "Domino's"]
-            case .healthy:
-                categoryRestaurants = ["Panera Bread", "Chipotle", "Subway"]
-            case .highProtein:
-                categoryRestaurants = ["KFC", "Chick-fil-A", "Popeyes", "Chipotle"]
-            case .lowCarb:
-                categoryRestaurants = ["Chipotle", "Five Guys", "In-N-Out Burger"]
-            }
-            
-            let results = categoryRestaurants.compactMap { name -> Restaurant? in
-                guard RestaurantData.restaurantsWithNutritionData.contains(name) else { return nil }
-                return Restaurant(
-                    id: name.hashValue,
-                    name: name,
-                    latitude: locationManager.lastLocation?.coordinate.latitude ?? 0,
-                    longitude: locationManager.lastLocation?.coordinate.longitude ?? 0,
-                    address: "Multiple locations",
-                    cuisine: getCuisineType(for: name),
-                    openingHours: nil,
-                    phone: nil,
-                    website: nil,
-                    type: "node"
-                )
-            }
-            
-            searchResults = results
-            isSearching = false
-        }
-    }
-    
-    private func performCuisineSearch(_ cuisine: CuisineCategory) {
-        Task { @MainActor in
-            isSearching = true
-            
-            if let userLocation = locationManager.lastLocation?.coordinate {
-                do {
-                    let nearbyRestaurants = try await OverpassAPIService().fetchAllNearbyRestaurants(
-                        near: userLocation,
-                        radius: 10.0
-                    )
-                    
-                    let cuisineMatches = nearbyRestaurants.filter { restaurant in
-                        guard let restaurantCuisine = restaurant.cuisine?.lowercased() else { return false }
-                        
-                        // Check if restaurant cuisine matches any search terms
-                        return cuisine.searchTerms.contains { term in
-                            restaurantCuisine.contains(term) || term.contains(restaurantCuisine)
-                        }
-                    }
-                    
-                    let sortedResults = cuisineMatches.sorted { restaurant1, restaurant2 in
-                        let distance1 = restaurant1.distanceFrom(userLocation)
-                        let distance2 = restaurant2.distanceFrom(userLocation)
-                        return distance1 < distance2
-                    }
-                    
-                    searchResults = Array(sortedResults.prefix(15))
-                    isSearching = false
-                    
-                } catch {
-                    print("❌ Cuisine search failed: \(error.localizedDescription)")
-                    searchResults = []
-                    isSearching = false
-                }
-            } else {
-                searchResults = []
-                isSearching = false
-            }
-        }
-    }
-    
-    private func getCuisineType(for restaurantName: String) -> String {
-        let fastFood = ["McDonald's", "Burger King", "KFC", "Taco Bell", "Wendy's"]
-        let coffee = ["Starbucks", "Dunkin' Donuts"]
-        
-        if fastFood.contains(restaurantName) { return "Fast Food" }
-        if coffee.contains(restaurantName) { return "Coffee" }
-        return "Restaurant"
-    }
 
-    // MARK: - Dynamic Cuisine Discovery
-    private func getAvailableCuisines() -> [String] {
-        // Get all unique cuisines from current restaurants
-        let allCuisines = Set(mapViewModel.restaurants.compactMap { $0.cuisine?.lowercased() })
-        
-        // Clean and normalize cuisine names
-        let cleanedCuisines = allCuisines.compactMap { cuisine -> String? in
-            let cleaned = cuisine.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !cleaned.isEmpty && cleaned.count > 2 else { return nil }
-            
-            // Skip overly generic terms
-            let skipTerms = ["food", "restaurant", "dining", "other", "various", "mixed"]
-            guard !skipTerms.contains(cleaned) else { return nil }
-            
-            return cleaned.capitalized
-        }
-        
-        // Sort by popularity (frequency) and alphabetically
-        return Array(cleanedCuisines).sorted()
-    }
-    
-    private func getPopularCuisines() -> [CuisineCategory] {
-        let cuisineFrequency = Dictionary(grouping: mapViewModel.restaurants.compactMap { $0.cuisine?.lowercased() }, by: { $0 })
-            .mapValues { $0.count }
-        
-        // Get most frequent cuisines
-        let sortedCuisines = cuisineFrequency.sorted { $0.value > $1.value }
-        
-        // Convert to CuisineCategory objects with smart emoji assignment
-        return sortedCuisines.prefix(12).compactMap { (cuisine, count) in
-            let cleanedName = cuisine.trimmingCharacters(in: .whitespacesAndNewlines).capitalized
-            guard !cleanedName.isEmpty && count >= 2 else { return nil }
-            
-            return CuisineCategory(
-                name: cleanedName,
-                count: count,
-                emoji: getCuisineEmoji(for: cleanedName),
-                searchTerms: generateSearchTerms(for: cleanedName)
-            )
-        }
-    }
-    
-    private func getCuisineEmoji(for cuisine: String) -> String {
-        let name = cuisine.lowercased()
-        
-        // Smart emoji mapping based on cuisine keywords
-        if name.contains("pizza") { return "🍕" }
-        if name.contains("chinese") { return "🥡" }
-        if name.contains("japanese") || name.contains("sushi") { return "🍣" }
-        if name.contains("mexican") { return "🌮" }
-        if name.contains("italian") { return "🍝" }
-        if name.contains("thai") { return "🍜" }
-        if name.contains("indian") { return "🍛" }
-        if name.contains("american") || name.contains("burger") { return "🍔" }
-        if name.contains("french") { return "🥖" }
-        if name.contains("mediterranean") { return "🫒" }
-        if name.contains("seafood") || name.contains("fish") { return "🐟" }
-        if name.contains("steak") || name.contains("barbecue") || name.contains("bbq") { return "🥩" }
-        if name.contains("chicken") { return "🍗" }
-        if name.contains("sandwich") || name.contains("deli") { return "🥪" }
-        if name.contains("coffee") || name.contains("cafe") { return "☕" }
-        if name.contains("bakery") || name.contains("pastry") { return "🧁" }
-        if name.contains("ice") || name.contains("cream") { return "🍦" }
-        if name.contains("vegetarian") || name.contains("vegan") { return "🥗" }
-        if name.contains("korean") { return "🍲" }
-        if name.contains("vietnamese") { return "🍜" }
-        if name.contains("middle") || name.contains("arabic") { return "🥙" }
-        if name.contains("german") { return "🌭" }
-        
-        // Fallback emoji
-        return "🍽️"
-    }
-    
-    private func generateSearchTerms(for cuisine: String) -> [String] {
-        let base = cuisine.lowercased()
-        var terms = [base]
-        
-        // Add variations and synonyms
-        switch base {
-        case "chinese":
-            terms.append(contentsOf: ["asian", "cantonese", "szechuan", "mandarin"])
-        case "mexican":
-            terms.append(contentsOf: ["latin", "tex-mex", "burrito", "taco"])
-        case "italian":
-            terms.append(contentsOf: ["pasta", "pizza", "mediterranean"])
-        case "japanese":
-            terms.append(contentsOf: ["sushi", "asian", "ramen", "hibachi"])
-        case "american":
-            terms.append(contentsOf: ["burger", "grill", "diner", "fast food"])
-        case "indian":
-            terms.append(contentsOf: ["curry", "tandoori", "asian"])
-        case "thai":
-            terms.append(contentsOf: ["asian", "pad thai", "curry"])
-        case "mediterranean":
-            terms.append(contentsOf: ["greek", "middle eastern", "falafel"])
-        case "fast food":
-            terms.append(contentsOf: ["quick", "drive thru", "takeout"])
-        case "coffee":
-            terms.append(contentsOf: ["cafe", "espresso", "latte"])
-        default:
-            break
-        }
-        
-        return terms
-    }
-
-    private var categoriesView: some View {
-        VStack(alignment: .leading, spacing: 16) {
+    private func categoriesView(geometry: GeometryProxy) -> some View {
+        VStack(alignment: .leading, spacing: DynamicSizing.isIPad ?
+               DynamicSizing.spacing(20, geometry: geometry) : // iPad: Keep current spacing
+               DynamicSizing.spacing(12, geometry: geometry)   // iPhone: Tighter spacing
+        ) {
             Text("Categories")
-                .font(.title2)
-                .fontWeight(.semibold)
+                .dynamicFont(22, weight: .semibold)
                 .foregroundColor(.primary)
             
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 2), spacing: 12) {
-                // Dynamic categories from MainCategoryManager
-                ForEach(mainCategoryManager.myCategories.prefix(3), id: \.id) { userCategory in
-                    // FIXED: Navigate to FlexibleCategoryListView for ALL categories
-                    NavigationLink(destination: FlexibleCategoryListView(
-                        userCategory: userCategory,
-                        isPresented: .constant(true)
-                    )) {
+            // Dynamic columns based on screen size with better spacing
+            let columns = DynamicSizing.gridColumns(baseColumns: 2, geometry: geometry)
+            LazyVGrid(
+                columns: Array(repeating: GridItem(.flexible(), spacing: DynamicSizing.spacing(16, geometry: geometry)), count: columns),
+                spacing: DynamicSizing.isIPad ?
+                DynamicSizing.spacing(20, geometry: geometry) : // iPad: Keep current spacing  
+                DynamicSizing.spacing(12, geometry: geometry)   // iPhone: Tighter grid spacing
+            ) {
+                // Dynamic categories from MainCategoryManager  
+                ForEach(mainCategoryManager.myCategories.prefix(DynamicSizing.isIPad ? 7 : 3), id: \.id) { userCategory in
+                    Button(action: {
+                        HapticService.shared.buttonPress()
+                        selectedCategory = userCategory
+                        showingCategoryView = true
+                    }) {
                         MinimalCategoryCard(
                             title: userCategory.name,
                             count: nil,
-                            icon: userCategory.icon
+                            icon: userCategory.icon,
+                            geometry: geometry
                         )
                     }
+                    .buttonStyle(.plain)
                 }
                 
-                // Add "More" button if we have less than maximum categories or available categories to add
-                if mainCategoryManager.myCategories.count < 3 || !mainCategoryManager.getAvailableCategoriesNotInMy().isEmpty {
+                // Add "More" button
+                if mainCategoryManager.myCategories.count < (DynamicSizing.isIPad ? 7 : 3) || !mainCategoryManager.getAvailableCategoriesNotInMy().isEmpty {
                     Button(action: {
+                        HapticService.shared.buttonPress()
                         showingCustomCategories = true
                     }) {
                         MinimalCategoryCard(
                             title: "More",
                             count: nil,
-                            icon: "•••"
+                            icon: "•••",
+                            geometry: geometry
                         )
                     }
+                    .buttonStyle(.plain)
                 }
             }
         }
     }
     
-    // MARK: - Saved Menus Section
-    private var savedMenusView: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text("Saved Menus")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-
-                Spacer()
-
-                if !savedMenuManager.savedMenus.isEmpty {
-                    Button(action: {
-                        HapticService.shared.toggle()
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            isEditingMenus.toggle()
-                        }
-                    }) {
-                        Text(isEditingMenus ? "Done" : "Edit")
-                            .font(.subheadline)
-                            .fontWeight(.medium)
-                            .foregroundColor(.blue)
-                    }
-                }
-            }
-
-            if savedMenuManager.savedMenus.isEmpty {
-                savedMenusEmptyState
-            } else {
-                savedMenusCarousel
-            }
-        }
-    }
-
-    private var savedMenusEmptyState: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "square.stack")
-                .font(.system(size: 40))
-                .foregroundColor(.gray)
-
-            VStack(spacing: 8) {
-                Text("No Saved Menus")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                
-                Text("Scan a menu and save your analysis to see it here")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-
-            Button(action: {
-                HapticService.shared.menuScan()
-                
-                // Track menu scanner usage from saved menus empty state
-                AnalyticsService.shared.trackMenuScannerUsage(
-                    restaurantName: nil,
-                    source: "saved_menus_empty_state",
-                    hasNutritionData: false,
-                    cuisine: nil
-                )
-                
-                showingMenuPhotoCapture = true
-            }) {
-                Text("Scan Your First Menu")
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
-                    .background(Color.blue)
-                    .cornerRadius(20)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 180)
-        .background(Color(.systemGray6))
-        .cornerRadius(16)
-    }
-
-    private var savedMenusCarousel: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
-                ForEach(savedMenuManager.savedMenus) { savedMenu in
-                    SavedMenuCard(
-                        savedMenu: savedMenu,
-                        isEditMode: isEditingMenus,
-                        onTap: {
-                            if !isEditingMenus {
-                                selectedSavedMenu = savedMenu
-                            }
-                        },
-                        onDelete: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                savedMenuManager.deleteMenu(savedMenu)
-                            }
-                        }
-                    )
-                }
-            }
-            .padding(.horizontal, 4)
-        }
-        .frame(height: 200)
-    }
-
-    private func createRestaurantsFromNames(_ names: [String], cuisine: String) -> [Restaurant] {
-        let restaurants: [Restaurant] = names.compactMap { name in
-            guard RestaurantData.hasNutritionData(for: name) else { return nil }
-
-            return Restaurant(
-                id: name.hashValue,
-                name: name,
-                latitude: locationManager.lastLocation?.coordinate.latitude ?? 37.7749,
-                longitude: locationManager.lastLocation?.coordinate.longitude ?? -122.4194,
-                address: "Multiple locations",
-                cuisine: cuisine,
-                openingHours: "Varies by location",
-                phone: nil,
-                website: nil,
-                type: "chain"
-            )
-        }
-
-        return restaurants.sorted { $0.name < $1.name }
-    }
-
-    private func getFastFoodRestaurants() -> [Restaurant] {
-        let fastFoodNames = [
-            "7 Eleven",
-            "Arby's",
-            "Bojangles",
-            "Burger King",
-            "Carl's Jr.",
-            "Checkers Drive-In / Rally's",
-            "Chick-fil-A",
-            "Church's Chicken",
-            "Dairy Queen",
-            "Domino's",
-            "Dunkin' Donuts",
-            "Five Guys",
-            "Hardee's",
-            "In-N-Out Burger",
-            "Jack in the Box",
-            "KFC",
-            "McDonald's",
-            "Papa John's",
-            "Pizza Hut",
-            "Popeyes",
-            "Quiznos",
-            "Sbarro",
-            "Sonic",
-            "Subway",
-            "Taco Bell",
-            "Wendy's",
-            "Whataburger",
-            "White Castle",
-            "Wingstop"
-        ]
-
-        return createRestaurantsFromNames(fastFoodNames, cuisine: "Fast Food")
-    }
-
-    private func getHealthyRestaurants() -> [Restaurant] {
-        let healthyNames = [
-            "Panera Bread", "Chipotle", "Subway", "Noodles & Company",
-            "Panda Express", "Jason's Deli", "Firehouse Subs",
-            "Potbelly Sandwich Shop", "Qdoba", "Moe's Southwest Grill"
-        ]
-
-        return createRestaurantsFromNames(healthyNames, cuisine: "Healthy/Fast Casual")
-    }
-
-    private func getHighProteinRestaurants() -> [Restaurant] {
-        let highProteinNames = [
-            "KFC", "Chick-fil-A", "Popeyes", "Chipotle", "Five Guys",
-            "In-N-Out Burger", "Whataburger", "Arby's", "Boston Market",
-            "Outback Steakhouse", "LongHorn Steakhouse", "Red Lobster",
-            "TGI Friday's", "Applebee's", "Red Robin"
-        ]
-
-        return createRestaurantsFromNames(highProteinNames, cuisine: "High Protein")
+    // Add this function to handle category presentation
+    private func presentCategoryView(_ category: UserCategory) {
+        // For now, we'll use a sheet presentation
+        // You could add a @State variable to track the selected category
+        // and present it as a sheet or fullScreenCover
+        print("Category tapped: \(category.name)")
+        // TODO: Add sheet presentation for category view
     }
 
     private func startOptimizedLoading() {
@@ -1104,7 +536,6 @@ struct HomeScreen: View {
             locationManager.requestLocationPermission()
 
             updateLoadingStatus("Initializing", "Setting up nutrition database...", progress: 0.4)
-
             await nutritionManager.initializeIfNeeded()
 
             updateLoadingStatus("Finding Location", "Getting your location...", progress: 0.6)
@@ -1112,7 +543,6 @@ struct HomeScreen: View {
             while locationManager.lastLocation == nil && attempts < 15 {
                 try? await Task.sleep(nanoseconds: 200_000_000)
                 attempts += 1
-
                 let waitProgress = 0.6 + (Double(attempts) / 15.0) * 0.2
                 updateLoadingStatus("Finding Location", "GPS signal: \(attempts * 7)%...", progress: waitProgress)
             }
@@ -1134,6 +564,13 @@ struct HomeScreen: View {
             withAnimation(.easeInOut(duration: 0.3)) {
                 showMainLoadingScreen = false
             }
+
+            debounceTimer?.invalidate()
+            debounceTimer = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false) { _ in
+                Task { @MainActor in
+                    self.mapViewModel.updateMapRegion(self.mapViewModel.region)
+                }
+            }
         }
     }
 
@@ -1141,203 +578,64 @@ struct HomeScreen: View {
         let title: String
         let count: Int?
         let icon: String
+        let geometry: GeometryProxy
         
         var body: some View {
-            VStack(spacing: 12) {
+            VStack(spacing: DynamicSizing.spacing(12, geometry: geometry)) {
                 Text(icon)
-                    .font(.system(size: 32))
+                    .font(.system(size: DynamicSizing.iconSize(32)))
                 
-                VStack(spacing: 4) {
+                VStack(spacing: DynamicSizing.spacing(4, geometry: geometry)) {
                     Text(title)
-                        .font(.headline)
-                        .fontWeight(.semibold)
+                        .dynamicFont(16, weight: .semibold)
                         .foregroundColor(.primary)
                 }
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 120)
+            .frame(height: DynamicSizing.cardHeight(120, geometry: geometry))
             .background(Color(.systemBackground))
-            .cornerRadius(16)
+            .cornerRadius(DynamicSizing.cornerRadius(16))
             .overlay(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: DynamicSizing.cornerRadius(16))
                     .stroke(Color(.systemGray5), lineWidth: 1)
             )
             .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 2)
-        }
-    }
-
-    struct CategoryCardView: View {
-        let category: String
-        let count: Int
-
-        var body: some View {
-            VStack(spacing: 12) {
-                Text(getCategoryIcon(category))
-                    .font(.system(size: 28))
-
-                VStack(spacing: 4) {
-                    Text(category)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-
-                    Text("\(count) restaurants")
-                        .font(.caption)
-                        .foregroundColor(.blue)
-                        .fontWeight(.medium)
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 120)
-            .background(Color(.systemBackground))
-            .cornerRadius(16)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(.systemGray5), lineWidth: 1)
-            )
-        }
-
-        private func getCategoryIcon(_ category: String) -> String {
-            switch category {
-            case "Fast Food": return "🍔"
-            case "Healthy": return "🥗"
-            case "High Protein": return "🥩"
-            default: return "🍽️"
-            }
-        }
-    }
-
-    struct CategorySearchDropdownButton: View {
-        let title: String
-        let subtitle: String
-        let icon: String
-        let action: () -> Void
-        
-        var body: some View {
-            Button(action: action) {
-                HStack(spacing: 12) {
-                    Text(icon)
-                        .font(.title2)
-                        .frame(width: 32, height: 32)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(6)
-                    
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(title)
-                            .font(.subheadline)
-                            .fontWeight(.medium)
-                            .foregroundColor(.primary)
-                        Text(subtitle)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    Spacer()
-                    
-                    Image(systemName: "arrow.right")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
-                .background(Color(.systemBackground))
-                .cornerRadius(8)
-            }
-            .buttonStyle(.plain)
-        }
-    }
-
-    struct StaticChainCardView: View {
-        let chainName: String
-        let onTap: () -> Void
-
-        var body: some View {
-            Button(action: onTap) {
-                VStack(spacing: 8) {
-                    Text(getChainEmoji(chainName))
-                        .font(.title2)
-                        .frame(width: 40, height: 40)
-                        .background(Color.blue.opacity(0.1))
-                        .cornerRadius(8)
-
-                    Text(chainName)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.primary)
-                        .lineLimit(2)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.vertical, 12)
-                .padding(.horizontal, 8)
-                .frame(width: 80)
-                .background(Color.gray.opacity(0.05))
-                .cornerRadius(12)
-            }
-            .buttonStyle(PlainButtonStyle())
-        }
-
-        private func getChainEmoji(_ name: String) -> String {
-            switch name {
-            case "McDonald's": return "🍔"
-            case "Subway": return "🥪"
-            case "Starbucks": return "☕"
-            case "Burger King": return "🍔"
-            case "KFC": return "🍗"
-            case "Taco Bell": return "🌮"
-            default: return "🍽️"
-            }
         }
     }
 }
 
 // MARK: - Auto Sliding Carousel
 struct AutoSlidingCarousel: View {
-    @Binding var showingMenuPhotoCapture: Bool
     @Binding var showingMapScreen: Bool
     @Binding var showingDietaryChat: Bool
     @State private var currentIndex = 0
     @State private var timer: Timer?
-    @State private var isActive = true // Track if view is active
+    @State private var isActive = true
     
-    private let autoSlideInterval: TimeInterval = 3.0 // 3 seconds
+    private let autoSlideInterval: TimeInterval = 3.0
     
     var carouselItems: [CarouselItem] {
         [
             CarouselItem(
                 id: 0,
-                title: "Scan Menu",
-                subtitle: "Analyze nutrition from photos",
-                icon: "camera.fill",
-                iconColor: .blue,
-                backgroundColor: Color.blue.opacity(0.1),
-                action: {
-                    print("🎯 Scan Menu action triggered")
-                    HapticService.shared.menuScan()
-                    showingMenuPhotoCapture = true
-                }
-            ),
-            CarouselItem(
-                id: 1,
                 title: "Meal Map",
                 subtitle: "Find restaurants near you",
                 icon: "map.fill",
                 iconColor: .green,
                 backgroundColor: Color.green.opacity(0.1),
                 action: {
-                    print("🎯 Meal Map action triggered")
                     HapticService.shared.navigate()
                     showingMapScreen = true
                 }
             ),
             CarouselItem(
-                id: 2,
+                id: 1,
                 title: "Meal Chat",
                 subtitle: "Get personalized nutrition advice",
                 icon: "message.circle.fill",
                 iconColor: .purple,
                 backgroundColor: Color.purple.opacity(0.1),
                 action: {
-                    print("🎯 Meal Chat action triggered")
                     HapticService.shared.sheetPresent()
                     showingDietaryChat = true
                 }
@@ -1346,45 +644,36 @@ struct AutoSlidingCarousel: View {
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Carousel Container
-            ZStack {
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
                 TabView(selection: $currentIndex) {
                     ForEach(carouselItems, id: \.id) { item in
-                        CarouselItemView(item: item)
+                        CarouselItemView(item: item, geometry: geometry)
                             .tag(item.id)
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                .frame(height: 100)
-                .onChange(of: currentIndex) { oldValue, newValue in
-                    // Handle manual swipe - restart timer from new position
-                    if oldValue != newValue && isActive {
-                        restartTimer()
-                    }
-                }
-            }
-            .clipped()
-            
-            // Custom Page Indicators
-            HStack(spacing: 8) {
-                ForEach(0..<carouselItems.count, id: \.self) { index in
-                    Button(action: {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            currentIndex = index
+                .frame(height: DynamicSizing.cardHeight(100, geometry: geometry))
+                
+                HStack(spacing: DynamicSizing.spacing(8, geometry: geometry)) {
+                    ForEach(0..<carouselItems.count, id: \.self) { index in
+                        Button(action: {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                currentIndex = index
+                            }
+                        }) {
+                            Circle()
+                                .fill(index == currentIndex ? Color.blue : Color.gray.opacity(0.3))
+                                .frame(width: DynamicSizing.iconSize(8), height: DynamicSizing.iconSize(8))
+                                .scaleEffect(index == currentIndex ? 1.2 : 1.0)
+                                .animation(.easeInOut(duration: 0.3), value: currentIndex)
                         }
-                        restartTimer()
-                    }) {
-                        Circle()
-                            .fill(index == currentIndex ? Color.blue : Color.gray.opacity(0.3))
-                            .frame(width: 8, height: 8)
-                            .scaleEffect(index == currentIndex ? 1.2 : 1.0)
-                            .animation(.easeInOut(duration: 0.3), value: currentIndex)
                     }
                 }
+                .padding(.top, DynamicSizing.spacing(12, geometry: geometry))
             }
-            .padding(.top, 12)
         }
+        .frame(height: DynamicSizing.cardHeight(140))
         .onAppear {
             isActive = true
             startAutoSlide()
@@ -1393,29 +682,17 @@ struct AutoSlidingCarousel: View {
             isActive = false
             stopAutoSlide()
         }
-        // Add additional safety for when app goes to background
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
-            stopAutoSlide()
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
-            if isActive {
-                startAutoSlide()
-            }
-        }
     }
     
     private func startAutoSlide() {
-        // Ensure we don't have multiple timers
         stopAutoSlide()
-        
         timer = Timer.scheduledTimer(withTimeInterval: autoSlideInterval, repeats: true) { _ in
             guard isActive else {
                 stopAutoSlide()
                 return
             }
-            
             withAnimation(.easeInOut(duration: 0.5)) {
-                moveToNextIndex()
+                currentIndex = (currentIndex + 1) % carouselItems.count
             }
         }
     }
@@ -1424,139 +701,65 @@ struct AutoSlidingCarousel: View {
         timer?.invalidate()
         timer = nil
     }
-    
-    private func restartTimer() {
-        guard isActive else { return }
-        stopAutoSlide()
-        // Add small delay to prevent immediate restart
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            if self.isActive {
-                self.startAutoSlide()
-            }
-        }
-    }
-    
-    private func moveToNextIndex() {
-        currentIndex = (currentIndex + 1) % carouselItems.count
-    }
 }
 
 struct CarouselItemView: View {
     let item: CarouselItem
+    let geometry: GeometryProxy
     
     var body: some View {
         Button(action: {
-            // Add debug print to verify tap is registered
-            print("🎯 Carousel item tapped: \(item.title)")
             HapticService.shared.lightImpact()
             item.action()
         }) {
-            HStack(spacing: 16) {
-                // Icon Container
+            HStack(spacing: DynamicSizing.spacing(16, geometry: geometry)) {
                 ZStack {
-                    RoundedRectangle(cornerRadius: 16)
+                    RoundedRectangle(cornerRadius: DynamicSizing.cornerRadius(16))
                         .fill(item.backgroundColor)
-                        .frame(width: 60, height: 60)
+                        .frame(
+                            width: DynamicSizing.iconSize(60),
+                            height: DynamicSizing.iconSize(60)
+                        )
                     
                     Image(systemName: item.icon)
-                        .font(.system(size: 24, weight: .semibold))
+                        .font(.system(size: DynamicSizing.iconSize(24), weight: .semibold))
                         .foregroundColor(item.iconColor)
                 }
                 
-                // Content
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: DynamicSizing.spacing(4, geometry: geometry)) {
                     Text(item.title)
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .dynamicFont(18, weight: .bold)
                         .foregroundColor(.primary)
                         .lineLimit(1)
                     
                     Text(item.subtitle)
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .dynamicFont(14, weight: .medium)
                         .foregroundColor(.secondary)
                         .lineLimit(2)
                 }
                 
                 Spacer()
                 
-                // Arrow
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(.system(size: DynamicSizing.iconSize(16), weight: .semibold))
                     .foregroundColor(.gray)
             }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
+            .padding(.horizontal, DynamicSizing.spacing(20, geometry: geometry))
+            .padding(.vertical, DynamicSizing.spacing(16, geometry: geometry))
             .background(
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: DynamicSizing.cornerRadius(20))
                     .fill(Color(.systemBackground))
-                    .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+                    .shadow(
+                        color: .black.opacity(0.08), 
+                        radius: DynamicSizing.spacing(8, geometry: geometry), 
+                        x: 0, 
+                        y: DynamicSizing.spacing(4, geometry: geometry)
+                    )
             )
-            .padding(.horizontal, 16)
-        }
-        .buttonStyle(.plain)
-        .contentShape(Rectangle())
-        .simultaneousGesture(
-            TapGesture()
-                .onEnded { _ in
-                    // Additional fallback tap handling
-                    print("🎯 Fallback tap detected for: \(item.title)")
-                    HapticService.shared.lightImpact()
-                    item.action()
-                }
-        )
-    }
-}
-
-// MARK: - Supporting Models and Views
-struct CuisineCategory {
-    let name: String
-    let count: Int
-    let emoji: String
-    let searchTerms: [String]
-}
-
-struct CuisineSearchButton: View {
-    let cuisine: CuisineCategory
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            HStack(spacing: 8) {
-                Text(cuisine.emoji)
-                    .font(.title3)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(cuisine.name)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    if cuisine.count > 0 {
-                        Text("\(cuisine.count) nearby")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                    }
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
-            .background(Color(.systemBackground))
-            .cornerRadius(8)
+            .padding(.horizontal, DynamicSizing.spacing(16, geometry: geometry))
         }
         .buttonStyle(.plain)
     }
-}
-
-struct CarouselItem {
-    let id: Int
-    let title: String
-    let subtitle: String
-    let icon: String
-    let iconColor: Color
-    let backgroundColor: Color
-    let action: () -> Void
 }
 
 struct FoodTypeCarousel: View {
@@ -1578,26 +781,86 @@ struct FoodTypeCarousel: View {
     ]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: DynamicSizing.isIPad ? 
+               DynamicSizing.spacing(16) : DynamicSizing.spacing(12)) { // Tighter spacing on iPhone
             Text("Food Types")
-                .font(.title2)
-                .fontWeight(.semibold)
+                .dynamicFont(22, weight: .semibold)
                 .foregroundColor(.primary)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, DynamicSizing.spacing(20))
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(foodTypes, id: \.name) { foodType in
-                        NavigationLink(destination: FoodTypeCategoryView(
-                            foodType: foodType,
-                            mapViewModel: mapViewModel
-                        )) {
+            if DynamicSizing.isIPad {
+                // iPad: Use responsive grid with dynamic columns
+                GeometryReader { geometry in
+                    let columns = DynamicSizing.gridColumns(baseColumns: 6, geometry: geometry)
+                    LazyVGrid(
+                        columns: Array(repeating: GridItem(.flexible(), spacing: DynamicSizing.spacing(16, geometry: geometry)), count: columns),
+                        spacing: DynamicSizing.spacing(20, geometry: geometry)
+                    ) {
+                        ForEach(foodTypes.prefix(12), id: \.name) { foodType in
                             FoodTypeCard(foodType: foodType)
                         }
-                        .buttonStyle(.plain)
                     }
+                    .padding(.horizontal, DynamicSizing.spacing(20, geometry: geometry))
+                    .padding(.bottom, DynamicSizing.spacing(20, geometry: geometry))
                 }
-                .padding(.horizontal, 2)
+            } else {
+                // iPhone: Horizontal scroll with tighter spacing
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: DynamicSizing.spacing(16)) { // Reduced from 20 to 16
+                        ForEach(foodTypes, id: \.name) { foodType in
+                            FoodTypeCard(foodType: foodType)
+                        }
+                    }
+                    .padding(.horizontal, DynamicSizing.spacing(20))
+                    .padding(.bottom, DynamicSizing.spacing(8)) // Reduced from 16 to 8
+                }
+            }
+        }
+        .frame(height: DynamicSizing.isIPad ? 
+               DynamicSizing.cardHeight(280) : // iPad height unchanged
+               DynamicSizing.cardHeight(140)   // iPhone: Reduced from 200 to 140
+        )
+    }
+}
+
+struct FoodTypeCard: View {
+    let foodType: FoodType
+    @State private var showingFoodTypeView = false
+    
+    var body: some View {
+        Button(action: {
+            HapticService.shared.lightImpact()
+            showingFoodTypeView = true
+        }) {
+            VStack(spacing: DynamicSizing.spacing(8)) {
+                ZStack {
+                    Circle()
+                        .fill(Color(.systemGray6))
+                        .frame(
+                            width: DynamicSizing.iconSize(60),
+                            height: DynamicSizing.iconSize(60)
+                        )
+                    
+                    Text(foodType.emoji)
+                        .font(.system(size: DynamicSizing.iconSize(28)))
+                }
+                
+                Text(foodType.name)
+                    .dynamicFont(12, weight: .medium)
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+            }
+            .frame(width: DynamicSizing.cardWidth(80))
+            .padding(.vertical, DynamicSizing.spacing(8))
+        }
+        .buttonStyle(.plain)
+        .sheet(isPresented: $showingFoodTypeView) {
+            NavigationView {
+                FoodTypeCategoryView(
+                    foodType: foodType,
+                    mapViewModel: MapViewModel()
+                )
             }
         }
     }
@@ -1609,427 +872,16 @@ struct FoodType {
     let searchTerms: [String]
 }
 
-struct FoodTypeCard: View {
-    let foodType: FoodType
-    
-    var body: some View {
-        VStack(spacing: 8) {
-            // Emoji circle with background
-            ZStack {
-                Circle()
-                    .fill(Color(.systemGray6))
-                    .frame(width: 60, height: 60)
-                
-                Text(foodType.emoji)
-                    .font(.system(size: 28))
-            }
-            
-            // Food type name
-            Text(foodType.name)
-                .font(.caption)
-                .fontWeight(.medium)
-                .foregroundColor(.primary)
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
-        }
-        .frame(width: 80)
-        .padding(.vertical, 8)
-    }
+struct CarouselItem {
+    let id: Int
+    let title: String
+    let subtitle: String
+    let icon: String
+    let iconColor: Color
+    let backgroundColor: Color
+    let action: () -> Void
 }
 
-struct FoodTypeCategoryView: View {
-    let foodType: FoodType
-    @ObservedObject var mapViewModel: MapViewModel
-    
-    @StateObject private var locationManager = LocationManager.shared
-    @State private var restaurants: [Restaurant] = []
-    @State private var isLoading = false
-    @State private var errorMessage: String?
-    @State private var selectedRestaurant: Restaurant?
-    @State private var hasAttemptedInitialLoad = false
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            // Header
-            HStack {
-                Text(foodType.emoji)
-                    .font(.title)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(foodType.name)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    Text("\(restaurants.count) restaurants near you")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-            .background(Color(.systemBackground))
-            .shadow(color: .black.opacity(0.05), radius: 1, y: 1)
-            
-            // Restaurant list
-            if isLoading {
-                VStack(spacing: 16) {
-                    ProgressView()
-                        .scaleEffect(1.2)
-                    Text("Finding \(foodType.name) restaurants...")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.systemGroupedBackground))
-            } else if let errorMessage = errorMessage {
-                VStack(spacing: 16) {
-                    Image(systemName: "exclamationmark.triangle")
-                        .font(.system(size: 50))
-                        .foregroundColor(.orange)
-                    
-                    Text("Error Loading Restaurants")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                    
-                    Text(errorMessage)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                    
-                    Button("Try Again") {
-                        loadRestaurants()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.systemGroupedBackground))
-            } else if restaurants.isEmpty {
-                VStack(spacing: 16) {
-                    Text(foodType.emoji)
-                        .font(.system(size: 50))
-                    
-                    Text("No \(foodType.name) restaurants found nearby")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                    
-                    Text("Try expanding your search radius or check back later")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                    
-                    Button("Search Again") {
-                        loadRestaurants()
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.systemGroupedBackground))
-            } else {
-                List {
-                    ForEach(restaurants, id: \.id) { restaurant in
-                        Button(action: {
-                            selectedRestaurant = restaurant
-                        }) {
-                            RestaurantRowView(restaurant: restaurant)
-                        }
-                        .buttonStyle(.plain)
-                        .listRowBackground(Color(.systemBackground))
-                    }
-                }
-                .listStyle(.plain)
-                .background(Color(.systemGroupedBackground))
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
-        .background(Color(.systemGroupedBackground))
-        .onAppear {
-            // Auto-load restaurants when view appears
-            if !hasAttemptedInitialLoad {
-                hasAttemptedInitialLoad = true
-                loadRestaurants()
-            }
-        }
-        .onReceive(locationManager.$lastLocation) { location in
-            // Auto-retry when location becomes available
-            if location != nil && restaurants.isEmpty && !isLoading {
-                loadRestaurants()
-            }
-        }
-        .onReceive(locationManager.$authorizationStatus) { status in
-            // Handle location permission changes
-            switch status {
-            case .authorizedWhenInUse, .authorizedAlways:
-                if restaurants.isEmpty && !isLoading {
-                    loadRestaurants()
-                }
-            case .denied, .restricted:
-                errorMessage = "Location access is required to find restaurants near you. Please enable it in Settings."
-            default:
-                break
-            }
-        }
-        .sheet(item: $selectedRestaurant) { restaurant in
-            RestaurantDetailView(
-                restaurant: restaurant,
-                isPresented: .constant(true),
-                selectedCategory: nil
-            )
-        }
-    }
-    
-    private func loadRestaurants() {
-        errorMessage = nil
-        isLoading = true
-        
-        // Check location authorization first
-        switch locationManager.authorizationStatus {
-        case .notDetermined:
-            // Request permission and wait for response
-            locationManager.requestLocationPermission()
-            // Set a timeout to show error if permission takes too long
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                if self.isLoading && self.locationManager.authorizationStatus == .notDetermined {
-                    self.errorMessage = "Location permission required. Please allow location access to find restaurants."
-                    self.isLoading = false
-                }
-            }
-            return
-        case .denied, .restricted:
-            errorMessage = "Location access is required to find restaurants near you. Please enable it in Settings."
-            isLoading = false
-            return
-        case .authorizedWhenInUse, .authorizedAlways:
-            // We have permission, continue
-            break
-        @unknown default:
-            errorMessage = "Unknown location authorization status."
-            isLoading = false
-            return
-        }
-        
-        // Check if we have a location
-        guard let userLocation = locationManager.lastLocation?.coordinate else {
-            // Request a fresh location update
-            locationManager.refreshCurrentLocation()
-            
-            // Set a timeout to show error if location takes too long
-            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                if self.isLoading && self.locationManager.lastLocation == nil {
-                    self.errorMessage = "Unable to get your location. Please make sure location services are enabled and try again."
-                    self.isLoading = false
-                }
-            }
-            return
-        }
-        
-        // We have location, proceed with restaurant search
-        Task {
-            do {
-                // Get all nearby restaurants
-                let allRestaurants = try await OverpassAPIService().fetchAllNearbyRestaurants(
-                    near: userLocation,
-                    radius: 5.0
-                )
-                
-                // Filter by food type
-                let filteredRestaurants = allRestaurants.filter { restaurant in
-                    let name = restaurant.name.lowercased()
-                    let cuisine = restaurant.cuisine?.lowercased() ?? ""
-                    
-                    return foodType.searchTerms.contains { term in
-                        name.contains(term) || cuisine.contains(term)
-                    }
-                }
-                
-                // Sort by distance
-                let sortedRestaurants = filteredRestaurants.sorted { restaurant1, restaurant2 in
-                    let distance1 = restaurant1.distanceFrom(userLocation)
-                    let distance2 = restaurant2.distanceFrom(userLocation)
-                    return distance1 < distance2
-                }
-                
-                await MainActor.run {
-                    self.restaurants = Array(sortedRestaurants.prefix(50))
-                    self.isLoading = false
-                    self.errorMessage = nil
-                }
-                
-            } catch {
-                await MainActor.run {
-                    self.errorMessage = "Failed to load restaurants: \(error.localizedDescription)"
-                    self.isLoading = false
-                }
-            }
-        }
-    }
-}
-
-struct RestaurantRowView: View {
-    let restaurant: Restaurant
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            // Restaurant emoji/icon
-            Text(restaurant.emoji)
-                .font(.title2)
-                .frame(width: 40, height: 40)
-                .background(Color(.systemGray6))
-                .cornerRadius(8)
-            
-            // Restaurant info
-            VStack(alignment: .leading, spacing: 4) {
-                Text(restaurant.name)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-                    .lineLimit(1)
-                
-                HStack {
-                    if let cuisine = restaurant.cuisine {
-                        Text(cuisine)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    
-                    if restaurant.hasNutritionData {
-                        Text("• Nutrition Available")
-                            .font(.caption)
-                            .foregroundColor(.blue)
-                    }
-                }
-            }
-            
-            Spacer()
-            
-            // Only show navigation arrow
-            Image(systemName: "chevron.right")
-                .font(.caption)
-                .foregroundColor(.secondary)
-        }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 16)
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-    }
-}
-
-struct SavedMenuCard: View {
-    let savedMenu: SavedMenuAnalysis
-    let isEditMode: Bool
-    let onTap: () -> Void
-    let onDelete: () -> Void
-
-    var body: some View {
-        ZStack {
-            // Main card content
-            Button(action: onTap) {
-                VStack(spacing: 0) {
-                    // Header with menu name and date
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Text(savedMenu.name)
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.primary)
-                                .lineLimit(1)
-
-                            Spacer()
-
-                            if !isEditMode {
-                                Image(systemName: "chevron.right")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-
-                        Text(savedMenu.formattedDate)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 16)
-                    .padding(.bottom, 12)
-
-                    // Nutrition summary
-                    VStack(spacing: 8) {
-                        HStack(spacing: 16) {
-                            NutritionStat(label: "Cal", value: "\(Int(savedMenu.totalCalories))", color: .red)
-                            NutritionStat(label: "Protein", value: "\(Int(savedMenu.totalProtein))g", color: .blue)
-                            NutritionStat(label: "Carbs", value: "\(Int(savedMenu.totalCarbs))g", color: .orange)
-                            NutritionStat(label: "Fat", value: "\(Int(savedMenu.totalFat))g", color: .green)
-                        }
-
-                        Text(savedMenu.displaySummary)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 16)
-
-                    // Bottom accent bar
-                    Rectangle()
-                        .fill(
-                            LinearGradient(
-                                colors: [.blue.opacity(0.3), .purple.opacity(0.3)],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .frame(height: 4)
-                }
-            }
-            .buttonStyle(.plain)
-            .disabled(isEditMode)
-
-            // Delete button overlay (only visible in edit mode)
-            if isEditMode {
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button(action: onDelete) {
-                            Image(systemName: "minus.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(.red)
-                                .background(Color.white)
-                                .clipShape(Circle())
-                        }
-                        .offset(x: 8, y: -8)
-                    }
-                    Spacer()
-                }
-            }
-        }
-        .frame(width: 200)
-        .background(Color(.systemBackground))
-        .cornerRadius(16)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color(.systemGray5), lineWidth: 1)
-        )
-        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
-    }
-}
-
-struct NutritionStat: View {
-    let label: String
-    let value: String
-    let color: Color
-
-    var body: some View {
-        VStack(spacing: 2) {
-            Text(value)
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(color)
-
-            Text(label)
-                .font(.caption2)
-                .foregroundColor(.secondary)
-        }
-    }
+#Preview {
+    HomeScreen()
 }

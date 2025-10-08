@@ -51,7 +51,6 @@ class NutritionDataManager: ObservableObject {
         case loadingFromAPI
         case retryingAPI
         case loadingFromStatic
-        case loadingFromNutritionix
         case failed
         case success
     }
@@ -220,18 +219,6 @@ class NutritionDataManager: ObservableObject {
                 return staticData
             }
             
-            // TIER 5: Nutritionix API (Last Resort)
-            await MainActor.run { self.loadingState = .loadingFromNutritionix }
-            if let nutritionixData = await self.loadFromNutritionixFallback(restaurantName: restaurantName) {
-                await MainActor.run {
-                    self.currentRestaurantData = nutritionixData
-                    self.nutritionCache.store(restaurant: nutritionixData)
-                    self.loadingState = .success
-                }
-                debugLog(" TIER 5 SUCCESS: '\(restaurantName)' loaded from Nutritionix fallback")
-                return nutritionixData
-            }
-            
             // ALL TIERS FAILED
             await MainActor.run {
                 self.loadingState = .failed
@@ -335,12 +322,6 @@ class NutritionDataManager: ObservableObject {
             debugLog(" API ERROR: '\(restaurantName)' failed with: \(error.localizedDescription)")
             return nil
         }
-    }
-    
-    // MARK: - Nutritionix Fallback
-    private func loadFromNutritionixFallback(restaurantName: String) async -> RestaurantNutritionData? {
-        debugLog(" Nutritionix fallback not yet implemented for '\(restaurantName)'")
-        return nil
     }
     
     // MARK: - Background Preloading

@@ -36,21 +36,40 @@ struct MapView: View {
 
     var body: some View {
         ZStack {
-            // Use the simple Map API
-            Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, annotationItems: displayedRestaurants) { restaurant in
-                MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
-                    UltraOptimizedPin(
-                        restaurant: restaurant,
-                        hasNutritionData: restaurant.hasNutritionData,
-                        isSelected: selectedRestaurant?.id == restaurant.id,
-                        onTap: { _ in 
-                            debugLog("🔍 MapView - Restaurant pin tapped: \(restaurant.name)")
-                            onRestaurantTap(restaurant) 
-                        }
-                    )
+            // Use modern Map API
+            Map(position: $mapPosition) {
+                // Show user location
+                if let userLocation = userLocation {
+                    Annotation("Your Location", coordinate: userLocation) {
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 12, height: 12)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 2)
+                            )
+                    }
+                }
+                
+                // Show restaurant annotations
+                ForEach(displayedRestaurants, id: \.id) { restaurant in
+                    Annotation(restaurant.name, coordinate: CLLocationCoordinate2D(latitude: restaurant.latitude, longitude: restaurant.longitude)) {
+                        UltraOptimizedPin(
+                            restaurant: restaurant,
+                            hasNutritionData: restaurant.hasNutritionData,
+                            isSelected: selectedRestaurant?.id == restaurant.id,
+                            onTap: { _ in
+                                debugLog("🔍 MapView - Restaurant pin tapped: \(restaurant.name)")
+                                onRestaurantTap(restaurant)
+                            }
+                        )
+                    }
                 }
             }
             .mapStyle(.standard(pointsOfInterest: []))
+            .onMapCameraChange { context in
+                region = context.region
+            }
         }
         .onAppear {
             debugLog("🔍 MapView - OnAppear: \(restaurants.count) restaurants available")

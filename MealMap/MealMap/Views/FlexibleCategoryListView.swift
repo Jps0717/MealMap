@@ -53,44 +53,41 @@ struct FlexibleCategoryListView: View {
     }
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                LinearGradient(
-                    colors: [Color(.systemBackground), Color(.systemGray6)],
-                    startPoint: .top,
-                    endPoint: .bottom
+        ZStack {
+            LinearGradient(
+                colors: [Color(.systemBackground), Color(.systemGray6)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
+            if isLoadingRestaurants {
+                LoadingView(
+                    title: "Finding \(userCategory.name) Restaurants",
+                    subtitle: "Searching within 5 miles...",
+                    style: .fullScreen
                 )
-                .ignoresSafeArea()
-                
-                if isLoadingRestaurants {
-                    LoadingView(
-                        title: "Finding \(userCategory.name) Restaurants",
-                        subtitle: "Searching within 5 miles...",
-                        style: .fullScreen
-                    )
-                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
-                } else {
-                    mainContent
-                        .transition(.opacity.combined(with: .move(edge: .bottom)))
-                }
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            } else {
+                mainContent
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
             }
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if isLoadingRestaurants {
-                        ProgressView()
-                            .scaleEffect(0.8)
-                            .progressViewStyle(CircularProgressViewStyle(tint: getCategoryColor()))
-                    } else {
-                        Button(action: {
-                            isPresented = false
-                        }) {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.primary)
-                        }
+        }
+        .navigationTitle(userCategory.name)
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if isLoadingRestaurants {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                        .progressViewStyle(CircularProgressViewStyle(tint: getCategoryColor()))
+                } else {
+                    Button(action: {
+                        isPresented = false
+                    }) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.primary)
                     }
                 }
             }
@@ -282,88 +279,91 @@ struct FlexibleCategoryListView: View {
     
     // MARK: - Header Section with Search
     private var headerSection: some View {
-        VStack(spacing: 12) {
-            // Search bar
-            HStack(spacing: 12) {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.secondary)
-                    .font(.system(size: 16))
-                
-                TextField("Search \(userCategory.name.lowercased()) restaurants...", text: $searchText)
-                    .font(.system(size: 16))
-                
-                if !searchText.isEmpty {
-                    Button(action: {
-                        searchText = ""
-                    }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.secondary)
-                            .font(.system(size: 16))
+        GeometryReader { geometry in
+            VStack(spacing: DynamicSizing.spacing(12, geometry: geometry)) {
+                // Search bar
+                HStack(spacing: DynamicSizing.spacing(12, geometry: geometry)) {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.secondary)
+                        .font(.system(size: DynamicSizing.iconSize(16)))
+                    
+                    TextField("Search \(userCategory.name.lowercased()) restaurants...", text: $searchText)
+                        .dynamicFont(16)
+                    
+                    if !searchText.isEmpty {
+                        Button(action: {
+                            searchText = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .foregroundColor(.secondary)
+                                .font(.system(size: DynamicSizing.iconSize(16)))
+                        }
                     }
                 }
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.systemGray6))
-            )
-            
-            // Results summary with search method info
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack(spacing: 16) {
-                        if !nutritionRestaurants.isEmpty {
-                            HStack(spacing: 4) {
-                                Image(systemName: "checkmark.seal.fill")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.green)
-                                Text("\(filteredNutritionRestaurants.count) with nutrition")
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(.green)
+                .padding(.horizontal, DynamicSizing.spacing(16, geometry: geometry))
+                .padding(.vertical, DynamicSizing.spacing(12, geometry: geometry))
+                .background(
+                    RoundedRectangle(cornerRadius: DynamicSizing.cornerRadius(10))
+                        .fill(Color(.systemGray6))
+                )
+                
+                // Results summary with search method info
+                HStack {
+                    VStack(alignment: .leading, spacing: DynamicSizing.spacing(4, geometry: geometry)) {
+                        HStack(spacing: DynamicSizing.spacing(16, geometry: geometry)) {
+                            if !nutritionRestaurants.isEmpty {
+                                HStack(spacing: DynamicSizing.spacing(4, geometry: geometry)) {
+                                    Image(systemName: "checkmark.seal.fill")
+                                        .font(.system(size: DynamicSizing.iconSize(12)))
+                                        .foregroundColor(.green)
+                                    Text("\(filteredNutritionRestaurants.count) with nutrition")
+                                        .dynamicFont(14, weight: .medium)
+                                        .foregroundColor(.green)
+                                }
+                            }
+                            
+                            if !nonNutritionRestaurants.isEmpty {
+                                HStack(spacing: DynamicSizing.spacing(4, geometry: geometry)) {
+                                    Image(systemName: "location.fill")
+                                        .font(.system(size: DynamicSizing.iconSize(12)))
+                                        .foregroundColor(.blue)
+                                    Text("\(filteredNonNutritionRestaurants.count) nearby")
+                                        .dynamicFont(14, weight: .medium)
+                                        .foregroundColor(.blue)
+                                }
                             }
                         }
                         
-                        if !nonNutritionRestaurants.isEmpty {
-                            HStack(spacing: 4) {
-                                Image(systemName: "location.fill")
-                                    .font(.system(size: 12))
-                                    .foregroundColor(.blue)
-                                Text("\(filteredNonNutritionRestaurants.count) nearby")
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(.blue)
+                        // ENHANCED: Show search method based on category
+                        HStack(spacing: DynamicSizing.spacing(8, geometry: geometry)) {
+                            Image(systemName: "location.circle")
+                                .font(.system(size: DynamicSizing.iconSize(12)))
+                                .foregroundColor(.secondary)
+                            
+                            Text(getSearchMethodDescription())
+                                .dynamicFont(12)
+                                .foregroundColor(.secondary)
+                            
+                            if let userLocation = locationManager.lastLocation?.coordinate,
+                               let closestRestaurant = allCategoryRestaurants.first {
+                                let distance = closestRestaurant.distanceFrom(userLocation)
+                                Text("• Closest: \(String(format: "%.1f mi", distance))")
+                                    .dynamicFont(12)
+                                    .foregroundColor(.secondary)
                             }
                         }
                     }
                     
-                    // ENHANCED: Show search method based on category
-                    HStack(spacing: 8) {
-                        Image(systemName: "location.circle")
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                        
-                        Text(getSearchMethodDescription())
-                            .font(.system(size: 12))
-                            .foregroundColor(.secondary)
-                        
-                        if let userLocation = locationManager.lastLocation?.coordinate,
-                           let closestRestaurant = allCategoryRestaurants.first {
-                            let distance = closestRestaurant.distanceFrom(userLocation)
-                            Text("• Closest: \(String(format: "%.1f mi", distance))")
-                                .font(.system(size: 12))
-                                .foregroundColor(.secondary)
-                        }
-                    }
+                    Spacer()
                 }
-                
-                Spacer()
+                .padding(.horizontal, DynamicSizing.spacing(4, geometry: geometry))
             }
-            .padding(.horizontal, 4)
+            .padding(.horizontal, DynamicSizing.spacing(20, geometry: geometry))
+            .padding(.top, DynamicSizing.spacing(16, geometry: geometry))
+            .padding(.bottom, DynamicSizing.spacing(12, geometry: geometry))
+            .background(Color(.systemBackground))
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 16)
-        .padding(.bottom, 12)
-        .background(Color(.systemBackground))
+        .frame(height: DynamicSizing.cardHeight(120))
     }
     
     // MARK: - Restaurants List
@@ -432,75 +432,79 @@ struct FlexibleCategoryListView: View {
     
     // MARK: - Error View
     private func errorView(_ message: String) -> some View {
-        VStack(spacing: 20) {
-            Spacer()
-            
-            Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 48))
-                .foregroundColor(.orange)
-            
-            VStack(spacing: 8) {
-                Text("Unable to Load Restaurants")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.primary)
+        GeometryReader { geometry in
+            VStack(spacing: DynamicSizing.spacing(20, geometry: geometry)) {
+                Spacer()
                 
-                Text(message)
-                    .font(.system(size: 16))
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.system(size: DynamicSizing.iconSize(48)))
+                    .foregroundColor(.orange)
+                
+                VStack(spacing: DynamicSizing.spacing(8, geometry: geometry)) {
+                    Text("Unable to Load Restaurants")
+                        .dynamicFont(20, weight: .semibold)
+                        .foregroundColor(.primary)
+                    
+                    Text(message)
+                        .dynamicFont(16)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                
+                Button(action: {
+                    fetchCategoryRestaurants()
+                }) {
+                    Text("Try Again")
+                        .dynamicFont(16, weight: .semibold)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, DynamicSizing.spacing(24, geometry: geometry))
+                        .padding(.vertical, DynamicSizing.spacing(12, geometry: geometry))
+                        .background(getCategoryColor())
+                        .cornerRadius(DynamicSizing.cornerRadius(8))
+                }
+                
+                Spacer()
             }
-            
-            Button(action: {
-                fetchCategoryRestaurants()
-            }) {
-                Text("Try Again")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
-                    .background(getCategoryColor())
-                    .cornerRadius(8)
-            }
-            
-            Spacer()
+            .padding(.horizontal, DynamicSizing.spacing(32, geometry: geometry))
         }
-        .padding(.horizontal, 32)
     }
     
     // MARK: - Empty State View
     private var emptyStateView: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            
-            Text(userCategory.icon)
-                .font(.system(size: 64))
-            
-            VStack(spacing: 8) {
-                Text("No \(userCategory.name) Restaurants Found")
-                    .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(.primary)
+        GeometryReader { geometry in
+            VStack(spacing: DynamicSizing.spacing(20, geometry: geometry)) {
+                Spacer()
                 
-                Text("Try expanding your search radius or check back later.")
-                    .font(.system(size: 16))
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
+                Text(userCategory.icon)
+                    .font(.system(size: DynamicSizing.iconSize(64)))
+                
+                VStack(spacing: DynamicSizing.spacing(8, geometry: geometry)) {
+                    Text("No \(userCategory.name) Restaurants Found")
+                        .dynamicFont(20, weight: .semibold)
+                        .foregroundColor(.primary)
+                    
+                    Text("Try expanding your search radius or check back later.")
+                        .dynamicFont(16)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+                
+                Button(action: {
+                    fetchCategoryRestaurants()
+                }) {
+                    Text("Refresh")
+                        .dynamicFont(16, weight: .semibold)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, DynamicSizing.spacing(24, geometry: geometry))
+                        .padding(.vertical, DynamicSizing.spacing(12, geometry: geometry))
+                        .background(getCategoryColor())
+                        .cornerRadius(DynamicSizing.cornerRadius(8))
+                }
+                
+                Spacer()
             }
-            
-            Button(action: {
-                fetchCategoryRestaurants()
-            }) {
-                Text("Refresh")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
-                    .background(getCategoryColor())
-                    .cornerRadius(8)
-            }
-            
-            Spacer()
+            .padding(.horizontal, DynamicSizing.spacing(32, geometry: geometry))
         }
-        .padding(.horizontal, 32)
     }
 }
 
@@ -533,128 +537,143 @@ struct FlexibleCategoryRestaurantRow: View {
     }
     
     var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: 16) {
-                // Restaurant icon with nutrition indicator
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(hasNutrition ? Color.green.opacity(0.1) : categoryColor.opacity(0.1))
-                        .frame(width: 60, height: 60)
-                    
-                    VStack(spacing: 4) {
-                        Text(restaurant.emoji)
-                            .font(.system(size: 20))
-                        
-                        if hasNutrition {
-                            Image(systemName: "checkmark.circle.fill")
-                                .font(.system(size: 10))
-                                .foregroundColor(.green)
-                        } else {
-                            Image(systemName: "location.fill")
-                                .font(.system(size: 8))
-                                .foregroundColor(.blue)
-                        }
-                    }
-                }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(hasNutrition ? Color.green : categoryColor, lineWidth: 2)
-                )
-                
-                // Restaurant details
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack {
-                        Text(restaurant.name)
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.primary)
-                            .lineLimit(1)
-                        
-                        Spacer()
-                        
-                        // Distance if available
-                        if let userLocation = LocationManager.shared.lastLocation?.coordinate {
-                            let distance = restaurant.distanceFrom(userLocation)
-                            Text(String(format: "%.1f mi", distance))
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    
-                    if let cuisine = restaurant.cuisine {
-                        Text(cuisine.capitalized)
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(.secondary)
-                            .lineLimit(1)
-                    }
-                    
-                    // Status indicators
-                    HStack(spacing: 8) {
-                        if hasNutrition {
-                            HStack(spacing: 2) {
-                                Image(systemName: "checkmark.seal.fill")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.green)
-                                Text("Nutrition Data")
-                                    .font(.system(size: 12, weight: .medium))
-                                    .foregroundColor(.green)
-                            }
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(
-                                Capsule()
-                                    .fill(Color.green.opacity(0.1))
+        GeometryReader { geometry in
+            Button(action: onTap) {
+                HStack(spacing: DynamicSizing.spacing(16, geometry: geometry)) {
+                    // Restaurant icon with nutrition indicator
+                    ZStack {
+                        RoundedRectangle(cornerRadius: DynamicSizing.cornerRadius(12))
+                            .fill(hasNutrition ? Color.green.opacity(0.1) : categoryColor.opacity(0.1))
+                            .frame(
+                                width: DynamicSizing.iconSize(60),
+                                height: DynamicSizing.iconSize(60)
                             )
-                        } else {
-                            HStack(spacing: 2) {
+                        
+                        VStack(spacing: DynamicSizing.spacing(4, geometry: geometry)) {
+                            Text(restaurant.emoji)
+                                .font(.system(size: DynamicSizing.iconSize(20)))
+                            
+                            if hasNutrition {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.system(size: DynamicSizing.iconSize(10)))
+                                    .foregroundColor(.green)
+                            } else {
                                 Image(systemName: "location.fill")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.blue)
-                                Text("Location Only")
-                                    .font(.system(size: 12, weight: .medium))
+                                    .font(.system(size: DynamicSizing.iconSize(8)))
                                     .foregroundColor(.blue)
                             }
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(
-                                Capsule()
-                                    .fill(Color.blue.opacity(0.1))
-                            )
+                        }
+                    }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: DynamicSizing.cornerRadius(12))
+                            .stroke(hasNutrition ? Color.green : categoryColor, lineWidth: 2)
+                    )
+                    
+                    // Restaurant details
+                    VStack(alignment: .leading, spacing: DynamicSizing.spacing(6, geometry: geometry)) {
+                        HStack {
+                            Text(restaurant.name)
+                                .dynamicFont(16, weight: .semibold)
+                                .foregroundColor(.primary)
+                                .lineLimit(1)
+                            
+                            Spacer()
+                            
+                            // Distance if available
+                            if let userLocation = LocationManager.shared.lastLocation?.coordinate {
+                                let distance = restaurant.distanceFrom(userLocation)
+                                Text(String(format: "%.1f mi", distance))
+                                    .dynamicFont(12, weight: .medium)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                         
+                        if let cuisine = restaurant.cuisine {
+                            Text(cuisine.capitalized)
+                                .dynamicFont(14, weight: .medium)
+                                .foregroundColor(.secondary)
+                                .lineLimit(1)
+                        }
+                        
+                        // Status indicators
+                        HStack(spacing: DynamicSizing.spacing(8, geometry: geometry)) {
+                            if hasNutrition {
+                                HStack(spacing: DynamicSizing.spacing(2, geometry: geometry)) {
+                                    Image(systemName: "checkmark.seal.fill")
+                                        .font(.system(size: DynamicSizing.iconSize(10)))
+                                        .foregroundColor(.green)
+                                    Text("Nutrition Data")
+                                        .dynamicFont(12, weight: .medium)
+                                        .foregroundColor(.green)
+                                }
+                                .padding(.horizontal, DynamicSizing.spacing(6, geometry: geometry))
+                                .padding(.vertical, DynamicSizing.spacing(2, geometry: geometry))
+                                .background(
+                                    Capsule()
+                                        .fill(Color.green.opacity(0.1))
+                                )
+                            } else {
+                                HStack(spacing: DynamicSizing.spacing(2, geometry: geometry)) {
+                                    Image(systemName: "location.fill")
+                                        .font(.system(size: DynamicSizing.iconSize(10)))
+                                        .foregroundColor(.blue)
+                                    Text("Location Only")
+                                        .dynamicFont(12, weight: .medium)
+                                        .foregroundColor(.blue)
+                                }
+                                .padding(.horizontal, DynamicSizing.spacing(6, geometry: geometry))
+                                .padding(.vertical, DynamicSizing.spacing(2, geometry: geometry))
+                                .background(
+                                    Capsule()
+                                        .fill(Color.blue.opacity(0.1))
+                                )
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: DynamicSizing.iconSize(12), weight: .medium))
+                        .foregroundColor(.secondary.opacity(0.6))
+                }
+                .padding(.horizontal, DynamicSizing.spacing(16, geometry: geometry))
+                .padding(.vertical, DynamicSizing.spacing(12, geometry: geometry))
+                .background(
+                    RoundedRectangle(cornerRadius: DynamicSizing.cornerRadius(16))
+                        .fill(Color(.systemBackground))
+                        .shadow(
+                            color: .black.opacity(0.04), 
+                            radius: DynamicSizing.spacing(8, geometry: geometry), 
+                            y: DynamicSizing.spacing(2, geometry: geometry)
+                        )
+                )
+                .overlay(
+                    HStack {
+                        RoundedRectangle(cornerRadius: DynamicSizing.cornerRadius(2))
+                            .fill(hasNutrition ? Color.green : categoryColor)
+                            .frame(width: DynamicSizing.spacing(4, geometry: geometry))
                         Spacer()
                     }
-                }
-                
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(.secondary.opacity(0.6))
+                )
+                .scaleEffect(isPressed ? 0.98 : 1.0)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color(.systemBackground))
-                    .shadow(color: .black.opacity(0.04), radius: 8, y: 2)
-            )
-            .overlay(
-                HStack {
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(hasNutrition ? Color.green : categoryColor)
-                        .frame(width: 4)
-                    Spacer()
+            .buttonStyle(PlainButtonStyle())
+            .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    isPressed = pressing
                 }
-            )
-            .scaleEffect(isPressed ? 0.98 : 1.0)
+            }, perform: {})
         }
-        .buttonStyle(PlainButtonStyle())
-        .onLongPressGesture(minimumDuration: 0, maximumDistance: .infinity, pressing: { pressing in
-            withAnimation(.easeInOut(duration: 0.1)) {
-                isPressed = pressing
-            }
-        }, perform: {})
-        .listRowInsets(EdgeInsets(top: 4, leading: 20, bottom: 4, trailing: 20))
+        .listRowInsets(EdgeInsets(
+            top: DynamicSizing.spacing(4),
+            leading: DynamicSizing.spacing(20),
+            bottom: DynamicSizing.spacing(4),
+            trailing: DynamicSizing.spacing(20)
+        ))
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
+        .frame(height: DynamicSizing.cardHeight(100))
     }
 }
 

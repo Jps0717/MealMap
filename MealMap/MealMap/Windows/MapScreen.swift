@@ -18,7 +18,6 @@ struct MapScreen: View {
     @State private var isSearching = false
     @State private var showLocationError = false
     @State private var showingSearch = false
-    @State private var showingMenuPhotoCapture = false
     
     // Sheet states
     @State private var selectedRestaurant: Restaurant?
@@ -78,9 +77,6 @@ struct MapScreen: View {
                 )
             }
         }
-        .sheet(isPresented: $showingMenuPhotoCapture) {
-            MenuPhotoCaptureView()
-        }
         .onAppear {
             setupMapView()
         }
@@ -139,34 +135,16 @@ struct MapScreen: View {
             debugLog(" Location access denied")
             showLocationError = true
         case .authorizedWhenInUse, .authorizedAlways:
-            debugLog(" Location authorized")
+            debugLog("🗺️ Location authorized")
             showLocationError = false
             if let loc = locationManager.lastLocation {
-                debugLog(" Using existing location: \(loc.coordinate)")
-                Task {
-                    do {
-                        viewModel.refreshData(for: loc.coordinate)
-                    } catch {
-                        debugLog(" Error refreshing data: \(error.localizedDescription)")
-                        await MainActor.run {
-                            showLocationError = true
-                        }
-                    }
-                }
+                debugLog("🗺️ Using existing location: \(loc.coordinate)")
+                viewModel.refreshData(for: loc.coordinate)
             } else {
-                debugLog(" No location available, using fallback...")
+                debugLog("🗺️ No location available, using fallback...")
                 // Fallback to New York
                 let fallbackLocation = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
-                Task {
-                    do {
-                        viewModel.refreshData(for: fallbackLocation)
-                    } catch {
-                        debugLog(" Error with fallback location: \(error.localizedDescription)")
-                        await MainActor.run {
-                            showLocationError = true
-                        }
-                    }
-                }
+                viewModel.refreshData(for: fallbackLocation)
             }
         @unknown default:
             showLocationError = true
@@ -195,27 +173,6 @@ struct MapScreen: View {
         debugLog(" Restaurant selected: \(restaurant.name)")
         selectedRestaurant = restaurant
         showingRestaurantDetail = true
-    }
-    
-    private func mapHeaderView() -> some View {
-        HStack {
-            Spacer()
-            
-            Button(action: {
-                showingMenuPhotoCapture = true
-            }) {
-                Image(systemName: "camera.metering.center.weighted")
-                    .font(.title2)
-                    .foregroundColor(.blue)
-                    .padding(8)
-                    .background(Color.white)
-                    .clipShape(Circle())
-                    .shadow(radius: 2)
-            }
-            
-            Spacer()
-        }
-        .padding()
     }
 }
 

@@ -421,18 +421,10 @@ struct EditProfileView: View {
         updatedProfile.dietaryRestrictions = selectedDietaryRestrictions
         updatedProfile.activityLevel = activityLevel
         
-        var updatedPreferences = userPreferences
+        let updatedPreferences = userPreferences
         
         Task {
             await authManager.updateUserProfile(updatedProfile, preferences: updatedPreferences)
-            
-            // This part is now redundant since we are not using displayName
-            // but we'll keep the structure for now.
-            let updatedUser = User(
-                id: authManager.currentUser?.id ?? "guest",
-                profile: updatedProfile,
-                preferences: updatedPreferences
-            )
             
             await MainActor.run {
                 isLoading = false

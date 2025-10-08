@@ -498,7 +498,7 @@ class MenuItemScoringService: ObservableObject {
 
 // MARK: - Score Data Models
 struct MenuItemScore: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let overallScore: Double
     let nutritionScore: Double
     let goalAlignmentScore: Double
@@ -536,7 +536,7 @@ struct MenuItemScore: Identifiable, Codable {
 }
 
 struct ScoreExplanation: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let category: ScoreCategory
     let impact: ScoreImpact
     let points: Int
